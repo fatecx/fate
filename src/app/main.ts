@@ -4,10 +4,12 @@
  */
 import './style.css'
 import { CONTENT } from '../content/world'
-import { newGame, reduce, visibleChoices, getScene } from '../engine/reduce'
+import { newGame, reduce, getScene } from '../engine/reduce'
+import { evalPred } from '../engine/predicates'
 import type { GameState } from '../engine/types'
-import { netBurn, runwayWeeks } from '../engine/types'
-import { cloudLoad, cloudPush, pickSave, type SaveBlob } from './cloud'
+import { runwayWeeks } from '../engine/types'
+import { cloudLoad, cloudPush, pickSave } from './cloud'
+import { makeFmt } from '../../scripts/map/format'
 
 const SAVE_KEY = 'fate-save-v2'
 
@@ -209,12 +211,60 @@ function cardHtml(): string {
   </aside>`
 }
 
-function choicesHtml(sceneId: string): string {
-  const legal = visibleChoices(CONTENT, st)
+const fmt = makeFmt(CONTENT.characters)
+
+function choicesInner(sceneId: string): string {
   const scene = getScene(CONTENT, st.company.id, sceneId)
-  return `<div class="choices">${legal
-    .map((i) => `<button class="choice" data-i="${i}">${esc(scene.choices[i].label)}</button>`)
-    .join('')}</div>`
+  return scene.choices
+    .map((c, i) => {
+      const legal = !c.requires || evalPred(c.requires, st)
+      const req = legal || !c.requires ? '' : `<span class="req">requires ${esc(fmt.fmtPred(c.requires))}</span>`
+      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}">${esc(c.label)}${req}</button>`
+    })
+    .join('')
+}
+
+// ---- live-scene plumbing -----------------------------------------------------
+
+let curProseEl: HTMLElement | null = null
+let curFull = ''
+let pendingEl: HTMLElement | null = null
+
+function finishTyping(): void {
+  typing = false
+  if (curProseEl) curProseEl.textContent = curFull
+  if (pendingEl) pendingEl.style.visibility = 'visible'
+}
+
+/** Append the next scene skeleton and run its typewriter. */
+function mountScene(story: HTMLElement, sceneId: string): void {
+  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
+  const tpl = document.createElement('template')
+  tpl.innerHTML = `<section class="beat">
+    <div class="beat-kicker">${speaker}</div>
+    <h2 class="beat-title">${esc(scene.title)}</h2>
+    <p class="beat-prose"></p>
+  </section><div class="choices" style="visibility:hidden"></div>`
+  story.appendChild(tpl.content)
+
+  curProseEl = story.querySelector('.beat:last-of-type .beat-prose')
+  pendingEl = story.querySelector('.choices:last-of-type')
+  if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
+
+  curFull = scene.prose
+  typing = true
+  let i = 0
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const step = (): void => {
+    if (!typing) return
+    i = Math.min(curFull.length, i + (reduced ? curFull.length : 2))
+    if (curProseEl) curProseEl.textContent = curFull.slice(0, i)
+    story.scrollTop = story.scrollHeight // pin while streaming
+    if (i < curFull.length) requestAnimationFrame(step)
+    else finishTyping()
+  }
+  requestAnimationFrame(step)
 }
 
 function renderPlaying(): void {
@@ -231,61 +281,21 @@ function renderPlaying(): void {
   const canvas = app.querySelector('.card-canvas') as HTMLCanvasElement
   if (canvas) startAmbient(canvas)
 
-  if (sceneId) {
-    const scene = getScene(CONTENT, st.company.id, sceneId)
-    const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
-    const tpl = document.createElement('template')
-    // Choices exist in the DOM but stay invisible until the scene finishes unfolding.
-    tpl.innerHTML = `<section class="beat">
-      <div class="beat-kicker">${speaker}</div>
-      <h2 class="beat-title">${esc(scene.title)}</h2>
-      <p class="beat-prose"></p>
-    </section><div class="choices" id="pendingChoices" style="visibility:hidden"></div>`
-    story.appendChild(tpl.content)
-    ;(story.querySelector('#pendingChoices') as HTMLElement).innerHTML = choicesHtml(sceneId)
-      .replace('<div class="choices">', '')
-      .replace(/<\/div>$/, '')
-
-    // typewriter the newest prose; choices reveal when it lands (click = skip)
-    const proseEl = story.querySelector('.beat:last-of-type .beat-prose') as HTMLElement
-    const full = scene.prose
-    const pin = (): void => {
-      story.scrollTop = story.scrollHeight
-    }
-    const finish = (): void => {
-      typing = false
-      proseEl.textContent = full
-      const pc = document.getElementById('pendingChoices') as HTMLElement
-      if (pc) pc.style.visibility = 'visible'
-      pin()
-    }
-    typing = true
-    let i = 0
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const step = (): void => {
-      if (!typing) return
-      i = Math.min(full.length, i + (reduced ? full.length : 2))
-      proseEl.textContent = full.slice(0, i)
-      pin()
-      if (i < full.length) requestAnimationFrame(step)
-      else finish()
-    }
-    requestAnimationFrame(step)
-    story.addEventListener(
-      'click',
-      (e) => {
-        if ((e.target as HTMLElement).closest('.choice')) return
-        finish()
-      },
-      { once: false },
-    )
-
-    story.querySelectorAll('.choice').forEach((btn) => {
-      btn.addEventListener('click', () => choose(Number((btn as HTMLElement).dataset.i)))
-    })
-  }
+  if (sceneId) mountScene(story, sceneId)
   story.scrollTop = story.scrollHeight
 }
+
+// One delegated listener for the whole app — survives re-renders.
+app.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement
+  const choice = target.closest('.choice') as HTMLElement | null
+  if (choice) {
+    if (choice.classList.contains('locked')) return
+    choose(Number(choice.dataset.i))
+    return
+  }
+  if (target.closest('.story')) finishTyping()
+})
 
 function takeover(inner: string): void {
   const el = document.createElement('div')
@@ -307,8 +317,7 @@ function biographyStrip(): string {
   )
 }
 
-function renderEpilogue(): void {
-  renderPlaying()
+function showEpilogue(): void {
   const completed = st.ledger.completed[st.ledger.completed.length - 1]
   const ending =
     CONTENT.chapters[completed?.company ?? st.company.id].endings.find(
@@ -336,6 +345,11 @@ function renderEpilogue(): void {
     document.querySelector('.takeover')?.remove()
     renderComplete()
   })
+}
+
+function renderEpilogue(): void {
+  renderPlaying()
+  showEpilogue()
 }
 
 function renderComplete(): void {
@@ -391,15 +405,28 @@ function render(): void {
 // ---- actions ----------------------------------------------------------------
 
 function choose(index: number): void {
-  if (st.phase !== 'playing') return
+  if (st.phase !== 'playing' || typing) return
+  const story = document.getElementById('story')!
   const sceneId = st.company.queue[0]
   const beforeEpoch = st.epoch
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const choice = scene.choices[index]
 
+  // Grey the picked button in place; remove its siblings.
+  const container = pendingEl
+  if (container) {
+    container.style.visibility = 'visible'
+    container.querySelectorAll('.choice').forEach((b) => {
+      if ((b as HTMLElement).dataset.i === String(index)) b.classList.add('picked')
+      else b.remove()
+    })
+  }
+  // The answered beat joins history.
+  story.querySelector('.beat:last-of-type')?.classList.add('past')
+
   st = reduce(CONTENT, st, { t: 'choose', index })
 
-  // record the beat for the column
+  // record the beat for persistence
   transcript.push({
     kind: 'scene',
     title: scene.title,
@@ -407,12 +434,37 @@ function choose(index: number): void {
     prose: scene.prose,
   })
   transcript.push({ kind: 'you', text: choice.label })
-  if (choice.result) transcript.push({ kind: 'outcome', prose: choice.result })
-  if (st.epoch > beforeEpoch && st.phase === 'playing') {
-    transcript.push({ kind: 'week', text: String(st.epoch) })
+
+  // outcome prose lands below the greyed decision
+  let lastNew: HTMLElement | null = null
+  if (choice.result) {
+    transcript.push({ kind: 'outcome', prose: choice.result })
+    const tpl = document.createElement('template')
+    tpl.innerHTML = `<div class="outcome">${esc(choice.result)}</div>`
+    const el = tpl.content.firstElementChild as HTMLElement
+    container?.after(el)
+    lastNew = el
   }
+
+  if (st.phase === 'epilogue') {
+    persist()
+    if (lastNew) lastNew.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    setTimeout(showEpilogue, 700)
+    return
+  }
+
+  if (st.epoch > beforeEpoch) {
+    transcript.push({ kind: 'week', text: String(st.epoch) })
+    const wk = document.createElement('template')
+    wk.innerHTML = `<div class="weekmark">— WEEK ${st.epoch} —</div>`
+    const el = wk.content.firstElementChild as HTMLElement
+    ;(lastNew ?? container)?.after(el)
+    lastNew = el
+  }
+
   persist()
-  render()
+  if (st.company.queue[0]) mountScene(story, st.company.queue[0])
+  lastNew?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 // ---- boot --------------------------------------------------------------------
