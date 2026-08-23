@@ -7,6 +7,7 @@ import { CONTENT } from '../content/world'
 import { newGame, reduce, visibleChoices, getScene } from '../engine/reduce'
 import type { GameState } from '../engine/types'
 import { netBurn, runwayWeeks } from '../engine/types'
+import { cloudLoad, cloudPush, pickSave, type SaveBlob } from './cloud'
 
 const SAVE_KEY = 'fate-save-v2'
 
@@ -32,11 +33,13 @@ let typing = false
 // ---- persistence -----------------------------------------------------------
 
 function persist(): void {
+  const blob = { st, transcript } satisfies Save
   try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify({ st, transcript } satisfies Save))
+    localStorage.setItem(SAVE_KEY, JSON.stringify(blob))
   } catch {
     /* private mode etc. — the game still plays, it just won't resume */
   }
+  cloudPush(blob)
 }
 
 function load(): Save | null {
@@ -160,20 +163,18 @@ function railHtml(): string {
 }
 
 function transcriptHtml(): string {
-  // Everything except the trailing current-scene beat renders dimmed/compressed.
-  const cut = transcript.length
+  // The whole transcript is history — render fully, faded; nothing hides on hover.
   return transcript
-    .map((b, i) => {
-      const dim = i < cut - 3 ? ' dim' : ''
+    .map((b) => {
       switch (b.kind) {
         case 'week':
-          return `<div class="weekmark${dim}">— WEEK ${b.text} —</div>`
+          return `<div class="weekmark past">— WEEK ${b.text} —</div>`
         case 'you':
-          return `<div class="you${dim}">▸ ${esc(b.text ?? '')}</div>`
+          return `<div class="you past">▸ ${esc(b.text ?? '')}</div>`
         case 'outcome':
-          return `<div class="outcome${dim}">${esc(b.prose ?? '')}</div>`
+          return `<div class="outcome past">${esc(b.prose ?? '')}</div>`
         default:
-          return `<section class="beat${dim}">
+          return `<section class="beat past">
             <div class="beat-kicker">${esc(b.speakerName ? b.speakerName : chapterTitle(st.company.id))}</div>
             <h2 class="beat-title">${esc(b.title ?? '')}</h2>
             <p class="beat-prose">${esc(b.prose ?? '')}</p>
@@ -231,19 +232,33 @@ function renderPlaying(): void {
   if (canvas) startAmbient(canvas)
 
   if (sceneId) {
-    const lastBeat = document.createElement('template')
     const scene = getScene(CONTENT, st.company.id, sceneId)
     const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
-    lastBeat.innerHTML = `<section class="beat">
+    const tpl = document.createElement('template')
+    // Choices exist in the DOM but stay invisible until the scene finishes unfolding.
+    tpl.innerHTML = `<section class="beat">
       <div class="beat-kicker">${speaker}</div>
       <h2 class="beat-title">${esc(scene.title)}</h2>
       <p class="beat-prose"></p>
-    </section>${choicesHtml(sceneId)}`
-    story.appendChild(lastBeat.content)
+    </section><div class="choices" id="pendingChoices" style="visibility:hidden"></div>`
+    story.appendChild(tpl.content)
+    ;(story.querySelector('#pendingChoices') as HTMLElement).innerHTML = choicesHtml(sceneId)
+      .replace('<div class="choices">', '')
+      .replace(/<\/div>$/, '')
 
-    // typewriter the newest prose only; any click completes instantly
+    // typewriter the newest prose; choices reveal when it lands (click = skip)
     const proseEl = story.querySelector('.beat:last-of-type .beat-prose') as HTMLElement
     const full = scene.prose
+    const pin = (): void => {
+      story.scrollTop = story.scrollHeight
+    }
+    const finish = (): void => {
+      typing = false
+      proseEl.textContent = full
+      const pc = document.getElementById('pendingChoices') as HTMLElement
+      if (pc) pc.style.visibility = 'visible'
+      pin()
+    }
     typing = true
     let i = 0
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -251,15 +266,16 @@ function renderPlaying(): void {
       if (!typing) return
       i = Math.min(full.length, i + (reduced ? full.length : 2))
       proseEl.textContent = full.slice(0, i)
+      pin()
       if (i < full.length) requestAnimationFrame(step)
+      else finish()
     }
     requestAnimationFrame(step)
     story.addEventListener(
       'click',
       (e) => {
         if ((e.target as HTMLElement).closest('.choice')) return
-        typing = false
-        proseEl.textContent = full
+        finish()
       },
       { once: false },
     )
@@ -401,11 +417,17 @@ function choose(index: number): void {
 
 // ---- boot --------------------------------------------------------------------
 
-const saved = load()
-if (saved) {
-  st = saved.st
-  transcript = saved.transcript ?? []
-  render()
-} else {
-  renderSplash()
+async function boot(): Promise<void> {
+  const local = load()
+  const remote = await cloudLoad()
+  const best = pickSave(local, remote)
+  if (best) {
+    st = best.st
+    transcript = (best.transcript as BeatRec[]) ?? []
+    render()
+  } else {
+    renderSplash()
+  }
 }
+
+void boot()

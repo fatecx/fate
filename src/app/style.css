@@ -98,10 +98,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .beat-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--dim); text-transform: uppercase; }
 .beat-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.05em; margin: 3px 0 7px; text-wrap: balance; }
 .beat-prose { white-space: pre-wrap; }
-.beat.dim { opacity: 0.38; }
-.beat.dim .beat-prose { display: none; }
-.beat.dim:hover .beat-prose { display: block; opacity: 1; }
-.beat.dim .beat-title::after { content: ' …'; color: var(--dim); }
+
+/* History fades as a whole — full text always present, nothing hidden on hover. */
+.past { opacity: 0.42; }
 .you { font-family: var(--mono); font-size: 13.5px; padding-left: 14px; border-left: 3px solid var(--accent); margin-bottom: 14px; }
 .outcome { font-style: italic; color: var(--dim); font-size: 14px; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid var(--line); }
 

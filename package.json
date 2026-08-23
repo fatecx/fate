@@ -8,13 +8,17 @@
     "typecheck": "tsc --noEmit",
     "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs",
     "build": "vite build",
-    "deploy": "python3 scripts/deploy-vercel.py"
+    "deploy": "sh scripts/deploy.sh"
   },
   "devDependencies": {
     "@types/dagre": "^0.7.54",
     "dagre": "^0.8.5",
     "typescript": "^5.6.3",
+    "vercel": "^59.5.0",
     "vite": "^5.4.21",
     "vitest": "^2.1.9"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3"
   }
 }
