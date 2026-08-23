@@ -16,4 +16,6 @@ One persistent biography: you are a startup founder in a near-future world of AI
 
 ## Current phase
 
-P1 landed (`ae56a82`): deterministic engine core + content schema + Hyperchute Act One slice + full gate suite green (17 tests; 390-run Monte Carlo proves every ending reachable; determinism replays byte-identical). `npm test` runs the gates. In progress: storyline visualizer (`scripts/map` → self-contained `map.html`). Next after that: P2 — author Hyperchute Acts 2–3 (FIGHT, RECKONING) as data; stub chapters 2–4 get replaced in later phases.
+**LIVE**: playable build deployed on Render (`fate-tys4.onrender.com`, service `srv-da5mtpgu01pc73fqn1dg`, autodeploys on push to main). Split-stage play surface per DESIGN.md §8; saves resume via localStorage. Custom domain **fate.cx is registered on Render but DNS-unverified** — Porkbun API keys return 403, so apex A record (`@ → 216.24.57.1`) and www CNAME (`→ fate-tys4.onrender.com`) need manual adding in Porkbun.
+
+Content status: Hyperchute Act One fully authored; Acts 2–3 and chapters 2–4 are STUBS by design. Next milestone: **P2 — author Hyperchute completely** (FIGHT + RECKONING acts, all 5 endings human-reachable), then playtest live before authoring Teleport. Review surface: `npm run map` → `map.html`. Gates: `npm test`.
