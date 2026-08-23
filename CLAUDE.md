@@ -16,4 +16,4 @@ One persistent biography: you are a startup founder in a near-future world of AI
 
 ## Current phase
 
-Docs + design only. Next milestone: Phase 1 — deterministic engine core + Chapter One content schema (`src/engine`, `src/content`) with graph-validation tests. No UI until the engine simulates a full life headlessly.
+P1 landed (`ae56a82`): deterministic engine core + content schema + Hyperchute Act One slice + full gate suite green (17 tests; 390-run Monte Carlo proves every ending reachable; determinism replays byte-identical). `npm test` runs the gates. In progress: storyline visualizer (`scripts/map` → self-contained `map.html`). Next after that: P2 — author Hyperchute Acts 2–3 (FIGHT, RECKONING) as data; stub chapters 2–4 get replaced in later phases.

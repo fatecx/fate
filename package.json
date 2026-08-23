@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs"
   },
   "devDependencies": {
+    "@types/dagre": "^0.7.54",
+    "dagre": "^0.8.5",
     "typescript": "^5.6.3",
     "vitest": "^2.1.9"
   }
