@@ -1,0 +1,411 @@
+/**
+ * FATE play surface — split stage per DESIGN.md §8.
+ * The engine decides; this file only renders true state and forwards choices.
+ */
+import './style.css'
+import { CONTENT } from '../content/world'
+import { newGame, reduce, visibleChoices, getScene } from '../engine/reduce'
+import type { GameState } from '../engine/types'
+import { netBurn, runwayWeeks } from '../engine/types'
+
+const SAVE_KEY = 'fate-save-v2'
+
+interface BeatRec {
+  kind: 'scene' | 'you' | 'outcome' | 'week'
+  title?: string
+  speakerName?: string
+  prose?: string
+  text?: string
+}
+
+interface Save {
+  st: GameState
+  transcript: BeatRec[]
+}
+
+const app = document.getElementById('app')!
+
+let transcript: BeatRec[] = []
+let st: GameState
+let typing = false
+
+// ---- persistence -----------------------------------------------------------
+
+function persist(): void {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify({ st, transcript } satisfies Save))
+  } catch {
+    /* private mode etc. — the game still plays, it just won't resume */
+  }
+}
+
+function load(): Save | null {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY)
+    if (!raw) return null
+    const s = JSON.parse(raw) as Save
+    if (!s?.st?.company || s.st.phase === undefined) return null
+    return s
+  } catch {
+    return null
+  }
+}
+
+function clearSave(): void {
+  try {
+    localStorage.removeItem(SAVE_KEY)
+  } catch {
+    /* ignore */
+  }
+}
+
+// ---- helpers ---------------------------------------------------------------
+
+const CHAPTERS = ['hyperchute', 'teleport', 'skyline', 'escape'] as const
+
+function chapterTitle(id: string): string {
+  return CONTENT.chapters[id as keyof typeof CONTENT.chapters].title
+}
+
+function nextChapterName(): string {
+  const next = CHAPTERS[st.chapter + 1]
+  return CONTENT.chapters[next].title
+}
+
+function hueFor(id: string): number {
+  let h = 0
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360
+  return h
+}
+
+function fmtRunway(): string {
+  const rw = runwayWeeks(st.company)
+  return Number.isFinite(rw) ? String(Math.max(1, Math.ceil(rw))) : '∞'
+}
+
+function fuseInfo(): { remaining: number; total: number } | null {
+  const sceneId = st.company.queue[0]
+  const f = st.company.fuses.find((x) => x.sceneId === sceneId)
+  const def = getScene(CONTENT, st.company.id, sceneId)
+  if (!f || !def) return null
+  return { remaining: Math.max(1, f.expiresEpoch - st.epoch), total: def.fuseEpochs ?? 1 }
+}
+
+// ---- ambient canvas (cheap aliveness; respects reduced motion) -------------
+
+function startAmbient(canvas: HTMLCanvasElement): void {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  let w = 0
+  let h = 0
+  const resize = (): void => {
+    w = canvas.width = canvas.offsetWidth * devicePixelRatio
+    h = canvas.height = canvas.offsetHeight * devicePixelRatio
+  }
+  resize()
+  window.addEventListener('resize', resize)
+  const dots = Array.from({ length: 42 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    v: 0.00015 + Math.random() * 0.0004,
+    r: (0.6 + Math.random() * 1.6) * devicePixelRatio,
+  }))
+  if (reduced) {
+    drawFrame(0)
+    return
+  }
+  let t = 0
+  ;(function loop() {
+    t += 1
+    drawFrame(t)
+    requestAnimationFrame(loop)
+  })()
+  function drawFrame(time: number): void {
+    ctx!.clearRect(0, 0, w, h)
+    for (const d of dots) {
+      const y = (d.y + time * d.v) % 1
+      ctx!.fillStyle = `hsla(${hueFor(st?.company.id ?? 'fate')},30%,60%,0.20)`
+      ctx!.beginPath()
+      ctx!.arc(d.x * w, y * h, d.r, 0, Math.PI * 2)
+      ctx!.fill()
+    }
+  }
+}
+
+// ---- render -----------------------------------------------------------------
+
+function esc(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
+function railHtml(): string {
+  const rw = runwayWeeks(st.company)
+  const danger = rw < 10
+  const stress = Math.round(st.company.stress)
+  const rep = st.world.reputation
+  return `
+  <header class="rail">
+    <div class="wordmark">FATE<em>·</em></div>
+    <div class="chap">${esc(chapterTitle(st.company.id))} · WEEK ${st.epoch}</div>
+    <div class="rail-meters">
+      <div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>
+      <div class="stressbox">
+        <div class="mlabel"><span>STRESS</span><span>${stress}</span></div>
+        <div class="stressbar"><i style="width:${stress}%"></i></div>
+      </div>
+      <div class="repchip" title="Reputation — opens and closes doors across your whole life">REP ${rep >= 0 ? '+' : ''}${rep}</div>
+    </div>
+  </header>`
+}
+
+function transcriptHtml(): string {
+  // Everything except the trailing current-scene beat renders dimmed/compressed.
+  const cut = transcript.length
+  return transcript
+    .map((b, i) => {
+      const dim = i < cut - 3 ? ' dim' : ''
+      switch (b.kind) {
+        case 'week':
+          return `<div class="weekmark${dim}">— WEEK ${b.text} —</div>`
+        case 'you':
+          return `<div class="you${dim}">▸ ${esc(b.text ?? '')}</div>`
+        case 'outcome':
+          return `<div class="outcome${dim}">${esc(b.prose ?? '')}</div>`
+        default:
+          return `<section class="beat${dim}">
+            <div class="beat-kicker">${esc(b.speakerName ? b.speakerName : chapterTitle(st.company.id))}</div>
+            <h2 class="beat-title">${esc(b.title ?? '')}</h2>
+            <p class="beat-prose">${esc(b.prose ?? '')}</p>
+          </section>`
+      }
+    })
+    .join('')
+}
+
+function cardHtml(): string {
+  const sceneId = st.company.queue[0]
+  if (!sceneId) return '<aside class="scene-card"></aside>'
+  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
+  const name = speaker?.name ?? 'THE WORLD'
+  const role = speaker?.role ?? ''
+  const initial = name === 'THE WORLD' ? '∴' : name[0]
+  const fuse = fuseInfo()
+  const ring =
+    fuse && fuse.total > 0
+      ? `<div class="fuse-ring" style="background:conic-gradient(var(--accent) ${(fuse.remaining / fuse.total) * 100}%, transparent 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px)); mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));" title="${fuse.remaining} week(s) to answer"></div>`
+      : ''
+  return `
+  <aside class="scene-card">
+    <canvas class="card-canvas"></canvas>
+    ${ring}
+    <div class="portrait"><span class="sigil">${initial}</span></div>
+    <div class="nameplate">
+      <div class="np-name">${esc(name)}</div>
+      ${role ? `<div class="np-role">${esc(role)}</div>` : ''}
+    </div>
+  </aside>`
+}
+
+function choicesHtml(sceneId: string): string {
+  const legal = visibleChoices(CONTENT, st)
+  const scene = getScene(CONTENT, st.company.id, sceneId)
+  return `<div class="choices">${legal
+    .map((i) => `<button class="choice" data-i="${i}">${esc(scene.choices[i].label)}</button>`)
+    .join('')}</div>`
+}
+
+function renderPlaying(): void {
+  const sceneId = st.company.queue[0]
+  app.innerHTML = `
+    <div class="shell">
+      ${railHtml()}
+      <main class="stage">
+        ${cardHtml()}
+        <section class="story" id="story">${transcriptHtml()}</section>
+      </main>
+    </div>`
+  const story = document.getElementById('story')!
+  const canvas = app.querySelector('.card-canvas') as HTMLCanvasElement
+  if (canvas) startAmbient(canvas)
+
+  if (sceneId) {
+    const lastBeat = document.createElement('template')
+    const scene = getScene(CONTENT, st.company.id, sceneId)
+    const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
+    lastBeat.innerHTML = `<section class="beat">
+      <div class="beat-kicker">${speaker}</div>
+      <h2 class="beat-title">${esc(scene.title)}</h2>
+      <p class="beat-prose"></p>
+    </section>${choicesHtml(sceneId)}`
+    story.appendChild(lastBeat.content)
+
+    // typewriter the newest prose only; any click completes instantly
+    const proseEl = story.querySelector('.beat:last-of-type .beat-prose') as HTMLElement
+    const full = scene.prose
+    typing = true
+    let i = 0
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const step = (): void => {
+      if (!typing) return
+      i = Math.min(full.length, i + (reduced ? full.length : 2))
+      proseEl.textContent = full.slice(0, i)
+      if (i < full.length) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+    story.addEventListener(
+      'click',
+      (e) => {
+        if ((e.target as HTMLElement).closest('.choice')) return
+        typing = false
+        proseEl.textContent = full
+      },
+      { once: false },
+    )
+
+    story.querySelectorAll('.choice').forEach((btn) => {
+      btn.addEventListener('click', () => choose(Number((btn as HTMLElement).dataset.i)))
+    })
+  }
+  story.scrollTop = story.scrollHeight
+}
+
+function takeover(inner: string): void {
+  const el = document.createElement('div')
+  el.className = 'takeover'
+  el.innerHTML = `<div class="takeover-inner">${inner}</div>`
+  app.appendChild(el)
+}
+
+function biographyStrip(): string {
+  return (
+    '<div class="tk-strip">' +
+    st.ledger.completed
+      .map(
+        (c) =>
+          `<span class="tk-chip">${esc(chapterTitle(c.company))} — ${esc(c.endingId.replace(/_/g, ' '))}</span>`,
+      )
+      .join('') +
+    '</div>'
+  )
+}
+
+function renderEpilogue(): void {
+  renderPlaying()
+  const completed = st.ledger.completed[st.ledger.completed.length - 1]
+  const ending =
+    CONTENT.chapters[completed?.company ?? st.company.id].endings.find(
+      (e) => e.id === (completed?.endingId ?? st.company.endingId),
+    ) ?? CONTENT.chapters.hyperchute.endings[0]
+  const isLast = st.chapter + 1 >= CHAPTERS.length
+  const cta = isLast
+    ? `<button class="cta" id="finale">See how the life ends →</button>`
+    : `<button class="cta" id="next">Wire the check — found ${esc(nextChapterName())} →</button>`
+  takeover(`
+    <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(completed?.company ?? st.company.id))}</div>
+    <h1 class="tk-title">${esc(ending.title)}</h1>
+    <p class="tk-body">${esc(ending.prose)}</p>
+    ${biographyStrip()}
+    ${cta}
+  `)
+  document.getElementById('next')?.addEventListener('click', () => {
+    document.querySelector('.takeover')?.remove()
+    st = reduce(CONTENT, st, { t: 'foundNext' })
+    transcript.push({ kind: 'week', text: String(st.epoch) })
+    persist()
+    render()
+  })
+  document.getElementById('finale')?.addEventListener('click', () => {
+    document.querySelector('.takeover')?.remove()
+    renderComplete()
+  })
+}
+
+function renderComplete(): void {
+  renderPlaying()
+  const years = Math.max(1, Math.round((st.epoch - st.ledger.completed[0]?.epoch / 1) / 52))
+  takeover(`
+    <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
+    <h1 class="tk-title">FOUR COMPANIES.<br/>ONE LIFE.</h1>
+    <p class="tk-body">Final founder score: ${st.ledger.founderScore}. Roughly ${years} years from a garage above a laundromat to whatever came last. The world remembers all of it.</p>
+    ${biographyStrip()}
+    <button class="cta" id="again">Live another life ↺</button>
+  `)
+  document.getElementById('again')?.addEventListener('click', () => {
+    clearSave()
+    startNewLife()
+  })
+}
+
+function renderSplash(): void {
+  app.innerHTML = ''
+  takeover(`
+    <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
+    <h1 class="tk-title">FATE</h1>
+    <p class="tk-body">One life. Four companies. Every scar carries forward.
+
+2031. You are a first-time founder in a city that runs on rails of other people's machines. You have a garage above a laundromat, a shuttle prototype hanging from its ceiling, and one hundred percent of nothing.</p>
+    <button class="cta" id="begin">Incorporate →</button>
+  `)
+  document.getElementById('begin')?.addEventListener('click', startNewLife)
+}
+
+function startNewLife(): void {
+  st = newGame(CONTENT, (Date.now() ^ performance.now()) >>> 0)
+  transcript = []
+  persist()
+  render()
+}
+
+function render(): void {
+  switch (st.phase) {
+    case 'playing':
+      renderPlaying()
+      break
+    case 'epilogue':
+      renderEpilogue()
+      break
+    case 'complete':
+      renderComplete()
+      break
+  }
+}
+
+// ---- actions ----------------------------------------------------------------
+
+function choose(index: number): void {
+  if (st.phase !== 'playing') return
+  const sceneId = st.company.queue[0]
+  const beforeEpoch = st.epoch
+  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const choice = scene.choices[index]
+
+  st = reduce(CONTENT, st, { t: 'choose', index })
+
+  // record the beat for the column
+  transcript.push({
+    kind: 'scene',
+    title: scene.title,
+    speakerName: scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD',
+    prose: scene.prose,
+  })
+  transcript.push({ kind: 'you', text: choice.label })
+  if (choice.result) transcript.push({ kind: 'outcome', prose: choice.result })
+  if (st.epoch > beforeEpoch && st.phase === 'playing') {
+    transcript.push({ kind: 'week', text: String(st.epoch) })
+  }
+  persist()
+  render()
+}
+
+// ---- boot --------------------------------------------------------------------
+
+const saved = load()
+if (saved) {
+  st = saved.st
+  transcript = saved.transcript ?? []
+  render()
+} else {
+  renderSplash()
+}

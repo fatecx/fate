@@ -87,10 +87,21 @@ Every company carries a full ending spread (typically five): triumph (IPO/rare),
 ## 8. Presentation & Art Policy
 
 - **The game must be fully playable as pure text, forever.** This is the anti-bug, anti-slowness guarantee: no development path routes through art.
-- Surface: clean typographic narrative view — prose column, choice cards, thin meter bars, fuse timers. Restraint over chrome.
+
+### Play surface — split stage (locked)
+
+- **Left (~42%) — the scene card.** Canonical character portrait over a subtly animated backdrop (ambient drift — rain, city light, dust; cheap aliveness, no per-scene assets). Speaker nameplate beneath. When a fuse is armed, a burning ring counts down around the card edge — urgency felt peripherally.
+- **Right — the story column.** Typewriter current beat (any click completes it instantly — never trap the reader), then 2–4 choice cards. Beneath, this chapter's past beats sit dimmed and compressed: the biography literally accumulates under the player as they live it.
+- **One meter rail**, thin, top-right: runway-in-weeks as the big number (the drumbeat), stress as a hairline bar, reputation as a small chip. Nothing else. Weather, not cockpit.
+- **Set-pieces escalate to full-screen**: cofounder split, term-sheet close, accident, IPO, death take over with letterboxing and dedicated beat art. Rarity is what makes takeover mean something (~6–10 per company).
+- **Chapter breaks**: black screen, epilogue text, one button — *"Wire the check."*
+- **Mobile**: split collapses to a single scrolling column, art becomes a header image. Same DOM, different breakpoint.
+
+### Art policy
+
 - **Portraits**: one canonical image per named character, generated once, reused everywhere (never regenerate faces mid-scene — that's the consistency trap). Style: anime portrait via the proven terminus bulletin pipeline; pixel-art fallback only if generation quality disappoints.
-- **Beat art budget**: 40–80 images total for v1 — chapter openings, deaths, IPOs, epilogues, tier transitions. Not every decision, not every outcome. When the screen goes full-canvas, the player should feel the weight.
-- Scene backdrops vary freely (no faces in them); character cards stay fixed.
+- **Beat art budget**: 40–80 images total for v1 — chapter openings, deaths, IPOs, epilogues, chapter transitions. Not every decision, not every outcome. When the screen goes full-canvas, the player should feel the weight.
+- Scene backdrops vary freely (no faces in them); character cards stay fixed. Until assets land, the scene card renders a character sigil on an ambient field — the layout never waits on art.
 
 ## 9. Architecture Law
 
