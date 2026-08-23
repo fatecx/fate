@@ -4,7 +4,7 @@ Narrative founder-saga game (fate.cx). Design phase — read `DESIGN.md` before 
 
 ## What this is
 
-One persistent biography: you are a startup founder in a near-future world of AI-run corporations. Found companies across a 3-tier ladder (9 startups total), carry reputation, relationships, and scars across every death and exit. Citizen Sleeper is the quality bar: deterministic mechanics, authored narrative, constant near-scarcity.
+One persistent biography: you are a startup founder in a near-future world of AI-run corporations. Found four companies in fixed sequence — **HYPERCHUTE → TELEPORT → SKYLINE → ESCAPE** — carrying reputation, relationships, cap table history, and scars across every death and exit. Citizen Sleeper is the quality bar: deterministic mechanics, authored narrative, constant near-scarcity.
 
 ## Non-negotiables
 
