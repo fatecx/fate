@@ -7,7 +7,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs",
-    "build": "vite build"
+    "build": "vite build",
+    "deploy": "python3 scripts/deploy-vercel.py"
   },
   "devDependencies": {
     "@types/dagre": "^0.7.54",
