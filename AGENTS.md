@@ -24,4 +24,4 @@ Rules for any agent (Claude or otherwise) working in this repo.
 
 ## Tokens / remote
 
-- Remote: `github.com/fatecx/fate`. If a bare push 403s, try `GITHUB_TOKEN_SYEDOS`, then `GITHUB_TOKEN_BUXOR` (see memory: terminus/terminuscx pushed under buxor). Update this file once the working identity is known.
+- Remote: `github.com/fatecx/fate`. **Push with `GITHUB_TOKEN_BUXOR`** (fatecx is a buxor org; roboalias and syedos both get 403): `git remote set-url origin "https://buxor:${GITHUB_TOKEN_BUXOR}@github.com/fatecx/fate.git" && git push origin main && git remote set-url origin https://github.com/fatecx/fate.git`
