@@ -149,19 +149,107 @@ function railHtml(): string {
   const danger = rw < 10
   const stress = Math.round(st.company.stress)
   const rep = st.world.reputation
+  const cells = Array.from({ length: 10 }, (_, k) => {
+    const filled = stress > k * 10
+    return `<i class="${filled ? (k >= 7 ? 'on hot' : 'on') : ''}"></i>`
+  }).join('')
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
-    <div class="chap">${esc(chapterTitle(st.company.id))} · WEEK ${st.epoch}</div>
+    <button class="chap" id="incToggle" title="Articles of incorporation">${esc(chapterTitle(st.company.id))}, INC. · WEEK ${st.epoch} ▾</button>
     <div class="rail-meters">
       <div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>
       <div class="stressbox">
         <div class="mlabel"><span>STRESS</span><span>${stress}</span></div>
-        <div class="stressbar"><i style="width:${stress}%"></i></div>
+        <div class="stresscells">${cells}</div>
       </div>
+      <div class="repchip" title="Bank balance">${fmtMoney(st.company.treasury)}</div>
+      <div class="repchip" title="Your share of the company">${founderPct()}% YOURS</div>
       <div class="repchip" title="Reputation — opens and closes doors across your whole life">REP ${rep >= 0 ? '+' : ''}${rep}</div>
     </div>
   </header>`
+}
+
+/** Re-render just the meter rail (called after every in-place choice). */
+function refreshRail(): void {
+  const rail = document.querySelector('.rail')
+  if (rail) rail.outerHTML = railHtml()
+}
+
+// ---- incorporation paper -----------------------------------------------------
+
+const BANKS: Record<string, string> = {
+  hyperchute: 'First Flats Savings & Loan',
+  teleport: 'Ceres Federal Trust',
+  skyline: 'Anchor & Vantage',
+  escape: 'Imbrium Reserve',
+}
+
+function fmtMoney(n: number): string {
+  const abs = Math.abs(n)
+  const s = abs >= 1_000_000 ? `$${(abs / 1_000_000).toFixed(abs >= 10_000_000 ? 0 : 1)}M` : `$${Math.round(abs / 1000)}k`
+  return (n < 0 ? '−' : '') + s
+}
+
+function founderPct(): string {
+  const f = st.company.capTable.find((s) => s.who === 'founder')
+  return String(Math.round(f?.pct ?? 100))
+}
+
+function incDate(): string {
+  const base = new Date(2031, 2, 3) // the fiction's calendar
+  const d = new Date(base.getTime() + (st.company.foundedEpoch - 0) * 7 * 86400_000)
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+function counselLine(): string {
+  const f = st.company.flags
+  if (f['lawyer_ally']) return 'Tomás Reyes <span class="dim">— of counsel, 1%</span>'
+  if (f['legal_solid']) return 'Tomás Reyes <span class="dim">— retained</span>'
+  if (f['diy_legal']) return 'Pro se <span class="dim">— downloaded templates</span>'
+  return 'None yet'
+}
+
+function advisorLine(): string {
+  const stake = st.company.capTable.find((s) => s.who === 'priya')?.pct ?? 0
+  if (stake > 0) return `Priya Raghavan <span class="dim">— ${stake.toFixed(stake % 1 ? 1 : 0)}%</span>`
+  if (st.company.flags['priya_waitlist']) return 'Priya Raghavan <span class="dim">— waitlisted</span>'
+  return 'None yet'
+}
+
+function teamLine(): string {
+  const hires: string[] = []
+  if (st.company.flags['sofia_resolved']) {
+    const mode = st.company.flags['sofia_full'] ? 'full-time' : st.company.flags['sofia_equity'] ? '3 pts' : 'contract'
+    hires.push(`Sofia Brandt <span class="dim">— flight controls, ${mode}</span>`)
+  }
+  return hires.length ? hires.join('<br>') : 'Just you'
+}
+
+function capTableLines(): string {
+  return st.company.capTable
+    .slice()
+    .sort((a, b) => b.pct - a.pct)
+    .map((s) => {
+      const label = s.who === 'founder' ? 'You' : (CONTENT.characters[s.who]?.name ?? s.who)
+      return `<div class="capline"><span>${esc(label)}</span><span>${s.pct.toFixed(s.pct % 1 ? 1 : 0)}%</span></div>`
+    })
+    .join('')
+}
+
+function incPanelHtml(): string {
+  const c = st.company
+  return `
+  <div class="inc-title">${esc(chapterTitle(c.id))}, INC.</div>
+  <div class="inc-grid">
+    <span>Incorporated</span><b>${incDate()}</b>
+    <span>Founder</span><b>You</b>
+    <span>Bank</span><b>${BANKS[c.id] ?? '—'} <span class="dim">· ${fmtMoney(c.treasury)}</span></b>
+    <span>Counsel</span><b>${counselLine()}</b>
+    <span>Advisor</span><b>${advisorLine()}</b>
+    <span>Team</span><b>${teamLine()}</b>
+  </div>
+  <div class="inc-cap"><div class="mlabel" style="margin-bottom:6px"><span>CAP TABLE</span><span>${fmtRunway()} WKS RUNWAY</span></div>${capTableLines()}</div>`
 }
 
 function transcriptHtml(): string {
@@ -294,6 +382,18 @@ app.addEventListener('click', (e) => {
     choose(Number(choice.dataset.i))
     return
   }
+  if (target.closest('#incToggle')) {
+    const panel = document.getElementById('incPanel')
+    if (panel) {
+      if (panel.hidden) panel.innerHTML = incPanelHtml()
+      panel.hidden = !panel.hidden
+    }
+    return
+  }
+  if (!target.closest('.inc-panel')) {
+    const panel = document.getElementById('incPanel')
+    if (panel && !panel.hidden) panel.hidden = true
+  }
   if (target.closest('.story')) finishTyping()
 })
 
@@ -425,6 +525,8 @@ function choose(index: number): void {
   story.querySelector('.beat:last-of-type')?.classList.add('past')
 
   st = reduce(CONTENT, st, { t: 'choose', index })
+
+  refreshRail()
 
   // record the beat for persistence
   transcript.push({
