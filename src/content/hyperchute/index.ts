@@ -85,22 +85,28 @@ const ENDINGS: readonly EndingDef[] = [
 
 const PROLOGUE: readonly PrologueBeat[] = [
   {
-    kicker: 'THE FLATS · 2031',
-    title: 'A CITY OF OTHER PEOPLE’S MACHINES',
+    kicker: 'PROLOGUE · 2031',
+    title: 'THE CITY FROM BELOW',
     prose:
-      'The drones came first — a hundred thousand of them, blue and quiet, serving the hills where the tips are good. Downtown, gig couriers weave the last mile for wages that shrink yearly, rated by algorithms nobody has ever met. The city runs on rails other people laid, going where other people’s profits point.\n\nAnd below the flight lines, in the neighborhoods the machines skip, people still wait forty minutes for a bus to bring them insulin.',
+      'You grew up in the Flats, under a sky that worked for someone else.\n\nThe drones came when you were nineteen — a hundred thousand of them, blue and quiet, sliding along invisible rails toward the hills where the tips are good. You learned to read their running lights the way other kids read constellations. They never stopped on your street. Nothing that flies ever stopped on your street.\n\nDown here, deliveries came the old way: a courier on a scratched-up e-bike, racing an algorithm’s stopwatch for rent money, and your neighbor Mrs. Okafor waiting forty minutes for a bus to bring back her insulin because the pharmacy quit stocking it. You watched all of it from below, every day, until watching started to feel like a decision you were making.',
   },
   {
-    kicker: 'THE GIANT',
-    title: 'MERIDIAN',
+    kicker: 'PROLOGUE · THE MACHINE',
+    title: 'EIGHT YEARS INSIDE IT',
     prose:
-      'One company owns the sky: MERIDIAN LOGISTICS NETWORKS — an AI-run colossus whose routing brain makes eleven million decisions a minute and whose human executives mostly announce what it already decided. Ninety-one billion dollars of warehouses, dark stores, and drones. Their unofficial motto is a VP’s quote that became a T-shirt: “Logistics is a solved problem.”\n\nSolved for whom is the question nobody at MERIDIAN gets promoted for asking. The hills get four-minute delivery. The Flats gets a map labeled LOW-DENSITY YIELD.',
+      'You know exactly how the sky works, because for eight years it was your job.\n\nA dispatch floor, a MERIDIAN sub-contractor, a headset. MERIDIAN LOGISTICS NETWORKS: the ninety-one-billion-dollar colossus whose routing brain makes eleven million decisions a minute and whose executives mostly announce what it already decided. There was a T-shirt the managers wore on launch days — LOGISTICS IS A SOLVED PROBLEM — and for the hills, it was.\n\nOver your desk hung the planning map. Your whole neighborhood — your school, your mother’s block, the laundromat on the corner — sat inside a gray zone stamped LOW-DENSITY YIELD. Eight years, you stared at that stamp. A verdict, printed in helvetica, on every street you ever loved.',
   },
   {
-    kicker: 'THE IDEA',
-    title: 'HYPERCHUTE',
+    kicker: 'PROLOGUE · THE TUESDAY',
+    title: 'EVERYTHING YOU HAD',
     prose:
-      'A railway in the sky: autonomous shuttles that hold station two hundred feet above the street and lower each parcel down a pneumatic tube — soft as rain, four minutes, any porch with a receiver sleeve. No drones over playgrounds. No couriers racing a stopwatch for rent money. A fixed line, a fair drop, priced like a bus ticket.\n\nThe strategy is the opposite of MERIDIAN’s: start where they refuse to go. One permitted corridor over one forgotten neighborhood, sixty subscribing porches, then the next street, then the next — until the low-density yield map is your empire. One prototype hangs from a garage ceiling on a braided tether. One hundred percent of the company is yours. For now.',
+      'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nWhat you had: a severance check, an index fund, a car, half an apartment deposit, and an idea that would not leave you alone. You sold all of it except the idea — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nWhat you bought: a lease on a garage above the Sudz & Spin laundromat, four months of nights, and the parts. Dryer heat through the floorboards. Solder smoke. And slowly, on a braided tether under the ceiling, a machine taking shape — the thing you saw every night on the dispatch floor when you closed your eyes.',
+  },
+  {
+    kicker: 'PROLOGUE · THE RAILWAY',
+    title: 'SOFT AS RAIN',
+    prose:
+      'A railway in the sky. Not drones — a fixed line. Autonomous shuttles that hold station two hundred feet up and lower each parcel down a pneumatic tube to any porch with a receiver sleeve. Four minutes. Soft as rain. Priced like a bus ticket. No propellers over playgrounds, no stopwatch chewing up couriers — gravity, tamed, for the streets the machines forgot.\n\nAnd the plan is the part that makes you grin at 3 a.m.: start exactly where MERIDIAN refuses to go. One permitted corridor over one forgotten neighborhood. Sixty subscribing porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the incorporation papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
   },
 ]
 
@@ -108,7 +114,7 @@ export const HYPERCHUTE: ChapterDef = {
   id: 'hyperchute',
   title: 'HYPERCHUTE',
   tagline: 'A railway in the sky, built from a garage.',
-  entry: 'h_backstory',
+  entry: 'h_seedling',
   insolvency: 'h_insolvency',
   burnout: 'h_burnout',
   opening: { treasury: 120000, burn: 3800, revenue: 0 },

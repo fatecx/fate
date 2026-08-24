@@ -6,14 +6,6 @@ import type { SceneDef } from '../schema'
  */
 export const ACT_ONE: readonly SceneDef[] = [
   {
-    id: 'h_backstory',
-    kind: 'bridge',
-    title: 'BEFORE THE FIRST DOLLAR',
-    prose:
-      'You quit on a Tuesday, eight years into a job routing other people’s packages through other people’s sky — a MERIDIAN sub-contractor’s dispatch floor, where the low-density yield map hung on the wall like a verdict on every street you grew up on. The $120,000 in the company account is everything you have ever saved plus everything you could sell: the severance, the index fund, the car, your half of an apartment deposit. It bought a lease above the Sudz & Spin, four months of nights, and one working prototype on a braided tether. You filed the incorporation papers last night. HYPERCHUTE, INC. — one hundred percent yours, worth exactly nothing, and the only thing you have ever been sure of.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_seedling' }],
-  },
-  {
     id: 'h_seedling',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
