@@ -40,15 +40,29 @@ export async function signOut(): Promise<void> {
   }
 }
 
-/** Short wallet label, e.g. "7fUA…kQ9d · SOL". */
+function claims(session: Session): Record<string, unknown> {
+  const meta = session.user.user_metadata as Record<string, unknown>
+  return (meta?.custom_claims as Record<string, unknown>) ?? {}
+}
+
+/** Full on-chain address of the signed founder ('' when unknown). */
+export function walletAddress(session: Session): string {
+  const c = claims(session)
+  return typeof c.address === 'string' ? c.address : ''
+}
+
+export function walletChain(session: Session): string {
+  const c = claims(session)
+  return typeof c.chain === 'string' ? c.chain : ''
+}
+
+/** Short wallet label, e.g. "0xaaf9…2884 · ETH". */
 export function walletLabel(session: Session): string {
-  const u = session.user
-  const meta = { ...(u.identities?.[0]?.identity_data ?? {}), ...u.user_metadata } as Record<string, unknown>
-  const addr = typeof meta.address === 'string' ? meta.address : ''
-  const chain = typeof meta.chain === 'string' ? meta.chain : ''
+  const addr = walletAddress(session)
+  const chain = walletChain(session)
   if (!addr) return 'wallet'
   const tag = chain ? ` · ${chain.slice(0, 3).toUpperCase()}` : ''
-  return `${addr.slice(0, 4)}…${addr.slice(-4)}${tag}`
+  return `${addr.slice(0, 6)}…${addr.slice(-4)}${tag}`
 }
 
 // ---- save transport -----------------------------------------------------------

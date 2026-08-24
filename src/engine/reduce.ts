@@ -208,6 +208,11 @@ export function reduce(content: Content, state: GameState, action: Action): Game
         }
         break
       }
+      case 'surrender': {
+        if (st.phase !== 'playing') throw new Error('not playing')
+        endChapter(st, content, 'bankrupt')
+        break
+      }
       case 'foundNext': {
         if (st.phase !== 'epilogue') throw new Error('no epilogue to leave')
         // Time skips between chapters: years pass as the ending dictates.

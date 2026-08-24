@@ -84,6 +84,7 @@ export type Action =
   | { t: 'newGame'; seed: number }
   | { t: 'choose'; index: number }
   | { t: 'foundNext' }
+  | { t: 'surrender' } // declare bankruptcy: the founder's legal out, scars and all
 
 // ---- derived numbers -------------------------------------------------------
 
