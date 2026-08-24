@@ -68,10 +68,17 @@ const CHARACTERS: Record<string, CharacterDef> = {
   },
   ray: {
     id: 'ray',
-    name: 'Ray Delgado',
+    name: 'Ray Freres',
     role: 'Owner, Fresno Aerostructures',
     blurb: 'Builds everyone’s drones, trusts almost nobody, delivers early anyway.',
     hiddenTrait: 'Keeps a hand-written ledger of every founder who paid late. You are on it, or you are not.',
+  },
+  marisol: {
+    id: 'marisol',
+    name: 'Mrs. Delgado',
+    role: 'Landlady — Sudz & Spin',
+    blurb: 'Owns the laundromat, the building, and the block’s collective memory. Your first believer.',
+    hiddenTrait: 'Has quietly bankrolled half the street at one time or another. Nobody has ever missed a payment to her twice.',
   },
 }
 

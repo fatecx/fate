@@ -352,7 +352,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'met', who: 'june' },
-        { k: 'age', cmp: 'gte', v: 30 },
+        { k: 'age', cmp: 'gte', v: 26 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'series_a', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'independent', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },

@@ -23,7 +23,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_runway_groceries',
     when: { k: 'runway', cmp: 'lt', v: 8 },
-    text: 'The grocery run gets surgical. The laundromat owner slips you a dryer token and pretends she didn’t.',
+    text: 'The grocery run gets surgical. Mrs. Delgado slips you a dryer token and pretends she didn’t.',
   },
   {
     id: 'f_runway_invoices',

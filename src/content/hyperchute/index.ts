@@ -101,7 +101,7 @@ export const HYPERCHUTE: ChapterDef = {
   id: 'hyperchute',
   title: 'HYPERCHUTE',
   tagline: 'A railway in the sky, built from a garage.',
-  entry: 'h_entry',
+  entry: 'h_seedling',
   insolvency: 'h_insolvency',
   burnout: 'h_burnout',
   opening: { treasury: 120000, burn: 3800, revenue: 0 },

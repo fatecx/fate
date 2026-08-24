@@ -8,12 +8,76 @@ import { CONTENT } from '../src/content/world'
 import { applyEffects } from '../src/engine/effects'
 import { newGame } from '../src/engine/reduce'
 import { netBurn, runwayWeeks, type GameState } from '../src/engine/types'
-import { eliteBot, greedyBot, randomBot } from './sim/bots'
+import { eliteBot, greedyBot, randomBot, type Policy } from './sim/bots'
 import { playBiography, type RunResult } from './sim/run'
 
 function sweep(policy: typeof randomBot | typeof greedyBot | typeof eliteBot, seeds: number[]): RunResult[] {
   return seeds.map((s) => playBiography(CONTENT, s, policy))
 }
+
+/**
+ * Witness pilot: plays by ordered label preferences, falling back to the
+ * least-stress legal choice. Rare endings must be reachable BY DESIGN, not by
+ * random bots stumbling in — each witness documents one authored road.
+ */
+function witness(prefs: RegExp[]): Policy {
+  return ({ content, st, legal }) => {
+    const scene = content.chapters[st.company.id].scenes.find((s) => s.id === st.company.queue[0])!
+    for (const re of prefs) {
+      const i = legal.find((ix) => re.test(scene.choices[ix].label))
+      if (i !== undefined) return i
+    }
+    let best = legal[0]
+    let bestD = Infinity
+    for (const ix of legal) {
+      const d = scene.choices[ix].effects.reduce((s, fx) => s + (fx.e === 'stress' ? fx.d : 0), 0)
+      if (d < bestD) {
+        bestD = d
+        best = ix
+      }
+    }
+    return best
+  }
+}
+
+// The road to the bell: seed money, allies, corridor, drops, cred, capital, refusal, composure.
+const IPO_ROAD: RegExp[] = [
+  /Take it\. One percent/,
+  /Recruit an advisor/,
+  /Welcome aboard/,
+  /One percent, plus the rolodex/,
+  /Hear her out/,
+  /Take the check/,
+  /Down round/,
+  /Bridge loan/,
+  /File the corridor pilot/,
+  /Call in Tomás/,
+  /Accept the corridor/,
+  /Open the list/,
+  /Three weeks somewhere/,
+  /\$9,500 a month/,
+  /Charm him/,
+  /Full access/,
+  /Face year two/,
+  /Sell reliability/,
+  /Grant it\. W-2s/,
+  /Comply completely/,
+  /Qualify a second supplier/,
+  /Two more points\. Make her a founder/,
+  /Ride it\. National shows/,
+  /Take it\. Win the war/,
+  /Even: you, June/,
+  /Ground the fleet/,
+  /Hand her everything/,
+  /ground first, publish everything/,
+  /Testify personally/,
+  /Refuse\. The railway is not for sale/,
+  /Ride for the listing/,
+  /Price it honest/,
+]
+
+const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -3), /Counter: not the company/]
+const WALKAWAY_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -2), /Open-source the stack/]
 
 describe('derived-number math', () => {
   it('runway = treasury / net burn', () => {
@@ -67,13 +131,24 @@ describe('monte carlo biography sweep', () => {
     expect(median).toBeLessThan(900)
   })
 
-  it('every ending of every chapter is reachable across the sweep', () => {
-    const seen = new Set(all.flatMap((r) => r.chapters.map((c) => `${c.id}:${c.endingId}`)))
+  it('every ending of every chapter is reachable — sweep plus authored witness roads', () => {
+    const witnesses = [IPO_ROAD, BECOME_THEM_ROAD, WALKAWAY_ROAD].flatMap((prefs) =>
+      [3, 11, 29].map((seed) => playBiography(CONTENT, seed, witness(prefs))),
+    )
+    const seen = new Set(
+      [...all, ...witnesses].flatMap((r) => r.chapters.map((c) => `${c.id}:${c.endingId}`)),
+    )
     for (const id of ['hyperchute', 'teleport', 'skyline', 'escape'] as const) {
       for (const e of CONTENT.chapters[id].endings) {
         expect(seen.has(`${id}:${e.id}`), `unreached: ${id}:${e.id}`).toBe(true)
       }
     }
+  })
+
+  it('the authored IPO road actually rings the bell', () => {
+    const runs = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(IPO_ROAD)))
+    const hits = runs.filter((r) => r.chapters.some((c) => c.id === 'hyperchute' && c.endingId === 'triumph_ipo'))
+    expect(hits.length, 'no witness seed completes the hardest path').toBeGreaterThan(0)
   })
 
   it('the panic counter works and panic happens somewhere', () => {

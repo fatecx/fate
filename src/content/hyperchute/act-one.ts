@@ -6,8 +6,60 @@ import type { SceneDef } from '../schema'
  */
 export const ACT_ONE: readonly SceneDef[] = [
   {
+    id: 'h_seedling',
+    title: 'DON’T YOU HAVE A JOB?',
+    landmark: true,
+    speaker: 'marisol',
+    prose:
+      'Mrs. Delgado owns the laundromat, the building, and — by long habit — the moral authority of the block. She takes the stairs at 8 a.m. with a rent envelope in one hand and a question she has clearly rehearsed: “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job. A railway in the sky. Boxes that fall soft as rain, to anyone, not just the hills. She squints at the tethered shuttle for a long, unhurried minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, bank-banded. Ten thousand dollars. “I was saving for a cruise. Boats are slow.”',
+    choices: [
+      {
+        label: 'Take it. One percent, notarized on a laundry receipt.',
+        effects: [
+          { e: 'meet', who: 'marisol' },
+          { e: 'treasury', d: 10000 },
+          { e: 'stake', who: 'marisol', d: 1 },
+          { e: 'rel', who: 'marisol', aff: 2, resp: 1 },
+          { e: 'score', d: 1 },
+          { e: 'flag', scope: 'company', key: 'delgado_seed', v: true },
+        ],
+        goto: 'h_entry',
+        result:
+          'She signs the receipt like a woman who has closed harder deals, then tapes her copy to the wall behind the register — where the whole neighborhood will see it.',
+      },
+      {
+        label: 'Take it as a loan. Pay her back double, someday.',
+        effects: [
+          { e: 'meet', who: 'marisol' },
+          { e: 'treasury', d: 10000 },
+          { e: 'rel', who: 'marisol', aff: 1, resp: 2 },
+          { e: 'stress', d: 2 },
+          { e: 'flag', scope: 'company', key: 'delgado_loan', v: true },
+        ],
+        goto: 'h_entry',
+        result:
+          '“Double,” she repeats, satisfied, and writes it in a ledger older than you. Owing money to a bank is a number. Owing it to a woman you see every morning is a schedule.',
+      },
+      {
+        label: 'Refuse. Her cruise money isn’t venture capital.',
+        effects: [
+          { e: 'meet', who: 'marisol' },
+          { e: 'rel', who: 'marisol', aff: 1, resp: 2 },
+          { e: 'rep', d: 1 },
+          { e: 'stress', d: 1 },
+          { e: 'flag', scope: 'company', key: 'delgado_declined', v: true },
+        ],
+        goto: 'h_entry',
+        result:
+          'She puts the envelope away without offense, the way people do when they know the offer stands forever. “Then my porch is first,” she says. “When the boxes fall.”',
+      },
+    ],
+  },
+  {
     id: 'h_entry',
     landmark: true,
+    leadIn:
+      'The stairs stop creaking. The garage is yours again — dryer heat, solder smoke, and the whole improbable thing waiting to be started.',
     title: 'THE GARAGE',
     prose:
       'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors and a pneumatic drop-tube salvaged from a dead bank’s drive-through. On your screen, the incorporation papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
@@ -597,7 +649,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The laundromat owner raises your rent and calls it congratulations. The waiting list is a spreadsheet now. There is money in the account that did not come from anyone’s savings, and there is a folder of letters from the Office of Aerial Corridors thicker than the Bible in the room next door. Whatever comes next — the clone, the war, the thing nobody has thought of yet — the railway is real. You built that. With help you chose well or didn’t.',
+      'Mrs. Delgado raises your rent and calls it congratulations — investor or not, business is business. The waiting list is a spreadsheet now. There is money in the account that did not come from anyone’s savings, and there is a folder of letters from the Office of Aerial Corridors thicker than the Bible in the room next door. Whatever comes next — the clone, the war, the thing nobody has thought of yet — the railway is real. You built that. With help you chose well or didn’t.',
     choices: [
       {
         label: 'Face year two',
