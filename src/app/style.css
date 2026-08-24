@@ -141,7 +141,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* ---- story column ---- */
 .story { overflow-y: auto; padding: 30px clamp(20px, 6vw, 90px) 60px; scroll-behavior: smooth; }
 .beat { max-width: 62ch; margin-bottom: 18px; }
-.beat-head { margin-top: 2px; }
 .beat-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--dim); text-transform: uppercase; }
 .beat-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.05em; margin: 3px 0 7px; text-wrap: balance; }
 .beat-prose { white-space: pre-wrap; }
@@ -151,6 +150,8 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .leadin {
   max-width: 62ch; margin-bottom: 12px; white-space: pre-wrap;
 }
+/* Outcome prose is story, not annotation — same stream, same voice. */
+.outcome { max-width: 62ch; margin: 14px 0 18px; white-space: pre-wrap; }
 /* Your answered choice keeps its button body, greyed into history. */
 .youbtn {
   max-width: 62ch; background: var(--panel);
@@ -158,7 +159,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   padding: 13px 18px; font-weight: 600; font-size: 15px;
   margin: 0 0 14px;
 }
-.outcome { font-style: italic; color: var(--dim); font-size: 14px; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid var(--line); }
+
 
 .choices { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
 .choice {

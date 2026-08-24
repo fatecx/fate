@@ -368,8 +368,6 @@ function transcriptHtml(): string {
         default:
           return `<section class="beat past">
             ${b.leadIn ? `<div class="leadin">${esc(b.leadIn)}</div>` : ''}
-            <div class="beat-kicker">${esc(b.speakerName ? b.speakerName : chapterTitle(st.company.id))}</div>
-            ${b.title ? `<h2 class="beat-title">${esc(b.title)}</h2>` : ''}
             <p class="beat-prose">${esc(b.prose ?? '')}</p>
           </section>`
       }
@@ -502,20 +500,14 @@ function choicesInner(sceneId: string): string {
 
 // ---- live-scene plumbing -----------------------------------------------------
 
-/** Typewriter segments: filler → leadIn → prose, in story order. */
+/** Typewriter segments: outcome → filler → leadIn → prose, in story order. */
 let curSegs: { el: HTMLElement; text: string }[] = []
 let pendingEl: HTMLElement | null = null
-let curHeadEl: HTMLElement | null = null
 
 function finishTyping(): void {
   typing = false
   for (const s of curSegs) s.el.textContent = s.text
-  if (curHeadEl) curHeadEl.style.visibility = 'visible'
   if (pendingEl) pendingEl.style.visibility = 'visible'
-}
-
-function showsTitle(scene: { kind?: string; landmark?: boolean }): boolean {
-  return scene.kind === 'cutscene' || scene.landmark === true
 }
 
 /** Replace the left card for the scene being mounted — the face matches the voice. */
@@ -529,29 +521,23 @@ function refreshCard(): void {
   if (canvas) startAmbient(canvas)
 }
 
-/** Append the next scene skeleton and run its typewriter. */
+/** Append the next scene skeleton and run its typewriter. Headings live in the
+ *  backend and the map only — in play, the story is one unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
-  const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
     ${scene.leadIn ? `<div class="leadin"></div>` : ''}
-    <div class="beat-head"${scene.leadIn ? ' style="visibility:hidden"' : ''}>
-      <div class="beat-kicker">${speaker}</div>
-      ${showsTitle(scene) ? `<h2 class="beat-title">${esc(scene.title)}</h2>` : ''}
-    </div>
     <p class="beat-prose"></p>
   </section><div class="choices" style="visibility:hidden"></div>`
   story.appendChild(tpl.content)
 
   const beat = story.querySelector('.beat:last-of-type')!
-  curHeadEl = beat.querySelector('.beat-head') as HTMLElement
   curSegs = [...preSegs]
   const leadEl = beat.querySelector('.leadin') as HTMLElement | null
   if (leadEl && scene.leadIn) curSegs.push({ el: leadEl, text: scene.leadIn })
   curSegs.push({ el: beat.querySelector('.beat-prose') as HTMLElement, text: scene.prose })
-  const proseIdx = curSegs.length - 1
   pendingEl = story.querySelector('.choices:last-of-type')
   if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
 
@@ -559,7 +545,6 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
   typing = true
   let seg = 0
   let i = 0
-  if (proseIdx === 0 && curHeadEl) curHeadEl.style.visibility = 'visible'
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const step = (): void => {
     if (!typing) return
@@ -570,8 +555,6 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
     if (i >= cur.text.length && seg < curSegs.length - 1) {
       seg += 1
       i = 0
-      // the speaker header lands right before their prose begins
-      if (seg === proseIdx && curHeadEl) curHeadEl.style.visibility = 'visible'
     }
     if (seg < curSegs.length - 1 || i < curSegs[seg].text.length) requestAnimationFrame(step)
     else finishTyping()
@@ -1027,22 +1010,26 @@ function choose(index: number): void {
   // record the beat for persistence
   transcript.push({
     kind: 'scene',
-    title: showsTitle(scene) ? scene.title : undefined,
+    title: scene.title,
     speakerName: scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD',
     prose: scene.prose,
     leadIn: scene.leadIn,
   })
   transcript.push({ kind: 'you', text: choice.label })
 
-  // outcome prose lands below the greyed decision
+  // Outcome prose continues the story below the greyed decision — same stream,
+  // same voice; it types with everything that follows.
   let lastNew: HTMLElement | null = null
+  const preSegs: { el: HTMLElement; text: string }[] = []
   if (choice.result) {
     transcript.push({ kind: 'outcome', prose: choice.result })
     const tpl = document.createElement('template')
-    tpl.innerHTML = `<div class="outcome">${esc(choice.result)}</div>`
+    tpl.innerHTML = `<div class="outcome"></div>`
     const el = tpl.content.firstElementChild as HTMLElement
     container?.after(el)
     lastNew = el
+    if (st.phase === 'epilogue') el.textContent = choice.result
+    else preSegs.push({ el, text: choice.result })
   }
 
   if (st.phase === 'epilogue') {
@@ -1052,7 +1039,6 @@ function choose(index: number): void {
     return
   }
 
-  const preSegs: { el: HTMLElement; text: string }[] = []
   if (st.epoch > beforeEpoch) {
     const filler = weekFillerText(st.epoch - beforeEpoch)
     transcript.push({ kind: 'week', text: String(st.epoch), filler })
