@@ -7,13 +7,13 @@ import { CONTENT } from '../content/world'
 import { FILLERS, BLUR_FILLERS } from '../content/fillers'
 import { newGame, reduce, getScene, choiceLegal, spendBlocked } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
-import type { Pred } from '../engine/predicates'
 import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
+import { lockCopy } from './locks'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -403,39 +403,6 @@ function cardHtml(): string {
 
 const fmt = makeFmt(CONTENT.characters)
 
-// ---- lock explanations — show only what's actually missing, in fiction -------
-
-/** Leaves of the predicate that are failing right now (why the door is shut). */
-function failingLeaves(p: Pred, negate = false): Pred[] {
-  const holds = evalPred(p, st) !== negate
-  if (holds) return []
-  switch (p.k) {
-    case 'all':
-      return negate ? [p] : p.of.flatMap((q) => failingLeaves(q))
-    case 'any':
-      return negate ? [p] : p.of.flatMap((q) => failingLeaves(q))
-    case 'not':
-      return failingLeaves(p.p, !negate)
-    default:
-      return [negate ? { k: 'not', p } : p]
-  }
-}
-
-function fmtLeaf(p: Pred): string {
-  if (p.k === 'stress' && (p.cmp === 'lt' || p.cmp === 'lte')) return 'a founder who has slept'
-  if (p.k === 'not') {
-    const inner = p.p
-    if (inner.k === 'flag' && inner.key === 'lawyer_ally') return 'Tomás is already on your cap table'
-    return `no longer possible — ${fmt.fmtPred(inner)}`
-  }
-  return fmt.fmtPred(p)
-}
-
-/** True when the choice should be hidden entirely: it names a door through a person the founder has never met. */
-function locksOnStranger(leaves: Pred[]): boolean {
-  return leaves.some((l) => l.k === 'met' || l.k === 'rel' || (l.k === 'not' && l.p.k === 'met'))
-}
-
 // ---- effect chips — the declared cost/gain of a choice, worn on its sleeve ----
 
 function moneyAbs(n: number): string {
@@ -487,10 +454,10 @@ function choicesInner(sceneId: string): string {
         if (spendBlocked(st, c)) {
           req = `<span class="req">needs money the account doesn't have</span>`
         } else if (c.requires) {
-          const leaves = failingLeaves(c.requires)
-          // Doors through strangers don't exist yet — showing them breaks the fiction.
-          if (locksOnStranger(leaves)) return ''
-          req = `<span class="req">needs ${esc(leaves.map(fmtLeaf).join(' · '))}</span>`
+          const copy = lockCopy(c.requires, st, fmt.name)
+          // Dead doors (closed by who you already are) and strangers: gone, not teased.
+          if (copy.hide) return ''
+          req = `<span class="req">needs ${esc(copy.needs.join(' · '))}</span>`
         }
       }
       const kbd = scene.kind === 'bridge' ? '<kbd class="kbd">space</kbd>' : ''
