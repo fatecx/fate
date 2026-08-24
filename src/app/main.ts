@@ -226,15 +226,16 @@ function railHtml(): string {
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
-    <div class="weektag">WEEK ${st.epoch}</div>
+    <div class="weektag">WEEK ${st.epoch + 1}</div>
     <div class="rail-meters">
       ${runwayBlock}
       <div class="stressbox">
         <div class="mlabel"><span>STRESS</span><span>${stress}</span></div>
         <div class="stresscells">${cells}</div>
       </div>
+      <div class="repchip" title="Bank balance">${fmtMoney(st.company.treasury)}</div>
       <div class="repchip" title="Credibility — opens and closes doors across your whole life">CRED ${rep >= 0 ? '+' : ''}${rep}</div>
-      <button class="chap" id="coToggle" title="Company papers, account, settings">${esc(chapterTitle(st.company.id))}, INC. ▾</button>
+      <button class="chap" id="coToggle" title="Company papers, account, settings"><span class="chap-label">${esc(chapterTitle(st.company.id))}, INC. ▾</span></button>
     </div>
   </header>`
 }
@@ -358,7 +359,7 @@ function transcriptHtml(): string {
             <div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>
           </section>`
         case 'week':
-          return `<div class="weekbeat past"><div class="weekmark">— WEEK ${b.text} —</div>${
+          return `<div class="weekbeat past"><div class="weekmark">— WEEK ${Number(b.text) + 1} —</div>${
             b.filler ? `<div class="filler">${esc(b.filler)}</div>` : ''
           }</div>`
         case 'you':
@@ -851,7 +852,7 @@ function renderWelcome(saved: Save | null): void {
     takeover(`
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
       <h1 class="tk-title">FATE</h1>
-      <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch}.</p>
+      <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch + 1}.</p>
       <button class="cta" id="wlContinue">Continue →</button>
       <div class="tk-id">One wallet, one life. This biography is permanent.</div>
       ${signedRowHtml()}`)
@@ -1043,7 +1044,7 @@ function choose(index: number): void {
     const filler = weekFillerText(st.epoch - beforeEpoch)
     transcript.push({ kind: 'week', text: String(st.epoch), filler })
     const wk = document.createElement('template')
-    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— WEEK ${st.epoch} —</div>${
+    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— WEEK ${st.epoch + 1} —</div>${
       filler ? `<div class="filler"></div>` : ''
     }</div>`
     const el = wk.content.firstElementChild as HTMLElement
