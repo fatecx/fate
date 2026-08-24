@@ -588,8 +588,8 @@ function renderPlaying(): void {
   story.scrollTop = chapterChanged ? 0 : story.scrollHeight
 }
 
-/** Sequential full-screen beats (interludes, prologues). */
-function showScreens(beats: { kicker?: string; title: string; prose: string }[], idx = 0, onDone?: () => void): void {
+/** Sequential full-screen beats (interludes, prologues) — manga panels on black. */
+function showScreens(beats: { kicker?: string; title: string; prose: string; art?: string }[], idx = 0, onDone?: () => void): void {
   if (idx >= beats.length) {
     document.querySelector('.takeover')?.remove()
     onDone?.()
@@ -598,8 +598,13 @@ function showScreens(beats: { kicker?: string; title: string; prose: string }[],
   document.querySelector('.takeover')?.remove()
   const b = beats[idx]
   const last = idx === beats.length - 1
+  // Alternate the drift direction so consecutive panels breathe differently.
+  const cine = b.art
+    ? `<div class="tk-cine ${idx % 2 ? 'drift-b' : 'drift-a'}"><img src="/art/${b.art}.webp" alt="" onerror="this.parentElement.remove()"></div>`
+    : ''
   takeover(`
     <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
+    ${cine}
     <h1 class="tk-title">${esc(b.title)}</h1>
     <p class="tk-body">${esc(b.prose)}</p>
     <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>
@@ -765,9 +770,9 @@ function showEpilogue(): void {
 
     const inter = prevEndingDef?.interlude
     const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
-    const screens: { kicker?: string; title: string; prose: string }[] = []
-    if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose })
-    for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose })
+    const screens: { kicker?: string; title: string; prose: string; art?: string }[] = []
+    if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
+    for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
     if (screens.length) showScreens(screens, 0, () => render())
   })
   document.getElementById('finale')?.addEventListener('click', () => {
@@ -938,7 +943,7 @@ function startNewLife(): void {
   // Re-render when the prologue closes so the first scene streams in view,
   // not invisibly underneath the takeover.
   if (pro) showScreens(
-    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose })),
+    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })),
     0,
     () => render(),
   )

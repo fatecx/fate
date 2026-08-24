@@ -88,24 +88,28 @@ const PROLOGUE: readonly PrologueBeat[] = [
   {
     kicker: 'PROLOGUE · 2031',
     title: 'THE CITY FROM BELOW',
+    art: 'prologue_below',
     prose:
       'You grew up in the Flats, under a sky that worked for someone else.\n\nThe drones came when you were nineteen — a hundred thousand of them, blue and quiet, sliding along invisible rails toward the hills where the tips are good. You learned to read their running lights the way other kids read constellations. They never stopped on your street. Nothing that flies ever stopped on your street.\n\nDown here, deliveries came the old way: a courier on a scratched-up e-bike, racing an algorithm’s stopwatch for rent money, and your neighbor Mrs. Okafor waiting forty minutes for a bus to bring back her insulin because the pharmacy quit stocking it. You watched all of it from below, every day, until watching started to feel like a decision you were making.',
   },
   {
     kicker: 'PROLOGUE · THE MACHINE',
     title: 'EIGHT YEARS INSIDE IT',
+    art: 'prologue_dispatch',
     prose:
       'You know exactly how the sky works, because for eight years it was your job.\n\nA dispatch floor, a MERIDIAN sub-contractor, a headset. MERIDIAN LOGISTICS NETWORKS: the ninety-one-billion-dollar colossus whose routing brain makes eleven million decisions a minute and whose executives mostly announce what it already decided. There was a T-shirt the managers wore on launch days — LOGISTICS IS A SOLVED PROBLEM — and for the hills, it was.\n\nOver your desk hung the planning map. Your whole neighborhood — your school, your mother’s block, the laundromat on the corner — sat inside a gray zone stamped LOW-DENSITY YIELD. Eight years, you stared at that stamp. A verdict, printed in helvetica, on every street you ever loved.',
   },
   {
     kicker: 'PROLOGUE · THE TUESDAY',
     title: 'EVERYTHING YOU HAD',
+    art: 'prologue_garage',
     prose:
       'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nWhat you had: a severance check, an index fund, a car, half an apartment deposit, and an idea that would not leave you alone. You sold all of it except the idea — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nWhat you bought: a lease on a garage above the Sudz & Spin laundromat, four months of nights, and the parts. Dryer heat through the floorboards. Solder smoke. And slowly, on a braided tether under the ceiling, a machine taking shape — the thing you saw every night on the dispatch floor when you closed your eyes.',
   },
   {
     kicker: 'PROLOGUE · THE RAILWAY',
     title: 'SOFT AS RAIN',
+    art: 'prologue_corridor',
     prose:
       'A railway in the sky. Not drones — a fixed line. Autonomous shuttles that hold station two hundred feet up and lower each parcel down a pneumatic tube to any porch with a receiver sleeve. Four minutes. Soft as rain. Priced like a bus ticket. No propellers over playgrounds, no stopwatch chewing up couriers — gravity, tamed, for the streets the machines forgot.\n\nAnd the plan is the part that makes you grin at 3 a.m.: start exactly where MERIDIAN refuses to go. One permitted corridor over one forgotten neighborhood. Sixty subscribing porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the incorporation papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
   },

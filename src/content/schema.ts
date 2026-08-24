@@ -13,6 +13,8 @@ export interface PrologueBeat {
   kicker?: string
   title: string
   prose: string
+  /** Widescreen cinematic art id (public/art/{art}.webp) shown above the text. Optional — text always carries the screen. */
+  art?: string
 }
 
 export interface SceneDef {
