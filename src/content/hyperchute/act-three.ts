@@ -299,13 +299,11 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
       },
       {
-        label: 'Delay the pricing — one more quarter of growth first.',
+        label: 'Pull the listing — sell to the syndicate instead.',
         effects: [
           { e: 'flag', scope: 'company', key: 'ipo_done', v: true },
-          { e: 'stress', d: 4 },
+          { e: 'end', ending: 'acquired' },
         ],
-        goto: 'h_last_stand',
-        result: 'The bankers warn you about windows. Windows close. You book the road show again for spring.',
       },
     ],
   },
@@ -339,9 +337,9 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'rep', d: 2 },
           { e: 'score', d: 2 },
           { e: 'flag', scope: 'company', key: 'last_done', v: true },
-          { e: 'end', ending: 'triumph_ipo' },
         ],
-        result: 'The listing happens almost as a footnote to the thing itself: the people’s network, listed at 9:31 a.m., with Rosa from the courier pool holding the button.',
+        goto: 'h_ipo_road',
+        result: 'Ninety days later the Flats is yours again, porch by porch — and the bankers who stopped calling start calling back. There is exactly one door left, and it goes through a pricing call.',
       },
       {
         label: 'Sell to the rival syndicate — anyone but MERIDIAN.',

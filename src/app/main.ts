@@ -352,7 +352,7 @@ function transcriptHtml(): string {
             b.filler ? `<div class="filler">${esc(b.filler)}</div>` : ''
           }</div>`
         case 'you':
-          return `<div class="you past">▸ ${esc(b.text ?? '')}</div>`
+          return `<div class="youbtn past">${esc(b.text ?? '')}</div>`
         case 'outcome':
           return `<div class="outcome past">${esc(b.prose ?? '')}</div>`
         default:
@@ -441,7 +441,8 @@ function choicesInner(sceneId: string): string {
     .map((c, i) => {
       const legal = !c.requires || evalPred(c.requires, st)
       const req = legal || !c.requires ? '' : `<span class="req">requires ${esc(fmt.fmtPred(c.requires))}</span>`
-      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}">${esc(c.label)}${fxChips(c.effects)}${req}</button>`
+      const kbd = scene.kind === 'bridge' ? '<kbd class="kbd">space</kbd>' : ''
+      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}"><span class="c-label">${esc(c.label)}</span>${fxChips(c.effects)}${kbd}${req}</button>`
     })
     .join('')
 }
@@ -528,7 +529,7 @@ function renderPlaying(): void {
       <div class="tk-kicker">WORLD${speaker ? ` · ${esc(speaker)}` : ''}</div>
       <h1 class="tk-title">${esc(scene.title)}</h1>
       <p class="tk-body">${esc(scene.prose)}</p>
-      <button class="cta" id="cutGo">Continue →</button>
+      <button class="cta" id="cutGo">Continue → <kbd class="kbd">space</kbd></button>
     `)
     document.getElementById('cutGo')?.addEventListener('click', () => {
       document.querySelector('.takeover')?.remove()
@@ -564,7 +565,7 @@ function showScreens(beats: { kicker?: string; title: string; prose: string }[],
     <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
     <h1 class="tk-title">${esc(b.title)}</h1>
     <p class="tk-body">${esc(b.prose)}</p>
-    <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'}</button>
+    <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>
   `)
   document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1, onDone))
 }
@@ -581,7 +582,12 @@ app.addEventListener('click', (e) => {
   if (target.closest('#coToggle')) {
     const panel = document.getElementById('coPanel')
     if (panel) {
-      if (panel.hidden) panel.innerHTML = incPanelHtml() + accountHtml()
+      if (panel.hidden) {
+        panel.innerHTML = incPanelHtml() + accountHtml()
+        // Anchor just below the rail, whatever height it wrapped to.
+        const rail = document.querySelector('.rail') as HTMLElement | null
+        if (rail) panel.style.top = `${rail.offsetHeight + 10}px`
+      }
       panel.hidden = !panel.hidden
     }
     return
@@ -626,6 +632,32 @@ async function wipeAndRestart(): Promise<void> {
   await cloudClear()
   startNewLife()
 }
+
+// Space advances: skips the typewriter, turns bridges, dismisses single-CTA
+// takeovers (cutscenes, prologue screens). Never decides a real choice.
+window.addEventListener('keydown', (e) => {
+  if (e.code !== 'Space') return
+  const ae = document.activeElement as HTMLElement | null
+  if (ae && ae.tagName === 'BUTTON') ae.blur() // avoid native double-activation
+  const tk = document.querySelector('.takeover')
+  if (tk) {
+    const ctas = tk.querySelectorAll<HTMLElement>('.cta')
+    if (ctas.length === 1) {
+      e.preventDefault()
+      ctas[0].click()
+    }
+    return
+  }
+  e.preventDefault() // story mode: space never scrolls
+  if (typing) {
+    finishTyping()
+    return
+  }
+  if (pendingEl?.classList.contains('bridge')) {
+    const btn = pendingEl.querySelector<HTMLElement>('.choice:not(.locked):not(.picked)')
+    btn?.click()
+  }
+})
 
 function takeover(inner: string): void {
   const el = document.createElement('div')
