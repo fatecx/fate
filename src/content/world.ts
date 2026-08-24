@@ -59,6 +59,20 @@ const CHARACTERS: Record<string, CharacterDef> = {
     blurb: 'Writes the column founders pretend not to read.',
     hiddenTrait: 'A source who feels used becomes a headline.',
   },
+  dana: {
+    id: 'dana',
+    name: 'Dana Okafor',
+    role: 'Former corridors commissioner',
+    blurb: 'Ran the Office of Aerial Corridors for nine years before “spending more time with family.”',
+    hiddenTrait: 'Knows exactly which clause in which annex each department is afraid of.',
+  },
+  ray: {
+    id: 'ray',
+    name: 'Ray Delgado',
+    role: 'Owner, Fresno Aerostructures',
+    blurb: 'Builds everyone’s drones, trusts almost nobody, delivers early anyway.',
+    hiddenTrait: 'Keeps a hand-written ledger of every founder who paid late. You are on it, or you are not.',
+  },
 }
 
 export const CONTENT: Content = {

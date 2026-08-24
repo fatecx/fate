@@ -1,5 +1,5 @@
 import type { CompanyId } from '../engine/types'
-import type { ChapterDef, EndingDef, SceneDef } from './schema'
+import type { ChapterDef, EndingDef, PrologueBeat, SceneDef } from './schema'
 
 /**
  * Factory for STUB chapters 2–4. They exist so the engine plays full
@@ -97,6 +97,12 @@ export function makeStubChapter(cfg: {
       title: `${cfg.title} — TRIUMPH (STUB)`,
       kind: 'triumph',
       scoreBonus: 10,
+      skipYears: 2,
+      interlude: {
+        kicker: 'INTERLUDE · TWO YEARS',
+        title: 'WHAT THE TRIUMPH BECAME',
+        prose: 'Two years at altitude. The world changed around your company, and then it started calling. Authored interludes arrive with this chapter.',
+      },
       prose: 'Placeholder triumph. The real ending arrives with this chapter’s authoring phase.',
     },
     {
@@ -104,6 +110,12 @@ export function makeStubChapter(cfg: {
       title: `${cfg.title} — ACQUIRED (STUB)`,
       kind: 'sale',
       scoreBonus: 6,
+      skipYears: 3,
+      interlude: {
+        kicker: 'INTERLUDE · THREE YEARS',
+        title: 'WHAT THE EXIT BECAME',
+        prose: 'Three years of golden handcuffs and watching from inside. Authored interludes arrive with this chapter.',
+      },
       prose: 'Placeholder exit.',
     },
     {
@@ -111,7 +123,21 @@ export function makeStubChapter(cfg: {
       title: `${cfg.title} — RUIN (STUB)`,
       kind: 'ruin',
       scoreBonus: 0,
+      skipYears: 1,
+      interlude: {
+        kicker: 'INTERLUDE · ONE YEAR',
+        title: 'WHAT THE RUIN BECAME',
+        prose: 'A year rebuilding from the wreckage. The biography continues anyway.',
+      },
       prose: 'Placeholder ruin. The biography continues anyway.',
+    },
+  ]
+
+  const prologue: readonly PrologueBeat[] = [
+    {
+      kicker: 'THE NEXT IMPOSSIBLE THING',
+      title: cfg.title,
+      prose: `${cfg.entryProse}\n\nAuthored prologue arrives with this chapter.`,
     },
   ]
 
@@ -122,6 +148,7 @@ export function makeStubChapter(cfg: {
     entry: `${p}_entry`,
     insolvency: `${p}_insolvency`,
     opening: cfg.opening,
+    prologue,
     scenes,
     endings,
   }

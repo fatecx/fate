@@ -549,7 +549,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: -4 },
           { e: 'flag', scope: 'company', key: 'act1_done', v: true },
         ],
-        goto: 'h_stub_fight',
+        goto: 'h_bridge_y2',
         result: 'Year two begins the way year one ended: faster than expected.',
       },
     ],

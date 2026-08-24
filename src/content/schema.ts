@@ -7,8 +7,17 @@ import type { Effect } from '../engine/effects'
 import type { Pred } from '../engine/predicates'
 import type { CompanyId, Standing } from '../engine/types'
 
+export type SceneKind = 'scene' | 'bridge' | 'cutscene'
+
+export interface PrologueBeat {
+  kicker?: string
+  title: string
+  prose: string
+}
+
 export interface SceneDef {
   id: string
+  kind?: SceneKind // default 'scene'
   title: string
   /** Authored prose. The LLM render layer decorates later; the game runs on these strings. */
   prose: string
@@ -42,6 +51,10 @@ export interface EndingDef {
   kind: EndingKind
   prose: string
   scoreBonus: number
+  /** Years skipped between this ending and the next chapter's opening. */
+  skipYears?: number
+  /** Full-screen interlude: what you did with those years. */
+  interlude?: PrologueBeat
 }
 
 export interface ChapterDef {
@@ -52,6 +65,8 @@ export interface ChapterDef {
   /** Enqueued when treasury <= 0; its choices either rescue or end the chapter. */
   insolvency: string
   opening: { treasury: number; burn: number; revenue: number }
+  /** Full-screen beats shown before the first scene of the chapter. */
+  prologue?: readonly PrologueBeat[]
   scenes: readonly SceneDef[]
   endings: readonly EndingDef[]
 }

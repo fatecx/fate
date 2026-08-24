@@ -4,7 +4,7 @@ import { Rng } from '../../src/engine/rng'
 import { runwayWeeks, type GameState } from '../../src/engine/types'
 import type { Policy } from './bots'
 
-const EPOCH_CAP = 800
+const EPOCH_CAP = 1500
 
 export interface ChapterResult {
   id: string
@@ -41,7 +41,7 @@ function scanInvariants(st: GameState, violations: string[]): void {
     total += s.pct
   }
   if (total > 100.001) violations.push(`cap table sums to ${total} @${st.epoch}`)
-  if (st.epoch > EPOCH_CAP) violations.push(`epoch overrun @${st.epoch}`)
+  if (st.epoch > 1500) violations.push(`epoch overrun @${st.epoch}`)
 }
 
 /**

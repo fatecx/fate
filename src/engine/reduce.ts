@@ -210,6 +210,12 @@ export function reduce(content: Content, state: GameState, action: Action): Game
       }
       case 'foundNext': {
         if (st.phase !== 'epilogue') throw new Error('no epilogue to leave')
+        // Time skips between chapters: years pass as the ending dictates.
+        const last = st.ledger.completed[st.ledger.completed.length - 1]
+        const prevEnding = last
+          ? content.chapters[last.company].endings.find((e) => e.id === last.endingId)
+          : undefined
+        st.epoch += (prevEnding?.skipYears ?? 1) * 52
         const next = st.chapter + 1
         if (next >= ORDER.length) {
           st.phase = 'complete'

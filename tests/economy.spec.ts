@@ -64,7 +64,7 @@ describe('monte carlo biography sweep', () => {
     const epochs = all.map((r) => r.epochs).sort((a, b) => a - b)
     const median = epochs[Math.floor(epochs.length / 2)]
     expect(median).toBeGreaterThan(12)
-    expect(median).toBeLessThan(400)
+    expect(median).toBeLessThan(900)
   })
 
   it('every ending of every chapter is reachable across the sweep', () => {

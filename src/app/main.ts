@@ -14,11 +14,15 @@ import { makeFmt } from '../../scripts/map/format'
 const SAVE_KEY = 'fate-save-v2'
 
 interface BeatRec {
-  kind: 'scene' | 'you' | 'outcome' | 'week'
+  kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter'
   title?: string
   speakerName?: string
   prose?: string
   text?: string
+  company?: string
+  endingTitle?: string
+  span?: string
+  stake?: string
 }
 
 interface Save {
@@ -257,6 +261,12 @@ function transcriptHtml(): string {
   return transcript
     .map((b) => {
       switch (b.kind) {
+        case 'chapter':
+          return `<section class="memoir past">
+            <div class="beat-kicker">CHAPTER · ${esc(b.span ?? '')}</div>
+            <h2 class="beat-title">${esc(chapterTitle(b.company!))}, INC.</h2>
+            <div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>
+          </section>`
         case 'week':
           return `<div class="weekmark past">— WEEK ${b.text} —</div>`
         case 'you':
@@ -341,6 +351,7 @@ function mountScene(story: HTMLElement, sceneId: string): void {
   if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
 
   curFull = scene.prose
+  if (scene.kind === 'bridge') pendingEl?.classList.add('bridge')
   typing = true
   let i = 0
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -354,6 +365,8 @@ function mountScene(story: HTMLElement, sceneId: string): void {
   }
   requestAnimationFrame(step)
 }
+
+let renderedChapter = -1
 
 function renderPlaying(): void {
   const sceneId = st.company.queue[0]
@@ -369,8 +382,55 @@ function renderPlaying(): void {
   const canvas = app.querySelector('.card-canvas') as HTMLCanvasElement
   if (canvas) startAmbient(canvas)
 
+  const chapterChanged = st.chapter !== renderedChapter
+  renderedChapter = st.chapter
+
+  const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
+  if (scene?.kind === 'cutscene') {
+    // World-scale moments take the screen; no choices, just the weight.
+    const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : null
+    takeover(`
+      <div class="tk-kicker">WORLD${speaker ? ` · ${esc(speaker)}` : ''}</div>
+      <h1 class="tk-title">${esc(scene.title)}</h1>
+      <p class="tk-body">${esc(scene.prose)}</p>
+      <button class="cta" id="cutGo">Continue →</button>
+    `)
+    document.getElementById('cutGo')?.addEventListener('click', () => {
+      document.querySelector('.takeover')?.remove()
+      transcript.push({
+        kind: 'scene',
+        title: scene.title,
+        speakerName: speaker ?? 'THE WORLD',
+        prose: scene.prose,
+      })
+      st = reduce(CONTENT, st, { t: 'choose', index: 0 })
+      refreshRail()
+      persist()
+      render()
+    })
+    return
+  }
+
   if (sceneId) mountScene(story, sceneId)
-  story.scrollTop = story.scrollHeight
+  story.scrollTop = chapterChanged ? 0 : story.scrollHeight
+}
+
+/** Sequential full-screen beats (interludes, prologues). */
+function showScreens(beats: { kicker?: string; title: string; prose: string }[], idx = 0): void {
+  if (idx >= beats.length) {
+    document.querySelector('.takeover')?.remove()
+    return
+  }
+  document.querySelector('.takeover')?.remove()
+  const b = beats[idx]
+  const last = idx === beats.length - 1
+  takeover(`
+    <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
+    <h1 class="tk-title">${esc(b.title)}</h1>
+    <p class="tk-body">${esc(b.prose)}</p>
+    <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'}</button>
+  `)
+  document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1))
 }
 
 // One delegated listener for the whole app — survives re-renders.
@@ -436,10 +496,38 @@ function showEpilogue(): void {
   `)
   document.getElementById('next')?.addEventListener('click', () => {
     document.querySelector('.takeover')?.remove()
+    // Snapshot the life just ended, collapse it into a memoir card, then skip years.
+    const completed = st.ledger.completed[st.ledger.completed.length - 1]
+    const prevCompany = st.company
+    const prevEndingDef = CONTENT.chapters[completed.company].endings.find(
+      (e) => e.id === completed.endingId,
+    )
+    const years = prevEndingDef?.skipYears ?? 1
+    const stake = String(Math.round(prevCompany.capTable.find((s) => s.who === 'founder')?.pct ?? 0))
+    const spanFrom = 2031 + Math.floor(prevCompany.foundedEpoch / 52)
+    const spanTo = 2031 + Math.floor((st.epoch + years * 52) / 52)
+
     st = reduce(CONTENT, st, { t: 'foundNext' })
-    transcript.push({ kind: 'week', text: String(st.epoch) })
+    transcript = [
+      {
+        kind: 'chapter',
+        company: prevCompany.id,
+        endingTitle: prevEndingDef?.title ?? completed.endingId.replace(/_/g, ' '),
+        span: `${spanFrom}–${spanTo}`,
+        stake,
+      },
+      { kind: 'week', text: String(st.epoch) },
+    ]
     persist()
+    renderedChapter = -1
     render()
+
+    const inter = prevEndingDef?.interlude
+    const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
+    const screens: { kicker?: string; title: string; prose: string }[] = []
+    if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose })
+    for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose })
+    if (screens.length) showScreens(screens)
   })
   document.getElementById('finale')?.addEventListener('click', () => {
     document.querySelector('.takeover')?.remove()
@@ -484,8 +572,11 @@ function renderSplash(): void {
 function startNewLife(): void {
   st = newGame(CONTENT, (Date.now() ^ performance.now()) >>> 0)
   transcript = []
+  renderedChapter = -1
   persist()
   render()
+  const pro = CONTENT.chapters[st.company.id].prologue
+  if (pro) showScreens(pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose })))
 }
 
 function render(): void {
