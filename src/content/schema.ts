@@ -22,6 +22,12 @@ export interface SceneDef {
   /** Landmark beats keep their big title in the story column; ordinary scenes show only the speaker kicker. */
   landmark?: boolean
   /**
+   * World-card art id (public/art/{art}.webp) shown on the scene card instead
+   * of the speaker portrait. Purely presentational — if the file is missing,
+   * the sigil renders and play continues (art never blocks).
+   */
+  art?: string
+  /**
    * Connective arrival prose — one to three sentences of world texture shown
    * dim above the beat, situating why this scene is happening now. Required
    * (by test) on every dealt scene so arrivals never feel like teleports.
@@ -58,6 +64,8 @@ export interface EndingDef {
   title: string
   kind: EndingKind
   prose: string
+  /** World-card art id (public/art/{art}.webp) shown on the epilogue screen. */
+  art?: string
   scoreBonus: number
   /** Years skipped between this ending and the next chapter's opening. */
   skipYears?: number

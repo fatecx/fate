@@ -389,11 +389,14 @@ function cardHtml(): string {
     fuse && fuse.total > 0
       ? `<div class="fuse-ring" style="background:conic-gradient(var(--accent) ${(fuse.remaining / fuse.total) * 100}%, transparent 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px)); mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));" title="${fuse.remaining} week(s) to answer"></div>`
       : ''
+  const artId = scene.art ?? scene.speaker ?? null
   return `
   <aside class="scene-card">
     <canvas class="card-canvas"></canvas>
     ${ring}
-    <div class="portrait"><span class="sigil">${initial}</span></div>
+    <div class="portrait"><span class="sigil">${initial}</span>${
+      artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
+    }</div>
     <div class="nameplate">
       <div class="np-name">${esc(name)}</div>
       ${role ? `<div class="np-role">${esc(role)}</div>` : ''}
@@ -726,6 +729,7 @@ function showEpilogue(): void {
     : `<button class="cta" id="next">Wire the check — found ${esc(nextChapterName())} →</button>`
   takeover(`
     <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(completed?.company ?? st.company.id))}</div>
+    ${ending.art ? `<img class="tk-art" src="/art/${ending.art}.webp" alt="" onerror="this.remove()">` : ''}
     <h1 class="tk-title">${esc(ending.title)}</h1>
     <p class="tk-body">${esc(ending.prose)}</p>
     ${biographyStrip()}

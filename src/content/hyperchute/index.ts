@@ -10,6 +10,7 @@ const ENDINGS: readonly EndingDef[] = [
     id: 'triumph_ipo',
     title: 'THE PEOPLE’S NETWORK',
     kind: 'triumph',
+    art: 'world_bell',
     scoreBonus: 12,
     skipYears: 2,
     prose:

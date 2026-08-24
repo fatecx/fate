@@ -60,6 +60,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_entry',
     landmark: true,
+    art: 'world_garage',
     leadIn:
       'The stairs stop creaking. The garage is yours again — the tether creaking softly, the whole improbable thing waiting to be started.',
     title: 'THE GARAGE',
@@ -257,6 +258,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_hearing',
     title: 'THE DESCENT-SAFETY HEARING',
+    art: 'world_hearing_4b',
     priority: true,
     leadIn:
       'Room 4-B is on the third floor of a building designed to make people feel processed. You wear the one jacket that survived the solder work and carry the case in triplicate, per the instructions, because the Office of Aerial Corridors does not do PDFs.',
@@ -385,6 +387,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_first_drops_clean',
     landmark: true,
+    art: 'world_first_drop',
     title: 'BEAM DOWN',
     priority: true,
     leadIn:
@@ -430,6 +433,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_first_drops_rogue',
     landmark: true,
+    art: 'world_first_drop',
     title: 'TWELVE ROOFS, NO PERMISSION',
     priority: true,
     leadIn:

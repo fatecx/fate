@@ -13,6 +13,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_accident',
     landmark: true,
+    art: 'world_richmond',
     title: 'THE FIRST FORTY-EIGHT HOURS',
     priority: true,
     fuseEpochs: 2,
@@ -228,6 +229,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_war_room',
     landmark: true,
+    art: 'world_war_room',
     title: 'THE WAR ROOM',
     priority: true,
     leadIn:

@@ -140,11 +140,14 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card-canvas { position: absolute; inset: 0; }
 .portrait {
   position: relative; margin: auto; text-align: center;
-  width: min(64%, 260px); aspect-ratio: 1;
+  width: min(70%, 300px); aspect-ratio: 1;
   border-radius: 8px; border: 1.5px solid var(--ink);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.12);
+  overflow: hidden; background: var(--paper, #fafaf7);
 }
+/* The print sits inside the frame; if it fails to load it removes itself and the sigil shows. */
+.portrait-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .fuse-ring { position: absolute; inset: -9px; border-radius: 14px; pointer-events: none; }
 .nameplate { position: relative; text-align: center; padding: 0 20px 34px; }
 .np-name { font-family: var(--display); font-weight: 600; letter-spacing: 0.1em; font-size: 15px; }
@@ -236,6 +239,11 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .takeover-inner { max-width: 60ch; padding: 40px; text-align: left; }
 .tk-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; }
+.tk-art {
+  display: block; width: min(58%, 260px); aspect-ratio: 1; object-fit: cover;
+  margin: 18px 0 6px; border: 1.5px solid var(--ink); border-radius: 8px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.12);
+}
 .tk-title { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 4vw, 38px); letter-spacing: 0.04em; margin: 12px 0 18px; text-wrap: balance; }
 .tk-body { line-height: 1.75; white-space: pre-wrap; color: #c9cac4; }
 .tk-strip { display: flex; gap: 8px; flex-wrap: wrap; margin: 26px 0; }
