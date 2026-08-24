@@ -181,7 +181,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'Six weeks into the storm, the vultures have sorted themselves into tiers: the ones who email, the ones who call, and the one who climbs your stairs in person on a Sunday, holding a folder like it weighs something.',
+      'A month into the storm, the vultures have sorted themselves into tiers: the ones who email, the ones who call, and the one who climbs your stairs in person on a Sunday, holding a folder like it weighs something.',
     when: {
       k: 'all',
       of: [
