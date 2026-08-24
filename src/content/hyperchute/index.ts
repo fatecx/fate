@@ -2,6 +2,7 @@ import type { ChapterDef, EndingDef, PrologueBeat } from '../schema'
 import { ACT_ONE } from './act-one'
 import { ACT_TWO } from './act-two'
 import { ACT_THREE } from './act-three'
+import { SURVIVAL } from './survival'
 import { LATE_STUBS } from './late-stubs'
 
 const ENDINGS: readonly EndingDef[] = [
@@ -47,7 +48,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF ODD JOBS',
       prose:
-        'A year of consulting for people who want your scar tissue more than your ideas. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you do not explain to anyone. When the phone finally rings about something new, you are ready in a way that only failing teaches.',
+        'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets; nobody says anything at dinner, which is its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you do not explain to anyone. When the phone finally rings about something new, you are ready in a way that only failing teaches.',
     },
   },
   {
@@ -106,6 +107,6 @@ export const HYPERCHUTE: ChapterDef = {
   burnout: 'h_burnout',
   opening: { treasury: 120000, burn: 3800, revenue: 0 },
   prologue: PROLOGUE,
-  scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...LATE_STUBS],
+  scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
 }

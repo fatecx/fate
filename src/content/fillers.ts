@@ -30,6 +30,21 @@ export const FILLERS: readonly FillerDef[] = [
     when: { k: 'runway', cmp: 'lt', v: 10 },
     text: 'You learn the exact hour the bank posts transactions and are awake for it, refreshing, like it might change its mind.',
   },
+  {
+    id: 'f_basement',
+    when: { k: 'runway', cmp: 'lt', v: 5 },
+    text: 'You let the apartment go and move back into your parents’ basement. Your old bedroom still has the model rockets. Nobody says anything at dinner, which is its own kind of love.',
+  },
+  {
+    id: 'f_arrears_meter',
+    when: { k: 'treasury', cmp: 'lt', v: 0 },
+    text: 'You’ve started feeding the electricity meter by hand, coin by coin, like the garage is a parking spot for a dream.',
+  },
+  {
+    id: 'f_subletter_hum',
+    when: { k: 'flag', scope: 'company', key: 'subletter', cmp: 'eq', v: true },
+    text: 'The vinyl cutter downstairs-of-your-upstairs hums all day. Your tenant waves at the shuttle each morning like a coworker. In a way, he is.',
+  },
   // ---- stress ------------------------------------------------------------------
   {
     id: 'f_stress_sleep',

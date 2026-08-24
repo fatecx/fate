@@ -37,12 +37,13 @@ export const LATE_STUBS: readonly SceneDef[] = [
         effects: [
           { e: 'treasury', d: 90000 },
           { e: 'stake', who: 'june', d: 10 },
-          { e: 'rel', who: 'june', resp: -1 },
+          { e: 'rel', who: 'june', resp: 2 },
           { e: 'stress', d: 10 },
           { e: 'flag', scope: 'company', key: 'down_used', v: true },
+          { e: 'flag', scope: 'company', key: 'june_board', v: true },
         ],
         result:
-          'She wires it before the term sheet finishes printing. ‘This is the cheap money. Don’t make me do it again.’',
+          'The round that was supposed to save you died this morning — the lead pulled at the wire, the syndicate scattered. You call June to tell her, not to ask. She listens to the whole thing and says, “Then I’m in for my share anyway.” It costs you: a sweetener on the price and a board seat for the woman who showed up when the term sheet didn’t. Worth it. You both know exactly what just happened, and neither of you ever calls it charity.',
       },
       {
         label: 'Acqui-hire: the team survives, the dream doesn’t',

@@ -80,6 +80,13 @@ const CHARACTERS: Record<string, CharacterDef> = {
     blurb: 'Owns the laundromat, the building, and the block’s collective memory. Your first believer.',
     hiddenTrait: 'Has quietly bankrolled half the street at one time or another. Nobody has ever missed a payment to her twice.',
   },
+  vance: {
+    id: 'vance',
+    name: 'Elliot Vance',
+    role: 'President, ATLAS Retail',
+    blurb: 'Signs term sheets in coffee shops and means every one of them at the moment of signing.',
+    hiddenTrait: 'Keeps a private folder titled SOMEDAY, PROPERLY — the founders he owes from the deals compliance killed.',
+  },
 }
 
 export const CONTENT: Content = {
