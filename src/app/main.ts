@@ -8,10 +8,17 @@ import { newGame, reduce, getScene } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
-import { cloudLoad, cloudPush, pickSave } from './cloud'
+import type { Session } from '@supabase/supabase-js'
+import { cloudLoad, cloudPush, cloudClear, pickSave, getSession, signOut, walletLabel } from './cloud'
+import { initWalletDiscovery, listWallets } from './wallet'
 import { makeFmt } from '../../scripts/map/format'
 
-const SAVE_KEY = 'fate-save-v2'
+const LEGACY_SAVE_KEY = 'fate-save-v2'
+const THEME_KEY = 'fate-theme'
+
+function saveKey(uid: string): string {
+  return `fate-save-u-${uid}`
+}
 
 interface BeatRec {
   kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter'
@@ -35,22 +42,26 @@ const app = document.getElementById('app')!
 let transcript: BeatRec[] = []
 let st: GameState
 let typing = false
+let session: Session | null = null
 
 // ---- persistence -----------------------------------------------------------
+// Signed-in founders are written down (localStorage cache + cloud row).
+// Guests are not: a refresh ends a guest life by design.
 
 function persist(): void {
+  if (!session) return
   const blob = { st, transcript } satisfies Save
   try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify(blob))
+    localStorage.setItem(saveKey(session.user.id), JSON.stringify(blob))
   } catch {
-    /* private mode etc. — the game still plays, it just won't resume */
+    /* private mode etc. — the cloud copy still carries the game */
   }
   cloudPush(blob)
 }
 
-function load(): Save | null {
+function load(uid: string): Save | null {
   try {
-    const raw = localStorage.getItem(SAVE_KEY)
+    const raw = localStorage.getItem(saveKey(uid))
     if (!raw) return null
     const s = JSON.parse(raw) as Save
     if (!s?.st?.company || s.st.phase === undefined) return null
@@ -61,11 +72,41 @@ function load(): Save | null {
 }
 
 function clearSave(): void {
+  if (!session) return
   try {
-    localStorage.removeItem(SAVE_KEY)
+    localStorage.removeItem(saveKey(session.user.id))
   } catch {
     /* ignore */
   }
+}
+
+// ---- theme -------------------------------------------------------------------
+
+function themeSetting(): 'auto' | 'light' | 'dark' {
+  try {
+    const t = localStorage.getItem(THEME_KEY)
+    return t === 'light' || t === 'dark' ? t : 'auto'
+  } catch {
+    return 'auto'
+  }
+}
+
+function applyTheme(): void {
+  const t = themeSetting()
+  if (t === 'auto') delete document.documentElement.dataset.theme
+  else document.documentElement.dataset.theme = t
+}
+
+function cycleTheme(): void {
+  const order = ['auto', 'light', 'dark'] as const
+  const next = order[(order.indexOf(themeSetting()) + 1) % order.length]
+  try {
+    if (next === 'auto') localStorage.removeItem(THEME_KEY)
+    else localStorage.setItem(THEME_KEY, next)
+  } catch {
+    /* ignore */
+  }
+  applyTheme()
 }
 
 // ---- helpers ---------------------------------------------------------------
@@ -160,7 +201,7 @@ function railHtml(): string {
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
-    <button class="chap" id="incToggle" title="Articles of incorporation">${esc(chapterTitle(st.company.id))}, INC. · WEEK ${st.epoch} ▾</button>
+    <div class="weektag">WEEK ${st.epoch}</div>
     <div class="rail-meters">
       <div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>
       <div class="stressbox">
@@ -168,8 +209,9 @@ function railHtml(): string {
         <div class="stresscells">${cells}</div>
       </div>
       <div class="repchip" title="Bank balance">${fmtMoney(st.company.treasury)}</div>
-      <div class="repchip" title="Your share of the company">${founderPct()}% YOURS</div>
+      <div class="repchip" title="Your share of the company">${founderPct()}% STAKE</div>
       <div class="repchip" title="Reputation — opens and closes doors across your whole life">REP ${rep >= 0 ? '+' : ''}${rep}</div>
+      <button class="chap" id="coToggle" title="Company papers, account, settings">${esc(chapterTitle(st.company.id))}, INC. ▾</button>
     </div>
   </header>`
 }
@@ -254,6 +296,24 @@ function incPanelHtml(): string {
     <span>Team</span><b>${teamLine()}</b>
   </div>
   <div class="inc-cap"><div class="mlabel" style="margin-bottom:6px"><span>CAP TABLE</span><span>${fmtRunway()} WKS RUNWAY</span></div>${capTableLines()}</div>`
+}
+
+/** Account + settings section of the company dropdown. */
+function accountHtml(): string {
+  const who = session
+    ? `<b>${walletLabel(session)}</b>`
+    : `<b>Guest <span class="dim">— a refresh ends this life</span></b>`
+  const authBtn = session
+    ? `<button class="paction" id="actLogout">LOG OUT</button>`
+    : `<button class="paction" id="actConnect">CONNECT WALLET</button>`
+  return `
+  <div class="inc-account">
+    <div class="inc-grid">
+      <span>Founder ID</span>${who}
+      <span>Theme</span><b><button class="paction inline" id="actTheme">${themeSetting().toUpperCase()}</button></b>
+    </div>
+    <div class="pactions">${authBtn}<button class="paction danger" id="actRestart">RESTART LIFE</button></div>
+  </div>`
 }
 
 function transcriptHtml(): string {
@@ -373,6 +433,7 @@ function renderPlaying(): void {
   app.innerHTML = `
     <div class="shell">
       ${railHtml()}
+      <div class="inc-panel" id="coPanel" hidden></div>
       <main class="stage">
         ${cardHtml()}
         <section class="story" id="story">${transcriptHtml()}</section>
@@ -442,20 +503,54 @@ app.addEventListener('click', (e) => {
     choose(Number(choice.dataset.i))
     return
   }
-  if (target.closest('#incToggle')) {
-    const panel = document.getElementById('incPanel')
+  if (target.closest('#coToggle')) {
+    const panel = document.getElementById('coPanel')
     if (panel) {
-      if (panel.hidden) panel.innerHTML = incPanelHtml()
+      if (panel.hidden) panel.innerHTML = incPanelHtml() + accountHtml()
       panel.hidden = !panel.hidden
     }
     return
   }
+  if (target.closest('#actTheme')) {
+    cycleTheme()
+    const b = document.getElementById('actTheme')
+    if (b) b.textContent = themeSetting().toUpperCase()
+    return
+  }
+  if (target.closest('#actLogout')) {
+    void (async () => {
+      await signOut()
+      location.reload()
+    })()
+    return
+  }
+  if (target.closest('#actConnect')) {
+    document.getElementById('coPanel')?.setAttribute('hidden', '')
+    renderConnect(
+      () => {},
+      () => {
+        // A guest run adopted mid-flight: it becomes this wallet's biography.
+        persist()
+      },
+    )
+    return
+  }
+  if (target.closest('#actRestart')) {
+    if (confirm('Abandon this life and start over? The biography is erased.')) void wipeAndRestart()
+    return
+  }
   if (!target.closest('.inc-panel')) {
-    const panel = document.getElementById('incPanel')
+    const panel = document.getElementById('coPanel')
     if (panel && !panel.hidden) panel.hidden = true
   }
   if (target.closest('.story')) finishTyping()
 })
+
+async function wipeAndRestart(): Promise<void> {
+  clearSave()
+  await cloudClear()
+  startNewLife()
+}
 
 function takeover(inner: string): void {
   const el = document.createElement('div')
@@ -551,22 +646,143 @@ function renderComplete(): void {
     <button class="cta" id="again">Live another life ↺</button>
   `)
   document.getElementById('again')?.addEventListener('click', () => {
-    clearSave()
-    startNewLife()
+    void wipeAndRestart()
   })
 }
 
-function renderSplash(): void {
+// ---- welcome / connect ---------------------------------------------------------
+
+const INTRO = `2031. You are a first-time founder in a city that runs on rails of other people's machines. You have a garage above a laundromat, a shuttle prototype hanging from its ceiling, and one hundred percent of nothing.`
+
+function signedRowHtml(): string {
+  return session
+    ? `<div class="tk-id">SIGNED · ${esc(walletLabel(session))} · <button class="tk-link" id="wlOut">log out</button></div>`
+    : ''
+}
+
+function wireLogout(): void {
+  document.getElementById('wlOut')?.addEventListener('click', () => {
+    void (async () => {
+      await signOut()
+      session = null
+      renderWelcome(null)
+    })()
+  })
+}
+
+/** Welcome screen — every page load starts here. */
+function renderWelcome(saved: Save | null): void {
   app.innerHTML = ''
+  if (saved) {
+    takeover(`
+      <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
+      <h1 class="tk-title">FATE</h1>
+      <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch}.</p>
+      <div class="tk-actions">
+        <button class="cta" id="wlContinue">Continue →</button>
+        <button class="cta cta-ghost" id="wlRestart">Start over ↺</button>
+      </div>
+      ${signedRowHtml()}`)
+    document.getElementById('wlContinue')?.addEventListener('click', () => {
+      st = saved.st
+      transcript = (saved.transcript as BeatRec[]) ?? []
+      renderedChapter = -1
+      render()
+    })
+    document.getElementById('wlRestart')?.addEventListener('click', () => {
+      if (confirm('Erase this biography and start over?')) void wipeAndRestart()
+    })
+    wireLogout()
+    return
+  }
+  const actions = session
+    ? `<button class="cta" id="wlBegin">Incorporate →</button>`
+    : `<div class="tk-actions">
+        <button class="cta" id="wlConnect">Connect wallet →</button>
+        <button class="cta cta-ghost" id="wlGuest">Play as guest →</button>
+      </div>
+      <div class="tk-id">Guest lives are not written down — a refresh ends them. Connect a wallet to keep the biography.</div>`
   takeover(`
     <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
     <h1 class="tk-title">FATE</h1>
     <p class="tk-body">One life. Four companies. Every scar carries forward.
 
-2031. You are a first-time founder in a city that runs on rails of other people's machines. You have a garage above a laundromat, a shuttle prototype hanging from its ceiling, and one hundred percent of nothing.</p>
-    <button class="cta" id="begin">Incorporate →</button>
+${INTRO}</p>
+    ${actions}
+    ${signedRowHtml()}`)
+  document.getElementById('wlBegin')?.addEventListener('click', startNewLife)
+  document.getElementById('wlConnect')?.addEventListener('click', () => {
+    renderConnect(
+      () => renderWelcome(null),
+      () => void enterAsFounder(),
+    )
+  })
+  document.getElementById('wlGuest')?.addEventListener('click', startNewLife)
+  wireLogout()
+}
+
+/** Fate-styled wallet picker — the headless connect surface. */
+function renderConnect(onBack: () => void, onDone: () => void): void {
+  document.querySelector('.takeover')?.remove()
+  const wallets = listWallets()
+  const list = wallets.length
+    ? wallets
+        .map(
+          (w, i) => `
+      <button class="wallet-opt" data-w="${i}">
+        ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
+        <span class="wname">${esc(w.name)}</span>
+        <span class="wchain">${w.chain === 'solana' ? 'SOL' : 'ETH'}</span>
+      </button>`,
+        )
+        .join('')
+    : `<p class="tk-body">No wallets found in this browser. Install Phantom (Solana) or MetaMask (Ethereum) — or go back and play as a guest.</p>`
+  takeover(`
+    <div class="tk-kicker">SIGN THE PAPERS</div>
+    <h1 class="tk-title">THE FOUNDER OF RECORD</h1>
+    <p class="tk-body">Your wallet is your signature. One approval — no funds move, no email asked. The biography binds to the address.</p>
+    <div class="wallet-list">${list}</div>
+    <div class="werr" id="werr"></div>
+    <button class="tk-link" id="wBack">← back</button>
   `)
-  document.getElementById('begin')?.addEventListener('click', startNewLife)
+  document.getElementById('wBack')?.addEventListener('click', () => {
+    document.querySelector('.takeover')?.remove()
+    onBack()
+  })
+  document.querySelectorAll<HTMLButtonElement>('.wallet-opt').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      void (async () => {
+        const w = wallets[Number(btn.dataset.w)]
+        const err = document.getElementById('werr')
+        const label = btn.querySelector('.wname')
+        const orig = label?.textContent ?? w.name
+        if (err) err.textContent = ''
+        btn.disabled = true
+        if (label) label.textContent = 'SIGNING…'
+        try {
+          await w.sign()
+          session = await getSession()
+          document.querySelector('.takeover')?.remove()
+          onDone()
+        } catch (ex) {
+          btn.disabled = false
+          if (label) label.textContent = orig
+          if (err) err.textContent = ex instanceof Error ? ex.message : 'The wallet declined. Try again.'
+        }
+      })()
+    })
+  })
+}
+
+/** After sign-in from the welcome flow: surface this wallet's biography, if any. */
+async function enterAsFounder(): Promise<void> {
+  let best: Save | null = null
+  if (session) {
+    const local = load(session.user.id)
+    const remote = (await cloudLoad()) as Save | null
+    best = pickSave(local, remote) as Save | null
+  }
+  renderWelcome(best)
 }
 
 function startNewLife(): void {
@@ -663,16 +879,15 @@ function choose(index: number): void {
 // ---- boot --------------------------------------------------------------------
 
 async function boot(): Promise<void> {
-  const local = load()
-  const remote = await cloudLoad()
-  const best = pickSave(local, remote)
-  if (best) {
-    st = best.st
-    transcript = (best.transcript as BeatRec[]) ?? []
-    render()
-  } else {
-    renderSplash()
+  applyTheme()
+  initWalletDiscovery()
+  try {
+    localStorage.removeItem(LEGACY_SAVE_KEY) // pre-auth saves: refresh restarts by design
+  } catch {
+    /* ignore */
   }
+  session = await getSession()
+  await enterAsFounder()
 }
 
 void boot()

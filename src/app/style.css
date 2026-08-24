@@ -64,12 +64,13 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .wordmark { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.16em; }
 .wordmark em { font-style: normal; color: var(--accent); }
+.weektag { font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.1em; }
 .chap { font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.06em; }
 .chap:hover { color: var(--accent); }
 
-/* incorporation paper drawer */
+/* company paper drawer — anchored to the dropdown on the right */
 .inc-panel {
-  position: absolute; top: 52px; left: 150px; z-index: 30;
+  position: absolute; top: 52px; right: 18px; z-index: 30;
   width: min(360px, calc(100vw - 40px));
   background: var(--panel); border: 1.5px solid var(--ink); border-radius: 6px;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.12);
@@ -84,6 +85,17 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .inc-cap { border-top: 1px solid var(--line); padding-top: 10px; }
 .capline { display: flex; justify-content: space-between; padding: 2px 0; font-variant-numeric: tabular-nums; }
 .capline span:first-child { color: var(--ink); }
+
+/* account + settings block inside the drawer */
+.inc-account { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+.pactions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.paction {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em;
+  border: 1px solid var(--line); border-radius: 4px; padding: 6px 11px; color: var(--ink);
+}
+.paction:hover { border-color: var(--accent); color: var(--accent); }
+.paction.danger:hover { border-color: #c22f21; color: #c22f21; }
+.paction.inline { padding: 1px 8px; font-size: 10px; }
 .rail-meters { margin-left: auto; display: flex; align-items: center; gap: 20px; }
 .runway { display: flex; align-items: baseline; gap: 7px; font-family: var(--mono); }
 .runway b { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -181,6 +193,35 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   padding: 14px 30px; border-radius: 5px; margin-top: 10px;
 }
 .cta:hover { background: var(--accent); color: #fff; }
+.cta-ghost { background: none; color: #ecede9; border: 1px solid #3a3d44; }
+.cta-ghost:hover { background: none; color: var(--accent); border-color: var(--accent); }
+.tk-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.tk-id { margin-top: 26px; font-family: var(--mono); font-size: 11px; color: #8b8d85; letter-spacing: 0.08em; }
+.tk-link {
+  font-family: var(--mono); font-size: 11px; color: #8b8d85;
+  text-decoration: underline; text-underline-offset: 3px; padding: 0;
+}
+.tk-link:hover { color: var(--accent); }
+#wBack { margin-top: 18px; display: inline-block; }
+
+/* headless wallet picker */
+.wallet-list { display: flex; flex-direction: column; gap: 10px; margin: 26px 0 10px; max-width: 42ch; }
+.wallet-opt {
+  display: flex; align-items: center; gap: 12px;
+  border: 1.5px solid #3a3d44; border-radius: 6px; padding: 12px 16px;
+  color: #ecede9; font-family: var(--mono); font-size: 14px; font-weight: 600; text-align: left;
+}
+.wallet-opt:hover { border-color: var(--accent); }
+.wallet-opt:disabled { opacity: 0.5; cursor: wait; }
+.wallet-opt .wicon {
+  width: 22px; height: 22px; border-radius: 4px; flex: none;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.wallet-opt .wchain {
+  margin-left: auto; font-size: 10px; letter-spacing: 0.14em; color: #8b8d85;
+  border: 1px solid #3a3d44; padding: 2px 8px; border-radius: 99px;
+}
+.werr { font-family: var(--mono); font-size: 12px; color: #e0654f; min-height: 18px; max-width: 42ch; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
