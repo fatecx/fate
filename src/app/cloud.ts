@@ -102,19 +102,6 @@ export function cloudPush(save: SaveBlob): void {
   timer = setTimeout(() => void flush(), 1500)
 }
 
-/** Delete the remote save (restart / start-over paths). */
-export async function cloudClear(): Promise<void> {
-  if (!supa) return
-  pending = null
-  clearTimeout(timer)
-  try {
-    const user = (await supa.auth.getUser()).data.user
-    if (user) await supa.from('saves').delete().eq('user_id', user.id)
-  } catch {
-    /* non-fatal */
-  }
-}
-
 if (typeof document !== 'undefined') {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') void flush()

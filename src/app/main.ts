@@ -11,7 +11,7 @@ import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
-import { cloudLoad, cloudPush, cloudClear, pickSave, getSession, signOut, walletLabel } from './cloud'
+import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { makeFmt } from '../../scripts/map/format'
 
@@ -318,7 +318,7 @@ function incPanelHtml(): string {
   <div class="inc-cap"><div class="mlabel" style="margin-bottom:6px"><span>CAP TABLE</span><span>${fmtRunway()} WKS RUNWAY</span></div>${capTableLines()}</div>`
 }
 
-/** Account + settings section of the company dropdown. */
+/** Account + settings section of the company dropdown. One wallet, one life — no resets. */
 function accountHtml(): string {
   const who = session
     ? `<b>${walletLabel(session)}</b>`
@@ -332,7 +332,8 @@ function accountHtml(): string {
       <span>Founder ID</span>${who}
       <span>Theme</span><b><button class="paction inline" id="actTheme">${themeSetting().toUpperCase()}</button></b>
     </div>
-    <div class="pactions">${authBtn}<button class="paction danger" id="actRestart">RESTART LIFE</button></div>
+    <div class="pactions">${authBtn}</div>
+    ${session ? `<div class="inc-law">One wallet, one life. The biography is permanent.</div>` : ''}
   </div>`
 }
 
@@ -623,14 +624,23 @@ app.addEventListener('click', (e) => {
     renderConnect(
       () => {},
       () => {
-        // A guest run adopted mid-flight: it becomes this wallet's biography.
-        persist()
+        void (async () => {
+          // A wallet that already carries a biography resumes it — the record
+          // is immutable and a guest run can never overwrite it. Fresh wallets
+          // adopt the guest run as their one life.
+          const existing = session ? pickSave(load(session.user.id), (await cloudLoad()) as Save | null) : null
+          if (existing) {
+            st = (existing as Save).st
+            transcript = ((existing as Save).transcript as BeatRec[]) ?? []
+            renderedChapter = -1
+            render()
+          } else {
+            persist()
+            refreshRail()
+          }
+        })()
       },
     )
-    return
-  }
-  if (target.closest('#actRestart')) {
-    if (confirm('Abandon this life and start over? The biography is erased.')) void wipeAndRestart()
     return
   }
   if (!target.closest('.inc-panel')) {
@@ -639,12 +649,6 @@ app.addEventListener('click', (e) => {
   }
   if (target.closest('.story')) finishTyping()
 })
-
-async function wipeAndRestart(): Promise<void> {
-  clearSave()
-  await cloudClear()
-  startNewLife()
-}
 
 // Space advances: skips the typewriter, turns bridges, dismisses single-CTA
 // takeovers (cutscenes, prologue screens). Never decides a real choice.
@@ -758,15 +762,27 @@ function renderEpilogue(): void {
 function renderComplete(): void {
   renderPlaying()
   const years = Math.max(1, Math.round((st.epoch - st.ledger.completed[0]?.epoch / 1) / 52))
+  const closing = session
+    ? `<p class="tk-body" style="margin-top:22px">This biography belongs to ${esc(walletLabel(session))}, finished and on the record. One wallet, one life — to live another, sign with another wallet.</p>
+       <button class="cta" id="switchWallet">Sign out — new wallet, new life →</button>`
+    : `<button class="cta" id="again">Live another life ↺</button>`
   takeover(`
     <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
     <h1 class="tk-title">FOUR COMPANIES.<br/>ONE LIFE.</h1>
     <p class="tk-body">Final founder score: ${st.ledger.founderScore}. Roughly ${years} years from a garage above a laundromat to whatever came last. The world remembers all of it.</p>
     ${biographyStrip()}
-    <button class="cta" id="again">Live another life ↺</button>
+    ${closing}
   `)
+  // Guests only — a wallet's biography is immutable once written.
   document.getElementById('again')?.addEventListener('click', () => {
-    void wipeAndRestart()
+    clearSave()
+    startNewLife()
+  })
+  document.getElementById('switchWallet')?.addEventListener('click', () => {
+    void (async () => {
+      await signOut()
+      location.reload()
+    })()
   })
 }
 
@@ -798,10 +814,8 @@ function renderWelcome(saved: Save | null): void {
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
       <h1 class="tk-title">FATE</h1>
       <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch}.</p>
-      <div class="tk-actions">
-        <button class="cta" id="wlContinue">Continue →</button>
-        <button class="cta cta-ghost" id="wlRestart">Start over ↺</button>
-      </div>
+      <button class="cta" id="wlContinue">Continue →</button>
+      <div class="tk-id">One wallet, one life. This biography is permanent.</div>
       ${signedRowHtml()}`)
     document.getElementById('wlContinue')?.addEventListener('click', () => {
       st = saved.st
@@ -809,19 +823,17 @@ function renderWelcome(saved: Save | null): void {
       renderedChapter = -1
       render()
     })
-    document.getElementById('wlRestart')?.addEventListener('click', () => {
-      if (confirm('Erase this biography and start over?')) void wipeAndRestart()
-    })
     wireLogout()
     return
   }
   const actions = session
-    ? `<button class="cta" id="wlBegin">Incorporate →</button>`
+    ? `<button class="cta" id="wlBegin">Incorporate →</button>
+      <div class="tk-id">One wallet, one life. What you sign here is permanent.</div>`
     : `<div class="tk-actions">
         <button class="cta" id="wlConnect">Connect wallet →</button>
         <button class="cta cta-ghost" id="wlGuest">Play as guest →</button>
       </div>
-      <div class="tk-id">Guest lives are not written down — a refresh ends them. Connect a wallet to keep the biography.</div>`
+      <div class="tk-id">Guest lives are not written down — a refresh ends them. Sign with a wallet to live the one that counts.</div>`
   takeover(`
     <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
     <h1 class="tk-title">FATE</h1>
