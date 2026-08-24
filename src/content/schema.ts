@@ -19,6 +19,12 @@ export interface SceneDef {
   id: string
   kind?: SceneKind // default 'scene'
   title: string
+  /**
+   * Connective arrival prose — one to three sentences of world texture shown
+   * dim above the beat, situating why this scene is happening now. Required
+   * (by test) on every dealt scene so arrivals never feel like teleports.
+   */
+  leadIn?: string
   /** Authored prose. The LLM render layer decorates later; the game runs on these strings. */
   prose: string
   speaker?: string // character id

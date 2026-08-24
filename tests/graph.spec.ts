@@ -108,4 +108,26 @@ describe('content integrity', () => {
       void byId
     }
   })
+
+  it('bridges are single-exit and unconditional — pure connective tissue', () => {
+    for (const { chapter, scene } of ALL_SCENES) {
+      if (scene.kind !== 'bridge') continue
+      expect(scene.choices.length, `${chapter}/${scene.id}: bridges carry exactly one choice`).toBe(1)
+      expect(scene.choices[0].requires, `${chapter}/${scene.id}: bridge exit must be unconditional`).toBeUndefined()
+      expect(scene.prose.trim().length, `${chapter}/${scene.id}: bridge needs real prose`).toBeGreaterThan(120)
+    }
+  })
+
+  it('hyperchute: every dealt scene arrives with a leadIn — no cold teleports', () => {
+    const ch = CONTENT.chapters.hyperchute
+    for (const s of ch.scenes) {
+      const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency
+      const isPlainScene = (s.kind ?? 'scene') === 'scene'
+      if (!dealt || !isPlainScene || s.id === ch.entry) continue
+      expect(
+        (s.leadIn ?? '').trim().length,
+        `hyperchute/${s.id}: dealt scene is missing its leadIn`,
+      ).toBeGreaterThan(40)
+    }
+  })
 })

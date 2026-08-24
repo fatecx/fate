@@ -15,6 +15,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE FIRST FORTY-EIGHT HOURS',
     priority: true,
     fuseEpochs: 2,
+    leadIn:
+      'You get the call at 4:53 and are on Richmond Street by 5:20, before the second news van. The parcel is still on the pavement inside a chalk rectangle. Someone has turned off the shuttle’s beacon, and you realize numbly that it was you, from the phone in your hand, on the drive over.',
     prose:
       'The lawyers, the insurer, and the pit in your stomach all say the same three things in different orders. The corridors office has opened an emergency investigation. Chute’s couriers are quietly delivering flowers to Ms. Chen’s block, which is the most cynical thing you have ever seen and it is working.',
     choices: [
@@ -54,6 +56,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'SHE HAS THE REPORT',
     speaker: 'nadia',
     priority: true,
+    leadIn:
+      'The story has stopped being local. National desks run the porch-camera clip on loop; a senator you’ve never met says your company’s name into a microphone. Into that noise, one specific phone buzzes with one specific name on it.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
       'Nadia’s email is two words this time: “Coffee. Now.” She has the preliminary investigation draft — someone inside the corridors office leaked it — and forty-eight hours before she goes to press with whatever she has. “I’d rather have it from you,” she says. “But I’ll run it without you.”',
@@ -93,6 +97,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'VERSION NINE',
     speaker: 'sofia',
     priority: true,
+    leadIn:
+      'The garage lights have been on every night this week. You find her at the bench at 6 a.m., surrounded by cold coffee and printouts of a stack trace, the fault line circled in red so many times the paper has torn.',
     when: {
       k: 'all',
       of: [
@@ -132,6 +138,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'EMERGENCY SUSPENSION HEARING',
     priority: true,
     fuseEpochs: 3,
+    leadIn:
+      'The notice is posted publicly this time — no courtesy call, no email first. Agenda item one, Friday session, room 4-B again: EMERGENCY REVIEW, HYPERCHUTE CORRIDOR AUTHORIZATIONS. The room where the railway was born gets to vote on whether it dies.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
       'The corridors office votes Friday on emergency suspension of every Hyperchute corridor pending the investigation. Chute’s lobbyists are circulating a “public safety alternative” that is Chute, everywhere, immediately. You can testify, send counsel, or accept the pause and live to fly again.',
@@ -172,11 +180,13 @@ export const ACT_THREE: readonly SceneDef[] = [
     speaker: 'marcus',
     priority: true,
     fuseEpochs: 3,
+    leadIn:
+      'Six weeks into the storm, the vultures have sorted themselves into tiers: the ones who email, the ones who call, and the one who climbs your stairs in person on a Sunday, holding a folder like it weighs something.',
     when: {
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 40 },
+        { k: 'age', cmp: 'gte', v: 36 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'offer_done', cmp: 'eq', v: true } },
       ],
     },
@@ -215,6 +225,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     id: 'h_war_room',
     title: 'THE WAR ROOM',
     priority: true,
+    leadIn:
+      'Word of the refusal gets out by Monday — Marcus doesn’t leak, but folders have gravity. The stock-photo headlines write themselves: DAVID DECLINES. Everyone who still works for you shows up that night without being asked.',
     when: {
       k: 'all',
       of: [
@@ -260,6 +272,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     id: 'h_ipo_road',
     title: 'THE ROAD SHOW',
     priority: true,
+    leadIn:
+      'The underwriters arrive with a slide template and leave with religion — Priya’s phrase, after the second meeting runs long because the bankers kept asking real questions. A calendar invite lands: eleven cities, nine days, wheels up Monday.',
     when: {
       k: 'all',
       of: [
@@ -299,6 +313,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     id: 'h_last_stand',
     title: 'THE LAST QUARTER',
     priority: true,
+    leadIn:
+      'The decision empties the room of everything except what’s true: a whiteboard wiped clean to one column, ninety days drawn as ninety boxes, and the first box already crossed out because today counts.',
     when: {
       k: 'all',
       of: [

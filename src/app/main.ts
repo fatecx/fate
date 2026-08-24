@@ -4,6 +4,7 @@
  */
 import './style.css'
 import { CONTENT } from '../content/world'
+import { FILLERS, BLUR_FILLERS } from '../content/fillers'
 import { newGame, reduce, getScene } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
 import type { GameState } from '../engine/types'
@@ -25,6 +26,8 @@ interface BeatRec {
   title?: string
   speakerName?: string
   prose?: string
+  leadIn?: string
+  filler?: string
   text?: string
   company?: string
   endingTitle?: string
@@ -139,6 +142,22 @@ function fuseInfo(): { remaining: number; total: number } | null {
   const def = getScene(CONTENT, st.company.id, sceneId)
   if (!f || !def) return null
   return { remaining: Math.max(1, f.expiresEpoch - st.epoch), total: def.fuseEpochs ?? 1 }
+}
+
+/**
+ * One authored line of world texture for a turned week. Deterministic:
+ * same life, same week -> same line (epoch × seed hash over the eligible
+ * pool). The renderer never rolls dice; it only reads state.
+ */
+function weekFillerText(deltaWeeks: number): string {
+  const pool =
+    deltaWeeks > 2
+      ? BLUR_FILLERS.slice()
+      : FILLERS.filter((f) => !f.when || evalPred(f.when, st))
+  const src = pool.length ? pool : FILLERS.filter((f) => !f.when)
+  if (!src.length) return ''
+  const h = (Math.imul(st.epoch + 1, 2654435761) ^ st.seed) >>> 0
+  return src[h % src.length].text
 }
 
 // ---- ambient canvas (cheap aliveness; respects reduced motion) -------------
@@ -328,13 +347,16 @@ function transcriptHtml(): string {
             <div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>
           </section>`
         case 'week':
-          return `<div class="weekmark past">— WEEK ${b.text} —</div>`
+          return `<div class="weekbeat past"><div class="weekmark">— WEEK ${b.text} —</div>${
+            b.filler ? `<div class="filler">${esc(b.filler)}</div>` : ''
+          }</div>`
         case 'you':
           return `<div class="you past">▸ ${esc(b.text ?? '')}</div>`
         case 'outcome':
           return `<div class="outcome past">${esc(b.prose ?? '')}</div>`
         default:
           return `<section class="beat past">
+            ${b.leadIn ? `<div class="leadin">${esc(b.leadIn)}</div>` : ''}
             <div class="beat-kicker">${esc(b.speakerName ? b.speakerName : chapterTitle(st.company.id))}</div>
             <h2 class="beat-title">${esc(b.title ?? '')}</h2>
             <p class="beat-prose">${esc(b.prose ?? '')}</p>
@@ -400,6 +422,7 @@ function mountScene(story: HTMLElement, sceneId: string): void {
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
+    ${scene.leadIn ? `<div class="leadin">${esc(scene.leadIn)}</div>` : ''}
     <div class="beat-kicker">${speaker}</div>
     <h2 class="beat-title">${esc(scene.title)}</h2>
     <p class="beat-prose"></p>
@@ -841,6 +864,7 @@ function choose(index: number): void {
     title: scene.title,
     speakerName: scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD',
     prose: scene.prose,
+    leadIn: scene.leadIn,
   })
   transcript.push({ kind: 'you', text: choice.label })
 
@@ -863,9 +887,12 @@ function choose(index: number): void {
   }
 
   if (st.epoch > beforeEpoch) {
-    transcript.push({ kind: 'week', text: String(st.epoch) })
+    const filler = weekFillerText(st.epoch - beforeEpoch)
+    transcript.push({ kind: 'week', text: String(st.epoch), filler })
     const wk = document.createElement('template')
-    wk.innerHTML = `<div class="weekmark">— WEEK ${st.epoch} —</div>`
+    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— WEEK ${st.epoch} —</div>${
+      filler ? `<div class="filler">${esc(filler)}</div>` : ''
+    }</div>`
     const el = wk.content.firstElementChild as HTMLElement
     ;(lastNew ?? container)?.after(el)
     lastNew = el

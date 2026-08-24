@@ -15,6 +15,8 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE PRICE OF PRICE',
     priority: true,
     fuseEpochs: 3,
+    leadIn:
+      'The first blue tube appears on a lamppost four blocks east, then six more overnight, like mushrooms after rain. CHUTE, the stencil says. INTRODUCTORY PRICING. Your phone starts buzzing before you finish reading the second one.',
     when: { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
     prose:
       'Chute’s underpricing works. Your waiting list flattens; two subscribers a day drift over the fence to their blue tubes. The board — you, and whoever you let in — meets over cold pizza. Somebody has to blink first.',
@@ -57,7 +59,15 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE COLLECTIVE',
     speaker: 'corr',
     weight: 3,
-    when: { k: 'age', cmp: 'gte', v: 16 },
+    leadIn:
+      'You know the couriers by first name now — Rosa, Dmitri, the twins who split a route. Lately their group chat has gone quiet when you walk past, which is how you know something formal is coming.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 16 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     prose:
       'The last mile is still human — contract couriers carry what tubes can’t reach upstairs. Their collective arrives with a letter: employee status, or the porches go unserved. MERIDIAN’s couriers signed nothing and got nothing. Yours read the news.',
     choices: [
@@ -99,6 +109,8 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE PORCHES GO QUIET',
     priority: true,
     fuseEpochs: 2,
+    leadIn:
+      'It starts on a Monday, without a single raised voice. The morning routes just don’t happen. By noon the neighborhood has read the flyer taped to every receiver sleeve, and so have you.',
     when: { k: 'flag', scope: 'company', key: 'couriers_enemy', cmp: 'eq', v: true },
     prose:
       'The strike is polite and devastating: no courier serves a Hyperchute address, and the couriers taught the porches why. Chute’s couriers cross your picket lines for double pay. The neighborhood watches who blinks.',
@@ -139,7 +151,15 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE AUDIT',
     priority: true,
     fuseEpochs: 4,
-    when: { k: 'age', cmp: 'gte', v: 22 },
+    leadIn:
+      'The letter arrives certified, which is never good, on letterhead you last saw granting you a corridor. Two men in gray park outside the same morning and photograph the receiver sleeves, methodically, like appraisers.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 22 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     prose:
       'The Office of Aerial Corridors opens a full audit of every Hyperchute corridor — “routine,” says the press release MERIDIAN’s lobbyists helped write. Three of your eleven corridors suspend pending review. The city that loved you is being lobbied by people who own it.',
     choices: [
@@ -179,7 +199,15 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_fresno',
     title: 'FRESNO IS BEHIND',
     weight: 2,
-    when: { k: 'age', cmp: 'gte', v: 24 },
+    leadIn:
+      'The first sign is an apologetic email about "component allocation." The second is your account manager’s calendar, suddenly full for three weeks. Supply chains never announce bad news; they let you deduce it.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 24 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     prose:
       'The Fresno plant builds your shuttles and everyone else’s drones, and everyone else just ordered bigger. Lead times stretch from six weeks to nineteen. Every grounded shuttle is a porch you serve with a human courier at a loss.',
     choices: [
@@ -192,7 +220,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result: 'Your shuttles move to line three, ahead of Chute’s. Money talks; Fresno listens.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Qualify a second supplier in Reno.',
@@ -202,7 +229,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'dual_source', v: true },
         ],
         result: 'Reno’s tolerances are looser and their price is worse, but when Fresno wobbles, you don’t.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Give Fresno’s owner points for guaranteed capacity.',
@@ -213,7 +239,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'revenue', d: 700 },
         ],
         result: 'You carve two points from your own share for the man who makes your machines. He frames the certificate next to his first dollar.',
-        goto: 'h_bridge_pre_act3',
       },
     ],
   },
@@ -223,11 +248,14 @@ export const ACT_TWO: readonly SceneDef[] = [
     speaker: 'sofia',
     priority: true,
     fuseEpochs: 3,
+    leadIn:
+      'A MERIDIAN recruiter has called the garage’s landline twice this month asking for "the descent engineer." Sofia hung up both times. The third approach doesn’t call. It arrives by courier, on paper, in an envelope too nice to ignore.',
     when: {
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'sofia_resolved', cmp: 'eq', v: true },
         { k: 'age', cmp: 'gte', v: 26 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
     prose:
@@ -242,7 +270,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result: 'She tears the letter in half before you finish talking. “Principal,” she mutters. “Of a garage.”',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Match the money, keep the equity yours.',
@@ -251,7 +278,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'sofia', aff: -1 },
         ],
         result: 'She stays for the number. Both of you know what that means, and it isn’t love.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Let her go with blessing and a reference.',
@@ -261,7 +287,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_gone', v: true },
         ],
         result: 'The descent controller has her fingerprints on every line. MERIDIAN just bought themselves a very good conscience and you lost yours.',
-        goto: 'h_bridge_pre_act3',
       },
     ],
   },
@@ -269,7 +294,15 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_viral',
     title: 'THE FOUR MINUTES',
     weight: 3,
-    when: { k: 'age', cmp: 'gte', v: 28 },
+    leadIn:
+      'Tuesday is ordinary until 3:12 p.m. Then every phone in the garage lights up at once, and the notifications are all the same porch camera clip, and the view counter is adding a zero while you watch.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 28 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     prose:
       'A man on Forty-First Street collapses. The 911 drone ETA is eleven minutes. The nearest Hyperchute tube carries a defibrillator to his porch in four — the courier who reached it first also knew CPR. The porch camera does the rest: 40 million views, every caption some version of THIS is what it’s for.',
     choices: [
@@ -282,7 +315,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'went_national', v: true },
         ],
         result: 'You do eleven interviews in six days and say the same true thing each time: the railway was always for this. The list grows by forty thousand names.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Send the courier. Keep yourself off camera.',
@@ -292,7 +324,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'nadia', resp: 1 },
         ],
         result: 'Rosa from the courier pool does the shows, better than you ever would. The story becomes hers, which makes it bigger.',
-        goto: 'h_bridge_pre_act3',
       },
     ],
   },
@@ -302,6 +333,8 @@ export const ACT_TWO: readonly SceneDef[] = [
     speaker: 'june',
     priority: true,
     fuseEpochs: 4,
+    leadIn:
+      'June books a meeting a week out, with an agenda, which from her is practically a formal declaration. She arrives with someone new: gray suit, firm handshake, the unmistakable air of a man who has already read your data room.',
     when: {
       k: 'all',
       of: [
@@ -309,6 +342,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         { k: 'age', cmp: 'gte', v: 30 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'series_a', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'independent', cmp: 'eq', v: true } },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
     prose:
@@ -324,7 +358,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'series_a', v: true },
         ],
         result: 'The wire clears on a Friday. On Monday there is a recruiting plan, a legal budget, and a board meeting on the calendar that includes you but is no longer yours alone.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Counter at fifteen.',
@@ -336,7 +369,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'series_a', v: true },
         ],
         result: '“Eighteen,” she says, “because you asked twice.” The wire clears Friday.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Stay independent. Own the whole thing or lose it all.',
@@ -347,7 +379,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'june', aff: -1 },
         ],
         result: 'June nods slowly. “Then you’re betting the company every single week. Some founders are built for that.” The door closes politely, forever.',
-        goto: 'h_bridge_pre_act3',
       },
     ],
   },
@@ -355,11 +386,14 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_board',
     title: 'WHO HOLDS THE GAVEL',
     priority: true,
+    leadIn:
+      'The lawyers exchange drafts for a week — polite, expensive volleys with your company’s future in the tracked changes. Then everyone gathers in a conference room borrowed from June’s fund, because the garage has folding chairs.',
     when: {
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'series_a', cmp: 'eq', v: true },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'board_set', cmp: 'eq', v: true } },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
     prose:
@@ -374,7 +408,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result: 'You keep the gavel. June votes with you twice in year one and against you once, memorably.',
-        goto: 'h_bridge_pre_act3',
       },
       {
         label: 'Even: you, June, an independent both accept.',
@@ -385,13 +418,21 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result: 'Governance as marriage counseling. The independent is a retired ferry captain with no patience for either of you, which turns out to be exactly right.',
-        goto: 'h_bridge_pre_act3',
       },
     ],
   },
   {
     id: 'h_bridge_pre_act3',
     kind: 'bridge',
+    priority: true,
+    when: {
+      k: 'all',
+      of: [
+        { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
+        { k: 'age', cmp: 'gte', v: 32 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     title: 'EIGHTEEN MONTHS OF WAR',
     prose:
       'Three corridors suspended, then reopened. A price war that cost you both a fortune and taught the city your names. Couriers with health insurance. Sofia’s descent controller, version nine. The war doesn’t end. It just gets older — until the morning it stops mattering, because of what happens on Richmond Street.',

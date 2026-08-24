@@ -141,6 +141,10 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* History fades as a whole — full text always present, nothing hidden on hover. */
 .past { opacity: 0.42; }
+.leadin {
+  font-style: italic; color: var(--dim); font-size: 13.5px;
+  max-width: 62ch; margin-bottom: 12px; white-space: pre-wrap;
+}
 .you { font-family: var(--mono); font-size: 13.5px; padding-left: 14px; border-left: 3px solid var(--accent); margin-bottom: 14px; }
 .outcome { font-style: italic; color: var(--dim); font-size: 14px; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid var(--line); }
 
@@ -156,7 +160,12 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .choice.locked { opacity: 0.35; pointer-events: auto; cursor: not-allowed; }
 .choice.locked:hover { transform: none; box-shadow: none; }
 .choice .req { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--accent); margin-top: 3px; }
-.weekmark { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--dim); margin: 26px 0 12px; }
+.weekmark { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--dim); }
+.weekbeat { margin: 26px 0 16px; }
+.weekbeat .filler {
+  font-style: italic; color: var(--dim); font-size: 13px;
+  max-width: 58ch; margin-top: 6px;
+}
 
 /* memoir chapter card — a finished life, collapsed */
 .memoir {

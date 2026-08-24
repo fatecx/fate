@@ -8,6 +8,8 @@ export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 'h_insolvency',
     title: 'RUNWAY ZERO',
+    leadIn:
+      'It happens the way everyone warned you it would: slowly for months, and then on a Tuesday, all at once. The banking app’s balance turns a color it has never been before.',
     prose:
       'Payroll bounces. The bank’s notification tone is almost apologetic. Every founder learns this exact silence — the inbox that stops answering. HYPERCHUTE has weeks, maybe less. But doors remain, even now. They’re just all ugly.',
     choices: [

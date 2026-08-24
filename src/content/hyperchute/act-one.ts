@@ -16,18 +16,20 @@ export const ACT_ONE: readonly SceneDef[] = [
         effects: [
           { e: 'flag', scope: 'company', key: 'pilot_booked', v: true },
           { e: 'stress', d: 5 },
-          { e: 'enqueue', scene: 'h_permit_wall' },
         ],
+        goto: 'h_b_filing',
         result: 'You file the application at 2 a.m., high on it.',
       },
       {
         label: 'Recruit an advisor before anyone important sees this',
-        effects: [{ e: 'enqueue', scene: 'h_priya_pitch' }],
+        effects: [],
+        goto: 'h_b_advisor_hunt',
         result: 'Credibility is also infrastructure.',
       },
       {
         label: 'Incorporate clean — lawyer first, hardware second',
-        effects: [{ e: 'enqueue', scene: 'h_tomas_terms' }],
+        effects: [],
+        goto: 'h_b_paper_first',
         result: 'Paper first. It’s never just paper.',
       },
     ],
@@ -38,6 +40,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     speaker: 'priya',
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
     weight: 2,
+    leadIn:
+      'She arrives four minutes early, climbs the stairs without touching the rail, and does not ask what the smell is. References precede her; so does a reputation for leaving meetings at minute ten if they waste her.',
     prose:
       'Priya Raghavan routed freight across three continents and survived two bankruptcies that were not her fault. She gives the garage exactly four seconds of inspection. ‘You’ve built a machine that drops boxes out of the sky onto people’s homes. You have no permits, no insurer, and no idea which deputy commissioner already hates you. I can fix all three.’ She slides a term sheet across the workbench: two percent, vesting over twelve months, advisory role, introductions included.',
     choices: [
@@ -48,8 +52,8 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'rel', who: 'priya', aff: 2, resp: 2 },
           { e: 'stake', who: 'priya', d: 2 },
           { e: 'score', d: 1 },
-          { e: 'enqueue', scene: 'h_tomas_terms' },
         ],
+        goto: 'h_b_priya_signed',
         result: 'She shakes once, dry and firm, then starts a list titled THINGS THAT WILL KILL YOU FIRST.',
       },
       {
@@ -60,6 +64,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'priya_waitlist', v: true },
           { e: 'stress', d: 2 },
         ],
+        goto: 'h_b_priya_waitlist',
         result: 'Her smile doesn’t move. ‘Sure. I’ll be here.’',
       },
       {
@@ -70,6 +75,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'priya_declined', v: true },
           { e: 'stress', d: 2 },
         ],
+        goto: 'h_b_priya_alone',
         result: 'Nineteen years of pattern recognition folds its term sheet and leaves without another word.',
       },
     ],
@@ -80,6 +86,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     speaker: 'tomas',
     when: { k: 'not', p: { k: 'met', who: 'tomas' } },
     weight: 2,
+    leadIn:
+      'The shipping container is real — corrugated steel between two glass towers, a brass plate reading REYES, ABOGADO. Inside it is all bookshelves and climate control. He waves you toward the good chair like he has been expecting you all week.',
     prose:
       'Tomás Reyes does contracts out of a converted shipping container downtown and bills like a man who has read every clause he has ever written. ‘Everyone wants the big-firm lawyer until the invoice lands,’ he says. He writes two numbers on the garage wall in marker: $18,000 flat. Or one percent — “and my rolodex goes with it.”',
     choices: [
@@ -92,6 +100,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'rel', who: 'tomas', aff: 1 },
           { e: 'flag', scope: 'company', key: 'legal_solid', v: true },
         ],
+        goto: 'h_b_papered',
         result: 'He drafts the IP assignment before he leaves. Everything you build now actually belongs to the company.',
       },
       {
@@ -103,6 +112,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'lawyer_ally', v: true },
           { e: 'score', d: 1 },
         ],
+        goto: 'h_b_rolodex',
         result: '‘Smart,’ he says, pocketing the marker. ‘Broke founders make the best clients. Something to prove.’',
       },
       {
@@ -111,6 +121,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'diy_legal', v: true },
         ],
+        goto: 'h_b_diy',
         result: 'The templates are fine. Probably. The templates are probably fine.',
       },
     ],
@@ -121,6 +132,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     speaker: 'corr',
     priority: true,
     fuseEpochs: 3,
+    leadIn:
+      'Eleven days of PENDING, and then the status page flips on a Tuesday morning before you’ve had coffee. The email underneath it is longer than the application was.',
     when: { k: 'all', of: [{ k: 'flag', scope: 'company', key: 'pilot_booked', cmp: 'eq', v: true }, { k: 'not', p: { k: 'flag', scope: 'company', key: 'permit_done', cmp: 'eq', v: true } }] },
     prose:
       'The Office of Aerial Corridors denies your pilot application in 0.4 seconds. The rejection notice cc’s three departments you have never heard of and one — Department of Sidewalk Integrity — that sounds invented. At the bottom, in machine-perfect passive voice: REAPPLICATION PERMITTED UPON DEMONSTRATED DESCENT COMPLIANCE.',
@@ -134,6 +147,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'permit_done', v: true },
           { e: 'meet', who: 'corr' },
         ],
+        goto: 'h_b_appeal_prep',
         result: 'Three weeks to a hearing. Your descent-safety case is forty pages of hope formatted as engineering.',
       },
       {
@@ -145,6 +159,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'permit_done', v: true },
           { e: 'meet', who: 'corr' },
         ],
+        goto: 'h_b_rogue_nights',
         result: 'Twelve perfect drops onto your own roof. A neighbor films the thirteenth.',
       },
       {
@@ -163,6 +178,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'meet', who: 'corr' },
           { e: 'rel', who: 'corr', aff: 1 },
         ],
+        goto: 'h_b_corridor_granted',
         result: 'Tomás knows which consultant owns which signature. Nine days later, the pilot corridor exists.',
       },
       {
@@ -175,6 +191,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
           { e: 'meet', who: 'corr' },
         ],
+        goto: 'h_b_corridor_granted',
         result: 'Tomás makes one call from the container. ‘Fast-tracked. Don’t make me spend this twice.’',
       },
     ],
@@ -183,6 +200,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_hearing',
     title: 'THE DESCENT-SAFETY HEARING',
     priority: true,
+    leadIn:
+      'Room 4-B is on the third floor of a building designed to make people feel processed. You wear the one jacket that survived the solder work and carry forty pages in triplicate, per the instructions, because the Office of Aerial Corridors does not do PDFs.',
     when: {
       k: 'all',
       of: [
@@ -204,6 +223,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'meet', who: 'corr' },
           { e: 'rel', who: 'corr', resp: 1 },
         ],
+        goto: 'h_b_first_corridor',
         result: 'Stamped, sealed, e-mailed. The sky over the Flats is officially yours — two hundred feet at a time.',
       },
     ],
@@ -212,6 +232,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_june_via_tomas',
     title: 'THE ANGEL',
     priority: true,
+    leadIn:
+      'Tomás calls ahead, which he has never once done. ‘Clear the bench,’ he says. ‘You have a visitor. Do not be charming. Be accurate.’',
     when: {
       k: 'all',
       of: [
@@ -233,6 +255,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_june_cold',
     title: 'SOMEONE IS WATCHING YOUR DEMO',
     priority: true,
+    leadIn:
+      'The waiting list crosses two hundred names the same week your test footage escapes whatever you thought a private channel was. Attention, it turns out, does not ask first.',
     when: {
       k: 'all',
       of: [
@@ -269,6 +293,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: -4 },
           { e: 'flag', scope: 'company', key: 'angel_funded', v: true },
         ],
+        goto: 'h_b_wired',
         result: 'The wire clears Wednesday. The garage suddenly smells like possibility instead of dryer sheets.',
       },
       {
@@ -282,6 +307,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: -3 },
           { e: 'flag', scope: 'company', key: 'angel_funded', v: true },
         ],
+        goto: 'h_b_wired',
         result: 'She doesn’t blink. ‘Seven. Because you asked. Don’t negotiate with me twice.’',
       },
       {
@@ -292,6 +318,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'bootstrapping', v: true },
         ],
+        goto: 'h_b_bootstrap',
         result: 'She leaves a card on the workbench anyway. ‘When you’re ready to move, move fast. Doors like me don’t stay open.’',
       },
     ],
@@ -300,6 +327,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_first_drops_clean',
     title: 'BEAM DOWN',
     priority: true,
+    leadIn:
+      'The batteries finish charging at 4 a.m. and you are awake to see it, because of course you are. Corridor conditions: wind four knots, ceiling clear, one customer in cursive on the schedule.',
     when: {
       k: 'all',
       of: [
@@ -320,7 +349,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'score', d: 2 },
           { e: 'flag', scope: 'company', key: 'drops_done', v: true },
         ],
-        goto: 'h_sofia_hire',
+        goto: 'h_b_scale_strain',
         result: 'Growth is a decision. You just made it.',
       },
       {
@@ -333,7 +362,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'drops_done', v: true },
           { e: 'flag', scope: 'company', key: 'slow_growth', v: true },
         ],
-        goto: 'h_sofia_hire',
+        goto: 'h_b_scale_strain',
         result: 'Twenty porches, zero failures. Sofia would call that a dataset. Priya would call it leaving money outside.',
       },
     ],
@@ -342,6 +371,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_first_drops_rogue',
     title: 'TWELVE ROOFS, NO PERMISSION',
     priority: true,
+    leadIn:
+      'The waiver stack grows nightly by the printer. Somewhere between the fourth and fifth dawn shift, this stopped being a test program and became a delivery service that officially does not exist.',
     when: {
       k: 'all',
       of: [
@@ -362,7 +393,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'drops_done', v: true },
           { e: 'flag', scope: 'company', key: 'grey_market', v: true },
         ],
-        goto: 'h_sofia_hire',
+        goto: 'h_b_grey_strain',
         result: 'Underground railways run on nerve. Yours is holding. For now.',
       },
       {
@@ -375,7 +406,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'drops_done', v: true },
           { e: 'flag', scope: 'company', key: 'foodbank', v: true },
         ],
-        goto: 'h_sofia_hire',
+        goto: 'h_b_grey_strain',
         result: 'Legal, slow, and photographed. The city attorney follows the account. So does June Park.',
       },
     ],
@@ -385,6 +416,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'READ YOUR CAP TABLE — IT’S CUTE',
     speaker: 'sofia',
     priority: true,
+    leadIn:
+      'You never post the job. Word travels anyway — through the fabricator, through a turbine-industry forum thread titled "someone is doing urban descent for real" — and on a wet Monday there are boots on your stairs.',
     when: {
       k: 'all',
       of: [
@@ -406,6 +439,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_resolved', v: true },
           { e: 'flag', scope: 'company', key: 'sofia_full', v: true },
         ],
+        goto: 'h_b_sofia_settled',
         result: 'By Friday she has rewritten the descent controller and deleted half of it. The code is smaller. It falls better.',
       },
       {
@@ -419,6 +453,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_resolved', v: true },
           { e: 'flag', scope: 'company', key: 'sofia_equity', v: true },
         ],
+        goto: 'h_b_sofia_settled',
         result: '‘Points it is.’ She shakes like she’s closing a merger. Half-time, all-heart, and your burn survives the month.',
       },
       {
@@ -431,6 +466,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_resolved', v: true },
           { e: 'flag', scope: 'company', key: 'sofia_parttime', v: true },
         ],
+        goto: 'h_b_sofia_settled',
         result: '‘Month to month,’ she repeats, in the tone people use for things that end badly.',
       },
     ],
@@ -440,6 +476,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'A BLACK CAR BELOW THE LAUNDROMAT',
     speaker: 'marcus',
     priority: true,
+    leadIn:
+      'A black car has been making appearances on the block all week — long enough to be noticed, polite enough to leave. On Thursday it parks, and the laundromat goes quiet the way rooms do when money walks in.',
     when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 6 }, { k: 'not', p: { k: 'met', who: 'marcus' } }] },
     prose:
       'Marcus Vale sends the car away and takes the stairs himself, which is his entire pitch. VP of Logistics Networks, MERIDIAN. He looks at the shuttle the way a man looks at a rival’s child — measuring how tall it might grow. “We considered tubes in ’27. Beautiful physics, ugly economics. Convince me yours grew up.”',
@@ -453,6 +491,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
           { e: 'flag', scope: 'company', key: 'meridian_watching', v: true },
         ],
+        goto: 'h_b_after_vale',
         result: 'He laughs once — real, at something you didn’t plan to say. The card he leaves is heavier than cards should be.',
       },
       {
@@ -465,6 +504,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'meridian_enemy', v: true },
         ],
+        goto: 'h_b_after_vale',
         result: 'His face does something expensive. ‘Spoken like a man who’s never been shouted at by a board.’ The stairs down are slower than the stairs up.',
       },
       {
@@ -475,6 +515,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
           { e: 'flag', scope: 'company', key: 'meridian_talks', v: true },
         ],
+        goto: 'h_b_after_vale',
         result: '‘Not yet,’ he says, pleased you asked. ‘Grow a little. Ripeness is everything.’',
       },
     ],
@@ -483,6 +524,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_nadia_call',
     title: 'THE JOURNALIST',
     speaker: 'nadia',
+    leadIn:
+      'Your inbox has learned your name: pitch decks you never asked for, a podcast invite, two recruiters fishing for your only engineer. Buried in the noise, one email that actually matters.',
     when: {
       k: 'all',
       of: [
@@ -531,6 +574,8 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_act1_close',
     title: 'ELEVEN WEEKS IN',
     priority: true,
+    leadIn:
+      'It sneaks up on a Tuesday, the way anniversaries of things you were too busy to notice do. Three months ago this address was a laundromat with storage. You stand at the top of the stairs and actually look at it.',
     when: {
       k: 'all',
       of: [
@@ -553,5 +598,195 @@ export const ACT_ONE: readonly SceneDef[] = [
         result: 'Year two begins the way year one ended: faster than expected.',
       },
     ],
+  },
+
+  // The pilot application is the company's oxygen: any opening path that
+  // didn't file at entry gets pulled back to it here. A railway needs sky.
+  {
+    id: 'h_file_pilot',
+    title: 'A RAILWAY NEEDS SKY',
+    priority: true,
+    fuseEpochs: 3,
+    leadIn:
+      'The tether tests are getting boring, which is the polite word for perfect. Sixty feet of proven descent, over and over, above a roof you already own.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 2 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'pilot_booked', cmp: 'eq', v: true } },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'permit_done', cmp: 'eq', v: true } },
+      ],
+    },
+    prose:
+      'Everything you have assembled — the advice, the paper, the machine on its braided leash — points at the same missing ingredient: airspace that is legally yours. The Office of Aerial Corridors accepts pilot applications on Tuesdays. Every week you don’t file is a week the railway is a rumor with a prototype, and somewhere across town, MERIDIAN’s permits team files things for breakfast.',
+    choices: [
+      {
+        label: 'File the corridor pilot application',
+        effects: [
+          { e: 'flag', scope: 'company', key: 'pilot_booked', v: true },
+          { e: 'stress', d: 4 },
+        ],
+        goto: 'h_b_filing',
+        result: 'Forty minutes of municipal forms and one checkbox — PROPOSED USE: DESCENT LOGISTICS — that has clearly never been checked before.',
+      },
+    ],
+  },
+
+  // ---- connective tissue — the weeks between decisions -------------------------
+  // Bridges are full beats: aftermath of the choice, then the pressure that
+  // makes the next scene inevitable. Single exit, no stats, pure story.
+  {
+    id: 'h_b_filing',
+    kind: 'bridge',
+    title: 'WHAT THE CITY HEARS',
+    prose:
+      'The confirmation lands at 2:07 a.m.: APPLICATION RECEIVED — OFFICE OF AERIAL CORRIDORS. By morning it has been forwarded, according to the read receipts, to Zoning, to Insurance Compliance, and to something called the Department of Sidewalk Integrity. You spend the days after flying tether tests and refreshing a status page that says PENDING in a font you are learning to hate. Somewhere in a gray building, someone is deciding what to make of a railway in the sky.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_permit_wall' }],
+  },
+  {
+    id: 'h_b_advisor_hunt',
+    kind: 'bridge',
+    title: 'CREDIBILITY SHOPPING',
+    prose:
+      'You draft a list of everyone serious who might answer a founder’s cold email: eleven names, then seven once you’re honest about it. Two reply. One wants a fee just for the conversation. The other — a retired freight executive your old boss once called “the reason our cargo survived two ports and one coup” — answers with a time and your own address. She has already looked up the garage. Priya Raghavan does her diligence before the meeting, not after.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_priya_pitch' }],
+  },
+  {
+    id: 'h_b_paper_first',
+    kind: 'bridge',
+    title: 'HOW COMPANIES ACTUALLY DIE',
+    prose:
+      'You spend an evening reading startup post-mortems, and the pattern isn’t market or money — it’s paper. The founder who never assigned the IP and lost the company to a co-founder’s ex-employer. The SAFE with the clause nobody priced. The handshake that became a deposition. Three separate posts, years apart, end on some version of the same sentence: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+  },
+  {
+    id: 'h_b_priya_signed',
+    kind: 'bridge',
+    title: 'THINGS THAT WILL KILL YOU FIRST',
+    speaker: 'priya',
+    prose:
+      'Item one on Priya’s list is not permits, or insurance, or the deputy commissioner. It is your own paperwork. ‘Someone serious will ask for your data room within the month,’ she says, already typing the first introduction from your workbench. ‘Certificate of incorporation. IP assignments. A cap table that doesn’t embarrass us.’ The second intro replies the same night — interested, and asking one question first: who is your counsel? Priya reads it over your shoulder. ‘The real kind,’ she says. ‘If you don’t have that yet, there’s a shipping container downtown you should visit before you answer this email.’',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+  },
+  {
+    id: 'h_b_priya_waitlist',
+    kind: 'bridge',
+    title: 'THE LIST SHE LEFT ANYWAY',
+    prose:
+      'She leaves the term sheet unsigned but leaves something else: one handwritten page titled THINGS THAT WILL KILL YOU FIRST — ‘free of charge, so it kills you slower.’ Permits. Insurance. The deputy commissioner, by name. And underlined twice at the top: PAPERWORK — a company that isn’t papered isn’t a company, it’s a hobby with liability. The last line isn’t advice at all. It’s an address. A shipping container, downtown.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+  },
+  {
+    id: 'h_b_priya_alone',
+    kind: 'bridge',
+    title: 'ONE HUNDRED PERCENT OF EVERYTHING',
+    prose:
+      'Alone means all of it is yours: the equity, and also the incorporation forms at 1 a.m., the insurance questionnaire that wants a ‘chief compliance officer,’ the parts supplier who won’t open a purchase order without a countersigned master agreement. By Thursday you have signed your own name eleven times and understood maybe seven of them. The supplier’s procurement bot bounces your homemade contract with one automated suggestion, in bold: OBTAIN COUNSEL. Everyone you ask downtown mentions the same shipping container.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+  },
+  {
+    id: 'h_b_papered',
+    kind: 'bridge',
+    title: 'REAL ON PAPER',
+    prose:
+      'The documents come back in three days, tabbed where you sign. Certificate, bylaws, IP assignment, an equity plan you won’t need until you badly do. It is the least dramatic $18,000 of your life and, Tomás insists, the most important: ‘Nobody ever calls me about the year things went right.’ The company exists now in the way that survives arguments. Paper doesn’t fly, though. That part is still yours.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_rolodex',
+    kind: 'bridge',
+    title: 'THE ROLODEX WAKES UP',
+    speaker: 'tomas',
+    prose:
+      'The one percent starts working immediately. Introductions arrive in twos and threes — an insurance broker who doesn’t laugh at the words ‘descent risk,’ a fabricator with spare line capacity, a permits consultant who bills like sin. And one name Tomás mentions almost casually, the way people mention weather: an angel who has been asking around about ‘the tube thing in the Flats.’ ‘June Park,’ he says. ‘If she shows up, don’t negotiate like you’re grateful.’',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_diy',
+    kind: 'bridge',
+    title: 'PROBABLY FINE',
+    prose:
+      'The templates are from three jurisdictions and two decades. You harmonize them at 3 a.m. with find-and-replace and adrenaline, initialing clauses that reference a Delaware you have never seen. By Friday the company is incorporated — self-certified, fee paid, real in the eyes of a state database. In the drawer where the documents live, something small and legal ticks like a cheap watch. You will hear it again someday.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_appeal_prep',
+    kind: 'bridge',
+    title: 'FORTY PAGES OF HOPE',
+    prose:
+      'Three weeks to the hearing. You fly two hundred tether drops in six days and log every one: descent curves, wind-shear tables, failure modes with mitigation columns. The document grows teeth. Somewhere around page thirty you stop writing like a defendant and start writing like an engineer. The hearing notice arrives in the mail with a room number: 4-B.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_rogue_nights',
+    kind: 'bridge',
+    title: 'DAWN SHIFTS',
+    prose:
+      'Rogue flying has rules too — yours. Dawn only. Your own block. Waivers signed, catch-nets on the porches of the willing. The neighbors who said yes start leaving their porch lights on for the 6 a.m. run, which is either community or evidence, depending on who is asking. On Thursday, a van with government plates makes its first slow lap of the block. Everyone pretends not to notice each other.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_first_drops_rogue' }],
+  },
+  {
+    id: 'h_b_corridor_granted',
+    kind: 'bridge',
+    title: 'A LINE ON A MAP',
+    prose:
+      'The permit arrives as a shapefile and a stamp: one corridor, two hundred feet, your block and the four around it. You print the map and pin it over the workbench — a thin blue line through the Flats, the first airspace in this city that answers to you. Beneath it, in the approval conditions, the sentence that matters: OPERATIONS MAY COMMENCE UPON RECEIPT. That’s tomorrow, if the batteries charge tonight.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_first_drops_clean' }],
+  },
+  {
+    id: 'h_b_first_corridor',
+    kind: 'bridge',
+    title: 'STAMPED',
+    prose:
+      'The certificate arrives by email, then — absurdly, wonderfully — by mail, with a raised seal you run a thumb over twice. One corridor, two hundred feet, renewable on compliance. The boring paperwork, it turns out, is how you inherit the sky. The first legal drop is scheduled for 6:58 a.m. Tuesday, to a Mrs. Delgado, who signed the receiver-sleeve agreement in cursive.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_first_drops_clean' }],
+  },
+  {
+    id: 'h_b_wired',
+    kind: 'bridge',
+    title: 'WHAT MONEY SOUNDS LIKE',
+    prose:
+      'The wire lands and the garage changes pitch. You pay the laundromat three months forward, order the good connectors, book fabrication line time like someone who means it. June’s first investor-update request is one sentence: ‘Numbers monthly, surprises never.’ You tape it above the workbench. There is suddenly a version of this company that dies from spending instead of starving, and it is your job to never meet it.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_bootstrap',
+    kind: 'bridge',
+    title: 'RAMEN MATH',
+    prose:
+      'Clean means counting. You do the arithmetic on the whiteboard where an investor’s logo would have gone: every dollar of revenue is one you never have to explain to anyone, and every week is a bet that the machine earns faster than it burns. June’s card stays on the workbench, face up, like a fire alarm behind glass. Some founders are built for this. You are about to find out which kind you are.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_scale_strain',
+    kind: 'bridge',
+    title: 'THE JITTER',
+    prose:
+      'Real porches are not tether tests. Wind eddies off the roofline of the Delgado house, a receiver sleeve sags on its bolts, and somewhere in the descent controller a gimbal correction fires ninety milliseconds late. Drop forty-one lands hard enough to bruise a box of pears. Nobody films that one. You watch the log scroll past midnight and admit what the waiting list won’t let you say out loud: the software is the company now, and it needs somebody better than you.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
+  },
+  {
+    id: 'h_b_grey_strain',
+    kind: 'bridge',
+    title: 'THE MARGIN FOR ERROR IS A ROOF',
+    prose:
+      'Flying without cover means no second chances — one hard landing on the wrong porch is a headline with your name in it. So you fly conservative, and even conservative shakes: a gimbal correction that fires late, a descent curve that flattens uglier every time the wind has opinions. You read the logs on the stairs at midnight. Whatever this company becomes, the next hire decides it — someone who treats altitude like a scalpel.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
+  },
+  {
+    id: 'h_b_sofia_settled',
+    kind: 'bridge',
+    title: 'FALL BETTER',
+    prose:
+      'Her first week rewrites the descent stack in commits with one-word messages. The shuttle stops correcting like a nervous student and starts correcting like a reflex; the hard landings vanish from the logs entirely. The garage acquires a foam-block test rig and a rule about touching her oscilloscope. Once, near midnight, a black car idles across the street for twenty minutes, then leaves without anyone getting out. The company is getting good enough to be noticed. Both halves of that sentence matter.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_vale',
+    kind: 'bridge',
+    title: 'BEING SEEN',
+    prose:
+      'The card sits on the workbench for a day before you pin it to the corkboard, slightly off-level, where it watches you work. MERIDIAN knows your name now — a company whose logistics division loses more money by lunch than you will spend this year. Whatever that visit was — scouting, courtesy, appetite — the war for the last mile has noticed the railway. Work faster.',
+    choices: [{ label: 'Continue', effects: [] }],
   },
 ]
