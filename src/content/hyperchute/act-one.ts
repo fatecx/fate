@@ -69,7 +69,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_entry',
     landmark: true,
     leadIn:
-      'The stairs stop creaking. The garage is yours again — dryer heat, solder smoke, and the whole improbable thing waiting to be started.',
+      'The stairs stop creaking. The garage is yours again — the tether creaking softly, the whole improbable thing waiting to be started.',
     title: 'THE GARAGE',
     prose:
       'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors and a pneumatic drop-tube salvaged from a dead bank’s drive-through. On your screen, the incorporation papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
@@ -214,7 +214,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'meet', who: 'corr' },
         ],
         goto: 'h_b_appeal_prep',
-        result: 'Three weeks to a hearing. Your descent-safety case is forty pages of hope formatted as engineering.',
+        result: 'The clerk’s auto-reply grants you a date, twenty-one days out. Enough time to build a case; not enough to build a reputation.',
       },
       {
         label: 'Launch unlicensed over your own block. Beg forgiveness.',
@@ -267,7 +267,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE DESCENT-SAFETY HEARING',
     priority: true,
     leadIn:
-      'Room 4-B is on the third floor of a building designed to make people feel processed. You wear the one jacket that survived the solder work and carry forty pages in triplicate, per the instructions, because the Office of Aerial Corridors does not do PDFs.',
+      'Room 4-B is on the third floor of a building designed to make people feel processed. You wear the one jacket that survived the solder work and carry the case in triplicate, per the instructions, because the Office of Aerial Corridors does not do PDFs.',
     when: {
       k: 'all',
       of: [
@@ -788,7 +788,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'FORTY PAGES OF HOPE',
     prose:
-      'Three weeks to the hearing. You fly two hundred tether drops in six days and log every one: descent curves, wind-shear tables, failure modes with mitigation columns. The document grows teeth. Somewhere around page thirty you stop writing like a defendant and start writing like an engineer. The hearing notice arrives in the mail with a room number: 4-B.',
+      'You fly two hundred tether drops in six days and log every one: descent curves, wind-shear tables, failure modes with mitigation columns. The document grows teeth. Somewhere around page thirty you stop writing like a defendant and start writing like an engineer. The hearing notice arrives in the mail with a room number: 4-B.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

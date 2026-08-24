@@ -394,7 +394,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'independent', v: true },
           { e: 'rel', who: 'june', aff: -1 },
         ],
-        result: 'June nods slowly. “Then you’re betting the company every single week. Some founders are built for that.” The door closes politely, forever.',
+        result: 'June nods slowly. “Then you’re betting the company every single week. Some founders are wired that way.” The door closes politely, forever.',
       },
     ],
   },
