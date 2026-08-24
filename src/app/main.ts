@@ -7,6 +7,7 @@ import { CONTENT } from '../content/world'
 import { FILLERS, BLUR_FILLERS } from '../content/fillers'
 import { newGame, reduce, getScene } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
+import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
@@ -393,26 +394,67 @@ function cardHtml(): string {
 
 const fmt = makeFmt(CONTENT.characters)
 
+// ---- effect chips — the declared cost/gain of a choice, worn on its sleeve ----
+
+function moneyAbs(n: number): string {
+  const abs = Math.abs(n)
+  if (abs >= 1_000_000) return `$${(abs / 1_000_000).toFixed(abs % 1_000_000 ? 1 : 0)}M`
+  if (abs >= 1000) return `$${abs % 1000 ? (abs / 1000).toFixed(1) : String(abs / 1000)}k`
+  return `$${abs}`
+}
+
+/** Renders authored effect deltas as chips. Reads content only — never invents a number. */
+function fxChips(effects: readonly Effect[]): string {
+  let money = 0
+  let stress = 0
+  let rep = 0
+  let stake = 0
+  let rev = 0
+  let burn = 0
+  for (const fx of effects) {
+    switch (fx.e) {
+      case 'treasury': money += fx.d; break
+      case 'stress': stress += fx.d; break
+      case 'rep': rep += fx.d; break
+      case 'stake': stake += fx.d; break
+      case 'revenue': rev += fx.d; break
+      case 'burn': burn += fx.d; break
+    }
+  }
+  const chips: string[] = []
+  const chip = (good: boolean, label: string): void => {
+    chips.push(`<span class="fx ${good ? 'good' : 'bad'}">${label}</span>`)
+  }
+  const sign = (n: number): string => (n > 0 ? '+' : '−')
+  if (money) chip(money > 0, `${sign(money)}${moneyAbs(money)}`)
+  if (stake) chip(stake < 0, `${sign(-stake)}${Math.abs(stake) % 1 ? Math.abs(stake).toFixed(1) : Math.abs(stake)}% equity`)
+  if (rev) chip(rev > 0, `${sign(rev)}${moneyAbs(rev)}/wk rev`)
+  if (burn) chip(burn < 0, `${sign(burn)}${moneyAbs(burn)}/wk burn`)
+  if (stress) chip(stress < 0, `${sign(stress)}${Math.abs(stress)} stress`)
+  if (rep) chip(rep > 0, `${sign(rep)}${Math.abs(rep)} rep`)
+  return chips.length ? `<span class="fx-row">${chips.join('')}</span>` : ''
+}
+
 function choicesInner(sceneId: string): string {
   const scene = getScene(CONTENT, st.company.id, sceneId)
   return scene.choices
     .map((c, i) => {
       const legal = !c.requires || evalPred(c.requires, st)
       const req = legal || !c.requires ? '' : `<span class="req">requires ${esc(fmt.fmtPred(c.requires))}</span>`
-      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}">${esc(c.label)}${req}</button>`
+      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}">${esc(c.label)}${fxChips(c.effects)}${req}</button>`
     })
     .join('')
 }
 
 // ---- live-scene plumbing -----------------------------------------------------
 
-let curProseEl: HTMLElement | null = null
-let curFull = ''
+/** Typewriter segments: leadIn streams first, then the prose. */
+let curSegs: { el: HTMLElement; text: string }[] = []
 let pendingEl: HTMLElement | null = null
 
 function finishTyping(): void {
   typing = false
-  if (curProseEl) curProseEl.textContent = curFull
+  for (const s of curSegs) s.el.textContent = s.text
   if (pendingEl) pendingEl.style.visibility = 'visible'
 }
 
@@ -422,28 +464,37 @@ function mountScene(story: HTMLElement, sceneId: string): void {
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
-    ${scene.leadIn ? `<div class="leadin">${esc(scene.leadIn)}</div>` : ''}
+    ${scene.leadIn ? `<div class="leadin"></div>` : ''}
     <div class="beat-kicker">${speaker}</div>
     <h2 class="beat-title">${esc(scene.title)}</h2>
     <p class="beat-prose"></p>
   </section><div class="choices" style="visibility:hidden"></div>`
   story.appendChild(tpl.content)
 
-  curProseEl = story.querySelector('.beat:last-of-type .beat-prose')
+  const beat = story.querySelector('.beat:last-of-type')!
+  curSegs = []
+  const leadEl = beat.querySelector('.leadin') as HTMLElement | null
+  if (leadEl && scene.leadIn) curSegs.push({ el: leadEl, text: scene.leadIn })
+  curSegs.push({ el: beat.querySelector('.beat-prose') as HTMLElement, text: scene.prose })
   pendingEl = story.querySelector('.choices:last-of-type')
   if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
 
-  curFull = scene.prose
   if (scene.kind === 'bridge') pendingEl?.classList.add('bridge')
   typing = true
+  let seg = 0
   let i = 0
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const step = (): void => {
     if (!typing) return
-    i = Math.min(curFull.length, i + (reduced ? curFull.length : 2))
-    if (curProseEl) curProseEl.textContent = curFull.slice(0, i)
+    const cur = curSegs[seg]
+    i = Math.min(cur.text.length, i + (reduced ? cur.text.length : 2))
+    cur.el.textContent = cur.text.slice(0, i)
     story.scrollTop = story.scrollHeight // pin while streaming
-    if (i < curFull.length) requestAnimationFrame(step)
+    if (i >= cur.text.length && seg < curSegs.length - 1) {
+      seg += 1
+      i = 0
+    }
+    if (seg < curSegs.length - 1 || i < curSegs[seg].text.length) requestAnimationFrame(step)
     else finishTyping()
   }
   requestAnimationFrame(step)
@@ -500,9 +551,10 @@ function renderPlaying(): void {
 }
 
 /** Sequential full-screen beats (interludes, prologues). */
-function showScreens(beats: { kicker?: string; title: string; prose: string }[], idx = 0): void {
+function showScreens(beats: { kicker?: string; title: string; prose: string }[], idx = 0, onDone?: () => void): void {
   if (idx >= beats.length) {
     document.querySelector('.takeover')?.remove()
+    onDone?.()
     return
   }
   document.querySelector('.takeover')?.remove()
@@ -514,7 +566,7 @@ function showScreens(beats: { kicker?: string; title: string; prose: string }[],
     <p class="tk-body">${esc(b.prose)}</p>
     <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'}</button>
   `)
-  document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1))
+  document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1, onDone))
 }
 
 // One delegated listener for the whole app — survives re-renders.
@@ -645,7 +697,7 @@ function showEpilogue(): void {
     const screens: { kicker?: string; title: string; prose: string }[] = []
     if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose })
     for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose })
-    if (screens.length) showScreens(screens)
+    if (screens.length) showScreens(screens, 0, () => render())
   })
   document.getElementById('finale')?.addEventListener('click', () => {
     document.querySelector('.takeover')?.remove()
@@ -815,7 +867,13 @@ function startNewLife(): void {
   persist()
   render()
   const pro = CONTENT.chapters[st.company.id].prologue
-  if (pro) showScreens(pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose })))
+  // Re-render when the prologue closes so the first scene streams in view,
+  // not invisibly underneath the takeover.
+  if (pro) showScreens(
+    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose })),
+    0,
+    () => render(),
+  )
 }
 
 function render(): void {
