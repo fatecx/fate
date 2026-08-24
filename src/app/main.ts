@@ -359,7 +359,7 @@ function transcriptHtml(): string {
           return `<section class="beat past">
             ${b.leadIn ? `<div class="leadin">${esc(b.leadIn)}</div>` : ''}
             <div class="beat-kicker">${esc(b.speakerName ? b.speakerName : chapterTitle(st.company.id))}</div>
-            <h2 class="beat-title">${esc(b.title ?? '')}</h2>
+            ${b.title ? `<h2 class="beat-title">${esc(b.title)}</h2>` : ''}
             <p class="beat-prose">${esc(b.prose ?? '')}</p>
           </section>`
       }
@@ -449,34 +449,44 @@ function choicesInner(sceneId: string): string {
 
 // ---- live-scene plumbing -----------------------------------------------------
 
-/** Typewriter segments: leadIn streams first, then the prose. */
+/** Typewriter segments: filler → leadIn → prose, in story order. */
 let curSegs: { el: HTMLElement; text: string }[] = []
 let pendingEl: HTMLElement | null = null
+let curHeadEl: HTMLElement | null = null
 
 function finishTyping(): void {
   typing = false
   for (const s of curSegs) s.el.textContent = s.text
+  if (curHeadEl) curHeadEl.style.visibility = 'visible'
   if (pendingEl) pendingEl.style.visibility = 'visible'
 }
 
+function showsTitle(scene: { kind?: string; landmark?: boolean }): boolean {
+  return scene.kind === 'cutscene' || scene.landmark === true
+}
+
 /** Append the next scene skeleton and run its typewriter. */
-function mountScene(story: HTMLElement, sceneId: string): void {
+function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
     ${scene.leadIn ? `<div class="leadin"></div>` : ''}
-    <div class="beat-kicker">${speaker}</div>
-    <h2 class="beat-title">${esc(scene.title)}</h2>
+    <div class="beat-head"${scene.leadIn ? ' style="visibility:hidden"' : ''}>
+      <div class="beat-kicker">${speaker}</div>
+      ${showsTitle(scene) ? `<h2 class="beat-title">${esc(scene.title)}</h2>` : ''}
+    </div>
     <p class="beat-prose"></p>
   </section><div class="choices" style="visibility:hidden"></div>`
   story.appendChild(tpl.content)
 
   const beat = story.querySelector('.beat:last-of-type')!
-  curSegs = []
+  curHeadEl = beat.querySelector('.beat-head') as HTMLElement
+  curSegs = [...preSegs]
   const leadEl = beat.querySelector('.leadin') as HTMLElement | null
   if (leadEl && scene.leadIn) curSegs.push({ el: leadEl, text: scene.leadIn })
   curSegs.push({ el: beat.querySelector('.beat-prose') as HTMLElement, text: scene.prose })
+  const proseIdx = curSegs.length - 1
   pendingEl = story.querySelector('.choices:last-of-type')
   if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
 
@@ -484,6 +494,7 @@ function mountScene(story: HTMLElement, sceneId: string): void {
   typing = true
   let seg = 0
   let i = 0
+  if (proseIdx === 0 && curHeadEl) curHeadEl.style.visibility = 'visible'
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const step = (): void => {
     if (!typing) return
@@ -494,6 +505,8 @@ function mountScene(story: HTMLElement, sceneId: string): void {
     if (i >= cur.text.length && seg < curSegs.length - 1) {
       seg += 1
       i = 0
+      // the speaker header lands right before their prose begins
+      if (seg === proseIdx && curHeadEl) curHeadEl.style.visibility = 'visible'
     }
     if (seg < curSegs.length - 1 || i < curSegs[seg].text.length) requestAnimationFrame(step)
     else finishTyping()
@@ -951,7 +964,7 @@ function choose(index: number): void {
   // record the beat for persistence
   transcript.push({
     kind: 'scene',
-    title: scene.title,
+    title: showsTitle(scene) ? scene.title : undefined,
     speakerName: scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD',
     prose: scene.prose,
     leadIn: scene.leadIn,
@@ -976,20 +989,36 @@ function choose(index: number): void {
     return
   }
 
+  const preSegs: { el: HTMLElement; text: string }[] = []
   if (st.epoch > beforeEpoch) {
     const filler = weekFillerText(st.epoch - beforeEpoch)
     transcript.push({ kind: 'week', text: String(st.epoch), filler })
     const wk = document.createElement('template')
     wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— WEEK ${st.epoch} —</div>${
-      filler ? `<div class="filler">${esc(filler)}</div>` : ''
+      filler ? `<div class="filler"></div>` : ''
     }</div>`
     const el = wk.content.firstElementChild as HTMLElement
     ;(lastNew ?? container)?.after(el)
     lastNew = el
+    // the filler streams ahead of the next beat instead of popping in
+    const fillerEl = el.querySelector('.filler') as HTMLElement | null
+    if (fillerEl && filler) preSegs.push({ el: fillerEl, text: filler })
   }
 
   persist()
-  if (st.company.queue[0]) mountScene(story, st.company.queue[0])
+  const nextId = st.company.queue[0]
+  if (nextId) {
+    const next = getScene(CONTENT, st.company.id, nextId)
+    if (next.kind === 'cutscene') {
+      // World-scale beats always take the whole screen, even mid-session.
+      for (const s of preSegs) s.el.textContent = s.text
+      render()
+      return
+    }
+    mountScene(story, nextId, preSegs)
+  } else {
+    for (const s of preSegs) s.el.textContent = s.text
+  }
   lastNew?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 

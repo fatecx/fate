@@ -12,6 +12,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_accident',
+    landmark: true,
     title: 'THE FIRST FORTY-EIGHT HOURS',
     priority: true,
     fuseEpochs: 2,
@@ -135,6 +136,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_suspension',
+    landmark: true,
     title: 'EMERGENCY SUSPENSION HEARING',
     priority: true,
     fuseEpochs: 3,
@@ -176,6 +178,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_offer',
+    landmark: true,
     title: 'THE OFFER, MID-STORM',
     speaker: 'marcus',
     priority: true,
@@ -223,6 +226,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_war_room',
+    landmark: true,
     title: 'THE WAR ROOM',
     priority: true,
     leadIn:
@@ -270,6 +274,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_ipo_road',
+    landmark: true,
     title: 'THE ROAD SHOW',
     priority: true,
     leadIn:
@@ -309,6 +314,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_last_stand',
+    landmark: true,
     title: 'THE LAST QUARTER',
     priority: true,
     leadIn:

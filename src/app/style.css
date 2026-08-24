@@ -139,6 +139,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* ---- story column ---- */
 .story { overflow-y: auto; padding: 30px clamp(20px, 6vw, 90px) 60px; scroll-behavior: smooth; }
 .beat { max-width: 62ch; margin-bottom: 18px; }
+.beat-head { margin-top: 2px; }
 .beat-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--dim); text-transform: uppercase; }
 .beat-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.05em; margin: 3px 0 7px; text-wrap: balance; }
 .beat-prose { white-space: pre-wrap; }
@@ -146,7 +147,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* History fades as a whole — full text always present, nothing hidden on hover. */
 .past { opacity: 0.42; }
 .leadin {
-  font-style: italic; color: var(--dim); font-size: 13.5px;
   max-width: 62ch; margin-bottom: 12px; white-space: pre-wrap;
 }
 /* Your answered choice keeps its button body, greyed into history. */
@@ -189,8 +189,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .weekmark { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--dim); }
 .weekbeat { margin: 26px 0 16px; }
 .weekbeat .filler {
-  font-style: italic; color: var(--dim); font-size: 13px;
-  max-width: 58ch; margin-top: 6px;
+  max-width: 62ch; margin-top: 8px;
 }
 
 /* memoir chapter card — a finished life, collapsed */

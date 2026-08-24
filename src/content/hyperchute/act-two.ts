@@ -4,7 +4,7 @@ import type { SceneDef } from '../schema'
 export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_bridge_y2',
-    kind: 'bridge',
+    kind: 'cutscene',
     title: 'YEAR TWO',
     prose:
       'The garage is an office now — six desks, a server rack where the workbench was. MERIDIAN’s clone, Chute, sells the same stops at forty percent less and loses money on every drop with a smile. The war you wanted is here. It wants everything you have.',
@@ -30,7 +30,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'price_war', v: true },
         ],
         result: 'Margins go to zero. The list stops shrinking. So does your sleep.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_pricewar',
       },
       {
         label: 'Sell reliability — the drop that never misses.',
@@ -40,7 +40,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result: 'You publish a 99.97% on-time ledger, signed weekly. The Flats notices. So does the insurance industry.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_pricewar',
       },
       {
         label: 'Slip the city Chute’s incident reports.',
@@ -50,7 +50,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: -1 },
         ],
         result: 'Anonymous, untraceable, effective. You tell yourself the reports are accurate. They are. Mostly.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_pricewar',
       },
     ],
   },
@@ -80,7 +80,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'couriers_ally', v: true },
         ],
         result: 'The letter comes back signed with a note: FIRST COMPANY TO ASK PROPERLY. Your burn jumps. So does your standing.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_couriers',
       },
       {
         label: 'Offer a hybrid pool — guaranteed floors, no benefits.',
@@ -89,7 +89,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result: 'Half sign. Half organize harder.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_couriers',
       },
       {
         label: 'Automate the stairs. Machines don’t organize.',
@@ -100,7 +100,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'couriers_enemy', v: true },
         ],
         result: 'Stair-climbing attachments ship in six weeks. The picket signs appear in five.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_couriers',
       },
     ],
   },
@@ -124,7 +124,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result: 'You sign at the laundromat, on a table still warm from someone’s laundry. It plays on every local channel.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_strike',
       },
       {
         label: 'Hold firm. Machines finish the job.',
@@ -134,7 +134,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: -1 },
         ],
         result: 'The drop success rate holds at 94% and falls a point every week. The Flats starts a counter-list: porches that refuse your tubes.',
-        goto: 'h_cut_meridian_ipo',
+        goto: 'h_b_after_strike',
       },
     ],
   },
@@ -166,6 +166,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         label: 'Unleash Nadia. Make the lobbying the story.',
         requires: { k: 'met', who: 'nadia' },
+        goto: 'h_b_after_audit',
         effects: [
           { e: 'rep', d: 2 },
           { e: 'stress', d: 4 },
@@ -176,6 +177,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Hire the regulator who wrote the rules. For 1.5%.',
+        goto: 'h_b_after_audit',
         effects: [
           { e: 'meet', who: 'dana' },
           { e: 'stake', who: 'dana', d: 1.5 },
@@ -186,6 +188,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Comply completely. Pause the flagged corridors.',
+        goto: 'h_b_after_audit',
         effects: [
           { e: 'revenue', d: -1100 },
           { e: 'stress', d: -3 },
@@ -214,6 +217,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         label: 'Double the order. Cash up front for priority.',
         requires: { k: 'treasury', cmp: 'gte', v: 80000 },
+        goto: 'h_b_after_fresno',
         effects: [
           { e: 'treasury', d: -80000 },
           { e: 'revenue', d: 1300 },
@@ -223,6 +227,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Qualify a second supplier in Reno.',
+        goto: 'h_b_after_fresno',
         effects: [
           { e: 'burn', d: 900 },
           { e: 'stress', d: 3 },
@@ -232,6 +237,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Give Fresno’s owner points for guaranteed capacity.',
+        goto: 'h_b_after_fresno',
         effects: [
           { e: 'meet', who: 'ray' },
           { e: 'stake', who: 'ray', d: 2 },
@@ -263,6 +269,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     choices: [
       {
         label: 'Two more points. Make her a founder in fact.',
+        goto: 'h_b_after_poach',
         effects: [
           { e: 'stake', who: 'sofia', d: 2 },
           { e: 'rel', who: 'sofia', aff: 2, resp: 2 },
@@ -273,6 +280,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Match the money, keep the equity yours.',
+        goto: 'h_b_after_poach',
         effects: [
           { e: 'burn', d: 6000 },
           { e: 'rel', who: 'sofia', aff: -1 },
@@ -281,6 +289,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Let her go with blessing and a reference.',
+        goto: 'h_b_after_poach',
         effects: [
           { e: 'rel', who: 'sofia', aff: -2 },
           { e: 'stress', d: 6 },
@@ -308,6 +317,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     choices: [
       {
         label: 'Ride it. National shows, op-eds, the whole arc.',
+        goto: 'h_b_after_viral',
         effects: [
           { e: 'rep', d: 2 },
           { e: 'score', d: 1 },
@@ -318,6 +328,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Send the courier. Keep yourself off camera.',
+        goto: 'h_b_after_viral',
         effects: [
           { e: 'rep', d: 1 },
           { e: 'stress', d: 1 },
@@ -329,6 +340,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_series_a',
+    landmark: true,
     title: 'TWO MILLION, TWENTY POINTS',
     speaker: 'june',
     priority: true,
@@ -350,6 +362,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     choices: [
       {
         label: 'Take it. Win the war.',
+        goto: 'h_b_after_a',
         effects: [
           { e: 'treasury', d: 2000000 },
           { e: 'stake', who: 'june', d: 20 },
@@ -361,6 +374,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Counter at fifteen.',
+        goto: 'h_b_after_a',
         effects: [
           { e: 'treasury', d: 2000000 },
           { e: 'stake', who: 'june', d: 18 },
@@ -372,6 +386,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Stay independent. Own the whole thing or lose it all.',
+        goto: 'h_b_after_indep',
         effects: [
           { e: 'stress', d: 6 },
           { e: 'score', d: 1 },
@@ -423,7 +438,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_bridge_pre_act3',
-    kind: 'bridge',
+    kind: 'cutscene',
     priority: true,
     when: {
       k: 'all',
@@ -437,5 +452,79 @@ export const ACT_TWO: readonly SceneDef[] = [
     prose:
       'Three corridors suspended, then reopened. A price war that cost you both a fortune and taught the city your names. Couriers with health insurance. Sofia’s descent controller, version nine. The war doesn’t end. It just gets older — until the morning it stops mattering, because of what happens on Richmond Street.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
+  },
+
+  // ---- aftermath bridges — the week after each act-two decision ---------------
+  {
+    id: 'h_b_after_pricewar',
+    kind: 'bridge',
+    title: 'TRENCHES',
+    prose:
+      'The fence-line stops moving — not because anyone won, but because both sides dug in. Blue tubes fall off lampposts in your blocks; strangers straighten yours without being asked. Pricing pages update hourly now, two ops teams learning each other’s rhythms like chess players who hate each other politely. Wars like this don’t end, you realize. They get priced in — by customers, by suppliers, and eventually by people with much bigger spreadsheets than yours.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+  },
+  {
+    id: 'h_b_after_couriers',
+    kind: 'bridge',
+    title: 'THE LAST MILE HAS A FACE',
+    prose:
+      'The decision travels through the courier pool faster than any memo could — group chats, stairwells, the bench outside the laundromat. For a while deliveries continue as they always did. But the porches heard about it too, because the couriers told them, name by name, landing by landing. In the Flats, how you treat the person on the stairs is public information. It compounds, one direction or the other, from here.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+  },
+  {
+    id: 'h_b_after_strike',
+    kind: 'bridge',
+    title: 'AFTER THE PICKETS',
+    prose:
+      'A strike leaves marks either way. Routes resume; some porches keep the flyer taped inside the receiver sleeve, as a warning or a receipt, depending. The couriers know exactly what you are now, and so does the neighborhood, and so does MERIDIAN — whose channels covered every day of it, gleefully, in HD, under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war has a labor front now. You opened it.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+  },
+  {
+    id: 'h_b_after_audit',
+    kind: 'bridge',
+    title: 'PAPER WEATHER',
+    prose:
+      'Audits end the way weather does — gradually, then officially, with a letter that thanks you for your cooperation whether you cooperated or not. The gray sedans stop appearing. What stays is the lesson: the sky you operate in is licensed, and licenses have politics, and politics has a payroll. Somewhere downtown a MERIDIAN lobbyist closes your file and opens next quarter’s version of it.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_fresno',
+    kind: 'bridge',
+    title: 'SUPPLY LINES',
+    prose:
+      'The shuttle supply steadies — not fixed exactly, managed. You know your machines’ build dates now the way parents know due dates, and you check the line schedule before you check the news. Quietly, logistics becomes a weapon in the war ledger: every shuttle that ships on time is a porch Chute doesn’t take while you wait. Nobody films this part. It decides more than the parts they film.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_poach',
+    kind: 'bridge',
+    title: 'WHAT THE LETTER MEANT',
+    prose:
+      'The envelope goes into a drawer, but its meaning stays out on the bench: MERIDIAN is recruiting your company one name at a time. Somewhere in a talent database there is an org chart of your garage, and someone’s job is keeping it current. The war stopped being about porches a while ago. It is about people now — and everyone on your stairs has a number next to their name that someone else is willing to pay.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_viral',
+    kind: 'bridge',
+    title: 'AFTER THE FOUR MINUTES',
+    prose:
+      'The clip ages into legend at internet speed: stitched, captioned, argued about, taught. The waiting list grows a suburb. City hall calls twice — once to congratulate, once, quieter, to ask about capacity. Attention this size has weather of its own; for a few weeks everything the company does happens slightly on camera, and you learn to move like someone who knows it.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_a',
+    kind: 'bridge',
+    title: 'GOVERNANCE ARRIVES',
+    prose:
+      'The money changes the math; the board changes the mirror. Hiring plans become real documents with real start dates. So does a calendar invite titled BOARD MEETING — the first meeting in the company’s life that you attend rather than convene. June’s texts get shorter and land harder. The garage doesn’t feel smaller, exactly. It feels witnessed.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_indep',
+    kind: 'bridge',
+    title: 'THE WHOLE THING',
+    prose:
+      'Owning all of it has a sound: the door June closed, clicking, politely, forever. From here every payroll clears because revenue cleared, or it doesn’t clear at all. You tape the runway math to the wall where a term sheet would have hung and find, to your surprise, that you like looking at it. Some founders are built for this. The next quarter finds out which kind you are.',
+    choices: [{ label: 'Continue', effects: [] }],
   },
 ]

@@ -7,6 +7,7 @@ import type { SceneDef } from '../schema'
 export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_entry',
+    landmark: true,
     title: 'THE GARAGE',
     prose:
       'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors and a pneumatic drop-tube salvaged from a dead bank’s drive-through. On your screen, the incorporation papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
@@ -277,6 +278,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_term',
+    landmark: true,
     title: 'ONE FIFTY FOR EIGHT',
     speaker: 'june',
     prose:
@@ -325,6 +327,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_first_drops_clean',
+    landmark: true,
     title: 'BEAM DOWN',
     priority: true,
     leadIn:
@@ -369,6 +372,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_first_drops_rogue',
+    landmark: true,
     title: 'TWELVE ROOFS, NO PERMISSION',
     priority: true,
     leadIn:
@@ -540,6 +544,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Full access. Show her everything.',
+        goto: 'h_b_after_nadia',
         effects: [
           { e: 'meet', who: 'nadia' },
           { e: 'rel', who: 'nadia', aff: 2, resp: 1 },
@@ -552,6 +557,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       },
       {
         label: 'Off the record, carefully',
+        goto: 'h_b_after_nadia',
         effects: [
           { e: 'meet', who: 'nadia' },
           { e: 'rel', who: 'nadia', aff: 1 },
@@ -561,6 +567,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       },
       {
         label: 'No comment',
+        goto: 'h_b_after_nadia',
         effects: [
           { e: 'meet', who: 'nadia' },
           { e: 'rel', who: 'nadia', standing: 'hostile', aff: -2 },
@@ -572,6 +579,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_act1_close',
+    landmark: true,
     title: 'ELEVEN WEEKS IN',
     priority: true,
     leadIn:
@@ -787,6 +795,14 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'BEING SEEN',
     prose:
       'The card sits on the workbench for a day before you pin it to the corkboard, slightly off-level, where it watches you work. MERIDIAN knows your name now — a company whose logistics division loses more money by lunch than you will spend this year. Whatever that visit was — scouting, courtesy, appetite — the war for the last mile has noticed the railway. Work faster.',
+    choices: [{ label: 'Continue', effects: [] }],
+  },
+  {
+    id: 'h_b_after_nadia',
+    kind: 'bridge',
+    title: 'FILED AWAY',
+    prose:
+      'Journalists never really leave; they file. Whatever version of you Nadia carried down the stairs, it lives now in a drafts folder with your name on it, patient as a savings account, waiting for the day the railway becomes news again. In this city, it always becomes news again. You get one honest thing out of the encounter regardless: hearing your own company described back to you by someone paid to notice what founders hide.',
     choices: [{ label: 'Continue', effects: [] }],
   },
 ]

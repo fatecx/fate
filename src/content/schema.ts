@@ -19,6 +19,8 @@ export interface SceneDef {
   id: string
   kind?: SceneKind // default 'scene'
   title: string
+  /** Landmark beats keep their big title in the story column; ordinary scenes show only the speaker kicker. */
+  landmark?: boolean
   /**
    * Connective arrival prose — one to three sentences of world texture shown
    * dim above the beat, situating why this scene is happening now. Required
