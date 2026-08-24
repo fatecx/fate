@@ -5,7 +5,7 @@
 import './style.css'
 import { CONTENT } from '../content/world'
 import { FILLERS, BLUR_FILLERS } from '../content/fillers'
-import { newGame, reduce, getScene } from '../engine/reduce'
+import { newGame, reduce, getScene, choiceLegal, spendBlocked } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
 import type { Pred } from '../engine/predicates'
 import type { Effect } from '../engine/effects'
@@ -213,18 +213,22 @@ function esc(s: string): string {
 function railHtml(): string {
   const rw = runwayWeeks(st.company)
   const danger = rw < 10
+  const arrears = st.company.treasury < 0
   const stress = Math.round(st.company.stress)
   const rep = st.world.reputation
   const cells = Array.from({ length: 10 }, (_, k) => {
     const filled = stress > k * 10
     return `<i class="${filled ? (k >= 7 ? 'on hot' : 'on') : ''}"></i>`
   }).join('')
+  const runwayBlock = arrears
+    ? `<div class="runway danger"><b>—</b><span>IN<br/>ARREARS</span></div>`
+    : `<div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>`
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
     <div class="weektag">WEEK ${st.epoch}</div>
     <div class="rail-meters">
-      <div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>
+      ${runwayBlock}
       <div class="stressbox">
         <div class="mlabel"><span>STRESS</span><span>${stress}</span></div>
         <div class="stresscells">${cells}</div>
@@ -419,6 +423,7 @@ function failingLeaves(p: Pred, negate = false): Pred[] {
 }
 
 function fmtLeaf(p: Pred): string {
+  if (p.k === 'stress' && (p.cmp === 'lt' || p.cmp === 'lte')) return 'a founder who has slept'
   if (p.k === 'not') {
     const inner = p.p
     if (inner.k === 'flag' && inner.key === 'lawyer_ally') return 'Tomás is already on your cap table'
@@ -477,13 +482,17 @@ function choicesInner(sceneId: string): string {
   const scene = getScene(CONTENT, st.company.id, sceneId)
   return scene.choices
     .map((c, i) => {
-      const legal = !c.requires || evalPred(c.requires, st)
+      const legal = choiceLegal(st, c)
       let req = ''
-      if (!legal && c.requires) {
-        const leaves = failingLeaves(c.requires)
-        // Doors through strangers don't exist yet — showing them breaks the fiction.
-        if (locksOnStranger(leaves)) return ''
-        req = `<span class="req">needs ${esc(leaves.map(fmtLeaf).join(' · '))}</span>`
+      if (!legal) {
+        if (spendBlocked(st, c)) {
+          req = `<span class="req">needs money the account doesn't have</span>`
+        } else if (c.requires) {
+          const leaves = failingLeaves(c.requires)
+          // Doors through strangers don't exist yet — showing them breaks the fiction.
+          if (locksOnStranger(leaves)) return ''
+          req = `<span class="req">needs ${esc(leaves.map(fmtLeaf).join(' · '))}</span>`
+        }
       }
       const kbd = scene.kind === 'bridge' ? '<kbd class="kbd">space</kbd>' : ''
       return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}"><span class="c-label">${esc(c.label)}</span>${fxChips(c.effects)}${kbd}${req}</button>`

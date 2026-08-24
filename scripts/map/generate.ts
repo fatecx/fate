@@ -97,11 +97,12 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
           ...c.effects.flatMap((fx) =>
             'scene' in fx && typeof fx.scene === 'string' ? [pid(fx.scene)] : [],
           ),
+          ...c.effects.flatMap((fx) => ('ending' in fx ? [pid(`end:${fx.ending}`)] : [])),
         ],
       })),
     }
     nodesRaw.push(n)
-    byId.set(s.id, n)
+    byId.set(pid(s.id), n)
   }
 
   for (const e of def.endings) {
@@ -113,7 +114,7 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
       endKind: e.kind,
     }
     nodesRaw.push(n)
-    byId.set(`end:${e.id}`, n)
+    byId.set(pid(`end:${e.id}`), n)
   }
 
   // ---- edges -------------------------------------------------------------
@@ -129,6 +130,7 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     if (s.when) addEdge(deckId, pid(s.id), 'deal')
   }
   addEdge(pid('_bank'), pid(def.insolvency), 'ruin', '$0')
+  addEdge(deckId, pid(def.burnout), 'ruin', '100 stress')
 
   for (const s of def.scenes) {
     for (const c of s.choices) {
@@ -261,6 +263,15 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .node.sel{outline:2.5px solid var(--accent);outline-offset:2px}
 .node.lit{box-shadow:0 0 0 3px var(--accent-soft),0 2px 0 0 var(--ink)}
 .node.dimmed{opacity:.13;pointer-events:auto}
+.node.q-dim{opacity:.15}
+.roads{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+.roads h4{font:600 10px/1 var(--mono);letter-spacing:.16em;color:var(--dim);margin:0 0 10px}
+.rstep{position:relative;padding:0 0 10px 18px;border-left:2px solid var(--line);margin-left:5px}
+.rstep:last-child{border-left-color:transparent}
+.rstep::before{content:'';position:absolute;left:-6px;top:2px;width:10px;height:10px;border-radius:99px;background:var(--panel);border:2px solid var(--accent)}
+.rstep .rt{font:600 12px/1.35 var(--mono)}
+.rstep .rvia{font:400 11px/1.5 var(--mono);color:var(--dim);margin-top:2px}
+.rstep .rgate{display:inline-block;font:600 9.5px/1 var(--mono);letter-spacing:.06em;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:2px 8px;margin:4px 4px 0 0}
 .drawer{position:absolute;top:0;right:0;bottom:0;width:min(420px,92vw);background:var(--panel);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .18s ease;overflow-y:auto;z-index:10}
 .drawer.open{transform:none;box-shadow:-12px 0 32px rgba(0,0,0,.08)}
 .dhead{padding:14px 18px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
@@ -302,7 +313,7 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   <div class="dhead"><div class="dkicker" id="dkicker"></div><div class="dtitle" id="dtitle"></div><button class="dclose" id="dclose" aria-label="Close">✕</button></div>
   <div class="dbody" id="dbody"></div>
 </aside>
-<div class="hint">click a decision → its whole downstream tree lights up · click an ending → every road that reaches it · Esc clears</div>
+<div class="hint">click any beat → its downstream tree lights up · click an ending → every road that reaches it + the ROADS TO HERE chain in the drawer · Esc clears</div>
 <script>
 const DATA = __DATA__;
 const stage=document.getElementById('stage'),tabs=document.getElementById('tabs'),q=document.getElementById('q');
@@ -361,6 +372,22 @@ function openDrawer(n,ch){
         +(jump?'<div class="ctargets">→ '+c.targets.map(t=>{const tn=DATA.chapters.flatMap(c=>c.nodes).find(nn=>nn.id===t);return tn?tn.title:t}).join(', ')+'</div>':'')
       +'</div>';});
     html+='</div>';}
+  if(n.kind==='ending'){
+    // PATH VIEW — every scene on any road that reaches this ending, in play order,
+    // with the exact choice + gate that keeps you on the road.
+    const lit=bfs(n.id,radj);
+    const steps=ch.nodes.filter(x=>x.kind==='scene'&&lit.has(x.id)).sort((a,b)=>a.x-b.x);
+    if(steps.length){
+      html+='<div class="roads"><h4>ROADS TO HERE · '+steps.length+' BEATS</h4>';
+      steps.forEach(s=>{
+        const vias=(s.choices||[]).filter(c=>c.targets.some(t=>lit.has(t)));
+        html+='<div class="rstep"><div class="rt">'+s.title+'</div>'
+          +vias.map(c=>'<div class="rvia">▸ '+c.label
+            +(c.requires?'<br><span class="rgate">'+c.requires+'</span>':'')+'</div>').join('')
+          +'</div>';
+      });
+      html+='</div>';}
+  }
   body.innerHTML=html;drawer.classList.add('open');
   body.querySelectorAll('.choice.jump').forEach(el=>el.addEventListener('click',()=>{const t=nodeEl(el.dataset.tid);if(t)t.click();}));
 }
@@ -373,7 +400,7 @@ tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
 document.getElementById('dclose').addEventListener('click',()=>{drawer.classList.remove('open');clearFocus();});
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');clearFocus();}});
-q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.style.opacity=hit?'':'0.15';el.style.order=hit?'':'-1';});});
+q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});});
 </script>
 </body>
 </html>`;

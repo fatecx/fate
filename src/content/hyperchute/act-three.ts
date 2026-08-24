@@ -148,6 +148,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Testify personally. Say her name, say version nine, say version ten.',
+        requires: { k: 'stress', cmp: 'lt', v: 85 },
         effects: [
           { e: 'stress', d: 7 },
           { e: 'rep', d: 2 },
@@ -252,8 +253,10 @@ export const ACT_THREE: readonly SceneDef[] = [
         },
         effects: [
           { e: 'flag', scope: 'company', key: 'endgame', v: true },
+          { e: 'stress', d: -10 },
         ],
         goto: 'h_ipo_road',
+        result: 'Deciding is its own medicine. The room exhales; the whiteboard empties to one word: LIST.',
       },
       {
         label: 'Open-source the stack. Give the railway to everyone.',
@@ -296,6 +299,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           of: [
             { k: 'rep', cmp: 'gte', v: 4 },
             { k: 'treasury', cmp: 'gte', v: 100000 },
+            { k: 'stress', cmp: 'lt', v: 85 },
           ],
         },
         effects: [
@@ -340,12 +344,14 @@ export const ACT_THREE: readonly SceneDef[] = [
         },
         effects: [
           { e: 'revenue', d: -600 },
+          { e: 'treasury', d: 150000 },
           { e: 'rep', d: 2 },
           { e: 'score', d: 2 },
+          { e: 'stress', d: -8 },
           { e: 'flag', scope: 'company', key: 'last_done', v: true },
         ],
         goto: 'h_ipo_road',
-        result: 'Ninety days later the Flats is yours again, porch by porch — and the bankers who stopped calling start calling back. There is exactly one door left, and it goes through a pricing call.',
+        result: 'Ninety days later the Flats is yours again, porch by porch — forty thousand subscriptions, prepaid, because the neighborhood pays for what it trusts. The bankers who stopped calling start calling back. There is exactly one door left, and it goes through a pricing call.',
       },
       {
         label: 'Sell to the rival syndicate — anyone but MERIDIAN.',

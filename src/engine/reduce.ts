@@ -5,7 +5,7 @@
  * cursor is threaded through the clone and written back once. Content is
  * immutable data resolved by id.
  */
-import type { Content, SceneDef } from '../content/schema'
+import type { ChoiceDef, Content, SceneDef } from '../content/schema'
 import { Rng } from './rng'
 import { evalPred } from './predicates'
 import { applyEffects, DeferredEnd } from './effects'
@@ -30,13 +30,25 @@ export function getScene(content: Content, companyId: string, sceneId: string): 
   return scene
 }
 
-/** Choices the player may legally take right now (requires satisfied). */
+/** Arrears law: a company below zero cannot spend — the account can't cover it. */
+export function spendBlocked(st: GameState, choice: ChoiceDef): boolean {
+  if (st.company.treasury >= 0) return false
+  return choice.effects.some((fx) => fx.e === 'treasury' && fx.d < 0)
+}
+
+/** Full legality: authored requires plus the arrears law. */
+export function choiceLegal(st: GameState, choice: ChoiceDef): boolean {
+  if (choice.requires && !evalPred(choice.requires, st)) return false
+  return !spendBlocked(st, choice)
+}
+
+/** Choices the player may legally take right now. */
 export function visibleChoices(content: Content, st: GameState): number[] {
   if (st.phase !== 'playing' || st.company.queue.length === 0) return []
   const scene = getScene(content, st.company.id, st.company.queue[0])
   const out: number[] = []
   scene.choices.forEach((c, i) => {
-    if (!c.requires || evalPred(c.requires, st)) out.push(i)
+    if (choiceLegal(st, c)) out.push(i)
   })
   return out
 }
@@ -152,6 +164,7 @@ function closeEpoch(content: Content, st: GameState, rng: Rng): void {
   st.epoch += 1
   c.treasury -= netBurn(c)
   c.stress = clamp(c.stress + 1, 0, 100) // life accrues interest
+  if (c.treasury < 0) c.stress = clamp(c.stress + 2, 0, 100) // arrears: creditors call daily
 
   tickFuses(st)
 
@@ -195,7 +208,7 @@ export function reduce(content: Content, state: GameState, action: Action): Game
         const scene = getScene(content, st.company.id, q[0])
         const choice = scene.choices[action.index]
         if (!choice) throw new Error(`bad choice index ${action.index} for ${scene.id}`)
-        if (choice.requires && !evalPred(choice.requires, st)) {
+        if (!choiceLegal(st, choice)) {
           throw new Error(`choice locked: ${scene.id}#${action.index}`)
         }
 

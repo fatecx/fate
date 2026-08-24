@@ -491,6 +491,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Charm him. Rivals remember manners.',
+        requires: { k: 'stress', cmp: 'lt', v: 85 },
         effects: [
           { e: 'meet', who: 'marcus' },
           { e: 'rel', who: 'marcus', aff: 1 },

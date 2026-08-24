@@ -47,9 +47,9 @@ describe('derived-number math', () => {
 })
 
 describe('monte carlo biography sweep', () => {
-  const random = sweep(randomBot, Array.from({ length: 250 }, (_, i) => i + 1))
-  const greedy = sweep(greedyBot, Array.from({ length: 80 }, (_, i) => i + 1))
-  const elite = sweep(eliteBot, Array.from({ length: 60 }, (_, i) => i + 1))
+  const random = sweep(randomBot, Array.from({ length: 600 }, (_, i) => i + 1))
+  const greedy = sweep(greedyBot, Array.from({ length: 200 }, (_, i) => i + 1))
+  const elite = sweep(eliteBot, Array.from({ length: 200 }, (_, i) => i + 1))
   const all = [...random, ...greedy, ...elite]
 
   it('every biography completes without abort or violation', () => {
