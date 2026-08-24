@@ -6,10 +6,20 @@ import type { SceneDef } from '../schema'
  */
 export const ACT_ONE: readonly SceneDef[] = [
   {
+    id: 'h_backstory',
+    kind: 'bridge',
+    title: 'BEFORE THE FIRST DOLLAR',
+    prose:
+      'You quit on a Tuesday, eight years into a job routing other people’s packages through other people’s sky — a MERIDIAN sub-contractor’s dispatch floor, where you watched a hundred thousand drones serve the hills and skip the Flats every single day. The $120,000 in the company account is everything you have ever saved plus everything you could sell: the severance, the index fund, the car, your half of an apartment deposit. It bought four months of nights and a working prototype — an autonomous shuttle that holds station two hundred feet up and lowers a parcel down a pneumatic tube, soft as rain, to any porch with a receiver sleeve. No drones buzzing playgrounds. No couriers racing a stopwatch. A fixed line in the sky, a fair drop, for the streets the machines forgot. You filed the incorporation papers last night. HYPERCHUTE, INC. — one hundred percent yours, worth exactly nothing, and the only thing you have ever been sure of.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_seedling' }],
+  },
+  {
     id: 'h_seedling',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
     speaker: 'marisol',
+    leadIn:
+      'Week one of being a founder tastes like instant coffee and sounds like dryer drums. You are soldering a gimbal mount at 8 a.m. when the stairs creak with the unmistakable rhythm of a landlady with an agenda.',
     prose:
       'Mrs. Delgado owns the laundromat, the building, and — by long habit — the moral authority of the block. She takes the stairs at 8 a.m. with a rent envelope in one hand and a question she has clearly rehearsed: “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job. A railway in the sky. Boxes that fall soft as rain, to anyone, not just the hills. She squints at the tethered shuttle for a long, unhurried minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, bank-banded. Ten thousand dollars. “I was saving for a cruise. Boats are slow.”',
     choices: [

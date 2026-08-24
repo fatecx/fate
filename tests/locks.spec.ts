@@ -1,8 +1,9 @@
 /**
  * Lock-copy coverage — the class of bug where a locked choice shows raw
  * predicate syntax or a self-contradictory "needs <state you already have>".
- * Every leaf of every `requires` in ALL content must either phrase cleanly
- * in fiction or hide the choice. Content cannot ship a gate the UI cannot say.
+ * Every locked choice stays visible; every leaf of every `requires` in ALL
+ * content must phrase cleanly in one of two registers (needs / closed).
+ * Content cannot ship a gate the UI cannot say.
  */
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
@@ -25,19 +26,20 @@ function leaves(p: Pred, negate = false): Pred[] {
 const name = (id: string): string => CONTENT.characters[id]?.name ?? id
 
 describe('lock copy coverage', () => {
-  it('every requires-leaf in all content phrases cleanly or hides the choice', () => {
+  it('every requires-leaf in all content phrases cleanly in fiction', () => {
     for (const chId of COMPANY_ORDER) {
       for (const scene of CONTENT.chapters[chId].scenes) {
         for (const [i, c] of scene.choices.entries()) {
           if (!c.requires) continue
           for (const leaf of leaves(c.requires)) {
-            const phrase = phraseLeaf(leaf, name)
-            if (phrase === null) continue // hidden — legal outcome
             const where = `${chId}/${scene.id}#${i}`
-            expect(phrase.length, where).toBeGreaterThan(0)
-            expect(/flag |company:|world:|=|≥|≤|!==/.test(phrase), `${where}: raw syntax leaks: "${phrase}"`).toBe(
-              false,
-            )
+            const copy = phraseLeaf(leaf, name)
+            expect(copy.text.length, where).toBeGreaterThan(0)
+            expect(['needs', 'closed']).toContain(copy.register)
+            expect(
+              /flag |company:|world:| = | ≥ | ≤ |!==/.test(copy.text),
+              `${where}: raw syntax leaks: "${copy.text}"`,
+            ).toBe(false)
           }
         }
       }

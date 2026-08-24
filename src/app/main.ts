@@ -450,18 +450,23 @@ function choicesInner(sceneId: string): string {
     .map((c, i) => {
       const legal = choiceLegal(st, c)
       let req = ''
+      let dead = false
       if (!legal) {
         if (spendBlocked(st, c)) {
           req = `<span class="req">needs money the account doesn't have</span>`
         } else if (c.requires) {
           const copy = lockCopy(c.requires, st, fmt.name)
-          // Dead doors (closed by who you already are) and strangers: gone, not teased.
-          if (copy.hide) return ''
-          req = `<span class="req">needs ${esc(copy.needs.join(' · '))}</span>`
+          if (copy.closed.length) {
+            // A door your past sealed — visible forever, permanently shut.
+            dead = true
+            req = `<span class="req closed">door closed — ${esc(copy.closed.join(' · '))}</span>`
+          } else {
+            req = `<span class="req">needs ${esc(copy.needs.join(' · '))}</span>`
+          }
         }
       }
       const kbd = scene.kind === 'bridge' ? '<kbd class="kbd">space</kbd>' : ''
-      return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}"><span class="c-label">${esc(c.label)}</span>${fxChips(c.effects)}${kbd}${req}</button>`
+      return `<button class="choice${legal ? '' : ' locked'}${dead ? ' dead' : ''}" data-i="${i}"><span class="c-label">${esc(c.label)}</span>${fxChips(c.effects)}${kbd}${req}</button>`
     })
     .join('')
 }

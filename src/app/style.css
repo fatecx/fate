@@ -188,6 +188,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .choice.locked { opacity: 0.35; pointer-events: auto; cursor: not-allowed; }
 .choice.locked:hover { transform: none; box-shadow: none; }
 .choice .req { flex-basis: 100%; font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--accent); margin-top: 3px; }
+.choice .req.closed { color: var(--dim); }
+.choice.dead { opacity: 0.3; }
+.choice.dead .c-label { text-decoration: line-through; text-decoration-thickness: 1px; }
 .choice .fx-row { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; justify-content: flex-end; }
 .fx {
   font-family: var(--mono); font-weight: 600; font-size: 10px; letter-spacing: 0.05em;
