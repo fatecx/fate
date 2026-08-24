@@ -10,7 +10,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'BEFORE THE FIRST DOLLAR',
     prose:
-      'You quit on a Tuesday, eight years into a job routing other people’s packages through other people’s sky — a MERIDIAN sub-contractor’s dispatch floor, where you watched a hundred thousand drones serve the hills and skip the Flats every single day. The $120,000 in the company account is everything you have ever saved plus everything you could sell: the severance, the index fund, the car, your half of an apartment deposit. It bought four months of nights and a working prototype — an autonomous shuttle that holds station two hundred feet up and lowers a parcel down a pneumatic tube, soft as rain, to any porch with a receiver sleeve. No drones buzzing playgrounds. No couriers racing a stopwatch. A fixed line in the sky, a fair drop, for the streets the machines forgot. You filed the incorporation papers last night. HYPERCHUTE, INC. — one hundred percent yours, worth exactly nothing, and the only thing you have ever been sure of.',
+      'You quit on a Tuesday, eight years into a job routing other people’s packages through other people’s sky — a MERIDIAN sub-contractor’s dispatch floor, where the low-density yield map hung on the wall like a verdict on every street you grew up on. The $120,000 in the company account is everything you have ever saved plus everything you could sell: the severance, the index fund, the car, your half of an apartment deposit. It bought a lease above the Sudz & Spin, four months of nights, and one working prototype on a braided tether. You filed the incorporation papers last night. HYPERCHUTE, INC. — one hundred percent yours, worth exactly nothing, and the only thing you have ever been sure of.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_seedling' }],
   },
   {
@@ -104,7 +104,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
     weight: 2,
     leadIn:
-      'She arrives four minutes early, climbs the stairs without touching the rail, and does not ask what the smell is. References precede her; so does a reputation for leaving meetings at minute ten if they waste her.',
+      'The Flats talks. Mrs. Delgado’s taped-up receipt has been read by half the neighborhood, the incorporation filing is public record, and somewhere in the overlap between the two, your garage acquired a reputation. On Monday, a name from a different weight class asks for twenty minutes.',
     prose:
       'Priya Raghavan routed freight across three continents and survived two bankruptcies that were not her fault. She gives the garage exactly four seconds of inspection. ‘You’ve built a machine that drops boxes out of the sky onto people’s homes. You have no permits, no insurer, and no idea which deputy commissioner already hates you. I can fix all three.’ She slides a term sheet across the workbench: two percent, vesting over twelve months, advisory role, introductions included.',
     choices: [
@@ -763,7 +763,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'REAL ON PAPER',
     prose:
-      'The documents come back in three days, tabbed where you sign. Certificate, bylaws, IP assignment, an equity plan you won’t need until you badly do. It is the least dramatic $18,000 of your life and, Tomás insists, the most important: ‘Nobody ever calls me about the year things went right.’ The company exists now in the way that survives arguments. Paper doesn’t fly, though. That part is still yours.',
+      'The documents come back in three days, tabbed where you sign. Certificate, bylaws, IP assignment, an equity plan you won’t need until you badly do. It is the least dramatic $18,000 of your life and, Tomás insists, the most important: ‘Nobody ever calls me about the year things went right.’ The company exists now in the way that survives arguments. He leaves you with one unpaid piece of advice at the door: ‘Paper protects you from lawsuits, not from physics. Keep an operator close — someone who has routed real freight.’ Paper doesn’t fly, though. That part is still yours.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

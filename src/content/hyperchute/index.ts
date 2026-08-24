@@ -88,13 +88,19 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'THE FLATS · 2031',
     title: 'A CITY OF OTHER PEOPLE’S MACHINES',
     prose:
-      'The drones came first — MERIDIAN’s, a hundred thousand of them, blue and quiet, serving the hills where the tips are good. Downtown, gig couriers weave the last mile for wages that shrink yearly. The city runs on rails other people laid, going where other people’s profits point.\n\nYou have watched it from below for years. You have ideas about gravity.',
+      'The drones came first — a hundred thousand of them, blue and quiet, serving the hills where the tips are good. Downtown, gig couriers weave the last mile for wages that shrink yearly, rated by algorithms nobody has ever met. The city runs on rails other people laid, going where other people’s profits point.\n\nAnd below the flight lines, in the neighborhoods the machines skip, people still wait forty minutes for a bus to bring them insulin.',
   },
   {
-    kicker: 'A GARAGE ABOVE A LAUNDROMAT',
+    kicker: 'THE GIANT',
+    title: 'MERIDIAN',
+    prose:
+      'One company owns the sky: MERIDIAN LOGISTICS NETWORKS — an AI-run colossus whose routing brain makes eleven million decisions a minute and whose human executives mostly announce what it already decided. Ninety-one billion dollars of warehouses, dark stores, and drones. Their unofficial motto is a VP’s quote that became a T-shirt: “Logistics is a solved problem.”\n\nSolved for whom is the question nobody at MERIDIAN gets promoted for asking. The hills get four-minute delivery. The Flats gets a map labeled LOW-DENSITY YIELD.',
+  },
+  {
+    kicker: 'THE IDEA',
     title: 'HYPERCHUTE',
     prose:
-      'A railway in the sky: autonomous shuttles that hold station above your home and drop what you ordered through a pneumatic tube, soft as rain, four minutes at a time. No drones over playgrounds. No couriers racing a stopwatch for rent money. A fixed line, a fair drop.\n\nOne prototype hangs from the ceiling on a braided tether. One hundred percent of the company is yours. For now.',
+      'A railway in the sky: autonomous shuttles that hold station two hundred feet above the street and lower each parcel down a pneumatic tube — soft as rain, four minutes, any porch with a receiver sleeve. No drones over playgrounds. No couriers racing a stopwatch for rent money. A fixed line, a fair drop, priced like a bus ticket.\n\nThe strategy is the opposite of MERIDIAN’s: start where they refuse to go. One permitted corridor over one forgotten neighborhood, sixty subscribing porches, then the next street, then the next — until the low-density yield map is your empire. One prototype hangs from a garage ceiling on a braided tether. One hundred percent of the company is yours. For now.',
   },
 ]
 
