@@ -89,6 +89,34 @@ export function makeStubChapter(cfg: {
         },
       ],
     },
+    {
+      id: `${p}_burnout`,
+      title: `${cfg.title} — THE BODY KEEPS SCORE (STUB)`,
+      prose:
+        'The gauge pegs at 100 and stays there. Stub burnout: rest, push through, or walk away.',
+      choices: [
+        {
+          label: 'Take the forced rest',
+          effects: [
+            { e: 'stress', d: -45 },
+            { e: 'treasury', d: -10000 },
+          ],
+          result: 'Three weeks of silence. The company survives you resting.',
+        },
+        {
+          label: 'White-knuckle it',
+          effects: [
+            { e: 'stress', d: -12 },
+            { e: 'rep', d: -1 },
+          ],
+          result: 'Nothing left in the tank next time.',
+        },
+        {
+          label: 'Walk away',
+          effects: [{ e: 'end', ending: 'bankrupt' }],
+        },
+      ],
+    },
   ]
 
   const endings: readonly EndingDef[] = [
@@ -147,6 +175,7 @@ export function makeStubChapter(cfg: {
     tagline: cfg.tagline,
     entry: `${p}_entry`,
     insolvency: `${p}_insolvency`,
+    burnout: `${p}_burnout`,
     opening: cfg.opening,
     prologue,
     scenes,

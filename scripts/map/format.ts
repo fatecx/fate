@@ -25,7 +25,7 @@ export function makeFmt(characters: Record<string, CharacterDef>) {
       case 'treasury':
         return `treasury ${OP[p.cmp]} ${MONEY(p.v)}`
       case 'rep':
-        return `reputation ${OP[p.cmp]} ${p.v}`
+        return `cred ${OP[p.cmp]} ${p.v}`
       case 'stake':
         return `${name(p.who)} stake ${OP[p.cmp]} ${p.v}%`
       case 'rel':
@@ -60,7 +60,7 @@ export function makeFmt(characters: Record<string, CharacterDef>) {
       case 'stress':
         return `Stress ${fx.d >= 0 ? '+' : '−'}${Math.abs(fx.d)}`
       case 'rep':
-        return `Reputation ${fx.d >= 0 ? '+' : '−'}${Math.abs(fx.d)}`
+        return `Cred ${fx.d >= 0 ? '+' : '−'}${Math.abs(fx.d)}`
       case 'score':
         return `Founder score ${fx.d >= 0 ? '+' : '−'}${Math.abs(fx.d)}`
       case 'stake':

@@ -128,6 +128,23 @@ function tickFuses(st: GameState): void {
   }
 }
 
+// Burnout: the body keeps score. First time stress pegs at 100 the authored
+// burnout scene deals (rest, push through, or walk away). If it pegs again
+// after that scene has been answered, the body quits the company for you.
+function checkBurnout(content: Content, st: GameState): void {
+  const c = st.company
+  const def = content.chapters[c.id]
+  if (c.status !== 'active' || st.phase !== 'playing' || c.stress < 100) return
+  if (!c.flags['burnout_open']) {
+    c.flags['burnout_open'] = true
+    if (!c.queue.includes(def.burnout) && !c.seen.includes(def.burnout)) {
+      c.queue.unshift(def.burnout)
+    }
+  } else if (c.seen.includes(def.burnout)) {
+    endChapter(st, content, 'bankrupt')
+  }
+}
+
 function closeEpoch(content: Content, st: GameState, rng: Rng): void {
   const c = st.company
   const def = content.chapters[c.id]
@@ -149,6 +166,9 @@ function closeEpoch(content: Content, st: GameState, rng: Rng): void {
       return
     }
   }
+
+  checkBurnout(content, st)
+  if (st.phase !== 'playing') return
 
   dealScenes(content, st, rng)
 }
@@ -196,6 +216,10 @@ export function reduce(content: Content, state: GameState, action: Action): Game
         if (ends.length > 0) {
           endChapter(st, content, ends[0].ending)
         } else {
+          // Choice-driven stress spikes trigger burnout immediately, not next week.
+          checkBurnout(content, st)
+        }
+        if (st.phase === 'playing') {
           // Quiet weeks compress forward until the world has something to say
           // or the money runs out — a stalled empty queue is never a valid rest state.
           let guard = 0

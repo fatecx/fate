@@ -7,6 +7,7 @@ import { CONTENT } from '../content/world'
 import { FILLERS, BLUR_FILLERS } from '../content/fillers'
 import { newGame, reduce, getScene } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
+import type { Pred } from '../engine/predicates'
 import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
@@ -186,6 +187,7 @@ function startAmbient(canvas: HTMLCanvasElement): void {
   }
   let t = 0
   ;(function loop() {
+    if (!canvas.isConnected) return // card was replaced; let this loop die
     t += 1
     drawFrame(t)
     requestAnimationFrame(loop)
@@ -227,9 +229,7 @@ function railHtml(): string {
         <div class="mlabel"><span>STRESS</span><span>${stress}</span></div>
         <div class="stresscells">${cells}</div>
       </div>
-      <div class="repchip" title="Bank balance">${fmtMoney(st.company.treasury)}</div>
-      <div class="repchip" title="Your share of the company">${founderPct()}% STAKE</div>
-      <div class="repchip" title="Reputation — opens and closes doors across your whole life">REP ${rep >= 0 ? '+' : ''}${rep}</div>
+      <div class="repchip" title="Credibility — opens and closes doors across your whole life">CRED ${rep >= 0 ? '+' : ''}${rep}</div>
       <button class="chap" id="coToggle" title="Company papers, account, settings">${esc(chapterTitle(st.company.id))}, INC. ▾</button>
     </div>
   </header>`
@@ -308,7 +308,7 @@ function incPanelHtml(): string {
   <div class="inc-title">${esc(chapterTitle(c.id))}, INC.</div>
   <div class="inc-grid">
     <span>Incorporated</span><b>${incDate()}</b>
-    <span>Founder</span><b>You</b>
+    <span>Founder</span><b>You <span class="dim">— ${founderPct()}% stake</span></b>
     <span>Bank</span><b>${BANKS[c.id] ?? '—'} <span class="dim">· ${fmtMoney(c.treasury)}</span></b>
     <span>Counsel</span><b>${counselLine()}</b>
     <span>Advisor</span><b>${advisorLine()}</b>
@@ -400,6 +400,38 @@ function cardHtml(): string {
 
 const fmt = makeFmt(CONTENT.characters)
 
+// ---- lock explanations — show only what's actually missing, in fiction -------
+
+/** Leaves of the predicate that are failing right now (why the door is shut). */
+function failingLeaves(p: Pred, negate = false): Pred[] {
+  const holds = evalPred(p, st) !== negate
+  if (holds) return []
+  switch (p.k) {
+    case 'all':
+      return negate ? [p] : p.of.flatMap((q) => failingLeaves(q))
+    case 'any':
+      return negate ? [p] : p.of.flatMap((q) => failingLeaves(q))
+    case 'not':
+      return failingLeaves(p.p, !negate)
+    default:
+      return [negate ? { k: 'not', p } : p]
+  }
+}
+
+function fmtLeaf(p: Pred): string {
+  if (p.k === 'not') {
+    const inner = p.p
+    if (inner.k === 'flag' && inner.key === 'lawyer_ally') return 'Tomás is already on your cap table'
+    return `no longer possible — ${fmt.fmtPred(inner)}`
+  }
+  return fmt.fmtPred(p)
+}
+
+/** True when the choice should be hidden entirely: it names a door through a person the founder has never met. */
+function locksOnStranger(leaves: Pred[]): boolean {
+  return leaves.some((l) => l.k === 'met' || l.k === 'rel' || (l.k === 'not' && l.p.k === 'met'))
+}
+
 // ---- effect chips — the declared cost/gain of a choice, worn on its sleeve ----
 
 function moneyAbs(n: number): string {
@@ -437,7 +469,7 @@ function fxChips(effects: readonly Effect[]): string {
   if (rev) chip(rev > 0, `${sign(rev)}${moneyAbs(rev)}/wk rev`)
   if (burn) chip(burn < 0, `${sign(burn)}${moneyAbs(burn)}/wk burn`)
   if (stress) chip(stress < 0, `${sign(stress)}${Math.abs(stress)} stress`)
-  if (rep) chip(rep > 0, `${sign(rep)}${Math.abs(rep)} rep`)
+  if (rep) chip(rep > 0, `${sign(rep)}${Math.abs(rep)} cred`)
   return chips.length ? `<span class="fx-row">${chips.join('')}</span>` : ''
 }
 
@@ -446,7 +478,13 @@ function choicesInner(sceneId: string): string {
   return scene.choices
     .map((c, i) => {
       const legal = !c.requires || evalPred(c.requires, st)
-      const req = legal || !c.requires ? '' : `<span class="req">requires ${esc(fmt.fmtPred(c.requires))}</span>`
+      let req = ''
+      if (!legal && c.requires) {
+        const leaves = failingLeaves(c.requires)
+        // Doors through strangers don't exist yet — showing them breaks the fiction.
+        if (locksOnStranger(leaves)) return ''
+        req = `<span class="req">needs ${esc(leaves.map(fmtLeaf).join(' · '))}</span>`
+      }
       const kbd = scene.kind === 'bridge' ? '<kbd class="kbd">space</kbd>' : ''
       return `<button class="choice${legal ? '' : ' locked'}" data-i="${i}"><span class="c-label">${esc(c.label)}</span>${fxChips(c.effects)}${kbd}${req}</button>`
     })
@@ -471,8 +509,20 @@ function showsTitle(scene: { kind?: string; landmark?: boolean }): boolean {
   return scene.kind === 'cutscene' || scene.landmark === true
 }
 
+/** Replace the left card for the scene being mounted — the face matches the voice. */
+function refreshCard(): void {
+  const aside = document.querySelector('.scene-card')
+  if (!aside) return
+  const tpl = document.createElement('template')
+  tpl.innerHTML = cardHtml()
+  aside.replaceWith(tpl.content)
+  const canvas = document.querySelector('.card-canvas') as HTMLCanvasElement | null
+  if (canvas) startAmbient(canvas)
+}
+
 /** Append the next scene skeleton and run its typewriter. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
+  refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : 'THE WORLD'
   const tpl = document.createElement('template')

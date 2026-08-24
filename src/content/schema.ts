@@ -72,6 +72,8 @@ export interface ChapterDef {
   entry: string // scene id — always queued first, ignores `when`
   /** Enqueued when treasury <= 0; its choices either rescue or end the chapter. */
   insolvency: string
+  /** Enqueued when stress hits 100; rest, white-knuckle, or walk away. A second 100 collapses the chapter. */
+  burnout: string
   opening: { treasury: number; burn: number; revenue: number }
   /** Full-screen beats shown before the first scene of the chapter. */
   prologue?: readonly PrologueBeat[]

@@ -21,25 +21,28 @@ describe('content integrity', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
-  it('every chapter has an entry, an insolvency scene, and endings including `bankrupt`', () => {
+  it('every chapter has an entry, an insolvency scene, a burnout scene, and endings including `bankrupt`', () => {
     for (const id of COMPANY_ORDER) {
       const ch = CONTENT.chapters[id]
       const sceneIds = new Set(ch.scenes.map((s) => s.id))
       expect(sceneIds.has(ch.entry), `${id}: entry missing`).toBe(true)
       expect(sceneIds.has(ch.insolvency), `${id}: insolvency missing`).toBe(true)
+      expect(sceneIds.has(ch.burnout), `${id}: burnout missing`).toBe(true)
       expect(ch.endings.length).toBeGreaterThan(0)
       expect(new Set(ch.endings.map((e) => e.id)).size).toBe(ch.endings.length)
       expect(ch.endings.some((e) => e.id === 'bankrupt'), `${id}: no bankrupt ending`).toBe(true)
     }
   })
 
-  it('insolvency scenes always keep one unconditional way out', () => {
+  it('insolvency and burnout scenes always keep one unconditional way out', () => {
     for (const id of COMPANY_ORDER) {
       const ch = CONTENT.chapters[id]
-      const insolvency = ch.scenes.find((s) => s.id === ch.insolvency)
-      expect(insolvency, `${id}: insolvency undefined`).toBeDefined()
-      const open = insolvency!.choices.some((c) => !c.requires)
-      expect(open, `${id}: insolvency can deadlock — needs one choice without requires`).toBe(true)
+      for (const sceneId of [ch.insolvency, ch.burnout]) {
+        const scene = ch.scenes.find((s) => s.id === sceneId)
+        expect(scene, `${id}/${sceneId}: undefined`).toBeDefined()
+        const open = scene!.choices.some((c) => !c.requires)
+        expect(open, `${id}/${sceneId}: can deadlock — needs one choice without requires`).toBe(true)
+      }
     }
   })
 
@@ -81,7 +84,7 @@ describe('content integrity', () => {
     for (const id of COMPANY_ORDER) {
       const ch = CONTENT.chapters[id]
       const byId = new Map(ch.scenes.map((s) => [s.id, s]))
-      const reachable = new Set<string>([ch.entry, ch.insolvency])
+      const reachable = new Set<string>([ch.entry, ch.insolvency, ch.burnout])
       // Scenes with a `when` can arrive via the dealer.
       for (const s of ch.scenes) if (s.when || s.priority) reachable.add(s.id)
 
@@ -121,7 +124,7 @@ describe('content integrity', () => {
   it('hyperchute: every dealt scene arrives with a leadIn — no cold teleports', () => {
     const ch = CONTENT.chapters.hyperchute
     for (const s of ch.scenes) {
-      const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency
+      const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency || s.id === ch.burnout
       const isPlainScene = (s.kind ?? 'scene') === 'scene'
       if (!dealt || !isPlainScene || s.id === ch.entry) continue
       expect(

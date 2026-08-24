@@ -1,8 +1,8 @@
 import type { SceneDef } from '../schema'
 
 /**
- * HYPERCHUTE — insolvency ladder (shared by every act). First trigger opens the
- * rescue scene; a second trigger with rescues spent ends the chapter.
+ * HYPERCHUTE — engine ladders (shared by every act): insolvency and burnout.
+ * First trigger opens the authored scene; a second trigger ends the chapter.
  */
 export const LATE_STUBS: readonly SceneDef[] = [
   {
@@ -56,6 +56,41 @@ export const LATE_STUBS: readonly SceneDef[] = [
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
           'You pay the final invoices from personal savings. Sixty customers send cards. The Flats still calls it the railway.',
+      },
+    ],
+  },
+  {
+    id: 'h_burnout',
+    title: 'THE BODY KEEPS SCORE',
+    landmark: true,
+    leadIn:
+      'It announces itself politely at first — the missed exit on a road you drive daily, the sentence you read four times, the coffee that does nothing. Then one morning your hands are shaking over the keyboard and you cannot remember starting to cry.',
+    prose:
+      'Sofia would call it a fault cascade. Priya would call it the thing that kills founders faster than money. Whatever you call it, the truth is on the table between you and the mirror: you are the single point of failure in a company that no longer fits inside one human being. Something yields this week. You choose what.',
+    choices: [
+      {
+        label: 'Three weeks somewhere with no sky traffic. Doctor\u2019s orders.',
+        effects: [
+          { e: 'stress', d: -45 },
+          { e: 'treasury', d: -6000 },
+          { e: 'flag', scope: 'company', key: 'burnout_rested', v: true },
+        ],
+        result:
+          'The company survives three weeks without you, which is its own hard lesson. You come back lighter, and the first thing you do is write down everything that only lived in your head.',
+      },
+      {
+        label: 'White-knuckle it. Founders don\u2019t rest.',
+        effects: [
+          { e: 'stress', d: -12 },
+          { e: 'rep', d: -1 },
+        ],
+        result:
+          'You stay at the bench. The work gets done, worse than usual, by someone the team has quietly started managing around. The next time the pressure pegs the gauge, there will be nothing left to spend.',
+      },
+      {
+        label: 'Walk away. The receivers can have it.',
+        effects: [{ e: 'end', ending: 'bankrupt' }],
+        result: 'Some ledgers only balance when you stop paying into them.',
       },
     ],
   },
