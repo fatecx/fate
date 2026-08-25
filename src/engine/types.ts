@@ -85,6 +85,7 @@ export type Action =
   | { t: 'choose'; index: number }
   | { t: 'foundNext' }
   | { t: 'surrender' } // declare bankruptcy: the founder's legal out, scars and all
+  | { t: 'devSkip'; ending: string } // dev tools only: close the chapter with a named ending
 
 // ---- derived numbers -------------------------------------------------------
 

@@ -445,6 +445,7 @@ function accountHtml(): string {
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
       ${st?.phase === 'playing' ? `<button class="paction danger" id="actSurrender">DECLARE BANKRUPTCY</button>` : ''}
+      ${DEV_TOOLS && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
       ${DEV_TOOLS ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
     </div>
     <div class="inc-law">One wallet, one life. The biography is permanent.</div>
@@ -1049,6 +1050,20 @@ app.addEventListener('click', (e) => {
     if (DEV_TOOLS && confirm('[DEV] Overwrite this biography with a fresh life?')) {
       document.getElementById('coPanel')?.setAttribute('hidden', '')
       startNewLife()
+    }
+    return
+  }
+  if (target.closest('#actDevSkip')) {
+    if (DEV_TOOLS && st.phase === 'playing') {
+      const endings = CONTENT.chapters[st.company.id].endings
+      const best = endings.find((e) => e.kind === 'triumph') ?? endings[0]
+      if (confirm(`[DEV] Close ${st.company.id.toUpperCase()} with "${best.title}" and move on?`)) {
+        document.getElementById('coPanel')?.setAttribute('hidden', '')
+        st = reduce(CONTENT, st, { t: 'devSkip', ending: best.id })
+        persist()
+        refreshRail()
+        renderEpilogue()
+      }
     }
     return
   }
