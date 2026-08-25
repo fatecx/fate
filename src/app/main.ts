@@ -577,11 +577,9 @@ function renderPlaying(): void {
 
   const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
   if (scene?.kind === 'cutscene') {
-    // World-scale moments take the screen; no choices, just the weight.
+    // World-scale moments take the screen; no choices, no headings — just the weight.
     const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : null
     takeover(`
-      <div class="tk-kicker">WORLD${speaker ? ` · ${esc(speaker)}` : ''}</div>
-      <h1 class="tk-title">${esc(scene.title)}</h1>
       <p class="tk-body">${esc(scene.prose)}</p>
       <button class="cta" id="cutGo">Continue → <kbd class="kbd">space</kbd></button>
     `)
@@ -617,15 +615,13 @@ function showScreens(beats: { kicker?: string; title: string; prose: string; art
   const last = idx === beats.length - 1
   const btn = `<button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>`
   if (b.art) {
-    // Full-bleed cinematic: the print owns the whole screen; copy sits on a
-    // small inked caption plate, lower-left — legible over any paper tone
-    // without dimming the image.
+    // Full-bleed cinematic: the print owns the whole screen; prose rises from
+    // the bottom to settle dead-center, film-credits style. No headings in
+    // play — titles live in the data and the map only.
     takeover(
       `
       <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
       <div class="cine-copy">
-        <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
-        <h1 class="tk-title">${esc(b.title)}</h1>
         <p class="tk-body">${esc(b.prose)}</p>
         ${btn}
       </div>`,
@@ -633,8 +629,6 @@ function showScreens(beats: { kicker?: string; title: string; prose: string; art
     )
   } else {
     takeover(`
-      <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
-      <h1 class="tk-title">${esc(b.title)}</h1>
       <p class="tk-body">${esc(b.prose)}</p>
       ${btn}
     `)
