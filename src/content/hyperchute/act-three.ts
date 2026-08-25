@@ -9,7 +9,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
       'A descent controller throws a transient fault — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. Mei-Lin Chen, fifty-eight, cycling home from the hospital where she has worked thirty-one years, is struck and severely injured. There is footage. There is always footage. By midnight, every channel in the city leads with the railway in the sky.',
-    choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }], goto: 'h_accident' }],
+    choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }, { e: 'meet', who: 'meilin' }], goto: 'h_accident' }],
   },
   {
     id: 'h_accident',

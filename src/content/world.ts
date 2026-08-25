@@ -73,6 +73,14 @@ const CHARACTERS: Record<string, CharacterDef> = {
     blurb: 'Builds everyone’s drones, trusts almost nobody, delivers early anyway.',
     hiddenTrait: 'Keeps a hand-written ledger of every founder who paid late. You are on it, or you are not.',
   },
+  meilin: {
+    id: 'meilin',
+    name: 'Mei-Lin Chen',
+    role: 'Struck by Shuttle Fourteen',
+    blurb:
+      'Fifty-eight. Thirty-one years at the same hospital. She was cycling home when version nine failed. You never meet her — only what your company did to her.',
+    hiddenTrait: 'She never speaks to you. That is the point.',
+  },
   marisol: {
     id: 'marisol',
     name: 'Mrs. Delgado',
