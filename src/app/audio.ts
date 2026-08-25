@@ -175,6 +175,20 @@ export function setStage(s: StageState): void {
   if (ctx) void reconcile()
 }
 
+/** The film cut, for the ear: every scene re-announces its room — a brief
+ *  swell that settles. Change is what the ear notices; this manufactures it
+ *  even when the fiction stays in the same place. */
+export function roomPulse(): void {
+  if (!ctx || !ambLane) return
+  const g = ambLane.gain.gain
+  const base = Object.values(AMBIENCE).find((a) => a.id === ambLane!.id)?.gain ?? 0.5
+  const at = ctx.currentTime
+  g.cancelScheduledValues(at)
+  g.setValueAtTime(g.value, at)
+  g.linearRampToValueAtTime(Math.min(1, base * 1.5), at + 0.35)
+  g.linearRampToValueAtTime(base, at + 2.2)
+}
+
 const stung = new Set<string>()
 /** One-shot. `once` de-dupes per key so re-renders never double-ring the bell. */
 export function stinger(name: keyof typeof STINGERS, onceKey?: string): void {

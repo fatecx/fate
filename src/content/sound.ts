@@ -21,85 +21,85 @@ export interface SoundDef {
 export const AMBIENCE: Record<string, SoundDef> = {
   garage: {
     id: 'amb_garage',
-    gain: 0.5,
+    gain: 0.6,
     prompt:
-      'Interior room tone, small workshop garage above a laundromat: muffled tumble dryers rumbling through the floor, soft electronics hum, occasional light metallic tinker and a chair creak, quiet ventilation. Calm, steady, seamless loop. No music, no voices.',
+      'Interior of a small workshop garage above a laundromat: muffled tumble dryers through the floor, electronics hum — and occasional distinct events: a dryer buzzer dings downstairs, a wrench is set down, a chair creaks, solder sizzles briefly, a shuttle servo whirs once. Events sparse and irregular, a few per loop. Seamless loop, no music, no voices.',
   },
   night: {
     id: 'amb_night',
-    gain: 0.45,
+    gain: 0.55,
     prompt:
-      'Quiet interior at night: low room tone, a soft wall clock tick, distant city hum through a closed window, occasional far-off car pass, faint refrigerator drone. Lonely, still, seamless loop. No music, no voices.',
+      'Quiet interior late at night: low room tone, a wall clock ticking, distant city hum — with occasional events: a single far-off car passes, a radiator pings once, the refrigerator kicks on, a floorboard settles. Sparse, lonely, irregular. Seamless loop, no music, no voices.',
   },
   office: {
     id: 'amb_office',
-    gain: 0.45,
+    gain: 0.55,
     prompt:
-      'Small converted shipping-container law office: air conditioner hum, papers shuffling occasionally, a pen tap, distant downtown traffic muffled through thin metal walls. Businesslike, dry, seamless loop. No music, no voices.',
+      'Small converted shipping-container law office: air conditioner hum, muffled downtown traffic — with occasional events: papers shuffle, a stamp thumps once, a desk drawer rolls shut, a pen taps twice, a phone rings once in another room. Businesslike, dry, irregular events. Seamless loop, no music, no voices.',
   },
   cafe: {
     id: 'amb_cafe',
-    gain: 0.5,
+    gain: 0.62,
     prompt:
-      'Busy neighborhood coffee shop interior: espresso machine hissing and grinding intermittently, cup and saucer clinks, low indistinct crowd murmur, a door chime once. Warm, lively but not loud, seamless loop. Murmur only — no intelligible words, no music.',
+      'Busy neighborhood coffee shop interior: continuous low crowd murmur — with frequent distinct events: espresso machine hisses and knocks, cups clink on saucers, the register drawer dings, a chair scrapes, the door chime rings as someone enters, milk steams. Warm and alive. Seamless loop, murmur only, no intelligible words, no music.',
   },
   street: {
     id: 'amb_street',
-    gain: 0.45,
+    gain: 0.58,
     prompt:
-      'Working-class city street, daytime: light traffic passing, distant bus air brakes, sparrows, a dog bark far away, footsteps on pavement, a faint electric hum overhead. Open-air, lived-in, seamless loop. No music, no voices.',
+      'Working-class city street, daytime: light traffic bed — with occasional events: a bus pulls away with air brakes, sparrows burst up, a dog barks twice far off, a shopkeeper drags a gate, footsteps pass close, a delivery shuttle hums overhead once. Open-air, lived-in, irregular. Seamless loop, no music, no voices.',
   },
   hearing: {
     id: 'amb_hearing',
-    gain: 0.4,
+    gain: 0.5,
     prompt:
-      'Municipal hearing room tone: large room HVAC rumble, chairs shifting on hard floor, papers turning, a distant cough, microphone hum. Formal, tense, hushed, seamless loop. No music, no speech.',
+      'Municipal hearing room before session: large-room HVAC rumble — with occasional events: chairs shift on hard floor, a microphone is bumped once, papers turn, someone coughs at the back, a heavy door closes softly. Formal, hushed, tense. Seamless loop, no music, no speech.',
   },
   crowd: {
     id: 'amb_crowd',
-    gain: 0.45,
+    gain: 0.55,
     prompt:
       'Street protest heard from a half block away: crowd murmur swelling and falling, indistinct chant rhythms, a whistle, picket signs knocking, city traffic behind. Tense but not violent, seamless loop. No intelligible words, no music.',
   },
   warehouse: {
     id: 'amb_warehouse',
-    gain: 0.45,
+    gain: 0.55,
     prompt:
       'Aerostructures fabrication floor: distant CNC machining whine, a forklift reversing beep far away, compressed air bursts, metal sheet handling, big-space reverb. Industrial, busy, seamless loop. No music, no voices.',
   },
   corp: {
     id: 'amb_corp',
-    gain: 0.4,
+    gain: 0.5,
     prompt:
       'Glass corporate tower interior: vast quiet atrium tone, soft ventilation, distant elevator chime, muffled phone ringing once far away, expensive hush. Cold, polished, seamless loop. No music, no voices.',
   },
   accident: {
     id: 'amb_accident',
-    gain: 0.42,
+    gain: 0.52,
     prompt:
       'Cordoned city street after an accident, evening: wind over pavement, a distant siren passing once, low bystander murmur, police radio crackle far away, a news helicopter faint overhead. Somber, heavy, seamless loop. No music, no intelligible words.',
   },
   roadshow: {
     id: 'amb_roadshow',
-    gain: 0.42,
+    gain: 0.5,
     prompt:
       'Hotel conference room between meetings: low HVAC, projector fan, ice in water glasses, distant lobby murmur, a rolling suitcase passing in the corridor, faint jet cabin drone undertone. Transient, professional, seamless loop. No music, no voices.',
   },
   dispatch: {
     id: 'amb_dispatch',
-    gain: 0.45,
+    gain: 0.55,
     prompt:
       'Large logistics dispatch floor: hundreds of quiet keyboards, headset call-center murmur, server room whir, air conditioning, an alert tone chirping far away. Corporate, monotonous, seamless loop. No intelligible words, no music.',
   },
   wind: {
     id: 'amb_wind',
-    gain: 0.42,
+    gain: 0.5,
     prompt:
       'City rooftop at height: steady soft wind over ledges, faint traffic far below, a distant electric hum above, cable tick against a mast. Open, airy, slightly lonely, seamless loop. No music, no voices.',
   },
   exchange: {
     id: 'amb_exchange',
-    gain: 0.45,
+    gain: 0.58,
     prompt:
       'Stock exchange trading floor mid-morning: large hall crowd roar, overlapping excited murmur, distant phone rings, papers, big marble reverb. Electric, historic, seamless loop. No intelligible words, no music.',
   },
@@ -114,35 +114,35 @@ export const AMBIENCE: Record<string, SoundDef> = {
 export const MOODS: Record<string, SoundDef> = {
   build: {
     id: 'mus_build',
-    gain: 0.36,
+    gain: 0.3,
     seconds: 30,
     prompt:
       'Warm ambient instrumental music: soft analog synthesizer chords slowly shifting through a gentle hopeful progression, a faint music-box arpeggio drifting in and out, tape warmth, late-night optimism of building something in a garage. Slow, patient, seamless loop, no drums, no vocals.',
   },
   war: {
     id: 'mus_war',
-    gain: 0.36,
+    gain: 0.3,
     seconds: 30,
     prompt:
       'Tense ambient instrumental music: dark minor-key synthesizer chords moving slowly, a low pulsing bass note underneath, cold metallic shimmer accents, restrained forward pressure like a long campaign being fought. Brooding, determined, seamless loop, no drums, no vocals.',
   },
   aftermath: {
     id: 'mus_aftermath',
-    gain: 0.34,
+    gain: 0.28,
     seconds: 30,
     prompt:
       'Somber ambient instrumental music: melancholy felt-piano phrases over a cold sustained string pad, slow and mournful, grief and responsibility after an accident, clearly audible but gentle. Seamless loop, no drums, no vocals.',
   },
   endgame: {
     id: 'mus_endgame',
-    gain: 0.36,
+    gain: 0.3,
     seconds: 30,
     prompt:
       'Cinematic ambient instrumental music: deep warm pads slowly swelling and receding, a quiet noble horn-like synthesizer line rising gradually, gathering shimmer, destiny at the end of a long road. Grand but restrained, seamless loop, no drums, no vocals.',
   },
   film: {
     id: 'mus_film',
-    gain: 0.34,
+    gain: 0.32,
     seconds: 30,
     prompt:
       'Dark cinematic ambient instrumental music: a deep evolving synthesizer pad with slow tonal movement, distant resonant piano note echoing rarely, held-breath suspense of a film interlude. Heavy, spacious, seamless loop, no drums, no vocals.',
@@ -191,42 +191,42 @@ export const STINGERS: Record<string, SoundDef> = {
 export const FOLEY: Record<string, SoundDef> = {
   stairs: {
     id: 'fol_stairs',
-    gain: 0.5,
+    gain: 0.6,
     seconds: 4,
     prompt:
       'Footsteps climbing old creaky wooden stairs, approaching steadily, then stopping at the top. Interior, close, natural. One-shot, no music, no voices.',
   },
   pen: {
     id: 'fol_pen',
-    gain: 0.5,
+    gain: 0.55,
     seconds: 3,
     prompt:
       'A ballpoint pen signing a signature on paper laid on a wooden table: quick confident scratch strokes, a small paper rustle, pen set down. One-shot, close, dry, no music.',
   },
   phone: {
     id: 'fol_phone',
-    gain: 0.45,
+    gain: 0.55,
     seconds: 3,
     prompt:
       'A phone vibrating twice on a wooden workbench, short buzz pattern, slight rattle of small parts nearby. One-shot, close, no music, no ringtone melody.',
   },
   gavel: {
     id: 'fol_gavel',
-    gain: 0.5,
+    gain: 0.6,
     seconds: 3,
     prompt:
       'A wooden gavel strikes a sound block twice in a large municipal hall, firm and procedural, natural room reverb. One-shot, no music, no voices.',
   },
   cameras: {
     id: 'fol_cameras',
-    gain: 0.45,
+    gain: 0.55,
     seconds: 4,
     prompt:
       'A burst of press camera shutters clicking rapidly with a few flash pops, a scrum settling. One-shot, no music, no voices.',
   },
   door: {
     id: 'fol_door',
-    gain: 0.45,
+    gain: 0.55,
     seconds: 3,
     prompt:
       'A glass shop door opens with a small brass bell chime and swings shut with a soft thud. Interior cafe acoustics. One-shot, no music, no voices.',

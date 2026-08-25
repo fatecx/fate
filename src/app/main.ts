@@ -14,7 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, stinger, foley, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
+import { setStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -679,6 +679,7 @@ function refreshCard(): void {
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
+  roomPulse() // the cut re-announces the room, even when the place holds
   if (scene.foley) foley(scene.foley as Parameters<typeof foley>[0])
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
