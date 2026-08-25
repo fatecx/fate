@@ -602,23 +602,22 @@ function renderPlaying(): void {
   if (scene?.kind === 'cutscene') {
     // World-scale moments take the screen; no choices, no headings — just the weight.
     const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : null
-    takeover(`
-      <p class="tk-body">${esc(scene.prose)}</p>
-      <button class="cta" id="cutGo">Continue → <kbd class="kbd">space</kbd></button>
-    `)
-    document.getElementById('cutGo')?.addEventListener('click', () => {
-      document.querySelector('.takeover')?.remove()
-      transcript.push({
-        kind: 'scene',
-        title: scene.title,
-        speakerName: speaker ?? 'THE WORLD',
-        prose: scene.prose,
-      })
-      st = reduce(CONTENT, st, { t: 'choose', index: 0 })
-      refreshRail()
-      persist()
-      render()
-    })
+    showScreens(
+      [{ prose: scene.prose, art: scene.art }],
+      () => {
+        transcript.push({
+          kind: 'scene',
+          title: scene.title,
+          speakerName: speaker ?? 'THE WORLD',
+          prose: scene.prose,
+        })
+        st = reduce(CONTENT, st, { t: 'choose', index: 0 })
+        refreshRail()
+        persist()
+        render()
+      },
+      'Continue →',
+    )
     return
   }
 
@@ -626,37 +625,118 @@ function renderPlaying(): void {
   story.scrollTop = chapterChanged ? 0 : story.scrollHeight
 }
 
-/** Sequential full-screen beats (interludes, prologues) — manga panels on black. */
-function showScreens(beats: { kicker?: string; title: string; prose: string; art?: string }[], idx = 0, onDone?: () => void): void {
-  if (idx >= beats.length) {
-    document.querySelector('.takeover')?.remove()
+/** Sequential full-screen beats (interludes, prologues) — one persistent
+ *  adventure-game panel: a translucent ink box floats center over the print,
+ *  prose lands line by line, and a click (or space) turns each paragraph.
+ *  No buttons mid-stream — only the final passage offers one. */
+function showScreens(
+  beats: { kicker?: string; title?: string; prose: string; art?: string }[],
+  onDone?: () => void,
+  cta = 'Begin →',
+): void {
+  const chunks = beats.flatMap((b) =>
+    b.prose.split(/\n{2,}/).filter((t) => t.trim()).map((text) => ({ art: b.art, text })),
+  )
+  document.querySelector('.takeover')?.remove()
+  if (!chunks.length) {
     onDone?.()
     return
   }
-  document.querySelector('.takeover')?.remove()
-  const b = beats[idx]
-  const last = idx === beats.length - 1
-  const btn = `<button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>`
-  if (b.art) {
-    // Full-bleed cinematic: the print owns the whole screen; prose rises from
-    // the bottom to settle dead-center, film-credits style. No headings in
-    // play — titles live in the data and the map only.
-    takeover(
-      `
-      <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
-      <div class="cine-copy">
-        <p class="tk-body">${esc(b.prose)}</p>
-        ${btn}
-      </div>`,
-      'cine',
-    )
-  } else {
-    takeover(`
-      <p class="tk-body">${esc(b.prose)}</p>
-      ${btn}
-    `)
+  takeover(
+    `
+    <img class="cine-bg" alt="">
+    <div class="cine-box">
+      <p class="tk-body cine-text"></p>
+      <div class="cine-more" hidden>▸ click</div>
+      <button class="cta" id="scrGo" hidden>${esc(cta)} <kbd class="kbd">space</kbd></button>
+    </div>`,
+    'cine',
+  )
+  const tk = document.querySelector('.takeover') as HTMLElement
+  const bg = tk.querySelector('.cine-bg') as HTMLImageElement
+  const textEl = tk.querySelector('.cine-text') as HTMLElement
+  const more = tk.querySelector('.cine-more') as HTMLElement
+  const btn = tk.querySelector('#scrGo') as HTMLElement
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  bg.addEventListener('error', () => {
+    bg.style.opacity = '0' // art never blocks — the box floats on ink
+  })
+
+  let cur = 0
+  let queue: HTMLElement[] = []
+  let timer = 0
+  let revealing = false
+  let curArt = ''
+  let artN = 0
+  const last = (): boolean => cur >= chunks.length - 1
+
+  const settle = (): void => {
+    window.clearTimeout(timer)
+    for (const l of queue) {
+      l.classList.add('on')
+      l.parentElement?.classList.add('on')
+    }
+    queue = []
+    revealing = false
+    more.hidden = last()
+    btn.hidden = !last()
   }
-  document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1, onDone))
+  const step = (): void => {
+    if (!tk.isConnected) return
+    const l = queue.shift()
+    if (!l) {
+      settle()
+      return
+    }
+    l.classList.add('on')
+    l.parentElement?.classList.add('on')
+    // Reading-paced: longer lines hold a beat longer.
+    const wait = Math.min(620, 220 + (l.textContent?.length ?? 0) * 4)
+    timer = window.setTimeout(queue.length ? step : settle, wait)
+  }
+  const setArt = (id?: string): void => {
+    const src = id ? `/art/${id}.webp` : ''
+    if (!src || src === curArt || !bg.isConnected) return
+    const first = !curArt
+    curArt = src
+    artN += 1
+    bg.style.opacity = '0'
+    window.setTimeout(
+      () => {
+        if (!bg.isConnected) return
+        bg.src = src
+        bg.classList.remove('drift-a', 'drift-b')
+        void bg.offsetWidth
+        bg.classList.add(artN % 2 ? 'drift-a' : 'drift-b')
+        bg.style.opacity = '1'
+      },
+      first || reduced ? 0 : 260,
+    )
+  }
+  const show = (i: number): void => {
+    cur = i
+    const c = chunks[i]
+    setArt(c.art)
+    more.hidden = true
+    btn.hidden = true
+    queue = makeParas(textEl, c.text)
+    revealing = true
+    if (reduced) settle()
+    else step()
+  }
+
+  tk.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement
+    if (t.closest('#scrGo')) {
+      window.clearTimeout(timer)
+      tk.remove()
+      onDone?.()
+      return
+    }
+    if (revealing) settle()
+    else if (!last()) show(cur + 1)
+  })
+  show(0)
 }
 
 // One delegated listener for the whole app — survives re-renders.
@@ -723,14 +803,22 @@ app.addEventListener('click', (e) => {
   if (target.closest('.story')) finishTyping()
 })
 
-// Space advances: skips the typewriter, turns bridges, dismisses single-CTA
-// takeovers (cutscenes, prologue screens). Never decides a real choice.
+// Space advances: skips the reveal, turns bridges and cutscene paragraphs,
+// dismisses single-CTA takeovers. Never decides a real choice.
 window.addEventListener('keydown', (e) => {
   if (e.code !== 'Space') return
   const ae = document.activeElement as HTMLElement | null
   if (ae && ae.tagName === 'BUTTON') ae.blur() // avoid native double-activation
-  const tk = document.querySelector('.takeover')
+  const tk = document.querySelector('.takeover') as HTMLElement | null
   if (tk) {
+    if (tk.classList.contains('cine')) {
+      // Adventure panel: space = click. The end button only when it's shown.
+      e.preventDefault()
+      const go = tk.querySelector<HTMLElement>('#scrGo')
+      if (go && !go.hidden) go.click()
+      else tk.click()
+      return
+    }
     const ctas = tk.querySelectorAll<HTMLElement>('.cta')
     if (ctas.length === 1) {
       e.preventDefault()
@@ -820,7 +908,7 @@ function showEpilogue(): void {
     const screens: { kicker?: string; title: string; prose: string; art?: string }[] = []
     if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
     for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
-    if (screens.length) showScreens(screens, 0, () => render())
+    if (screens.length) showScreens(screens, () => render())
   })
   document.getElementById('finale')?.addEventListener('click', () => {
     document.querySelector('.takeover')?.remove()
@@ -991,7 +1079,6 @@ function startNewLife(): void {
   // not invisibly underneath the takeover.
   if (pro) showScreens(
     pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })),
-    0,
     () => render(),
   )
 }
