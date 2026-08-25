@@ -206,7 +206,7 @@ function castClusterHtml(): string {
   const faces = met.slice(-2).reverse().map((c) => castFaceHtml(c.id)).join('')
   const shadow = met.length === 0 ? `<span class="cast-face shadow"><i>?</i></span>` : ''
   return `<button class="cast" id="castToggle" title="The cast — everyone this life has met">
-    ${youFaceHtml()}${faces}${shadow}<span class="cast-word">CAST</span>
+    ${youFaceHtml()}${faces}${shadow}<span class="cast-word">CAST ▾</span>
   </button>`
 }
 
@@ -355,7 +355,6 @@ function railHtml(): string {
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
     <div class="weektag">${clockLabel()}</div>
-    ${castClusterHtml()}
     <div class="rail-meters">
       ${runwayBlock}
       <div class="stressbox">
@@ -364,6 +363,9 @@ function railHtml(): string {
       </div>
       <div class="repchip" title="Bank balance">${fmtMoney(st.company.treasury)}</div>
       <div class="repchip" title="Credibility — opens and closes doors across your whole life">CRED ${rep >= 0 ? '+' : ''}${rep}</div>
+    </div>
+    <div class="rail-right">
+      ${castClusterHtml()}
       <button class="chap" id="coToggle" title="Company papers, account, settings"><span class="chap-label">${esc(chapterTitle(st.company.id))}, INC. ▾</span></button>
     </div>
   </header>`
