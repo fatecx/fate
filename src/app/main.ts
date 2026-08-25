@@ -476,14 +476,29 @@ function choicesInner(sceneId: string): string {
 
 // ---- live-scene plumbing -----------------------------------------------------
 
-/** Typewriter segments: outcome → filler → leadIn → prose, in story order. */
-let curSegs: { el: HTMLElement; text: string }[] = []
+/** Chat-style reveal queue — prose lands one paragraph at a time, in story order. */
+let revealQueue: HTMLElement[] = []
+let revealTimer = 0
 let pendingEl: HTMLElement | null = null
 
 function finishTyping(): void {
   typing = false
-  for (const s of curSegs) s.el.textContent = s.text
+  window.clearTimeout(revealTimer)
+  for (const p of revealQueue) p.classList.add('on')
+  revealQueue = []
   if (pendingEl) pendingEl.style.visibility = 'visible'
+}
+
+/** Split a block's text into hidden paragraph spans, ready to fade in. */
+function makeParas(el: HTMLElement, text: string): HTMLElement[] {
+  el.textContent = ''
+  return text.split(/\n{2,}/).map((t) => {
+    const p = document.createElement('span')
+    p.className = 'fadepara'
+    p.textContent = t
+    el.appendChild(p)
+    return p
+  })
 }
 
 /** Replace the left card for the scene being mounted — the face matches the voice. */
@@ -497,8 +512,9 @@ function refreshCard(): void {
   if (canvas) startAmbient(canvas)
 }
 
-/** Append the next scene skeleton and run its typewriter. Headings live in the
- *  backend and the map only — in play, the story is one unbroken stream. */
+/** Append the next scene skeleton and fade it in paragraph by paragraph.
+ *  Headings live in the backend and the map only — in play, the story is one
+ *  unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
@@ -510,32 +526,33 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
   story.appendChild(tpl.content)
 
   const beat = story.querySelector('.beat:last-of-type')!
-  curSegs = [...preSegs]
+  const segs = [...preSegs]
   const leadEl = beat.querySelector('.leadin') as HTMLElement | null
-  if (leadEl && scene.leadIn) curSegs.push({ el: leadEl, text: scene.leadIn })
-  curSegs.push({ el: beat.querySelector('.beat-prose') as HTMLElement, text: scene.prose })
+  if (leadEl && scene.leadIn) segs.push({ el: leadEl, text: scene.leadIn })
+  segs.push({ el: beat.querySelector('.beat-prose') as HTMLElement, text: scene.prose })
   pendingEl = story.querySelector('.choices:last-of-type')
   if (pendingEl) pendingEl.innerHTML = choicesInner(sceneId)
 
   if (scene.kind === 'bridge') pendingEl?.classList.add('bridge')
+  revealQueue = segs.flatMap((s) => makeParas(s.el, s.text))
   typing = true
-  let seg = 0
-  let i = 0
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    finishTyping()
+    story.scrollTop = story.scrollHeight
+    return
+  }
   const step = (): void => {
     if (!typing) return
-    const cur = curSegs[seg]
-    i = Math.min(cur.text.length, i + (reduced ? cur.text.length : 3))
-    cur.el.textContent = cur.text.slice(0, i)
-    story.scrollTop = story.scrollHeight // pin while streaming
-    if (i >= cur.text.length && seg < curSegs.length - 1) {
-      seg += 1
-      i = 0
+    const p = revealQueue.shift()
+    if (!p) {
+      finishTyping()
+      return
     }
-    if (seg < curSegs.length - 1 || i < curSegs[seg].text.length) requestAnimationFrame(step)
-    else finishTyping()
+    p.classList.add('on')
+    story.scrollTop = story.scrollHeight // pin while the stream lands
+    revealTimer = window.setTimeout(revealQueue.length ? step : finishTyping, 300)
   }
-  requestAnimationFrame(step)
+  step()
 }
 
 let renderedChapter = -1
@@ -600,14 +617,12 @@ function showScreens(beats: { kicker?: string; title: string; prose: string; art
   const last = idx === beats.length - 1
   const btn = `<button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>`
   if (b.art) {
-    // Letterboxed cinematic: the print owns the top of the screen untouched;
-    // copy lives in a black cinema band beneath it.
+    // Full-bleed cinematic: the print owns the whole screen; copy sits on a
+    // small inked caption plate, lower-left — legible over any paper tone
+    // without dimming the image.
     takeover(
       `
-      <div class="cine-stage">
-        <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
-        <div class="cine-seam"></div>
-      </div>
+      <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
       <div class="cine-copy">
         <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
         <h1 class="tk-title">${esc(b.title)}</h1>
@@ -997,8 +1012,8 @@ function choose(index: number): void {
       else b.remove()
     })
   }
-  // The answered beat joins history.
-  story.querySelector('.beat:last-of-type')?.classList.add('past')
+  // Everything on screen joins history — beats, bridges, outcomes, week marks.
+  for (const el of Array.from(story.children)) el.classList.add('past')
 
   st = reduce(CONTENT, st, { t: 'choose', index })
 

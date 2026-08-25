@@ -165,8 +165,16 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .beat-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.05em; margin: 3px 0 7px; text-wrap: balance; }
 .beat-prose { white-space: pre-wrap; }
 
+/* Chat-style reveal: prose lands a paragraph at a time, fading up into place. */
+.fadepara { display: none; }
+.fadepara.on { display: block; animation: fadeUp 0.45s ease both; }
+.fadepara + .fadepara { margin-top: 0.9em; }
+
 /* History fades as a whole — full text always present, nothing hidden on hover. */
 .past { opacity: 0.42; }
+/* Inside a past block, the answered button doesn't double-fade. */
+.past .choice.picked { opacity: 1; }
+.choices.past { pointer-events: none; }
 .leadin {
   max-width: 62ch; margin-bottom: 12px; white-space: pre-wrap;
 }
@@ -247,33 +255,32 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .takeover-inner::-webkit-scrollbar { display: none; }
 .tk-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; }
-/* Letterboxed cinematic panels: the print owns the top, untouched; copy sits in a cinema band below. */
+/* Full-bleed cinematic panels: the print owns the whole screen; copy sits on a
+   small inked caption plate, lower-left — same language as the framed prints. */
 .takeover.cine { display: block; overflow: hidden; }
 .cine .takeover-inner {
-  position: static; max-width: none; width: 100%; height: 100%; padding: 0;
-  animation: none; overflow: visible; display: flex; flex-direction: column;
+  position: relative; max-width: none; width: 100%; height: 100%; padding: 0;
+  animation: none; overflow: hidden;
 }
-.cine-stage { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; }
 .cine-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cine-bg.drift-a { animation: kenburnsA 34s ease-in-out infinite alternate; }
 .cine-bg.drift-b { animation: kenburnsB 34s ease-in-out infinite alternate; }
-/* Thin seam so the band meets the print softly instead of a hard cut. */
-.cine-seam {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 64px; pointer-events: none;
-  background: linear-gradient(180deg, rgba(13, 14, 17, 0) 0%, rgba(13, 14, 17, 0.85) 100%);
-}
 .cine-copy {
-  flex: none; background: #0d0e11;
-  padding: 4px clamp(28px, 6vw, 100px) clamp(18px, 3.5vh, 36px);
+  position: absolute; left: clamp(24px, 5vw, 72px); bottom: clamp(24px, 6vh, 64px);
+  max-width: min(58ch, calc(100vw - 2 * clamp(24px, 5vw, 72px)));
+  background: rgba(13, 14, 17, 0.82); backdrop-filter: blur(3px);
+  border: 1.5px solid rgba(236, 237, 233, 0.22); border-radius: 8px;
+  box-shadow: 8px 8px 0 rgba(13, 14, 17, 0.45);
+  padding: 20px clamp(22px, 2.6vw, 34px) 22px;
   animation: panelIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.cine-copy .tk-title { margin: 6px 0 10px; font-size: clamp(21px, 2.6vw, 28px); }
+.cine-copy .tk-title { margin: 6px 0 10px; font-size: clamp(20px, 2.4vw, 27px); }
 .cine-copy .tk-body {
-  font-size: 15px; line-height: 1.6; color: #dcddd7;
-  max-width: 100ch; max-height: 34vh; overflow-y: auto; scrollbar-width: none;
+  font-size: 14.5px; line-height: 1.6; color: #dcddd7;
+  max-height: 38vh; overflow-y: auto; scrollbar-width: none;
 }
 .cine-copy .tk-body::-webkit-scrollbar { display: none; }
-.cine-copy .cta { margin-top: 14px; padding: 11px 26px; }
+.cine-copy .cta { margin-top: 16px; padding: 10px 24px; }
 .tk-art {
   display: block; width: min(58%, 260px); aspect-ratio: 1; object-fit: cover;
   margin: 18px 0 6px; border: 1.5px solid var(--ink); border-radius: 8px;
@@ -329,6 +336,8 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 /* Full-screen panels rise like a page turn. */
 @keyframes panelIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+/* Paragraphs land like a message arriving. */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
 /* Slow breathing zoom on portraits — a still that refuses to be dead. */
 @keyframes breathe { from { transform: scale(1.01); } to { transform: scale(1.07); } }
 /* Ken Burns drift pair for widescreen cutscene panels. */
