@@ -1014,11 +1014,6 @@ app.addEventListener('click', (e) => {
 // Space advances: skips the reveal, turns bridges and cutscene paragraphs,
 // dismisses single-CTA takeovers. Never decides a real choice.
 window.addEventListener('keydown', (e) => {
-  // F toggles fullscreen anywhere, video-player style.
-  if (e.code === 'KeyF' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-    toggleFullscreen()
-    return
-  }
   if (e.code !== 'Space') return
   const ae = document.activeElement as HTMLElement | null
   if (ae && ae.tagName === 'BUTTON') ae.blur() // avoid native double-activation
@@ -1049,14 +1044,6 @@ window.addEventListener('keydown', (e) => {
     btn?.click()
   }
 })
-
-// The page paints pure black, but the browser toolbar, the OS window frame and
-// the desktop still ring it. F toggles the only true borderless film — no
-// on-screen control by design; the look is authored, the key is a courtesy.
-function toggleFullscreen(): void {
-  if (document.fullscreenElement) void document.exitFullscreen().catch(() => {})
-  else void document.documentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {})
-}
 
 function takeover(inner: string, cls = ''): void {
   const el = document.createElement('div')
