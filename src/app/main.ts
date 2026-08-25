@@ -625,22 +625,41 @@ function renderPlaying(): void {
   story.scrollTop = chapterChanged ? 0 : story.scrollHeight
 }
 
-/** Sequential full-screen beats (interludes, prologues) — one persistent
- *  adventure-game panel: a translucent ink box floats over the print, prose
- *  lands line by line, and a click (or space) turns each finished paragraph.
- *  The reveal itself can't be skipped — this is the important context.
- *  An optional dateline card (place/year) establishes the scene first. */
+/** Sequential full-screen beats (interludes, prologues) — a film sequence.
+ *  Each print gets a breath alone, then the prose plays as timed subtitles
+ *  over a feathered lower vignette: one thought on screen at a time — fade
+ *  in, hold at reading pace, fade out. Nothing accumulates, nothing grows.
+ *  Unskippable by design; only the final passage offers a button. */
 function showScreens(
   beats: { kicker?: string; title?: string; prose: string; art?: string }[],
   onDone?: () => void,
-  cta = 'Begin →',
+  cta = 'Begin \u2192',
   dateline?: string,
 ): void {
-  const chunks = beats.flatMap((b) =>
-    b.prose.split(/\n{2,}/).filter((t) => t.trim()).map((text) => ({ art: b.art, text })),
-  )
+  // One "thought" per screen: sentences grouped to a subtitle-sized breath.
+  type Unit = { art?: string; text: string; head: boolean }
+  const units: Unit[] = []
+  for (const b of beats) {
+    let head = true
+    for (const para of b.prose.split(/\n{2,}/)) {
+      if (!para.trim()) continue
+      let buf = ''
+      for (const s of SENT_BREAK ? para.split(SENT_BREAK) : [para]) {
+        if (buf && (buf + s).length > 170) {
+          units.push({ art: b.art, text: buf.trim(), head })
+          head = false
+          buf = ''
+        }
+        buf += s
+      }
+      if (buf.trim()) {
+        units.push({ art: b.art, text: buf.trim(), head })
+        head = false
+      }
+    }
+  }
   document.querySelector('.takeover')?.remove()
-  if (!chunks.length) {
+  if (!units.length) {
     onDone?.()
     return
   }
@@ -653,57 +672,28 @@ function showScreens(
   takeover(
     `
     <img class="cine-bg" alt="">
+    <div class="cine-veil"></div>
     ${cardMarkup}
-    <div class="cine-box"${dateline ? ' hidden' : ''}>
-      <p class="tk-body cine-text"></p>
-      <div class="cine-more" hidden>▸ click</div>
-      <button class="cta" id="scrGo" hidden>${esc(cta)} <kbd class="kbd">space</kbd></button>
-    </div>`,
+    <p class="cine-sub"></p>
+    <div class="cine-end" hidden><button class="cta" id="scrGo">${esc(cta)} <kbd class="kbd">space</kbd></button></div>`,
     'cine',
   )
   const tk = document.querySelector('.takeover') as HTMLElement
   const bg = tk.querySelector('.cine-bg') as HTMLImageElement
-  const box = tk.querySelector('.cine-box') as HTMLElement
-  const textEl = tk.querySelector('.cine-text') as HTMLElement
-  const more = tk.querySelector('.cine-more') as HTMLElement
-  const btn = tk.querySelector('#scrGo') as HTMLElement
+  const sub = tk.querySelector('.cine-sub') as HTMLElement
+  const end = tk.querySelector('.cine-end') as HTMLElement
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   bg.addEventListener('error', () => {
-    bg.style.opacity = '0' // art never blocks — the box floats on ink
+    bg.style.opacity = '0' // art never blocks — the words play on ink
   })
 
-  let started = false
-  let cur = 0
-  let queue: HTMLElement[] = []
   let timer = 0
-  let revealing = false
   let curArt = ''
   let artN = 0
-  const last = (): boolean => cur >= chunks.length - 1
-
-  const settle = (): void => {
-    window.clearTimeout(timer)
-    for (const l of queue) {
-      l.classList.add('on')
-      l.parentElement?.classList.add('on')
-    }
-    queue = []
-    revealing = false
-    more.hidden = last()
-    btn.hidden = !last()
-  }
-  const step = (): void => {
-    if (!tk.isConnected) return
-    const l = queue.shift()
-    if (!l) {
-      settle()
-      return
-    }
-    l.classList.add('on')
-    l.parentElement?.classList.add('on')
-    // Reading-paced: longer lines hold a beat longer.
-    const wait = Math.min(620, 220 + (l.textContent?.length ?? 0) * 4)
-    timer = window.setTimeout(queue.length ? step : settle, wait)
+  const wait = (ms: number, fn: () => void): void => {
+    timer = window.setTimeout(() => {
+      if (tk.isConnected) fn()
+    }, ms)
   }
   const setArt = (id?: string): void => {
     const src = id ? `/art/${id}.webp` : ''
@@ -721,47 +711,46 @@ function showScreens(
         bg.classList.add(artN % 2 ? 'drift-a' : 'drift-b')
         bg.style.opacity = '1'
       },
-      first || reduced ? 0 : 260,
+      first || reduced ? 0 : 420,
     )
   }
   const show = (i: number): void => {
-    cur = i
-    const c = chunks[i]
-    setArt(c.art)
-    more.hidden = true
-    btn.hidden = true
-    queue = makeParas(textEl, c.text)
-    revealing = true
-    if (reduced) settle()
-    else step()
+    const u = units[i]
+    sub.classList.remove('in') // previous thought fades down and out
+    const speak = (): void => {
+      sub.textContent = u.text
+      void sub.offsetWidth
+      sub.classList.add('in')
+      // Reading-paced hold: faster than a careful read, slower than a glance.
+      const hold = Math.min(5200, 900 + u.text.length * 30)
+      wait(600 + hold, () => {
+        if (i + 1 < units.length) show(i + 1)
+        else end.hidden = false // the last thought stays; the door opens under it
+      })
+    }
+    if (u.head) {
+      setArt(u.art)
+      wait(i === 0 ? 800 : 1400, speak) // the print breathes alone first
+    } else {
+      wait(520, speak) // clear air between thoughts
+    }
   }
 
   tk.addEventListener('click', (e) => {
-    const t = e.target as HTMLElement
-    if (t.closest('#scrGo')) {
+    if ((e.target as HTMLElement).closest('#scrGo')) {
       window.clearTimeout(timer)
       tk.remove()
       onDone?.()
-      return
     }
-    // No fast-forward: the reveal plays out in full, then a click turns the page.
-    if (!started || revealing) return
-    if (!last()) show(cur + 1)
   })
-  const begin = (): void => {
-    started = true
-    box.hidden = false
-    show(0)
-  }
   if (dateline) {
-    // Establishing card: fades in, holds, fades out — then the story begins.
-    window.setTimeout(() => {
-      if (!tk.isConnected) return
+    // Cold open: the dateline holds the dark, then the film starts.
+    wait(reduced ? 1600 : 4600, () => {
       tk.querySelector('.cine-card')?.remove()
-      begin()
-    }, reduced ? 1600 : 4600)
+      show(0)
+    })
   } else {
-    begin()
+    show(0)
   }
 }
 
@@ -838,11 +827,10 @@ window.addEventListener('keydown', (e) => {
   const tk = document.querySelector('.takeover') as HTMLElement | null
   if (tk) {
     if (tk.classList.contains('cine')) {
-      // Adventure panel: space = click. The end button only when it's shown.
+      // Film sequence: space only works once the end button is on screen.
       e.preventDefault()
       const go = tk.querySelector<HTMLElement>('#scrGo')
-      if (go && !go.hidden) go.click()
-      else tk.click()
+      if (go && go.offsetParent) go.click()
       return
     }
     const ctas = tk.querySelectorAll<HTMLElement>('.cta')
