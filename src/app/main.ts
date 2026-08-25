@@ -626,13 +626,15 @@ function renderPlaying(): void {
 }
 
 /** Sequential full-screen beats (interludes, prologues) — one persistent
- *  adventure-game panel: a translucent ink box floats center over the print,
- *  prose lands line by line, and a click (or space) turns each paragraph.
- *  No buttons mid-stream — only the final passage offers one. */
+ *  adventure-game panel: a translucent ink box floats over the print, prose
+ *  lands line by line, and a click (or space) turns each finished paragraph.
+ *  The reveal itself can't be skipped — this is the important context.
+ *  An optional dateline card (place/year) establishes the scene first. */
 function showScreens(
   beats: { kicker?: string; title?: string; prose: string; art?: string }[],
   onDone?: () => void,
   cta = 'Begin →',
+  dateline?: string,
 ): void {
   const chunks = beats.flatMap((b) =>
     b.prose.split(/\n{2,}/).filter((t) => t.trim()).map((text) => ({ art: b.art, text })),
@@ -642,10 +644,17 @@ function showScreens(
     onDone?.()
     return
   }
+  const cardMarkup = dateline
+    ? `<div class="cine-card">${dateline
+        .split('\n')
+        .map((l, i) => `<div class="${i === 0 ? 'cc-top' : 'cc-main'}">${esc(l)}</div>`)
+        .join('')}</div>`
+    : ''
   takeover(
     `
     <img class="cine-bg" alt="">
-    <div class="cine-box">
+    ${cardMarkup}
+    <div class="cine-box"${dateline ? ' hidden' : ''}>
       <p class="tk-body cine-text"></p>
       <div class="cine-more" hidden>▸ click</div>
       <button class="cta" id="scrGo" hidden>${esc(cta)} <kbd class="kbd">space</kbd></button>
@@ -654,6 +663,7 @@ function showScreens(
   )
   const tk = document.querySelector('.takeover') as HTMLElement
   const bg = tk.querySelector('.cine-bg') as HTMLImageElement
+  const box = tk.querySelector('.cine-box') as HTMLElement
   const textEl = tk.querySelector('.cine-text') as HTMLElement
   const more = tk.querySelector('.cine-more') as HTMLElement
   const btn = tk.querySelector('#scrGo') as HTMLElement
@@ -662,6 +672,7 @@ function showScreens(
     bg.style.opacity = '0' // art never blocks — the box floats on ink
   })
 
+  let started = false
   let cur = 0
   let queue: HTMLElement[] = []
   let timer = 0
@@ -733,10 +744,25 @@ function showScreens(
       onDone?.()
       return
     }
-    if (revealing) settle()
-    else if (!last()) show(cur + 1)
+    // No fast-forward: the reveal plays out in full, then a click turns the page.
+    if (!started || revealing) return
+    if (!last()) show(cur + 1)
   })
-  show(0)
+  const begin = (): void => {
+    started = true
+    box.hidden = false
+    show(0)
+  }
+  if (dateline) {
+    // Establishing card: fades in, holds, fades out — then the story begins.
+    window.setTimeout(() => {
+      if (!tk.isConnected) return
+      tk.querySelector('.cine-card')?.remove()
+      begin()
+    }, reduced ? 1600 : 4600)
+  } else {
+    begin()
+  }
 }
 
 // One delegated listener for the whole app — survives re-renders.
@@ -908,7 +934,8 @@ function showEpilogue(): void {
     const screens: { kicker?: string; title: string; prose: string; art?: string }[] = []
     if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
     for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
-    if (screens.length) showScreens(screens, () => render())
+    if (screens.length)
+      showScreens(screens, () => render(), 'Begin →', CONTENT.chapters[st.company.id]?.dateline)
   })
   document.getElementById('finale')?.addEventListener('click', () => {
     document.querySelector('.takeover')?.remove()
@@ -1080,6 +1107,8 @@ function startNewLife(): void {
   if (pro) showScreens(
     pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })),
     () => render(),
+    'Begin →',
+    CONTENT.chapters[st.company.id].dateline,
   )
 }
 

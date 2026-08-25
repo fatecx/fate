@@ -87,6 +87,9 @@ export interface ChapterDef {
   opening: { treasury: number; burn: number; revenue: number }
   /** Full-screen beats shown before the first scene of the chapter. */
   prologue?: readonly PrologueBeat[]
+  /** Establishing card before the prologue — film-style place/year, one line
+   *  per \n (first line small, rest large). Fades in and out; never skippable. */
+  dateline?: string
   scenes: readonly SceneDef[]
   endings: readonly EndingDef[]
 }
