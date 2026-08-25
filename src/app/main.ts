@@ -710,10 +710,17 @@ function showScreens(
       () => {
         if (!bg.isConnected) return
         bg.src = src
-        bg.classList.remove('drift-a', 'drift-b')
-        void bg.offsetWidth
-        bg.classList.add(artN % 2 ? 'drift-a' : 'drift-b')
-        bg.style.opacity = '1'
+        // Hold the dark until the new print has decoded — never re-show the old frame.
+        const reveal = (): void => {
+          if (!bg.isConnected || bg.src !== new URL(src, location.href).href) return
+          bg.classList.remove('drift-a', 'drift-b')
+          void bg.offsetWidth
+          bg.classList.add(artN % 2 ? 'drift-a' : 'drift-b')
+          bg.style.opacity = '1'
+        }
+        bg.decode().then(reveal, () => {
+          bg.style.opacity = '0' // failed print: stay on ink, words carry it
+        })
       },
       first || reduced ? 0 : 420,
     )
