@@ -13,12 +13,14 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         title: 'YEAR TWO',
         art: 'cut_year_two',
+        bg: 'street',
         prose:
           'The garage is an office now. Six desks, a server rack where the workbench used to be, and a corridor map that no longer fits on one wall.',
       },
       {
         title: 'THE CLONE',
         art: 'cut_chute_launch',
+        bg: 'street',
         prose:
           'Then MERIDIAN launches a copy of you. It is called Chute. It sells the same deliveries at forty percent less and loses money on every drop, on purpose, because it can afford to. The war you wanted is here. It wants everything you have.',
       },
@@ -162,6 +164,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_cut_meridian_ipo',
+    ambience: 'exchange',
     art: 'cut_meridian_ipo',
     kind: 'cutscene',
     priority: true,
@@ -340,6 +343,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_viral',
     ambience: 'garage',
+    foley: 'phone',
     art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
     weight: 3,
@@ -404,6 +408,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     choices: [
       {
         label: 'Take it. Win the war.',
+        foley: 'pen',
         goto: 'h_b_after_a',
         effects: [
           { e: 'treasury', d: 2000000 },
@@ -460,6 +465,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     choices: [
       {
         label: 'Founder-controlled: you, June, one neutral.',
+        foley: 'pen',
         requires: { k: 'stake', who: 'founder', cmp: 'gte', v: 55 },
         effects: [
           { e: 'flag', scope: 'company', key: 'board_set', v: true },
@@ -470,6 +476,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       },
       {
         label: 'Even: you, June, an independent both accept.',
+        foley: 'pen',
         effects: [
           { e: 'flag', scope: 'company', key: 'board_set', v: true },
           { e: 'flag', scope: 'company', key: 'control', v: 'shared' },

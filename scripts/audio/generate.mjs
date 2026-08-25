@@ -22,7 +22,7 @@ execSync(
   `npx esbuild ${resolve(root, 'src/content/sound.ts')} --bundle --platform=node --format=esm --outfile=${tmp}`,
   { stdio: 'pipe' },
 )
-const { AMBIENCE, MOODS, TENSION, STINGERS } = await import(tmp)
+const { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY } = await import(tmp)
 
 const KEY = process.env.ELEVENLABS_API_KEY
 if (!KEY) {
@@ -39,6 +39,7 @@ const defs = [
   ...Object.values(MOODS).map((d) => ({ ...d, loop: true, seconds: d.seconds ?? 26 })),
   { ...TENSION, loop: true, seconds: TENSION.seconds ?? 22 },
   ...Object.values(STINGERS).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 6 })),
+  ...Object.values(FOLEY).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 4 })),
 ]
 
 let rendered = 0

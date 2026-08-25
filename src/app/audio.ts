@@ -11,7 +11,7 @@
  * silence — audio never blocks play. Autoplay ignition happens on the first
  * user gesture. One switch (SOUND ON/OFF) persists in localStorage.
  */
-import { AMBIENCE, MOODS, TENSION, STINGERS } from '../content/sound'
+import { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY } from '../content/sound'
 import type { SoundDef } from '../content/sound'
 
 const SOUND_KEY = 'fate-sound'
@@ -182,7 +182,19 @@ export function stinger(name: keyof typeof STINGERS, onceKey?: string): void {
     if (stung.has(onceKey)) return
     stung.add(onceKey)
   }
-  const def = STINGERS[name]
+  playOnce(STINGERS[name])
+}
+
+let lastFoley = 0
+/** Diegetic one-shot (stairs, pen, gavel). Throttled so re-mounts never stack. */
+export function foley(name: keyof typeof FOLEY): void {
+  const now = Date.now()
+  if (now - lastFoley < 400) return
+  lastFoley = now
+  playOnce(FOLEY[name])
+}
+
+function playOnce(def: SoundDef | undefined): void {
   const c = ensureCtx()
   if (!def || !c || !master) return
   void loadBuffer(def.id).then((buf) => {
@@ -199,7 +211,13 @@ export function stinger(name: keyof typeof STINGERS, onceKey?: string): void {
 
 /** Warm the whole cabinet after ignition — small files, fire-and-forget. */
 function warm(): void {
-  for (const d of [...Object.values(AMBIENCE), ...Object.values(MOODS), TENSION, ...Object.values(STINGERS)]) {
+  for (const d of [
+    ...Object.values(AMBIENCE),
+    ...Object.values(MOODS),
+    TENSION,
+    ...Object.values(STINGERS),
+    ...Object.values(FOLEY),
+  ]) {
     void loadBuffer(d.id)
   }
 }

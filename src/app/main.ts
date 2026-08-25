@@ -14,7 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, stinger, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
+import { setStage, stinger, foley, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -679,6 +679,7 @@ function refreshCard(): void {
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
+  if (scene.foley) foley(scene.foley as Parameters<typeof foley>[0])
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
     ${scene.leadIn ? `<div class="leadin"></div>` : ''}
@@ -788,8 +789,8 @@ function renderPlaying(): void {
     }
     const beats = chain.flatMap((sc) =>
       sc.screens?.length
-        ? sc.screens.map((p) => ({ prose: p.prose, art: p.art }))
-        : [{ prose: sc.prose, art: sc.art }],
+        ? sc.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg ?? sc.ambience }))
+        : [{ prose: sc.prose, art: sc.art, bg: sc.ambience }],
     )
     showScreens(
       beats,
@@ -828,13 +829,13 @@ function renderPlaying(): void {
  *  in, hold at reading pace, fade out. Nothing accumulates, nothing grows.
  *  Unskippable by design; only the final passage offers a button. */
 function showScreens(
-  beats: { kicker?: string; title?: string; prose: string; art?: string }[],
+  beats: { kicker?: string; title?: string; prose: string; art?: string; bg?: string }[],
   onDone?: () => void,
   cta = 'Begin \u2192',
   dateline?: string,
 ): void {
   // One "thought" per screen: sentences grouped to a subtitle-sized breath.
-  type Unit = { art?: string; text: string; head: boolean }
+  type Unit = { art?: string; bg?: string; text: string; head: boolean }
   const units: Unit[] = []
   for (const b of beats) {
     let head = true
@@ -843,14 +844,14 @@ function showScreens(
       let buf = ''
       for (const s of SENT_BREAK ? para.split(SENT_BREAK) : [para]) {
         if (buf && (buf + s).length > 170) {
-          units.push({ art: b.art, text: buf.trim(), head })
+          units.push({ art: b.art, bg: b.bg, text: buf.trim(), head })
           head = false
           buf = ''
         }
         buf += s
       }
       if (buf.trim()) {
-        units.push({ art: b.art, text: buf.trim(), head })
+        units.push({ art: b.art, bg: b.bg, text: buf.trim(), head })
         head = false
       }
     }
@@ -944,6 +945,8 @@ function showScreens(
     }
     if (u.head) {
       setArt(u.art)
+      // The panel's room fades in with its print — the film keeps the score.
+      setStage({ mood: 'film', ambience: u.bg ?? null, tension: false })
       wait(i === 0 ? 800 : 1400, speak) // the print breathes alone first
     } else {
       wait(420, speak) // clear air between thoughts
@@ -1216,9 +1219,9 @@ function proceedNext(): void {
 
   const inter = c.ending.interlude
   const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
-  const screens: { kicker?: string; title?: string; prose: string; art?: string }[] = []
-  if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
-  for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
+  const screens: { kicker?: string; title?: string; prose: string; art?: string; bg?: string }[] = []
+  if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg })
+  for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg })
   if (screens.length)
     showScreens(screens, () => render(), 'Begin →', CONTENT.chapters[st.company.id]?.dateline)
 }
@@ -1356,7 +1359,7 @@ function showEpilogue(): void {
   if (c.ending.screens?.length && filmPlayedFor !== filmKey) {
     filmPlayedFor = filmKey
     showScreens(
-      c.ending.screens.map((p) => ({ prose: p.prose, art: p.art })),
+      c.ending.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg })),
       () => showEpilogue(),
       'Continue →',
     )
@@ -1539,7 +1542,7 @@ function startNewLife(): void {
   // Re-render when the prologue closes so the first scene streams in view,
   // not invisibly underneath the takeover.
   if (pro) showScreens(
-    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })),
+    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg })),
     () => render(),
     'Begin →',
     CONTENT.chapters[st.company.id].dateline,
@@ -1569,6 +1572,7 @@ function choose(index: number): void {
   const beforeEpoch = st.epoch
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const choice = scene.choices[index]
+  if (choice.foley) foley(choice.foley as Parameters<typeof foley>[0])
 
   // Grey the picked button in place; remove its siblings.
   const container = pendingEl

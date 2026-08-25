@@ -15,6 +15,8 @@ export interface PrologueBeat {
   prose: string
   /** Widescreen cinematic art id (public/art/{art}.webp) shown above the text. Optional — text always carries the screen. */
   art?: string
+  /** Room tone id (src/content/sound.ts AMBIENCE) faded in under this panel of the film. */
+  bg?: string
 }
 
 export interface SceneDef {
@@ -52,6 +54,8 @@ export interface SceneDef {
    * test) on every non-cutscene Hyperchute scene; cutscenes ride the film bed.
    */
   ambience?: string
+  /** Foley one-shot id (src/content/sound.ts FOLEY) fired as the scene arrives. */
+  foley?: string
   /** Authored prose. The LLM render layer decorates later; the game runs on these strings. */
   prose: string
   speaker?: string // character id
@@ -72,6 +76,8 @@ export interface ChoiceDef {
   effects: readonly Effect[]
   /** Immediate outcome prose shown after choosing. */
   result?: string
+  /** Foley one-shot id fired as this choice resolves (the pen on the paper). */
+  foley?: string
   /** Follow-on scene id, played next. */
   goto?: string
 }

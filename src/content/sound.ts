@@ -85,6 +85,24 @@ export const AMBIENCE: Record<string, SoundDef> = {
     prompt:
       'Hotel conference room between meetings: low HVAC, projector fan, ice in water glasses, distant lobby murmur, a rolling suitcase passing in the corridor, faint jet cabin drone undertone. Transient, professional, seamless loop. No music, no voices.',
   },
+  dispatch: {
+    id: 'amb_dispatch',
+    gain: 0.45,
+    prompt:
+      'Large logistics dispatch floor: hundreds of quiet keyboards, headset call-center murmur, server room whir, air conditioning, an alert tone chirping far away. Corporate, monotonous, seamless loop. No intelligible words, no music.',
+  },
+  wind: {
+    id: 'amb_wind',
+    gain: 0.42,
+    prompt:
+      'City rooftop at height: steady soft wind over ledges, faint traffic far below, a distant electric hum above, cable tick against a mast. Open, airy, slightly lonely, seamless loop. No music, no voices.',
+  },
+  exchange: {
+    id: 'amb_exchange',
+    gain: 0.45,
+    prompt:
+      'Stock exchange trading floor mid-morning: large hall crowd roar, overlapping excited murmur, distant phone rings, papers, big marble reverb. Electric, historic, seamless loop. No intelligible words, no music.',
+  },
 }
 
 /**
@@ -162,5 +180,55 @@ export const STINGERS: Record<string, SoundDef> = {
     seconds: 7,
     prompt:
       'A low warm gong-like resolve: one deep struck chord, long natural decay into quiet, finality without triumph. One-shot, no melody.',
+  },
+}
+
+/**
+ * Foley — diegetic one-shots the fiction earns: the landlady on the stairs,
+ * the pen on the receipt, the gavel in 4-B. Scenes fire one on arrival
+ * (SceneDef.foley); a choice may fire one as it resolves (ChoiceDef.foley).
+ */
+export const FOLEY: Record<string, SoundDef> = {
+  stairs: {
+    id: 'fol_stairs',
+    gain: 0.5,
+    seconds: 4,
+    prompt:
+      'Footsteps climbing old creaky wooden stairs, approaching steadily, then stopping at the top. Interior, close, natural. One-shot, no music, no voices.',
+  },
+  pen: {
+    id: 'fol_pen',
+    gain: 0.5,
+    seconds: 3,
+    prompt:
+      'A ballpoint pen signing a signature on paper laid on a wooden table: quick confident scratch strokes, a small paper rustle, pen set down. One-shot, close, dry, no music.',
+  },
+  phone: {
+    id: 'fol_phone',
+    gain: 0.45,
+    seconds: 3,
+    prompt:
+      'A phone vibrating twice on a wooden workbench, short buzz pattern, slight rattle of small parts nearby. One-shot, close, no music, no ringtone melody.',
+  },
+  gavel: {
+    id: 'fol_gavel',
+    gain: 0.5,
+    seconds: 3,
+    prompt:
+      'A wooden gavel strikes a sound block twice in a large municipal hall, firm and procedural, natural room reverb. One-shot, no music, no voices.',
+  },
+  cameras: {
+    id: 'fol_cameras',
+    gain: 0.45,
+    seconds: 4,
+    prompt:
+      'A burst of press camera shutters clicking rapidly with a few flash pops, a scrum settling. One-shot, no music, no voices.',
+  },
+  door: {
+    id: 'fol_door',
+    gain: 0.45,
+    seconds: 3,
+    prompt:
+      'A glass shop door opens with a small brass bell chime and swings shut with a soft thud. Interior cafe acoustics. One-shot, no music, no voices.',
   },
 }

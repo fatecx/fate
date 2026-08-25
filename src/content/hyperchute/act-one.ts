@@ -8,6 +8,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_seedling',
     ambience: 'garage',
+    foley: 'stairs',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
     speaker: 'marisol',
@@ -18,6 +19,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Take it. One percent, notarized on a laundry receipt.',
+        foley: 'pen',
         effects: [
           { e: 'meet', who: 'marisol' },
           { e: 'treasury', d: 10000 },
@@ -164,6 +166,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: '$18,000 cash',
+        foley: 'pen',
         requires: { k: 'treasury', cmp: 'gte', v: 18000 },
         effects: [
           { e: 'treasury', d: -18000 },
@@ -177,6 +180,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       },
       {
         label: 'One percent, plus the rolodex',
+        foley: 'pen',
         effects: [
           { e: 'meet', who: 'tomas' },
           { e: 'rel', who: 'tomas', aff: 2, resp: 2 },
@@ -273,6 +277,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_hearing',
     ambience: 'hearing',
+    foley: 'gavel',
     title: 'THE DESCENT-SAFETY HEARING',
     art: 'world_hearing_4b',
     priority: true,
@@ -307,6 +312,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_june_via_tomas',
     ambience: 'garage',
+    foley: 'stairs',
     art: 'june_garage',
     title: 'THE ANGEL',
     priority: true,
@@ -366,6 +372,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Take the check',
+        foley: 'pen',
         effects: [
           { e: 'treasury', d: 150000 },
           { e: 'meet', who: 'june' },
@@ -614,6 +621,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_nadia_call',
     ambience: 'garage',
+    foley: 'phone',
     title: 'THE JOURNALIST',
     speaker: 'nadia',
     leadIn:

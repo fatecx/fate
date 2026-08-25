@@ -8,7 +8,7 @@ import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
-import { AMBIENCE, MOODS, STINGERS, TENSION } from '../src/content/sound'
+import { AMBIENCE, FOLEY, MOODS, STINGERS, TENSION } from '../src/content/sound'
 
 describe('soundscape', () => {
   it('every non-cutscene hyperchute scene names a room from the registry', () => {
@@ -19,18 +19,49 @@ describe('soundscape', () => {
     }
   })
 
+  it('every bg and foley reference points into the registry', () => {
+    for (const ch of Object.values(CONTENT.chapters)) {
+      for (const p of ch.prologue ?? []) {
+        if (p.bg) expect(AMBIENCE[p.bg], `${ch.id} prologue bg '${p.bg}'`).toBeDefined()
+      }
+      for (const e of ch.endings) {
+        for (const p of e.screens ?? []) {
+          if (p.bg) expect(AMBIENCE[p.bg], `${ch.id}/${e.id} screen bg '${p.bg}'`).toBeDefined()
+        }
+        if (e.interlude?.bg) expect(AMBIENCE[e.interlude.bg], `${ch.id}/${e.id} interlude bg`).toBeDefined()
+      }
+      for (const s of ch.scenes) {
+        if (s.ambience) expect(AMBIENCE[s.ambience], `${ch.id}/${s.id} ambience`).toBeDefined()
+        if (s.foley) expect(FOLEY[s.foley], `${ch.id}/${s.id} foley '${s.foley}'`).toBeDefined()
+        for (const p of s.screens ?? []) {
+          if (p.bg) expect(AMBIENCE[p.bg], `${ch.id}/${s.id} screen bg '${p.bg}'`).toBeDefined()
+        }
+        for (const c of s.choices) {
+          if (c.foley) expect(FOLEY[c.foley], `${ch.id}/${s.id} choice foley '${c.foley}'`).toBeDefined()
+        }
+      }
+    }
+  })
+
   it('registry ids are unique across decks', () => {
     const ids = [
       ...Object.values(AMBIENCE).map((d) => d.id),
       ...Object.values(MOODS).map((d) => d.id),
       TENSION.id,
       ...Object.values(STINGERS).map((d) => d.id),
+      ...Object.values(FOLEY).map((d) => d.id),
     ]
     expect(new Set(ids).size).toBe(ids.length)
   })
 
   it('every registry entry has its rendered file committed', () => {
-    const defs = [...Object.values(AMBIENCE), ...Object.values(MOODS), TENSION, ...Object.values(STINGERS)]
+    const defs = [
+      ...Object.values(AMBIENCE),
+      ...Object.values(MOODS),
+      TENSION,
+      ...Object.values(STINGERS),
+      ...Object.values(FOLEY),
+    ]
     for (const d of defs) {
       const p = resolve(__dirname, `../public/sfx/${d.id}.mp3`)
       expect(existsSync(p), `public/sfx/${d.id}.mp3 missing — run scripts/audio/generate.mjs`).toBe(true)
@@ -38,7 +69,13 @@ describe('soundscape', () => {
   })
 
   it('lane gains stay inside the mix ceiling', () => {
-    const defs = [...Object.values(AMBIENCE), ...Object.values(MOODS), TENSION, ...Object.values(STINGERS)]
+    const defs = [
+      ...Object.values(AMBIENCE),
+      ...Object.values(MOODS),
+      TENSION,
+      ...Object.values(STINGERS),
+      ...Object.values(FOLEY),
+    ]
     for (const d of defs) {
       expect(d.gain, d.id).toBeGreaterThan(0)
       expect(d.gain, d.id).toBeLessThanOrEqual(0.65)

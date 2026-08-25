@@ -4,6 +4,7 @@ import type { SceneDef } from '../schema'
 export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_cut_accident',
+    ambience: 'accident',
     art: 'cut_richmond_451',
     kind: 'cutscene',
     title: 'RICHMOND STREET, 4:51 P.M.',
@@ -14,6 +15,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_accident',
     ambience: 'accident',
+    foley: 'cameras',
     landmark: true,
     art: 'world_richmond',
     title: 'THE FIRST FORTY-EIGHT HOURS',
@@ -58,6 +60,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_press_storm',
     ambience: 'cafe',
+    foley: 'phone',
     title: 'SHE HAS THE REPORT',
     speaker: 'nadia',
     priority: true,
@@ -142,6 +145,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_suspension',
     ambience: 'hearing',
+    foley: 'gavel',
     art: 'world_suspension',
     landmark: true,
     title: 'EMERGENCY SUSPENSION HEARING',
@@ -187,6 +191,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_offer',
     ambience: 'garage',
+    foley: 'stairs',
     landmark: true,
     title: 'THE OFFER, MID-STORM',
     speaker: 'marcus',

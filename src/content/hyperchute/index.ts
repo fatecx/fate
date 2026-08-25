@@ -16,21 +16,25 @@ const ENDINGS: readonly EndingDef[] = [
     screens: [
       {
         art: 'world_roadshow',
+        bg: 'roadshow',
         prose:
           'The pricing call runs ninety minutes past midnight. The lead banker keeps circling a higher number with his pen, the number that would make the papers, and you keep saying the other one — the one the porches can survive if the market turns.\n\nWhen you finally say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago come in.',
       },
       {
         art: 'world_bell',
+        bg: 'exchange',
         prose:
           'The exchange floor at 9:28 a.m. smells like carpet cleaner and adrenaline. Somebody hands you a paddle with your own ticker on it, and you realize your hands are steady for the first time in three years.\n\nMrs. Delgado stands at the podium rail in a borrowed coat, house slippers underneath, because at eighty-one she has earned the right to be comfortable at other people’s ceremonies. She holds the ceremonial button the way she once held your first rent envelope — like it belongs to the block.\n\nAt 9:31 she presses it. The bell is louder than you expected. It sounds like dryers.',
       },
       {
         art: 'world_dawn_flights',
+        bg: 'wind',
         prose:
           'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, to index funds, to a retired dispatcher in Ohio who bought eleven shares at lunch — and, printed on the cover of the prospectus where the lawyers fought you and lost, to THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening the shuttles keep station like they always have, dropping parcels soft as rain onto porches that were a gray zone on somebody’s map. The map was wrong. You are the proof.',
       },
       {
         art: 'world_legend_clip',
+        bg: 'corp',
         prose:
           'Somewhere in a MERIDIAN planning office, a printer hums out a new corridor map. The stamp over your neighborhood has changed. It doesn’t say LOW-DENSITY YIELD anymore.\n\nIt says COMPETITOR.',
       },
@@ -115,6 +119,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · 2031',
     title: 'THE CITY FROM BELOW',
     art: 'prologue_below',
+    bg: 'street',
     prose:
       'You grew up in the Flats, under a sky that worked for someone else.\n\nThe drones came when you were nineteen — a hundred thousand of them, blue and quiet, sliding along invisible rails toward the hills where the tips are good. You learned to read their running lights the way other kids read constellations. They never stopped on your street. Nothing that flies ever stopped on your street.',
   },
@@ -129,6 +134,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE MACHINE',
     title: 'EIGHT YEARS INSIDE IT',
     art: 'prologue_dispatch',
+    bg: 'dispatch',
     prose:
       'You know exactly how the sky works, because for eight years it was your job.\n\nA dispatch floor, a MERIDIAN sub-contractor, a headset. MERIDIAN LOGISTICS NETWORKS: the ninety-one-billion-dollar colossus whose routing brain makes eleven million decisions a minute and whose executives mostly announce what it already decided. There was a T-shirt the managers wore on launch days — LOGISTICS IS A SOLVED PROBLEM — and for the hills, it was.',
   },
@@ -143,6 +149,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE TUESDAY',
     title: 'EVERYTHING YOU HAD',
     art: 'prologue_garage',
+    bg: 'garage',
     prose:
       'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nWhat you had: a severance check, an index fund, a car, half an apartment deposit, and an idea that would not leave you alone. You sold all of it except the idea — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nWhat you bought: a lease on a garage above the Sudz & Spin laundromat, four months of nights, and the parts. Dryer heat through the floorboards. Solder smoke. And slowly, on a braided tether under the ceiling, a machine taking shape — the thing you saw every night on the dispatch floor when you closed your eyes.',
   },
@@ -150,6 +157,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE RAILWAY',
     title: 'SOFT AS RAIN',
     art: 'prologue_corridor',
+    bg: 'wind',
     prose:
       'A railway in the sky. Not drones — a fixed line. Autonomous shuttles that hold station two hundred feet up and lower each parcel down a pneumatic tube to any porch with a receiver sleeve. Four minutes. Soft as rain. Priced like a bus ticket. No propellers over playgrounds, no stopwatch chewing up couriers — gravity, tamed, for the streets the machines forgot.\n\nAnd the plan is the part that makes you grin at 3 a.m.: start exactly where MERIDIAN refuses to go. One permitted corridor over one forgotten neighborhood. Sixty subscribing porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the incorporation papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
   },
