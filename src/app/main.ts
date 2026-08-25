@@ -675,12 +675,14 @@ function showScreens(
     <div class="cine-veil"></div>
     ${cardMarkup}
     <p class="cine-sub"></p>
+    <div class="cine-cue" hidden>▸</div>
     <div class="cine-end" hidden><button class="cta" id="scrGo">${esc(cta)} <kbd class="kbd">space</kbd></button></div>`,
     'cine',
   )
   const tk = document.querySelector('.takeover') as HTMLElement
   const bg = tk.querySelector('.cine-bg') as HTMLImageElement
   const sub = tk.querySelector('.cine-sub') as HTMLElement
+  const cue = tk.querySelector('.cine-cue') as HTMLElement
   const end = tk.querySelector('.cine-end') as HTMLElement
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   bg.addEventListener('error', () => {
@@ -690,6 +692,8 @@ function showScreens(
   let timer = 0
   let curArt = ''
   let artN = 0
+  let cur = 0
+  let armed = false // clicks only count once the thought has fully landed
   const wait = (ms: number, fn: () => void): void => {
     timer = window.setTimeout(() => {
       if (tk.isConnected) fn()
@@ -715,16 +719,21 @@ function showScreens(
     )
   }
   const show = (i: number): void => {
+    cur = i
     const u = units[i]
+    armed = false
+    cue.hidden = true
+    tk.classList.remove('armed')
     sub.classList.remove('in') // previous thought fades down and out
     const speak = (): void => {
       sub.textContent = u.text
       void sub.offsetWidth
       sub.classList.add('in')
-      // Reading-paced hold: faster than a careful read, slower than a glance.
-      const hold = Math.min(5200, 900 + u.text.length * 30)
-      wait(600 + hold, () => {
-        if (i + 1 < units.length) show(i + 1)
+      // Arm once the fade lands — the thought holds until the reader clicks.
+      wait(800, () => {
+        armed = true
+        tk.classList.add('armed')
+        if (i + 1 < units.length) cue.hidden = false
         else end.hidden = false // the last thought stays; the door opens under it
       })
     }
@@ -732,7 +741,7 @@ function showScreens(
       setArt(u.art)
       wait(i === 0 ? 800 : 1400, speak) // the print breathes alone first
     } else {
-      wait(520, speak) // clear air between thoughts
+      wait(420, speak) // clear air between thoughts
     }
   }
 
@@ -741,7 +750,9 @@ function showScreens(
       window.clearTimeout(timer)
       tk.remove()
       onDone?.()
+      return
     }
+    if (armed && cur + 1 < units.length) show(cur + 1)
   })
   if (dateline) {
     // Cold open: the dateline holds the dark, then the film starts.
@@ -827,10 +838,11 @@ window.addEventListener('keydown', (e) => {
   const tk = document.querySelector('.takeover') as HTMLElement | null
   if (tk) {
     if (tk.classList.contains('cine')) {
-      // Film sequence: space only works once the end button is on screen.
+      // Film sequence: space turns the page like a click; end button when shown.
       e.preventDefault()
       const go = tk.querySelector<HTMLElement>('#scrGo')
       if (go && go.offsetParent) go.click()
+      else tk.click()
       return
     }
     const ctas = tk.querySelectorAll<HTMLElement>('.cta')

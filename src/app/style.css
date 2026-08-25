@@ -260,6 +260,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* Film cinematic: the print owns the whole screen; prose plays as timed
    subtitles over a feathered lower vignette — one thought at a time. */
 .takeover.cine { display: block; overflow: hidden; }
+.takeover.cine.armed { cursor: pointer; }
 .cine .takeover-inner {
   position: relative; max-width: none; width: 100%; height: 100%; padding: 0;
   animation: none; overflow: hidden;
@@ -298,6 +299,15 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   animation: panelIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .cine-end[hidden] { display: none; }
+/* The turn cue breathes under the held thought. */
+.cine-cue {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  bottom: clamp(28px, 7vh, 66px);
+  font-size: 13px; color: rgba(246, 246, 242, 0.8);
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
+  animation: cuePulse 1.6s ease-in-out infinite; pointer-events: none;
+}
+.cine-cue[hidden] { display: none; }
 /* Establishing card: place and year on ink, film-style — in and out, no rush. */
 .cine-card {
   position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -367,6 +377,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* Lines are inline — opacity only, so wrapping never breaks. */
 @keyframes lineIn { from { opacity: 0; } to { opacity: 1; } }
 /* Dateline card: fade in, hold, fade out — letters drift apart as it breathes. */
+@keyframes cuePulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
 @keyframes cardFade { 0% { opacity: 0; } 18% { opacity: 1; } 74% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes trackIn {
   from { letter-spacing: 0.22em; text-indent: 0.22em; }
