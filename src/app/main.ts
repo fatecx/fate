@@ -525,7 +525,7 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
   const step = (): void => {
     if (!typing) return
     const cur = curSegs[seg]
-    i = Math.min(cur.text.length, i + (reduced ? cur.text.length : 2))
+    i = Math.min(cur.text.length, i + (reduced ? cur.text.length : 3))
     cur.el.textContent = cur.text.slice(0, i)
     story.scrollTop = story.scrollHeight // pin while streaming
     if (i >= cur.text.length && seg < curSegs.length - 1) {
@@ -1067,9 +1067,29 @@ function choose(index: number): void {
 
 // ---- boot --------------------------------------------------------------------
 
+/** Warm every known print into the browser cache so panels land instantly.
+ *  Fire-and-forget; play never waits on art (law 5). */
+function warmArt(): void {
+  const ids = new Set<string>()
+  for (const id of Object.keys(CONTENT.characters)) ids.add(id)
+  for (const ch of Object.values(CONTENT.chapters)) {
+    for (const p of ch.prologue ?? []) if (p.art) ids.add(p.art)
+    for (const s of ch.scenes) if (s.art) ids.add(s.art)
+    for (const e of ch.endings) {
+      if (e.art) ids.add(e.art)
+      if (e.interlude?.art) ids.add(e.interlude.art)
+    }
+  }
+  for (const id of ids) {
+    const img = new Image()
+    img.src = `/art/${id}.webp`
+  }
+}
+
 async function boot(): Promise<void> {
   applyTheme()
   initWalletDiscovery()
+  warmArt()
   try {
     localStorage.removeItem(LEGACY_SAVE_KEY) // pre-auth saves: refresh restarts by design
   } catch {
