@@ -470,6 +470,7 @@ function accountHtml(): string {
     <div class="inc-grid">
       <span>Founder ID</span>${who}
       <span>Theme</span><b><button class="paction inline" id="actTheme">${themeSetting().toUpperCase()}</button></b>
+      <span>Screen</span><b><button class="paction inline" id="actFullscreen">${document.fullscreenElement ? 'FULLSCREEN' : 'WINDOWED'}</button></b>
     </div>
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
@@ -1012,6 +1013,10 @@ app.addEventListener('click', (e) => {
     if (b) b.textContent = themeSetting().toUpperCase()
     return
   }
+  if (target.closest('#actFullscreen')) {
+    toggleFullscreen()
+    return
+  }
   if (target.closest('#actLogout')) {
     void (async () => {
       await signOut()
@@ -1051,6 +1056,11 @@ app.addEventListener('click', (e) => {
 // Space advances: skips the reveal, turns bridges and cutscene paragraphs,
 // dismisses single-CTA takeovers. Never decides a real choice.
 window.addEventListener('keydown', (e) => {
+  // F toggles fullscreen anywhere, video-player style.
+  if (e.code === 'KeyF' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    toggleFullscreen()
+    return
+  }
   if (e.code !== 'Space') return
   const ae = document.activeElement as HTMLElement | null
   if (ae && ae.tagName === 'BUTTON') ae.blur() // avoid native double-activation
@@ -1082,10 +1092,34 @@ window.addEventListener('keydown', (e) => {
   }
 })
 
+// The page paints pure black, but the browser toolbar, the OS window frame and
+// the desktop still ring it. Fullscreen is the only true borderless film.
+function toggleFullscreen(): void {
+  if (document.fullscreenElement) void document.exitFullscreen().catch(() => {})
+  else void document.documentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {})
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const b = document.getElementById('actFullscreen')
+  if (b) b.textContent = document.fullscreenElement ? 'FULLSCREEN' : 'WINDOWED'
+})
+
 function takeover(inner: string, cls = ''): void {
   const el = document.createElement('div')
   el.className = `takeover${cls ? ` ${cls}` : ''}`
   el.innerHTML = `<div class="takeover-inner">${inner}</div>`
+  if (cls.includes('cine')) {
+    const fs = document.createElement('button')
+    fs.className = 'cine-fs'
+    fs.title = 'Fullscreen (F)'
+    fs.innerHTML =
+      '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+    fs.addEventListener('click', (e) => {
+      e.stopPropagation()
+      toggleFullscreen()
+    })
+    el.appendChild(fs)
+  }
   app.appendChild(el)
 }
 
