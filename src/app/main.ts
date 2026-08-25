@@ -476,7 +476,7 @@ function choicesInner(sceneId: string): string {
 
 // ---- live-scene plumbing -----------------------------------------------------
 
-/** Chat-style reveal queue — prose lands one paragraph at a time, in story order. */
+/** Chat-style reveal queue — prose lands one line at a time, in story order. */
 let revealQueue: HTMLElement[] = []
 let revealTimer = 0
 let pendingEl: HTMLElement | null = null
@@ -484,21 +484,41 @@ let pendingEl: HTMLElement | null = null
 function finishTyping(): void {
   typing = false
   window.clearTimeout(revealTimer)
-  for (const p of revealQueue) p.classList.add('on')
+  for (const p of revealQueue) {
+    p.classList.add('on')
+    p.parentElement?.classList.add('on')
+  }
   revealQueue = []
   if (pendingEl) pendingEl.style.visibility = 'visible'
 }
 
-/** Split a block's text into hidden paragraph spans, ready to fade in. */
+/** Sentence splitter — zero-width breaks after end punctuation, so no text is
+ *  ever lost. Built at runtime so engines without lookbehind fall back to
+ *  whole-paragraph reveals instead of crashing the bundle. */
+let SENT_BREAK: RegExp | null = null
+try {
+  SENT_BREAK = new RegExp('(?<=[.!?\\u2026]["\'\\u201d\\u2019)]?\\s)(?<!\\b(?:Mr|Mrs|Ms|Dr|St)\\.\\s)')
+} catch {
+  SENT_BREAK = null
+}
+
+/** Split a block's text into hidden paragraph/line spans, ready to fade in. */
 function makeParas(el: HTMLElement, text: string): HTMLElement[] {
   el.textContent = ''
-  return text.split(/\n{2,}/).map((t) => {
-    const p = document.createElement('span')
-    p.className = 'fadepara'
-    p.textContent = t
-    el.appendChild(p)
-    return p
-  })
+  const lines: HTMLElement[] = []
+  for (const t of text.split(/\n{2,}/)) {
+    const para = document.createElement('span')
+    para.className = 'fadepara'
+    for (const line of SENT_BREAK ? t.split(SENT_BREAK) : [t]) {
+      const s = document.createElement('span')
+      s.className = 'fadeline'
+      s.textContent = line
+      para.appendChild(s)
+      lines.push(s)
+    }
+    el.appendChild(para)
+  }
+  return lines
 }
 
 /** Replace the left card for the scene being mounted — the face matches the voice. */
@@ -512,7 +532,7 @@ function refreshCard(): void {
   if (canvas) startAmbient(canvas)
 }
 
-/** Append the next scene skeleton and fade it in paragraph by paragraph.
+/** Append the next scene skeleton and fade it in line by line.
  *  Headings live in the backend and the map only — in play, the story is one
  *  unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
@@ -549,8 +569,11 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
       return
     }
     p.classList.add('on')
+    p.parentElement?.classList.add('on')
     story.scrollTop = story.scrollHeight // pin while the stream lands
-    revealTimer = window.setTimeout(revealQueue.length ? step : finishTyping, 300)
+    // Reading-paced: longer lines hold a beat longer.
+    const wait = Math.min(620, 220 + (p.textContent?.length ?? 0) * 4)
+    revealTimer = window.setTimeout(revealQueue.length ? step : finishTyping, wait)
   }
   step()
 }
