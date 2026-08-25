@@ -14,7 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
+import { setStage, resetStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -1535,6 +1535,9 @@ async function enterAsFounder(): Promise<void> {
 }
 
 function startNewLife(): void {
+  resetStage() // a new life starts from silence — no room carries over
+  filmPlayedFor = ''
+  pushedClose = ''
   st = newGame(CONTENT, (Date.now() ^ performance.now()) >>> 0)
   transcript = []
   renderedChapter = -1
