@@ -140,10 +140,10 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card-canvas { position: absolute; inset: 0; }
 .portrait {
   position: relative; margin: auto; text-align: center;
-  width: min(70%, 300px); aspect-ratio: 1;
+  width: min(80%, 440px); aspect-ratio: 1;
   border-radius: 8px; border: 1.5px solid var(--ink);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.12);
   overflow: hidden; background: var(--paper, #fafaf7);
   animation: printIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
