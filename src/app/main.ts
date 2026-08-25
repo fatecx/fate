@@ -600,11 +600,14 @@ function showScreens(beats: { kicker?: string; title: string; prose: string; art
   const last = idx === beats.length - 1
   const btn = `<button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>`
   if (b.art) {
-    // Full-bleed cinematic: the panel IS the screen; copy rides a scrim at the foot.
+    // Letterboxed cinematic: the print owns the top of the screen untouched;
+    // copy lives in a black cinema band beneath it.
     takeover(
       `
-      <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
-      <div class="cine-scrim"></div>
+      <div class="cine-stage">
+        <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
+        <div class="cine-seam"></div>
+      </div>
       <div class="cine-copy">
         <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
         <h1 class="tk-title">${esc(b.title)}</h1>

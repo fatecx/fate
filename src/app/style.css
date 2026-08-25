@@ -247,31 +247,33 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .takeover-inner::-webkit-scrollbar { display: none; }
 .tk-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; }
-/* Full-bleed cinematic panels: the print IS the screen, copy rides a scrim at the foot. */
+/* Letterboxed cinematic panels: the print owns the top, untouched; copy sits in a cinema band below. */
 .takeover.cine { display: block; overflow: hidden; }
-.cine .takeover-inner { position: static; max-width: none; width: 100%; height: 100%; padding: 0; animation: none; overflow: visible; }
+.cine .takeover-inner {
+  position: static; max-width: none; width: 100%; height: 100%; padding: 0;
+  animation: none; overflow: visible; display: flex; flex-direction: column;
+}
+.cine-stage { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; }
 .cine-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cine-bg.drift-a { animation: kenburnsA 34s ease-in-out infinite alternate; }
 .cine-bg.drift-b { animation: kenburnsB 34s ease-in-out infinite alternate; }
-.cine-scrim {
-  position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(13, 14, 17, 0.34) 0%, rgba(13, 14, 17, 0) 22%);
+/* Thin seam so the band meets the print softly instead of a hard cut. */
+.cine-seam {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 64px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(13, 14, 17, 0) 0%, rgba(13, 14, 17, 0.85) 100%);
 }
 .cine-copy {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 96px clamp(28px, 6vw, 100px) clamp(22px, 4.5vh, 44px);
-  /* Solid black bar under the copy, dissolving up into the print. */
-  background: linear-gradient(180deg,
-    rgba(11, 12, 14, 0) 0%, rgba(11, 12, 14, 0.72) 64px, rgba(11, 12, 14, 0.95) 110px, rgba(11, 12, 14, 0.97) 100%);
+  flex: none; background: #0d0e11;
+  padding: 4px clamp(28px, 6vw, 100px) clamp(18px, 3.5vh, 36px);
   animation: panelIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.cine-copy .tk-title { margin: 8px 0 10px; font-size: clamp(22px, 3vw, 30px); }
+.cine-copy .tk-title { margin: 6px 0 10px; font-size: clamp(21px, 2.6vw, 28px); }
 .cine-copy .tk-body {
-  font-size: 15px; line-height: 1.62; color: #e3e4de;
-  max-width: 100ch; max-height: 36vh; overflow-y: auto; scrollbar-width: none;
+  font-size: 15px; line-height: 1.6; color: #dcddd7;
+  max-width: 100ch; max-height: 34vh; overflow-y: auto; scrollbar-width: none;
 }
 .cine-copy .tk-body::-webkit-scrollbar { display: none; }
-.cine-copy .cta { margin-top: 16px; }
+.cine-copy .cta { margin-top: 14px; padding: 11px 26px; }
 .tk-art {
   display: block; width: min(58%, 260px); aspect-ratio: 1; object-fit: cover;
   margin: 18px 0 6px; border: 1.5px solid var(--ink); border-radius: 8px;
