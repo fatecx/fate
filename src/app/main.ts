@@ -189,9 +189,10 @@ function castRoster(): CastEntry[] {
   return entries.sort((a, b) => a.metOrder - b.metOrder)
 }
 
-function castFaceHtml(id: string, cls = 'cast-face'): string {
+function castFaceHtml(id: string, cls = 'cast-face', veiled = false): string {
   const ch = CONTENT.characters[id]
-  return `<span class="${cls}"><i>${esc(ch.name[0])}</i><img src="/art/${id}.webp" alt="" onerror="this.remove()"></span>`
+  // Veiled faces never leak the initial — if the print is missing, a ? holds the frame.
+  return `<span class="${cls}${veiled ? ' veiled' : ''}"><i>${veiled ? '?' : esc(ch.name[0])}</i><img src="/art/${id}.webp" alt="" onerror="this.remove()"></span>`
 }
 
 /** The protagonist's token — no portrait by design; the biography is the face. */
@@ -247,24 +248,23 @@ function castPanelHtml(): string {
       </div>`
     })
     .join('')
-  // The unmet become rumors — the story foreshadowing itself, names withheld.
-  const teased = unmet.filter((c) => CONTENT.characters[c.id].tease)
-  const rumors = teased.slice(0, 3).map(
-    (c) => `<div class="cast-tease">
-      <span class="cast-face sm shadow"><i>?</i></span>
-      <span>${esc(CONTENT.characters[c.id].tease!)}</span>
-    </div>`,
-  )
-  const rumorBlock = rumors.length
-    ? `<div class="cast-rumors">
-        <div class="cast-rumors-h">RUMORS</div>
-        ${rumors.join('')}
-        ${unmet.length > rumors.length ? `<div class="cast-tease more">…the city keeps introducing people.</div>` : ''}
+  // The unmet appear in the flesh but veiled — their print blurred dark,
+  // their name smudged out, only the role legible. Coming attractions.
+  const shadowRows = unmet
+    .map((c) => {
+      const ch = CONTENT.characters[c.id]
+      return `<div class="cast-row unmet">
+        ${castFaceHtml(c.id, 'cast-face lg', true)}
+        <div class="cast-meta">
+          <div class="cast-name veiled-name" aria-hidden="true">${esc(ch.name)}</div>
+          <div class="cast-role">${esc(ch.role)}</div>
+        </div>
       </div>`
-    : ''
+    })
+    .join('')
   return `
   <div class="inc-title">THE CAST · IN ORDER OF APPEARANCE</div>
-  <div class="cast-list">${youRow}${rows}</div>${rumorBlock}`
+  <div class="cast-list">${youRow}${rows}${shadowRows}</div>`
 }
 
 /**
