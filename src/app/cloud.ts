@@ -121,3 +121,84 @@ if (typeof document !== 'undefined') {
     if (document.visibilityState === 'hidden') void flush()
   })
 }
+
+// ---- the public record ---------------------------------------------------------
+// Chapter closes write two things beyond the save: a founders-ledger row
+// (the leaderboard) and this founder's signature decisions (community stats).
+// All numbers come from engine state; the server only counts.
+
+export interface FounderRow {
+  user_id: string
+  wallet: string
+  chain: string
+  score: number
+  chapters: number
+  weeks: number
+  endings: string[]
+}
+
+/** Upsert this founder's ledger row. Idempotent; safe to call at every epilogue. */
+export async function pushFounder(row: Omit<FounderRow, 'user_id' | 'wallet' | 'chain'>): Promise<void> {
+  if (!supa) return
+  try {
+    const session = await getSession()
+    if (!session) return
+    await supa.from('founders').upsert({
+      user_id: session.user.id,
+      wallet: walletLabel(session),
+      chain: walletChain(session),
+      ...row,
+      updated_at: new Date().toISOString(),
+    })
+  } catch {
+    /* the ledger is a mirror, never a dependency */
+  }
+}
+
+/** Record decided scenes for community tallies. First write wins; reruns are ignored. */
+export async function pushDecisions(rows: { company: string; scene: string; choice: number }[]): Promise<void> {
+  if (!supa || rows.length === 0) return
+  try {
+    const session = await getSession()
+    if (!session) return
+    await supa
+      .from('decisions')
+      .upsert(
+        rows.map((r) => ({ user_id: session.user.id, ...r })),
+        { onConflict: 'user_id,company,scene', ignoreDuplicates: true },
+      )
+  } catch {
+    /* non-fatal */
+  }
+}
+
+/** Aggregate decision counts for a chapter, keyed by scene id. */
+export async function fetchDecisionSplit(company: string): Promise<Record<string, { choice: number; n: number }[]>> {
+  const out: Record<string, { choice: number; n: number }[]> = {}
+  if (!supa) return out
+  try {
+    const { data } = await supa.rpc('decision_split', { p_company: company })
+    for (const row of (data ?? []) as { scene: string; choice: number; n: number }[]) {
+      ;(out[row.scene] ??= []).push({ choice: row.choice, n: Number(row.n) })
+    }
+  } catch {
+    /* offline: the record screen simply omits community lines */
+  }
+  return out
+}
+
+/** Top of the founders ledger, best score first. */
+export async function fetchLeaderboard(limit = 100): Promise<FounderRow[]> {
+  if (!supa) return []
+  try {
+    const { data } = await supa
+      .from('founders')
+      .select('user_id,wallet,chain,score,chapters,weeks,endings')
+      .order('score', { ascending: false })
+      .order('weeks', { ascending: true })
+      .limit(limit)
+    return (data ?? []) as FounderRow[]
+  } catch {
+    return []
+  }
+}

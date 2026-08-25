@@ -295,20 +295,23 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Eleven cities in nine days. The underwriters want a story and you have a better one: a grounded fleet that got back up, a courier pool with health insurance, a fault report printed in full. The last meeting is the pricing call. Somewhere in the building, a banker says the words “the people’s network” without irony and everyone pretends that is normal.',
+      'Eleven cities in nine days. The underwriters want a story, and the only one they can sell is the one that can’t be faked: a fleet that grounded itself and got back up, a courier pool with health insurance, a fault report printed in full. The last meeting is the pricing call. Somewhere in the building, a banker says the words “the people’s network” without irony and everyone pretends that is normal.',
     choices: [
       {
         label: 'Price it honest. Ring the bell.',
         requires: {
           k: 'all',
           of: [
-            { k: 'rep', cmp: 'gte', v: 4 },
+            { k: 'flag', scope: 'company', key: 'transparent', cmp: 'eq', v: true },
+            { k: 'score', cmp: 'gte', v: 14 },
+            { k: 'rep', cmp: 'gte', v: 5 },
             { k: 'treasury', cmp: 'gte', v: 100000 },
             { k: 'stress', cmp: 'lt', v: 85 },
           ],
         },
         effects: [
           { e: 'flag', scope: 'company', key: 'ipo_done', v: true },
+          { e: 'flag', scope: 'company', key: 'rang_bell', v: true },
           { e: 'end', ending: 'triumph_ipo' },
         ],
       },

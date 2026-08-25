@@ -41,6 +41,11 @@
 
 * { box-sizing: border-box; margin: 0; }
 html, body, #app { height: 100%; }
+/* The browser paints the root canvas behind everything (overscroll bounce,
+   pinch-zoom letterbox). Keep it paper in play and ink under any takeover,
+   so no white frame can ever appear around a cutscene. */
+html { background: var(--paper); }
+html:has(.takeover), html:has(.takeover) body { background: #0d0e11; }
 body {
   background: var(--paper);
   color: var(--ink);

@@ -11,7 +11,7 @@ import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
-import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain } from './cloud'
+import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
 import { makeFmt } from '../../scripts/map/format'
@@ -35,6 +35,14 @@ interface BeatRec {
   endingTitle?: string
   span?: string
   stake?: string
+  /** Week beats: bank balance stamped when the week turned. */
+  bank?: string
+  /** Chapter memoir cards: the record of the life just closed. */
+  kindLabel?: string
+  weeks?: number
+  score?: number
+  cred?: number
+  cash?: string
 }
 
 interface Save {
@@ -143,6 +151,99 @@ function fuseInfo(): { remaining: number; total: number } | null {
   const def = getScene(CONTENT, st.company.id, sceneId)
   if (!f || !def) return null
   return { remaining: Math.max(1, f.expiresEpoch - st.epoch), total: def.fuseEpochs ?? 1 }
+}
+
+// ---- the cast --------------------------------------------------------------
+// Characters unlock in the header as the founder meets them. "Met" is true
+// state: a relationship exists, or a seen scene of this chapter had them speak.
+
+interface CastEntry {
+  id: string
+  met: boolean
+  metOrder: number // lower = met earlier; Infinity = unmet
+}
+
+function castRoster(): CastEntry[] {
+  const chapter = CONTENT.chapters[st.company.id]
+  const relIds = Object.keys(st.world.rels)
+  const seenSpeakers = new Set<string>()
+  for (const sid of st.company.seen) {
+    const sp = chapter.scenes.find((s) => s.id === sid)?.speaker
+    if (sp) seenSpeakers.add(sp)
+  }
+  const ids = new Set<string>([...relIds.filter((id) => st.world.rels[id]?.met), ...seenSpeakers])
+  // Roster = everyone met this life + this chapter's still-unmet speakers, as shadows.
+  for (const s of chapter.scenes) if (s.speaker) ids.add(s.speaker)
+  const entries: CastEntry[] = []
+  for (const id of ids) {
+    if (!CONTENT.characters[id]) continue
+    const met = st.world.rels[id]?.met === true || seenSpeakers.has(id)
+    const order = relIds.indexOf(id)
+    entries.push({ id, met, metOrder: met ? (order === -1 ? 999 : order) : Infinity })
+  }
+  return entries.sort((a, b) => a.metOrder - b.metOrder)
+}
+
+function castFaceHtml(id: string, cls = 'cast-face'): string {
+  const ch = CONTENT.characters[id]
+  return `<span class="${cls}"><i>${esc(ch.name[0])}</i><img src="/art/${id}.webp" alt="" onerror="this.remove()"></span>`
+}
+
+/** Header cluster: the last few faces met, plus one shadow for who's still out there. */
+function castClusterHtml(): string {
+  const roster = castRoster()
+  const met = roster.filter((c) => c.met)
+  const unmet = roster.length - met.length
+  const faces = met.slice(-3).map((c) => castFaceHtml(c.id)).join('')
+  const shadow = unmet > 0 ? `<span class="cast-face shadow"><i>+${unmet}</i></span>` : ''
+  if (!faces && !shadow) return ''
+  return `<button class="cast" id="castToggle" title="The cast — everyone this life has met">${faces}${shadow}</button>`
+}
+
+function standingChip(id: string): string {
+  const r = st.world.rels[id]
+  if (!r) return ''
+  if (r.standing === 'ally') return `<span class="cchip ally">ALLY</span>`
+  if (r.standing === 'hostile') return `<span class="cchip hostile">HOSTILE</span>`
+  const lean = r.affinity + r.respect
+  if (lean >= 3) return `<span class="cchip warm">WARM</span>`
+  if (lean <= -3) return `<span class="cchip cold">COLD</span>`
+  return ''
+}
+
+function castPanelHtml(): string {
+  const roster = castRoster()
+  const met = roster.filter((c) => c.met)
+  const unmet = roster.filter((c) => !c.met)
+  const rows = met
+    .map((c) => {
+      const ch = CONTENT.characters[c.id]
+      const stake = st.company.capTable.find((s) => s.who === c.id)?.pct ?? 0
+      const stakeTag = stake > 0 ? `<span class="cchip">${stake.toFixed(stake % 1 ? 1 : 0)}%</span>` : ''
+      return `<div class="cast-row">
+        ${castFaceHtml(c.id, 'cast-face lg')}
+        <div class="cast-meta">
+          <div class="cast-name">${esc(ch.name)} ${standingChip(c.id)}${stakeTag}</div>
+          <div class="cast-role">${esc(ch.role)}</div>
+          <div class="cast-blurb">${esc(ch.blurb)}</div>
+        </div>
+      </div>`
+    })
+    .join('')
+  const shadows = unmet
+    .map(
+      () => `<div class="cast-row unmet">
+        <span class="cast-face lg shadow"><i>?</i></span>
+        <div class="cast-meta">
+          <div class="cast-name dim">NOT YET MET</div>
+          <div class="cast-role">Someone this story is still holding back.</div>
+        </div>
+      </div>`,
+    )
+    .join('')
+  return `
+  <div class="inc-title">THE CAST · ${met.length} MET${unmet.length ? ` · ${unmet.length} OUT THERE` : ''}</div>
+  <div class="cast-list">${rows}${shadows}</div>`
 }
 
 /**
@@ -358,17 +459,34 @@ function transcriptHtml(): string {
   return transcript
     .map((b) => {
       switch (b.kind) {
-        case 'chapter':
+        case 'chapter': {
+          // Enriched memoir cards carry the record; older saves fall back to one line.
+          const chNo = ['ONE', 'TWO', 'THREE', 'FOUR'][CHAPTERS.indexOf(b.company as (typeof CHAPTERS)[number])] ?? ''
+          const outcome = b.kindLabel
+            ? `<div class="memoir-outcome">${esc(b.kindLabel)} — “${esc(b.endingTitle ?? '')}”</div>`
+            : `<div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>`
+          const stats = b.kindLabel
+            ? `<div class="memoir-stats">
+                <span><b>${b.weeks ?? '—'}</b> weeks</span>
+                <span><b>${esc(b.stake ?? '')}%</b> walked away with</span>
+                <span><b>${b.cash !== undefined ? fmtMoney(b.cash) : '—'}</b> at close</span>
+                <span><b>${(b.cred ?? 0) >= 0 ? '+' : ''}${b.cred ?? '—'}</b> cred</span>
+                <span><b>${b.score ?? '—'}</b> founder score</span>
+              </div>
+              <a class="memoir-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`
+            : ''
           return `<section class="memoir past">
-            <div class="beat-kicker">CHAPTER · ${esc(b.span ?? '')}</div>
+            <div class="beat-kicker">CHAPTER ${chNo} · ${esc(b.span ?? '')}</div>
             <h2 class="beat-title">${esc(chapterTitle(b.company!))}, INC.</h2>
-            <div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>
+            ${outcome}${stats}
           </section>`
+        }
         case 'week': {
           // Newer saves store the formatted label; older ones stored a raw epoch.
           const wk = b.text ?? ''
           const label = wk.includes('·') ? wk : `WEEK ${Number(wk) + 1}`
-          return `<div class="weekbeat past"><div class="weekmark">— ${esc(label)} —</div>${
+          const bank = b.bank ? ` · ${esc(b.bank)}` : ''
+          return `<div class="weekbeat past"><div class="weekmark">— ${esc(label)}${bank} —</div>${
             b.filler ? `<div class="filler">${esc(b.filler)}</div>` : ''
           }</div>`
         }
@@ -723,7 +841,7 @@ function showScreens(
     <div class="cine-veil"></div>
     ${cardMarkup}
     <p class="cine-sub"></p>
-    <div class="cine-cue" hidden>▸</div>
+    <div class="cine-cue" hidden><span class="cue-glyph">▸</span><kbd class="kbd cue-kbd">space</kbd></div>
     <div class="cine-end" hidden><button class="cta" id="scrGo">${esc(cta)} <kbd class="kbd">space</kbd></button></div>`,
     'cine',
   )
@@ -833,12 +951,29 @@ app.addEventListener('click', (e) => {
     const panel = document.getElementById('coPanel')
     if (panel) {
       if (panel.hidden) {
+        panel.classList.remove('cast-mode')
         panel.innerHTML = incPanelHtml() + accountHtml()
         // Anchor just below the rail, whatever height it wrapped to.
         const rail = document.querySelector('.rail') as HTMLElement | null
         if (rail) panel.style.top = `${rail.offsetHeight + 10}px`
       }
       panel.hidden = !panel.hidden
+    }
+    return
+  }
+  if (target.closest('#castToggle')) {
+    const panel = document.getElementById('coPanel')
+    if (panel) {
+      const wasCast = !panel.hidden && panel.classList.contains('cast-mode')
+      if (!wasCast) {
+        panel.classList.add('cast-mode')
+        panel.innerHTML = castPanelHtml()
+        const rail = document.querySelector('.rail') as HTMLElement | null
+        if (rail) panel.style.top = `${rail.offsetHeight + 10}px`
+        panel.hidden = false
+      } else {
+        panel.hidden = true
+      }
     }
     return
   }
@@ -938,64 +1073,265 @@ function biographyStrip(): string {
   )
 }
 
-function showEpilogue(): void {
+// ---- chapter close: film, card, record ----------------------------------------
+
+const KIND_LABEL: Record<string, string> = {
+  triumph: 'INITIAL PUBLIC OFFERING',
+  sale: 'ACQUISITION',
+  noble: 'BANKRUPTCY',
+  disgrace: 'DISGRACE',
+  transformation: 'TRANSFORMATION',
+  ruin: 'RUIN',
+}
+
+interface ChapterClose {
+  company: string
+  endingId: string
+  ending: ReturnType<typeof resolveEnding>
+  weeks: number
+  stake: number
+  cash: number
+  cred: number
+  score: number
+}
+
+function resolveEnding(company: string, endingId: string) {
+  return (
+    CONTENT.chapters[company as keyof typeof CONTENT.chapters].endings.find((e) => e.id === endingId) ??
+    CONTENT.chapters.hyperchute.endings[0]
+  )
+}
+
+function chapterClose(): ChapterClose {
   const completed = st.ledger.completed[st.ledger.completed.length - 1]
-  const ending =
-    CONTENT.chapters[completed?.company ?? st.company.id].endings.find(
-      (e) => e.id === (completed?.endingId ?? st.company.endingId),
-    ) ?? CONTENT.chapters.hyperchute.endings[0]
+  const company = completed?.company ?? st.company.id
+  const endingId = completed?.endingId ?? st.company.endingId ?? 'bankrupt'
+  return {
+    company,
+    endingId,
+    ending: resolveEnding(company, endingId),
+    weeks: st.epoch - st.company.foundedEpoch,
+    stake: Math.round(st.company.capTable.find((s) => s.who === 'founder')?.pct ?? 0),
+    cash: st.company.treasury,
+    cred: st.world.reputation,
+    score: st.ledger.founderScore,
+  }
+}
+
+/** One write per chapter close: the founders-ledger row and this life's
+ *  decided scenes, for community stats. Server counts; engine decided. */
+let pushedClose = ''
+function pushChapterClose(): Promise<void> {
+  const c = chapterClose()
+  const key = `${c.company}:${c.endingId}:${st.epoch}`
+  if (pushedClose === key) return Promise.resolve()
+  pushedClose = key
+  const chapter = CONTENT.chapters[c.company as keyof typeof CONTENT.chapters]
+  const sceneIds = new Set(chapter.scenes.map((s) => s.id))
+  const decided = new Map<string, number>()
+  for (const h of st.history) if (sceneIds.has(h.scene)) decided.set(h.scene, h.choice)
+  const rows = [...decided.entries()].map(([scene, choice]) => ({ company: c.company, scene, choice }))
+  return Promise.all([
+    pushDecisions(rows),
+    pushFounder({
+      score: st.ledger.founderScore,
+      chapters: st.ledger.completed.length,
+      weeks: st.epoch,
+      endings: st.ledger.completed.map((x) => `${x.company}:${x.endingId}`),
+    }),
+  ]).then(() => undefined)
+}
+
+/** Move the biography into the next chapter (or the finale) — the old #next flow. */
+function proceedNext(): void {
+  document.querySelector('.takeover')?.remove()
+  if (st.chapter + 1 >= CHAPTERS.length) {
+    renderComplete()
+    return
+  }
+  // Snapshot the life just ended, collapse it into a memoir card, then skip years.
+  const c = chapterClose()
+  const prevCompany = st.company
+  const years = c.ending.skipYears ?? 1
+  const spanFrom = 2031 + Math.floor(prevCompany.foundedEpoch / 52)
+  const spanTo = 2031 + Math.floor((st.epoch + years * 52) / 52)
+
+  st = reduce(CONTENT, st, { t: 'foundNext' })
+  transcript = [
+    {
+      kind: 'chapter',
+      company: prevCompany.id,
+      endingTitle: c.ending.title,
+      span: `${spanFrom}–${spanTo}`,
+      stake: String(c.stake),
+      kindLabel: KIND_LABEL[c.ending.kind] ?? c.ending.kind.toUpperCase(),
+      weeks: c.weeks,
+      score: c.score,
+      cred: c.cred,
+      cash: c.cash,
+    },
+    { kind: 'week', text: clockLabel() },
+  ]
+  persist()
+  renderedChapter = -1
+  render()
+
+  const inter = c.ending.interlude
+  const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
+  const screens: { kicker?: string; title?: string; prose: string; art?: string }[] = []
+  if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
+  for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
+  if (screens.length)
+    showScreens(screens, () => render(), 'Begin →', CONTENT.chapters[st.company.id]?.dateline)
+}
+
+function achievementsHtml(c: ChapterClose): string {
+  const defs = CONTENT.chapters[c.company as keyof typeof CONTENT.chapters].achievements ?? []
+  if (!defs.length) return ''
+  const earned = defs.filter((a) => evalPred(a.when, st))
+  const cells = defs
+    .map((a) => {
+      const on = earned.includes(a)
+      return `<div class="ach ${on ? 'on' : ''}">
+        <div class="ach-mark">${on ? '◆' : '◇'}</div>
+        <div><div class="ach-title">${esc(a.title)}</div><div class="ach-desc">${on ? esc(a.desc) : 'Not this life.'}</div></div>
+      </div>`
+    })
+    .join('')
+  return `<div class="rep-h"><span>ACHIEVEMENTS</span><span>${earned.length} / ${defs.length}</span></div>
+  <div class="rep-achs">${cells}</div>`
+}
+
+function reportCastHtml(): string {
+  const met = castRoster().filter((x) => x.met)
+  if (!met.length) return ''
+  const rows = met
+    .map((x) => {
+      const ch = CONTENT.characters[x.id]
+      const stake = st.company.capTable.find((s) => s.who === x.id)?.pct ?? 0
+      const bits = [standingChip(x.id), stake > 0 ? `<span class="cchip">${stake.toFixed(stake % 1 ? 1 : 0)}%</span>` : '']
+        .filter(Boolean)
+        .join('')
+      return `<div class="cast-row">
+        ${castFaceHtml(x.id, 'cast-face lg')}
+        <div class="cast-meta">
+          <div class="cast-name">${esc(ch.name)} ${bits}</div>
+          <div class="cast-role">${esc(ch.role)}</div>
+        </div>
+      </div>`
+    })
+    .join('')
+  return `<div class="rep-h"><span>THE CAST</span><span>${met.length} MET</span></div>
+  <div class="rep-cast">${rows}</div>`
+}
+
+function communityShellHtml(c: ChapterClose): string {
+  const sigs = CONTENT.chapters[c.company as keyof typeof CONTENT.chapters].signatures ?? []
+  if (!sigs.length) return ''
+  const rows = sigs
+    .map(
+      (s, i) => `<div class="sig-row" id="sig-${i}">
+        <b class="sig-pct">··%</b>
+        <span class="sig-text">of founders ${esc(s.text)}<em class="sig-you"></em></span>
+      </div>`,
+    )
+    .join('')
+  return `<div class="rep-h"><span>EVERY FOUNDER WHO CAME BEFORE YOU</span><span id="sigCount"></span></div>
+  <div class="rep-sigs">${rows}</div>`
+}
+
+/** Fill the community rows once the tallies land. Numbers come from the server count. */
+async function fillCommunity(c: ChapterClose): Promise<void> {
+  const sigs = CONTENT.chapters[c.company as keyof typeof CONTENT.chapters].signatures ?? []
+  if (!sigs.length) return
+  await pushChapterClose() // own decisions count before the read
+  const split = await fetchDecisionSplit(c.company)
+  const decided = new Map<string, number>()
+  for (const h of st.history) decided.set(h.scene, h.choice)
+  sigs.forEach((sig, i) => {
+    const row = document.getElementById(`sig-${i}`)
+    if (!row) return
+    const counts = split[sig.scene] ?? []
+    const total = counts.reduce((s, x) => s + x.n, 0)
+    const n = counts.find((x) => x.choice === sig.choice)?.n ?? 0
+    const pctEl = row.querySelector('.sig-pct')
+    const youEl = row.querySelector('.sig-you')
+    if (pctEl) pctEl.textContent = total > 0 ? `${Math.round((100 * n) / total)}%` : '—'
+    if (youEl) {
+      const faced = decided.has(sig.scene)
+      youEl.textContent = !faced
+        ? ' — your road never crossed it'
+        : decided.get(sig.scene) === sig.choice
+          ? ' — so did you'
+          : ' — you didn’t'
+      if (decided.get(sig.scene) === sig.choice) row.classList.add('same')
+    }
+  })
+  const totalFounders = Math.max(
+    ...sigs.map((sig) => (split[sig.scene] ?? []).reduce((s, x) => s + x.n, 0)),
+    0,
+  )
+  const countEl = document.getElementById('sigCount')
+  if (countEl && totalFounders > 0) countEl.textContent = `${totalFounders} ON RECORD`
+}
+
+/** The record — end-of-chapter stats card. Walking-dead style, engine numbers only. */
+function showChapterReport(): void {
+  document.querySelector('.takeover')?.remove()
+  const c = chapterClose()
   const isLast = st.chapter + 1 >= CHAPTERS.length
   const cta = isLast
-    ? `<button class="cta" id="finale">See how the life ends →</button>`
+    ? `<button class="cta" id="next">See how the life ends →</button>`
     : `<button class="cta" id="next">Wire the check — found ${esc(nextChapterName())} →</button>`
+  const spanFrom = 2031 + Math.floor(st.company.foundedEpoch / 52)
+  const spanTo = 2031 + Math.floor(st.epoch / 52)
   takeover(`
-    <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(completed?.company ?? st.company.id))}</div>
-    ${ending.art ? `<img class="tk-art" src="/art/${ending.art}.webp" alt="" onerror="this.remove()">` : ''}
-    <h1 class="tk-title">${esc(ending.title)}</h1>
-    <p class="tk-body">${esc(ending.prose)}</p>
-    ${biographyStrip()}
-    ${cta}
+    <div class="tk-kicker">THE RECORD · ${esc(chapterTitle(c.company))}, INC. · ${spanFrom}–${spanTo}</div>
+    <h1 class="tk-title rep-outcome">${esc(KIND_LABEL[c.ending.kind] ?? c.ending.kind.toUpperCase())}</h1>
+    <div class="rep-ending">“${esc(c.ending.title)}”</div>
+    <div class="rep-grid">
+      <div class="rep-stat"><b>${c.weeks}</b><span>WEEKS<br/>LIVED</span></div>
+      <div class="rep-stat"><b>${c.stake}%</b><span>FINAL<br/>STAKE</span></div>
+      <div class="rep-stat"><b>${fmtMoney(c.cash)}</b><span>CASH AT<br/>CLOSE</span></div>
+      <div class="rep-stat"><b>${c.cred >= 0 ? '+' : ''}${c.cred}</b><span>CRED</span></div>
+      <div class="rep-stat"><b>${c.score}</b><span>FOUNDER<br/>SCORE</span></div>
+    </div>
+    ${achievementsHtml(c)}
+    ${reportCastHtml()}
+    ${communityShellHtml(c)}
+    <div class="tk-actions">${cta}
+      <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>
+    </div>
   `)
-  document.getElementById('next')?.addEventListener('click', () => {
-    document.querySelector('.takeover')?.remove()
-    // Snapshot the life just ended, collapse it into a memoir card, then skip years.
-    const completed = st.ledger.completed[st.ledger.completed.length - 1]
-    const prevCompany = st.company
-    const prevEndingDef = CONTENT.chapters[completed.company].endings.find(
-      (e) => e.id === completed.endingId,
+  document.getElementById('next')?.addEventListener('click', proceedNext)
+  void fillCommunity(c)
+}
+
+let filmPlayedFor = ''
+
+function showEpilogue(): void {
+  const c = chapterClose()
+  void pushChapterClose()
+  // World-scale exits earn a film before the card — the IPO takes the screen.
+  const filmKey = `${c.company}:${c.endingId}`
+  if (c.ending.screens?.length && filmPlayedFor !== filmKey) {
+    filmPlayedFor = filmKey
+    showScreens(
+      c.ending.screens.map((p) => ({ prose: p.prose, art: p.art })),
+      () => showEpilogue(),
+      'Continue →',
     )
-    const years = prevEndingDef?.skipYears ?? 1
-    const stake = String(Math.round(prevCompany.capTable.find((s) => s.who === 'founder')?.pct ?? 0))
-    const spanFrom = 2031 + Math.floor(prevCompany.foundedEpoch / 52)
-    const spanTo = 2031 + Math.floor((st.epoch + years * 52) / 52)
-
-    st = reduce(CONTENT, st, { t: 'foundNext' })
-    transcript = [
-      {
-        kind: 'chapter',
-        company: prevCompany.id,
-        endingTitle: prevEndingDef?.title ?? completed.endingId.replace(/_/g, ' '),
-        span: `${spanFrom}–${spanTo}`,
-        stake,
-      },
-      { kind: 'week', text: clockLabel() },
-    ]
-    persist()
-    renderedChapter = -1
-    render()
-
-    const inter = prevEndingDef?.interlude
-    const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
-    const screens: { kicker?: string; title?: string; prose: string; art?: string }[] = []
-    if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
-    for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
-    if (screens.length)
-      showScreens(screens, () => render(), 'Begin →', CONTENT.chapters[st.company.id]?.dateline)
-  })
-  document.getElementById('finale')?.addEventListener('click', () => {
-    document.querySelector('.takeover')?.remove()
-    renderComplete()
-  })
+    return
+  }
+  takeover(`
+    <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(c.company))}</div>
+    ${c.ending.art ? `<img class="tk-art" src="/art/${c.ending.art}.webp" alt="" onerror="this.remove()">` : ''}
+    <h1 class="tk-title">${esc(c.ending.title)}</h1>
+    <p class="tk-body">${esc(c.ending.prose)}</p>
+    ${biographyStrip()}
+    <button class="cta" id="record">See the record →</button>
+  `)
+  document.getElementById('record')?.addEventListener('click', showChapterReport)
 }
 
 function renderEpilogue(): void {
@@ -1007,7 +1343,8 @@ function renderComplete(): void {
   renderPlaying()
   const years = Math.max(1, Math.round((st.epoch - st.ledger.completed[0]?.epoch / 1) / 52))
   const closing = `<p class="tk-body" style="margin-top:22px">This biography belongs to ${session ? esc(walletLabel(session)) : 'this wallet'}, finished and on the record. One wallet, one life — to live another, sign with another wallet.</p>
-       <button class="cta" id="switchWallet">Sign out — new wallet, new life →</button>`
+       <div class="tk-actions"><button class="cta" id="switchWallet">Sign out — new wallet, new life →</button>
+       <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a></div>`
   takeover(`
     <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
     <h1 class="tk-title">FOUR COMPANIES.<br/>ONE LIFE.</h1>
@@ -1241,9 +1578,11 @@ function choose(index: number): void {
 
   if (st.epoch > beforeEpoch) {
     const filler = weekFillerText(st.epoch - beforeEpoch)
-    transcript.push({ kind: 'week', text: clockLabel(), filler })
+    // Payroll cleared while the week turned — stamp what's left in the account.
+    const bank = st.company.treasury < 0 ? `OVERDRAWN ${fmtMoney(st.company.treasury)}` : `BANK ${fmtMoney(st.company.treasury)}`
+    transcript.push({ kind: 'week', text: clockLabel(), filler, bank })
     const wk = document.createElement('template')
-    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— ${clockLabel()} —</div>${
+    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— ${clockLabel()} · ${bank} —</div>${
       filler ? `<div class="filler"></div>` : ''
     }</div>`
     const el = wk.content.firstElementChild as HTMLElement

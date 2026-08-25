@@ -79,11 +79,31 @@ export interface EndingDef {
   prose: string
   /** World-card art id (public/art/{art}.webp) shown on the epilogue screen. */
   art?: string
+  /** Full-screen film beats played the moment the chapter closes with this
+   *  ending, before the epilogue card. Reserved for world-scale exits (IPO). */
+  screens?: readonly PrologueBeat[]
   scoreBonus: number
   /** Years skipped between this ending and the next chapter's opening. */
   skipYears?: number
   /** Full-screen interlude: what you did with those years. */
   interlude?: PrologueBeat
+}
+
+/** A marquee decision the whole player base gets measured on ("94% of
+ *  founders grounded the fleet"). Points at one authored choice. */
+export interface SignatureDef {
+  scene: string
+  choice: number
+  /** Past-tense verb phrase completing "N% of founders …". */
+  text: string
+}
+
+/** Deterministic end-of-chapter badge, evaluated against final true state. */
+export interface AchievementDef {
+  id: string
+  title: string
+  desc: string
+  when: Pred
 }
 
 export interface ChapterDef {
@@ -103,6 +123,10 @@ export interface ChapterDef {
   dateline?: string
   scenes: readonly SceneDef[]
   endings: readonly EndingDef[]
+  /** Community-stat decisions surfaced on the chapter record screen. */
+  signatures?: readonly SignatureDef[]
+  /** Badges evaluated when the chapter closes. */
+  achievements?: readonly AchievementDef[]
 }
 
 export interface CharacterDef {

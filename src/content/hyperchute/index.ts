@@ -1,4 +1,4 @@
-import type { ChapterDef, EndingDef, PrologueBeat } from '../schema'
+import type { AchievementDef, ChapterDef, EndingDef, PrologueBeat, SignatureDef } from '../schema'
 import { ACT_ONE } from './act-one'
 import { ACT_TWO } from './act-two'
 import { ACT_THREE } from './act-three'
@@ -13,6 +13,28 @@ const ENDINGS: readonly EndingDef[] = [
     art: 'world_bell',
     scoreBonus: 12,
     skipYears: 2,
+    screens: [
+      {
+        art: 'world_roadshow',
+        prose:
+          'The pricing call runs ninety minutes past midnight. The lead banker keeps circling a higher number with his pen, the number that would make the papers, and you keep saying the other one — the one the porches can survive if the market turns.\n\nWhen you finally say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago come in.',
+      },
+      {
+        art: 'world_bell',
+        prose:
+          'The exchange floor at 9:28 a.m. smells like carpet cleaner and adrenaline. Somebody hands you a paddle with your own ticker on it, and you realize your hands are steady for the first time in three years.\n\nMrs. Delgado stands at the podium rail in a borrowed coat, house slippers underneath, because at eighty-one she has earned the right to be comfortable at other people’s ceremonies. She holds the ceremonial button the way she once held your first rent envelope — like it belongs to the block.\n\nAt 9:31 she presses it. The bell is louder than you expected. It sounds like dryers.',
+      },
+      {
+        art: 'world_dawn_flights',
+        prose:
+          'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, to index funds, to a retired dispatcher in Ohio who bought eleven shares at lunch — and, printed on the cover of the prospectus where the lawyers fought you and lost, to THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening the shuttles keep station like they always have, dropping parcels soft as rain onto porches that were a gray zone on somebody’s map. The map was wrong. You are the proof.',
+      },
+      {
+        art: 'world_legend_clip',
+        prose:
+          'Somewhere in a MERIDIAN planning office, a printer hums out a new corridor map. The stamp over your neighborhood has changed. It doesn’t say LOW-DENSITY YIELD anymore.\n\nIt says COMPETITOR.',
+      },
+    ],
     prose:
       'HYPERCHUTE lists at 9:31 a.m. Mrs. Delgado holds the ceremonial button on the exchange floor, still wearing her house slippers under the borrowed coat. The railway in the sky belongs to the street it was built for — and to the founder who refused, in order: a giant, a discount, and common sense.',
     interlude: {
@@ -119,6 +141,83 @@ const PROLOGUE: readonly PrologueBeat[] = [
   },
 ]
 
+/** The decisions the whole player base gets measured on — the record screen
+ *  renders "N% of founders …" from live tallies. Text completes that stem. */
+const SIGNATURES: readonly SignatureDef[] = [
+  { scene: 'h_seedling', choice: 0, text: 'took Mrs. Delgado’s cruise fund at one percent' },
+  { scene: 'h_couriers', choice: 0, text: 'made the couriers full employees' },
+  { scene: 'h_accident', choice: 0, text: 'grounded the fleet before the city could ask' },
+  { scene: 'h_press_storm', choice: 0, text: 'handed Nadia the full fault report, on the record' },
+  { scene: 'h_sofia_verdict', choice: 0, text: 'told Sofia to publish everything — she stayed' },
+  { scene: 'h_offer', choice: 2, text: 'refused Marcus Vale’s two hundred million' },
+  { scene: 'h_ipo_road', choice: 0, text: 'priced it honest and rang the bell' },
+]
+
+/** End-of-chapter badges, judged against final true state. Pure reads. */
+const ACHIEVEMENTS: readonly AchievementDef[] = [
+  {
+    id: 'laundry_receipt',
+    title: 'THE LAUNDRY RECEIPT',
+    desc: 'Mrs. Delgado’s cruise fund is on your cap table.',
+    when: { k: 'flag', scope: 'company', key: 'delgado_seed', cmp: 'eq', v: true },
+  },
+  {
+    id: 'grounded_first',
+    title: 'GROUNDED FIRST',
+    desc: 'You stopped the fleet before anyone could make you.',
+    when: { k: 'flag', scope: 'company', key: 'transparent', cmp: 'eq', v: true },
+  },
+  {
+    id: 'version_ten',
+    title: 'VERSION TEN',
+    desc: 'Sofia stayed, and the fix shipped with her name on the commit.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'flag', scope: 'company', key: 'sofia_verdict', cmp: 'eq', v: true },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'sofia_gone', cmp: 'eq', v: true } },
+      ],
+    },
+  },
+  {
+    id: 'asked_properly',
+    title: 'FIRST COMPANY TO ASK PROPERLY',
+    desc: 'Every courier a W-2. The letter came back signed.',
+    when: { k: 'flag', scope: 'company', key: 'couriers_ally', cmp: 'eq', v: true },
+  },
+  {
+    id: 'never_saved',
+    title: 'NEVER NEEDED SAVING',
+    desc: 'No bridge, no down round, never a week in the red.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'bridge_used', cmp: 'eq', v: true } },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'down_used', cmp: 'eq', v: true } },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'insolvency_open', cmp: 'eq', v: true } },
+      ],
+    },
+  },
+  {
+    id: 'street_saint',
+    title: 'THE STREET REMEMBERS',
+    desc: 'Credibility of +8 or better when the story closed.',
+    when: { k: 'rep', cmp: 'gte', v: 8 },
+  },
+  {
+    id: 'majority_founder',
+    title: 'NEVER DILUTED OUT',
+    desc: 'Walked out of chapter one still owning more than half.',
+    when: { k: 'stake', who: 'founder', cmp: 'gte', v: 51 },
+  },
+  {
+    id: 'bell_ringer',
+    title: 'THE BELL',
+    desc: 'Priced it honest. The people’s network went public.',
+    when: { k: 'flag', scope: 'company', key: 'rang_bell', cmp: 'eq', v: true },
+  },
+]
+
 export const HYPERCHUTE: ChapterDef = {
   id: 'hyperchute',
   title: 'HYPERCHUTE',
@@ -131,4 +230,6 @@ export const HYPERCHUTE: ChapterDef = {
   dateline: '2031\nTHE FLATS',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
+  signatures: SIGNATURES,
+  achievements: ACHIEVEMENTS,
 }
