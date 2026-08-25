@@ -210,6 +210,12 @@ function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+/** The clock, as people say it: which year of the company, which week of that year. */
+function clockLabel(): string {
+  const w = st.epoch - (st.company?.foundedEpoch ?? 0)
+  return `YEAR ${Math.floor(w / 52) + 1} · WEEK ${(w % 52) + 1}`
+}
+
 function railHtml(): string {
   const rw = runwayWeeks(st.company)
   const danger = rw < 10
@@ -226,7 +232,7 @@ function railHtml(): string {
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
-    <div class="weektag">WEEK ${st.epoch + 1}</div>
+    <div class="weektag">${clockLabel()}</div>
     <div class="rail-meters">
       ${runwayBlock}
       <div class="stressbox">
@@ -358,10 +364,14 @@ function transcriptHtml(): string {
             <h2 class="beat-title">${esc(chapterTitle(b.company!))}, INC.</h2>
             <div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>
           </section>`
-        case 'week':
-          return `<div class="weekbeat past"><div class="weekmark">— WEEK ${Number(b.text) + 1} —</div>${
+        case 'week': {
+          // Newer saves store the formatted label; older ones stored a raw epoch.
+          const wk = b.text ?? ''
+          const label = wk.includes('·') ? wk : `WEEK ${Number(wk) + 1}`
+          return `<div class="weekbeat past"><div class="weekmark">— ${esc(label)} —</div>${
             b.filler ? `<div class="filler">${esc(b.filler)}</div>` : ''
           }</div>`
+        }
         case 'you':
           return `<div class="youbtn past">${esc(b.text ?? '')}</div>`
         case 'divider':
@@ -387,21 +397,21 @@ function cardHtml(): string {
   const role = speaker?.role ?? ''
   const initial = name === 'THE WORLD' ? '∴' : name[0]
   const fuse = fuseInfo()
-  const ring =
+  const fuseLine =
     fuse && fuse.total > 0
-      ? `<div class="fuse-ring" style="background:conic-gradient(var(--accent) ${(fuse.remaining / fuse.total) * 100}%, transparent 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px)); mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));" title="${fuse.remaining} week(s) to answer"></div>`
+      ? `<div class="np-fuse">ANSWER WITHIN ${fuse.remaining} WEEK${fuse.remaining === 1 ? '' : 'S'}</div>`
       : ''
   const artId = scene.art ?? scene.speaker ?? null
   return `
   <aside class="scene-card">
     <canvas class="card-canvas"></canvas>
-    ${ring}
     <div class="portrait"><span class="sigil">${initial}</span>${
       artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
     }</div>
     <div class="nameplate">
       <div class="np-name">${esc(name)}</div>
       ${role ? `<div class="np-role">${esc(role)}</div>` : ''}
+      ${fuseLine}
     </div>
   </aside>`
 }
@@ -417,7 +427,8 @@ function moneyAbs(n: number): string {
   return `$${abs}`
 }
 
-/** Renders authored effect deltas as chips. Reads content only — never invents a number. */
+/** Renders authored effect deltas as chips — direction only, never magnitude.
+ *  The player consents to the kind of cost; the size is lived, not shopped. */
 function fxChips(effects: readonly Effect[]): string {
   let money = 0
   let stress = 0
@@ -439,13 +450,12 @@ function fxChips(effects: readonly Effect[]): string {
   const chip = (good: boolean, label: string): void => {
     chips.push(`<span class="fx ${good ? 'good' : 'bad'}">${label}</span>`)
   }
-  const sign = (n: number): string => (n > 0 ? '+' : '−')
-  if (money) chip(money > 0, `${sign(money)}${moneyAbs(money)}`)
-  if (stake) chip(stake < 0, `${sign(-stake)}${Math.abs(stake) % 1 ? Math.abs(stake).toFixed(1) : Math.abs(stake)}% equity`)
-  if (rev) chip(rev > 0, `${sign(rev)}${moneyAbs(rev)}/wk rev`)
-  if (burn) chip(burn < 0, `${sign(burn)}${moneyAbs(burn)}/wk burn`)
-  if (stress) chip(stress < 0, `${sign(stress)}${Math.abs(stress)} stress`)
-  if (rep) chip(rep > 0, `${sign(rep)}${Math.abs(rep)} cred`)
+  if (money) chip(money > 0, `${money > 0 ? '+' : '−'} cash`)
+  if (stake) chip(stake < 0, `${stake > 0 ? '−' : '+'} equity`)
+  if (rev) chip(rev > 0, `${rev > 0 ? '+' : '−'} revenue`)
+  if (burn) chip(burn < 0, `${burn > 0 ? '+' : '−'} burn`)
+  if (stress) chip(stress < 0, `${stress > 0 ? '+' : '−'} stress`)
+  if (rep) chip(rep > 0, `${rep > 0 ? '+' : '−'} cred`)
   return chips.length ? `<span class="fx-row">${chips.join('')}</span>` : ''
 }
 
@@ -616,22 +626,36 @@ function renderPlaying(): void {
 
   const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
   if (scene?.kind === 'cutscene') {
-    // World-scale moments take the screen; no choices, no headings — just the weight.
-    const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : null
-    const beats = scene.screens?.length
-      ? scene.screens.map((p) => ({ prose: p.prose, art: p.art }))
-      : [{ prose: scene.prose, art: scene.art }]
+    // World-scale moments take the screen; no choices, no headings — just the
+    // weight. Consecutive cutscenes chain into one film: no Continue stops
+    // between them, one door at the very end.
+    const chain = [scene]
+    let cur = scene
+    while (cur.choices.length === 1 && cur.choices[0].goto) {
+      const next = CONTENT.chapters[st.company.id].scenes.find((s) => s.id === cur.choices[0].goto)
+      if (next?.kind !== 'cutscene' || st.company.seen.includes(next.id)) break
+      chain.push(next)
+      cur = next
+    }
+    const beats = chain.flatMap((sc) =>
+      sc.screens?.length
+        ? sc.screens.map((p) => ({ prose: p.prose, art: p.art }))
+        : [{ prose: sc.prose, art: sc.art }],
+    )
     showScreens(
       beats,
       () => {
-        if (scene.marker) transcript.push({ kind: 'divider', text: scene.marker })
-        transcript.push({
-          kind: 'scene',
-          title: scene.title,
-          speakerName: speaker ?? 'THE WORLD',
-          prose: scene.prose,
-        })
-        st = reduce(CONTENT, st, { t: 'choose', index: 0 })
+        for (const sc of chain) {
+          if (st.company.queue[0] !== sc.id) break // engine interjected; stop cleanly
+          if (sc.marker) transcript.push({ kind: 'divider', text: sc.marker })
+          transcript.push({
+            kind: 'scene',
+            title: sc.title,
+            speakerName: sc.speaker ? CONTENT.characters[sc.speaker]?.name : 'THE WORLD',
+            prose: sc.prose,
+          })
+          st = reduce(CONTENT, st, { t: 'choose', index: 0 })
+        }
         refreshRail()
         persist()
         render()
@@ -954,7 +978,7 @@ function showEpilogue(): void {
         span: `${spanFrom}–${spanTo}`,
         stake,
       },
-      { kind: 'week', text: String(st.epoch) },
+      { kind: 'week', text: clockLabel() },
     ]
     persist()
     renderedChapter = -1
@@ -1217,9 +1241,9 @@ function choose(index: number): void {
 
   if (st.epoch > beforeEpoch) {
     const filler = weekFillerText(st.epoch - beforeEpoch)
-    transcript.push({ kind: 'week', text: String(st.epoch), filler })
+    transcript.push({ kind: 'week', text: clockLabel(), filler })
     const wk = document.createElement('template')
-    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— WEEK ${st.epoch + 1} —</div>${
+    wk.innerHTML = `<div class="weekbeat"><div class="weekmark">— ${clockLabel()} —</div>${
       filler ? `<div class="filler"></div>` : ''
     }</div>`
     const el = wk.content.firstElementChild as HTMLElement

@@ -8,6 +8,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'cutscene',
     title: 'YEAR TWO',
     marker: 'YEAR TWO',
+    skipToWeek: 52,
     screens: [
       {
         title: 'YEAR TWO',
@@ -80,7 +81,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     when: {
       k: 'all',
       of: [
-        { k: 'age', cmp: 'gte', v: 16 },
+        { k: 'age', cmp: 'gte', v: 54 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -165,7 +166,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 20 },
+        { k: 'age', cmp: 'gte', v: 58 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -185,7 +186,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     when: {
       k: 'all',
       of: [
-        { k: 'age', cmp: 'gte', v: 22 },
+        { k: 'age', cmp: 'gte', v: 60 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -237,7 +238,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     when: {
       k: 'all',
       of: [
-        { k: 'age', cmp: 'gte', v: 24 },
+        { k: 'age', cmp: 'gte', v: 62 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -290,7 +291,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'sofia_resolved', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 26 },
+        { k: 'age', cmp: 'gte', v: 64 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -340,7 +341,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     when: {
       k: 'all',
       of: [
-        { k: 'age', cmp: 'gte', v: 28 },
+        { k: 'age', cmp: 'gte', v: 66 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -374,6 +375,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_series_a',
     landmark: true,
     title: 'TWO MILLION, TWENTY POINTS',
+    art: 'world_series_a',
     speaker: 'june',
     priority: true,
     fuseEpochs: 4,
@@ -383,7 +385,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'met', who: 'june' },
-        { k: 'age', cmp: 'gte', v: 26 },
+        { k: 'age', cmp: 'gte', v: 64 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'series_a', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'independent', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
@@ -478,12 +480,13 @@ export const ACT_TWO: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 32 },
+        { k: 'age', cmp: 'gte', v: 70 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
     title: 'EIGHTEEN MONTHS OF WAR',
     marker: 'EIGHTEEN MONTHS LATER',
+    skipToWeek: 130,
     prose:
       'Three corridors suspended, then reopened. A price war that cost you both a fortune and taught the city your names. Couriers with health insurance. Sofia’s descent controller, version nine. The war doesn’t end. It just gets older — until the morning it stops mattering, because of what happens on Richmond Street.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
@@ -496,7 +499,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'TRENCHES',
     prose:
-      'The fence-line stops moving — not because anyone won, but because both sides dug in. Blue tubes fall off lampposts in your blocks; strangers straighten yours without being asked. Pricing pages update hourly now, two ops teams learning each other’s rhythms like chess players who hate each other politely. Wars like this don’t end, you realize. They get priced in — by customers, by suppliers, and eventually by people with much bigger spreadsheets than yours.',
+      'The fence-line stops moving. Both sides dug in. Blue tubes fall off lampposts in your blocks, and strangers straighten yours without being asked. Pricing pages update hourly now, two ops teams learning each other’s rhythms like chess players who hate each other politely. You start to understand that a war like this never really ends. It just becomes part of the price of everything — for customers, for suppliers, and eventually for people with much bigger spreadsheets than yours.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_couriers' }],
   },
   {
@@ -532,7 +535,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'SUPPLY LINES',
     prose:
-      'The shuttle supply steadies — not fixed exactly, managed. You know your machines’ build dates now the way parents know due dates, and you check the line schedule before you check the news. Quietly, logistics becomes a weapon in the war ledger: every shuttle that ships on time is a porch Chute doesn’t take while you wait. Nobody films this part. It decides more than the parts they film.',
+      'The shuttle supply steadies. You know your machines’ build dates now the way parents know due dates, and you check the factory schedule before you check the news. Every shuttle that ships on time is a porch Chute doesn’t take while you wait. Nobody films this part of the war. It decides more than the parts they film.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -541,7 +544,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT THE LETTER MEANT',
     prose:
-      'The envelope goes into a drawer, but its meaning stays out on the bench: MERIDIAN is recruiting your company one name at a time. Somewhere in a talent database there is an org chart of your garage, and someone’s job is keeping it current. The war stopped being about porches a while ago. It is about people now — and everyone on your stairs has a number next to their name that someone else is willing to pay.',
+      'The envelope goes into a drawer, but what it means stays out on the bench: MERIDIAN is recruiting your company one name at a time. Somewhere in a database there is an org chart of your garage, and keeping it current is somebody’s whole job. The war is about people now, and everyone on your stairs has a number next to their name that someone else is willing to pay.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -559,7 +562,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'GOVERNANCE ARRIVES',
     prose:
-      'The money changes the math; the board changes the mirror. Hiring plans become real documents with real start dates. So does a calendar invite titled BOARD MEETING — the first meeting in the company’s life that you attend rather than convene. June’s texts get shorter and land harder. The garage doesn’t feel smaller, exactly. It feels witnessed.',
+      'The money changes everything it touches. Hiring plans become real documents with real start dates. So does a calendar invite titled BOARD MEETING — the first meeting in the company’s life that you were invited to instead of calling yourself. June’s texts get shorter and land harder. The garage feels watched now, in a way it never did when it was only yours.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -568,7 +571,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE WHOLE THING',
     prose:
-      'Owning all of it has a sound: the door June closed, clicking, politely, forever. From here every payroll clears because revenue cleared, or it doesn’t clear at all. You tape the runway math to the wall where a term sheet would have hung and find, to your surprise, that you like looking at it. Some founders are built for this. The next quarter finds out which kind you are.',
+      'Owning all of it has a sound: the door June closed, clicking, politely, forever. From here, payroll only clears if customers paid that week. There is no cushion and nobody coming. You tape the runway math to the wall where a term sheet would have hung and find, to your surprise, that you like looking at it. Some founders are built for this. The next quarter finds out which kind you are.',
     choices: [{ label: 'Continue', effects: [] }],
   },
 ]

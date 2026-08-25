@@ -35,6 +35,12 @@ export interface SceneDef {
   /** Era divider label written into the transcript when this cutscene ends (e.g. 'YEAR TWO'). */
   marker?: string
   /**
+   * Cutscene-only: resolving this scene jumps the company clock forward to
+   * this week of the company's life (no-op if already past it). Narrative
+   * compression — the months the cutscene summarizes actually pass.
+   */
+  skipToWeek?: number
+  /**
    * Connective arrival prose — one to three sentences of world texture shown
    * dim above the beat, situating why this scene is happening now. Required
    * (by test) on every dealt scene so arrivals never feel like teleports.

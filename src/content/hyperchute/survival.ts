@@ -102,7 +102,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'Below zero, the arithmetic gets very simple and very cruel. The meter on the garage wall eats coins and gives back light. Your stomach has opinions. What is left in the world, in total, is fifteen dollars.',
     prose:
-      'The choice sits on the workbench like a component you cannot source: a week of metered electricity, or food. Not both — fifteen dollars does not do both. The shuttle needs the bench powered to exist. You need calories to exist. One of you is the company. You stand in the garage a long time with the coins in your fist, learning something about yourself that no pitch deck will ever hold.',
+      'The choice sits on the workbench like a part you cannot buy: a week of electricity, or a week of food. Fifteen dollars will not cover both. The shuttle needs the bench powered to exist. You need to eat to exist. You stand in the garage a long time with the coins in your fist, learning something about yourself that no pitch deck will ever hold.',
     choices: [
       {
         label: 'The meter. Lights on. Hungry is a work state.',

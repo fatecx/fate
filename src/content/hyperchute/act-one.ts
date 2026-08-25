@@ -742,7 +742,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'HOW COMPANIES ACTUALLY DIE',
     prose:
-      'You spend an evening reading startup post-mortems, and the pattern isn’t market or money — it’s paper. The founder who never assigned the IP and lost the company to a co-founder’s ex-employer. The SAFE with the clause nobody priced. The handshake that became a deposition. Three separate posts, years apart, end on some version of the same sentence: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
+      'You spend an evening reading startup post-mortems, and the thing that kills most of them is not the market, and it is not the money. It is paperwork. The founder who never assigned the IP and lost the company to a co-founder’s ex-employer. The SAFE with the clause nobody priced. The handshake that became a deposition. Three separate posts, years apart, end on some version of the same sentence: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {

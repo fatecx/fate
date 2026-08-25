@@ -226,6 +226,17 @@ export function reduce(content: Content, state: GameState, action: Action): Game
           q.unshift(choice.goto)
         }
 
+        // Authored time skips: the era cutscene IS the jump. The clock moves,
+        // fuses re-anchor, meters hold (the summarized months pay for themselves).
+        if (scene.skipToWeek) {
+          const target = st.company.foundedEpoch + scene.skipToWeek
+          if (st.epoch < target) {
+            const jump = target - st.epoch
+            st.epoch = target
+            for (const f of st.company.fuses) f.expiresEpoch += jump
+          }
+        }
+
         if (ends.length > 0) {
           endChapter(st, content, ends[0].ending)
         } else {

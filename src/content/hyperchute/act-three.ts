@@ -101,7 +101,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     speaker: 'sofia',
     priority: true,
     leadIn:
-      'The garage lights have been on every night this week. You find her at the bench at 6 a.m., surrounded by cold coffee and printouts of a stack trace, the fault line circled in red so many times the paper has torn.',
+      'The garage lights have been on every night this week. You find Sofia at the bench at 6 a.m., surrounded by cold coffee and printouts of a stack trace, the fault line circled in red so many times the paper has torn.',
     when: {
       k: 'all',
       of: [
@@ -111,7 +111,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'She wrote the code that failed. She has not slept, and she has rewritten the descent controller three times — version ten fails safe from any altitude, anywhere. What she cannot rewrite is whether she can stay. “Tell me who we are,” she says, “and I’ll tell you if I’m still here.”',
+      'Sofia wrote the code that failed. She has not slept, and she has rewritten the descent controller three times — version ten fails safe from any altitude, anywhere. What she cannot rewrite is whether she can stay. “Tell me who we are,” she says, “and I’ll tell you if I’m still here.”',
     choices: [
       {
         label: '“We ground first, publish everything, and fix it in daylight.”',
@@ -150,7 +150,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       'The corridors office votes Friday on emergency suspension of every Hyperchute corridor pending the investigation. Chute’s lobbyists are circulating a “public safety alternative” that is Chute, everywhere, immediately. You can testify, send counsel, or accept the pause and live to fly again.',
     choices: [
       {
-        label: 'Testify personally. Say her name, say version nine, say version ten.',
+        label: 'Testify yourself. Name Mei-Lin Chen. Admit version nine failed. Show version ten.',
         requires: { k: 'stress', cmp: 'lt', v: 85 },
         effects: [
           { e: 'stress', d: 7 },
@@ -193,7 +193,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       k: 'all',
       of: [
         { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 36 },
+        { k: 'age', cmp: 'gte', v: 134 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'offer_done', cmp: 'eq', v: true } },
       ],
     },

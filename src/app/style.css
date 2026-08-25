@@ -156,6 +156,8 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .nameplate { position: relative; text-align: center; padding: 0 20px 34px; }
 .np-name { font-family: var(--display); font-weight: 600; letter-spacing: 0.1em; font-size: 15px; }
 .np-role { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 2px; }
+/* A deadline reads as a line of type, quiet and urgent, never a gauge. */
+.np-fuse { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--accent); margin-top: 7px; }
 .sigil { font-family: var(--display); font-weight: 800; font-size: 84px; opacity: 0.92; }
 /* While a print is present (loading or loaded) the sigil stays out of sight;
    a failed img removes itself and the sigil returns. Never an icon flash. */
