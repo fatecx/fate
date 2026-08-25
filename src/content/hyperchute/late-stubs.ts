@@ -7,6 +7,7 @@ import type { SceneDef } from '../schema'
 export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 'h_insolvency',
+    art: 'world_runway_zero',
     landmark: true,
     title: 'RUNWAY ZERO',
     leadIn:
@@ -62,6 +63,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   },
   {
     id: 'h_burnout',
+    art: 'world_burnout',
     title: 'THE BODY KEEPS SCORE',
     landmark: true,
     leadIn:

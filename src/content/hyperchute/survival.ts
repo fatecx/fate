@@ -8,6 +8,7 @@ import type { SceneDef } from '../schema'
 export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_sublet',
+    art: 'world_sublet',
     title: 'HALF A GARAGE',
     when: {
       k: 'all',
@@ -43,6 +44,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_fare',
+    art: 'world_fare',
     title: 'THE FARE',
     when: {
       k: 'all',
@@ -92,6 +94,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_last_fifteen',
+    art: 'world_fifteen',
     title: 'FIFTEEN DOLLARS',
     landmark: true,
     when: { k: 'treasury', cmp: 'lt', v: 0 },
@@ -124,6 +127,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_plastic',
+    art: 'world_plastic',
     title: 'THE PLASTIC',
     when: {
       k: 'all',
@@ -206,6 +210,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_ghost_dies_spent',
+    art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',
     priority: true,
     when: {
@@ -247,6 +252,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_ghost_dies_clean',
+    art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',
     priority: true,
     when: {

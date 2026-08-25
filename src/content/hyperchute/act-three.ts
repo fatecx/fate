@@ -4,6 +4,7 @@ import type { SceneDef } from '../schema'
 export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_cut_accident',
+    art: 'cut_richmond_451',
     kind: 'cutscene',
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
@@ -137,6 +138,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_suspension',
+    art: 'world_suspension',
     landmark: true,
     title: 'EMERGENCY SUSPENSION HEARING',
     priority: true,
@@ -279,6 +281,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_ipo_road',
+    art: 'world_roadshow',
     landmark: true,
     title: 'THE ROAD SHOW',
     priority: true,
@@ -320,6 +323,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_last_stand',
+    art: 'world_last_stand',
     landmark: true,
     title: 'THE LAST QUARTER',
     priority: true,

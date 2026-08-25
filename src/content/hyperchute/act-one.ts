@@ -290,6 +290,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_via_tomas',
+    art: 'june_garage',
     title: 'THE ANGEL',
     priority: true,
     leadIn:
@@ -313,6 +314,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_cold',
+    art: 'june_street',
     title: 'SOMEONE IS WATCHING YOUR DEMO',
     priority: true,
     leadIn:
@@ -641,6 +643,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_act1_close',
+    art: 'world_waitlist',
     landmark: true,
     title: 'ELEVEN WEEKS IN',
     priority: true,
@@ -674,6 +677,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   // didn't file at entry gets pulled back to it here. A railway needs sky.
   {
     id: 'h_file_pilot',
+    art: 'world_permit_office',
     title: 'A RAILWAY NEEDS SKY',
     priority: true,
     fuseEpochs: 3,
@@ -707,6 +711,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   // makes the next scene inevitable. Single exit, no stats, pure story.
   {
     id: 'h_b_filing',
+    art: 'world_filing_night',
     kind: 'bridge',
     title: 'WHAT THE CITY HEARS',
     prose:
@@ -715,6 +720,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_advisor_hunt',
+    art: 'world_coldmail',
     kind: 'bridge',
     title: 'CREDIBILITY SHOPPING',
     prose:
@@ -723,6 +729,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_paper_first',
+    art: 'world_postmortems',
     kind: 'bridge',
     title: 'HOW COMPANIES ACTUALLY DIE',
     prose:
@@ -731,6 +738,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_signed',
+    art: 'priya_signed',
     kind: 'bridge',
     title: 'THINGS THAT WILL KILL YOU FIRST',
     speaker: 'priya',
@@ -740,6 +748,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_waitlist',
+    art: 'world_kill_list',
     kind: 'bridge',
     title: 'THE LIST SHE LEFT ANYWAY',
     prose:
@@ -748,6 +757,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_alone',
+    art: 'world_alone_night',
     kind: 'bridge',
     title: 'ONE HUNDRED PERCENT OF EVERYTHING',
     prose:
@@ -756,6 +766,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_papered',
+    art: 'world_signing',
     kind: 'bridge',
     title: 'REAL ON PAPER',
     prose:
@@ -764,6 +775,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_rolodex',
+    art: 'tomas_rolodex',
     kind: 'bridge',
     title: 'THE ROLODEX WAKES UP',
     speaker: 'tomas',
@@ -773,6 +785,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_diy',
+    art: 'world_diy_legal',
     kind: 'bridge',
     title: 'PROBABLY FINE',
     prose:
@@ -781,6 +794,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_appeal_prep',
+    art: 'world_appeal_doc',
     kind: 'bridge',
     title: 'FORTY PAGES OF HOPE',
     prose:
@@ -789,6 +803,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_rogue_nights',
+    art: 'world_dawn_flights',
     kind: 'bridge',
     title: 'DAWN SHIFTS',
     prose:
@@ -797,6 +812,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_corridor_granted',
+    art: 'world_corridor_map',
     kind: 'bridge',
     title: 'A LINE ON A MAP',
     prose:
@@ -805,6 +821,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_first_corridor',
+    art: 'world_certificate',
     kind: 'bridge',
     title: 'STAMPED',
     prose:
@@ -813,6 +830,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_wired',
+    art: 'world_wire',
     kind: 'bridge',
     title: 'WHAT MONEY SOUNDS LIKE',
     prose:
@@ -821,6 +839,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_bootstrap',
+    art: 'world_ramen_math',
     kind: 'bridge',
     title: 'RAMEN MATH',
     prose:
@@ -829,6 +848,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_scale_strain',
+    art: 'world_jitter',
     kind: 'bridge',
     title: 'THE JITTER',
     prose:
@@ -837,6 +857,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_grey_strain',
+    art: 'world_grey_margin',
     kind: 'bridge',
     title: 'THE MARGIN FOR ERROR IS A ROOF',
     prose:
@@ -845,6 +866,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_sofia_settled',
+    art: 'world_sofia_landing',
     kind: 'bridge',
     title: 'FALL BETTER',
     prose:
@@ -853,6 +875,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_vale',
+    art: 'world_vale_card',
     kind: 'bridge',
     title: 'BEING SEEN',
     prose:
@@ -861,6 +884,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_nadia',
+    art: 'nadia_notebook',
     kind: 'bridge',
     title: 'FILED AWAY',
     prose:

@@ -24,6 +24,7 @@ const ENDINGS: readonly EndingDef[] = [
   },
   {
     id: 'acquired',
+    art: 'end_acquired',
     title: 'DISSOLVED INTO BLUE',
     kind: 'sale',
     scoreBonus: 6,
@@ -39,6 +40,7 @@ const ENDINGS: readonly EndingDef[] = [
   },
   {
     id: 'bankrupt',
+    art: 'end_bankrupt',
     title: 'BANKRUPT BUT BELOVED',
     kind: 'noble',
     scoreBonus: 4,
@@ -54,6 +56,7 @@ const ENDINGS: readonly EndingDef[] = [
   },
   {
     id: 'become_them',
+    art: 'end_become_them',
     title: 'YOU BECAME WHAT YOU FOUGHT',
     kind: 'disgrace',
     scoreBonus: 3,
@@ -69,6 +72,7 @@ const ENDINGS: readonly EndingDef[] = [
   },
   {
     id: 'walkaway_opensource',
+    art: 'end_opensource',
     title: 'THE STACK BELONGS TO EVERYONE',
     kind: 'transformation',
     scoreBonus: 5,

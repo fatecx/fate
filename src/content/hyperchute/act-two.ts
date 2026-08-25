@@ -4,6 +4,7 @@ import type { SceneDef } from '../schema'
 export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_bridge_y2',
+    art: 'cut_year_two',
     kind: 'cutscene',
     title: 'YEAR TWO',
     prose:
@@ -12,6 +13,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_price_war',
+    art: 'world_price_war',
     title: 'THE PRICE OF PRICE',
     priority: true,
     fuseEpochs: 3,
@@ -106,6 +108,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_strike',
+    art: 'world_strike',
     title: 'THE PORCHES GO QUIET',
     priority: true,
     fuseEpochs: 2,
@@ -140,6 +143,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_cut_meridian_ipo',
+    art: 'cut_meridian_ipo',
     kind: 'cutscene',
     title: 'MERIDIAN GOES PUBLIC',
     prose:
@@ -148,6 +152,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_permit_war',
+    art: 'world_audit',
     title: 'THE AUDIT',
     priority: true,
     fuseEpochs: 4,
@@ -200,6 +205,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_fresno',
+    art: 'world_fresno',
     title: 'FRESNO IS BEHIND',
     weight: 2,
     leadIn:
@@ -302,6 +308,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_viral',
+    art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
     weight: 3,
     leadIn:
@@ -400,6 +407,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_board',
+    art: 'world_gavel',
     title: 'WHO HOLDS THE GAVEL',
     priority: true,
     leadIn:
@@ -439,6 +447,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_bridge_pre_act3',
+    art: 'cut_eighteen_months',
     kind: 'cutscene',
     priority: true,
     when: {
@@ -458,6 +467,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   // ---- aftermath bridges — the week after each act-two decision ---------------
   {
     id: 'h_b_after_pricewar',
+    art: 'world_trenches',
     kind: 'bridge',
     title: 'TRENCHES',
     prose:
@@ -466,6 +476,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_couriers',
+    art: 'world_courier_bench',
     kind: 'bridge',
     title: 'THE LAST MILE HAS A FACE',
     prose:
@@ -474,6 +485,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_strike',
+    art: 'world_flyer_sleeve',
     kind: 'bridge',
     title: 'AFTER THE PICKETS',
     prose:
@@ -482,6 +494,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_audit',
+    art: 'world_paper_weather',
     kind: 'bridge',
     title: 'PAPER WEATHER',
     prose:
@@ -490,6 +503,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_fresno',
+    art: 'world_build_dates',
     kind: 'bridge',
     title: 'SUPPLY LINES',
     prose:
@@ -498,6 +512,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_poach',
+    art: 'world_poach_letter',
     kind: 'bridge',
     title: 'WHAT THE LETTER MEANT',
     prose:
@@ -506,6 +521,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_viral',
+    art: 'world_legend_clip',
     kind: 'bridge',
     title: 'AFTER THE FOUR MINUTES',
     prose:
@@ -514,6 +530,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_a',
+    art: 'world_board_invite',
     kind: 'bridge',
     title: 'GOVERNANCE ARRIVES',
     prose:
@@ -522,6 +539,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_indep',
+    art: 'world_runway_taped',
     kind: 'bridge',
     title: 'THE WHOLE THING',
     prose:
