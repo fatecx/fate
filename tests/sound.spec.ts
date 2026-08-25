@@ -11,11 +11,13 @@ import { CONTENT } from '../src/content/world'
 import { AMBIENCE, FOLEY, MOODS, STINGERS, TENSION } from '../src/content/sound'
 
 describe('soundscape', () => {
-  it('every non-cutscene hyperchute scene names a room from the registry', () => {
-    for (const s of CONTENT.chapters.hyperchute.scenes) {
-      if ((s.kind ?? 'scene') === 'cutscene') continue
-      expect(s.ambience, `hyperchute/${s.id}: missing ambience`).toBeDefined()
-      expect(AMBIENCE[s.ambience!], `hyperchute/${s.id}: unknown room '${s.ambience}'`).toBeDefined()
+  it('every non-cutscene scene in authored chapters names a room from the registry', () => {
+    for (const chId of ['hyperchute', 'teleport'] as const) {
+      for (const s of CONTENT.chapters[chId].scenes) {
+        if ((s.kind ?? 'scene') === 'cutscene') continue
+        expect(s.ambience, `${chId}/${s.id}: missing ambience`).toBeDefined()
+        expect(AMBIENCE[s.ambience!], `${chId}/${s.id}: unknown room '${s.ambience}'`).toBeDefined()
+      }
     }
   })
 

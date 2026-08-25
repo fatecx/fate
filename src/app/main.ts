@@ -1121,6 +1121,7 @@ const KIND_LABEL: Record<string, string> = {
   noble: 'BANKRUPTCY',
   disgrace: 'DISGRACE',
   transformation: 'TRANSFORMATION',
+  ousted: 'REMOVED BY THE BOARD',
   ruin: 'RUIN',
 }
 

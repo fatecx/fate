@@ -175,6 +175,22 @@ export function setStage(s: StageState): void {
   if (ctx) void reconcile()
 }
 
+/** Hard cut for restarts: every lane stops fast, one-shot dedupe clears.
+ *  The next setStage starts the stage from silence. */
+export function resetStage(): void {
+  wantMood = null
+  wantAmb = null
+  wantTension = false
+  stopLane(musicLane, 0.2)
+  stopLane(ambLane, 0.2)
+  stopLane(tensionLane, 0.2)
+  musicLane = null
+  ambLane = null
+  tensionLane = null
+  tensionOn = false
+  stung.clear()
+}
+
 /** The film cut, for the ear: every scene re-announces its room — a brief
  *  swell that settles. Change is what the ear notices; this manufactures it
  *  even when the fiction stays in the same place. */
@@ -185,8 +201,8 @@ export function roomPulse(): void {
   const at = ctx.currentTime
   g.cancelScheduledValues(at)
   g.setValueAtTime(g.value, at)
-  g.linearRampToValueAtTime(Math.min(1, base * 1.5), at + 0.35)
-  g.linearRampToValueAtTime(base, at + 2.2)
+  g.linearRampToValueAtTime(Math.min(1, base * 1.18), at + 0.4)
+  g.linearRampToValueAtTime(base, at + 1.8)
 }
 
 const stung = new Set<string>()

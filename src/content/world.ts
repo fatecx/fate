@@ -95,6 +95,73 @@ const CHARACTERS: Record<string, CharacterDef> = {
     blurb: 'Signs term sheets in coffee shops and means every one of them at the moment of signing.',
     hiddenTrait: 'Keeps a private folder titled SOMEDAY, PROPERLY — the founders he owes from the deals compliance killed.',
   },
+  // ---- TELEPORT natives -------------------------------------------------------
+  farrokh: {
+    id: 'farrokh',
+    name: 'Dr. Omid Farrokh',
+    role: 'Cofounder · CTO',
+    blurb:
+      'Ex-JPL deep-space comms. Wrote the relay-cascade thesis nobody would fund, then spent nine years being polite about it.',
+    hiddenTrait: 'The cascade carries his name in the math. He will burn the company down before he lets it carry a lie.',
+  },
+  hale: {
+    id: 'hale',
+    name: 'Conrad Hale',
+    role: 'General Partner, ALEPH',
+    blurb: 'The human face of an AI fund. Excellent manners, verdicts arrive pre-written.',
+    hiddenTrait: 'Has never once disagreed with the model out loud. Twice, quietly, he has been relieved to be overruled.',
+  },
+  aleph: {
+    id: 'aleph',
+    name: 'ALEPH',
+    role: 'Investment fund (AI)',
+    blurb: 'A fund that is a model with human limited partners. It has read everything you have ever signed.',
+    hiddenTrait: 'It scores founders on one axis above all others: whether their numbers match their sentences.',
+  },
+  cass: {
+    id: 'cass',
+    name: 'Cass Rivera',
+    role: 'Chief teleoperator',
+    blurb: 'Washed out of the astronaut corps on a medical. The best remote hands alive, and she knows the price of that sentence.',
+    hiddenTrait: 'Keeps her rejected flight-suit patch in her toolbox. She has never told anyone which mission it was for.',
+  },
+  salazar: {
+    id: 'salazar',
+    name: 'Cmdr. Ruth Salazar',
+    role: 'Ops director, Shackleton Verge',
+    blurb: 'Runs the pole of the Moon like a harbor master: nothing docks, moves, or breathes without her manifest.',
+    hiddenTrait: 'Writes a letter to the family of every worker on her base each January. Nobody has ever seen the drafts.',
+  },
+  jonah: {
+    id: 'jonah',
+    name: 'Jonah Reece',
+    role: 'Maintenance tech, Shackleton Verge',
+    blurb:
+      'Thirty-four. Two tours at the pole, saving for a third. You never meet him — only eleven seconds of telemetry.',
+    hiddenTrait: 'He never speaks to you. That is the point.',
+  },
+  halcyon: {
+    id: 'halcyon',
+    name: 'HALCYON',
+    role: 'Launch monopoly (AI-run)',
+    blurb: 'Every kilogram to orbit rides its manifest. It publishes its prices the way weather publishes storms.',
+    hiddenTrait: 'Its model has already priced the day you become a competitor. It is patient about that day, not idle.',
+  },
+  ostra: {
+    id: 'ostra',
+    name: 'OSTRA',
+    role: 'Orbital spectrum authority (AI)',
+    blurb: 'Allocates relay spectrum in 0.4 seconds and cc’s treaty bodies that may not have met since the nineties.',
+    hiddenTrait: 'Optimizes for incident-free optics, not throughput. It has a long memory for companies that made it look bad.',
+  },
+  father: {
+    id: 'father',
+    name: 'Your Father',
+    role: 'Retired machinist',
+    blurb:
+      'Sixty-nine. Kept every clipping — the good ones and the bad ones, in the same shoebox as your model rockets.',
+    hiddenTrait: 'Never once said he was proud. Told every man at the union hall, every week, for years.',
+  },
 }
 
 export const CONTENT: Content = {

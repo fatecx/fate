@@ -121,16 +121,18 @@ describe('content integrity', () => {
     }
   })
 
-  it('hyperchute: every dealt scene arrives with a leadIn — no cold teleports', () => {
-    const ch = CONTENT.chapters.hyperchute
-    for (const s of ch.scenes) {
-      const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency || s.id === ch.burnout
-      const isPlainScene = (s.kind ?? 'scene') === 'scene'
-      if (!dealt || !isPlainScene || s.id === ch.entry) continue
-      expect(
-        (s.leadIn ?? '').trim().length,
-        `hyperchute/${s.id}: dealt scene is missing its leadIn`,
-      ).toBeGreaterThan(40)
+  it('every dealt scene arrives with a leadIn — no cold teleports (authored chapters)', () => {
+    for (const chId of ['hyperchute', 'teleport'] as const) {
+      const ch = CONTENT.chapters[chId]
+      for (const s of ch.scenes) {
+        const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency || s.id === ch.burnout
+        const isPlainScene = (s.kind ?? 'scene') === 'scene'
+        if (!dealt || !isPlainScene || s.id === ch.entry) continue
+        expect(
+          (s.leadIn ?? '').trim().length,
+          `${chId}/${s.id}: dealt scene is missing its leadIn`,
+        ).toBeGreaterThan(40)
+      }
     }
   })
 

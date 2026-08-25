@@ -79,6 +79,98 @@ const IPO_ROAD: RegExp[] = [
 const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -3), /Offer them you instead of the company/]
 const WALKAWAY_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -2), /Open-source the stack/]
 
+// ---- TELEPORT witness roads -----------------------------------------------------
+// Chapter two's rare endings, proven by design. Each road rides the hyperchute
+// IPO prefix (score and cred carry into the biography) then walks its own door.
+
+/** Door one to the second bell: three founders, honest delay, board of allies. */
+const T_LISTING_KEEP: RegExp[] = [
+  ...IPO_ROAD,
+  /Shake his hand\. Build it together/,
+  /Even partners\. Fifty-fifty/,
+  /Third founder\. Welcome home, June/,
+  /Moon now\. Mars when the cascade earns it/,
+  /Cash up front\. Start Monday/,
+  /Invite a Shackleton Verge observer/,
+  /Pay it in full\. Flight-rate everything/,
+  /The full booth/,
+  /Name the delay\. Make the room count it out loud/,
+  /Sign Salazar’s LOI/,
+  /June steps in and pays it/,
+  /Take it — but the independent seat stays yours/,
+  /Guarantee her hours first/,
+  /Chief teleoperator, full ride/,
+  /Sell the honest delay/,
+  /Seat Priya\. Pay whatever the fight costs/,
+  /Open everything\. Raw, unedited/,
+  /Give the honest number/,
+  /Give her the firmware/,
+  /Publish everything\. Ground tourism ops yourself/,
+  /File a spectrum-access complaint/,
+  /Fly him to the Cape/,
+  /Fight\. Call the vote yourself/,
+  /Sit with June tonight/,
+  /Back to work\. The company needs its founder/,
+  /Testify with the log you already published/,
+  /Refuse\. The road stays open/,
+  /Take the company public\. Price the honest number/,
+]
+
+/** Door two: the clean-money road — no ALEPH, no Hale, no coup, bootstrapped bell. */
+const T_LISTING_CLEAN: RegExp[] = T_LISTING_KEEP.map((re) =>
+  re.source.includes('independent seat stays yours') ? /Refuse the model’s money/ : re,
+)
+
+/** The commons: honest road that walks past its own bell to give the cascade away. */
+const T_COMMONS_ROAD: RegExp[] = T_LISTING_KEEP.map((re) =>
+  re.source.includes('Take the company public') ? /One more year private/ : re,
+).concat([/Give the cascade to everyone/])
+
+/** The seamless story: blend everywhere, sealed logs, chairman deal, dark bell. */
+const T_PUPPET_ROAD: RegExp[] = [
+  ...IPO_ROAD.slice(0, -2),
+  /Take the company public/,
+  /Price it honest/,
+  /Test him first/,
+  /Seventy-thirty\. Market standard/,
+  /Take the money, keep her an angel/,
+  /Moon only\. Take Mars off the wall/,
+  /Build them in-house/,
+  /Celebrate tonight/,
+  /Ray builds it on credit/,
+  /A modest corner booth/,
+  /Choreograph around it/,
+  /All three, one long evening/,
+  /Negotiate: invoice the company/,
+  /Take the deal as written/,
+  /Promise everything to everyone/,
+  /Pass\. Hire the safe pair of hands/,
+  /Blend everywhere/,
+  /Accept the model’s candidate/,
+  /Send the polished pack/,
+  /Give the stretch number/,
+  /Proprietary latency compensation/,
+  /Let him cool off/,
+  /Version three\. He stays in the title and the cage/,
+  /Settle with the family/,
+  /Take the partnership meeting/,
+  /After the quarter closes/,
+  /Negotiate\. Executive chairman/,
+  /Let counsel carry it/,
+  /Refuse\. The road stays open/,
+  /Ring it\. Sell the seamless story/,
+]
+
+/** The count goes against you: broken cofounder, hostile board, removed for cause. */
+const T_OUSTED_ROAD: RegExp[] = T_PUPPET_ROAD.map((re) =>
+  re.source.includes('Executive chairman') ? /Fight\. Call the vote yourself/ : re,
+).concat([/No calls\. Sleep/, /Clean out the desk/])
+
+/** The number, taken: HALCYON swallows the road. */
+const T_SWALLOWED_ROAD: RegExp[] = T_LISTING_KEEP.map((re) =>
+  re.source.includes('The road stays open') ? /Take the number\. Let the sky have it/ : re,
+)
+
 describe('derived-number math', () => {
   it('runway = treasury / net burn', () => {
     const st = newGame(CONTENT, 1)
@@ -132,9 +224,17 @@ describe('monte carlo biography sweep', () => {
   })
 
   it('every ending of every chapter is reachable — sweep plus authored witness roads', () => {
-    const witnesses = [IPO_ROAD, BECOME_THEM_ROAD, WALKAWAY_ROAD].flatMap((prefs) =>
-      [3, 11, 29].map((seed) => playBiography(CONTENT, seed, witness(prefs))),
-    )
+    const witnesses = [
+      IPO_ROAD,
+      BECOME_THEM_ROAD,
+      WALKAWAY_ROAD,
+      T_LISTING_KEEP,
+      T_LISTING_CLEAN,
+      T_COMMONS_ROAD,
+      T_PUPPET_ROAD,
+      T_OUSTED_ROAD,
+      T_SWALLOWED_ROAD,
+    ].flatMap((prefs) => [3, 11, 29].map((seed) => playBiography(CONTENT, seed, witness(prefs))))
     const seen = new Set(
       [...all, ...witnesses].flatMap((r) => r.chapters.map((c) => `${c.id}:${c.endingId}`)),
     )
@@ -149,6 +249,23 @@ describe('monte carlo biography sweep', () => {
     const runs = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(IPO_ROAD)))
     const hits = runs.filter((r) => r.chapters.some((c) => c.id === 'hyperchute' && c.endingId === 'triumph_ipo'))
     expect(hits.length, 'no witness seed completes the hardest path').toBeGreaterThan(0)
+  })
+
+  it('the second bell has two doors — allies-board road and clean-money road both list', () => {
+    for (const [name, prefs] of [
+      ['keep', T_LISTING_KEEP],
+      ['clean', T_LISTING_CLEAN],
+    ] as const) {
+      const runs = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(prefs)))
+      const hits = runs.filter((r) => r.chapters.some((c) => c.id === 'teleport' && c.endingId === 'listing'))
+      expect(hits.length, `teleport listing unreachable via ${name} door`).toBeGreaterThan(0)
+    }
+  })
+
+  it('the coup is seat math: the hostile-board road ends removed for cause', () => {
+    const runs = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(T_OUSTED_ROAD)))
+    const hits = runs.filter((r) => r.chapters.some((c) => c.id === 'teleport' && c.endingId === 'ousted'))
+    expect(hits.length, 'ousted road never lost the vote').toBeGreaterThan(0)
   })
 
   it('the bell has one golden door: no grounding, no IPO — even on an otherwise perfect road', () => {

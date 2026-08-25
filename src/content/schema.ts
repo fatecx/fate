@@ -82,7 +82,7 @@ export interface ChoiceDef {
   goto?: string
 }
 
-export type EndingKind = 'triumph' | 'sale' | 'noble' | 'disgrace' | 'transformation' | 'ruin'
+export type EndingKind = 'triumph' | 'sale' | 'noble' | 'disgrace' | 'transformation' | 'ousted' | 'ruin'
 
 export interface EndingDef {
   id: string

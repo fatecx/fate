@@ -14,6 +14,18 @@ import type { GameState } from '../engine/types'
 export const FLAG_PHRASES: Record<string, string> = {
   lawyer_ally: 'Tomás retained for points, not cash',
   transparent: 'the fleet grounded and the fault report published',
+  // ---- teleport ---------------------------------------------------------------
+  delay_named: 'the delay named out loud at the expo',
+  indep_yours: 'the independent seat kept in founder hands at the term sheet',
+  cass_chief: 'Cass Rivera hired as chief teleoperator',
+  t_transparent: 'the eleven seconds published, the fault marked in your own hand',
+  log_sealed: 'the session log under seal',
+  ostra_filed: 'a live OSTRA docket against the monopoly',
+  june_seat: 'June Park on the board as cofounder-CFO',
+  indep_priya: 'Priya Raghavan in the independent seat',
+  aleph_raw: 'ALEPH fed the raw feeds, aborts and all',
+  farrokh_heard: 'the 3 a.m. hearing-out at the dark bench',
+  honest_delay: 'the honest delay as the product',
 }
 
 /** Fiction phrasing for states that CLOSE a door when present ("closed — …"). */

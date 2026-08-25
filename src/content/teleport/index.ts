@@ -1,0 +1,258 @@
+import type { AchievementDef, ChapterDef, EndingDef, PrologueBeat, SignatureDef } from '../schema'
+import { ACT_ONE } from './act-one'
+import { ACT_TWO } from './act-two'
+import { ACT_THREE } from './act-three'
+import { SURVIVAL } from './survival'
+import { LATE_STUBS } from './late-stubs'
+
+const ENDINGS: readonly EndingDef[] = [
+  {
+    id: 'listing',
+    title: 'THE HONEST DELAY',
+    kind: 'triumph',
+    art: 'end_t_listing',
+    scoreBonus: 12,
+    skipYears: 2,
+    screens: [
+      {
+        art: 'world_listing',
+        prose:
+          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive — and the lead banker, who modeled the honest one from the start, closes her book after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
+      },
+      {
+        art: 'end_t_bell',
+        prose:
+          'The bell rings at 9:31, because you asked for the same minute on purpose.\n\nOn the podium: a CFO who waited eleven companies to stand there as an operator, gripping the rail with both hands. A cofounder — whole, or mended, or watching from a lawn chair at the Cape with the feed on his knees — whose number made the whole thing true. And on the big board, under the ticker, where the exchange usually runs a slogan, the line you paid the listing fee to keep:\n\nEVERY SESSION CARRIES 2.6 SECONDS OF LIGHT-SPEED HONESTY.',
+      },
+      {
+        art: 'end_t_verge',
+        prose:
+          'At Shackleton Verge it is mid-rotation, and nobody stops working for a bell on another world.\n\nBut Commander Salazar has the feed up in ops, sound off, and at 9:31 Earth time she looks at the screen for four seconds — an eternity, from her — and says, to the room, to the bodies on the rotation, to the boring immortal work:\n\n“Back to it.”\n\nHigh praise. The highest.',
+      },
+      {
+        art: 'end_t_chair',
+        prose:
+          'And in a strip-mall storefront in Ohio, a retired schoolteacher who owns eleven shares — bought at lunch, at the honest price — settles into the chair for her anniversary session.\n\nTwo point six seconds later, on the oldest light in the solar system, a hand rises against the small blue coin of the Earth.\n\nIt waves.',
+      },
+    ],
+    prose:
+      'TELEPORT lists at 9:31 a.m. at the honest price, delay disclosed on the cover of the prospectus. The company that never lied about distance belongs, as of the closing bell, to the people who crossed it — teachers’ pensions, index funds, and a schoolteacher in Ohio with eleven shares.',
+    interlude: {
+      kicker: 'INTERLUDE · TWO YEARS',
+      title: 'THE VIEW FROM ALTITUDE',
+      prose:
+        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The constellation grows; the chairs multiply; the boring immortal work goes on above you with your name on its chest. And at conferences, in green rooms, a rumor keeps finding you like a compass finding north: a consortium is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has actually built infrastructure between worlds — and told the truth about it twice?',
+    },
+  },
+  {
+    id: 'swallowed',
+    title: 'SWALLOWED BY THE SKY',
+    kind: 'sale',
+    art: 'end_t_swallowed',
+    scoreBonus: 6,
+    skipYears: 3,
+    prose:
+      'The constellation changes call signs overnight. The bodies at the Verge get new livery and keep working; the storefront chairs get folded into HALCYON pavilions where the line moves faster and feels like nothing. You are wealthy in the way the model predicted, to the dollar. Somewhere at the pole, the boring immortal work continues, remembering nothing.',
+    interlude: {
+      kicker: 'INTERLUDE · THREE YEARS',
+      title: 'INSIDE THE MANIFEST',
+      prose:
+        'Three years of integration committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives; the honest counter does not. In the third spring, your non-compete dies quietly on a Tuesday — and that same week, a consortium building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no manifest can bump.”',
+    },
+  },
+  {
+    id: 'bankrupt',
+    title: 'FORTY FALLING STARS',
+    kind: 'noble',
+    art: 'end_t_stars',
+    scoreBonus: 4,
+    skipYears: 1,
+    prose:
+      'The receivers cannot repossess orbits, so the constellation comes down on schedule instead — deorbited node by node over six weeks, each one a streak of light over somebody’s evening. The last one is visible from the Flats. People come out on porches that once caught parcels to watch a company become a meteor shower. Nobody who saw it ever describes it as a failure.',
+    interlude: {
+      kicker: 'INTERLUDE · ONE YEAR',
+      title: 'THE YEAR OF LETTERS',
+      prose:
+        'A year of wind-down paperwork and unexpected mail. Operators writing to say the training program got them hired at three agencies. A letter from Shackleton Verge in January — Commander Salazar’s annual letters, it turns out, include companies she considered crew. And in the spring, a fat envelope from a consortium you have never heard of, containing the feasibility study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
+    },
+  },
+  {
+    id: 'puppet',
+    title: 'THE PUPPET SHOW',
+    kind: 'disgrace',
+    art: 'end_t_puppet',
+    scoreBonus: 3,
+    skipYears: 4,
+    prose:
+      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully; the customers never learn which motions were theirs; the counter that once hung by a hangar door is in a collector’s lobby with the date wrong on the plaque. It works. It all works. That was never the question.',
+    interlude: {
+      kicker: 'INTERLUDE · FOUR YEARS',
+      title: 'THE MANAGED ENVIRONMENT',
+      prose:
+        'Four years of earnings calls where the word “latency” never appears. The stock performs; the settlements stay sealed; Nadia Osei’s book about the presence era has a chapter with your name on it that you have never once opened past the first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year a consortium building a cable to orbit calls. They need capital and credibility. They are not particular, anymore, about the order.',
+    },
+  },
+  {
+    id: 'ousted',
+    title: 'REMOVED FOR CAUSE',
+    kind: 'ousted',
+    art: 'end_t_ousted',
+    scoreBonus: 4,
+    skipYears: 2,
+    prose:
+      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down; the framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, doing the boring immortal work, wearing your decisions and someone else’s name.',
+    interlude: {
+      kicker: 'INTERLUDE · TWO YEARS',
+      title: 'THE WILDERNESS',
+      prose:
+        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO executing your roadmap competently and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. And in the second spring, a consortium building a cable to orbit asks to meet — not with the company, which they could buy, but with you, whom they cannot. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+    },
+  },
+  {
+    id: 'commons',
+    title: 'THE CASCADE BELONGS TO EVERYONE',
+    kind: 'transformation',
+    art: 'end_t_commons',
+    scoreBonus: 5,
+    skipYears: 2,
+    prose:
+      'The protocol goes to the standards body with the patents stapled to it, free forever. Within eighteen months there are cascade relays around the Moon wearing eleven flags and four languages, all of them honest to the millisecond, because the spec you donated makes lying a compliance violation. The company becomes one implementer among many, and smaller, and prouder. The number is everyone’s now. That was the point.',
+    interlude: {
+      kicker: 'INTERLUDE · TWO YEARS',
+      title: 'THE KEEPER OF THE SPEC',
+      prose:
+        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you; monopolies comply with you, slowly, filing objections you overrule with citations. The cascade carries presence to the Moon under every flag there is. And at the second annual plenary, an engineering delegation corners you with feasibility studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no manifest can bump, no monopoly can own — if, and only if, someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
+    },
+  },
+]
+
+const PROLOGUE: readonly PrologueBeat[] = [
+  {
+    kicker: 'PROLOGUE',
+    title: 'THE ITCH',
+    art: 'prologue_t_itch',
+    bg: 'night',
+    prose:
+      'It starts the way it always starts: with looking up.\n\nWhatever the last chapter left you — money, scar tissue, a shoebox of clippings, all three — the itch survives it. You catch yourself at windows. You catch yourself reading launch manifests the way other people read box scores. The sky over every city you visit is full of other people’s machines, moving other people’s cargo, and none of it, not one gram of it, is the thing you cannot stop thinking about.',
+  },
+  {
+    kicker: 'PROLOGUE',
+    title: 'THE PROBLEM',
+    art: 'prologue_t_problem',
+    prose:
+      'Here is the problem, stated the way you will state it a thousand times:\n\nThere are people on the Moon now. Bases, crews, contracts — a working pole. And every hour of human work up there costs a fortune and risks a life, while down here, the best operators alive sit in chairs, two point six light-seconds away, forbidden by physics from lending a hand.\n\nEveryone says the same thing: the delay makes remote presence impossible.\n\nEveryone said the same thing about your last impossible thing.',
+  },
+  {
+    kicker: 'PROLOGUE',
+    title: 'THE THESIS',
+    art: 'prologue_t_thesis',
+    bg: 'wind',
+    prose:
+      'Then someone sends you a nine-year-old PhD thesis, four hundred pages, self-published because no journal wanted the math at the length the math required.\n\nA relay cascade: satellites handing a signal one to the next like a bucket brigade, engineered so hard against loss that the Moon comes down to a clean, honest, guaranteed two point six seconds — no dropouts, no jitter, no lies. The author spent nine years being politely refused by every agency and fund in the industry.\n\nHis name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, someone — him — has written: THE DELAY IS NOT THE ENEMY. THE ENEMY IS PRETENDING IT ISN’T THERE.',
+  },
+  {
+    kicker: 'PROLOGUE',
+    title: 'THE CAPE',
+    art: 'prologue_t_cape',
+    bg: 'hangar',
+    prose:
+      'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nWhat you have: whatever the last life paid out, a lease, and a meeting scheduled for Tuesday with a man carrying his life’s work in a cardboard box.\n\nWhat you are buying: a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, or not at all.\n\nLast night you filed the papers. TELEPORT, INC.\n\nBe there without going.',
+  },
+]
+
+/** The decisions the whole player base gets measured on. */
+const SIGNATURES: readonly SignatureDef[] = [
+  { scene: 't_pact', choice: 0, text: 'split the company fifty-fifty with Dr. Farrokh' },
+  { scene: 't_june_condition', choice: 0, text: 'made June Park a founder, not a check' },
+  { scene: 't_expo_demo', choice: 0, text: 'named the delay out loud on the expo floor' },
+  { scene: 't_blend_debate', choice: 0, text: 'sold the honest delay and made the gap the brand' },
+  { scene: 't_telemetry', choice: 0, text: 'published the eleven seconds and grounded themselves' },
+  { scene: 't_coup_move', choice: 0, text: 'fought the boardroom coup at the head of the table' },
+  { scene: 't_halcyon_offer', choice: 1, text: 'refused HALCYON’s three hundred and forty million' },
+]
+
+/** End-of-chapter badges, judged against final true state. Pure reads. */
+const ACHIEVEMENTS: readonly AchievementDef[] = [
+  {
+    id: 'even_pact',
+    title: 'EVEN PARTNERS',
+    desc: 'Fifty-fifty with the man who brought the physics.',
+    when: { k: 'flag', scope: 'company', key: 'pact_even', cmp: 'eq', v: true },
+  },
+  {
+    id: 'third_founder',
+    title: 'THE THIRD FOUNDER',
+    desc: 'June Park came back inside — CFO, cofounder, board seat.',
+    when: { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+  },
+  {
+    id: 'number_wall',
+    title: 'THE NUMBER ON THE WALL',
+    desc: 'You named the delay out loud with the whole industry watching.',
+    when: { k: 'flag', scope: 'company', key: 'delay_named', cmp: 'eq', v: true },
+  },
+  {
+    id: 'eleven_seconds',
+    title: 'THE ELEVEN SECONDS',
+    desc: 'The full log went to the family, the base, and the world — marked in your own hand.',
+    when: { k: 'flag', scope: 'company', key: 't_transparent', cmp: 'eq', v: true },
+  },
+  {
+    id: 'held_room',
+    title: 'HELD THE ROOM',
+    desc: 'The model moved against you in your worst season. The board you built said no.',
+    when: { k: 'flag', scope: 'company', key: 'coup_survived', cmp: 'eq', v: true },
+  },
+  {
+    id: 'clean_money',
+    title: 'NEVER TOOK THE MODEL’S CHECK',
+    desc: 'No ALEPH round, no Hale seat, no coup. Revenue was the round.',
+    when: { k: 'flag', scope: 'company', key: 'no_aleph', cmp: 'eq', v: true },
+  },
+  {
+    id: 'still_partners',
+    title: 'STILL PARTNERS',
+    desc: 'Dr. Farrokh was whole when the chapter closed — the pact outlived the pressure.',
+    when: {
+      k: 'any',
+      of: [
+        { k: 'flag', scope: 'company', key: 'farrokh_stays', cmp: 'eq', v: true },
+        { k: 'flag', scope: 'company', key: 'farrokh_mended', cmp: 'eq', v: true },
+      ],
+    },
+  },
+  {
+    id: 'her_chair',
+    title: 'HER CHAIR',
+    desc: 'Cass Rivera built your operator corps and was never once made the excuse.',
+    when: {
+      k: 'all',
+      of: [
+        { k: 'flag', scope: 'company', key: 'cass_chief', cmp: 'eq', v: true },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'blamed_cass', cmp: 'eq', v: true } },
+      ],
+    },
+  },
+  {
+    id: 'second_bell',
+    title: 'THE SECOND BELL',
+    desc: 'Two companies, two honest prices, one founder.',
+    when: { k: 'flag', scope: 'company', key: 'rang_bell_t', cmp: 'eq', v: true },
+  },
+]
+
+export const TELEPORT: ChapterDef = {
+  id: 'teleport',
+  title: 'TELEPORT',
+  tagline: 'Be there without going.',
+  entry: 't_entry',
+  insolvency: 't_insolvency',
+  burnout: 't_burnout',
+  opening: { treasury: 240000, burn: 9000, revenue: 0 },
+  prologue: PROLOGUE,
+  dateline: 'YEARS LATER\nTHE CAPE',
+  scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
+  endings: ENDINGS,
+  signatures: SIGNATURES,
+  achievements: ACHIEVEMENTS,
+}
