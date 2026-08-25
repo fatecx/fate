@@ -11,7 +11,7 @@ export type SceneKind = 'scene' | 'bridge' | 'cutscene'
 
 export interface PrologueBeat {
   kicker?: string
-  title: string
+  title?: string
   prose: string
   /** Widescreen cinematic art id (public/art/{art}.webp) shown above the text. Optional — text always carries the screen. */
   art?: string
@@ -29,6 +29,11 @@ export interface SceneDef {
    * the sigil renders and play continues (art never blocks).
    */
   art?: string
+  /** Cutscene-only: multiple film panels, each with its own art and prose.
+   *  When present these play in sequence; `prose` remains the transcript record. */
+  screens?: readonly PrologueBeat[]
+  /** Era divider label written into the transcript when this cutscene ends (e.g. 'YEAR TWO'). */
+  marker?: string
   /**
    * Connective arrival prose — one to three sentences of world texture shown
    * dim above the beat, situating why this scene is happening now. Required

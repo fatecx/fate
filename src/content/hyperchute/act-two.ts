@@ -7,8 +7,23 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'cut_year_two',
     kind: 'cutscene',
     title: 'YEAR TWO',
+    marker: 'YEAR TWO',
+    screens: [
+      {
+        title: 'YEAR TWO',
+        art: 'cut_year_two',
+        prose:
+          'The garage is an office now. Six desks, a server rack where the workbench used to be, and a corridor map that no longer fits on one wall.',
+      },
+      {
+        title: 'THE CLONE',
+        art: 'cut_chute_launch',
+        prose:
+          'Then MERIDIAN launches a copy of you. It is called Chute. It sells the same deliveries at forty percent less and loses money on every drop, on purpose, because it can afford to. The war you wanted is here. It wants everything you have.',
+      },
+    ],
     prose:
-      'The garage is an office now — six desks, a server rack where the workbench was. MERIDIAN’s clone, Chute, sells the same stops at forty percent less and loses money on every drop with a smile. The war you wanted is here. It wants everything you have.',
+      'The garage is an office now. Six desks, a server rack where the workbench used to be, and a corridor map that no longer fits on one wall. Then MERIDIAN launches a copy of you. It is called Chute. It sells the same deliveries at forty percent less and loses money on every drop, on purpose, because it can afford to. The war you wanted is here. It wants everything you have.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_price_war' }],
   },
   {
@@ -44,7 +59,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         goto: 'h_b_after_pricewar',
       },
       {
-        label: 'Slip the city Chute’s incident reports.',
+        label: 'Leak Chute’s accident reports to the city.',
         effects: [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'chute_dirt', v: true },
@@ -73,7 +88,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       'The last mile is still human — contract couriers carry what tubes can’t reach upstairs. Their collective arrives with a letter: employee status, or the porches go unserved. MERIDIAN’s couriers signed nothing and got nothing. Yours read the news.',
     choices: [
       {
-        label: 'Grant it. W-2s, benefits, the whole paper trail.',
+        label: 'Say yes. Full employees: W-2s, benefits, everything.',
         effects: [
           { e: 'burn', d: 3200 },
           { e: 'rep', d: 2 },
@@ -85,7 +100,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         goto: 'h_b_after_couriers',
       },
       {
-        label: 'Offer a hybrid pool — guaranteed floors, no benefits.',
+        label: 'Offer a middle deal: guaranteed pay, no benefits.',
         effects: [
           { e: 'burn', d: 1400 },
           { e: 'stress', d: 3 },
@@ -145,9 +160,18 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_cut_meridian_ipo',
     art: 'cut_meridian_ipo',
     kind: 'cutscene',
+    priority: true,
+    when: {
+      k: 'all',
+      of: [
+        { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
+        { k: 'age', cmp: 'gte', v: 20 },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
+      ],
+    },
     title: 'MERIDIAN GOES PUBLIC',
     prose:
-      'They ring the bell on a Tuesday. By close, MERIDIAN is worth more than the city you live in. Marcus Vale’s face is on the financial channels, charming under studio lights: “Logistics is a solved problem. The last mile belongs to whoever owns the sky.” Your company is a rounding error on their press release — for now. The ticker behind him reads $91B. Yours reads a garage above a laundromat.',
+      'They ring the bell on a Tuesday. By close, MERIDIAN is worth more than the city you live in. Its founder is on every financial channel, silver-haired and certain under the studio lights: “Logistics is a solved problem. The last mile belongs to whoever owns the sky.” The ticker behind him reads $91B. Yours reads a garage above a laundromat.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_permit_war' }],
   },
   {
@@ -232,7 +256,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         result: 'Your shuttles move to line three, ahead of Chute’s. Money talks; Fresno listens.',
       },
       {
-        label: 'Qualify a second supplier in Reno.',
+        label: 'Line up a second supplier in Reno.',
         goto: 'h_b_after_fresno',
         effects: [
           { e: 'burn', d: 900 },
@@ -242,7 +266,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         result: 'Reno’s tolerances are looser and their price is worse, but when Fresno wobbles, you don’t.',
       },
       {
-        label: 'Give Fresno’s owner points for guaranteed capacity.',
+        label: 'Give Fresno’s owner equity for guaranteed capacity.',
         goto: 'h_b_after_fresno',
         effects: [
           { e: 'meet', who: 'ray' },
@@ -274,7 +298,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       'Sofia puts the offer letter on your desk without being asked: MERIDIAN, double salary, a team of nine, a title with “Principal” in it. “I’m not leaving,” she says. “But I’m not pretending I didn’t read it.” The kill-switch author of your entire descent stack is holding a ticket she hasn’t decided to use.',
     choices: [
       {
-        label: 'Two more points. Make her a founder in fact.',
+        label: 'Two more percent. Make her a real co-founder.',
         goto: 'h_b_after_poach',
         effects: [
           { e: 'stake', who: 'sofia', d: 2 },
@@ -381,7 +405,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         result: 'The wire clears on a Friday. On Monday there is a recruiting plan, a legal budget, and a board meeting on the calendar that includes you but is no longer yours alone.',
       },
       {
-        label: 'Counter at fifteen.',
+        label: 'Counter at fifteen percent.',
         goto: 'h_b_after_a',
         effects: [
           { e: 'treasury', d: 2000000 },
@@ -459,6 +483,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     title: 'EIGHTEEN MONTHS OF WAR',
+    marker: 'EIGHTEEN MONTHS LATER',
     prose:
       'Three corridors suspended, then reopened. A price war that cost you both a fortune and taught the city your names. Couriers with health insurance. Sofia’s descent controller, version nine. The war doesn’t end. It just gets older — until the morning it stops mattering, because of what happens on Richmond Street.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
@@ -472,7 +497,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'TRENCHES',
     prose:
       'The fence-line stops moving — not because anyone won, but because both sides dug in. Blue tubes fall off lampposts in your blocks; strangers straighten yours without being asked. Pricing pages update hourly now, two ops teams learning each other’s rhythms like chess players who hate each other politely. Wars like this don’t end, you realize. They get priced in — by customers, by suppliers, and eventually by people with much bigger spreadsheets than yours.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_couriers' }],
   },
   {
     id: 'h_b_after_couriers',
@@ -481,7 +506,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE LAST MILE HAS A FACE',
     prose:
       'The decision travels through the courier pool faster than any memo could — group chats, stairwells, the bench outside the laundromat. For a while deliveries continue as they always did. But the porches heard about it too, because the couriers told them, name by name, landing by landing. In the Flats, how you treat the person on the stairs is public information. It compounds, one direction or the other, from here.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+    choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_strike',
@@ -490,7 +515,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'AFTER THE PICKETS',
     prose:
       'A strike leaves marks either way. Routes resume; some porches keep the flyer taped inside the receiver sleeve, as a warning or a receipt, depending. The couriers know exactly what you are now, and so does the neighborhood, and so does MERIDIAN — whose channels covered every day of it, gleefully, in HD, under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war has a labor front now. You opened it.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
+    choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_audit',

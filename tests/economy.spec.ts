@@ -60,10 +60,10 @@ const IPO_ROAD: RegExp[] = [
   /Full access/,
   /Face year two/,
   /Sell reliability/,
-  /Grant it\. W-2s/,
+  /Say yes\. Full employees/,
   /Comply completely/,
-  /Qualify a second supplier/,
-  /Two more points\. Make her a founder/,
+  /Line up a second supplier/,
+  /Two more percent\. Make her a real co-founder/,
   /Ride it\. National shows/,
   /Take it\. Win the war/,
   /Even: you, June/,
@@ -72,11 +72,11 @@ const IPO_ROAD: RegExp[] = [
   /ground first, publish everything/,
   /Testify personally/,
   /Refuse\. The railway is not for sale/,
-  /Ride for the listing/,
+  /Take the company public/,
   /Price it honest/,
 ]
 
-const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -3), /Counter: not the company/]
+const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -3), /Offer them you instead of the company/]
 const WALKAWAY_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -2), /Open-source the stack/]
 
 describe('derived-number math', () => {

@@ -208,7 +208,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
       },
       {
-        label: 'Counter: not the company. You. Rise inside MERIDIAN.',
+        label: 'Offer them you instead of the company. Take the MERIDIAN job.',
         requires: { k: 'rel', who: 'marcus', field: 'affinity', cmp: 'gte', v: 1 },
         effects: [
           { e: 'flag', scope: 'company', key: 'offer_done', v: true },
@@ -247,7 +247,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       'Whiteboards, cold noodles, everyone you have left. Three doors are still standing: the listing, if the numbers and the name can carry it; the stack, opened to the world; or the street — one more quarter fought porch by porch, no margin for error, all of it.',
     choices: [
       {
-        label: 'Ride for the listing.',
+        label: 'Take the company public.',
         requires: {
           k: 'all',
           of: [

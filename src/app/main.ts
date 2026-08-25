@@ -24,7 +24,7 @@ function saveKey(uid: string): string {
 }
 
 interface BeatRec {
-  kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter'
+  kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter' | 'divider'
   title?: string
   speakerName?: string
   prose?: string
@@ -364,6 +364,8 @@ function transcriptHtml(): string {
           }</div>`
         case 'you':
           return `<div class="youbtn past">${esc(b.text ?? '')}</div>`
+        case 'divider':
+          return `<div class="era past"><span>${esc(b.text ?? '')}</span></div>`
         case 'outcome':
           return `<div class="outcome past">${esc(b.prose ?? '')}</div>`
         default:
@@ -616,9 +618,13 @@ function renderPlaying(): void {
   if (scene?.kind === 'cutscene') {
     // World-scale moments take the screen; no choices, no headings — just the weight.
     const speaker = scene.speaker ? CONTENT.characters[scene.speaker]?.name : null
+    const beats = scene.screens?.length
+      ? scene.screens.map((p) => ({ prose: p.prose, art: p.art }))
+      : [{ prose: scene.prose, art: scene.art }]
     showScreens(
-      [{ prose: scene.prose, art: scene.art }],
+      beats,
       () => {
+        if (scene.marker) transcript.push({ kind: 'divider', text: scene.marker })
         transcript.push({
           kind: 'scene',
           title: scene.title,
@@ -636,7 +642,11 @@ function renderPlaying(): void {
   }
 
   if (sceneId) mountScene(story, sceneId)
+  // Jump, never sweep — returning from a takeover should land on the newest
+  // beat instantly instead of scrolling the whole memoir past the reader.
+  story.style.scrollBehavior = 'auto'
   story.scrollTop = chapterChanged ? 0 : story.scrollHeight
+  story.style.scrollBehavior = ''
 }
 
 /** Sequential full-screen beats (interludes, prologues) — a film sequence.
@@ -952,7 +962,7 @@ function showEpilogue(): void {
 
     const inter = prevEndingDef?.interlude
     const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
-    const screens: { kicker?: string; title: string; prose: string; art?: string }[] = []
+    const screens: { kicker?: string; title?: string; prose: string; art?: string }[] = []
     if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art })
     for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art })
     if (screens.length)
@@ -1256,7 +1266,10 @@ function warmArt(): void {
   for (const id of Object.keys(CONTENT.characters)) ids.add(id)
   for (const ch of Object.values(CONTENT.chapters)) {
     for (const p of ch.prologue ?? []) if (p.art) ids.add(p.art)
-    for (const s of ch.scenes) if (s.art) ids.add(s.art)
+    for (const s of ch.scenes) {
+      if (s.art) ids.add(s.art)
+      for (const p of s.screens ?? []) if (p.art) ids.add(p.art)
+    }
     for (const e of ch.endings) {
       if (e.art) ids.add(e.art)
       if (e.interlude?.art) ids.add(e.interlude.art)

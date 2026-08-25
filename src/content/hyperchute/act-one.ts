@@ -68,7 +68,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors and a pneumatic drop-tube salvaged from a dead bank’s drive-through. On your screen, the incorporation papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
     choices: [
       {
-        label: 'Book a corridor pilot with the city — proof before polish',
+        label: 'File for a city flight permit. Prove it works first',
         effects: [
           { e: 'flag', scope: 'company', key: 'pilot_booked', v: true },
           { e: 'stress', d: 5 },
@@ -83,7 +83,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         result: 'Credibility is also infrastructure.',
       },
       {
-        label: 'Incorporate clean — lawyer first, hardware second',
+        label: 'Get a real lawyer and incorporate properly first',
         effects: [],
         goto: 'h_b_paper_first',
         result: 'Paper first. It’s never just paper.',
@@ -114,7 +114,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         result: 'She shakes once, dry and firm, then starts a list titled THINGS THAT WILL KILL YOU FIRST.',
       },
       {
-        label: '“Cash when the angel money lands. Waitlist me.”',
+        label: '“Put me on the waitlist. I’ll pay cash when funding lands.”',
         effects: [
           { e: 'meet', who: 'priya' },
           { e: 'rel', who: 'priya', aff: -1 },
@@ -138,13 +138,22 @@ export const ACT_ONE: readonly SceneDef[] = [
     ],
   },
   {
+    id: 'h_b_container',
+    art: 'world_container_office',
+    kind: 'bridge',
+    title: 'THE SHIPPING CONTAINER',
+    when: { k: 'not', p: { k: 'met', who: 'tomas' } },
+    weight: 2,
+    leadIn: 'Everyone downtown gives you the same directions, and the directions still sound like a joke until you are standing in front of it.',
+    prose:
+      'The shipping container is real: corrugated steel wedged between two glass towers, a brass plate on the door reading REYES, ABOGADO. Inside it is all bookshelves and climate control, calmer than any office in either tower next door. A man in rolled shirtsleeves waves you toward the good chair like he has been expecting you all week.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+  },
+  {
     id: 'h_tomas_terms',
     title: 'TWO WAYS TO PAY ME',
     speaker: 'tomas',
-    when: { k: 'not', p: { k: 'met', who: 'tomas' } },
-    weight: 2,
-    leadIn:
-      'The shipping container is real — corrugated steel between two glass towers, a brass plate reading REYES, ABOGADO. Inside it is all bookshelves and climate control. He waves you toward the good chair like he has been expecting you all week.',
+    leadIn: 'He pours two coffees without asking, sits, and gets straight to the only question that matters.',
     prose:
       'Tomás Reyes does contracts out of a converted shipping container downtown and bills like a man who has read every clause he has ever written. ‘Everyone wants the big-firm lawyer until the invoice lands,’ he says. He writes two numbers on the garage wall in marker: $18,000 flat. Or one percent — “and my rolodex goes with it.”',
     choices: [
@@ -198,7 +207,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'The Office of Aerial Corridors denies your pilot application in 0.4 seconds. The rejection notice cc’s three departments you have never heard of and one — Department of Sidewalk Integrity — that sounds invented. At the bottom, in machine-perfect passive voice: REAPPLICATION PERMITTED UPON DEMONSTRATED DESCENT COMPLIANCE.',
     choices: [
       {
-        label: 'File a full appeal with engineered descent data',
+        label: 'Appeal the denial with your flight test data',
         effects: [
           { e: 'treasury', d: -6000 },
           { e: 'stress', d: 6 },
@@ -374,7 +383,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         result: 'She doesn’t blink. ‘Seven. Because you asked. Don’t negotiate with me twice.’',
       },
       {
-        label: 'Stay clean while it’s still yours',
+        label: 'Turn her down. Keep the company all yours.',
         effects: [
           { e: 'meet', who: 'june' },
           { e: 'rel', who: 'june', aff: 1, resp: 1 },
@@ -451,7 +460,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'Without a corridor you fly dawn shifts only, dropping to friends-of-friends who sign waivers printed at the laundromat. The money is real. So is the compliance van that circled the block twice last night, drone-shaped shadow and all.',
     choices: [
       {
-        label: 'Keep flying grey until the hearing',
+        label: 'Keep flying without a permit until the hearing',
         effects: [
           { e: 'revenue', d: 1900 },
           { e: 'stress', d: 6 },
@@ -510,7 +519,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         result: 'By Friday she has rewritten the descent controller and deleted half of it. The code is smaller. It falls better.',
       },
       {
-        label: 'Three points',
+        label: 'Three percent equity',
         effects: [
           { e: 'burn', d: 5200 },
           { e: 'meet', who: 'sofia' },
@@ -734,7 +743,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'HOW COMPANIES ACTUALLY DIE',
     prose:
       'You spend an evening reading startup post-mortems, and the pattern isn’t market or money — it’s paper. The founder who never assigned the IP and lost the company to a co-founder’s ex-employer. The SAFE with the clause nobody priced. The handshake that became a deposition. Three separate posts, years apart, end on some version of the same sentence: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
     id: 'h_b_priya_signed',
@@ -744,7 +753,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     speaker: 'priya',
     prose:
       'Item one on Priya’s list is not permits, or insurance, or the deputy commissioner. It is your own paperwork. ‘Someone serious will ask for your data room within the month,’ she says, already typing the first introduction from your workbench. ‘Certificate of incorporation. IP assignments. A cap table that doesn’t embarrass us.’ The second intro replies the same night — interested, and asking one question first: who is your counsel? Priya reads it over your shoulder. ‘The real kind,’ she says. ‘If you don’t have that yet, there’s a shipping container downtown you should visit before you answer this email.’',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
     id: 'h_b_priya_waitlist',
@@ -753,7 +762,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE LIST SHE LEFT ANYWAY',
     prose:
       'She leaves the term sheet unsigned but leaves something else: one handwritten page titled THINGS THAT WILL KILL YOU FIRST — ‘free of charge, so it kills you slower.’ Permits. Insurance. The deputy commissioner, by name. And underlined twice at the top: PAPERWORK — a company that isn’t papered isn’t a company, it’s a hobby with liability. The last line isn’t advice at all. It’s an address. A shipping container, downtown.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
     id: 'h_b_priya_alone',
@@ -762,7 +771,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'ONE HUNDRED PERCENT OF EVERYTHING',
     prose:
       'Alone means all of it is yours: the equity, and also the incorporation forms at 1 a.m., the insurance questionnaire that wants a ‘chief compliance officer,’ the parts supplier who won’t open a purchase order without a countersigned master agreement. By Thursday you have signed your own name eleven times and understood maybe seven of them. The supplier’s procurement bot bounces your homemade contract with one automated suggestion, in bold: OBTAIN COUNSEL. Everyone you ask downtown mentions the same shipping container.',
-    choices: [{ label: 'Continue', effects: [], goto: 'h_tomas_terms' }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
     id: 'h_b_papered',

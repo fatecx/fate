@@ -167,9 +167,10 @@ export const SURVIVAL: readonly SceneDef[] = [
 
   // ---- the ghost check — signed at a coffee shop, dead by a job change --------
   {
-    id: 'h_ghost_check',
-    title: 'SIGNED OVER COFFEE',
-    speaker: 'vance',
+    id: 'h_b_coffee_shop',
+    art: 'world_coffee_shop',
+    kind: 'bridge',
+    title: 'THE COFFEE SHOP',
     when: {
       k: 'all',
       of: [
@@ -179,12 +180,21 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 2,
     leadIn:
-      'The intro comes gilded: Elliot Vance, president of half of ATLAS Retail’s empire, wants coffee. Not his office — a coffee shop in the Flats, which his assistant frames as charming and you correctly read as diligence.',
+      'The intro comes gilded: Elliot Vance, president of ATLAS Retail, wants to meet. Not at his office — at a coffee shop in the Flats, which his assistant calls charming and you correctly read as homework.',
     prose:
-      'He is better in person than his keynote clips: sharp questions, real laughter, a napkin sketch of your corridor map annotated from memory. Then, between refills, he says the sentence founders retell for years: “I’m in. Two hundred and fifty. Personal money, not ATLAS.” He signs the papers right there against the window glass — signature like a heartbeat readout — and shakes your hand with both of his. “Wire lands within the month,” he says. Everyone in the coffee shop pretends they weren’t listening. Nobody was pretending.',
+      'The shop is four blocks from the garage, the kind of place with steamed windows and one good table. Through the glass you can see him already there, coat off, your corridor map sketched on a napkin in front of him. A town car idles at the curb, embarrassed about the neighborhood. You push the door open.',
+    choices: [{ label: 'Continue', effects: [], goto: 'h_ghost_check' }],
+  },
+  {
+    id: 'h_ghost_check',
+    title: 'SIGNED OVER COFFEE',
+    speaker: 'vance',
+    leadIn: 'He stands to shake your hand before you reach the table, and half the shop pretends not to watch.',
+    prose:
+      'He is better in person than his keynote clips: sharp questions, real laughter, a napkin sketch of your corridor map annotated from memory. Then, between refills, he says the sentence founders retell for years: “I’m in. Two hundred and fifty. Personal money, not ATLAS.” He signs the papers right there against the window glass and shakes your hand with both of his. “Wire lands within the month,” he says. Everyone in the coffee shop pretends they weren’t listening. Nobody was pretending.',
     choices: [
       {
-        label: 'Budget against it. Green-light the hires tonight.',
+        label: 'Treat it as money in the bank. Start hiring tonight.',
         effects: [
           { e: 'meet', who: 'vance' },
           { e: 'stress', d: -3 },
@@ -222,12 +232,12 @@ export const SURVIVAL: readonly SceneDef[] = [
       ],
     },
     leadIn:
-      'Week one: “Legal is processing.” Week two: silence. Week three: his assistant stops using exclamation points, which in assistant means the building is on fire.',
+      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one: “Legal is processing.” Week two: silence. Week three: his assistant stops using exclamation points, which in assistant means the building is on fire.',
     prose:
-      'The call comes on a Tuesday, from a number that is no longer an ATLAS number. “I owe you honesty,” Elliot says, and delivers it: he is leaving — a rival, a bigger title, a compliance regime that treats his personal investments like radioactive material. The two hundred fifty thousand is not late. It is never coming. The signature that a coffee shop watched him write is now a souvenir. You have two hires starting Monday against money that no longer exists.',
+      'The call comes on a Tuesday, from a number that is no longer an ATLAS number. “I owe you honesty,” Elliot says, and delivers it. He is leaving ATLAS for a rival, with a bigger title and a compliance office that treats his personal investments like radioactive material. The money is dead. You have two hires starting Monday against a promise that no longer exists.',
     choices: [
       {
-        label: 'Unwind it all. Rescind the offers tonight.',
+        label: 'Take it back. Call both hires tonight and cancel.',
         effects: [
           { e: 'burn', d: -800 },
           { e: 'stress', d: 8 },
@@ -235,10 +245,10 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'Two phone calls you will remember longer than the people you called. The burn drops back to survivable. The lesson gets laminated: unwired money is fiction with a signature on it.',
+          'Two phone calls you will remember longer than the people you called. The burn drops back to survivable, and the lesson sticks for the rest of your career: money is not money until it is in the account.',
       },
       {
-        label: 'Honor the offers. Find the money somewhere else.',
+        label: 'Keep your word to the hires. Find the money somewhere else.',
         effects: [
           { e: 'stress', d: 10 },
           { e: 'score', d: 2 },
@@ -265,12 +275,12 @@ export const SURVIVAL: readonly SceneDef[] = [
       ],
     },
     leadIn:
-      'Week one: “Legal is processing.” Week two: silence. Week three: the call, from a number that is no longer an ATLAS number.',
+      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one: “Legal is processing.” Week two: silence. Week three: the call, from a number that is no longer an ATLAS number.',
     prose:
-      '“I owe you honesty,” Elliot says, and delivers it: he is leaving ATLAS for a rival, and the new compliance regime kills every personal investment on his books — including the one a coffee shop watched him sign. He apologizes twice, means it once. You hold the phone and feel the strange weightlessness of losing money you never had. Across the garage, the budget you refused to touch sits exactly where it was: intact, unspent, yours.',
+      '“I owe you honesty,” Elliot says, and delivers it. He is leaving ATLAS for a rival, and the new company’s rules kill every personal investment on his books — including the check he signed against the window glass a few months ago. He apologizes twice, means it once. You hold the phone and feel the strange weightlessness of losing money you never had. Across the garage, the budget you refused to touch sits exactly where it was: intact, unspent, yours.',
     choices: [
       {
-        label: '“Thanks for calling it yourself.” Keep the bridge standing.',
+        label: 'Thank him for calling you himself. Part on good terms.',
         effects: [
           { e: 'rel', who: 'vance', aff: 1, resp: 1 },
           { e: 'stress', d: 3 },
@@ -281,14 +291,14 @@ export const SURVIVAL: readonly SceneDef[] = [
           'He remembers the grace. Men like Elliot resurface every few years with new budgets and old guilt — and somewhere in a rival tower, your name now lives in the folder marked SOMEDAY, PROPERLY.',
       },
       {
-        label: 'Let him hear exactly what the signature cost you.',
+        label: 'Tell him what his broken promise cost you.',
         effects: [
           { e: 'rel', who: 'vance', standing: 'hostile', aff: -2 },
           { e: 'stress', d: 1 },
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'It is honest and it costs you the rolodex he would have opened one day out of penance. Some invoices you send just to have sent them.',
+          'It feels good for exactly one phone call. It also closes every door he might have opened for you later, out of guilt. Some things you say just to have said them.',
       },
     ],
   },
