@@ -14,7 +14,8 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, resetStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
+import { setStage, resetStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
+import { MOODS } from '../content/sound'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -753,7 +754,12 @@ function applyStage(film = false): void {
     setStage({ mood: 'film', ambience: null, tension: false })
     return
   }
-  setStage({ mood: moodOf(), ambience: scene?.ambience ?? null, tension: tensionNow() })
+  setStage({
+    mood: (scene?.mood && MOODS[scene.mood] ? scene.mood : moodOf()) as StageState['mood'],
+    ambience: scene?.ambience ?? null,
+    accent: scene?.accent ?? null,
+    tension: tensionNow(),
+  })
 }
 
 function renderPlaying(): void {
@@ -965,7 +971,8 @@ function showScreens(
     if (armed && cur + 1 < units.length) show(cur + 1)
   })
   if (dateline) {
-    // Cold open: the dateline holds the dark, then the film starts.
+    // Cold open: the drum lands with the place-and-year card, then the film starts.
+    stinger('boom')
     wait(reduced ? 1600 : 4600, () => {
       tk.querySelector('.cine-card')?.remove()
       show(0)

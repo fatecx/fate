@@ -60,6 +60,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_press_storm',
     ambience: 'cafe',
+    accent: 'street',
     foley: 'phone',
     title: 'SHE HAS THE REPORT',
     speaker: 'nadia',
@@ -103,6 +104,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_sofia_verdict',
     ambience: 'garage',
+    accent: 'night',
     title: 'VERSION NINE',
     speaker: 'sofia',
     priority: true,
@@ -145,6 +147,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_suspension',
     ambience: 'hearing',
+    accent: 'crowd',
     foley: 'gavel',
     art: 'world_suspension',
     landmark: true,
@@ -191,6 +194,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_offer',
     ambience: 'garage',
+    accent: 'night',
     foley: 'stairs',
     landmark: true,
     title: 'THE OFFER, MID-STORM',
@@ -241,6 +245,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_war_room',
     ambience: 'night',
+    accent: 'garage',
     landmark: true,
     art: 'world_war_room',
     title: 'THE WAR ROOM',
@@ -293,6 +298,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_ipo_road',
     ambience: 'roadshow',
+    accent: 'corp',
     art: 'world_roadshow',
     landmark: true,
     title: 'THE ROAD SHOW',
@@ -339,6 +345,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_last_stand',
     ambience: 'night',
+    accent: 'garage',
     art: 'world_last_stand',
     landmark: true,
     title: 'THE LAST QUARTER',

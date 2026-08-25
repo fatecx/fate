@@ -203,6 +203,13 @@ export const TENSION: SoundDef = {
 
 /** One-shots. Not looped. */
 export const STINGERS: Record<string, SoundDef> = {
+  boom: {
+    id: 'sting_boom',
+    gain: 0.62,
+    seconds: 4,
+    prompt:
+      'One massive cinematic taiko drum hit: deep resonant strike with a sub-bass bloom, natural long decay into silence, ceremonial and heavy — a chapter beginning. One-shot, no music after, no voices.',
+  },
   bell: {
     id: 'sting_bell',
     gain: 0.6,

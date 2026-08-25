@@ -54,6 +54,13 @@ export interface SceneDef {
    * test) on every non-cutscene Hyperchute scene; cutscenes ride the film bed.
    */
   ambience?: string
+  /** Second room layered low under the ambience (src/content/sound.ts
+   *  AMBIENCE) — the scene's own seasoning: wind over the rooftop drops,
+   *  the crowd outside the suspension hearing. Composition, not clutter. */
+  accent?: string
+  /** Mood override (src/content/sound.ts MOODS). Rare — moods track acts by
+   *  default; this pins a scene that needs different weather. */
+  mood?: string
   /** Foley one-shot id (src/content/sound.ts FOLEY) fired as the scene arrives. */
   foley?: string
   /** Authored prose. The LLM render layer decorates later; the game runs on these strings. */

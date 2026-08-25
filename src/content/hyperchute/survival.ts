@@ -9,6 +9,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_sublet',
     ambience: 'garage',
+    accent: 'warehouse',
     art: 'world_sublet',
     title: 'HALF A GARAGE',
     when: {
@@ -46,6 +47,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_fare',
     ambience: 'street',
+    accent: 'crowd',
     art: 'world_fare',
     title: 'THE FARE',
     when: {
@@ -97,6 +99,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_last_fifteen',
     ambience: 'garage',
+    accent: 'night',
     art: 'world_fifteen',
     title: 'FIFTEEN DOLLARS',
     landmark: true,
@@ -173,6 +176,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_b_coffee_shop',
     ambience: 'cafe',
+    accent: 'street',
     foley: 'door',
     art: 'world_coffee_shop',
     kind: 'bridge',

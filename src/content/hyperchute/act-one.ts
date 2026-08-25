@@ -8,6 +8,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_seedling',
     ambience: 'garage',
+    accent: 'street',
     foley: 'stairs',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
@@ -97,6 +98,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_priya_pitch',
     ambience: 'garage',
+    accent: 'street',
     title: 'TWO PERCENT',
     speaker: 'priya',
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
@@ -145,6 +147,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_container',
     ambience: 'street',
+    accent: 'warehouse',
     art: 'world_container_office',
     kind: 'bridge',
     title: 'THE SHIPPING CONTAINER',
@@ -158,6 +161,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_tomas_terms',
     ambience: 'office',
+    accent: 'street',
     title: 'TWO WAYS TO PAY ME',
     speaker: 'tomas',
     leadIn: 'He pours two coffees without asking, sits, and gets straight to the only question that matters.',
@@ -415,6 +419,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_first_drops_clean',
     ambience: 'street',
+    accent: 'wind',
     landmark: true,
     art: 'world_first_drop',
     title: 'BEAM DOWN',
@@ -462,6 +467,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_first_drops_rogue',
     ambience: 'street',
+    accent: 'wind',
     landmark: true,
     art: 'world_first_drop',
     title: 'TWELVE ROOFS, NO PERMISSION',
@@ -570,6 +576,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_marcus_card',
     ambience: 'street',
+    accent: 'corp',
     title: 'A BLACK CAR BELOW THE LAUNDROMAT',
     speaker: 'marcus',
     priority: true,
@@ -676,6 +683,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_act1_close',
     ambience: 'garage',
+    accent: 'night',
     art: 'world_waitlist',
     landmark: true,
     title: 'ELEVEN WEEKS IN',
@@ -711,6 +719,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_file_pilot',
     ambience: 'garage',
+    accent: 'wind',
     art: 'world_permit_office',
     title: 'A RAILWAY NEEDS SKY',
     priority: true,
@@ -756,6 +765,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_advisor_hunt',
     ambience: 'cafe',
+    accent: 'street',
     art: 'world_coldmail',
     kind: 'bridge',
     title: 'CREDIBILITY SHOPPING',
@@ -817,6 +827,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_rolodex',
     ambience: 'office',
+    accent: 'street',
     art: 'tomas_rolodex',
     kind: 'bridge',
     title: 'THE ROLODEX WAKES UP',
@@ -848,6 +859,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_rogue_nights',
     ambience: 'night',
+    accent: 'wind',
     art: 'world_dawn_flights',
     kind: 'bridge',
     title: 'DAWN SHIFTS',
@@ -858,6 +870,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_corridor_granted',
     ambience: 'street',
+    accent: 'wind',
     art: 'world_corridor_map',
     kind: 'bridge',
     title: 'A LINE ON A MAP',
@@ -898,6 +911,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_scale_strain',
     ambience: 'garage',
+    accent: 'street',
     art: 'world_jitter',
     kind: 'bridge',
     title: 'THE JITTER',
@@ -908,6 +922,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_grey_strain',
     ambience: 'garage',
+    accent: 'wind',
     art: 'world_grey_margin',
     kind: 'bridge',
     title: 'THE MARGIN FOR ERROR IS A ROOF',
@@ -928,6 +943,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_after_vale',
     ambience: 'street',
+    accent: 'corp',
     art: 'world_vale_card',
     kind: 'bridge',
     title: 'BEING SEEN',

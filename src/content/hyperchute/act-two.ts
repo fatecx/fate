@@ -32,6 +32,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_price_war',
     ambience: 'street',
+    accent: 'crowd',
     art: 'world_price_war',
     title: 'THE PRICE OF PRICE',
     priority: true,
@@ -77,6 +78,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_couriers',
     ambience: 'street',
+    accent: 'crowd',
     title: 'THE COLLECTIVE',
     speaker: 'corr',
     weight: 3,
@@ -129,6 +131,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_strike',
     ambience: 'crowd',
+    accent: 'street',
     art: 'world_strike',
     title: 'THE PORCHES GO QUIET',
     priority: true,
@@ -184,6 +187,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_permit_war',
     ambience: 'garage',
+    accent: 'office',
     art: 'world_audit',
     title: 'THE AUDIT',
     priority: true,
@@ -290,6 +294,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_poach_sofia',
     ambience: 'garage',
+    accent: 'corp',
     title: 'THE OFFICE SHE DIDN’T ASK FOR',
     speaker: 'sofia',
     priority: true,
@@ -343,6 +348,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_viral',
     ambience: 'garage',
+    accent: 'street',
     foley: 'phone',
     art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
@@ -385,6 +391,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_series_a',
     ambience: 'office',
+    accent: 'corp',
     landmark: true,
     title: 'TWO MILLION, TWENTY POINTS',
     art: 'world_series_a',
@@ -447,6 +454,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_board',
     ambience: 'office',
+    accent: 'corp',
     art: 'world_gavel',
     title: 'WHO HOLDS THE GAVEL',
     priority: true,
@@ -513,6 +521,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_b_after_pricewar',
     ambience: 'street',
+    accent: 'crowd',
     art: 'world_trenches',
     kind: 'bridge',
     title: 'TRENCHES',
@@ -573,6 +582,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_b_after_viral',
     ambience: 'garage',
+    accent: 'street',
     art: 'world_legend_clip',
     kind: 'bridge',
     title: 'AFTER THE FOUR MINUTES',
@@ -583,6 +593,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_b_after_a',
     ambience: 'office',
+    accent: 'corp',
     art: 'world_board_invite',
     kind: 'bridge',
     title: 'GOVERNANCE ARRIVES',

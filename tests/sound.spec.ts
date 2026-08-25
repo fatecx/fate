@@ -34,6 +34,9 @@ describe('soundscape', () => {
       }
       for (const s of ch.scenes) {
         if (s.ambience) expect(AMBIENCE[s.ambience], `${ch.id}/${s.id} ambience`).toBeDefined()
+        if (s.accent) expect(AMBIENCE[s.accent], `${ch.id}/${s.id} accent '${s.accent}'`).toBeDefined()
+        if (s.accent) expect(s.accent, `${ch.id}/${s.id}: accent may not double the room`).not.toBe(s.ambience)
+        if (s.mood) expect(MOODS[s.mood], `${ch.id}/${s.id} mood '${s.mood}'`).toBeDefined()
         if (s.foley) expect(FOLEY[s.foley], `${ch.id}/${s.id} foley '${s.foley}'`).toBeDefined()
         for (const p of s.screens ?? []) {
           if (p.bg) expect(AMBIENCE[p.bg], `${ch.id}/${s.id} screen bg '${p.bg}'`).toBeDefined()

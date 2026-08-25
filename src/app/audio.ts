@@ -31,11 +31,13 @@ interface Lane {
 
 let musicLane: Lane | null = null
 let ambLane: Lane | null = null
+let accentLane: Lane | null = null
 let tensionLane: Lane | null = null
 let tensionOn = false
 
 let wantMood: string | null = null
 let wantAmb: string | null = null
+let wantAccent: string | null = null
 let wantTension = false
 
 export function soundEnabled(): boolean {
@@ -89,6 +91,8 @@ function loadBuffer(id: string): Promise<AudioBuffer | null> {
 const AMB_FLOOR = 0.4
 const AMB_HOLD = 6
 const AMB_RECEDE = 5
+/** Accent lane level relative to its bed's own gain — seasoning, not a duet. */
+const ACCENT_MIX = 0.35
 
 /** Start a looped lane and fade it in; returns null when the file is absent. */
 async function startLoop(def: SoundDef, fade: number, recede = false): Promise<Lane | null> {
@@ -157,6 +161,15 @@ async function reconcile(): Promise<void> {
       ambLane = null
       if (def) ambLane = await startLoop(def, AMB_FADE, true)
     }
+    if (wantAccent !== (accentLane?.id ?? null)) {
+      const def = wantAccent
+        ? Object.values(AMBIENCE).find((a) => a.id === wantAccent)
+        : undefined
+      stopLane(accentLane, AMB_FADE)
+      accentLane = null
+      // Accents season under the room: same bed library, a third the level.
+      if (def) accentLane = await startLoop({ ...def, gain: def.gain * ACCENT_MIX }, AMB_FADE + 1)
+    }
     if (wantTension !== tensionOn) {
       tensionOn = wantTension
       if (wantTension && !tensionLane) tensionLane = await startLoop(TENSION, TENSION_FADE)
@@ -172,6 +185,7 @@ async function reconcile(): Promise<void> {
   if (
     wantMood !== (musicLane?.id ?? null) ||
     wantAmb !== (ambLane?.id ?? null) ||
+    wantAccent !== (accentLane?.id ?? null) ||
     wantTension !== tensionOn
   ) {
     void reconcile()
@@ -181,6 +195,8 @@ async function reconcile(): Promise<void> {
 export interface StageState {
   mood: keyof typeof MOODS | null
   ambience: string | null
+  /** Optional second room layered low — the scene's seasoning. */
+  accent?: string | null
   tension: boolean
 }
 
@@ -188,6 +204,7 @@ export interface StageState {
 export function setStage(s: StageState): void {
   wantMood = s.mood ? MOODS[s.mood]?.id ?? null : null
   wantAmb = s.ambience ? AMBIENCE[s.ambience]?.id ?? null : null
+  wantAccent = s.accent ? AMBIENCE[s.accent]?.id ?? null : null
   wantTension = s.tension
   if (ctx) void reconcile()
 }
@@ -197,12 +214,15 @@ export function setStage(s: StageState): void {
 export function resetStage(): void {
   wantMood = null
   wantAmb = null
+  wantAccent = null
   wantTension = false
   stopLane(musicLane, 0.2)
   stopLane(ambLane, 0.2)
+  stopLane(accentLane, 0.2)
   stopLane(tensionLane, 0.2)
   musicLane = null
   ambLane = null
+  accentLane = null
   tensionLane = null
   tensionOn = false
   stung.clear()
