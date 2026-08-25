@@ -17,7 +17,6 @@ import { lockCopy } from './locks'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
-const THEME_KEY = 'fate-theme'
 
 function saveKey(uid: string): string {
   return `fate-save-u-${uid}`
@@ -90,35 +89,6 @@ function clearSave(): void {
   } catch {
     /* ignore */
   }
-}
-
-// ---- theme -------------------------------------------------------------------
-
-function themeSetting(): 'auto' | 'light' | 'dark' {
-  try {
-    const t = localStorage.getItem(THEME_KEY)
-    return t === 'light' || t === 'dark' ? t : 'auto'
-  } catch {
-    return 'auto'
-  }
-}
-
-function applyTheme(): void {
-  const t = themeSetting()
-  if (t === 'auto') delete document.documentElement.dataset.theme
-  else document.documentElement.dataset.theme = t
-}
-
-function cycleTheme(): void {
-  const order = ['auto', 'light', 'dark'] as const
-  const next = order[(order.indexOf(themeSetting()) + 1) % order.length]
-  try {
-    if (next === 'auto') localStorage.removeItem(THEME_KEY)
-    else localStorage.setItem(THEME_KEY, next)
-  } catch {
-    /* ignore */
-  }
-  applyTheme()
 }
 
 // ---- helpers ---------------------------------------------------------------
@@ -469,8 +439,6 @@ function accountHtml(): string {
   <div class="inc-account">
     <div class="inc-grid">
       <span>Founder ID</span>${who}
-      <span>Theme</span><b><button class="paction inline" id="actTheme">${themeSetting().toUpperCase()}</button></b>
-      <span>Screen</span><b><button class="paction inline" id="actFullscreen">${document.fullscreenElement ? 'FULLSCREEN' : 'WINDOWED'}</button></b>
     </div>
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
@@ -1007,16 +975,6 @@ app.addEventListener('click', (e) => {
     }
     return
   }
-  if (target.closest('#actTheme')) {
-    cycleTheme()
-    const b = document.getElementById('actTheme')
-    if (b) b.textContent = themeSetting().toUpperCase()
-    return
-  }
-  if (target.closest('#actFullscreen')) {
-    toggleFullscreen()
-    return
-  }
   if (target.closest('#actLogout')) {
     void (async () => {
       await signOut()
@@ -1093,33 +1051,17 @@ window.addEventListener('keydown', (e) => {
 })
 
 // The page paints pure black, but the browser toolbar, the OS window frame and
-// the desktop still ring it. Fullscreen is the only true borderless film.
+// the desktop still ring it. F toggles the only true borderless film — no
+// on-screen control by design; the look is authored, the key is a courtesy.
 function toggleFullscreen(): void {
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => {})
   else void document.documentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {})
 }
 
-document.addEventListener('fullscreenchange', () => {
-  const b = document.getElementById('actFullscreen')
-  if (b) b.textContent = document.fullscreenElement ? 'FULLSCREEN' : 'WINDOWED'
-})
-
 function takeover(inner: string, cls = ''): void {
   const el = document.createElement('div')
   el.className = `takeover${cls ? ` ${cls}` : ''}`
   el.innerHTML = `<div class="takeover-inner">${inner}</div>`
-  if (cls.includes('cine')) {
-    const fs = document.createElement('button')
-    fs.className = 'cine-fs'
-    fs.title = 'Fullscreen (F)'
-    fs.innerHTML =
-      '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
-    fs.addEventListener('click', (e) => {
-      e.stopPropagation()
-      toggleFullscreen()
-    })
-    el.appendChild(fs)
-  }
   app.appendChild(el)
 }
 
@@ -1713,11 +1655,11 @@ function warmArt(): void {
 }
 
 async function boot(): Promise<void> {
-  applyTheme()
   initWalletDiscovery()
   warmArt()
   try {
     localStorage.removeItem(LEGACY_SAVE_KEY) // pre-auth saves: refresh restarts by design
+    localStorage.removeItem('fate-theme') // the look is authored now; old prefs are void
   } catch {
     /* ignore */
   }
