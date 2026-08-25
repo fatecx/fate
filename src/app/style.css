@@ -87,8 +87,18 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cast-face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cast-face.shadow { background: var(--line); }
 .cast-face.shadow i { color: var(--paper); filter: none; }
+.cast-face.you { background: var(--ink); border-color: var(--ink); z-index: 1; }
+.cast-face.you i { color: var(--paper); font-size: 7px; letter-spacing: 0.08em; }
 .cast-face.lg { width: 44px; height: 44px; }
 .cast-face.lg i { font-size: 15px; }
+.cast-face.lg.you i { font-size: 10px; }
+.cast-face.sm { width: 18px; height: 18px; border-width: 1px; }
+.cast-face.sm i { font-size: 8px; }
+.cast-word {
+  margin-left: 8px; font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em; color: var(--dim);
+}
+.cast:hover .cast-word { color: var(--accent); }
 
 /* cast dropdown reuses the paper drawer, anchored under the cluster on the left */
 .inc-panel.cast-mode { left: 18px; right: auto; width: min(400px, calc(100vw - 40px)); }
@@ -106,6 +116,14 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .cchip.ally, .cchip.warm { color: var(--good); }
 .cchip.hostile, .cchip.cold { color: var(--bad); }
+/* the unmet compress to one quiet line */
+.cast-unmet {
+  display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 10.5px; color: var(--dim); letter-spacing: 0.03em;
+}
+.cast-shadows { display: inline-flex; flex: none; }
+.cast-shadows .cast-face + .cast-face { margin-left: -7px; }
 /* company button — bordered, with a shine sweep on hover */
 .chap {
   font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.06em;

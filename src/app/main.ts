@@ -155,7 +155,8 @@ function fuseInfo(): { remaining: number; total: number } | null {
 
 // ---- the cast --------------------------------------------------------------
 // Characters unlock in the header as the founder meets them. "Met" is true
-// state: a relationship exists, or a seen scene of this chapter had them speak.
+// state: a relationship exists, a seen scene had them speak — or they are
+// speaking right now (a face on screen is a face you've met).
 
 interface CastEntry {
   id: string
@@ -171,6 +172,10 @@ function castRoster(): CastEntry[] {
     const sp = chapter.scenes.find((s) => s.id === sid)?.speaker
     if (sp) seenSpeakers.add(sp)
   }
+  const onScreen = st.company.queue[0]
+    ? chapter.scenes.find((s) => s.id === st.company.queue[0])?.speaker
+    : undefined
+  if (onScreen) seenSpeakers.add(onScreen)
   const ids = new Set<string>([...relIds.filter((id) => st.world.rels[id]?.met), ...seenSpeakers])
   // Roster = everyone met this life + this chapter's still-unmet speakers, as shadows.
   for (const s of chapter.scenes) if (s.speaker) ids.add(s.speaker)
@@ -178,7 +183,7 @@ function castRoster(): CastEntry[] {
   for (const id of ids) {
     if (!CONTENT.characters[id]) continue
     const met = st.world.rels[id]?.met === true || seenSpeakers.has(id)
-    const order = relIds.indexOf(id)
+    const order = id === onScreen ? 1000 : relIds.indexOf(id) // the current face is the freshest
     entries.push({ id, met, metOrder: met ? (order === -1 ? 999 : order) : Infinity })
   }
   return entries.sort((a, b) => a.metOrder - b.metOrder)
@@ -189,15 +194,19 @@ function castFaceHtml(id: string, cls = 'cast-face'): string {
   return `<span class="${cls}"><i>${esc(ch.name[0])}</i><img src="/art/${id}.webp" alt="" onerror="this.remove()"></span>`
 }
 
-/** Header cluster: the last few faces met, plus one shadow for who's still out there. */
+/** The protagonist's token — no portrait by design; the biography is the face. */
+function youFaceHtml(cls = 'cast-face'): string {
+  return `<span class="${cls} you"><i>YOU</i></span>`
+}
+
+/** Header cluster: you, the last faces met, and the word. */
 function castClusterHtml(): string {
-  const roster = castRoster()
-  const met = roster.filter((c) => c.met)
-  const unmet = roster.length - met.length
-  const faces = met.slice(-3).map((c) => castFaceHtml(c.id)).join('')
-  const shadow = unmet > 0 ? `<span class="cast-face shadow"><i>+${unmet}</i></span>` : ''
-  if (!faces && !shadow) return ''
-  return `<button class="cast" id="castToggle" title="The cast — everyone this life has met">${faces}${shadow}</button>`
+  const met = castRoster().filter((c) => c.met)
+  const faces = met.slice(-2).reverse().map((c) => castFaceHtml(c.id)).join('')
+  const shadow = met.length === 0 ? `<span class="cast-face shadow"><i>?</i></span>` : ''
+  return `<button class="cast" id="castToggle" title="The cast — everyone this life has met">
+    ${youFaceHtml()}${faces}${shadow}<span class="cast-word">CAST</span>
+  </button>`
 }
 
 function standingChip(id: string): string {
@@ -215,6 +224,14 @@ function castPanelHtml(): string {
   const roster = castRoster()
   const met = roster.filter((c) => c.met)
   const unmet = roster.filter((c) => !c.met)
+  const youRow = `<div class="cast-row">
+    ${youFaceHtml('cast-face lg')}
+    <div class="cast-meta">
+      <div class="cast-name">YOU <span class="cchip">${founderPct()}%</span></div>
+      <div class="cast-role">Founder — ${esc(chapterTitle(st.company.id))}, INC.</div>
+      <div class="cast-blurb">The founder of record. Every scar in this biography is yours.</div>
+    </div>
+  </div>`
   const rows = met
     .map((c) => {
       const ch = CONTENT.characters[c.id]
@@ -230,20 +247,16 @@ function castPanelHtml(): string {
       </div>`
     })
     .join('')
-  const shadows = unmet
-    .map(
-      () => `<div class="cast-row unmet">
-        <span class="cast-face lg shadow"><i>?</i></span>
-        <div class="cast-meta">
-          <div class="cast-name dim">NOT YET MET</div>
-          <div class="cast-role">Someone this story is still holding back.</div>
-        </div>
-      </div>`,
-    )
-    .join('')
+  // The unmet compress to one quiet line — a count, not a graveyard.
+  const shadows = unmet.length
+    ? `<div class="cast-unmet">
+        <span class="cast-shadows">${unmet.map(() => `<span class="cast-face sm shadow"><i>?</i></span>`).join('')}</span>
+        <span>${unmet.length === 1 ? 'one face' : `${unmet.length} faces`} still out there — the story is holding them back</span>
+      </div>`
+    : ''
   return `
   <div class="inc-title">THE CAST · ${met.length} MET${unmet.length ? ` · ${unmet.length} OUT THERE` : ''}</div>
-  <div class="cast-list">${rows}${shadows}</div>`
+  <div class="cast-list">${youRow}${rows}</div>${shadows}`
 }
 
 /**
