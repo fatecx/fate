@@ -247,16 +247,24 @@ function castPanelHtml(): string {
       </div>`
     })
     .join('')
-  // The unmet compress to one quiet line — a count, not a graveyard.
-  const shadows = unmet.length
-    ? `<div class="cast-unmet">
-        <span class="cast-shadows">${unmet.map(() => `<span class="cast-face sm shadow"><i>?</i></span>`).join('')}</span>
-        <span>${unmet.length === 1 ? 'one face' : `${unmet.length} faces`} still out there — the story is holding them back</span>
+  // The unmet become rumors — the story foreshadowing itself, names withheld.
+  const teased = unmet.filter((c) => CONTENT.characters[c.id].tease)
+  const rumors = teased.slice(0, 3).map(
+    (c) => `<div class="cast-tease">
+      <span class="cast-face sm shadow"><i>?</i></span>
+      <span>${esc(CONTENT.characters[c.id].tease!)}</span>
+    </div>`,
+  )
+  const rumorBlock = rumors.length
+    ? `<div class="cast-rumors">
+        <div class="cast-rumors-h">RUMORS</div>
+        ${rumors.join('')}
+        ${unmet.length > rumors.length ? `<div class="cast-tease more">…the city keeps introducing people.</div>` : ''}
       </div>`
     : ''
   return `
-  <div class="inc-title">THE CAST · ${met.length} MET${unmet.length ? ` · ${unmet.length} OUT THERE` : ''}</div>
-  <div class="cast-list">${youRow}${rows}</div>${shadows}`
+  <div class="inc-title">THE CAST · IN ORDER OF APPEARANCE</div>
+  <div class="cast-list">${youRow}${rows}</div>${rumorBlock}`
 }
 
 /**

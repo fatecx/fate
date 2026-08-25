@@ -134,6 +134,10 @@ export interface CharacterDef {
   name: string
   role: string
   blurb: string
+  /** One-line rumor shown in the cast panel before this character is met —
+   *  foreshadowing with the name withheld. Optional; unmet characters
+   *  without one stay entirely in shadow. */
+  tease?: string
   /** Engine-inert; the consult mechanic reads it when that layer ships. */
   hiddenTrait: string
 }

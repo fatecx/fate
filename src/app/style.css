@@ -116,14 +116,18 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .cchip.ally, .cchip.warm { color: var(--good); }
 .cchip.hostile, .cchip.cold { color: var(--bad); }
-/* the unmet compress to one quiet line */
-.cast-unmet {
-  display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 12px;
-  border-top: 1px solid var(--line);
-  font-family: var(--mono); font-size: 10.5px; color: var(--dim); letter-spacing: 0.03em;
+/* the unmet arrive as rumors — foreshadowing, not bookkeeping */
+.cast-rumors { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.cast-rumors-h {
+  font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.22em;
+  color: var(--accent); margin-bottom: 9px;
 }
-.cast-shadows { display: inline-flex; flex: none; }
-.cast-shadows .cast-face + .cast-face { margin-left: -7px; }
+.cast-tease {
+  display: flex; align-items: baseline; gap: 9px; margin-bottom: 7px;
+  font-size: 11.5px; line-height: 1.5; color: var(--dim); font-style: italic;
+}
+.cast-tease .cast-face { align-self: center; }
+.cast-tease.more { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.04em; margin: 10px 0 0; }
 /* company button — bordered, with a shine sweep on hover */
 .chap {
   font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.06em;
