@@ -133,4 +133,27 @@ describe('content integrity', () => {
       ).toBeGreaterThan(40)
     }
   })
+
+  it('signatures point at real scenes and real choices', () => {
+    for (const id of COMPANY_ORDER) {
+      const ch = CONTENT.chapters[id]
+      for (const sig of ch.signatures ?? []) {
+        const scene = ch.scenes.find((s) => s.id === sig.scene)
+        expect(scene, `${id}: signature scene ${sig.scene} missing`).toBeDefined()
+        expect(scene!.choices.length, `${id}/${sig.scene}: signature choice #${sig.choice} out of range`).toBeGreaterThan(sig.choice)
+        expect(sig.text.trim().length, `${id}/${sig.scene}: signature text empty`).toBeGreaterThan(10)
+      }
+    }
+  })
+
+  it('achievements carry unique ids and real copy', () => {
+    for (const id of COMPANY_ORDER) {
+      const achs = CONTENT.chapters[id].achievements ?? []
+      expect(new Set(achs.map((a) => a.id)).size).toBe(achs.length)
+      for (const a of achs) {
+        expect(a.title.trim().length, `${id}/${a.id}: empty title`).toBeGreaterThan(2)
+        expect(a.desc.trim().length, `${id}/${a.id}: empty desc`).toBeGreaterThan(10)
+      }
+    }
+  })
 })

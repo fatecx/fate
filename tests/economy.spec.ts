@@ -151,6 +151,19 @@ describe('monte carlo biography sweep', () => {
     expect(hits.length, 'no witness seed completes the hardest path').toBeGreaterThan(0)
   })
 
+  it('the bell has one golden door: no grounding, no IPO — even on an otherwise perfect road', () => {
+    // Same elite road, but the accident is settled quietly instead of grounding
+    // the fleet. The transparent gate at the pricing call must hold shut.
+    const NO_GROUND = IPO_ROAD.map((re) =>
+      re.source.includes('Ground the fleet') ? /Settle quietly/ : re,
+    )
+    for (const seed of [3, 11, 29]) {
+      const r = playBiography(CONTENT, seed, witness(NO_GROUND))
+      const h = r.chapters.find((c) => c.id === 'hyperchute')
+      expect(h?.endingId, `seed ${seed} rang the bell without grounding the fleet`).not.toBe('triumph_ipo')
+    }
+  })
+
   it('the panic counter works and panic happens somewhere', () => {
     expect(all.every((r) => Number.isInteger(r.panics) && r.panics >= 0)).toBe(true)
     expect(all.reduce((s, r) => s + r.panics, 0)).toBeGreaterThan(0)

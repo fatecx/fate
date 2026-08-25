@@ -42,7 +42,7 @@ interface BeatRec {
   weeks?: number
   score?: number
   cred?: number
-  cash?: string
+  cash?: number
 }
 
 interface Save {
@@ -334,6 +334,7 @@ function railHtml(): string {
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>
     <div class="weektag">${clockLabel()}</div>
+    ${castClusterHtml()}
     <div class="rail-meters">
       ${runwayBlock}
       <div class="stressbox">
@@ -461,7 +462,7 @@ function transcriptHtml(): string {
       switch (b.kind) {
         case 'chapter': {
           // Enriched memoir cards carry the record; older saves fall back to one line.
-          const chNo = ['ONE', 'TWO', 'THREE', 'FOUR'][CHAPTERS.indexOf(b.company as (typeof CHAPTERS)[number])] ?? ''
+          const chNo = ['ONE', 'TWO', 'THREE', 'FOUR'][(CHAPTERS as readonly string[]).indexOf(b.company ?? '')] ?? ''
           const outcome = b.kindLabel
             ? `<div class="memoir-outcome">${esc(b.kindLabel)} — “${esc(b.endingTitle ?? '')}”</div>`
             : `<div class="memoir-line">${esc(b.endingTitle ?? '')} · walked away with ${esc(b.stake ?? '')}%</div>`
@@ -950,14 +951,17 @@ app.addEventListener('click', (e) => {
   if (target.closest('#coToggle')) {
     const panel = document.getElementById('coPanel')
     if (panel) {
-      if (panel.hidden) {
+      const showing = !panel.hidden && !panel.classList.contains('cast-mode')
+      if (!showing) {
         panel.classList.remove('cast-mode')
         panel.innerHTML = incPanelHtml() + accountHtml()
         // Anchor just below the rail, whatever height it wrapped to.
         const rail = document.querySelector('.rail') as HTMLElement | null
         if (rail) panel.style.top = `${rail.offsetHeight + 10}px`
+        panel.hidden = false
+      } else {
+        panel.hidden = true
       }
-      panel.hidden = !panel.hidden
     }
     return
   }
@@ -1121,17 +1125,18 @@ function chapterClose(): ChapterClose {
 /** One write per chapter close: the founders-ledger row and this life's
  *  decided scenes, for community stats. Server counts; engine decided. */
 let pushedClose = ''
+let pushedClosePromise: Promise<void> = Promise.resolve()
 function pushChapterClose(): Promise<void> {
   const c = chapterClose()
   const key = `${c.company}:${c.endingId}:${st.epoch}`
-  if (pushedClose === key) return Promise.resolve()
+  if (pushedClose === key) return pushedClosePromise
   pushedClose = key
   const chapter = CONTENT.chapters[c.company as keyof typeof CONTENT.chapters]
   const sceneIds = new Set(chapter.scenes.map((s) => s.id))
   const decided = new Map<string, number>()
   for (const h of st.history) if (sceneIds.has(h.scene)) decided.set(h.scene, h.choice)
   const rows = [...decided.entries()].map(([scene, choice]) => ({ company: c.company, scene, choice }))
-  return Promise.all([
+  pushedClosePromise = Promise.all([
     pushDecisions(rows),
     pushFounder({
       score: st.ledger.founderScore,
@@ -1140,6 +1145,7 @@ function pushChapterClose(): Promise<void> {
       endings: st.ledger.completed.map((x) => `${x.company}:${x.endingId}`),
     }),
   ]).then(() => undefined)
+  return pushedClosePromise
 }
 
 /** Move the biography into the next chapter (or the finale) — the old #next flow. */
