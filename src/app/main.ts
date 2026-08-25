@@ -248,9 +248,10 @@ function castPanelHtml(): string {
       </div>`
     })
     .join('')
-  // The unmet appear in the flesh but veiled — their print blurred dark,
-  // their name smudged out, only the role legible. Coming attractions.
+  // The unmet appear in the flesh but veiled — only the next few, fading out.
+  // New faces land on top; the tail dissolves before it can count the cast.
   const shadowRows = unmet
+    .slice(0, 3)
     .map((c) => {
       const ch = CONTENT.characters[c.id]
       return `<div class="cast-row unmet">
@@ -264,7 +265,8 @@ function castPanelHtml(): string {
     .join('')
   return `
   <div class="inc-title">THE CAST · IN ORDER OF APPEARANCE</div>
-  <div class="cast-list">${youRow}${rows}${shadowRows}</div>`
+  <div class="cast-list">${youRow}${rows}</div>
+  ${shadowRows ? `<div class="cast-soon">${shadowRows}</div>` : ''}`
 }
 
 /**

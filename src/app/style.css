@@ -126,6 +126,15 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cchip.hostile, .cchip.cold { color: var(--bad); }
 /* the unmet appear veiled: print blurred dark, name smudged, role legible */
 .cast-row.unmet { opacity: 0.8; }
+/* only the next few show, dissolving downward — the tail never counts the cast */
+.cast-soon { display: flex; flex-direction: column; gap: 13px; margin-top: 13px; }
+.cast-soon .cast-row.unmet:nth-child(1) { opacity: 0.75; }
+.cast-soon .cast-row.unmet:nth-child(2) { opacity: 0.45; }
+.cast-soon .cast-row.unmet:nth-child(3) { opacity: 0.22; }
+.cast-soon {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 98%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 98%);
+}
 .cast-face.veiled { background: var(--line); }
 .cast-face.veiled img {
   filter: blur(5px) grayscale(0.85) brightness(0.55) contrast(0.9);
