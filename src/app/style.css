@@ -157,6 +157,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .np-name { font-family: var(--display); font-weight: 600; letter-spacing: 0.1em; font-size: 15px; }
 .np-role { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 2px; }
 .sigil { font-family: var(--display); font-weight: 800; font-size: 84px; opacity: 0.92; }
+/* While a print is present (loading or loaded) the sigil stays out of sight;
+   a failed img removes itself and the sigil returns. Never an icon flash. */
+.portrait:has(.portrait-img) .sigil { visibility: hidden; }
 
 /* ---- story column ---- */
 .story { overflow-y: auto; padding: 30px clamp(20px, 6vw, 90px) 60px; scroll-behavior: smooth; }

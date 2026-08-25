@@ -521,15 +521,29 @@ function makeParas(el: HTMLElement, text: string): HTMLElement[] {
   return lines
 }
 
-/** Replace the left card for the scene being mounted — the face matches the voice. */
+/** Replace the left card for the scene being mounted — the face matches the voice.
+ *  Decode-before-swap: the old print holds until the new one can paint, so an
+ *  empty frame never shows. Superseded swaps are dropped. */
+let cardSwapN = 0
 function refreshCard(): void {
-  const aside = document.querySelector('.scene-card')
-  if (!aside) return
-  const tpl = document.createElement('template')
-  tpl.innerHTML = cardHtml()
-  aside.replaceWith(tpl.content)
-  const canvas = document.querySelector('.card-canvas') as HTMLCanvasElement | null
-  if (canvas) startAmbient(canvas)
+  if (!document.querySelector('.scene-card')) return
+  const holder = document.createElement('div')
+  holder.innerHTML = cardHtml()
+  const next = holder.querySelector('.scene-card') as HTMLElement
+  const img = next?.querySelector('.portrait-img') as HTMLImageElement | null
+  const n = ++cardSwapN
+  const swap = (): void => {
+    if (n !== cardSwapN) return // a newer scene already claimed the card
+    const cur = document.querySelector('.scene-card')
+    if (!cur || !next) return
+    cur.replaceWith(next)
+    const canvas = next.querySelector('.card-canvas') as HTMLCanvasElement | null
+    if (canvas) startAmbient(canvas)
+  }
+  // decode() resolves in a microtask when the bitmap is already warm; on
+  // failure we swap anyway and the img's onerror reveals the sigil.
+  if (img?.decode) img.decode().then(swap, swap)
+  else swap()
 }
 
 /** Append the next scene skeleton and fade it in line by line.
@@ -1225,10 +1239,20 @@ function choose(index: number): void {
 
 // ---- boot --------------------------------------------------------------------
 
-/** Warm every known print into the browser cache so panels land instantly.
+/** Every known print, decoded once and held — retained references keep the
+ *  bitmaps warm in the browser's image cache so cards paint instantly.
  *  Fire-and-forget; play never waits on art (law 5). */
+const ART_CACHE = new Map<string, HTMLImageElement>()
+
 function warmArt(): void {
   const ids = new Set<string>()
+  // Current scene first — it's the one about to paint.
+  const cur = st?.company?.queue?.[0]
+  if (cur) {
+    const s = getScene(CONTENT, st.company.id, cur)
+    const a = s.art ?? s.speaker
+    if (a) ids.add(a)
+  }
   for (const id of Object.keys(CONTENT.characters)) ids.add(id)
   for (const ch of Object.values(CONTENT.chapters)) {
     for (const p of ch.prologue ?? []) if (p.art) ids.add(p.art)
@@ -1239,8 +1263,11 @@ function warmArt(): void {
     }
   }
   for (const id of ids) {
+    if (ART_CACHE.has(id)) continue
     const img = new Image()
     img.src = `/art/${id}.webp`
+    img.decode?.().catch(() => {}) // missing art is fine — sigil covers it
+    ART_CACHE.set(id, img)
   }
 }
 
