@@ -598,17 +598,29 @@ function showScreens(beats: { kicker?: string; title: string; prose: string; art
   document.querySelector('.takeover')?.remove()
   const b = beats[idx]
   const last = idx === beats.length - 1
-  // Alternate the drift direction so consecutive panels breathe differently.
-  const cine = b.art
-    ? `<div class="tk-cine ${idx % 2 ? 'drift-b' : 'drift-a'}"><img src="/art/${b.art}.webp" alt="" onerror="this.parentElement.remove()"></div>`
-    : ''
-  takeover(`
-    <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
-    ${cine}
-    <h1 class="tk-title">${esc(b.title)}</h1>
-    <p class="tk-body">${esc(b.prose)}</p>
-    <button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>
-  `)
+  const btn = `<button class="cta" id="scrGo">${last ? 'Begin →' : 'Continue →'} <kbd class="kbd">space</kbd></button>`
+  if (b.art) {
+    // Full-bleed cinematic: the panel IS the screen; copy rides a scrim at the foot.
+    takeover(
+      `
+      <img class="cine-bg ${idx % 2 ? 'drift-b' : 'drift-a'}" src="/art/${b.art}.webp" alt="" onerror="this.remove()">
+      <div class="cine-scrim"></div>
+      <div class="cine-copy">
+        <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
+        <h1 class="tk-title">${esc(b.title)}</h1>
+        <p class="tk-body">${esc(b.prose)}</p>
+        ${btn}
+      </div>`,
+      'cine',
+    )
+  } else {
+    takeover(`
+      <div class="tk-kicker">${esc(b.kicker ?? '')}</div>
+      <h1 class="tk-title">${esc(b.title)}</h1>
+      <p class="tk-body">${esc(b.prose)}</p>
+      ${btn}
+    `)
+  }
   document.getElementById('scrGo')?.addEventListener('click', () => showScreens(beats, idx + 1, onDone))
 }
 
@@ -702,9 +714,9 @@ window.addEventListener('keydown', (e) => {
   }
 })
 
-function takeover(inner: string): void {
+function takeover(inner: string, cls = ''): void {
   const el = document.createElement('div')
-  el.className = 'takeover'
+  el.className = `takeover${cls ? ` ${cls}` : ''}`
   el.innerHTML = `<div class="takeover-inner">${inner}</div>`
   app.appendChild(el)
 }
