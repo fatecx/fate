@@ -82,8 +82,16 @@ function loadBuffer(id: string): Promise<AudioBuffer | null> {
   return p
 }
 
+/** Establish-then-recede — the film mix, for rooms. On the cut the room plays
+ *  at presence (you hear WHERE you are once), then glides to a subliminal
+ *  floor for the rest of the scene: place stays felt, loops repeat below
+ *  attention, nothing becomes a metronome. */
+const AMB_FLOOR = 0.4
+const AMB_HOLD = 6
+const AMB_RECEDE = 5
+
 /** Start a looped lane and fade it in; returns null when the file is absent. */
-async function startLoop(def: SoundDef, fade: number): Promise<Lane | null> {
+async function startLoop(def: SoundDef, fade: number, recede = false): Promise<Lane | null> {
   const c = ensureCtx()
   if (!c || !master) return null
   const buf = await loadBuffer(def.id)
@@ -98,8 +106,17 @@ async function startLoop(def: SoundDef, fade: number): Promise<Lane | null> {
   gain.gain.value = 0
   src.connect(gain)
   gain.connect(master)
-  src.start(0, src.loopStart)
-  gain.gain.linearRampToValueAtTime(def.gain, c.currentTime + fade)
+  // Random entry point: even the establish window differs every visit,
+  // so the same bed never opens on the same phrase twice.
+  const span = Math.max(0, src.loopEnd - src.loopStart - 0.5)
+  src.start(0, src.loopStart + Math.random() * span)
+  const t0 = c.currentTime
+  const g = gain.gain
+  g.linearRampToValueAtTime(def.gain, t0 + fade)
+  if (recede) {
+    g.linearRampToValueAtTime(def.gain, t0 + fade + AMB_HOLD)
+    g.linearRampToValueAtTime(def.gain * AMB_FLOOR, t0 + fade + AMB_HOLD + AMB_RECEDE)
+  }
   return { src, gain, id: def.id }
 }
 
@@ -138,7 +155,7 @@ async function reconcile(): Promise<void> {
         : undefined
       stopLane(ambLane, AMB_FADE)
       ambLane = null
-      if (def) ambLane = await startLoop(def, AMB_FADE)
+      if (def) ambLane = await startLoop(def, AMB_FADE, true)
     }
     if (wantTension !== tensionOn) {
       tensionOn = wantTension
@@ -191,9 +208,9 @@ export function resetStage(): void {
   stung.clear()
 }
 
-/** The film cut, for the ear: every scene re-announces its room — a brief
- *  swell that settles. Change is what the ear notices; this manufactures it
- *  even when the fiction stays in the same place. */
+/** The film cut, for the ear: a new scene re-establishes its room at
+ *  presence, then recedes to the floor again — identity once per scene,
+ *  wallpaper never. */
 export function roomPulse(): void {
   if (!ctx || !ambLane) return
   const g = ambLane.gain.gain
@@ -201,8 +218,9 @@ export function roomPulse(): void {
   const at = ctx.currentTime
   g.cancelScheduledValues(at)
   g.setValueAtTime(g.value, at)
-  g.linearRampToValueAtTime(Math.min(1, base * 1.18), at + 0.4)
-  g.linearRampToValueAtTime(base, at + 1.8)
+  g.linearRampToValueAtTime(base, at + 0.7)
+  g.linearRampToValueAtTime(base, at + 0.7 + AMB_HOLD)
+  g.linearRampToValueAtTime(base * AMB_FLOOR, at + 0.7 + AMB_HOLD + AMB_RECEDE)
 }
 
 const stung = new Set<string>()
