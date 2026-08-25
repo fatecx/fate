@@ -7,6 +7,7 @@ import type { SceneDef } from '../schema'
 export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_seedling',
+    ambience: 'garage',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
     speaker: 'marisol',
@@ -59,6 +60,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_entry',
+    ambience: 'garage',
     landmark: true,
     art: 'world_garage',
     leadIn:
@@ -92,6 +94,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_priya_pitch',
+    ambience: 'garage',
     title: 'TWO PERCENT',
     speaker: 'priya',
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
@@ -139,6 +142,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_container',
+    ambience: 'street',
     art: 'world_container_office',
     kind: 'bridge',
     title: 'THE SHIPPING CONTAINER',
@@ -151,6 +155,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_tomas_terms',
+    ambience: 'office',
     title: 'TWO WAYS TO PAY ME',
     speaker: 'tomas',
     leadIn: 'He pours two coffees without asking, sits, and gets straight to the only question that matters.',
@@ -196,6 +201,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_permit_wall',
+    ambience: 'garage',
     title: 'NO PROVEN DESCENT SAFETY CASE',
     speaker: 'corr',
     priority: true,
@@ -266,6 +272,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_hearing',
+    ambience: 'hearing',
     title: 'THE DESCENT-SAFETY HEARING',
     art: 'world_hearing_4b',
     priority: true,
@@ -299,6 +306,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_via_tomas',
+    ambience: 'garage',
     art: 'june_garage',
     title: 'THE ANGEL',
     priority: true,
@@ -323,6 +331,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_cold',
+    ambience: 'garage',
     art: 'june_street',
     title: 'SOMEONE IS WATCHING YOUR DEMO',
     priority: true,
@@ -348,6 +357,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_june_term',
+    ambience: 'garage',
     landmark: true,
     title: 'ONE FIFTY FOR EIGHT',
     speaker: 'june',
@@ -397,6 +407,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_first_drops_clean',
+    ambience: 'street',
     landmark: true,
     art: 'world_first_drop',
     title: 'BEAM DOWN',
@@ -443,6 +454,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_first_drops_rogue',
+    ambience: 'street',
     landmark: true,
     art: 'world_first_drop',
     title: 'TWELVE ROOFS, NO PERMISSION',
@@ -489,6 +501,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_sofia_hire',
+    ambience: 'garage',
     title: 'READ YOUR CAP TABLE — IT’S CUTE',
     speaker: 'sofia',
     priority: true,
@@ -549,6 +562,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_marcus_card',
+    ambience: 'street',
     title: 'A BLACK CAR BELOW THE LAUNDROMAT',
     speaker: 'marcus',
     priority: true,
@@ -599,6 +613,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_nadia_call',
+    ambience: 'garage',
     title: 'THE JOURNALIST',
     speaker: 'nadia',
     leadIn:
@@ -652,6 +667,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_act1_close',
+    ambience: 'garage',
     art: 'world_waitlist',
     landmark: true,
     title: 'ELEVEN WEEKS IN',
@@ -686,6 +702,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   // didn't file at entry gets pulled back to it here. A railway needs sky.
   {
     id: 'h_file_pilot',
+    ambience: 'garage',
     art: 'world_permit_office',
     title: 'A RAILWAY NEEDS SKY',
     priority: true,
@@ -720,6 +737,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   // makes the next scene inevitable. Single exit, no stats, pure story.
   {
     id: 'h_b_filing',
+    ambience: 'garage',
     art: 'world_filing_night',
     kind: 'bridge',
     title: 'WHAT THE CITY HEARS',
@@ -729,6 +747,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_advisor_hunt',
+    ambience: 'cafe',
     art: 'world_coldmail',
     kind: 'bridge',
     title: 'CREDIBILITY SHOPPING',
@@ -738,6 +757,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_paper_first',
+    ambience: 'office',
     art: 'world_postmortems',
     kind: 'bridge',
     title: 'HOW COMPANIES ACTUALLY DIE',
@@ -747,6 +767,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_signed',
+    ambience: 'garage',
     art: 'priya_signed',
     kind: 'bridge',
     title: 'THINGS THAT WILL KILL YOU FIRST',
@@ -757,6 +778,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_waitlist',
+    ambience: 'garage',
     art: 'world_kill_list',
     kind: 'bridge',
     title: 'THE LIST SHE LEFT ANYWAY',
@@ -766,6 +788,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_priya_alone',
+    ambience: 'night',
     art: 'world_alone_night',
     kind: 'bridge',
     title: 'ONE HUNDRED PERCENT OF EVERYTHING',
@@ -775,6 +798,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_papered',
+    ambience: 'office',
     art: 'world_signing',
     kind: 'bridge',
     title: 'REAL ON PAPER',
@@ -784,6 +808,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_rolodex',
+    ambience: 'office',
     art: 'tomas_rolodex',
     kind: 'bridge',
     title: 'THE ROLODEX WAKES UP',
@@ -794,6 +819,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_diy',
+    ambience: 'night',
     art: 'world_diy_legal',
     kind: 'bridge',
     title: 'PROBABLY FINE',
@@ -803,6 +829,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_appeal_prep',
+    ambience: 'night',
     art: 'world_appeal_doc',
     kind: 'bridge',
     title: 'FORTY PAGES OF HOPE',
@@ -812,6 +839,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_rogue_nights',
+    ambience: 'night',
     art: 'world_dawn_flights',
     kind: 'bridge',
     title: 'DAWN SHIFTS',
@@ -821,6 +849,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_corridor_granted',
+    ambience: 'street',
     art: 'world_corridor_map',
     kind: 'bridge',
     title: 'A LINE ON A MAP',
@@ -830,6 +859,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_first_corridor',
+    ambience: 'hearing',
     art: 'world_certificate',
     kind: 'bridge',
     title: 'STAMPED',
@@ -839,6 +869,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_wired',
+    ambience: 'garage',
     art: 'world_wire',
     kind: 'bridge',
     title: 'WHAT MONEY SOUNDS LIKE',
@@ -848,6 +879,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_bootstrap',
+    ambience: 'night',
     art: 'world_ramen_math',
     kind: 'bridge',
     title: 'RAMEN MATH',
@@ -857,6 +889,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_scale_strain',
+    ambience: 'garage',
     art: 'world_jitter',
     kind: 'bridge',
     title: 'THE JITTER',
@@ -866,6 +899,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_grey_strain',
+    ambience: 'garage',
     art: 'world_grey_margin',
     kind: 'bridge',
     title: 'THE MARGIN FOR ERROR IS A ROOF',
@@ -875,6 +909,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_sofia_settled',
+    ambience: 'garage',
     art: 'world_sofia_landing',
     kind: 'bridge',
     title: 'FALL BETTER',
@@ -884,6 +919,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_vale',
+    ambience: 'street',
     art: 'world_vale_card',
     kind: 'bridge',
     title: 'BEING SEEN',
@@ -893,6 +929,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_nadia',
+    ambience: 'garage',
     art: 'nadia_notebook',
     kind: 'bridge',
     title: 'FILED AWAY',

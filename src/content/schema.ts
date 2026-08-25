@@ -46,6 +46,12 @@ export interface SceneDef {
    * (by test) on every dealt scene so arrivals never feel like teleports.
    */
   leadIn?: string
+  /**
+   * Diegetic room tone id (src/content/sound.ts AMBIENCE). The unit is the
+   * place, not the scene — rooms recur the way portraits do. Required (by
+   * test) on every non-cutscene Hyperchute scene; cutscenes ride the film bed.
+   */
+  ambience?: string
   /** Authored prose. The LLM render layer decorates later; the game runs on these strings. */
   prose: string
   speaker?: string // character id

@@ -29,6 +29,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_price_war',
+    ambience: 'street',
     art: 'world_price_war',
     title: 'THE PRICE OF PRICE',
     priority: true,
@@ -73,6 +74,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_couriers',
+    ambience: 'street',
     title: 'THE COLLECTIVE',
     speaker: 'corr',
     weight: 3,
@@ -124,6 +126,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_strike',
+    ambience: 'crowd',
     art: 'world_strike',
     title: 'THE PORCHES GO QUIET',
     priority: true,
@@ -177,6 +180,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_permit_war',
+    ambience: 'garage',
     art: 'world_audit',
     title: 'THE AUDIT',
     priority: true,
@@ -230,6 +234,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_fresno',
+    ambience: 'warehouse',
     art: 'world_fresno',
     title: 'FRESNO IS BEHIND',
     weight: 2,
@@ -281,6 +286,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_poach_sofia',
+    ambience: 'garage',
     title: 'THE OFFICE SHE DIDN’T ASK FOR',
     speaker: 'sofia',
     priority: true,
@@ -333,6 +339,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_viral',
+    ambience: 'garage',
     art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
     weight: 3,
@@ -373,6 +380,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_series_a',
+    ambience: 'office',
     landmark: true,
     title: 'TWO MILLION, TWENTY POINTS',
     art: 'world_series_a',
@@ -433,6 +441,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_board',
+    ambience: 'office',
     art: 'world_gavel',
     title: 'WHO HOLDS THE GAVEL',
     priority: true,
@@ -473,6 +482,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_bridge_pre_act3',
+    ambience: 'night',
     art: 'cut_eighteen_months',
     kind: 'cutscene',
     priority: true,
@@ -495,6 +505,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   // ---- aftermath bridges — the week after each act-two decision ---------------
   {
     id: 'h_b_after_pricewar',
+    ambience: 'street',
     art: 'world_trenches',
     kind: 'bridge',
     title: 'TRENCHES',
@@ -504,6 +515,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_couriers',
+    ambience: 'street',
     art: 'world_courier_bench',
     kind: 'bridge',
     title: 'THE LAST MILE HAS A FACE',
@@ -513,6 +525,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_strike',
+    ambience: 'street',
     art: 'world_flyer_sleeve',
     kind: 'bridge',
     title: 'AFTER THE PICKETS',
@@ -522,6 +535,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_audit',
+    ambience: 'office',
     art: 'world_paper_weather',
     kind: 'bridge',
     title: 'PAPER WEATHER',
@@ -531,6 +545,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_fresno',
+    ambience: 'warehouse',
     art: 'world_build_dates',
     kind: 'bridge',
     title: 'SUPPLY LINES',
@@ -540,6 +555,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_poach',
+    ambience: 'garage',
     art: 'world_poach_letter',
     kind: 'bridge',
     title: 'WHAT THE LETTER MEANT',
@@ -549,6 +565,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_viral',
+    ambience: 'garage',
     art: 'world_legend_clip',
     kind: 'bridge',
     title: 'AFTER THE FOUR MINUTES',
@@ -558,6 +575,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_a',
+    ambience: 'office',
     art: 'world_board_invite',
     kind: 'bridge',
     title: 'GOVERNANCE ARRIVES',
@@ -567,6 +585,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 'h_b_after_indep',
+    ambience: 'night',
     art: 'world_runway_taped',
     kind: 'bridge',
     title: 'THE WHOLE THING',

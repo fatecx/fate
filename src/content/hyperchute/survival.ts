@@ -8,6 +8,7 @@ import type { SceneDef } from '../schema'
 export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_sublet',
+    ambience: 'garage',
     art: 'world_sublet',
     title: 'HALF A GARAGE',
     when: {
@@ -44,6 +45,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_fare',
+    ambience: 'street',
     art: 'world_fare',
     title: 'THE FARE',
     when: {
@@ -94,6 +96,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_last_fifteen',
+    ambience: 'garage',
     art: 'world_fifteen',
     title: 'FIFTEEN DOLLARS',
     landmark: true,
@@ -127,6 +130,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_plastic',
+    ambience: 'night',
     art: 'world_plastic',
     title: 'THE PLASTIC',
     when: {
@@ -168,6 +172,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   // ---- the ghost check — signed at a coffee shop, dead by a job change --------
   {
     id: 'h_b_coffee_shop',
+    ambience: 'cafe',
     art: 'world_coffee_shop',
     kind: 'bridge',
     title: 'THE COFFEE SHOP',
@@ -187,6 +192,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_ghost_check',
+    ambience: 'cafe',
     title: 'SIGNED OVER COFFEE',
     speaker: 'vance',
     leadIn: 'He stands to shake your hand before you reach the table, and half the shop pretends not to watch.',
@@ -220,6 +226,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_ghost_dies_spent',
+    ambience: 'night',
     art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',
     priority: true,
@@ -262,6 +269,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 'h_ghost_dies_clean',
+    ambience: 'night',
     art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',
     priority: true,

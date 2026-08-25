@@ -14,6 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
+import { setStage, stinger, soundEnabled, setSoundEnabled, igniteOnFirstGesture } from './audio'
 import { makeFmt } from '../../scripts/map/format'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
@@ -439,6 +440,7 @@ function accountHtml(): string {
   <div class="inc-account">
     <div class="inc-grid">
       <span>Founder ID</span>${who}
+      <span>Sound</span><b><button class="paction inline" id="actSound">${soundEnabled() ? 'ON' : 'OFF'}</button></b>
     </div>
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
@@ -719,6 +721,38 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
 
 let renderedChapter = -1
 
+// ---- the sound stage: music by era, tension by meters, rooms by scene --------
+
+/** Which mood bed plays. BIG events only — acts, the endgame. Pure read. */
+function moodOf(): 'build' | 'war' | 'aftermath' | 'endgame' {
+  const f = st.company.flags
+  if (f['endgame']) return 'endgame'
+  if (f['act3_open']) return 'aftermath'
+  if (f['act1_done']) return 'war'
+  return 'build'
+}
+
+/** The danger stem: ticking fades in when the meters go red. Pure read. */
+function tensionNow(): boolean {
+  return st.company.treasury < 0 || runwayWeeks(st.company) < 10 || st.company.stress >= 70
+}
+
+/** Reconcile the decks with the moment. Film mode overrides the room. */
+function applyStage(film = false): void {
+  if (!st) return
+  if (film || st.phase !== 'playing') {
+    setStage({ mood: 'film', ambience: null, tension: false })
+    return
+  }
+  const sceneId = st.company.queue[0]
+  const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
+  if (scene?.kind === 'cutscene') {
+    setStage({ mood: 'film', ambience: null, tension: false })
+    return
+  }
+  setStage({ mood: moodOf(), ambience: scene?.ambience ?? null, tension: tensionNow() })
+}
+
 function renderPlaying(): void {
   const sceneId = st.company.queue[0]
   app.innerHTML = `
@@ -738,7 +772,9 @@ function renderPlaying(): void {
   renderedChapter = st.chapter
 
   const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
+  applyStage()
   if (scene?.kind === 'cutscene') {
+    stinger('cut', `cut:${scene.id}`)
     // World-scale moments take the screen; no choices, no headings — just the
     // weight. Consecutive cutscenes chain into one film: no Continue stops
     // between them, one door at the very end.
@@ -824,6 +860,7 @@ function showScreens(
     onDone?.()
     return
   }
+  setStage({ mood: 'film', ambience: null, tension: false }) // films own the air
   const cardMarkup = dateline
     ? `<div class="cine-card">${dateline
         .split('\n')
@@ -973,6 +1010,13 @@ app.addEventListener('click', (e) => {
         panel.hidden = true
       }
     }
+    return
+  }
+  if (target.closest('#actSound')) {
+    const next = !soundEnabled()
+    setSoundEnabled(next)
+    const b = document.getElementById('actSound')
+    if (b) b.textContent = next ? 'ON' : 'OFF'
     return
   }
   if (target.closest('#actLogout')) {
@@ -1306,6 +1350,7 @@ let filmPlayedFor = ''
 function showEpilogue(): void {
   const c = chapterClose()
   void pushChapterClose()
+  applyStage(true) // the chapter is closing: film mode, the room goes quiet
   // World-scale exits earn a film before the card — the IPO takes the screen.
   const filmKey = `${c.company}:${c.endingId}`
   if (c.ending.screens?.length && filmPlayedFor !== filmKey) {
@@ -1317,6 +1362,7 @@ function showEpilogue(): void {
     )
     return
   }
+  stinger(c.ending.kind === 'triumph' ? 'bell' : 'close', `end:${filmKey}`)
   takeover(`
     <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(c.company))}</div>
     ${c.ending.art ? `<img class="tk-art" src="/art/${c.ending.art}.webp" alt="" onerror="this.remove()">` : ''}
@@ -1537,6 +1583,7 @@ function choose(index: number): void {
   st = reduce(CONTENT, st, { t: 'choose', index })
 
   refreshRail()
+  applyStage()
 
   // record the beat for persistence
   transcript.push({
@@ -1644,6 +1691,7 @@ function warmArt(): void {
 async function boot(): Promise<void> {
   initWalletDiscovery()
   warmArt()
+  igniteOnFirstGesture()
   try {
     localStorage.removeItem(LEGACY_SAVE_KEY) // pre-auth saves: refresh restarts by design
     localStorage.removeItem('fate-theme') // the look is authored now; old prefs are void

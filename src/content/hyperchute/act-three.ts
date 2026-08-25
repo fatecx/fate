@@ -13,6 +13,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_accident',
+    ambience: 'accident',
     landmark: true,
     art: 'world_richmond',
     title: 'THE FIRST FORTY-EIGHT HOURS',
@@ -56,6 +57,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_press_storm',
+    ambience: 'cafe',
     title: 'SHE HAS THE REPORT',
     speaker: 'nadia',
     priority: true,
@@ -97,6 +99,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_sofia_verdict',
+    ambience: 'garage',
     title: 'VERSION NINE',
     speaker: 'sofia',
     priority: true,
@@ -138,6 +141,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_suspension',
+    ambience: 'hearing',
     art: 'world_suspension',
     landmark: true,
     title: 'EMERGENCY SUSPENSION HEARING',
@@ -182,6 +186,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_offer',
+    ambience: 'garage',
     landmark: true,
     title: 'THE OFFER, MID-STORM',
     speaker: 'marcus',
@@ -230,6 +235,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_war_room',
+    ambience: 'night',
     landmark: true,
     art: 'world_war_room',
     title: 'THE WAR ROOM',
@@ -281,6 +287,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_ipo_road',
+    ambience: 'roadshow',
     art: 'world_roadshow',
     landmark: true,
     title: 'THE ROAD SHOW',
@@ -326,6 +333,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 'h_last_stand',
+    ambience: 'night',
     art: 'world_last_stand',
     landmark: true,
     title: 'THE LAST QUARTER',
