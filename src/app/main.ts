@@ -1423,6 +1423,8 @@ function wireLogout(): void {
 /** Welcome screen — every page load starts here. */
 function renderWelcome(saved: Save | null): void {
   app.innerHTML = ''
+  // The title screen hums the film bed once the first gesture unlocks audio.
+  setStage({ mood: 'film', ambience: null, tension: false })
   if (saved) {
     takeover(`
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>

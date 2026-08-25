@@ -90,43 +90,44 @@ export const AMBIENCE: Record<string, SoundDef> = {
 /**
  * Non-diegetic mood beds. Music moves on BIG events only — the act you are in,
  * the endgame, the film — never per scene. Meters move the tension stem, not
- * the song.
+ * the song. Prompts ask for MUSIC (slow chords, movement, character) — pure
+ * drones read as HVAC next to the room tones.
  */
 export const MOODS: Record<string, SoundDef> = {
   build: {
     id: 'mus_build',
-    gain: 0.32,
-    seconds: 26,
+    gain: 0.36,
+    seconds: 30,
     prompt:
-      'Warm ambient electronic drone bed: soft analog synth pads in a major key, very slow gentle pulse, faint tape hiss, hopeful and patient, like building something at night. Minimal, hypnotic, seamless loop, no percussion hits, no melody, no vocals.',
+      'Warm ambient instrumental music: soft analog synthesizer chords slowly shifting through a gentle hopeful progression, a faint music-box arpeggio drifting in and out, tape warmth, late-night optimism of building something in a garage. Slow, patient, seamless loop, no drums, no vocals.',
   },
   war: {
     id: 'mus_war',
-    gain: 0.32,
-    seconds: 26,
+    gain: 0.36,
+    seconds: 30,
     prompt:
-      'Tense dark ambient bed: low minor-key synth drone, slow filtered pulse underneath, distant metallic shimmer, pressure and forward motion, like a long campaign. Restrained, brooding, seamless loop, no drums, no melody, no vocals.',
+      'Tense ambient instrumental music: dark minor-key synthesizer chords moving slowly, a low pulsing bass note underneath, cold metallic shimmer accents, restrained forward pressure like a long campaign being fought. Brooding, determined, seamless loop, no drums, no vocals.',
   },
   aftermath: {
     id: 'mus_aftermath',
-    gain: 0.3,
-    seconds: 26,
+    gain: 0.34,
+    seconds: 30,
     prompt:
-      'Grave sparse ambient bed: cold sustained pad, air and space between sounds, a single soft piano note decaying rarely, grief and responsibility. Very quiet, very slow, seamless loop, no rhythm, no melody, no vocals.',
+      'Somber ambient instrumental music: melancholy felt-piano phrases over a cold sustained string pad, slow and mournful, grief and responsibility after an accident, clearly audible but gentle. Seamless loop, no drums, no vocals.',
   },
   endgame: {
     id: 'mus_endgame',
-    gain: 0.32,
-    seconds: 26,
+    gain: 0.36,
+    seconds: 30,
     prompt:
-      'Rising cinematic ambient bed: deep warm drone slowly swelling, subtle high shimmer gathering, weight and destiny, the last door at the end of a long road. Grand but restrained, seamless loop, no drums, no melody, no vocals.',
+      'Cinematic ambient instrumental music: deep warm pads slowly swelling and receding, a quiet noble horn-like synthesizer line rising gradually, gathering shimmer, destiny at the end of a long road. Grand but restrained, seamless loop, no drums, no vocals.',
   },
   film: {
     id: 'mus_film',
-    gain: 0.3,
-    seconds: 26,
+    gain: 0.34,
+    seconds: 30,
     prompt:
-      'Dark cinematic room tone for a film interlude: near-black ambient drone, sub bass presence, faint distant city resonance, held breath. Minimal and heavy, seamless loop, no rhythm, no melody, no vocals.',
+      'Dark cinematic ambient instrumental music: a deep evolving synthesizer pad with slow tonal movement, distant resonant piano note echoing rarely, held-breath suspense of a film interlude. Heavy, spacious, seamless loop, no drums, no vocals.',
   },
 }
 
