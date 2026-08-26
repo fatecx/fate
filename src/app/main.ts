@@ -515,14 +515,28 @@ function cardHtml(): string {
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
   const name = speaker?.name ?? 'THE WORLD'
+  const role = speaker?.role ?? ''
   const initial = name === 'THE WORLD' ? '∴' : name[0]
   const artId = scene.art ?? scene.speaker ?? null
+  // A name belongs on the card only when the card is that character's face —
+  // a scene print stays anonymous even if someone is speaking over it.
+  const onPortrait = !scene.art && !!scene.speaker
+  const fuse = fuseInfo()
+  const fuseLine =
+    fuse && fuse.total > 0
+      ? `<div class="np-fuse">ANSWER WITHIN ${fuse.remaining} WEEK${fuse.remaining === 1 ? '' : 'S'}</div>`
+      : ''
+  const cap =
+    onPortrait || fuseLine
+      ? `<div class="card-cap">${onPortrait ? `<div class="cap-title">${esc(name)}</div>${role ? `<div class="cap-sub">${esc(role)}</div>` : ''}` : ''}${fuseLine}</div>`
+      : ''
   return `
   <aside class="scene-card">
     <canvas class="card-canvas"></canvas>
     <div class="portrait"><span class="sigil">${initial}</span>${
       artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
     }</div>
+    ${cap}
   </aside>`
 }
 
@@ -891,7 +905,6 @@ function showScreens(
 
   let timer = 0
   let curArt = ''
-  let artN = 0
   let cur = 0
   let armed = false // clicks only count once the thought has fully landed
   const wait = (ms: number, fn: () => void): void => {
@@ -904,7 +917,6 @@ function showScreens(
     if (!src || src === curArt || !bg.isConnected) return
     const first = !curArt
     curArt = src
-    artN += 1
     bg.style.opacity = '0'
     window.setTimeout(
       () => {
@@ -913,9 +925,6 @@ function showScreens(
         // Hold the dark until the new print has decoded — never re-show the old frame.
         const reveal = (): void => {
           if (!bg.isConnected || bg.src !== new URL(src, location.href).href) return
-          bg.classList.remove('drift-a', 'drift-b')
-          void bg.offsetWidth
-          bg.classList.add(artN % 2 ? 'drift-a' : 'drift-b')
           bg.style.opacity = '1'
         }
         bg.decode().then(reveal, () => {
