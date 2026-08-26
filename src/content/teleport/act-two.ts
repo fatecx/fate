@@ -16,7 +16,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The pilot program at Shackleton Verge ran ninety days without an excuse. Commander Salazar’s review arrives as one line — “Bodies showed up. Humans don’t.” — followed by a contract offer with real numbers in it.',
     prose:
-      'The screen carries her from the pole, sixteen months into a twenty-month rotation, backlit by the permanent sideways light of Shackleton. “Here is my problem,” she says. “Every hour of trained-human EVA time costs me eleven thousand dollars and a risk report. Your bodies cost me neither. I want them on the maintenance rotation permanently — seals, radiators, dust mitigation, the boring immortal work. What I need to know is what happens when you sell this same capacity to tourists, because I have seen what companies do when the fun money shows up.” She leans in slightly. “Write me a contract that tells me who you are.”',
+      'The screen carries her from the pole, sixteen months into a twenty-month rotation, backlit by the permanent sideways light of Shackleton. “Here is my problem,” she says. “Every hour a trained human spends working outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me neither. I want them on the maintenance rotation permanently — seals, radiators, dust mitigation, the boring immortal work. What I need to know is what happens when you sell this same capacity to tourists, because I have seen what companies do when the fun money shows up.” She leans in slightly. “Write me a contract that tells me who you are.”',
     choices: [
       {
         label: 'Guarantee her hours first. Tourists get what’s left.',
@@ -638,7 +638,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The investigation takes nine days. The engineers walk you through it at a whiteboard with the door locked, voices level in the way of people holding something with both hands.',
     prose:
-      'The telemetry is unambiguous and the lawyers wish it weren’t. The handoff fault starved the session; the body’s local systems bridged the gap; the bridging motion is what the panel rode in on. Whether the blend was in the loop or a bare safe-state failed unsafe, the eleven seconds belong to your architecture — the machine acted, no human commanded, a man is dead. On the table: the full log, printed, tabbed, terrible. Salazar has requested it. Jonah’s sister has requested it. OSTRA will subpoena it eventually if you make it need to. The general counsel presents three folders and has the decency not to name them anything cute. Publish. Settle. Deflect.',
+      'The record is plain, and the lawyers wish it weren’t. The relay handoff dropped the connection for eleven seconds. In that gap, the body’s onboard software kept moving on its own — and that motion is what swung the panel. No human commanded it. Your machine acted alone, and a man is dead. On the table sits the full log, printed, tabbed, terrible. Salazar has asked for it. Jonah’s sister has asked for it. OSTRA can force it out of you later if you make that necessary. The general counsel presents three folders and has the decency not to name them anything cute. Publish. Settle. Deflect.',
     choices: [
       {
         label: 'Publish everything. Ground tourism ops yourself.',

@@ -47,7 +47,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           'The round that was supposed to arrive died on somebody’s dashboard. You call June so she hears it from you first — you have stopped expecting anything — and she does the June Park thing, the thing she has done across two companies now: “Then I’m in for my share anyway.” It costs real ownership and a price that stings. She wires it before the call ends, and neither of you ever, once, calls it charity.',
       },
       {
-        label: 'Sell to HALCYON: the team survives, the road ends',
+        label: 'Acqui-hire to HALCYON: the team survives, the road ends',
         effects: [{ e: 'end', ending: 'swallowed' }],
         result:
           'The monopoly takes the engineers, the patents, and the constellation, at the distressed price its model has been patiently forecasting since the week it met you. The road around the sky becomes a lane inside it.',

@@ -80,7 +80,6 @@ export const ACT_TWO: readonly SceneDef[] = [
     ambience: 'street',
     accent: 'crowd',
     title: 'THE COLLECTIVE',
-    speaker: 'corr',
     weight: 3,
     leadIn:
       'You know the couriers by first name now — Rosa, Dmitri, the twins who split a route. Lately their group chat has gone quiet when you walk past, which is how you know something formal is coming.',

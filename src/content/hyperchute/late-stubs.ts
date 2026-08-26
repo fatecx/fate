@@ -48,7 +48,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           'The round that was supposed to save you died this morning — the lead investor pulled out at the wire and the rest scattered. You call June so she hears it from you before the rumor reaches her. She listens to the whole thing and says, “Then I’m in for my share anyway.” It costs you: a sweetener on the price and a board seat for the woman who showed up when the term sheet didn’t. Worth it. You both know exactly what just happened, and neither of you ever calls it charity.',
       },
       {
-        label: 'Sell to MERIDIAN: the team survives, the dream ends',
+        label: 'Acqui-hire to MERIDIAN: the team survives, the dream ends',
         requires: { k: 'met', who: 'marcus' },
         effects: [{ e: 'end', ending: 'acquired' }],
         result:

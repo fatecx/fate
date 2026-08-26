@@ -166,7 +166,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_coup_vote',
     title: 'THE NIGHT BEFORE THE VOTE',
     leadIn:
-      'The vote is at nine tomorrow. Tonight the phone sits on the table like a loaded question: there are calls you can still make, and one you can’t — the number for the version of this board you should have built is not in service.',
+      'The vote is at nine tomorrow. Tonight the phone sits on the table like a loaded question. A few calls are still worth making. The one call that would fix everything — to some better board you might have built these past three years — connects to nothing, because that board only ever existed in your head.',
     prose:
       'You know the count cold because you ran it in the parking lot, twice. Hale votes for the motion — the model does not send memos it plans to lose. Your seat is yours. Everything else was decided months and years ago: the term sheet you signed, the seat you fought for or gave away, the cofounder you kept whole or broke, the numbers you shared or shaded. Tomorrow the room adds all of it up, out loud, in front of you. Tonight, the only question left is how you walk in.',
     choices: [
@@ -222,7 +222,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Nine a.m. The very good chairs. The motion is read aloud in the model’s own language, and Conrad Hale calls the question like a man performing a duty he privately hopes will fail.',
     prose:
-      'It comes down exactly the way arithmetic comes down — one voice at a time, around the table you spent three years setting. The allies you earned say what they came to say: a CFO in a funeral suit who came back inside for this; an independent with two bankruptcies’ worth of judgment; a cofounder who chooses, in the room, to remember the pact instead of the scars; a model whose weights, fed on your worst honest numbers, price your grief as variance — and your candor as signal. The motion needs the room. The room, built vote by vote across three years of choices that did not look like this vote at the time, declines. Hale accepts the count with a small nod, closes his folder, and says, “The fund updates on outcomes. So do I.” Afterward, in the corridor, he shakes your hand. “For the record,” he says, “I have never been so pleased to lose a client’s motion.”',
+      'It comes down exactly the way arithmetic comes down — one voice at a time, around the table you spent three years setting. The votes you earned show up. Not everyone in the room is your friend, and not every friend you ever made is in the room. But enough are. One by one, the people you kept faith with — and one system that only ever measured whether your numbers told the truth — say no to the motion. The room, built vote by vote across three years of choices that did not look like this vote at the time, declines. Hale accepts the count with a small nod, closes his folder, and says, “The fund updates on outcomes. So do I.” Afterward, in the corridor, he shakes your hand. “For the record,” he says, “I have never been so pleased to lose a client’s motion.”',
     choices: [
       {
         label: 'Back to work. The company needs its founder.',
