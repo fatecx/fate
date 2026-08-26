@@ -260,6 +260,8 @@ function weekFillerText(deltaWeeks: number): string {
 // ---- ambient canvas (cheap aliveness; respects reduced motion) -------------
 
 function startAmbient(canvas: HTMLCanvasElement): void {
+  if (canvas.dataset.live) return // this card was re-seated, not rebuilt — its loop still runs
+  canvas.dataset.live = '1'
   const ctx = canvas.getContext('2d')
   if (!ctx) return
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -680,6 +682,7 @@ function refreshCard(): void {
     const cur = document.querySelector('.scene-card')
     if (!cur || !next) return
     cur.replaceWith(next)
+    seatedCard = next
     const canvas = next.querySelector('.card-canvas') as HTMLCanvasElement | null
     if (canvas) startAmbient(canvas)
   }
@@ -776,6 +779,10 @@ function applyStage(film = false): void {
   })
 }
 
+// The seated card survives full shell rebuilds — the panel never sits blank
+// while the next print loads; it keeps the old one until the new one decodes.
+let seatedCard: HTMLElement | null = null
+
 function renderPlaying(): void {
   const sceneId = st.company.queue[0]
   app.innerHTML = `
@@ -787,6 +794,10 @@ function renderPlaying(): void {
         <section class="story" id="story">${transcriptHtml()}</section>
       </main>
     </div>`
+  if (seatedCard?.isConnected) {
+    // re-seat the old print over the fresh shell's unloaded one
+    app.querySelector('.scene-card')?.replaceWith(seatedCard)
+  }
   const story = document.getElementById('story')!
   const canvas = app.querySelector('.card-canvas') as HTMLCanvasElement
   if (canvas) startAmbient(canvas)
@@ -892,7 +903,7 @@ function showScreens(
     : ''
   takeover(
     `
-    <img class="cine-bg" alt="">
+    <img class="cine-bg" alt="" style="opacity: 0"><img class="cine-bg" alt="" style="opacity: 0">
     <div class="cine-veil"></div>
     ${cardMarkup}
     <p class="cine-sub"></p>
@@ -901,14 +912,16 @@ function showScreens(
     'cine',
   )
   const tk = document.querySelector('.takeover') as HTMLElement
-  const bg = tk.querySelector('.cine-bg') as HTMLImageElement
+  const bgs = [...tk.querySelectorAll('.cine-bg')] as [HTMLImageElement, HTMLImageElement]
   const sub = tk.querySelector('.cine-sub') as HTMLElement
   const cue = tk.querySelector('.cine-cue') as HTMLElement
   const end = tk.querySelector('.cine-end') as HTMLElement
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  bg.addEventListener('error', () => {
-    bg.style.opacity = '0' // art never blocks — the words play on ink
-  })
+  for (const layer of bgs) {
+    layer.addEventListener('error', () => {
+      layer.style.opacity = '0' // a failed print never paints — words carry it
+    })
+  }
 
   let timer = 0
   let curArt = ''
@@ -919,26 +932,33 @@ function showScreens(
       if (tk.isConnected) fn()
     }, ms)
   }
+  // Two stacked prints. The new one loads beneath the seated frame and only
+  // then does the seated frame lift — the screen never dips to ink between
+  // beats, and a slow decode just holds the old print longer.
+  let vis: HTMLImageElement = bgs[0]
+  let hid: HTMLImageElement = bgs[1]
   const setArt = (id?: string): void => {
     const src = id ? `/art/${id}.webp` : ''
-    if (!src || src === curArt || !bg.isConnected) return
-    const first = !curArt
+    if (!src || src === curArt || !vis.isConnected) return
     curArt = src
-    bg.style.opacity = '0'
-    window.setTimeout(
+    hid.src = src
+    hid.decode().then(
       () => {
-        if (!bg.isConnected) return
-        bg.src = src
-        // Hold the dark until the new print has decoded — never re-show the old frame.
-        const reveal = (): void => {
-          if (!bg.isConnected || bg.src !== new URL(src, location.href).href) return
-          bg.style.opacity = '1'
-        }
-        bg.decode().then(reveal, () => {
-          bg.style.opacity = '0' // failed print: stay on ink, words carry it
-        })
+        if (!hid.isConnected) return
+        hid.style.opacity = '1' // rises unseen beneath the seated print
+        const out = vis
+        window.setTimeout(
+          () => {
+            if (!out.isConnected) return
+            out.style.opacity = '0' // the seated print lifts away
+            ;[vis, hid] = [hid, vis]
+          },
+          reduced ? 0 : 460,
+        )
       },
-      first || reduced ? 0 : 420,
+      () => {
+        hid.style.opacity = '0' // failed print: keep the seated frame, words carry it
+      },
     )
   }
   const show = (i: number): void => {
