@@ -33,6 +33,7 @@ export const HERO_ART: readonly string[] = [
   'world_bell',
   'cut_ring_alive',
   'end_t_stars',
+  'end_s_ascent',
   'world_hangar_night',
 ]
 
@@ -78,7 +79,7 @@ export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER THREE',
     name: 'SKYLINE',
-    art: null, // world_s_* prints render next art batch; the sigil holds the panel
+    art: 'world_s_cable_complete',
     line: 'A cable from the ground to orbit. Nations, unions, and your own investors fight over who rides it first.',
   },
   {
