@@ -95,10 +95,11 @@ function loadBuffer(id: string): Promise<AudioBuffer | null> {
   return p
 }
 
-/** Rooms play ONCE per scene — one take at presence (~the read time), then a
- *  self-fade into silence over the final seconds. The era music carries the
- *  room after the take ends; loops can never become metronomes. */
-const AMB_TAIL = 3.2
+/** Rooms play ONCE per scene, briefly — an establishing breath: fade in, hold
+ *  a few seconds, gone. The music carries the room after. If this still reads
+ *  as busy, the next step is removal, not another knob. */
+const AMB_HOLD_ONCE = 6
+const AMB_GONE_BY = 13
 /** Accent lane level relative to its bed's own gain — seasoning, not a duet. */
 const ACCENT_MIX = 0.35
 
@@ -129,9 +130,9 @@ async function startLoop(def: SoundDef, fade: number, mode: 'loop' | 'once' = 'l
   } else {
     src.start(0)
     g.linearRampToValueAtTime(def.gain, t0 + fade)
-    const tailAt = t0 + Math.max(fade + 1, buf.duration - AMB_TAIL)
-    g.linearRampToValueAtTime(def.gain, tailAt)
-    g.linearRampToValueAtTime(0, t0 + buf.duration)
+    g.linearRampToValueAtTime(def.gain, t0 + fade + AMB_HOLD_ONCE)
+    g.linearRampToValueAtTime(0, t0 + Math.min(buf.duration, AMB_GONE_BY))
+    src.stop(t0 + Math.min(buf.duration, AMB_GONE_BY) + 0.3)
   }
   return { src, gain, id: def.id }
 }
