@@ -600,7 +600,7 @@ html:has(.landing), html:has(.landing) body { background: #000; }
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
 .ld-scene.on .ld-beat { opacity: 1; transform: none; }
-.ld-beat.ld-wide { max-width: 1100px; }
+.ld-beat.ld-wide { max-width: 1100px; width: 100%; }
 .ld-kicker {
   display: inline-block;
   font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.28em; text-indent: 0.28em;
@@ -612,7 +612,7 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 }
 .ld-title {
   font-family: var(--display); font-weight: 800;
-  font-size: clamp(68px, 18vw, 170px); letter-spacing: 0.12em;
+  font-size: clamp(68px, 18vw, 170px); letter-spacing: 0.12em; text-indent: 0.12em;
   margin: 16px 0 10px; line-height: 1;
   text-shadow: 0 2px 6px rgba(13, 14, 17, 0.8), 0 0 44px rgba(13, 14, 17, 0.6);
 }
@@ -626,13 +626,14 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 @keyframes ldPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
 .ld-head {
   font-family: var(--display); font-weight: 800;
-  font-size: clamp(30px, 5.5vw, 52px); letter-spacing: 0.05em; margin: 16px 0 4px;
+  font-size: clamp(30px, 5.5vw, 52px); letter-spacing: 0.05em; text-indent: 0.05em; margin: 16px 0 4px;
   text-wrap: balance;
   text-shadow: 0 2px 5px rgba(13, 14, 17, 0.8), 0 0 30px rgba(13, 14, 17, 0.55);
 }
 .ld-chapter {
   font-family: var(--display); font-weight: 800;
-  font-size: clamp(42px, 9vw, 92px); letter-spacing: 0.1em; margin: 16px 0 8px; line-height: 1.05;
+  font-size: clamp(30px, 6.2vw, 68px); letter-spacing: 0.1em; text-indent: 0.1em;
+  margin: 16px 0 8px; line-height: 1.05;
   text-shadow: 0 2px 6px rgba(13, 14, 17, 0.85), 0 0 40px rgba(13, 14, 17, 0.6);
 }
 /* Subtitle-grade prose — the cutscene treatment, verbatim: white over an
