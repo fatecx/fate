@@ -28,11 +28,14 @@ function saveKey(uid: string): string {
 
 interface BeatRec {
   kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter' | 'divider'
-  title?: string  speakerName?: string
+  title?: string
+  speakerName?: string
   prose?: string
   leadIn?: string
   filler?: string
   text?: string
+  /** 'you' beats: what the choice did, engine truth rendered as quiet pills. */
+  pills?: { t: string; bad?: boolean }[]
   company?: string
   endingTitle?: string
   span?: string
@@ -387,6 +390,58 @@ function founderPct(): string {
   return String(Math.round(f?.pct ?? 100))
 }
 
+/** First-name tag for relationship pills — honorifics stripped. */
+function pillName(who: string): string {
+  const name = CONTENT.characters[who]?.name ?? who
+  const skip = new Set(['dr.', 'cmdr.', 'mrs.', 'mr.', 'ms.', 'sen.', 'senator', 'sheikh', 'ambassador', 'admiral', 'your'])
+  const tok = name.split(/\s+/).find((t) => !skip.has(t.toLowerCase()))
+  return (tok ?? who).toUpperCase()
+}
+
+/** What the choice did, as quiet engine-truth pills. Score and flags stay
+ *  invisible — gating must read as reality, never as points. */
+function effectPills(effects: readonly Effect[]): { t: string; bad?: boolean }[] {
+  const pills: { t: string; bad?: boolean }[] = []
+  const rel = new Map<string, number>()
+  for (const fx of effects) {
+    switch (fx.e) {
+      case 'treasury':
+        if (fx.d) pills.push({ t: `${fx.d > 0 ? '+' : ''}${fmtMoney(fx.d)}`, bad: fx.d < 0 })
+        break
+      case 'revenue':
+        if (fx.d) pills.push({ t: `REVENUE ${fx.d > 0 ? '+' : ''}${fmtMoney(fx.d)}/wk`, bad: fx.d < 0 })
+        break
+      case 'burn':
+        if (fx.d) pills.push({ t: `BURN ${fx.d > 0 ? '+' : ''}${fmtMoney(fx.d)}/wk`, bad: fx.d > 0 })
+        break
+      case 'stress':
+        if (fx.d) pills.push({ t: `STRESS ${fx.d > 0 ? '+' : '−'}${Math.abs(fx.d)}`, bad: fx.d > 0 })
+        break
+      case 'rep':
+        if (fx.d) pills.push({ t: `CRED ${fx.d > 0 ? '+' : '−'}${Math.abs(fx.d)}`, bad: fx.d < 0 })
+        break
+      case 'stake':
+        if (fx.d > 0) pills.push({ t: `${pillName(fx.who)} +${fx.d}% STAKE`, bad: true })
+        break
+      case 'rel':
+        rel.set(fx.who, (rel.get(fx.who) ?? 0) + (fx.aff ?? 0) + (fx.resp ?? 0))
+        break
+      default:
+        break
+    }
+  }
+  for (const [who, d] of rel) if (d !== 0) pills.push({ t: `${pillName(who)} ${d > 0 ? '↑' : '↓'}`, bad: d < 0 })
+  return pills
+}
+
+function pillsHtml(pills: { t: string; bad?: boolean }[] | undefined, live = false): string {
+  if (!pills?.length) return ''
+  return `<div class="fxpills${live ? ' live' : ' past'}">${pills
+    .map((p, i) => `<span class="fxpill${p.bad ? ' bad' : ''}"${live ? ` style="animation-delay:${120 + i * 90}ms"` : ''}>${esc(p.t)}</span>`)
+    .join('')}</div>`
+}
+
+
 function incDate(): string {
   const base = new Date(2031, 2, 3) // the fiction's calendar
   const d = new Date(base.getTime() + (st.company.foundedEpoch - 0) * 7 * 86400_000)
@@ -508,7 +563,7 @@ function transcriptHtml(): string {
           }</div>`
         }
         case 'you':
-          return `<div class="youbtn past">${esc(b.text ?? '')}</div>`
+          return `<div class="youbtn past">${esc(b.text ?? '')}</div>${pillsHtml(b.pills)}`
         case 'divider':
           return `<div class="era past"><span>${esc(b.text ?? '')}</span></div>`
         case 'outcome':
@@ -1693,7 +1748,20 @@ function choose(index: number): void {
     prose: scene.prose,
     leadIn: scene.leadIn,
   })
-  transcript.push({ kind: 'you', text: choice.label })
+  transcript.push({ kind: 'you', text: choice.label, pills: effectPills(choice.effects) })
+
+  // What the choice did lands as quiet pills under the greyed button — the
+  // header moves too, but cause and effect belong in the stream.
+  let pillsEl: HTMLElement | null = null
+  {
+    const pills = transcript[transcript.length - 1].pills
+    if (pills?.length) {
+      const tpl = document.createElement('template')
+      tpl.innerHTML = pillsHtml(pills, true)
+      pillsEl = tpl.content.firstElementChild as HTMLElement
+      container?.after(pillsEl)
+    }
+  }
 
   // Outcome prose continues the story below the greyed decision — same stream,
   // same voice; it types with everything that follows.
@@ -1704,7 +1772,7 @@ function choose(index: number): void {
     const tpl = document.createElement('template')
     tpl.innerHTML = `<div class="outcome"></div>`
     const el = tpl.content.firstElementChild as HTMLElement
-    container?.after(el)
+    ;(pillsEl ?? container)?.after(el)
     lastNew = el
     if (st.phase === 'epilogue') el.textContent = choice.result
     else preSegs.push({ el, text: choice.result })
@@ -1727,7 +1795,7 @@ function choose(index: number): void {
       filler ? `<div class="filler"></div>` : ''
     }</div>`
     const el = wk.content.firstElementChild as HTMLElement
-    ;(lastNew ?? container)?.after(el)
+    ;(lastNew ?? pillsEl ?? container)?.after(el)
     lastNew = el
     // the filler streams ahead of the next beat instead of popping in
     const fillerEl = el.querySelector('.filler') as HTMLElement | null

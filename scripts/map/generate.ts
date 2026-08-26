@@ -181,9 +181,45 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
 // ---- HTML shell -------------------------------------------------------------
 
 const esc = (s: string): string => s.replace(/</g, '\\u003c')
+const hesc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+
+/** The whole game as one readable document — the SCRIPT tab. */
+function scriptHtml(): string {
+  const out: string[] = []
+  const block = (label: string, text?: string): void => {
+    if (!text) return
+    out.push(`<div class="sb"><div class="sb-k">${hesc(label)}</div><div class="sb-t">${hesc(text)}</div></div>`)
+  }
+  for (const ch of Object.values(CONTENT.chapters)) {
+    out.push(`<h1 class="s-ch">${hesc(ch.title)}, INC. <span>— ${hesc(ch.tagline)}</span></h1>`)
+    ch.prologue?.forEach((p, i) => block(`opening film · screen ${i + 1}${p.title ? ` · ${p.title}` : ''}`, p.prose))
+    for (const s of ch.scenes) {
+      const spk = s.speaker ? CONTENT.characters[s.speaker]?.name ?? s.speaker : 'THE WORLD'
+      out.push(`<h2 class="s-sc" id="s-${hesc(s.id)}">${hesc(s.title)} <span>· ${hesc(s.id)} · ${hesc(spk)}${s.kind ? ` · ${s.kind}` : ''}</span></h2>`)
+      block('lead-in', s.leadIn)
+      block('prose', s.prose)
+      s.screens?.forEach((p, i) => block(`film screen ${i + 1}`, p.prose))
+      s.vary?.forEach((v, i) => {
+        block(`variant ${i + 1} · lead-in`, v.leadIn)
+        block(`variant ${i + 1} · prose`, v.prose)
+      })
+      s.choices.forEach((c, i) => {
+        out.push(`<div class="s-choice"><div class="sb-k">choice ${i + 1}${c.goto ? ` → ${hesc(c.goto)}` : ''}</div><div class="s-cl">${hesc(c.label)}</div>${c.result ? `<div class="sb-t">${hesc(c.result)}</div>` : ''}</div>`)
+      })
+    }
+    out.push(`<h2 class="s-sc">${hesc(ch.title)} · ENDINGS</h2>`)
+    for (const e of ch.endings) {
+      out.push(`<h3 class="s-end">${hesc(e.title)} <span>· ${hesc(e.id)} · ${hesc(e.kind)}</span></h3>`)
+      block('epilogue', e.prose)
+      e.screens?.forEach((p, i) => block(`film screen ${i + 1}`, p.prose))
+      block('interlude — the years after', e.interlude?.prose)
+    }
+  }
+  return out.join('')
+}
 
 function renderHtml(chapters: MapChapter[]): string {
-  const data = JSON.stringify({ chapters })
+  const data = JSON.stringify({ chapters, script: scriptHtml() })
   return TEMPLATE.replace('__DATA__', esc(data))
 }
 
@@ -292,6 +328,18 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .cresult{font-size:12px;color:var(--dim);margin-top:5px;font-style:italic}
 .ctargets{font-family:var(--mono);font-size:10px;margin-top:5px;color:var(--dim)}
 .hint{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;font-family:var(--mono);font-size:11px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:6px 16px;z-index:20}
+.scriptpane{max-width:76ch;margin:0 auto;padding:34px 26px 120px}
+.s-ch{font-family:'Orbitron',var(--mono);font-size:20px;letter-spacing:.1em;margin:44px 0 6px;padding-top:26px;border-top:2px solid var(--ink)}
+.s-ch span{font-family:inherit;font-size:12px;color:var(--dim);letter-spacing:.02em}
+.s-sc{font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.04em;margin:34px 0 4px;padding-top:14px;border-top:1px solid var(--line)}
+.s-sc span,.s-end span{font-weight:400;font-size:11px;color:var(--dim)}
+.s-end{font-family:var(--mono);font-size:13px;margin:22px 0 2px}
+.sb{margin:10px 0}
+.sb-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.sb-t{font-size:14px;line-height:1.7;white-space:pre-wrap}
+.s-choice{border-left:3px solid var(--ink);padding:7px 12px;margin:12px 0;background:var(--panel);border-radius:0 4px 4px 0}
+.s-cl{font-weight:600;font-size:13.5px;margin:1px 0 4px}
+.s-choice .sb-t{font-size:12.5px;color:var(--dim)}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
 </head>
@@ -308,7 +356,7 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   <span class="lg"><span class="dotk"></span>scene&nbsp;&nbsp;<span class="dotk" style="border-color:#B98A1F"></span>ending</span>
   <span class="lg">dashed border = random-pool scene · chip = speaker/fuse</span>
 </div>
-<main class="stage" id="stage"></main>
+<main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div></main>
 <aside class="drawer" id="drawer">
   <div class="dhead"><div class="dkicker" id="dkicker"></div><div class="dtitle" id="dtitle"></div><button class="dclose" id="dclose" aria-label="Close">✕</button></div>
   <div class="dbody" id="dbody"></div>
@@ -394,9 +442,14 @@ function openDrawer(n,ch){
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
   currentTab=b.dataset.ch;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b));
-  document.querySelectorAll('.lane').forEach(l=>{l.style.display=(currentTab==='all'||l.dataset.ch===currentTab)?'':'none';});
+  const scriptOn=currentTab==='script';
+  const pane=document.getElementById('scriptpane');
+  pane.style.display=scriptOn?'':'none';
+  if(scriptOn&&!pane.dataset.built){pane.innerHTML=DATA.script;pane.dataset.built='1';}
+  document.querySelectorAll('.lane').forEach(l=>{l.style.display=(!scriptOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
   clearFocus();drawer.classList.remove('open');});
-{const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);}
+{const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);
+ const sc=document.createElement('button');sc.className='tab';sc.dataset.ch='script';sc.textContent='SCRIPT';tabs.appendChild(sc);}
 document.getElementById('dclose').addEventListener('click',()=>{drawer.classList.remove('open');clearFocus();});
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');clearFocus();}});
