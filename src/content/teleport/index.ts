@@ -73,7 +73,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF LETTERS',
       prose:
-        'A year of wind-down paperwork and unexpected mail. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies she considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
+        'A year of wind-down paperwork and unexpected mail. The company died owing nothing, and your own accounts survived it — the buyout money from the Hyperchute years was never in the company, and consulting pays absurdly well when every space agency on Earth wants to learn how you ran remote operations. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies she considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
     },
   },
   {
@@ -105,7 +105,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a company planning to build a space elevator — a cable from the ground straight up to orbit — asks to meet. They are not shopping for a company to buy. They flew here to recruit you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. Here is what the board could not take: your shares. They fired you from the job, never from the ownership, and in the second year you quietly sell a piece of your stake back to the company — millions in the bank, wired by the same people who removed you. You watch your company from the outside after that — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a company planning to build a space elevator — a cable from the ground straight up to orbit — asks to meet. They are not shopping for a company to buy. They flew here to recruit you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {
@@ -121,7 +121,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE KEEPER OF THE SPEC',
       prose:
-        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you answer with citations. The cascade carries presence to the Moon under every flag there is. At the second annual meeting, a team of engineers corners you with feasibility studies and a gleam you recognize from a hangar, years ago. They want to build a space elevator — a cable from the ground to orbit that no launch schedule can bump and no monopoly can own, if someone builds it as public property from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
+        'Two years chairing a standards body — the most powerful boring job in the solar system. The company you kept is smaller now, and still yours, and still profitable, which quietly makes you wealthier every quarter the cascade grows. Agencies defer to you. Monopolies comply with you, slowly, filing objections you answer with citations. The cascade carries presence to the Moon under every flag there is. At the second annual meeting, a team of engineers corners you with feasibility studies and a gleam you recognize from a hangar, years ago. They want to build a space elevator — a cable from the ground to orbit that no launch schedule can bump and no monopoly can own, if someone builds it as public property from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
     },
   },
 ]
