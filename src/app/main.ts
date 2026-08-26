@@ -726,12 +726,11 @@ let renderedChapter = -1
 
 // ---- the sound stage: music by era, tension by meters, rooms by scene --------
 
-/** Which mood bed plays. BIG events only — acts, the endgame. Pure read. */
-function moodOf(): 'build' | 'war' | 'aftermath' | 'endgame' {
-  const f = st.company.flags
-  if (f['endgame']) return 'endgame'
-  if (f['act3_open']) return 'aftermath'
-  if (f['act1_done']) return 'war'
+/** Which mood bed plays. Chapter era data — time and drama, never per scene. */
+function moodOf(): string {
+  for (const era of CONTENT.chapters[st.company.id].eras ?? []) {
+    if (evalPred(era.when, st)) return era.mood
+  }
   return 'build'
 }
 

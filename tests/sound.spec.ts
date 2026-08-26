@@ -12,7 +12,7 @@ import { AMBIENCE, FOLEY, MOODS, SCENE_BEDS, STINGERS, TENSION } from '../src/co
 
 describe('soundscape', () => {
   it('every non-cutscene scene in authored chapters names a room from the registry', () => {
-    for (const chId of ['hyperchute', 'teleport'] as const) {
+    for (const chId of ['hyperchute', 'teleport', 'skyline'] as const) {
       for (const s of CONTENT.chapters[chId].scenes) {
         if ((s.kind ?? 'scene') === 'cutscene') continue
         expect(s.ambience, `${chId}/${s.id}: missing ambience`).toBeDefined()
@@ -21,13 +21,24 @@ describe('soundscape', () => {
     }
   })
 
-  it('every non-cutscene hyperchute scene has its own bespoke bed', () => {
-    for (const s of CONTENT.chapters.hyperchute.scenes) {
-      if ((s.kind ?? 'scene') === 'cutscene') continue
-      const bed = SCENE_BEDS[s.id]
-      expect(bed, `hyperchute/${s.id}: missing scene bed in soundscape.ts`).toBeDefined()
-      expect(bed.id, `hyperchute/${s.id}: bed id convention`).toBe(`scn_${s.id}`)
-      expect(bed.prompt.length, `hyperchute/${s.id}: bed prompt too thin`).toBeGreaterThan(80)
+  it('every non-cutscene scene in authored chapters has its own bespoke sound event', () => {
+    // Skyline joins this law when the audio quota renews and its beds render.
+    for (const chId of ['hyperchute', 'teleport'] as const) {
+      for (const s of CONTENT.chapters[chId].scenes) {
+        if ((s.kind ?? 'scene') === 'cutscene') continue
+        const bed = SCENE_BEDS[s.id]
+        expect(bed, `${chId}/${s.id}: missing scene sound in soundscape.ts`).toBeDefined()
+        expect(bed.id, `${chId}/${s.id}: sound id convention`).toBe(`scn_${s.id}`)
+        expect(bed.prompt.length, `${chId}/${s.id}: sound prompt too thin`).toBeGreaterThan(80)
+      }
+    }
+  })
+
+  it('chapter eras name real moods', () => {
+    for (const ch of Object.values(CONTENT.chapters)) {
+      for (const era of ch.eras ?? []) {
+        expect(MOODS[era.mood], `${ch.id}: era mood '${era.mood}'`).toBeDefined()
+      }
     }
   })
 

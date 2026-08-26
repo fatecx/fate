@@ -55,6 +55,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_pact',
+    mood: 'negotiate',
     ambience: 'hangar',
     landmark: true,
     title: 'THE SPLIT',
@@ -115,6 +116,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_june_condition',
+    mood: 'negotiate',
     ambience: 'cafe',
     foley: 'phone',
     landmark: true,
@@ -341,6 +343,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_quote',
+    mood: 'dread',
     ambience: 'hangar',
     landmark: true,
     priority: true,
@@ -505,6 +508,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_expo_checks',
+    mood: 'tender',
     ambience: 'expo',
     landmark: true,
     art: 'world_expo_checks',
@@ -564,6 +568,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_hotel_card',
+    mood: 'dread',
     ambience: 'hotel',
     landmark: true,
     art: 'world_hotel_card',
@@ -615,6 +620,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   },
   {
     id: 't_hale_terms',
+    mood: 'negotiate',
     ambience: 'boardroom',
     landmark: true,
     priority: true,

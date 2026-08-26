@@ -7,6 +7,7 @@ import type { SceneDef } from '../schema'
 export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 't_insolvency',
+    mood: 'dread',
     ambience: 'night',
     art: 'world_t_runway_zero',
     landmark: true,
@@ -61,6 +62,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   },
   {
     id: 't_burnout',
+    mood: 'aftermath',
     ambience: 'night',
     art: 'world_t_burnout',
     landmark: true,

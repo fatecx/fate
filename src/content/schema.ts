@@ -142,6 +142,10 @@ export interface ChapterDef {
   dateline?: string
   scenes: readonly SceneDef[]
   endings: readonly EndingDef[]
+  /** The score's eras — evaluated in order, first matching predicate names the
+   *  era mood; none matching = 'build'. Landmark SceneDef.mood overrides win
+   *  over eras. Music moves on time and drama, never per scene. */
+  eras?: readonly { when: Pred; mood: string }[]
   /** Community-stat decisions surfaced on the chapter record screen. */
   signatures?: readonly SignatureDef[]
   /** Badges evaluated when the chapter closes. */

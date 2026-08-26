@@ -8,6 +8,7 @@ import type { SceneDef } from '../schema'
 export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 't_s_farrokh_loan',
+    mood: 'dread',
     ambience: 'night',
     when: {
       k: 'all',
@@ -53,6 +54,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 't_s_pawn_body',
+    mood: 'dread',
     ambience: 'hangar',
     when: {
       k: 'all',
@@ -94,6 +96,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 't_s_halcyon_consult',
+    mood: 'dread',
     ambience: 'corp',
     when: {
       k: 'all',
@@ -138,6 +141,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   },
   {
     id: 't_s_ramen',
+    mood: 'dread',
     ambience: 'hangar',
     when: {
       k: 'all',

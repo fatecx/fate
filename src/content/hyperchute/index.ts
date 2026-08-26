@@ -248,6 +248,11 @@ export const HYPERCHUTE: ChapterDef = {
   dateline: '2031\nTHE FLATS',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
+  eras: [
+    { when: { k: 'flag', scope: 'company', key: 'endgame', cmp: 'eq', v: true }, mood: 'endgame' },
+    { when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true }, mood: 'aftermath' },
+    { when: { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true }, mood: 'war' },
+  ],
   signatures: SIGNATURES,
   achievements: ACHIEVEMENTS,
 }

@@ -33,6 +33,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 't_father_call',
+    mood: 'tender',
     ambience: 'night',
     landmark: true,
     art: 'world_father_call',
@@ -110,6 +111,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 't_coup_move',
+    mood: 'dread',
     ambience: 'boardroom',
     landmark: true,
     priority: true,
@@ -335,6 +337,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 't_halcyon_offer',
+    mood: 'negotiate',
     ambience: 'corp',
     landmark: true,
     priority: true,
@@ -382,6 +385,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 't_listing',
+    mood: 'endgame',
     ambience: 'roadshow',
     landmark: true,
     priority: true,
@@ -428,6 +432,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   },
   {
     id: 't_dark_listing',
+    mood: 'aftermath',
     ambience: 'roadshow',
     landmark: true,
     priority: true,

@@ -131,7 +131,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE',
     title: 'THE ITCH',
     art: 'prologue_t_itch',
-    bg: 'night',
     prose:
       'It starts with looking up. It always has.\n\nThe last company left you what it left you — money, scar tissue, a shoebox of clippings, maybe all three. The itch came through untouched. You catch yourself at windows. You read launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo. The one thing you cannot stop thinking about is still up there, waiting.',
   },
@@ -146,7 +145,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE',
     title: 'THE THESIS',
     art: 'prologue_t_thesis',
-    bg: 'wind',
     prose:
       'Then someone sends you a nine-year-old research paper. Four hundred pages. Self-published, because no science journal would print math that long.\n\nThe idea inside it is a chain of relay satellites between Earth and Moon, each one handing the signal to the next like firefighters passing buckets. Built right, the chain keeps every handoff clean. The Moon comes down to a guaranteed 2.6 seconds — the smallest delay the laws of physics allow.\n\nThe author spent nine years being politely refused by every agency and fund in the industry. His name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, he has written: THE DELAY IS THE PROOF. PRETENDING IS THE ENEMY.',
   },
@@ -154,7 +152,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE',
     title: 'THE CAPE',
     art: 'prologue_t_cape',
-    bg: 'hangar',
     prose:
       'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nYou have whatever the last life paid out, a lease, and a Tuesday meeting with a man carrying his life’s work in a cardboard box.\n\nYou are buying a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, all the way through.\n\nLast night you filed the papers for a company called TELEPORT, INC., and its whole promise fits in four words.\n\nBe there without going.',
   },
@@ -253,6 +250,12 @@ export const TELEPORT: ChapterDef = {
   dateline: 'YEARS LATER\nTHE CAPE',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
+  eras: [
+    { when: { k: 'seen', scene: 't_endgame' }, mood: 'endgame' },
+    { when: { k: 'seen', scene: 't_coup_move' }, mood: 'siege' },
+    { when: { k: 'seen', scene: 't_jonah' }, mood: 'aftermath' },
+    { when: { k: 'seen', scene: 't_cut_first_light' }, mood: 'hustle' },
+  ],
   signatures: SIGNATURES,
   achievements: ACHIEVEMENTS,
 }

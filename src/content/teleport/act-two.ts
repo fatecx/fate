@@ -506,6 +506,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 't_farrokh_break',
+    mood: 'aftermath',
     ambience: 'boardroom',
     landmark: true,
     priority: true,
@@ -601,6 +602,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 't_jonah',
+    mood: 'aftermath',
     kind: 'cutscene',
     title: 'ELEVEN SECONDS',
     priority: true,

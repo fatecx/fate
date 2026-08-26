@@ -332,7 +332,7 @@ export const FOLEY: Record<string, SoundDef> = {
   },
 }
 
-// Per-scene beds — one bespoke take per scene, keyed scn_<sceneId>. The
-// engine tries the scene's own bed first, then the room, then silence.
+// Per-scene sound events — one diegetic action per scene, keyed scn_<sceneId>.
 import { HYPERCHUTE_SCENE_BEDS } from './hyperchute/soundscape'
-export const SCENE_BEDS: Record<string, SoundDef> = { ...HYPERCHUTE_SCENE_BEDS }
+import { TELEPORT_SCENE_BEDS } from './teleport/soundscape'
+export const SCENE_BEDS: Record<string, SoundDef> = { ...HYPERCHUTE_SCENE_BEDS, ...TELEPORT_SCENE_BEDS }
