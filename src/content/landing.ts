@@ -46,7 +46,7 @@ export const HERO = {
 export const PITCH: readonly LandingPanel[] = [
   {
     kicker: 'THE WORLD',
-    art: 'prologue_garage',
+    art: 'cut_chute_launch',
     head: '2031',
     paras: [
       'The future runs on machines that belong to giants. You are a first-time founder in a rented garage above a laundromat, with a shuttle prototype hanging from the ceiling and one hundred percent of nothing.',
@@ -54,7 +54,7 @@ export const PITCH: readonly LandingPanel[] = [
   },
   {
     kicker: 'THE GAME',
-    art: 'world_roadshow',
+    art: 'world_war_room',
     paras: [
       'A sci-fi epic of desire, grit, and consequence, spanning thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
     ],
@@ -66,7 +66,7 @@ export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER ONE',
     name: 'HYPERCHUTE',
-    art: 'world_dawn_flights',
+    art: 'world_first_drop',
     line: 'A railway in the sky. Autonomous shuttles hold station above each home and drop deliveries through a tube to the doorstep.',
   },
   {
@@ -138,7 +138,7 @@ export const RECORD: LandingPanel = {
 
 export const FINALE: LandingPanel = {
   kicker: 'THE PAPERS ARE WAITING',
-  art: 'cut_shoebox',
+  art: 'world_signing',
   head: 'OUT NOW',
   paras: [
     'Fate runs in your browser. Your wallet is your signature, and the first scene starts in the garage.',
