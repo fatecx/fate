@@ -34,7 +34,7 @@ export const HERO_ART: readonly string[] = [
 export const HERO = {
   kicker: 'THE IMMUTABLE FOUNDER SAGA',
   title: 'FATE',
-  tag: 'One life. Three companies. Every scar carries forward.',
+  sub: 'A narrative adventure crossed with a startup founder sim, set in the near future. Every decision you make shapes whether your startups fail or go public, as you build a railway in the sky, telepresence robots on the Moon, and the galaxy’s first space elevator.',
 }
 
 export const PITCH: readonly LandingPanel[] = [
@@ -50,11 +50,12 @@ export const PITCH: readonly LandingPanel[] = [
     kicker: 'THE GAME',
     art: 'world_war_room',
     paras: [
-      'Fate is a narrative adventure crossed with a startup founder sim. You will found three companies in one life, and every decision moves real numbers. Those numbers decide whether each company dies quietly, sells out, or rings the bell at an IPO.',
-      'Thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
+      'A sci-fi epic of desire, grit, and consequence, spanning thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
     ],
   },
 ]
+
+export const TAGLINE = 'One life. Three companies. Every scar carries forward.'
 
 export const PITCH_STAT = '3 STARTUPS · 30 YEARS · 1 LIFE'
 

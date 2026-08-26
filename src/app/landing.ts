@@ -14,6 +14,7 @@ import {
   HERO_ART,
   PITCH,
   PITCH_STAT,
+  TAGLINE,
   CHAPTERS,
   CLIFFHANGER,
   FEATURES,
@@ -114,12 +115,12 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
         <div class="ld-beat">
           <div class="ld-kicker">${esc(HERO.kicker)}</div>
           <h1 class="ld-title">${esc(HERO.title)}</h1>
-          <div class="ld-tag">${esc(HERO.tag)}</div>
+          <p class="ld-sub ld-herosub">${esc(HERO.sub)}</p>
           <div class="ld-scrollcue">SCROLL</div>
         </div>
       </section>
       ${panelHtml(PITCH[0], `<div class="ld-stat">${esc(PITCH_STAT)}</div>`)}
-      ${panelHtml(PITCH[1])}
+      ${panelHtml(PITCH[1], `<div class="ld-stat">${esc(TAGLINE)}</div>`)}
       ${chapterHtml()}
       ${cliffhangerHtml()}
       ${featuresHtml()}
