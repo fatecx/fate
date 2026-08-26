@@ -18,12 +18,6 @@ export interface ChapterCard {
   name: string
   art: string | null
   line: string
-  sealed?: boolean
-}
-
-export interface Plaque {
-  quote: string
-  source: string
 }
 
 /** Hero montage — the strongest frames across chapters, cycled behind the wordmark. */
@@ -40,29 +34,31 @@ export const HERO_ART: readonly string[] = [
 export const HERO = {
   kicker: 'THE IMMUTABLE FOUNDER SAGA',
   title: 'FATE',
-  tag: 'One life. Four companies. Every scar carries forward.',
+  tag: 'One life. Three companies. Every scar carries forward.',
 }
 
-export const OPENING: LandingPanel = {
-  kicker: 'THE WORLD',
-  art: 'prologue_garage',
-  head: '2031',
-  paras: [
-    'The future runs on machines that belong to giants. You are a first-time founder in a rented garage above a laundromat, with a shuttle prototype hanging from the ceiling and one hundred percent of nothing.',
-  ],
-}
+export const PITCH: readonly LandingPanel[] = [
+  {
+    kicker: 'THE WORLD',
+    art: 'prologue_garage',
+    head: '2031',
+    paras: [
+      'The future runs on machines that belong to giants. You are a first-time founder in a rented garage above a laundromat, with a shuttle prototype hanging from the ceiling and one hundred percent of nothing.',
+    ],
+  },
+  {
+    kicker: 'THE GAME',
+    art: 'world_war_room',
+    paras: [
+      'Fate is a narrative adventure crossed with a startup founder sim. You will found three companies in one life, and every decision moves real numbers. Those numbers decide whether each company dies quietly, sells out, or rings the bell at an IPO.',
+      'Thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
+    ],
+  },
+]
 
-export const OPENING_STAT = '4 STARTUPS · 30 YEARS · 1 LIFE'
+export const PITCH_STAT = '3 STARTUPS · 30 YEARS · 1 LIFE'
 
-export const PREMISE: LandingPanel = {
-  kicker: 'THE GAME',
-  art: 'world_war_room',
-  paras: [
-    'Fate is a narrative adventure crossed with a startup founder sim. You will found four companies in one life, an autonomous railway in the sky, telepresence robots on the Moon, a space elevator, and the first casino on the Moon. Every decision moves real numbers, and those numbers decide whether each company dies quietly, sells out, or rings the bell at an IPO.',
-    'Thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
-  ],
-}
-
+/** Each chapter holds a full screen — a title card from the life itself. */
 export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER ONE',
@@ -82,43 +78,6 @@ export const CHAPTERS: readonly ChapterCard[] = [
     art: 'world_s_cable_complete',
     line: 'A cable from the ground to orbit. Nations, unions, and your own investors fight over who rides it first.',
   },
-  {
-    kicker: 'CHAPTER FOUR',
-    name: 'ESCAPE',
-    art: null,
-    line: 'The last company opens when you have lived the first three.',
-    sealed: true,
-  },
-]
-
-export const FEATURES: readonly LandingPanel[] = [
-  {
-    kicker: 'THE BIOGRAPHY',
-    glyph: '◆',
-    head: 'THE WORLD REMEMBERS',
-    art: 'world_postmortems',
-    paras: [
-      'Companies die and the story keeps going. The investor you burned in your first company blocks a door in your third. A failed company stays in the world as a headline, a rival, or an old office you walk past.',
-    ],
-  },
-  {
-    kicker: 'THE ENGINE',
-    glyph: '■',
-    head: 'THE NUMBERS ARE REAL',
-    art: 'world_coup_vote',
-    paras: [
-      'Runway, stress, and reputation are the only three meters in the game. Every outcome comes from your choices and those numbers, under rules that are the same for everyone. Board votes resolve by counting seats, and when a company dies you can name the two decisions that killed it.',
-    ],
-  },
-  {
-    kicker: 'THE COVENANT',
-    glyph: '▲',
-    head: 'BURNED TO YOUR WALLET',
-    art: 'world_certificate',
-    paras: [
-      'Your wallet signs the incorporation papers. One wallet gets one life, and every choice is written to that address for good. There are no resets and no second saves. When the biography ends, it stays on the record.',
-    ],
-  },
 ]
 
 /** The demo cliffhanger — the real opening scene, rendered read-only. */
@@ -128,14 +87,33 @@ export const CLIFFHANGER = {
   caption: 'TO CHOOSE, SIGN THE PAPERS →',
 }
 
-export const PLAQUES: readonly Plaque[] = [
+export const FEATURES: readonly LandingPanel[] = [
   {
-    quote: 'I want to put my money in your company. I was saving for a cruise. Boats are slow.',
-    source: 'MARISOL DELGADO · FIRST INVESTOR · WEEK ONE',
+    kicker: 'THE BIOGRAPHY',
+    glyph: '◆',
+    head: 'THE WORLD REMEMBERS',
+    art: null,
+    paras: [
+      'Companies die and the story keeps going. The investor you burned in your first company blocks a door in your third. A failed company stays in the world as a headline, a rival, or an old office you walk past.',
+    ],
   },
   {
-    quote: 'Two point six. That number is the product. The ads can say anything. The customer buys those two point six seconds.',
-    source: 'DR. OMID FARROKH · COFOUNDER, TELEPORT',
+    kicker: 'THE ENGINE',
+    glyph: '■',
+    head: 'THE NUMBERS ARE REAL',
+    art: null,
+    paras: [
+      'Runway, stress, and reputation are the only three meters in the game. Every outcome comes from your choices and those numbers, under rules that are the same for everyone. Board votes resolve by counting seats, and when a company dies you can name the two decisions that killed it.',
+    ],
+  },
+  {
+    kicker: 'THE COVENANT',
+    glyph: '▲',
+    head: 'BURNED TO YOUR WALLET',
+    art: null,
+    paras: [
+      'Your wallet signs the incorporation papers. One wallet gets one life, and every choice is written to that address for good. There are no resets and no second saves. When the biography ends, it stays on the record.',
+    ],
   },
 ]
 
@@ -148,14 +126,17 @@ export const RECORD: LandingPanel = {
   ],
 }
 
-export const CTA: LandingPanel = {
+export const FINALE: LandingPanel = {
   kicker: 'THE PAPERS ARE WAITING',
   art: 'world_signing',
-  head: 'FATE IS LIVE',
+  head: 'OUT NOW',
   paras: [
     'Fate runs in your browser. Your wallet is your signature, and the first scene starts in the garage.',
+    'The twenty dollars you pay is the check that incorporates your first company.',
   ],
 }
+
+export const PRICE_CHIP = 'ONE LIFE · $20'
 
 export const COVENANT = [
   'Fate gives you one life.',
@@ -166,6 +147,6 @@ export const COVENANT = [
 /** Every art id the landing references — the spec walks this list. */
 export const LANDING_ART: readonly string[] = [
   ...HERO_ART,
-  ...[OPENING, PREMISE, ...FEATURES, RECORD, CTA].map((p) => p.art),
+  ...[...PITCH, ...FEATURES, RECORD, FINALE].map((p) => p.art),
   ...CHAPTERS.map((c) => c.art),
 ].filter((a): a is string => !!a)

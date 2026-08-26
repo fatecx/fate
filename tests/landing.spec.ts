@@ -8,7 +8,7 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
 import { getScene } from '../src/engine/reduce'
-import { CHAPTERS, CLIFFHANGER, COVENANT, HERO_ART, LANDING_ART, PLAQUES } from '../src/content/landing'
+import { CHAPTERS, CLIFFHANGER, COVENANT, HERO_ART, LANDING_ART } from '../src/content/landing'
 
 describe('landing', () => {
   it('every print the landing names is committed to public/art', () => {
@@ -30,12 +30,11 @@ describe('landing', () => {
     expect(existsSync(portrait), `cliffhanger portrait missing: ${scene.speaker}`).toBe(true)
   })
 
-  it('one card per company, in chapter order', () => {
-    expect(CHAPTERS.map((c) => c.kicker)).toEqual(['CHAPTER ONE', 'CHAPTER TWO', 'CHAPTER THREE', 'CHAPTER FOUR'])
+  it('one title card per company, in chapter order', () => {
+    expect(CHAPTERS.map((c) => c.kicker)).toEqual(['CHAPTER ONE', 'CHAPTER TWO', 'CHAPTER THREE'])
   })
 
-  it('plaques and covenant carry words', () => {
-    for (const p of PLAQUES) expect(p.quote.length).toBeGreaterThan(20)
+  it('the covenant carries its three lines', () => {
     expect(COVENANT.length).toBe(3)
   })
 })

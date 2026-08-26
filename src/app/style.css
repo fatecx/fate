@@ -550,11 +550,11 @@ body:has(.lb-shell) { overflow: auto; }
 }
 
 /* ---- the landing scroll — fate.cx's front door (src/app/landing.ts) ----
-   Film register: ink wall, the real prints drifting behind pinned beats.
-   Same type system as the takeovers; the game's own light, marketing nothing
-   the engine can't keep. */
+   Film register: ink wall, the real prints drifting behind pinned beats,
+   subtitle typography borrowed from the cutscenes — the same white over the
+   same pool of ink, because that is the one combination proven readable. */
 html:has(.landing), html:has(.landing) body { background: #000; }
-.landing { position: fixed; inset: 0; z-index: 60; background: #000; color: #ecede9; }
+.landing { position: fixed; inset: 0; z-index: 60; background: #000; color: #f6f6f2; }
 .ld-scroll { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .ld-bg { position: absolute; inset: 0; pointer-events: none; }
 .ld-bg-img {
@@ -567,8 +567,8 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 .ld-veil {
   position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 66%, rgba(0,0,0,0.62) 100%),
-    radial-gradient(ellipse at center, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.74) 82%, #000 100%);
+    linear-gradient(180deg, rgba(13, 14, 17, 0.5) 0%, rgba(13, 14, 17, 0) 24%, rgba(13, 14, 17, 0) 64%, rgba(13, 14, 17, 0.6) 100%),
+    radial-gradient(ellipse at center, rgba(13, 14, 17, 0.22) 0%, rgba(13, 14, 17, 0.66) 84%, #0d0e11 100%);
 }
 @keyframes ldDrift {
   from { transform: scale(1) translate3d(0, 0, 0); }
@@ -578,84 +578,92 @@ html:has(.landing), html:has(.landing) body { background: #000; }
   .ld-bg-img { animation: none; transition: opacity 0.3s ease; }
   .ld-beat { transition: none !important; }
 }
-.ld-enter-chip {
-  position: absolute; top: 18px; right: 20px; z-index: 5;
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
-  color: #ecede9; border: 1px solid #3a3d44; border-radius: 99px; padding: 7px 16px;
-  background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
-}
-.ld-enter-chip:hover { color: var(--accent); border-color: var(--accent); }
 .ld-scene { min-height: 100svh; display: grid; place-items: center; padding: 90px 24px; position: relative; }
-.ld-scene.ld-short { min-height: 76svh; }
 .ld-scene.ld-tall { min-height: 100svh; }
 .ld-beat {
-  max-width: 640px; text-align: center; position: relative;
+  max-width: 720px; text-align: center; position: relative;
   opacity: 0; transform: translateY(28px);
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
 .ld-scene.on .ld-beat { opacity: 1; transform: none; }
-.ld-beat.ld-wide { max-width: 1060px; }
+.ld-beat.ld-wide { max-width: 1100px; }
 .ld-kicker {
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.3em;
   color: var(--accent); text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
 }
 .ld-title {
   font-family: var(--display); font-weight: 800;
-  font-size: clamp(64px, 17vw, 160px); letter-spacing: 0.12em;
-  margin: 14px 0 8px; line-height: 1;
+  font-size: clamp(68px, 18vw, 170px); letter-spacing: 0.12em;
+  margin: 16px 0 10px; line-height: 1;
+  text-shadow: 0 2px 6px rgba(13, 14, 17, 0.8), 0 0 44px rgba(13, 14, 17, 0.6);
 }
-.ld-tag { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; color: #c9cac4; }
-.ld-hero .ld-cta { margin-top: 34px; }
+.ld-tag {
+  font-family: var(--mono); font-size: clamp(13px, 1.6vw, 16px); letter-spacing: 0.14em; color: #f6f6f2;
+  text-shadow: 0 1px 2px rgba(13, 14, 17, 0.9), 0 0 14px rgba(13, 14, 17, 0.75);
+}
 .ld-scrollcue {
-  position: absolute; left: 50%; transform: translateX(-50%); bottom: -18svh;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.4em; color: #8b8d85;
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: -20svh;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.4em; color: rgba(246, 246, 242, 0.8);
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
   animation: ldPulse 2.2s ease-in-out infinite;
 }
 @keyframes ldPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
 .ld-head {
   font-family: var(--display); font-weight: 800;
-  font-size: clamp(26px, 5vw, 44px); letter-spacing: 0.05em; margin: 14px 0 4px;
+  font-size: clamp(30px, 5.5vw, 52px); letter-spacing: 0.05em; margin: 16px 0 4px;
   text-wrap: balance;
+  text-shadow: 0 2px 5px rgba(13, 14, 17, 0.8), 0 0 30px rgba(13, 14, 17, 0.55);
 }
-.ld-glyph { font-size: 22px; color: var(--accent); margin-bottom: 10px; }
-.ld-body { line-height: 1.8; color: #c9cac4; margin-top: 18px; font-size: 15.5px; text-align: left; }
-.ld-beat > .ld-body:first-of-type { margin-top: 22px; }
+.ld-chapter {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(42px, 9vw, 92px); letter-spacing: 0.1em; margin: 16px 0 8px; line-height: 1.05;
+  text-shadow: 0 2px 6px rgba(13, 14, 17, 0.85), 0 0 40px rgba(13, 14, 17, 0.6);
+}
+/* Subtitle-grade prose — the cutscene treatment, verbatim: white over an
+   ink pool, sized to be read from a couch. */
+.ld-sub {
+  position: relative; z-index: 0;
+  width: min(52ch, 88vw); margin: 22px auto 0;
+  font-size: clamp(18px, 2.1vw, 23px); line-height: 1.7; font-weight: 500;
+  color: #f6f6f2;
+  text-shadow:
+    0 1px 2px rgba(13, 14, 17, 0.9),
+    0 0 14px rgba(13, 14, 17, 0.75),
+    0 0 38px rgba(13, 14, 17, 0.5);
+}
+.ld-sub::before {
+  content: ''; position: absolute; inset: -26px -60px; z-index: -1;
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(13, 14, 17, 0.6) 0%, rgba(13, 14, 17, 0.36) 52%, transparent 78%);
+  filter: blur(8px);
+}
 .ld-stat {
-  margin-top: 26px; font-family: var(--mono); font-size: 12px;
-  letter-spacing: 0.22em; color: #ecede9;
+  margin-top: 30px; font-family: var(--mono); font-size: 13px;
+  letter-spacing: 0.24em; color: #f6f6f2;
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
 }
-.ld-cta { font-size: 15px; padding: 13px 26px; }
-
-/* chapter cards */
-.ld-chapters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 34px; }
-.ld-card { text-align: left; border: 1px solid #23262c; border-radius: 10px; overflow: hidden; background: rgba(10, 11, 13, 0.72); }
-.ld-card-art { aspect-ratio: 3 / 2; background: #0a0b0d; display: grid; place-items: center; overflow: hidden; }
-.ld-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ld-card-sigil { font-family: var(--display); font-weight: 800; font-size: 44px; color: #23262c; }
-.ld-card-kicker { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.24em; color: var(--accent); padding: 14px 16px 0; }
-.ld-card-name { font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: 0.06em; padding: 5px 16px 0; }
-.ld-card-line { font-size: 12.5px; line-height: 1.65; color: #9b9d96; padding: 8px 16px 16px; margin: 0; }
-.ld-card.sealed .ld-card-name { color: #8b8d85; letter-spacing: 0.2em; }
+.ld-cta { font-size: 15px; padding: 13px 26px; margin-top: 26px; }
 
 /* the read-only first scene */
 .ld-stagebox {
   display: flex; gap: 26px; margin-top: 30px; text-align: left;
-  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.82);
+  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.88);
   padding: 26px; align-items: flex-start;
 }
-.ld-portrait { flex: 0 0 240px; border-radius: 8px; overflow: hidden; border: 1px solid #23262c; position: relative; }
+.ld-portrait { flex: 0 0 250px; border-radius: 8px; overflow: hidden; border: 1px solid #23262c; position: relative; }
 .ld-portrait img { width: 100%; display: block; }
 .ld-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85)); }
 .ld-cap-name { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
 .ld-cap-role { font-family: var(--mono); font-size: 10px; color: #9b9d96; letter-spacing: 0.08em; margin-top: 2px; }
 .ld-script { min-width: 0; }
-.ld-leadin { font-family: var(--mono); font-size: 12px; color: #8b8d85; line-height: 1.7; }
-.ld-scene-title { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: 0.05em; margin: 12px 0 10px; }
-.ld-prose { line-height: 1.8; color: #c9cac4; font-size: 14.5px; }
+.ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; }
+.ld-scene-title { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 0.05em; margin: 12px 0 10px; }
+.ld-prose { line-height: 1.75; color: #e6e7e2; font-size: 15.5px; }
 .ld-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
 .ld-choice {
-  text-align: left; font-size: 13.5px; padding: 11px 14px;
-  border: 1px solid #2a2d33; border-radius: 8px; color: #7c7e76; cursor: default;
+  text-align: left; font-size: 14px; padding: 11px 14px;
+  border: 1px solid #2a2d33; border-radius: 8px; color: #8b8d85; cursor: default;
 }
 .ld-choice-gate {
   margin-top: 14px; width: 100%; text-align: center;
@@ -664,35 +672,49 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 }
 .ld-choice-gate:hover { background: var(--accent); color: #fff; }
 
-/* plaques */
-.ld-quote {
-  font-size: clamp(19px, 3.4vw, 27px); line-height: 1.6; text-wrap: balance;
-  font-weight: 500;
+/* the feature band — three cards, one scan */
+.ld-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; text-align: left; }
+.ld-feature {
+  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.88);
+  padding: 26px 24px;
 }
-.ld-source { margin-top: 18px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; color: #8b8d85; }
+.ld-glyph { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
+.ld-feature-head {
+  font-family: var(--display); font-weight: 800; font-size: 17px;
+  letter-spacing: 0.06em; margin: 8px 0 12px;
+}
+.ld-feature-body { font-size: 15px; line-height: 1.75; color: #c9cac4; margin: 0; }
 
 /* the record chips */
-.ld-chips { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; }
+.ld-chips { display: flex; flex-direction: column; gap: 10px; margin: 26px 0; }
 .ld-chip {
-  font-family: var(--mono); font-size: 12px; line-height: 1.6; color: #c9cac4;
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: #e6e7e2;
   border: 1px solid #2a2d33; border-radius: 8px; padding: 10px 14px; text-align: left;
+  background: rgba(8, 9, 11, 0.7);
 }
 .ld-chip b { color: var(--accent); }
 
-/* covenant + footer */
-.ld-covenant {
-  margin-top: 40px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em;
-  color: #ecede9; display: flex; flex-direction: column; gap: 8px;
+/* price, covenant, footer */
+.ld-price {
+  display: inline-block; margin-top: 30px;
+  font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.26em;
+  color: #f6f6f2; border: 1px solid #3a3d44; border-radius: 99px; padding: 9px 22px;
+  background: rgba(8, 9, 11, 0.7);
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
 }
-.ld-foot { margin-top: 56px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: #8b8d85; }
+.ld-covenant {
+  margin-top: 44px; font-family: var(--mono); font-size: 13.5px; letter-spacing: 0.1em;
+  color: #f6f6f2; display: flex; flex-direction: column; gap: 8px;
+  text-shadow: 0 1px 3px rgba(13, 14, 17, 0.9);
+}
+.ld-foot { margin-top: 56px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: #9b9d96; }
 
 @media (max-width: 900px) {
-  .ld-chapters { grid-template-columns: repeat(2, 1fr); }
+  .ld-features { grid-template-columns: 1fr; }
   .ld-stagebox { flex-direction: column; }
-  .ld-portrait { flex: none; width: min(240px, 60%); }
+  .ld-portrait { flex: none; width: min(250px, 62%); }
 }
 @media (max-width: 560px) {
-  .ld-chapters { grid-template-columns: 1fr; }
   .ld-scene { padding: 70px 18px; }
-  .ld-body { font-size: 14.5px; }
+  .ld-sub { width: 100%; }
 }

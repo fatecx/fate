@@ -1,8 +1,9 @@
 /**
  * The landing scroll — fate.cx's front door for a wallet the game has never
- * met. Scroll-cinema over the real art: pinned scenes, slow Ken Burns prints,
- * the actual opening beat rendered read-only, live community splits. Copy and
- * art live in src/content/landing.ts; this file only renders them.
+ * met. Built like a film, paced like a pitch: key art first, the world, three
+ * chapter title cards, the real opening scene playable up to its first choice,
+ * then the terms. The first ask arrives only after the page has earned it.
+ * Copy and art live in src/content/landing.ts; this file only renders them.
  * Art never blocks: a missing print leaves a sigil field and the page reads on.
  */
 import { CONTENT } from '../content/world'
@@ -11,15 +12,14 @@ import { fetchDecisionSplit } from './cloud'
 import {
   HERO,
   HERO_ART,
-  OPENING,
-  OPENING_STAT,
-  PREMISE,
+  PITCH,
+  PITCH_STAT,
   CHAPTERS,
-  FEATURES,
   CLIFFHANGER,
-  PLAQUES,
+  FEATURES,
   RECORD,
-  CTA,
+  FINALE,
+  PRICE_CHIP,
   COVENANT,
   type LandingPanel,
 } from '../content/landing'
@@ -28,17 +28,31 @@ function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+/** A pinned full-screen beat: kicker, optional head, subtitle-grade prose. */
 function panelHtml(p: LandingPanel, extra = ''): string {
   return `
   <section class="ld-scene" data-art="${p.art ?? ''}">
     <div class="ld-beat">
-      ${p.glyph ? `<div class="ld-glyph">${p.glyph}</div>` : ''}
       <div class="ld-kicker">${esc(p.kicker)}</div>
       ${p.head ? `<h2 class="ld-head">${esc(p.head)}</h2>` : ''}
-      ${p.paras.map((t) => `<p class="ld-body">${esc(t)}</p>`).join('')}
+      ${p.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
       ${extra}
     </div>
   </section>`
+}
+
+/** Chapter title cards — one full screen each, like the game's own datelines. */
+function chapterHtml(): string {
+  return CHAPTERS.map(
+    (c) => `
+  <section class="ld-scene" data-art="${c.art ?? ''}">
+    <div class="ld-beat">
+      <div class="ld-kicker">${esc(c.kicker)}</div>
+      <h2 class="ld-chapter">${esc(c.name)}</h2>
+      <p class="ld-sub">${esc(c.line)}</p>
+    </div>
+  </section>`,
+  ).join('')
 }
 
 /** The real first scene, read-only — the choices are the door. */
@@ -68,68 +82,54 @@ function cliffhangerHtml(): string {
   </section>`
 }
 
-export function renderLanding(root: HTMLElement, onEnter: () => void): void {
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  const chaptersHtml = `
+/** The feature band — three cards, one scan. */
+function featuresHtml(): string {
+  return `
   <section class="ld-scene ld-tall" data-art="">
     <div class="ld-beat ld-wide">
-      <div class="ld-kicker">FOUR COMPANIES, IN ORDER</div>
-      <div class="ld-chapters">
-        ${CHAPTERS.map(
-          (c) => `
-        <div class="ld-card ${c.sealed ? 'sealed' : ''}">
-          <div class="ld-card-art">${
-            c.art
-              ? `<img src="/art/${c.art}.webp" alt="" loading="lazy" onerror="this.remove()">`
-              : `<span class="ld-card-sigil">${c.sealed ? '✕' : c.name[0]}</span>`
-          }</div>
-          <div class="ld-card-kicker">${esc(c.kicker)}</div>
-          <div class="ld-card-name">${c.sealed ? 'SEALED' : esc(c.name)}</div>
-          <p class="ld-card-line">${esc(c.line)}</p>
+      <div class="ld-features">
+        ${FEATURES.map(
+          (f) => `
+        <div class="ld-feature">
+          <div class="ld-glyph">${f.glyph ?? ''}</div>
+          <div class="ld-kicker">${esc(f.kicker)}</div>
+          <h3 class="ld-feature-head">${esc(f.head ?? '')}</h3>
+          ${f.paras.map((t) => `<p class="ld-feature-body">${esc(t)}</p>`).join('')}
         </div>`,
         ).join('')}
       </div>
     </div>
   </section>`
+}
 
-  const plaquesHtml = PLAQUES.map(
-    (q) => `
-  <section class="ld-scene ld-short" data-art="">
-    <div class="ld-beat">
-      <div class="ld-quote">“${esc(q.quote)}”</div>
-      <div class="ld-source">${esc(q.source)}</div>
-    </div>
-  </section>`,
-  ).join('')
+export function renderLanding(root: HTMLElement, onEnter: () => void): void {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const el = document.createElement('div')
   el.className = 'landing'
   el.innerHTML = `
     <div class="ld-bg"><div class="ld-bg-img a"></div><div class="ld-bg-img b"></div><div class="ld-veil"></div></div>
-    <button class="ld-enter-chip" data-enter>ENTER →</button>
     <div class="ld-scroll">
       <section class="ld-scene ld-hero" data-art="${HERO_ART[0]}">
         <div class="ld-beat">
           <div class="ld-kicker">${esc(HERO.kicker)}</div>
           <h1 class="ld-title">${esc(HERO.title)}</h1>
           <div class="ld-tag">${esc(HERO.tag)}</div>
-          <button class="cta ld-cta" data-enter>Sign the papers →</button>
           <div class="ld-scrollcue">SCROLL</div>
         </div>
       </section>
-      ${panelHtml(OPENING, `<div class="ld-stat">${esc(OPENING_STAT)}</div>`)}
-      ${panelHtml(PREMISE)}
-      ${chaptersHtml}
-      ${FEATURES.map((f) => panelHtml(f)).join('')}
+      ${panelHtml(PITCH[0], `<div class="ld-stat">${esc(PITCH_STAT)}</div>`)}
+      ${panelHtml(PITCH[1])}
+      ${chapterHtml()}
       ${cliffhangerHtml()}
-      ${plaquesHtml}
+      ${featuresHtml()}
       ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`)}
-      <section class="ld-scene" data-art="${CTA.art ?? ''}">
+      <section class="ld-scene" data-art="${FINALE.art ?? ''}">
         <div class="ld-beat">
-          <div class="ld-kicker">${esc(CTA.kicker)}</div>
-          <h2 class="ld-head">${esc(CTA.head ?? '')}</h2>
-          ${CTA.paras.map((t) => `<p class="ld-body">${esc(t)}</p>`).join('')}
+          <div class="ld-kicker">${esc(FINALE.kicker)}</div>
+          <h2 class="ld-head">${esc(FINALE.head ?? '')}</h2>
+          ${FINALE.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
+          <div class="ld-price">${esc(PRICE_CHIP)}</div>
           <button class="cta ld-cta" data-enter>Sign the papers →</button>
           <div class="ld-covenant">${COVENANT.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
           <div class="ld-foot">FATE.CX · <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">THE FOUNDERS’ LEDGER</a></div>
