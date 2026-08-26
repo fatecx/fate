@@ -56,7 +56,32 @@ function chapterHtml(): string {
   ).join('')
 }
 
-/** The play surface itself, demonstrating the first scene — a living screenshot. */
+/** The choice's declared costs, exactly as the play surface wears them. */
+function fxChips(effects: readonly { e: string; d?: number }[]): string {
+  let money = 0
+  let stress = 0
+  let rep = 0
+  let stake = 0
+  for (const fx of effects) {
+    if (fx.e === 'treasury') money += fx.d ?? 0
+    else if (fx.e === 'stress') stress += fx.d ?? 0
+    else if (fx.e === 'rep') rep += fx.d ?? 0
+    else if (fx.e === 'stake') stake += fx.d ?? 0
+  }
+  const chips: string[] = []
+  const chip = (good: boolean, label: string): void => {
+    chips.push(`<span class="fx ${good ? 'good' : 'bad'}">${label}</span>`)
+  }
+  if (money) chip(money > 0, `${money > 0 ? '+' : '−'} cash`)
+  if (stake) chip(stake < 0, `${stake > 0 ? '−' : '+'} equity`)
+  if (stress) chip(stress < 0, `${stress > 0 ? '+' : '−'} stress`)
+  if (rep) chip(rep > 0, `${rep > 0 ? '+' : '−'} cred`)
+  return chips.length ? `<span class="fx-row">${chips.join('')}</span>` : ''
+}
+
+/** The play surface itself, demonstrating the first scene — a living screenshot.
+ *  Prose lands sentence by sentence and the choices appear when it settles,
+ *  exactly the mechanics of the real stage. No titles in the stream, no caret. */
 function demoHtml(): string {
   const scene = getScene(CONTENT, 'hyperchute', CLIFFHANGER.sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
@@ -77,10 +102,16 @@ function demoHtml(): string {
           </aside>
           <div class="ld-demo-story">
             <div class="ld-leadin" data-text="${esc(scene.leadIn ?? '')}"></div>
-            <h3 class="ld-scene-title">${esc(scene.title)}</h3>
             <p class="ld-prose" data-text="${esc(scene.prose)}"></p>
-            <div class="ld-choices">
-              ${scene.choices.map((c) => `<button class="ld-choice" disabled>${esc(c.label)}</button>`).join('')}
+            <div class="ld-choices" style="visibility:hidden">
+              ${scene.choices
+                .map(
+                  (c) =>
+                    `<button class="ld-choice" disabled><span class="c-label">${esc(c.label)}</span>${fxChips(
+                      (c.effects ?? []) as { e: string; d?: number }[],
+                    )}</button>`,
+                )
+                .join('')}
             </div>
           </div>
         </div>
@@ -117,8 +148,8 @@ function featuresHtml(): string {
               : ''
           }
           ${
-            f.stamp
-              ? `<div class="ld-sigrow"><div class="ld-sig">${esc(f.stamp.sig)}</div><div class="ld-stamp">${esc(f.stamp.mark)}</div></div>`
+            f.sig
+              ? `<div class="ld-sigrow"><span class="ld-sig-label">${esc(f.sig.label)}</span><span class="ld-sig-value">${esc(f.sig.value)}</span></div>`
               : ''
           }
         </div>`,
@@ -198,54 +229,58 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     front = next
   }
 
-  // ---- the living screenshot: type the first scene the way the game does ----
+  // ---- the living screenshot: reveal the first scene the way the stage does —
+  // sentence by sentence, reading-paced, choices landing when the prose settles.
   const demo = el.querySelector<HTMLElement>('#ldDemo')
   let demoStarted = false
-  function typeInto(node: HTMLElement, text: string, cps: number): Promise<void> {
-    return new Promise((resolve) => {
-      let i = 0
-      node.classList.add('typing')
-      const step = Math.max(1, Math.round(cps / 60))
-      const iv = window.setInterval(() => {
-        if (!node.isConnected || node.dataset.done === '1') {
-          window.clearInterval(iv)
-          node.classList.remove('typing')
-          resolve()
-          return
-        }
-        i += step
-        node.textContent = text.slice(0, i)
-        if (i >= text.length) {
-          window.clearInterval(iv)
-          node.classList.remove('typing')
-          resolve()
-        }
-      }, 16)
-    })
+  let demoQueue: HTMLElement[] = []
+  let demoTimer = 0
+  function makeLines(node: HTMLElement): HTMLElement[] {
+    const text = node.dataset.text ?? ''
+    node.textContent = ''
+    const out: HTMLElement[] = []
+    const parts = text.split(/(?<=[.!?…]["'”’)]?\s)/)
+    for (const line of parts.length ? parts : [text]) {
+      const span = document.createElement('span')
+      span.className = 'fadeline'
+      span.textContent = line
+      node.appendChild(span)
+      out.push(span)
+    }
+    return out
   }
   function finishDemo(): void {
     if (!demo) return
-    demo.querySelectorAll<HTMLElement>('[data-text]').forEach((n) => {
-      n.dataset.done = '1'
-      n.textContent = n.dataset.text ?? ''
-      n.classList.remove('typing')
-    })
+    window.clearTimeout(demoTimer)
+    for (const p of demoQueue) p.classList.add('on')
+    demoQueue = []
+    const choices = demo.querySelector<HTMLElement>('.ld-choices')
+    if (choices) choices.style.visibility = 'visible'
     demo.classList.add('played')
   }
-  async function startDemo(): Promise<void> {
+  function startDemo(): void {
     if (demoStarted || !demo) return
     demoStarted = true
+    const leadin = demo.querySelector<HTMLElement>('.ld-leadin')
+    const prose = demo.querySelector<HTMLElement>('.ld-prose')
+    demoQueue = [...(leadin ? makeLines(leadin) : []), ...(prose ? makeLines(prose) : [])]
     if (reduced) {
       finishDemo()
       return
     }
     demo.addEventListener('click', finishDemo, { once: true })
-    const leadin = demo.querySelector<HTMLElement>('.ld-leadin')
-    const prose = demo.querySelector<HTMLElement>('.ld-prose')
-    if (leadin?.dataset.text) await typeInto(leadin, leadin.dataset.text, 210)
-    demo.classList.add('titled')
-    if (prose?.dataset.text && !demo.classList.contains('played')) await typeInto(prose, prose.dataset.text, 240)
-    demo.classList.add('played')
+    const step = (): void => {
+      const p = demoQueue.shift()
+      if (!p) {
+        finishDemo()
+        return
+      }
+      p.classList.add('on')
+      // Reading-paced: longer lines hold a beat longer — the stage's own law.
+      const wait = Math.min(620, 220 + (p.textContent?.length ?? 0) * 4)
+      demoTimer = window.setTimeout(step, wait)
+    }
+    step()
   }
 
   // ---- scene activation: reveal beats, swap the wall to the scene's print ----
@@ -262,7 +297,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           else if (en.intersectionRatio >= 0.4) {
             heroLive = false
             show(t.dataset.art ?? '')
-            if (t.dataset.demo !== undefined) void startDemo()
+            if (t.dataset.demo !== undefined) startDemo()
           }
         } else if (t === hero) heroLive = false
       }

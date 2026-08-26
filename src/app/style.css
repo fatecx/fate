@@ -684,25 +684,18 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 .ld-cap-name { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
 .ld-cap-role { font-family: var(--mono); font-size: 10px; color: #9b9d96; letter-spacing: 0.08em; margin-top: 2px; }
 .ld-demo-story { min-width: 0; flex: 1; }
-.ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; min-height: 3.4em; }
-.ld-scene-title {
-  font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 0.05em; margin: 12px 0 10px;
-  opacity: 0; transition: opacity 0.5s ease;
-}
-.ld-demo.titled .ld-scene-title, .ld-demo.played .ld-scene-title { opacity: 1; }
-.ld-prose { line-height: 1.75; color: #e6e7e2; font-size: 15.5px; }
-.typing::after { content: '▌'; color: var(--accent); animation: ldCaret 0.9s steps(1) infinite; }
-@keyframes ldCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-.ld-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+.ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; margin-bottom: 12px; white-space: pre-wrap; }
+.ld-prose { line-height: 1.75; color: #e6e7e2; font-size: 15.5px; white-space: pre-wrap; }
+.ld-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 22px; }
 .ld-choice {
-  text-align: left; font-size: 14px; padding: 11px 14px;
-  border: 1px solid #2a2d33; border-radius: 8px; color: #a8aaa2; cursor: default;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  text-align: left; font-size: 14px; padding: 12px 14px;
+  border: 1px solid #2a2d33; border-radius: 8px; color: #c9cac4; cursor: default;
 }
-.ld-demo.played .ld-choice { opacity: 1; transform: none; }
-.ld-demo.played .ld-choice:nth-child(2) { transition-delay: 0.15s; }
-.ld-demo.played .ld-choice:nth-child(3) { transition-delay: 0.3s; }
+.ld-choice .c-label { flex: 0 1 auto; }
+.ld-choice .fx-row { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; justify-content: flex-end; }
+.ld-choice .fx.good { color: #5cc9a0; }
+.ld-choice .fx.bad { color: #e58a83; }
 /* game chips — the pills the surface stamps after a choice */
 .ld-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .ld-pill {
@@ -741,24 +734,13 @@ html:has(.landing), html:has(.landing) body { background: #000; }
   .ld-face { transition: none; opacity: 1; transform: none; }
 }
 
-/* the covenant's mark — a signature line and the stamp pressed over it */
-.ld-sigrow { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.ld-sig {
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: #9b9d96;
-  border-top: 1px solid #2a2d33; padding-top: 10px; flex: 1;
+/* the covenant's mark — a signature rule, plain as the papers it comes from */
+.ld-sigrow {
+  margin-top: 24px; display: flex; align-items: baseline; justify-content: space-between;
+  gap: 14px; border-top: 1px solid #2a2d33; padding-top: 12px;
 }
-.ld-stamp {
-  font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.24em;
-  color: var(--accent); border: 2px solid var(--accent); border-radius: 4px;
-  padding: 7px 14px; transform: rotate(-6deg) scale(1.5); opacity: 0; flex: none;
-}
-.ld-scene.on .ld-stamp {
-  opacity: 0.92; transform: rotate(-6deg) scale(1);
-  transition: opacity 0.25s ease 0.7s, transform 0.3s cubic-bezier(0.2, 1.4, 0.4, 1) 0.7s;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ld-stamp { opacity: 0.92; transform: rotate(-6deg); transition: none; }
-}
+.ld-sig-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; color: #9b9d96; }
+.ld-sig-value { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; color: #f6f6f2; }
 
 /* the ledger door — a real button, readable over any print */
 .ld-ledger {

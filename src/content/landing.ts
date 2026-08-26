@@ -15,8 +15,8 @@ export interface LandingPanel {
   pills?: { t: string; k: 'good' | 'bad' | 'dim' | 'accent' }[]
   /** Portrait circles — character ids whose faces this card wears. */
   cast?: string[]
-  /** The covenant's mark: a signature line and the stamp pressed over it. */
-  stamp?: { sig: string; mark: string }
+  /** The covenant's mark: a plain signature rule, label and value. */
+  sig?: { label: string; value: string }
 }
 
 export interface ChapterCard {
@@ -123,7 +123,7 @@ export const FEATURES: readonly LandingPanel[] = [
     paras: [
       'One wallet gets one life. Every choice is written to that address for good, and the finished biography stays on the record.',
     ],
-    stamp: { sig: 'FOUNDER OF RECORD · 0x3f…a2', mark: 'IMMUTABLE' },
+    sig: { label: 'FOUNDER OF RECORD', value: '0x3f…a2 · PERMANENT' },
   },
 ]
 
