@@ -529,9 +529,10 @@ function cardHtml(): string {
     <div class="portrait"><span class="sigil">${initial}</span>${
       artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
     }</div>
-    <div class="nameplate">
-      <div class="np-name">${esc(name)}</div>
-      ${role ? `<div class="np-role">${esc(role)}</div>` : ''}
+    <div class="card-cap">
+      ${speaker ? `<div class="cap-kicker">${esc(scene.title)}</div>` : ''}
+      <div class="cap-title">${esc(speaker ? name : scene.title)}</div>
+      ${speaker && role ? `<div class="cap-sub">${esc(role)}</div>` : ''}
       ${fuseLine}
     </div>
   </aside>`
