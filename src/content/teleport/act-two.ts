@@ -16,7 +16,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The pilot program at Shackleton Verge runs ninety days without excuses. Commander Salazar’s review arrives as one line — “Bodies showed up. Humans don’t.” — followed by a contract offer with real money in it.',
     prose:
-      'The screen carries her from the Moon’s south pole, sixteen months into a twenty-month stay, lit by Shackleton’s sideways sun. “Here is my problem,” she says. “Every hour a trained human works outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me less of both. I want them on the maintenance schedule for good — seals, radiators, keeping moon dust out of the wrong places, the boring immortal work. I need to know what happens when tourists want the same hours, because I have seen what companies do when the fun money shows up.” She leans in. “Write me a contract that tells me who you are.”',
+      'The screen carries him from the Moon’s south pole, sixteen months into a twenty-month stay, lit by Shackleton’s sideways sun. “Here is my problem,” he says. “Every hour a trained human works outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me less of both. I want them on the maintenance schedule for good — seals, radiators, keeping moon dust out of the wrong places, the boring immortal work. I need to know what happens when tourists want the same hours, because I have seen what companies do when the fun money shows up.” He leans in. “Write me a contract that tells me who you are.”',
     choices: [
       {
         label: 'Guarantee her hours first. Tourists get what’s left.',
@@ -29,7 +29,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'Base work before tourist money, in writing, always. He reads it twice and signs. “Most people negotiate that clause out,” he says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money that arrives like weather.',
+          'Base work before tourist money, in writing, always. He reads it twice and signs. “Most people negotiate that clause out,” he says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money, the kind you can plan around.',
       },
       {
         label: 'Promise everything to everyone. Capacity will catch up.',
@@ -70,7 +70,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       'Cass says nothing about the medical file, and you leave it alone. He sits in the chair, runs the body at the Verge through a seal check, and within a minute the difference is clear. Cass moves like the machine is his. He works the 2.6-second delay like a tide he grew up beside — command, breathe, receive. When he climbs out forty minutes later, his eyes stay on the screen where the Moon is. “I trained eleven years to go,” he says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” He finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
     choices: [
       {
-        label: 'Chief teleoperator, full ride, build the corps around her.',
+        label: 'Chief teleoperator, full ride, build the corps around him.',
         effects: [
           { e: 'meet', who: 'cass' },
           { e: 'rel', who: 'cass', aff: 3, resp: 2 },
@@ -80,7 +80,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'She writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank her afterward. On the wall of the control bay she hangs one unexplained thing: a mission patch with no mission on it.',
+          'He writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank her afterward. On the wall of the control bay she hangs one unexplained thing: a mission patch with no mission on it.',
       },
       {
         label: 'Contract-to-hire. The medical makes the insurer twitchy.',
@@ -91,7 +91,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'cass_contract', v: true },
         ],
         result:
-          '“Contract,” she repeats, flat as the word deserves, and signs anyway, because the chair is the chair. She is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls her.',
+          '“Contract,” he repeats, flat as the word deserves, and signs anyway, because the chair is the chair. She is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls him.',
       },
       {
         label: 'Pass. Hire the safe pair of hands from the drone firm.',
@@ -318,9 +318,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE NUMBER MEETING',
     speaker: 'hale',
     leadIn:
-      'Forecast season. The board wants next year’s number. The honest version of the business gives you a number that will impress nobody. A second spreadsheet stretches every guess toward the sun. Every founder alive has met that spreadsheet.',
+      'Forecast season. The board wants a number for next year. The honest forecast is low and will impress nobody. So you build a second version that assumes everything goes right.',
     prose:
-      'Hale sets up the call with unusual care, which is how you learn that the model compares every forecast to what actually happens later, and keeps score for years. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have watched it punish a founder who knew better.” Two numbers sit on the table: the honest one, low but defensible, and the stretch one, the number the growth chart wants to believe. If June is with you, her old spreadsheet wisdom waits in the margin — WAYS WE DIE, item four: we start believing our own deck.',
+      'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table. The honest one is low. The stretch one is big, and it is the one the growth story needs. If June is with you, her handwriting is already in the margin of WAYS WE DIE, item four: we start believing our own deck.',
     choices: [
       {
         label: 'Give the honest number and wear the silence.',
@@ -470,7 +470,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'It happens slowly, the way tide goes out. Omid’s standup updates get shorter, his code changes get scarcer, and one week you realize the cascade bench — his bench — has been dark after five for a month.',
     prose:
-      'You find him in the hangar at 11 p.m. anyway — old habits — running Moon-path calculations he could hand to an intern. The map of everything is behind him. Someone, meaning him, has taken the framed 2.61 down from beside the door and leaned it against the wall, face hidden. “I used to think the enemy was distance,” he says, without turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that carries the truth a quarter million miles. You are teaching it to guess instead. I need you to know that I am still deciding what to do about that.”',
+      'You find him in the hangar at 11 p.m. anyway — old habits — running Moon-path calculations he could hand to an intern. The map of everything is behind him. Omid has taken the framed 2.61 down from beside the door and leaned it against the wall, face hidden. “I used to think the enemy was distance,” he says, without turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that carries the truth a quarter million miles. You are teaching it to guess instead. I need you to know that I am still deciding what to do about that.”',
     choices: [
       {
         label: 'Stay until 3 a.m. Hear all of it.',
@@ -693,7 +693,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The replacement relay for satellite four has been waiting in HALCYON’s launch-prep line for five weeks. Then your whole launch year quietly moves, and the new dates spell out a message.',
     prose:
-      'The notice arrives from HALCYON’s launch schedule system at 3 a.m., machine-generated and machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details read like a slow takeover wearing a partnership costume. HALCYON becomes your only launch provider, sees your data, and gets first claim to buy the company if you ever sell. On the wall map, your satellite ring suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen once you became worth noticing.',
+      'The notice arrives from HALCYON’s launch schedule system at 3 a.m., machine-generated and machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details are simple, and they amount to a takeover. HALCYON becomes your only launch provider, sees your data, and gets first claim to buy the company if you ever sell. On the wall map, your satellite ring suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen once you became worth noticing.',
     choices: [
       {
         label: 'Pay the expedite fee. Eat it and fly.',

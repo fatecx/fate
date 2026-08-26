@@ -360,7 +360,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The Lunar Commerce Expo is eleven weeks away. For three days, every Moon base operator, tourist broker, and space investor will share one hall. To earn their attention, your test machine needs to become safe enough for a live public demo.',
     prose:
-      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and buying the insurance the hall demands when a robot moves over satellite in front of a crowd. The total sits brutally close to everything the company has left. The math says the same thing no matter who reads it: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
+      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and the insurance the hall demands before you can drive a robot by satellite in front of a crowd. The total sits brutally close to everything the company has left. The math says the same thing no matter who reads it: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
     choices: [
       {
         label: 'Pay it in full. Flight-rate everything.',
@@ -632,7 +632,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Vance’s $400,000 wire lands like rain on dry ground, and the Verge pilot is being turned into a contract. Then ALEPH’s term sheet arrives. Page one is the deal. Page two is a summary of your company, written by the model and sharper than your own board deck.',
     prose:
-      'Conrad Hale takes the good chair in your borrowed conference room and lets the document do the talking. Two and a half million dollars, at a fair price — honestly fair, because ALEPH never haggles, it calculates. The part that matters hides in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. Whoever names that fifth seat may someday control a tie vote. “The model cares about clean board math,” Hale says, watching you read. “Its words.” Somewhere in a data center, a system that has read every document you ever signed is waiting for your answer.',
+      'Conrad Hale takes the good chair in your borrowed conference room and lets the document do the talking. Two and a half million dollars, at a fair price — honestly fair, because ALEPH never haggles, it calculates. The part that matters hides in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. Whoever names that fifth seat may someday control a tie vote. “The model cares about clean board math,” Hale says, watching you read. “Its words, not mine.” Somewhere in a data center, a system that has read every document you ever signed is waiting for your answer.',
     choices: [
       {
         label: 'Take it — but the independent seat stays yours to name.',

@@ -316,7 +316,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room count itself. You meant to build a different room. This is the one you built.',
     prose:
-      'It is over in eleven minutes. The seats you never filled with allies do the deciding, one polite voice at a time. The model’s memo sits at the center of the table, doing the one thing models do honestly, which is remember everything. The count carries. Deep in the paperwork you signed back when the money mattered more, a clause with your name in it activates, polite as a trapdoor with manners. Conrad Hale does not gloat, and the model would not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
+      'It is over in eleven minutes. The seats you never filled with allies do the deciding, one polite voice at a time. The model’s memo sits at the center of the table, doing the one thing models do honestly, which is remember everything. The count carries. Deep in the paperwork you signed back when the money mattered more, a clause with your name in it activates, quiet and final. Conrad Hale does not gloat, and the model would not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
     choices: [
       {
         label: 'Clean out the desk. Shake every hand on the floor.',
@@ -465,7 +465,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The bankers come to the Cape this time — a different bank, or the same bank with a different posture. The founder they are pitching has done this before, and the file says so.',
     prose:
-      'The buyers line up for a company that has told the truth when the truth cost money: the death at the pole published with the fault marked in your own hand, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up. You realize she has read the Hyperchute file, or lived it, because she says this first: “I already know which number you’re going to pick. I told the bank group to model the honest one.” Around the table sit a CFO who waited eleven companies to ring a bell as an operator, and board signatures you earned one vote at a time.',
+      'The buyers line up for a company that has told the truth when the truth cost money: the death at the pole published with the fault marked in your own hand, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up. You realize she has read the Hyperchute file, or lived it, because she says this first: “I already know which number you’re going to pick. I told the bank group to model the honest one.” Around the table sit a CFO who waited through eleven companies to ring a bell as an operator, and board signatures you earned one vote at a time.',
     choices: [
       {
         label: 'Take the company public. Price the honest number.',
