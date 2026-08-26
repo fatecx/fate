@@ -31,6 +31,14 @@ describe('soundscape', () => {
     }
   })
 
+  it('every non-cutscene hyperchute scene carries an authored mood', () => {
+    for (const s of CONTENT.chapters.hyperchute.scenes) {
+      if ((s.kind ?? 'scene') === 'cutscene') continue
+      expect(s.mood, `hyperchute/${s.id}: missing mood`).toBeDefined()
+      expect(MOODS[s.mood!], `hyperchute/${s.id}: unknown mood '${s.mood}'`).toBeDefined()
+    }
+  })
+
   it('every bg and foley reference points into the registry', () => {
     for (const ch of Object.values(CONTENT.chapters)) {
       for (const p of ch.prologue ?? []) {

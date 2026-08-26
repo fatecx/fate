@@ -190,6 +190,41 @@ export const MOODS: Record<string, SoundDef> = {
     prompt:
       'Dark cinematic ambient instrumental music: a deep evolving synthesizer pad with slow tonal movement, distant resonant piano note echoing rarely, held-breath suspense of a film interlude. Heavy, spacious, seamless loop, no drums, no vocals.',
   },
+  hustle: {
+    id: 'mus_hustle',
+    gain: 0.3,
+    seconds: 30,
+    prompt:
+      'Light kinetic instrumental music: a gentle forward-moving synthesizer pattern, soft plucked arpeggios, quiet momentum and optimism, things getting done late and fast. Understated, warm, seamless loop, no drums, no vocals.',
+  },
+  tender: {
+    id: 'mus_tender',
+    gain: 0.28,
+    seconds: 30,
+    prompt:
+      'Tender intimate instrumental music: soft felt piano and warm pad, small kindnesses between people, human warmth in a hard city. Gentle, close, slow, seamless loop, no drums, no vocals.',
+  },
+  negotiate: {
+    id: 'mus_negotiate',
+    gain: 0.3,
+    seconds: 30,
+    prompt:
+      'Poised tense instrumental music: sparse plucked notes over a held low pad, poker-faced restraint, money and futures being decided across a table. Minimal, coiled, patient, seamless loop, no drums, no vocals.',
+  },
+  dread: {
+    id: 'mus_dread',
+    gain: 0.3,
+    seconds: 30,
+    prompt:
+      'Slow dread instrumental music: a cold minor pad darkening gradually, a low pulse like a distant warning, something bad approaching by increments. Heavy air, restrained, seamless loop, no drums, no vocals.',
+  },
+  siege: {
+    id: 'mus_siege',
+    gain: 0.3,
+    seconds: 30,
+    prompt:
+      'Under-siege instrumental music: urgent low strings-like synthesizer figures repeating, pressure from all sides, headlines and hearings closing in, dignity under fire. Driving but restrained, seamless loop, no drums, no vocals.',
+  },
 }
 
 /** The danger stem — layered OVER the current mood when meters go RED, and
