@@ -122,7 +122,7 @@ describe('content integrity', () => {
   })
 
   it('every dealt scene arrives with a leadIn — no cold teleports (authored chapters)', () => {
-    for (const chId of ['hyperchute', 'teleport'] as const) {
+    for (const chId of ['hyperchute', 'teleport', 'skyline'] as const) {
       const ch = CONTENT.chapters[chId]
       for (const s of ch.scenes) {
         const dealt = (s.when !== undefined || s.priority === true) || s.id === ch.insolvency || s.id === ch.burnout

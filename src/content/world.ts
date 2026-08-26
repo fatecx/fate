@@ -162,6 +162,77 @@ const CHARACTERS: Record<string, CharacterDef> = {
       'Sixty-nine. Kept every clipping — the good ones and the bad ones, in the same shoebox as your model rockets.',
     hiddenTrait: 'Kept pride quiet at home. Told every man at the union hall, every week, for years.',
   },
+  // ---- SKYLINE natives ----------------------------------------------------------
+  ingrid: {
+    id: 'ingrid',
+    name: 'Ingrid Voss',
+    role: 'Chief cable engineer',
+    blurb: 'Built bridges for thirty years before anyone let her build one standing up. Talks to the cable like it can hear her.',
+    hiddenTrait: 'She has walked away from two projects in her life, both times over a safety margin. Both projects later failed exactly the way she said they would.',
+  },
+  talia: {
+    id: 'talia',
+    name: 'Talia Reyes',
+    role: 'Chief of staff',
+    blurb: 'Grew up in the Flats catching your packages as a kid. Twenty-nine now, and runs your world like air traffic control.',
+    hiddenTrait: 'Keeps a photo on her desk of a porch with a delivery tube on it. She has never told you it is her grandmother’s porch.',
+  },
+  okonkwo: {
+    id: 'okonkwo',
+    name: 'Ambassador Okonkwo',
+    role: 'Chair, World Orbital Commission',
+    blurb: 'Thirty years of treaty work have left her fair, patient, and immune to charm — the one judge money cannot reach.',
+    hiddenTrait: 'She reads every safety report herself, in full, at night. She has caught three lies that way, and never says which ones.',
+  },
+  reyescain: {
+    id: 'reyescain',
+    name: 'Admiral Reyes-Cain',
+    role: 'Orbital Defense Command',
+    blurb: 'Wants the elevator under military protection. Every offer he makes is real, generous, and shaped like a cage.',
+    hiddenTrait: 'He genuinely believes he is saving you, which is what makes him dangerous.',
+  },
+  rashid: {
+    id: 'rashid',
+    name: 'Sheikh Rashid al-Mansour',
+    role: 'Chairman, Aurelia Sovereign Fund',
+    blurb: 'Runs nine hundred billion dollars of oil money hunting for the post-oil century. Quotes your old interviews back at you, warmly, from memory.',
+    hiddenTrait: 'He is a true believer who would spend everything he controls to prove a country can be founded like a startup.',
+  },
+  volkov: {
+    id: 'volkov',
+    name: 'Katarina Volkov',
+    role: 'Deputy chairman, Aurelia',
+    blurb: 'Spent fifteen years writing debt deals for struggling countries. Now she writes constitutions, and hers always contain an exit clause that is never for you.',
+    hiddenTrait: 'She has already gamed out your next three moves. Her notebooks are numbered, and she is on notebook forty-one.',
+  },
+  calloway: {
+    id: 'calloway',
+    name: 'Senator Ruth Calloway',
+    role: 'Chair, Senate Committee on Orbital Infrastructure',
+    blurb: 'Shakes your hand warmly in public. Wants an American elevator or no elevator at all.',
+    hiddenTrait: 'She co-wrote the first draft of the seizure treaty. Her name appears nowhere on it.',
+  },
+  chen: {
+    id: 'chen',
+    name: 'Ambassador Chen Jiang',
+    role: 'Head of the rival bloc’s delegation',
+    blurb: 'His country is building its own elevator, two years behind yours. He tells you this to your face, over dinner, with complete honesty.',
+    hiddenTrait: 'He respects exactly one thing: people who speak to him as plainly as he speaks to them. His reports home say more than his speeches.',
+  },
+  anneke: {
+    id: 'anneke',
+    name: 'Anneke Voss',
+    role: 'Director of Government Affairs, HALCYON',
+    blurb: 'The human hand behind the lobbying money that wants your cable dead. She is also Ingrid’s estranged sister.',
+    hiddenTrait: 'She keeps a photo of a bridge her sister built, and she has never once crossed it.',
+  },
+  aurelia: {
+    id: 'aurelia',
+    name: 'AURELIA',
+    role: 'Sovereign fund, then venture-state',
+    blurb: 'It began as a nine-hundred-billion-dollar fund. Then it bought territory, wrote a constitution, and raised a flag.',
+    hiddenTrait: 'Its constitution is a term sheet and its citizens are shareholders. If it wins, its founding myth will be you.',
+  },
 }
 
 export const CONTENT: Content = {

@@ -22,7 +22,7 @@ export const FILLERS: readonly FillerDef[] = [
   },
   {
     id: 'f_runway_groceries',
-    when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 8 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 8 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'The grocery run gets surgical. Mrs. Delgado slips you a dryer token and studies the receipt like it was her plan all along.',
   },
   {
@@ -32,12 +32,12 @@ export const FILLERS: readonly FillerDef[] = [
   },
   {
     id: 'f_basement',
-    when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 5 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 5 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'You let the apartment go and move back into your parents’ basement. Your old bedroom still has the model rockets. At dinner, the quiet feels like its own kind of love.',
   },
   {
     id: 'f_arrears_meter',
-    when: { k: 'all', of: [{ k: 'treasury', cmp: 'lt', v: 0 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'treasury', cmp: 'lt', v: 0 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'You’ve started feeding the electricity meter by hand, coin by coin, like the garage is a parking spot for a dream.',
   },
   {
@@ -48,7 +48,7 @@ export const FILLERS: readonly FillerDef[] = [
   // ---- stress ------------------------------------------------------------------
   {
     id: 'f_stress_sleep',
-    when: { k: 'all', of: [{ k: 'stress', cmp: 'gte', v: 70 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'stress', cmp: 'gte', v: 70 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'Sleep comes in installments. At 4 a.m. the ceiling shuttle looks less like a prototype and more like a verdict.',
   },
   {
@@ -95,12 +95,12 @@ export const FILLERS: readonly FillerDef[] = [
   // ---- reputation ---------------------------------------------------------------
   {
     id: 'f_rep_loved',
-    when: { k: 'all', of: [{ k: 'rep', cmp: 'gte', v: 3 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'rep', cmp: 'gte', v: 3 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'Someone stuck a hand-drawn shuttle in the laundromat window, crayon on cardboard. The owner refuses to take it down.',
   },
   {
     id: 'f_rep_cold',
-    when: { k: 'all', of: [{ k: 'rep', cmp: 'lte', v: -2 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
+    when: { k: 'all', of: [{ k: 'rep', cmp: 'lte', v: -2 }, { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } }] },
     text: 'The barista who used to ask about the railway now only rings you up. Small city. Long memory.',
   },
   // ---- grey market / storm texture ----------------------------------------------
@@ -122,17 +122,17 @@ export const FILLERS: readonly FillerDef[] = [
   // ---- always-eligible city & garage ambience ------------------------------------
   {
     id: 'f_dryer_heat',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'Dryer heat rises through the floorboards at six sharp. The whole company still smells faintly of fabric softener. You’ve stopped minding.',
   },
   {
     id: 'f_meridian_sky',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'MERIDIAN’s drones cross the evening sky in perfect intervals, blue lights heading for the hills. You watch one until the blue light disappears. It takes a while.',
   },
   {
     id: 'f_flats_night',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'The Flats does its Friday thing — grills on fire escapes, someone’s speaker two blocks over. The city keeps being worth it.',
   },
   {
@@ -149,69 +149,110 @@ export const FILLERS: readonly FillerDef[] = [
   },
   {
     id: 'f_shuttle_tether',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'You tighten the prototype’s tether out of habit, the way other people check their locks. It hasn’t hung crooked in months.',
   },
   {
     id: 'f_citation_list',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'The parking citation with the original waiting list on the back lives in a drawer now. You keep it anyway.',
   },
   {
     id: 'f_weather',
-    when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
+    when: { k: 'not', p: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] } },
     text: 'Weather moves through midweek — real rain, the kind that grounds everything with propellers. The tubes keep working. It’s a small, private satisfaction.',
   },
   // ---- teleport era ---------------------------------------------------------------
   {
     id: 'f_cape_launch',
-    when: { k: 'corpse', company: 'hyperchute' },
+    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] },
     text: 'A booster goes up from the pads south of you, and the hangar roof drums with delay-shifted thunder. Only you look up anymore.',
   },
   {
     id: 'f_cape_gulls',
-    when: { k: 'corpse', company: 'hyperchute' },
+    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] },
     text: 'Gulls nest in the hangar eaves and scream at the forklift. Omid — or his empty bench — has named all of them after journal reviewers.',
   },
   {
     id: 'f_counter_hum',
-    when: { k: 'corpse', company: 'hyperchute' },
+    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] },
     text: 'The relay dashboard glows all night in the corner of the floor, handoffs ticking across it like a pulse. You check it the way you used to check the tether.',
   },
   {
     id: 'f_moon_sideways',
-    when: { k: 'corpse', company: 'hyperchute' },
+    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] },
     text: 'On the remote feed from the Moon, sunlight comes in sideways the way it always does. For a second, the whole shift watches an ordinary shadow do something no Earth shadow does.',
   },
   {
     id: 'f_verge_traffic',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'met', who: 'salazar' }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'met', who: 'salazar' }] },
     text: 'Shackleton Verge’s weekly report arrives at 4 a.m., dry as Moon dust. Salazar’s only note this week is “Adequate.” The team frames it.',
   },
   {
     id: 'f_operator_hands',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'flag', scope: 'company', key: 'cass_chief', cmp: 'eq', v: true }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'flag', scope: 'company', key: 'cass_chief', cmp: 'eq', v: true }] },
     text: 'Cass runs the morning calibration with her eyes shut, feeling the signal delay like a tide. The trainees think she is showing off. It is prayer.',
   },
   {
     id: 'f_tourist_letters',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'rep', cmp: 'gte', v: 3 }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'rep', cmp: 'gte', v: 3 }] },
     text: 'Letters from customers pile in a shoebox by the chair, with photos of hands raised against the Earth and thank-yous in shaky cursive. Somebody labels it CARGO, PRICELESS.',
   },
   {
     id: 'f_halcyon_watch',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'met', who: 'halcyon' }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'met', who: 'halcyon' }] },
     text: 'HALCYON’s quarterly deck leaks, as it always does. Slide forty-one is about you. It is very polite. You print it and pin it by the door.',
   },
   {
     id: 'f_burn_cape',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'runway', cmp: 'lt', v: 8 }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'runway', cmp: 'lt', v: 8 }] },
     text: 'You learn which vending machine at the spaceport still takes coins and what time the good bakery marks things down. Space is glamorous at a distance.',
   },
   {
     id: 'f_june_ledger',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true }] },
+    when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true }] },
     text: 'June updates WAYS WE DIE on Friday and reads the funniest entry aloud at standup. Morale, she says, is a line item. She budgets for it.',
+  },
+  // ---- skyline era ------------------------------------------------------------------
+  {
+    id: 'f_platform_weather',
+    when: { k: 'corpse', company: 'teleport' },
+    text: 'You learn the platform’s weather by sound — the mooring lines hum a note for calm and a different one for trouble, and everyone aboard can name both in their sleep.',
+  },
+  {
+    id: 'f_cable_lights',
+    when: { k: 'corpse', company: 'teleport' },
+    text: 'On clear nights the cable’s warning lights climb until they run out of atmosphere, and new crew members always stop mid-step the first time they follow the line all the way up.',
+  },
+  {
+    id: 'f_cafeteria_bets',
+    when: { k: 'corpse', company: 'teleport' },
+    text: 'The cafeteria betting pool now covers storm arrivals, climber times, and which visiting dignitary will be seasick first. Talia claims not to run it. Talia runs it.',
+  },
+  {
+    id: 'f_aurelia_paper',
+    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'volkov' }] },
+    text: 'Aurelia’s weekly harbor notices arrive in flawless bureaucratic prose, and Talia reads them aloud at standup in a dry voice that has become everyone’s favorite radio show.',
+  },
+  {
+    id: 'f_ingrid_walks',
+    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'ingrid' }] },
+    text: 'Ingrid walks the derrick deck every morning before her coffee, one hand trailing the nearest anchor line, the way other people check on a sleeping child.',
+  },
+  {
+    id: 'f_treaty_chatter',
+    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'rep', cmp: 'gte', v: 3 }] },
+    text: 'A think-tank paper about “the elevator question” cites your safety record eleven times. A rival paper cites the same record as evidence of recklessness. Both invoice their governments.',
+  },
+  {
+    id: 'f_flats_postcard',
+    when: { k: 'corpse', company: 'teleport' },
+    text: 'A padded envelope arrives from the old neighborhood — a crayon drawing of the cable, signed by a second-grade class from the Flats. Talia frames it before you finish reading the card.',
+  },
+  {
+    id: 'f_burn_platform',
+    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'runway', cmp: 'lt', v: 12 }] },
+    text: 'You catch yourself pricing everything on the platform in weeks of runway — the cranes, the supply boats, the coffee. The coffee is holding up its end. Everything else is negotiable.',
   },
 ]
 

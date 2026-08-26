@@ -26,6 +26,16 @@ export const FLAG_PHRASES: Record<string, string> = {
   aleph_raw: 'ALEPH fed the raw feeds, aborts and all',
   farrokh_heard: 'the 3 a.m. hearing-out at the dark bench',
   honest_delay: 'the honest delay as the product',
+  // ---- skyline ------------------------------------------------------------------
+  asked_rashid: 'the real question asked over tea — what Aurelia wants to become',
+  territory_struck: 'the territory clause struck from Aurelia’s money',
+  s_transparent: 'the tear at kilometer 921 published, marked in your own hand',
+  margin_kept: 'Ingrid’s safety margin kept over the board’s schedule',
+  humans_rated: 'the cable rated for people, escape pods and all',
+  refused_garrison: 'the Admiral’s umbrella declined before the vote',
+  marcus_alliance: 'Marcus Vale’s alliance signed across a diner table',
+  chen_respected: 'a paragraph of truth given to the honest rival',
+  treaty_won: 'the seizure defeated on the commission floor',
 }
 
 /** Fiction phrasing for states that CLOSE a door when present ("closed — …"). */

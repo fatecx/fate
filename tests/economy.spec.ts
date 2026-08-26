@@ -171,6 +171,127 @@ const T_SWALLOWED_ROAD: RegExp[] = T_LISTING_KEEP.map((re) =>
   re.source.includes('The road stays open') ? /Take the number\. Let the sky have it/ : re,
 )
 
+
+// ---- SKYLINE witness roads --------------------------------------------------------
+// Chapter three's endings, proven by design. Roads ride the teleport listing
+// prefix (score, cred, and ALEPH's world-scoped respect carry forward).
+
+/** The road open to all: allies built, tear published, treaty won, teacher rides. */
+const S_ASCENT_ROAD: RegExp[] = [
+  ...T_LISTING_KEEP,
+  /Hire her to build it\. Chief engineer, real equity/,
+  /Hire her\. The honesty is the résumé/,
+  /Alliance\. MERIDIAN feeds the cable/,
+  /Announce it to the world/,
+  /Take the clean venture syndicate/,
+  /International waters/,
+  /Build it her way\. The margin stays/,
+  /Refuse sovereign money/,
+  /Move to the platform/,
+  /Rate it for people/,
+  /Hire private security/,
+  /Publish the tear/,
+  /Refuse — warmly\. The cable belongs to no flag/,
+  /Call the world’s press to the boundary line/,
+  /Take the money — and open your books to it, raw/,
+  /Answer with the record — publish everything, name the framework/,
+  /Answer him plainly: the teacher rides/,
+  /Put the sisters in one room/,
+  /Answer her straight: nobody should own it forever/,
+  /Thank her, and change nothing/,
+  /Decline\. The cable will face the wolves/,
+  /Answer with the pledge/,
+  /The room holds/,
+  /The schoolteacher rides first/,
+]
+
+/** The port authority: same honest road, but the builder lets go on purpose. */
+const S_PORT_ROAD: RegExp[] = S_ASCENT_ROAD.map((re) =>
+  re.source.includes('schoolteacher rides first') ? /Ingrid and the crew ride first/ : re,
+).concat([/Give the road to the trust/])
+
+/** The builder stays: honest road, first ride to the crew, never lets go. */
+const S_LONG_ROAD: RegExp[] = S_ASCENT_ROAD.map((re) =>
+  re.source.includes('schoolteacher rides first') ? /Ingrid and the crew ride first/ : re,
+).concat([/Keep building until the money runs out or you do/, /Sell to the commission/])
+
+/** The garrison: honest build, but the wolves win by invitation. */
+const S_GARRISON_ROAD: RegExp[] = S_ASCENT_ROAD.map((re) =>
+  re.source.includes('face the wolves') ? /Take the umbrella\. The garrison ends every threat today/ : re,
+)
+
+/** The venture-state: the ministry accepted, the flag becomes yours. */
+const S_VENTURE_ROAD: RegExp[] = [
+  ...T_LISTING_KEEP,
+  /Hire her on salary/,
+  /Take his money without the partnership/,
+  /Keep it quiet\. Show the proof privately/,
+  /Take the clean venture syndicate/,
+  /Kiribela/,
+  /Split it\. Fast on the tower sections/,
+  /Take the deal as written/,
+  /Stay on shore/,
+  /Cargo first/,
+  /Accept the Admiral’s escorts/,
+  /Report it quietly/,
+  /Take the ministry\. Become the founding citizen/,
+]
+
+/** Eminent domain: alliances never built, the count carries, the road is bought. */
+const S_DOMAIN_ROAD: RegExp[] = [
+  ...T_LISTING_KEEP,
+  /Hire her on salary/,
+  /Take his money without the partnership/,
+  /Keep it quiet\. Show the proof privately/,
+  /Take the clean venture syndicate/,
+  /American waters/,
+  /Split it\. Fast on the tower sections/,
+  /Refuse sovereign money/,
+  /Stay on shore/,
+  /Cargo first/,
+  /Accept the Admiral’s escorts/,
+  /Report it quietly/,
+  /Refuse — warmly\. The cable belongs to no flag/,
+  /Negotiate with Volkov directly/,
+  /Take the money, share the board packs/,
+  /Offer a partnership — American oversight/,
+  /Give him nothing/,
+  /Treat her as the enemy/,
+  /Make the case for yourself/,
+  /Ask her what the commission actually fears/,
+  /Decline\. The cable will face the wolves/,
+  /Answer with the record, and let the walls speak/,
+  /The count goes against you/,
+  /Take the settlement\. Sign the road over whole/,
+]
+
+/** The stump: seized, and refused out of spite — the nations inherit a ruin. */
+const S_STUMP_ROAD: RegExp[] = S_DOMAIN_ROAD.map((re) =>
+  re.source.includes('Take the settlement') ? /Refuse to sell what they seized/ : re,
+)
+
+/** The fall: margin traded for schedule, tear buried, storm collects. */
+const S_FALL_ROAD: RegExp[] = [
+  ...T_LISTING_KEEP,
+  /Hire her on salary/,
+  /Take his money without the partnership/,
+  /Keep it quiet\. Show the proof privately/,
+  /Take the clean venture syndicate/,
+  /Kiribela/,
+  /The fast plan\. Three years/,
+  /Take the deal as written/,
+  /Stay on shore/,
+  /Cargo first/,
+  /Accept the Admiral’s escorts/,
+  /Log it internally\. The clamps worked/,
+  /Refuse — warmly\. The cable belongs to no flag/,
+  /Negotiate with Volkov directly/,
+  /Take the money, share the board packs/,
+  /Offer a partnership — American oversight/,
+  /Give him nothing/,
+  /Keep the schedule\. The clamps held once/,
+]
+
 describe('derived-number math', () => {
   it('runway = treasury / net burn', () => {
     const st = newGame(CONTENT, 1)
@@ -234,6 +355,14 @@ describe('monte carlo biography sweep', () => {
       T_PUPPET_ROAD,
       T_OUSTED_ROAD,
       T_SWALLOWED_ROAD,
+      S_ASCENT_ROAD,
+      S_PORT_ROAD,
+      S_LONG_ROAD,
+      S_GARRISON_ROAD,
+      S_VENTURE_ROAD,
+      S_DOMAIN_ROAD,
+      S_STUMP_ROAD,
+      S_FALL_ROAD,
     ].flatMap((prefs) => [3, 11, 29].map((seed) => playBiography(CONTENT, seed, witness(prefs))))
     const seen = new Set(
       [...all, ...witnesses].flatMap((r) => r.chapters.map((c) => `${c.id}:${c.endingId}`)),
@@ -260,6 +389,19 @@ describe('monte carlo biography sweep', () => {
       const hits = runs.filter((r) => r.chapters.some((c) => c.id === 'teleport' && c.endingId === 'listing'))
       expect(hits.length, `teleport listing unreachable via ${name} door`).toBeGreaterThan(0)
     }
+  })
+
+  it('the treaty is alliance math: the built room wins, the empty room loses', () => {
+    const wins = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(S_ASCENT_ROAD)))
+    expect(
+      wins.filter((r) => r.chapters.some((c) => c.id === 'skyline' && c.endingId === 'ascent')).length,
+      'the ascent road never rode the cable',
+    ).toBeGreaterThan(0)
+    const losses = [3, 11, 29].map((s) => playBiography(CONTENT, s, witness(S_DOMAIN_ROAD)))
+    expect(
+      losses.filter((r) => r.chapters.some((c) => c.id === 'skyline' && c.endingId === 'eminent_domain')).length,
+      'the empty-room road never lost the treaty',
+    ).toBeGreaterThan(0)
   })
 
   it('the coup is seat math: the hostile-board road ends removed for cause', () => {
