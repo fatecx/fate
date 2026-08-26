@@ -22,7 +22,7 @@ const CHARACTERS: Record<string, CharacterDef> = {
     name: 'Tomás Reyes',
     role: 'Startup counsel',
     blurb: 'Contracts out of a converted shipping container downtown. Bills favors as diligently as hours.',
-    hiddenTrait: 'The rolodex is the real product; the law is the packaging.',
+    hiddenTrait: 'His contact list is worth more than his contracts, and he knows it.',
   },
   june: {
     id: 'june',
@@ -144,7 +144,7 @@ const CHARACTERS: Record<string, CharacterDef> = {
     id: 'halcyon',
     name: 'HALCYON',
     role: 'Launch monopoly (AI-run)',
-    blurb: 'Every kilogram to orbit rides its manifest. It publishes its prices the way weather publishes storms.',
+    blurb: 'Every kilogram that reaches orbit rides its rockets. It posts its prices, and the industry adjusts to them like weather.',
     hiddenTrait: 'Its model has already priced the day you become a competitor, and it is spending the wait preparing.',
   },
   ostra: {

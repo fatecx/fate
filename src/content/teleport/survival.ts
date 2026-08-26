@@ -37,7 +37,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result:
-          'Tomás papers it properly at cost — a real note, real interest, real dignity. Money between partners either gets papered or gets poisonous; you both know which kind you want, and sign accordingly.',
+          'Tomás papers it properly at cost — a real note, real interest, real dignity. Money between partners either gets written down or turns poisonous. You both know which kind you want, and sign accordingly.',
       },
       {
         label: 'Refuse it. Partners don’t eat each other’s savings.',
@@ -68,7 +68,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The collector’s email has been sitting flagged for a month — an aerospace-money type who “acquires artifacts of the presence era.” You know what he wants. It is standing in the corner of the hangar, cabled to a rack, retired.',
     prose:
-      'Demo Body One. The expo machine — the one the crowd counted for, the one with the wrist actuator you replaced in a hotel bathroom with a borrowed torque driver. It has not flown a session in a year; the production bodies made it a monument. The collector’s number is ninety thousand dollars, cash, tasteful, insulting. Payroll is in nineteen days. Monuments, it turns out, have a price per kilogram like everything else you have ever loved.',
+      'Demo Body One. The expo machine — the one the crowd counted for, the one with the wrist actuator you replaced in a hotel bathroom with a borrowed torque driver. It has not flown a session in a year — the newer bodies made it a museum piece. The collector is offering ninety thousand dollars, cash. Payroll is due in nineteen days. It turns out even monuments can be sold by the pound, like everything else you have ever loved.',
     choices: [
       {
         label: 'Sell it. Machines work for the company, even this way.',
@@ -150,9 +150,9 @@ export const SURVIVAL: readonly SceneDef[] = [
     art: 'world_great_cut',
     title: 'THE LIST',
     leadIn:
-      'It gets to the point where the burn spreadsheet is the first thing you see in the morning and the last thing you see at night, like a newborn that only screams. Somebody has to make the list. The list is yours to make.',
+      'It gets to the point where the spending spreadsheet is the first thing you see every morning and the last thing you see at night, like a newborn that only screams. Somebody has to make the list of cuts. The list is yours to make.',
     prose:
-      'Every line has a face. The second teleop shift. The Mars bench, if it still burns. The conference budget, the good coffee, the contractor who fixed the roof and stayed to believe in the thing. The arithmetic is medieval: cut deep enough to live, shallow enough to still be a company worth saving. Founders before you have done this at kitchen tables and in garages and in hangars exactly like this one, and every one of them will tell you the same two facts: it works, and you never stop remembering the faces.',
+      'Every line has a face. The second teleop shift. The Mars bench, if it still burns. The conference budget, the good coffee, the contractor who fixed the roof and stayed to believe in the thing. The math is brutal: cut deep enough to survive, but shallow enough that a company worth saving still exists afterward. Founders before you have done this at kitchen tables and in garages and in hangars exactly like this one, and every one of them will tell you the same two facts: it works, and you never stop remembering the faces.',
     choices: [
       {
         label: 'Cut deep. Live long enough to be sorry.',

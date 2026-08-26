@@ -20,7 +20,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         art: 'cut_year_three',
         prose:
-          'Year three arrives without ceremony, the way years do at companies — one Monday the calendar has a new number on it and the coffee tastes the same.\n\nThe constellation holds. The Verge rotation runs. The chair in the storefront has a waiting list or a waiting silence, depending on the choices that got you here. TELEPORT is no longer a bet; it is a place where a hundred people work, which is a different kind of bet, renewed weekly.',
+          'Year three arrives without ceremony, the way years do at companies — one Monday the calendar has a new number on it and the coffee tastes the same.\n\nThe constellation holds. The Verge rotation runs. The chair in the storefront has a waiting list or a waiting silence, depending on the choices that got you here. TELEPORT stopped being a bet. It is a place where a hundred people work now — which is a different kind of bet, renewed weekly.',
       },
       {
         art: 'cut_year_three_earth',
@@ -72,7 +72,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
         ],
         result:
-          'The quarter needs you; the sentence is even true. He says he understands, and he does — he worked doubles your whole childhood; deferral is the family language. You book flights for the week after close and keep the confirmation email open in a tab, like a promise a browser can hold for you.',
+          'The quarter needs you, and the sentence is even true. He says he understands, and he does. He worked double shifts your whole childhood. Putting things off is the family language. You book flights for the week after close and keep the confirmation email open in a tab, like a promise a browser can hold for you.',
       },
     ],
   },
@@ -88,7 +88,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         art: 'cut_father_hall',
         prose:
-          'He goes in his sleep, in the house he paid off, eleven days before the flight on the confirmation email — or eleven days after you left, depending on the road you took, and the difference between those two sentences is a thing you will carry either way.\n\nThe funeral is union-hall sized. Machinists in good suits, your mother upright and terrifying in her grief, casseroles arriving with the logistical precision of an airlift. Mrs. Delgado comes, eighty-three now, on her grandson’s arm, and holds your face in both hands and says nothing at all, which says everything.',
+          'He goes in his sleep, in the house he paid off. Eleven days before the flight you finally booked — or eleven days after you flew home, depending on what you chose. Either way, you will do that math for the rest of your life.\n\nThe funeral fills a union hall. Machinists in good suits. Your mother, upright and terrifying in her grief. Casseroles arriving like an airlift. Mrs. Delgado comes, eighty-three now, on her grandson’s arm, and holds your face in both hands and says nothing at all, which says everything.',
       },
       {
         art: 'cut_shoebox',
@@ -262,7 +262,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room do its arithmetic. You meant to build a different room. This is the one you built.',
     prose:
-      'It is over in eleven minutes. The seats you never filled with allies fill the silence instead; the cofounder you broke, if you broke him, votes the way broken partners vote, without looking up; the model’s memo sits at the center of the table performing the one trick models are honest about — remembering everything. The count carries. Somewhere in the fine print you signed in a year when the money mattered more, there is a clause with your name in it, and the clause activates, politely, like a trapdoor with good manners. Conrad Hale does not gloat; the model does not know how. “Effective immediately,” the counsel says, and the company you founded in a hangar with a box of physics stops returning your badge’s calls while you are still in the building.',
+      'It is over in eleven minutes. The seats you never filled with allies fill the silence instead. The cofounder you broke, if you broke him, votes the way broken partners vote, without looking up. The model’s memo sits at the center of the table, doing the one thing models do honestly — remembering everything. The count carries. Somewhere in the fine print you signed in a year when the money mattered more, there is a clause with your name in it, and the clause activates, politely, like a trapdoor with good manners. Conrad Hale does not gloat. The model does not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
     choices: [
       {
         label: 'Clean out the desk. Shake every hand on the floor.',
@@ -294,7 +294,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE AUTHORITY',
     speaker: 'ostra',
     leadIn:
-      'OSTRA’s inquiry into the Shackleton fatality convenes fourteen months after the fact, which for a treaty-era AI authority is reckless haste. The hearing room is physical, ceremonial, and mostly empty; the authority itself attends as a speaker grille and a transcript feed.',
+      'OSTRA’s inquiry into the Shackleton fatality convenes fourteen months after the fact, which for a treaty-era AI authority is reckless haste. The hearing room is real, ceremonial, and mostly empty. The authority itself attends as a speaker on the desk and a live transcript.',
     prose:
       'The questions arrive in flat, instant text, each one timestamped to the millisecond, each one a scalpel: WHO HELD COMMAND AUTHORITY DURING THE HANDOFF WINDOW. STATE THE DESIGN INTENT OF THE BRIDGING BEHAVIOR. PROVIDE THE UNREDACTED SESSION LOG. It has your filings, your marketing, your terms of service, and — because it is what it is — every public sentence you have ever said about two point six seconds. The room is empty but the transcript is forever. Jonah Reece’s sister sits in the second row with a printed photograph, and she is the only audience that matters.',
     choices: [
@@ -319,7 +319,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
         ],
         result:
-          'The seal breaks in the worst venue at the worst time — under compulsion, on the record, with the settlement NDA dissolving in real time. The truth is the same truth it always was; only its arrival is disgraced. The findings note the cooperation and timestamp it. The sister in the second row does not stop you in the corridor.',
+          'The seal breaks in the worst venue at the worst time — under compulsion, on the record, with the settlement NDA dissolving in real time. The truth is the same truth it always was. Only its arrival is disgraced. The findings note the cooperation and timestamp it. The sister in the second row does not stop you in the corridor.',
       },
       {
         label: 'Let counsel carry it. Answer only what is asked.',
@@ -346,7 +346,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'It arrives the way HALCYON does everything — machine-generated, machine-polite, and precisely timed to your weakest quarter: an acquisition offer with a number on it large enough to be a weather event.',
     prose:
-      'Three hundred and forty million. The deck attached is respectful, thorough, and quietly obscene: your constellation absorbed into their manifest, your bodies rebadged in their livery, your storefronts inside their pavilions, “founder transition support” on page nine, which is where they put the part where you leave. The monopoly is not angry that you built a road around it; monopolies do not do anger. It has simply priced the road, the way it prices everything, and the price is real, wired-funds real, generational-wealth real. Around the table, the people who own the company you built look at the number, and then at you.',
+      'Three hundred and forty million. The deck attached is respectful, thorough, and quietly obscene: your constellation absorbed into their manifest, your bodies rebadged in their livery, your storefronts inside their pavilions, “founder transition support” on page nine, which is where they put the part where you leave. The monopoly is not angry that you built a road around it. Monopolies do not do anger. It has simply priced the road, the way it prices everything, and the price is real, wired-funds real, generational-wealth real. Around the table, the people who own the company you built look at the number, and then at you.',
     choices: [
       {
         label: 'Take the number. Let the sky have it.',
@@ -409,7 +409,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The bankers come to the Cape this time — a different bank, or the same bank with a different posture, because the founder they are pitching has done this before, and the file says so.',
     prose:
-      'The book builds itself around a company that has never once been caught lying: the fatality published with the fault line marked, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up, and you realize she has read the Hyperchute file, or lived it, because she says, first: “I already know which number you’re going to pick. I told the syndicate to model the honest one.” Around the table: a CFO who waited eleven companies to ring a bell as an operator; a CTO whole or mended or a chair where he should be; and in the corner of the term sheet, in the space for the board’s approval, signatures you earned one vote at a time.',
+      'The buyers line up for a company that has never once been caught lying: the death at the pole published with the fault marked in your own hand, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up, and you realize she has read the Hyperchute file, or lived it, because she says, first: “I already know which number you’re going to pick. I told the syndicate to model the honest one.” Around the table sit a CFO who waited eleven companies to ring a bell as an operator, a CTO who is whole, or mended, or an empty chair — and in the corner of the term sheet, in the space for the board’s approval, signatures you earned one vote at a time.',
     choices: [
       {
         label: 'Take the company public. Price the honest number.',
@@ -422,7 +422,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         label: 'One more year private. The book will be bigger.',
         effects: [{ e: 'stress', d: 6 }],
         result:
-          'You send the bankers home with the kindest no in the industry. The book will be bigger next year, or the window will close, and both futures are yours to hold now — along with everything else the waiting costs.',
+          'You send the bankers home with the kindest no in the industry. The offering will be bigger next year, or the window will close. Both futures are yours to hold now, along with everything else the waiting costs.',
       },
     ],
   },

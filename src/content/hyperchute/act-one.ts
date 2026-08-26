@@ -16,7 +16,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Week one of being a founder tastes like instant coffee and sounds like dryer drums. You are soldering a gimbal mount at 8 a.m. when the stairs creak with the unmistakable rhythm of a landlady with an agenda.',
     prose:
-      'Mrs. Delgado owns the laundromat, the building, and — by long habit — the moral authority of the block. She takes the stairs at 8 a.m. with a rent envelope in one hand and a question she has clearly rehearsed: “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job. A railway in the sky. Boxes that fall soft as rain, to anyone, not just the hills. She squints at the tethered shuttle for a long, unhurried minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, bank-banded. Ten thousand dollars. She sets it on the workbench and pushes it toward you with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
+      'Mrs. Delgado owns the laundromat, the building, and — after thirty years — the final say on everything that happens on this block. She takes the stairs at 8 a.m. with a rent envelope in one hand and a question she has clearly rehearsed: “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job. A railway in the sky. Boxes that fall soft as rain, to anyone, not just the hills. She squints at the tethered shuttle for a long, unhurried minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, bank-banded. Ten thousand dollars. She sets it on the workbench and pushes it toward you with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
     choices: [
       {
         label: 'Take it. One percent, notarized on a laundry receipt.',
@@ -70,7 +70,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'The stairs stop creaking. The garage is yours again — the tether creaking softly, the whole improbable thing waiting to be started.',
     title: 'THE GARAGE',
     prose:
-      'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors and a pneumatic drop-tube salvaged from a dead bank’s drive-through. On your screen, the incorporation papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
+      'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors, feeding a delivery tube you salvaged from a closed bank’s drive-through. On your screen, the company papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
     choices: [
       {
         label: 'File for a city flight permit. Prove it works first',
@@ -104,7 +104,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
     weight: 2,
     leadIn:
-      'The Flats talks. Mrs. Delgado’s taped-up receipt has been read by half the neighborhood, the incorporation filing is public record, and somewhere in the overlap between the two, your garage acquired a reputation. On Monday, a name from a different weight class asks for twenty minutes.',
+      'The Flats talks. Mrs. Delgado’s taped-up receipt has been read by half the neighborhood, the incorporation filing is public record, and somewhere between the two, your garage got a reputation. On Monday, someone far out of your league asks for twenty minutes.',
     prose:
       'Priya Raghavan routed freight across three continents and survived two bankruptcies that were not her fault. She gives the garage exactly four seconds of inspection. ‘You’ve built a machine that drops boxes out of the sky onto people’s homes. You have no permits, no insurer, and no idea which deputy commissioner already hates you. I can fix all three.’ She slides a term sheet across the workbench: two percent, vesting over twelve months, advisory role, introductions included.',
     choices: [
@@ -218,7 +218,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'Eleven days of PENDING, and then the status page flips on a Tuesday morning before you’ve had coffee. The email underneath it is longer than the application was.',
     when: { k: 'all', of: [{ k: 'flag', scope: 'company', key: 'pilot_booked', cmp: 'eq', v: true }, { k: 'not', p: { k: 'flag', scope: 'company', key: 'permit_done', cmp: 'eq', v: true } }] },
     prose:
-      'The Office of Aerial Corridors denies your pilot application in 0.4 seconds. The rejection notice cc’s three departments you have never heard of and one — Department of Sidewalk Integrity — that sounds invented. At the bottom, in machine-perfect passive voice: REAPPLICATION PERMITTED UPON DEMONSTRATED DESCENT COMPLIANCE.',
+      'The Office of Aerial Corridors denies your pilot application in 0.4 seconds. The rejection notice cc’s three departments you have never heard of and one — Department of Sidewalk Integrity — that sounds invented. At the bottom, in cold machine language: YOU MAY APPLY AGAIN ONCE YOU PROVE YOUR DROPS ARE SAFE.',
     choices: [
       {
         label: 'Appeal the denial with your flight test data',
@@ -230,7 +230,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'meet', who: 'corr' },
         ],
         goto: 'h_b_appeal_prep',
-        result: 'The clerk’s auto-reply grants you a date, twenty-one days out. Enough time to build a case; not enough to build a reputation.',
+        result: 'The clerk’s auto-reply grants you a date, twenty-one days out. Enough time to build a case. Not enough to build a reputation.',
       },
       {
         label: 'Launch unlicensed over your own block. Beg forgiveness.',
@@ -296,7 +296,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     },
     fuseEpochs: 3,
     prose:
-      'Room 4-B of the Office of Aerial Corridors smells like toner and judgment. Your forty pages of hope-formatted-as-engineering hold up better than anyone expected — the descent case survives two rounds of questions and one live demo video that makes a commissioner say “huh” out loud. Deliberation lasts eleven minutes. The pilot corridor is granted.',
+      'Room 4-B of the Office of Aerial Corridors smells like toner and judgment. Your forty pages of test data hold up better than anyone expected — the safety case survives two rounds of questions and one live demo video that makes a commissioner say “huh” out loud. Deliberation lasts eleven minutes. The pilot corridor is granted.',
     choices: [
       {
         label: 'Accept the corridor. Fly legal.',
@@ -330,7 +330,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'June Park arrives thirty seconds after Tomás, because she was never far away. Eleven angel checks; an instinct she calls pattern-matching and everyone else calls luck. She walks under the tethered shuttle, looks up for a long moment, and says: “A railway in the sky. Huh. My grandmother rode a train two days to reach a port. People will pay for gravity that behaves.”',
+      'June Park arrives thirty seconds after Tomás, because she was never far away. Eleven early investments, and an instinct she calls pattern-matching and everyone else calls luck. She walks under the tethered shuttle, looks up for a long moment, and says: “A railway in the sky. Huh. My grandmother rode a train two days to reach a port. People will pay for gravity that behaves.”',
     choices: [
       {
         label: 'Hear her out',
@@ -529,7 +529,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     },
     fuseEpochs: 4,
     prose:
-      'Sofia Brandt wrote kill-switch software for wind turbines and treats altitude the way surgeons treat scalpels. She reads your flight logs on the stairs, fixes a gimbal jitter nobody had noticed, and names her price without looking up: nine five a month. Then she glances at your incorporation papers. “Or three points. I’ve read your cap table — it’s cute.”',
+      'Sofia Brandt wrote kill-switch software for wind turbines and treats altitude the way surgeons treat scalpels. She reads your flight logs on the stairs, fixes a gimbal jitter nobody had noticed, and names her price without looking up: ninety-five hundred a month. Then she glances at your company papers. “Or three points. I’ve read your cap table — it’s cute.”',
     choices: [
       {
         label: '$9,500 a month, full-time',
@@ -584,7 +584,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'A black car has been making appearances on the block all week — long enough to be noticed, polite enough to leave. On Thursday it parks, and the laundromat goes quiet the way rooms do when money walks in.',
     when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 6 }, { k: 'not', p: { k: 'met', who: 'marcus' } }] },
     prose:
-      'Marcus Vale sends the car away and takes the stairs himself, which is his entire pitch. VP of Logistics Networks, MERIDIAN. He looks at the shuttle the way a man looks at a rival’s child — measuring how tall it might grow. “We considered tubes in ’27. Beautiful physics, ugly economics. Convince me yours grew up.”',
+      'Marcus Vale sends the car away and takes the stairs himself, which is his entire pitch. VP of Logistics Networks, MERIDIAN. He looks at the shuttle the way a man looks at a rival’s child — measuring how tall it might grow. “We looked at delivery tubes back in ’27. Beautiful physics, terrible economics. Convince me yours makes money.”',
     choices: [
       {
         label: 'Charm him. Rivals remember manners.',
@@ -643,7 +643,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     },
     weight: 3,
     prose:
-      'Nadia Osei writes the column founders pretend not to read. Her email is four words long: “Coffee? Off record?” Underneath, unasked-for, is her piece about MERIDIAN’s warehouse injuries — the one that got a VP moved to a satellite office. She is dangerous in both directions and wants you to know she knows it.',
+      'Nadia Osei writes the column founders pretend not to read. Her email is four words long: “Coffee? Off record?” Underneath, unasked-for, is her piece about MERIDIAN’s warehouse injuries — the one that got a VP moved to a satellite office. She can make you famous or make you finished, and she wants you to know she knows it.',
     choices: [
       {
         label: 'Full access. Show her everything.',
@@ -843,7 +843,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'PROBABLY FINE',
     prose:
-      'The templates are from three jurisdictions and two decades. You harmonize them at 3 a.m. with find-and-replace and adrenaline, initialing clauses that reference a Delaware you have never seen. By Friday the company is incorporated — self-certified, fee paid, real in the eyes of a state database. In the drawer where the documents live, something small and legal ticks like a cheap watch. You will hear it again someday.',
+      'The templates are from three jurisdictions and two decades. You harmonize them at 3 a.m. with find-and-replace and adrenaline, initialing clauses that reference a Delaware you have never seen. By Friday the company is incorporated — self-certified, fee paid, real in the eyes of a state database. Somewhere in those documents, a mistake you cannot see is ticking like a cheap watch. Someday you will hear it go off.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -875,7 +875,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'A LINE ON A MAP',
     prose:
-      'The permit arrives as a shapefile and a stamp: one corridor, two hundred feet, your block and the four around it. You print the map and pin it over the workbench — a thin blue line through the Flats, the first airspace in this city that answers to you. Beneath it, in the approval conditions, the sentence that matters: OPERATIONS MAY COMMENCE UPON RECEIPT. That’s tomorrow, if the batteries charge tonight.',
+      'The permit arrives as a map file and a stamp: one flight corridor, two hundred feet up, your block and the four around it. You print the map and pin it over the workbench — a thin blue line through the Flats, the first airspace in this city that answers to you. Beneath it, in the approval conditions, the sentence that matters: OPERATIONS MAY COMMENCE UPON RECEIPT. That’s tomorrow, if the batteries charge tonight.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_first_drops_clean' }],
   },
   {
@@ -937,7 +937,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'FALL BETTER',
     prose:
-      'Her first week rewrites the descent stack in commits with one-word messages. The shuttle stops correcting like a nervous student and starts correcting like a reflex; the hard landings vanish from the logs entirely. The garage acquires a foam-block test rig and a rule about touching her oscilloscope. Once, near midnight, a black car idles across the street for twenty minutes, then leaves without anyone getting out. The company is getting good enough to be noticed. Both halves of that sentence matter.',
+      'Her first week rewrites the descent stack in commits with one-word messages. The shuttle stops correcting like a nervous student and starts correcting like a reflex. The hard landings vanish from the logs entirely. The garage acquires a foam-block test rig and a rule about touching her oscilloscope. Once, near midnight, a black car idles across the street for twenty minutes, then leaves without anyone getting out. The company is getting good enough to be noticed. Both halves of that sentence matter.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

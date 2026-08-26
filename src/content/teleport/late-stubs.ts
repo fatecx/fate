@@ -12,7 +12,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
     landmark: true,
     title: 'RUNWAY ZERO',
     leadIn:
-      'Space companies do not die differently from garage companies. The account turns the same color; the silence in the inbox is the same silence. The only change is the number of zeros on the way down.',
+      'Space companies do not die differently from garage companies. The account turns the same color. The silence in the inbox is the same silence. The only change is the number of zeros on the way down.',
     prose:
       'Payroll bounces at a company with hardware around the Moon. The constellation keeps flying — orbital mechanics does not read the news — but everything on the ground goes brittle at once: the insurer wants a call, the landlord wants a call, and the people who moved their families to the Cape for you want, deserve, more than a call. Doors remain, even now. They are all ugly, and they are all real.',
     choices: [

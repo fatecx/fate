@@ -41,7 +41,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       'The first blue tube appears on a lamppost four blocks east, then six more overnight, like mushrooms after rain. CHUTE, the stencil says. INTRODUCTORY PRICING. Your phone starts buzzing before you finish reading the second one.',
     when: { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
     prose:
-      'Chute’s underpricing works. Your waiting list flattens; two subscribers a day drift over the fence to their blue tubes. The board — you, and whoever you let in — meets over cold pizza. Somebody has to blink first.',
+      'Chute’s underpricing works. Your waiting list stops growing, and two customers a day drift over the fence to their blue tubes. The board — you, and whoever you let in — meets over cold pizza. Somebody has to blink first.',
     choices: [
       {
         label: 'Match them. Burn cash to hold the streets.',
@@ -91,7 +91,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The last mile is still human — contract couriers carry what tubes can’t reach upstairs. Their collective arrives with a letter: employee status, or the porches go unserved. MERIDIAN’s couriers signed nothing and got nothing. Yours read the news.',
+      'The last mile is still human — contract couriers carry what tubes can’t reach upstairs. Their group arrives with a letter: make the couriers real employees, or nobody carries your packages up another staircase. MERIDIAN’s couriers asked for nothing and got nothing. Yours read the news.',
     choices: [
       {
         label: 'Say yes. Full employees: W-2s, benefits, everything.',
@@ -245,7 +245,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'FRESNO IS BEHIND',
     weight: 2,
     leadIn:
-      'The first sign is an apologetic email about "component allocation." The second is your account manager’s calendar, suddenly full for three weeks. Supply chains never announce bad news; they let you deduce it.',
+      'The first sign is an apologetic email about "component allocation." The second is your account manager’s calendar, suddenly full for three weeks. Suppliers never announce bad news. They let you figure it out.',
     when: {
       k: 'all',
       of: [
@@ -545,7 +545,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'AFTER THE PICKETS',
     prose:
-      'A strike leaves marks either way. Routes resume; some porches keep the flyer taped inside the receiver sleeve, as a warning or a receipt, depending. The couriers know exactly what you are now, and so does the neighborhood, and so does MERIDIAN — whose channels covered every day of it, gleefully, in HD, under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war has a labor front now. You opened it.',
+      'A strike leaves marks either way. Routes resume. Some porches keep the flyer taped inside the receiver sleeve, as a warning or a receipt, depending. The couriers know exactly what you are now, and so does the neighborhood, and so does MERIDIAN — whose channels covered every day of it, gleefully, in HD, under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war has a labor front now. You opened it.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -586,7 +586,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'AFTER THE FOUR MINUTES',
     prose:
-      'The clip ages into legend at internet speed: stitched, captioned, argued about, taught. The waiting list grows a suburb. City hall calls twice — once to congratulate, once, quieter, to ask about capacity. Attention this size has weather of its own; for a few weeks everything the company does happens slightly on camera, and you learn to move like someone who knows it.',
+      'The clip ages into legend at internet speed: stitched, captioned, argued about, taught. The waiting list grows by a whole suburb. City hall calls twice — once to congratulate, once, quieter, to ask about capacity. Attention this size has weather of its own. For a few weeks everything the company does happens slightly on camera, and you learn to move like someone who knows it.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

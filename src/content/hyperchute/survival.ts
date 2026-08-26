@@ -40,7 +40,7 @@ export const SURVIVAL: readonly SceneDef[] = [
         label: 'Keep the space. Find the rent some other way.',
         effects: [{ e: 'stress', d: 4 }],
         result:
-          'The garage stays yours, all of it, echoing. You spend the week you bought yourself figuring out what to sell instead. There is always something. That is the terrifying part.',
+          'The garage stays yours, all of it, echoing. You spend the week you just bought figuring out what to sell instead. There is always something left to sell. That is the scary part.',
       },
     ],
   },
@@ -92,7 +92,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'She doesn’t hand you coins; she hands you a laminated senior transit pass with a photo of a woman who is not you. “Maria retired,” she says. “She won’t mind.” You close the angel and return the pass with a full fare card taped to it.',
+          'She does not hand you coins. She hands you a laminated senior transit pass with a photo of a woman who is not you. “Maria retired,” she says. “She won’t mind.” You close the angel and return the pass with a full fare card taped to it.',
       },
     ],
   },

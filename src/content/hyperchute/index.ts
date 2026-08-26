@@ -72,12 +72,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 1,
     prose:
-      'The receivers take the shuttles; nobody can repossess what the neighborhood saw. Sixty porches watched parcels fall out of the sky like weather that loved them. Doors close. Some of them stay unlocked.',
+      'The bank takes the shuttles back. But nobody can repossess what the neighborhood saw. Sixty porches watched parcels fall out of the sky like weather that loved them. Doors close. Some of them stay unlocked.',
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF ODD JOBS',
       prose:
-        'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets; nobody says anything at dinner, which is its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you do not explain to anyone. When the phone finally rings about something new, you are ready in a way that only failing teaches.',
+        'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets. Nobody says anything at dinner, which is its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you do not explain to anyone. When the phone finally rings about something new, you are ready in a way that only failing teaches.',
     },
   },
   {

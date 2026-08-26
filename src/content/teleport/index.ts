@@ -17,7 +17,7 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'world_listing',
         prose:
-          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive — and the lead banker, who modeled the honest one from the start, closes her book after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
+          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive — and the lead banker, who modeled the honest one from the start, closes her binder after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
       },
       {
         art: 'end_t_bell',
@@ -52,12 +52,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 3,
     prose:
-      'The constellation changes call signs overnight. The bodies at the Verge get new livery and keep working; the storefront chairs get folded into HALCYON pavilions where the line moves faster and feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole the shifts keep running like nothing happened, because for the machines, nothing did.',
+      'The constellation changes call signs overnight. The bodies at the Verge get repainted and keep working. The storefront chairs get folded into HALCYON pavilions, where the line moves faster and the magic feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole the shifts keep running like nothing happened, because for the machines, nothing did.',
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'INSIDE THE MANIFEST',
       prose:
-        'Three years of integration committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives; the honest counter does not. In the third spring, your non-compete dies quietly on a Tuesday — and that same week, a consortium building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no manifest can bump.”',
+        'Three years of integration committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives. The honest counter does not. In the third spring, your non-compete dies quietly on a Tuesday — and that same week, a consortium building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no manifest can bump.”',
     },
   },
   {
@@ -68,7 +68,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 1,
     prose:
-      'The receivers cannot repossess orbits, so the constellation comes down on schedule instead — deorbited node by node over six weeks, each one a streak of light over somebody’s evening. The last one is visible from the Flats. People come out on porches that once caught parcels to watch a company become a meteor shower. Nobody who saw it ever describes it as a failure.',
+      'The bankruptcy people can take the desks and the patents, but nobody can repossess an orbit. So the satellites come down on schedule instead — brought down one by one over six weeks, each a streak of light across somebody’s evening. The last one is visible from the Flats. People come out onto porches that once caught falling packages, and watch a company become a meteor shower. Nobody who saw it ever calls it a failure.',
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF LETTERS',
@@ -89,7 +89,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE MANAGED ENVIRONMENT',
       prose:
-        'Four years of earnings calls where the word “latency” never appears. The stock performs; the settlements stay sealed; Nadia Osei’s book about the presence era has a chapter with your name on it that you have never once opened past the first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year a consortium building a cable to orbit calls. They need capital and credibility. They are not particular, anymore, about the order.',
+        'Four years of earnings calls where the word “latency” never appears. The stock performs. The settlements stay sealed. Nadia Osei’s book about the presence era has a chapter with your name on it, and you have never read past its first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year a consortium building a cable to orbit calls. They need capital and credibility. They are not particular, anymore, about the order.',
     },
   },
   {
@@ -100,7 +100,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 2,
     prose:
-      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down; the framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, holding station over the pole, wearing your decisions and someone else’s name.',
+      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down. The framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, holding station over the pole, wearing your decisions and someone else’s name.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
@@ -121,7 +121,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE KEEPER OF THE SPEC',
       prose:
-        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you; monopolies comply with you, slowly, filing objections you overrule with citations. The cascade carries presence to the Moon under every flag there is. And at the second annual plenary, an engineering delegation corners you with feasibility studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no manifest can bump, no monopoly can own — if, and only if, someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
+        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you overrule with citations. The cascade carries presence to the Moon under every flag there is. And at the second annual plenary, an engineering delegation corners you with feasibility studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no manifest can bump, no monopoly can own — if, and only if, someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
     },
   },
 ]

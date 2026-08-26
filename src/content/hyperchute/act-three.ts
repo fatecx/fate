@@ -24,7 +24,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'You get the call at 4:53 and are on Richmond Street by 5:20, before the second news van. The parcel is still on the pavement inside a chalk rectangle. Someone has turned off the shuttle’s beacon, and you realize numbly that it was you, from the phone in your hand, on the drive over.',
     prose:
-      'The lawyers, the insurer, and the pit in your stomach all say the same three things in different orders. The corridors office has opened an emergency investigation. Chute’s couriers are quietly delivering flowers to Ms. Chen’s block, which is the most cynical thing you have ever seen and it is working.',
+      'The lawyers say admit nothing. The insurer says pay nothing. The pit in your stomach says this machine was yours. The corridors office has opened an emergency investigation. And Chute’s couriers are quietly delivering flowers to Ms. Chen’s block — the most cynical thing you have ever seen, and it is working.',
     choices: [
       {
         label: 'Ground the fleet. Cooperate with everything.',
@@ -53,7 +53,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'blame_shift', v: true },
         ],
-        result: 'The filing is technically accurate and morally legible to absolutely no one. The contractor’s lawyers return fire within a day, and now there are two stories and yours is the one with more money in it.',
+        result: 'The filing is technically true, and everyone who reads it hates you anyway. The contractor’s lawyers fire back within a day. Now there are two stories in the news, and yours is the one with more money in it.',
       },
     ],
   },
@@ -66,7 +66,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     speaker: 'nadia',
     priority: true,
     leadIn:
-      'The story has stopped being local. National desks run the porch-camera clip on loop; a senator you’ve never met says your company’s name into a microphone. Into that noise, one specific phone buzzes with one specific name on it.',
+      'The story has stopped being local. National news runs the porch-camera clip on a loop, and a senator you have never met says your company’s name into a microphone. Into that noise, one specific phone buzzes with one specific name on it.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
       'Nadia’s email is two words this time: “Coffee. Now.” She has the preliminary investigation draft — someone inside the corridors office leaked it — and forty-eight hours before she goes to press with whatever she has. “I’d rather have it from you,” she says. “But I’ll run it without you.”',
@@ -260,7 +260,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Whiteboards, cold noodles, everyone you have left. Three doors are still standing: the listing, if the numbers and the name can carry it; the stack, opened to the world; or the street — one more quarter fought porch by porch, no margin for error, all of it.',
+      'Whiteboards, cold noodles, everyone you have left. Three doors are still open. Take the company public, if the numbers and the name can carry it. Give the technology away to the whole world. Or keep fighting in the streets — one more quarter, porch by porch, with no room for a single mistake.',
     choices: [
       {
         label: 'Take the company public.',
@@ -276,7 +276,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: -10 },
         ],
         goto: 'h_ipo_road',
-        result: 'Deciding is its own medicine. The room exhales; the whiteboard empties to one word: LIST.',
+        result: 'Deciding is its own medicine. The room exhales. The whiteboard empties to one word: LIST.',
       },
       {
         label: 'Open-source the stack. Give the railway to everyone.',
@@ -304,7 +304,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE ROAD SHOW',
     priority: true,
     leadIn:
-      'The underwriters arrive with a slide template and leave with religion — Priya’s phrase, after the second meeting runs long because the bankers kept asking real questions. A calendar invite lands: eleven cities, nine days, wheels up Monday.',
+      'The bankers running the deal arrive with a slide template and leave with religion — Priya’s phrase, after the second meeting runs long because they kept asking real questions. A calendar invite lands: eleven cities, nine days, wheels up Monday.',
     when: {
       k: 'all',
       of: [
@@ -313,7 +313,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Eleven cities in nine days. The underwriters want a story, and the only one they can sell is the one that can’t be faked: a fleet that grounded itself and got back up, a courier pool with health insurance, a fault report printed in full. The last meeting is the pricing call. Somewhere in the building, a banker says the words “the people’s network” without irony and everyone pretends that is normal.',
+      'Eleven cities in nine days. The bankers want a story to sell, and the only one that works is the one that can’t be faked: a fleet that grounded itself and got back up, a courier pool with health insurance, a fault report printed in full. The last meeting is the pricing call. Somewhere in the building, a banker says the words “the people’s network” without irony and everyone pretends that is normal.',
     choices: [
       {
         label: 'Price it honest. Ring the bell.',

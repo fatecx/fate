@@ -320,7 +320,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Forecast season. The board wants next year’s number, and the honest model of the business produces a figure that will not impress anyone. There is a version of the spreadsheet where the assumptions lean sunward. Every founder alive has met that spreadsheet.',
     prose:
-      'Hale sets up the call with unusual care, which is how you learn the model scores forecasts against outcomes with a long memory and compounding weights. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have never watched it forgive a founder who knew.” On the table: the honest number, low and defensible; the stretch number the growth curve wants to believe; and June’s old spreadsheet wisdom, if she is with you, sitting quietly in the margin: WAYS WE DIE, item four — we start believing our own deck.',
+      'Hale sets up the call with unusual care, which is how you learn the model scores forecasts against outcomes with a long memory and compounding weights. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have never watched it forgive a founder who knew.” On the table sit two numbers. The honest one, low and defensible. The stretch one, the number the growth chart wants to believe. And in the margin, if June is with you, her old spreadsheet wisdom sits quietly: WAYS WE DIE, item four — we start believing our own deck.',
     choices: [
       {
         label: 'Give the honest number and wear the silence.',
@@ -436,7 +436,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
         ],
         result:
-          'The statement your comms consultant drafts is a small masterpiece of saying nothing, and Nadia prints it in full, which is worse than any rebuttal — a paragraph of corporate fog sitting under a slow-motion video of a machine moving before it was told to. She keeps reporting. A source who feels used becomes a headline; a journalist who feels stonewalled becomes an archive.',
+          'The statement your comms consultant drafts is a small masterpiece of saying nothing, and Nadia prints it in full, which is worse than any rebuttal — a paragraph of corporate fog sitting under a slow-motion video of a machine moving before it was told to. She keeps reporting. A source who feels used becomes a headline. A journalist who feels stonewalled becomes an archive.',
       },
       {
         label: 'Call ATLAS. Vance’s ad budget can find her editor.',
@@ -540,7 +540,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 2 },
         ],
         result:
-          'The revenue line takes it badly; the board takes it worse; Hale requests a “strategy alignment session,” which is a phrase with knuckles. But the counter goes back on the website, the frame goes back on the wall, and Omid Farrokh unpacks his life back into the corner office like a man returning from a war only he could see.',
+          'The revenue line takes it badly. The board takes it worse. Hale requests a “strategy alignment session,” which is a phrase with knuckles. But the counter goes back on the website, the frame goes back on the wall, and Omid Farrokh unpacks his life back into the corner office like a man returning from a war only he could see.',
       },
       {
         label: 'Version two. Buy him out fair. Let him go home.',
@@ -616,7 +616,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         art: 'cut_jonah',
         prose:
-          'It happens on a Tuesday, during the boring immortal work.\n\nA radiator panel at Shackleton Verge, a body on the maintenance rotation, a torque sequence run ten thousand times before. At 09:41:07 base time, relay node four hands the session to node five, the way it has a million times — and for eleven seconds, in the gap between one certainty and another, something goes wrong with the handoff.\n\nThe body finishes a motion nobody finished commanding.',
+          'It happens on a Tuesday, during the boring immortal work.\n\nA radiator panel at Shackleton Verge. A robot body on the maintenance shift, running a bolt sequence it has run ten thousand times. At 09:41:07 base time, relay four hands the connection to relay five, the way it has a million times before.\n\nThis time, the handoff fails. For eleven seconds, no signal from Earth reaches the body.\n\nAnd the body keeps moving anyway — finishing a motion that nobody was commanding.',
       },
       {
         art: 'cut_jonah_after',
