@@ -18,8 +18,8 @@ const dir = resolve(dirname(fileURLToPath(import.meta.url)), '../../public/sfx')
 
 const TARGETS = [
   { prefix: 'amb_', I: -30 },
-  { prefix: 'scn_', I: -30 },
-  { prefix: 'fol_', I: -19 },
+  { prefix: 'scn_', I: -24 },
+  { prefix: 'fol_', I: -24 },
   { prefix: 'sting_', I: -16 },
   { prefix: 'mus_', I: -17 },
 ]

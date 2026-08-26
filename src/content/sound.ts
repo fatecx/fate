@@ -162,7 +162,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_build',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Warm ambient instrumental music: soft analog synthesizer chords slowly shifting through a gentle hopeful progression, a faint music-box arpeggio drifting in and out, tape warmth, late-night optimism of building something in a garage. Slow, patient, seamless loop, no drums, no vocals.',
   },
@@ -170,7 +170,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_war',
     gain: 0.32,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Tense restrained instrumental music: a slow minor-key chord progression on warm analog synthesizers, clearly audible in the mid register, a quiet pulsing bass note beneath, cold shimmering accents above. Forward pressure, a long campaign. Melodic movement present but subtle. Seamless loop, no drums, no vocals.',
   },
@@ -178,7 +178,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_aftermath',
     gain: 0.28,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Somber ambient instrumental music: melancholy felt-piano phrases over a cold sustained string pad, slow and mournful, grief and responsibility after an accident, clearly audible but gentle. Seamless loop, no drums, no vocals.',
   },
@@ -186,7 +186,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_endgame',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Cinematic ambient instrumental music: deep warm pads slowly swelling and receding, a quiet noble horn-like synthesizer line rising gradually, gathering shimmer, destiny at the end of a long road. Grand but restrained, seamless loop, no drums, no vocals.',
   },
@@ -194,7 +194,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_film',
     gain: 0.32,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Dark cinematic ambient instrumental music: a deep evolving synthesizer pad with slow tonal movement, distant resonant piano note echoing rarely, held-breath suspense of a film interlude. Heavy, spacious, seamless loop, no drums, no vocals.',
   },
@@ -202,7 +202,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_hustle',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Light kinetic instrumental music: a gentle forward-moving synthesizer pattern, soft plucked arpeggios, quiet momentum and optimism, things getting done late and fast. Understated, warm, seamless loop, no drums, no vocals.',
   },
@@ -210,7 +210,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_tender',
     gain: 0.28,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Tender intimate instrumental music: soft felt piano and warm pad, small kindnesses between people, human warmth in a hard city. Gentle, close, slow, seamless loop, no drums, no vocals.',
   },
@@ -218,7 +218,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_negotiate',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Poised tense instrumental music: sparse plucked notes over a held low pad, poker-faced restraint, money and futures being decided across a table. Minimal, coiled, patient, seamless loop, no drums, no vocals.',
   },
@@ -226,7 +226,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_dread',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Slow dread instrumental music: a cold minor pad darkening gradually, a low pulse like a distant warning, something bad approaching by increments. Heavy air, restrained, seamless loop, no drums, no vocals.',
   },
@@ -234,7 +234,7 @@ export const MOODS: Record<string, SoundDef> = {
     id: 'mus_siege',
     gain: 0.3,
     seconds: 30,
-    takes: 3,
+    takes: 6,
     prompt:
       'Under-siege instrumental music: urgent low strings-like synthesizer figures repeating, pressure from all sides, headlines and hearings closing in, dignity under fire. Driving but restrained, seamless loop, no drums, no vocals.',
   },
@@ -290,42 +290,42 @@ export const STINGERS: Record<string, SoundDef> = {
 export const FOLEY: Record<string, SoundDef> = {
   stairs: {
     id: 'fol_stairs',
-    gain: 0.5,
+    gain: 0.4,
     seconds: 4,
     prompt:
       'Footsteps climbing old creaky wooden stairs, approaching steadily, then stopping at the top. Interior, close, natural. One-shot, no music, no voices.',
   },
   pen: {
     id: 'fol_pen',
-    gain: 0.5,
+    gain: 0.38,
     seconds: 3,
     prompt:
       'A ballpoint pen signing a signature on paper laid on a wooden table: quick confident scratch strokes, a small paper rustle, pen set down. One-shot, close, dry, no music.',
   },
   phone: {
     id: 'fol_phone',
-    gain: 0.48,
+    gain: 0.38,
     seconds: 3,
     prompt:
       'A phone vibrating twice on a wooden workbench, short buzz pattern, slight rattle of small parts nearby. One-shot, close, no music, no ringtone melody.',
   },
   gavel: {
     id: 'fol_gavel',
-    gain: 0.52,
+    gain: 0.42,
     seconds: 3,
     prompt:
       'A wooden gavel strikes a sound block twice in a large municipal hall, firm and procedural, natural room reverb. One-shot, no music, no voices.',
   },
   cameras: {
     id: 'fol_cameras',
-    gain: 0.48,
+    gain: 0.38,
     seconds: 4,
     prompt:
       'A burst of press camera shutters clicking rapidly with a few flash pops, a scrum settling. One-shot, no music, no voices.',
   },
   door: {
     id: 'fol_door',
-    gain: 0.45,
+    gain: 0.36,
     seconds: 3,
     prompt:
       'A glass shop door opens with a small brass bell chime and swings shut with a soft thud. Interior cafe acoustics. One-shot, no music, no voices.',

@@ -316,6 +316,11 @@ export function resetStage(): void {
   stung.clear()
 }
 
+/** A scene's sound event: one diegetic action, 2–4s, fired on arrival. */
+export function sceneSound(sceneId: string): void {
+  playOnce(SCENE_BEDS[sceneId])
+}
+
 const stung = new Set<string>()
 /** One-shot. `once` de-dupes per key so re-renders never double-ring the bell. */
 export function stinger(name: keyof typeof STINGERS, onceKey?: string): void {

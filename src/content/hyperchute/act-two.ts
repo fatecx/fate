@@ -348,7 +348,6 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_viral',
     ambience: 'garage',
     accent: 'street',
-    foley: 'phone',
     art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
     weight: 3,

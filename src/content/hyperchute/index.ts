@@ -119,7 +119,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · 2031',
     title: 'THE CITY FROM BELOW',
     art: 'prologue_below',
-    bg: 'street',
     prose:
       'You grew up in the Flats, the poor end of the city.\n\nWhen you were nineteen, the delivery drones arrived — a hundred thousand of them, blue and quiet, flying over your roof to the rich hills where the tips are good. Every kid on your block learned their blinking lights the way other kids learn constellations.\n\nThe drones never stopped on your street. Nothing that flies ever stopped on your street.',
   },
@@ -134,7 +133,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE MACHINE',
     title: 'EIGHT YEARS INSIDE IT',
     art: 'prologue_dispatch',
-    bg: 'dispatch',
     prose:
       'You know exactly how those drones work, because routing them was your job for eight years.\n\nA headset, a dispatch floor, a MERIDIAN subcontractor. MERIDIAN LOGISTICS NETWORKS — the ninety-one-billion-dollar giant whose routing computer makes eleven million decisions a minute, while the executives mostly announce whatever it already decided.\n\nOn launch days the managers wore a T-shirt: LOGISTICS IS A SOLVED PROBLEM. For the rich hills, it was.',
   },
@@ -149,7 +147,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE TUESDAY',
     title: 'EVERYTHING YOU HAD',
     art: 'prologue_garage',
-    bg: 'garage',
     prose:
       'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nThen you sold everything you owned. The savings, the car, half an apartment deposit — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nYou kept one thing: an idea that would not leave you alone.\n\nThe money bought a garage above the Sudz & Spin laundromat, four months of late nights, and a pile of parts. Dryer heat through the floorboards. Solder smoke. And slowly, hanging from a rope under the ceiling, a machine taking shape — the thing you saw every night when you closed your eyes on the dispatch floor.',
   },
@@ -157,7 +154,6 @@ const PROLOGUE: readonly PrologueBeat[] = [
     kicker: 'PROLOGUE · THE RAILWAY',
     title: 'SOFT AS RAIN',
     art: 'prologue_corridor',
-    bg: 'wind',
     prose:
       'The idea is a railway in the sky.\n\nSmall self-flying shuttles that park two hundred feet above the street, like train cars on an invisible track, and lower each package down a soft tube to any porch with a catch-sleeve. Four minutes from warehouse to doorstep, soft as rain, priced like a bus ticket.\n\nWhere MERIDIAN sends a swarm of drones, you run one quiet line — over the exact streets their map says are worthless.\n\nThat is the whole plan, and it makes you grin at 3 a.m.: start where MERIDIAN refuses to go. One approved air corridor over one forgotten neighborhood. Sixty paying porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the papers for a company called HYPERCHUTE, INC. It is one hundred percent yours, and it is worth exactly nothing.\n\nFor now.',
   },

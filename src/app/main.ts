@@ -14,7 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, resetStage, stinger, foley, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
+import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
 import { MOODS } from '../content/sound'
 import { makeFmt } from '../../scripts/map/format'
 
@@ -681,7 +681,7 @@ function refreshCard(): void {
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
-  if (scene.foley) foley(scene.foley as Parameters<typeof foley>[0])
+  sceneSound(sceneId) // the scene's one diegetic action — the pour, the pen, the train
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
     ${scene.leadIn ? `<div class="leadin"></div>` : ''}
@@ -756,9 +756,9 @@ function applyStage(film = false): void {
   }
   setStage({
     mood: (scene?.mood && MOODS[scene.mood] ? scene.mood : moodOf()) as StageState['mood'],
-    ambience: scene?.ambience ?? null,
-    scene: sceneId ?? null,
-    accent: scene?.accent ?? null,
+    ambience: null, // in play, rooms are one-shot scene events, not beds
+    scene: null,
+    accent: null,
     tension: tensionNow(),
   })
 }

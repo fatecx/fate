@@ -46,7 +46,7 @@ const defs = [
   { ...TENSION, loop: true, seconds: TENSION.seconds ?? 22 },
   ...Object.values(STINGERS).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 6 })),
   ...Object.values(FOLEY).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 4 })),
-  ...Object.values(SCENE_BEDS).map((d) => ({ ...d, loop: true, seconds: d.seconds ?? 22 })),
+  ...Object.values(SCENE_BEDS).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 4 })),
 ]
 
 let rendered = 0

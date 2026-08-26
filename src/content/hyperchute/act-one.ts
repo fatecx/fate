@@ -9,7 +9,6 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 'h_seedling',
     ambience: 'garage',
     accent: 'street',
-    foley: 'stairs',
     title: 'DON’T YOU HAVE A JOB?',
     landmark: true,
     speaker: 'marisol',
@@ -281,7 +280,6 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_hearing',
     ambience: 'hearing',
-    foley: 'gavel',
     title: 'THE DESCENT-SAFETY HEARING',
     art: 'world_hearing_4b',
     priority: true,
@@ -316,7 +314,6 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_june_via_tomas',
     ambience: 'garage',
-    foley: 'stairs',
     art: 'june_garage',
     title: 'THE ANGEL',
     priority: true,
@@ -628,7 +625,6 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_nadia_call',
     ambience: 'garage',
-    foley: 'phone',
     title: 'THE JOURNALIST',
     speaker: 'nadia',
     leadIn:

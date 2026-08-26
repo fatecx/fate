@@ -181,7 +181,6 @@ export const SURVIVAL: readonly SceneDef[] = [
     id: 'h_b_coffee_shop',
     ambience: 'cafe',
     accent: 'street',
-    foley: 'door',
     art: 'world_coffee_shop',
     kind: 'bridge',
     title: 'THE COFFEE SHOP',
@@ -202,7 +201,6 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_ghost_check',
     ambience: 'cafe',
-    foley: 'pen',
     title: 'SIGNED OVER COFFEE',
     speaker: 'vance',
     leadIn: 'He stands to shake your hand before you reach the table, and half the shop studies its cups.',
