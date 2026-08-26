@@ -17,7 +17,7 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'world_listing',
         prose:
-          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive. The lead banker, who planned around the honest price from the start, closes her binder after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
+          'The pricing call is shorter this time. You have done this before, and the share price you keep repeating is the low, honest one — the price that will not wipe out the ordinary families who buy in if the market turns. The lead banker, who planned around the honest price from the start, closes her binder after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
       },
       {
         art: 'end_t_bell',
@@ -41,7 +41,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE VIEW FROM ALTITUDE',
       prose:
-        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The satellite ring grows, the chairs multiply, and the maintenance work hums along above you with your name on its chest. At conferences and in green rooms, a rumor keeps finding you: a group is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has built a road between worlds and told the truth about it twice?',
+        'Two years of quarterly earnings calls and glass offices, rich enough that strangers quote your net worth at parties. The satellite ring grows, the chairs multiply, and the maintenance shifts hum along above you with your name on their chest. At conferences and in green rooms, the same rumor keeps finding you: a new company is forming around the oldest dream in the space business — a space elevator. A real one. A cable from the ground to orbit, with cargo cars climbing it like trains. Goods first, humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has built a road between worlds and told the truth about it twice?',
     },
   },
   {
@@ -57,7 +57,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'INSIDE THE MANIFEST',
       prose:
-        'Three years of merger committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives. The honest counter gets removed. In the third spring, your ban on competing ends quietly on a Tuesday. That same week, a group building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no launch schedule can bump.”',
+        'Three years of merger committees and a fancy title that means retired without saying the word. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives. The honest counter gets removed. In the third spring, your ban on competing ends quietly on a Tuesday. That same week, a company planning to build a space elevator — an actual cable from the ground to space — sends three people to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no launch schedule can bump.”',
     },
   },
   {
@@ -84,12 +84,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 3,
     skipYears: 4,
     prose:
-      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. The doubts were always about something else, and you knew what.',
+      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. Nobody ever doubted the machines. The doubt was about telling people the truth, and you settled that question years ago.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE MANAGED ENVIRONMENT',
       prose:
-        'Four years of earnings calls where the word “delay” never appears. The stock performs. The settlements stay sealed. Nadia Osei’s book about the presence era has a chapter with your name on it, and you have never read past its first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year, a group building a cable to orbit calls. They need capital and credibility. They are flexible about the order.',
+        'Four years of earnings calls where the word “delay” never appears. The stock performs. The settlements stay sealed. Nadia Osei’s book about the presence era has a chapter with your name on it, and you have never read past its first page. At night, sometimes, you sit in a chair no customer uses anymore — honest mode, the counter running — and watch a robot hand on the Moon copy yours, 2.6 truthful seconds late. In the fourth year, a company planning a space elevator calls. They need money and they need a famous name, and they are flexible about the order.',
     },
   },
   {
@@ -105,7 +105,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a group building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a company planning to build a space elevator — a cable from the ground straight up to orbit — asks to meet. They are not shopping for a company to buy. They flew here to recruit you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {
@@ -121,7 +121,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE KEEPER OF THE SPEC',
       prose:
-        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you answer with citations. The cascade carries presence to the Moon under every flag there is. At the second annual meeting, an engineering delegation corners you with studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no launch schedule can bump, no monopoly can own — if someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
+        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you answer with citations. The cascade carries presence to the Moon under every flag there is. At the second annual meeting, a team of engineers corners you with feasibility studies and a gleam you recognize from a hangar, years ago. They want to build a space elevator — a cable from the ground to orbit that no launch schedule can bump and no monopoly can own, if someone builds it as public property from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
     },
   },
 ]
@@ -132,7 +132,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     title: 'THE ITCH',
     art: 'prologue_t_itch',
     prose:
-      'It starts with looking up. It always has.\n\nThe last company left you what it left you — money, scar tissue, a shoebox of clippings, maybe all three. The itch came through untouched. You catch yourself at windows. You read launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo. The one thing you cannot stop thinking about is still up there, waiting.',
+      'It starts with looking up, the way it always has.\n\nThe last company is over, and whatever it paid you in money and cost you in scars, one thing came through untouched: the itch. You catch yourself at windows. You read launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo. The one thing you cannot stop thinking about is still up there, waiting.',
   },
   {
     kicker: 'PROLOGUE',
