@@ -1,8 +1,9 @@
 /**
  * The landing scroll — fate.cx's front door for a wallet the game has never
  * met. Built like a film, paced like a pitch: key art first, the world, three
- * chapter title cards, the real opening scene playable up to its first choice,
- * then the terms. The first ask arrives only after the page has earned it.
+ * chapter title cards, then the play surface itself demonstrating the first
+ * scene — the rail, the portrait, the typewriter, the choices — before any
+ * ask. The first button on the page is the one that incorporates.
  * Copy and art live in src/content/landing.ts; this file only renders them.
  * Art never blocks: a missing print leaves a sigil field and the page reads on.
  */
@@ -21,6 +22,7 @@ import {
   RECORD,
   FINALE,
   PRICE_CHIP,
+  CTA_LABEL,
   COVENANT,
   type LandingPanel,
 } from '../content/landing'
@@ -56,34 +58,41 @@ function chapterHtml(): string {
   ).join('')
 }
 
-/** The real first scene, read-only — the choices are the door. */
-function cliffhangerHtml(): string {
+/** The play surface itself, demonstrating the first scene — a living screenshot. */
+function demoHtml(): string {
   const scene = getScene(CONTENT, 'hyperchute', CLIFFHANGER.sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
-  const portrait = scene.speaker
-    ? `<div class="ld-portrait"><img src="/art/${scene.speaker}.webp" alt="" loading="lazy" onerror="this.remove()"><div class="ld-cap"><div class="ld-cap-name">${esc(speaker?.name ?? '')}</div><div class="ld-cap-role">${esc(speaker?.role ?? '')}</div></div></div>`
-    : ''
   return `
-  <section class="ld-scene ld-tall" data-art="">
+  <section class="ld-scene ld-tall" data-art="" data-demo>
     <div class="ld-beat ld-wide">
       <div class="ld-kicker">${esc(CLIFFHANGER.kicker)}</div>
-      <div class="ld-stagebox">
-        ${portrait}
-        <div class="ld-script">
-          ${scene.leadIn ? `<div class="ld-leadin">${esc(scene.leadIn)}</div>` : ''}
-          <h3 class="ld-scene-title">${esc(scene.title)}</h3>
-          <p class="ld-prose">${esc(scene.prose)}</p>
-          <div class="ld-choices">
-            ${scene.choices.map((c) => `<button class="ld-choice" disabled>${esc(c.label)}</button>`).join('')}
+      <div class="ld-demo" id="ldDemo">
+        <div class="ld-demo-rail">
+          <span class="ld-demo-mark">FATE<em>·</em></span>
+          <span class="ld-demo-tag">WEEK 1 · 2031 · THE FLATS</span>
+          <span class="ld-demo-meters"><span class="ld-pill dim on">BANK $120,000</span><span class="ld-pill dim on">CRED +0</span></span>
+        </div>
+        <div class="ld-demo-stage">
+          <aside class="ld-demo-card">
+            ${scene.speaker ? `<img src="/art/${scene.speaker}.webp" alt="" loading="lazy" onerror="this.remove()">` : ''}
+            <div class="ld-cap"><div class="ld-cap-name">${esc(speaker?.name ?? 'THE WORLD')}</div><div class="ld-cap-role">${esc(speaker?.role ?? '')}</div></div>
+          </aside>
+          <div class="ld-demo-story">
+            <div class="ld-leadin" data-text="${esc(scene.leadIn ?? '')}"></div>
+            <h3 class="ld-scene-title">${esc(scene.title)}</h3>
+            <p class="ld-prose" data-text="${esc(scene.prose)}"></p>
+            <div class="ld-choices">
+              ${scene.choices.map((c) => `<button class="ld-choice" disabled>${esc(c.label)}</button>`).join('')}
+            </div>
+            <button class="ld-choice-gate" data-enter>${esc(CLIFFHANGER.caption)}</button>
           </div>
-          <button class="ld-choice-gate" data-enter>${esc(CLIFFHANGER.caption)}</button>
         </div>
       </div>
     </div>
   </section>`
 }
 
-/** The feature band — three cards, one scan. */
+/** The feature band — three cards, each stamping its own game chips. */
 function featuresHtml(): string {
   return `
   <section class="ld-scene ld-tall" data-art="">
@@ -96,6 +105,13 @@ function featuresHtml(): string {
           <div class="ld-kicker">${esc(f.kicker)}</div>
           <h3 class="ld-feature-head">${esc(f.head ?? '')}</h3>
           ${f.paras.map((t) => `<p class="ld-feature-body">${esc(t)}</p>`).join('')}
+          ${
+            f.pills
+              ? `<div class="ld-pills">${f.pills
+                  .map((p, i) => `<span class="ld-pill ${p.k} loop" style="animation-delay:${(i * 0.9).toFixed(1)}s">${esc(p.t)}</span>`)
+                  .join('')}</div>`
+              : ''
+          }
         </div>`,
         ).join('')}
       </div>
@@ -122,7 +138,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
       ${panelHtml(PITCH[0], `<div class="ld-stat">${esc(PITCH_STAT)}</div>`)}
       ${panelHtml(PITCH[1], `<div class="ld-stat">${esc(TAGLINE)}</div>`)}
       ${chapterHtml()}
-      ${cliffhangerHtml()}
+      ${demoHtml()}
       ${featuresHtml()}
       ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`)}
       <section class="ld-scene" data-art="${FINALE.art ?? ''}">
@@ -131,7 +147,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           <h2 class="ld-head">${esc(FINALE.head ?? '')}</h2>
           ${FINALE.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
           <div class="ld-price">${esc(PRICE_CHIP)}</div>
-          <button class="cta ld-cta" data-enter>Sign the papers →</button>
+          <div><button class="cta ld-cta" data-enter>${esc(CTA_LABEL)}</button></div>
           <div class="ld-covenant">${COVENANT.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
           <div class="ld-foot">FATE.CX · <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">THE FOUNDERS’ LEDGER</a></div>
         </div>
@@ -173,6 +189,56 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     front = next
   }
 
+  // ---- the living screenshot: type the first scene the way the game does ----
+  const demo = el.querySelector<HTMLElement>('#ldDemo')
+  let demoStarted = false
+  function typeInto(node: HTMLElement, text: string, cps: number): Promise<void> {
+    return new Promise((resolve) => {
+      let i = 0
+      node.classList.add('typing')
+      const step = Math.max(1, Math.round(cps / 60))
+      const iv = window.setInterval(() => {
+        if (!node.isConnected || node.dataset.done === '1') {
+          window.clearInterval(iv)
+          node.classList.remove('typing')
+          resolve()
+          return
+        }
+        i += step
+        node.textContent = text.slice(0, i)
+        if (i >= text.length) {
+          window.clearInterval(iv)
+          node.classList.remove('typing')
+          resolve()
+        }
+      }, 16)
+    })
+  }
+  function finishDemo(): void {
+    if (!demo) return
+    demo.querySelectorAll<HTMLElement>('[data-text]').forEach((n) => {
+      n.dataset.done = '1'
+      n.textContent = n.dataset.text ?? ''
+      n.classList.remove('typing')
+    })
+    demo.classList.add('played')
+  }
+  async function startDemo(): Promise<void> {
+    if (demoStarted || !demo) return
+    demoStarted = true
+    if (reduced) {
+      finishDemo()
+      return
+    }
+    demo.addEventListener('click', finishDemo, { once: true })
+    const leadin = demo.querySelector<HTMLElement>('.ld-leadin')
+    const prose = demo.querySelector<HTMLElement>('.ld-prose')
+    if (leadin?.dataset.text) await typeInto(leadin, leadin.dataset.text, 210)
+    demo.classList.add('titled')
+    if (prose?.dataset.text && !demo.classList.contains('played')) await typeInto(prose, prose.dataset.text, 240)
+    demo.classList.add('played')
+  }
+
   // ---- scene activation: reveal beats, swap the wall to the scene's print ----
   const scenes = [...el.querySelectorAll<HTMLElement>('.ld-scene')]
   const hero = scenes[0]
@@ -187,6 +253,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           else if (en.intersectionRatio >= 0.4) {
             heroLive = false
             show(t.dataset.art ?? '')
+            if (t.dataset.demo !== undefined) void startDemo()
           }
         } else if (t === hero) heroLive = false
       }

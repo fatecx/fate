@@ -646,32 +646,77 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 }
 .ld-cta { font-size: 15px; padding: 13px 26px; margin-top: 26px; }
 
-/* the read-only first scene */
-.ld-stagebox {
-  display: flex; gap: 26px; margin-top: 30px; text-align: left;
-  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.88);
-  padding: 26px; align-items: flex-start;
+/* the living screenshot — the play surface demonstrating the first scene */
+.ld-demo {
+  margin-top: 30px; text-align: left;
+  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.92);
+  overflow: hidden; cursor: default;
 }
-.ld-portrait { flex: 0 0 250px; border-radius: 8px; overflow: hidden; border: 1px solid #23262c; position: relative; }
-.ld-portrait img { width: 100%; display: block; }
+.ld-demo-rail {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 10px 18px; border-bottom: 1px solid #1c1f24;
+}
+.ld-demo-mark { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.16em; }
+.ld-demo-mark em { font-style: normal; color: var(--accent); }
+.ld-demo-tag { font-family: var(--mono); font-size: 10.5px; color: #9b9d96; letter-spacing: 0.12em; }
+.ld-demo-meters { margin-left: auto; display: flex; gap: 8px; }
+.ld-demo-stage { display: flex; align-items: stretch; }
+.ld-demo-card { flex: 0 0 250px; position: relative; border-right: 1px solid #1c1f24; min-height: 250px; background: #0a0b0d; }
+.ld-demo-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .ld-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85)); }
 .ld-cap-name { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
 .ld-cap-role { font-family: var(--mono); font-size: 10px; color: #9b9d96; letter-spacing: 0.08em; margin-top: 2px; }
-.ld-script { min-width: 0; }
-.ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; }
-.ld-scene-title { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 0.05em; margin: 12px 0 10px; }
+.ld-demo-story { min-width: 0; flex: 1; padding: 22px 26px 24px; }
+.ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; min-height: 3.4em; }
+.ld-scene-title {
+  font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 0.05em; margin: 12px 0 10px;
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.ld-demo.titled .ld-scene-title, .ld-demo.played .ld-scene-title { opacity: 1; }
 .ld-prose { line-height: 1.75; color: #e6e7e2; font-size: 15.5px; }
+.typing::after { content: '▌'; color: var(--accent); animation: ldCaret 0.9s steps(1) infinite; }
+@keyframes ldCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .ld-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
 .ld-choice {
   text-align: left; font-size: 14px; padding: 11px 14px;
-  border: 1px solid #2a2d33; border-radius: 8px; color: #8b8d85; cursor: default;
+  border: 1px solid #2a2d33; border-radius: 8px; color: #a8aaa2; cursor: default;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
+.ld-demo.played .ld-choice { opacity: 1; transform: none; }
+.ld-demo.played .ld-choice:nth-child(2) { transition-delay: 0.15s; }
+.ld-demo.played .ld-choice:nth-child(3) { transition-delay: 0.3s; }
 .ld-choice-gate {
   margin-top: 14px; width: 100%; text-align: center;
   font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.2em;
   padding: 13px 14px; border: 1px solid var(--accent); border-radius: 8px; color: var(--accent);
+  opacity: 0; transition: opacity 0.5s ease 0.5s;
 }
+.ld-demo.played .ld-choice-gate { opacity: 1; }
 .ld-choice-gate:hover { background: var(--accent); color: #fff; }
+
+/* game chips — the pills the surface stamps after a choice */
+.ld-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.ld-pill {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.08em; padding: 4px 12px; border: 1px solid currentColor;
+  border-radius: 99px; background: rgba(8, 9, 11, 0.7); white-space: nowrap;
+}
+.ld-pill.good { color: #5cc9a0; }
+.ld-pill.bad { color: #e58a83; }
+.ld-pill.dim { color: #9b9d96; }
+.ld-pill.accent { color: var(--accent); }
+.ld-pill.on { opacity: 1; }
+.ld-pill.loop { opacity: 0; animation: ldPill 7.2s ease-in-out infinite; }
+@keyframes ldPill {
+  0% { opacity: 0; transform: translateY(7px) scale(0.94); }
+  7% { opacity: 1; transform: none; }
+  76% { opacity: 1; }
+  86%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-pill.loop { animation: none; opacity: 1; }
+}
 
 /* the feature band — three cards, one scan */
 .ld-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; text-align: left; }
@@ -712,8 +757,9 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 
 @media (max-width: 900px) {
   .ld-features { grid-template-columns: 1fr; }
-  .ld-stagebox { flex-direction: column; }
-  .ld-portrait { flex: none; width: min(250px, 62%); }
+  .ld-demo-stage { flex-direction: column; }
+  .ld-demo-card { flex: none; min-height: 300px; border-right: none; border-bottom: 1px solid #1c1f24; }
+  .ld-demo-card img { object-position: center 20%; }
 }
 @media (max-width: 560px) {
   .ld-scene { padding: 70px 18px; }

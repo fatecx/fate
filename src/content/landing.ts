@@ -11,6 +11,8 @@ export interface LandingPanel {
   glyph?: string
   head?: string
   paras: string[]
+  /** Animated game chips — the pills the play surface stamps after a choice. */
+  pills?: { t: string; k: 'good' | 'bad' | 'dim' | 'accent' }[]
 }
 
 export interface ChapterCard {
@@ -85,7 +87,7 @@ export const CHAPTERS: readonly ChapterCard[] = [
 export const CLIFFHANGER = {
   kicker: 'THE FIRST SCENE',
   sceneId: 'h_seedling',
-  caption: 'TO CHOOSE, SIGN THE PAPERS →',
+  caption: 'TO CHOOSE, INCORPORATE →',
 }
 
 export const FEATURES: readonly LandingPanel[] = [
@@ -95,16 +97,28 @@ export const FEATURES: readonly LandingPanel[] = [
     head: 'THE WORLD REMEMBERS',
     art: null,
     paras: [
-      'Companies die and the story keeps going. The investor you burned in your first company blocks a door in your third. A failed company stays in the world as a headline, a rival, or an old office you walk past.',
+      'Companies die and the story keeps going. The investor you burned in chapter one blocks a door in chapter three.',
+    ],
+    pills: [
+      { t: 'MET · JUNE PARK', k: 'dim' },
+      { t: 'ALLY · PRIYA RAGHAVAN', k: 'good' },
+      { t: 'GRUDGE · MARCUS VALE', k: 'bad' },
+      { t: 'CARRIES TO CHAPTER 2 →', k: 'accent' },
     ],
   },
   {
     kicker: 'THE ENGINE',
     glyph: '■',
-    head: 'THE NUMBERS ARE REAL',
+    head: 'EVERY CHOICE COSTS',
     art: null,
     paras: [
-      'Runway, stress, and reputation are the only three meters in the game. Every outcome comes from your choices and those numbers, under rules that are the same for everyone. Board votes resolve by counting seats, and when a company dies you can name the two decisions that killed it.',
+      'Money, stress, and reputation move with every decision. A cheap lie saves the week and loses the boardroom a year later.',
+    ],
+    pills: [
+      { t: '+ $10,000', k: 'good' },
+      { t: '+ STRESS', k: 'bad' },
+      { t: 'RUNWAY 31 WKS', k: 'dim' },
+      { t: 'CRED +1', k: 'good' },
     ],
   },
   {
@@ -113,7 +127,12 @@ export const FEATURES: readonly LandingPanel[] = [
     head: 'BURNED TO YOUR WALLET',
     art: null,
     paras: [
-      'Your wallet signs the incorporation papers. One wallet gets one life, and every choice is written to that address for good. There are no resets and no second saves. When the biography ends, it stays on the record.',
+      'One wallet gets one life. Every choice is written to that address for good, and the finished biography stays on the record.',
+    ],
+    pills: [
+      { t: 'SIGNED · 0x3f…a2', k: 'dim' },
+      { t: 'WEEK 61 · ON THE RECORD', k: 'dim' },
+      { t: 'NO RESETS', k: 'accent' },
     ],
   },
 ]
@@ -121,7 +140,7 @@ export const FEATURES: readonly LandingPanel[] = [
 export const RECORD: LandingPanel = {
   kicker: 'THE COMMUNITY',
   art: 'world_legend_clip',
-  head: 'THE RECORD',
+  head: 'THE LEDGER',
   paras: [
     'Every ending is stamped to a public ledger. See how many founders reached the bell, how many went bankrupt, and how the community split on the choices that hurt.',
   ],
@@ -138,6 +157,8 @@ export const FINALE: LandingPanel = {
 }
 
 export const PRICE_CHIP = 'ONE LIFE · $20'
+
+export const CTA_LABEL = 'Incorporate →'
 
 export const COVENANT = [
   'Fate gives you one life.',
