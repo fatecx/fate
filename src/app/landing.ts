@@ -14,8 +14,6 @@ import {
   HERO,
   HERO_ART,
   PITCH,
-  PITCH_STAT,
-  TAGLINE,
   CHAPTERS,
   CLIFFHANGER,
   FEATURES,
@@ -84,7 +82,6 @@ function demoHtml(): string {
             <div class="ld-choices">
               ${scene.choices.map((c) => `<button class="ld-choice" disabled>${esc(c.label)}</button>`).join('')}
             </div>
-            <button class="ld-choice-gate" data-enter>${esc(CLIFFHANGER.caption)}</button>
           </div>
         </div>
       </div>
@@ -112,6 +109,18 @@ function featuresHtml(): string {
                   .join('')}</div>`
               : ''
           }
+          ${
+            f.cast
+              ? `<div class="ld-castrow">${f.cast
+                  .map((id, i) => `<span class="ld-face" style="transition-delay:${(i * 0.07).toFixed(2)}s"><img src="/art/${id}.webp" alt="" loading="lazy" onerror="this.remove()"></span>`)
+                  .join('')}</div>`
+              : ''
+          }
+          ${
+            f.stamp
+              ? `<div class="ld-sigrow"><div class="ld-sig">${esc(f.stamp.sig)}</div><div class="ld-stamp">${esc(f.stamp.mark)}</div></div>`
+              : ''
+          }
         </div>`,
         ).join('')}
       </div>
@@ -135,12 +144,12 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           <div class="ld-scrollcue">SCROLL</div>
         </div>
       </section>
-      ${panelHtml(PITCH[0], `<div class="ld-stat">${esc(PITCH_STAT)}</div>`)}
-      ${panelHtml(PITCH[1], `<div class="ld-stat">${esc(TAGLINE)}</div>`)}
+      ${panelHtml(PITCH[0])}
+      ${panelHtml(PITCH[1])}
       ${chapterHtml()}
       ${demoHtml()}
       ${featuresHtml()}
-      ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`)}
+      ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/leaderboard.html" target="_blank" rel="noopener">OPEN THE FOUNDERS’ LEDGER ↗</a>`)}
       <section class="ld-scene" data-art="${FINALE.art ?? ''}">
         <div class="ld-beat">
           <div class="ld-kicker">${esc(FINALE.kicker)}</div>

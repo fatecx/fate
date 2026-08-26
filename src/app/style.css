@@ -275,6 +275,20 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .fx.good { color: var(--good); }
 .fx.bad { color: var(--bad); }
+/* What the choice actually did — quiet engine-truth pills under the answered button. */
+.fxpills { display: flex; gap: 6px; flex-wrap: wrap; max-width: 62ch; margin: -6px 0 14px; }
+.fxpill {
+  font-family: var(--mono); font-weight: 600; font-size: 10px; letter-spacing: 0.05em;
+  padding: 2px 9px; border-radius: 99px; border: 1px solid var(--good); color: var(--good);
+  font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0.85;
+}
+.fxpill.bad { border-color: var(--bad); color: var(--bad); }
+.fxpills.live .fxpill { opacity: 0; animation: pillIn 0.45s ease forwards; }
+@keyframes pillIn {
+  from { opacity: 0; transform: translateY(5px) scale(0.94); }
+  to { opacity: 0.85; transform: none; }
+}
+.fxpills.past .fxpill { opacity: 0.5; animation: none; }
 .kbd {
   font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
   text-transform: uppercase; border: 1px solid currentColor; border-radius: 3px;
@@ -660,13 +674,16 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 .ld-demo-mark em { font-style: normal; color: var(--accent); }
 .ld-demo-tag { font-family: var(--mono); font-size: 10.5px; color: #9b9d96; letter-spacing: 0.12em; }
 .ld-demo-meters { margin-left: auto; display: flex; gap: 8px; }
-.ld-demo-stage { display: flex; align-items: stretch; }
-.ld-demo-card { flex: 0 0 250px; position: relative; border-right: 1px solid #1c1f24; min-height: 250px; background: #0a0b0d; }
+.ld-demo-stage { display: flex; align-items: flex-start; gap: 22px; padding: 20px 22px; }
+.ld-demo-card {
+  flex: 0 0 240px; height: 300px; position: relative;
+  border: 1px solid #1c1f24; border-radius: 8px; overflow: hidden; background: #0a0b0d;
+}
 .ld-demo-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .ld-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85)); }
 .ld-cap-name { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
 .ld-cap-role { font-family: var(--mono); font-size: 10px; color: #9b9d96; letter-spacing: 0.08em; margin-top: 2px; }
-.ld-demo-story { min-width: 0; flex: 1; padding: 22px 26px 24px; }
+.ld-demo-story { min-width: 0; flex: 1; }
 .ld-leadin { font-family: var(--mono); font-size: 12.5px; color: #9b9d96; line-height: 1.7; min-height: 3.4em; }
 .ld-scene-title {
   font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 0.05em; margin: 12px 0 10px;
@@ -686,15 +703,6 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 .ld-demo.played .ld-choice { opacity: 1; transform: none; }
 .ld-demo.played .ld-choice:nth-child(2) { transition-delay: 0.15s; }
 .ld-demo.played .ld-choice:nth-child(3) { transition-delay: 0.3s; }
-.ld-choice-gate {
-  margin-top: 14px; width: 100%; text-align: center;
-  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.2em;
-  padding: 13px 14px; border: 1px solid var(--accent); border-radius: 8px; color: var(--accent);
-  opacity: 0; transition: opacity 0.5s ease 0.5s;
-}
-.ld-demo.played .ld-choice-gate { opacity: 1; }
-.ld-choice-gate:hover { background: var(--accent); color: #fff; }
-
 /* game chips — the pills the surface stamps after a choice */
 .ld-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .ld-pill {
@@ -717,6 +725,49 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 @media (prefers-reduced-motion: reduce) {
   .ld-pill.loop { animation: none; opacity: 1; }
 }
+
+/* the cast — the faces a biography collects, worn as the game wears them */
+.ld-castrow { display: flex; flex-wrap: wrap; margin-top: 20px; padding-left: 6px; }
+.ld-face {
+  width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+  border: 1.5px solid #3a3d44; background: #0a0b0d; margin-left: -8px; flex: none;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s ease;
+}
+.ld-scene.on .ld-face { opacity: 1; transform: none; }
+.ld-face:hover { border-color: var(--accent); }
+.ld-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .ld-face { transition: none; opacity: 1; transform: none; }
+}
+
+/* the covenant's mark — a signature line and the stamp pressed over it */
+.ld-sigrow { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.ld-sig {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: #9b9d96;
+  border-top: 1px solid #2a2d33; padding-top: 10px; flex: 1;
+}
+.ld-stamp {
+  font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.24em;
+  color: var(--accent); border: 2px solid var(--accent); border-radius: 4px;
+  padding: 7px 14px; transform: rotate(-6deg) scale(1.5); opacity: 0; flex: none;
+}
+.ld-scene.on .ld-stamp {
+  opacity: 0.92; transform: rotate(-6deg) scale(1);
+  transition: opacity 0.25s ease 0.7s, transform 0.3s cubic-bezier(0.2, 1.4, 0.4, 1) 0.7s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-stamp { opacity: 0.92; transform: rotate(-6deg); transition: none; }
+}
+
+/* the ledger door — a real button, readable over any print */
+.ld-ledger {
+  display: inline-block; margin-top: 6px;
+  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+  color: #f6f6f2; border: 1px solid #4a4d54; border-radius: 8px; padding: 12px 22px;
+  background: rgba(8, 9, 11, 0.82);
+}
+.ld-ledger:hover { border-color: var(--accent); color: var(--accent); }
 
 /* the feature band — three cards, one scan */
 .ld-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; text-align: left; }
@@ -758,8 +809,7 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 @media (max-width: 900px) {
   .ld-features { grid-template-columns: 1fr; }
   .ld-demo-stage { flex-direction: column; }
-  .ld-demo-card { flex: none; min-height: 300px; border-right: none; border-bottom: 1px solid #1c1f24; }
-  .ld-demo-card img { object-position: center 20%; }
+  .ld-demo-card { flex: none; width: min(240px, 100%); }
 }
 @media (max-width: 560px) {
   .ld-scene { padding: 70px 18px; }

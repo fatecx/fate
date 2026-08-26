@@ -13,6 +13,10 @@ export interface LandingPanel {
   paras: string[]
   /** Animated game chips — the pills the play surface stamps after a choice. */
   pills?: { t: string; k: 'good' | 'bad' | 'dim' | 'accent' }[]
+  /** Portrait circles — character ids whose faces this card wears. */
+  cast?: string[]
+  /** The covenant's mark: a signature line and the stamp pressed over it. */
+  stamp?: { sig: string; mark: string }
 }
 
 export interface ChapterCard {
@@ -30,7 +34,7 @@ export const HERO_ART: readonly string[] = [
   'cut_ring_alive',
   'end_t_stars',
   'end_s_ascent',
-  'world_hangar_night',
+  'cut_s_year_two_night',
 ]
 
 export const HERO = {
@@ -50,23 +54,19 @@ export const PITCH: readonly LandingPanel[] = [
   },
   {
     kicker: 'THE GAME',
-    art: 'world_war_room',
+    art: 'world_roadshow',
     paras: [
       'A sci-fi epic of desire, grit, and consequence, spanning thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
     ],
   },
 ]
 
-export const TAGLINE = 'One life. Three companies. Every scar carries forward.'
-
-export const PITCH_STAT = '3 STARTUPS · 30 YEARS · 1 LIFE'
-
 /** Each chapter holds a full screen — a title card from the life itself. */
 export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER ONE',
     name: 'HYPERCHUTE',
-    art: 'world_first_drop',
+    art: 'world_dawn_flights',
     line: 'A railway in the sky. Autonomous shuttles hold station above each home and drop deliveries through a tube to the doorstep.',
   },
   {
@@ -78,8 +78,8 @@ export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER THREE',
     name: 'SKYLINE',
-    art: 'world_s_cable_complete',
-    line: 'A cable from the ground to orbit. Nations, unions, and your own investors fight over who rides it first.',
+    art: 'cut_s_year_two',
+    line: 'A space elevator that combines everything you learned in logistics and space systems. Nations, unions, and your own investors fight over who rides it first.',
   },
 ]
 
@@ -87,7 +87,6 @@ export const CHAPTERS: readonly ChapterCard[] = [
 export const CLIFFHANGER = {
   kicker: 'THE FIRST SCENE',
   sceneId: 'h_seedling',
-  caption: 'TO CHOOSE, INCORPORATE →',
 }
 
 export const FEATURES: readonly LandingPanel[] = [
@@ -99,12 +98,7 @@ export const FEATURES: readonly LandingPanel[] = [
     paras: [
       'Companies die and the story keeps going. The investor you burned in chapter one blocks a door in chapter three.',
     ],
-    pills: [
-      { t: 'MET · JUNE PARK', k: 'dim' },
-      { t: 'ALLY · PRIYA RAGHAVAN', k: 'good' },
-      { t: 'GRUDGE · MARCUS VALE', k: 'bad' },
-      { t: 'CARRIES TO CHAPTER 2 →', k: 'accent' },
-    ],
+    cast: ['marisol', 'priya', 'tomas', 'june', 'sofia', 'nadia', 'marcus', 'farrokh', 'hale', 'vance'],
   },
   {
     kicker: 'THE ENGINE',
@@ -129,11 +123,7 @@ export const FEATURES: readonly LandingPanel[] = [
     paras: [
       'One wallet gets one life. Every choice is written to that address for good, and the finished biography stays on the record.',
     ],
-    pills: [
-      { t: 'SIGNED · 0x3f…a2', k: 'dim' },
-      { t: 'WEEK 61 · ON THE RECORD', k: 'dim' },
-      { t: 'NO RESETS', k: 'accent' },
-    ],
+    stamp: { sig: 'FOUNDER OF RECORD · 0x3f…a2', mark: 'IMMUTABLE' },
   },
 ]
 
@@ -148,7 +138,7 @@ export const RECORD: LandingPanel = {
 
 export const FINALE: LandingPanel = {
   kicker: 'THE PAPERS ARE WAITING',
-  art: 'world_signing',
+  art: 'cut_shoebox',
   head: 'OUT NOW',
   paras: [
     'Fate runs in your browser. Your wallet is your signature, and the first scene starts in the garage.',
@@ -170,5 +160,6 @@ export const COVENANT = [
 export const LANDING_ART: readonly string[] = [
   ...HERO_ART,
   ...[...PITCH, ...FEATURES, RECORD, FINALE].map((p) => p.art),
+  ...FEATURES.flatMap((p) => p.cast ?? []),
   ...CHAPTERS.map((c) => c.art),
 ].filter((a): a is string => !!a)
