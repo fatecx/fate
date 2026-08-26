@@ -54,7 +54,7 @@ export const PITCH: readonly LandingPanel[] = [
   },
   {
     kicker: 'THE GAME',
-    art: 'world_war_room',
+    art: 'world_roadshow',
     paras: [
       'A sci-fi epic of desire, grit, and consequence, spanning thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
     ],
