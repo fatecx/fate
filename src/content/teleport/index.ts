@@ -242,6 +242,8 @@ export const TELEPORT: ChapterDef = {
   id: 'teleport',
   title: 'TELEPORT',
   tagline: 'Be there without going.',
+  blurb:
+    'Relay satellites that let people on Earth work on the Moon in real time, through bodies that wait on the surface.',
   entry: 't_entry',
   insolvency: 't_insolvency',
   burnout: 't_burnout',

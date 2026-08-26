@@ -261,6 +261,8 @@ export const SKYLINE: ChapterDef = {
   id: 'skyline',
   title: 'SKYLINE',
   tagline: 'The road up.',
+  blurb:
+    'A cable from the sea to orbit — the elevator that turns rocket launches into train schedules.',
   entry: 's_entry',
   insolvency: 's_insolvency',
   burnout: 's_burnout',
