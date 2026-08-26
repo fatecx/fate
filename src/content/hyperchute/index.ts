@@ -44,6 +44,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE BELL AND AFTER',
+      art: 'inter_h_ipo',
       prose:
         'Two years of board decks and quarterly smiles. You are rich in the way headlines understand. The sky over the Flats is full of your shuttles and someone else’s ambitions. Every parcel that drops soft as rain makes the next impossible thing itch. June answers on the first ring, the way she has since the beginning. “I knew it. What are we building?”',
     },
@@ -60,6 +61,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE HANDCUFFS',
+      art: 'inter_h_acquired',
       prose:
         'Four years of vesting inside the company that buried you. A good office with your name on the door and no window. You watch MERIDIAN starve your corridors, close them, and call it efficiency. In the fourth winter you pass your old prototype in the lobby glass. The non-compete expired in June. You call June Park that night. She picks up before the first ring ends. “There you are,” she says. “What took you so long?”',
     },
@@ -76,6 +78,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF ODD JOBS',
+      art: 'inter_h_bankrupt',
       prose:
         'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets. At dinner, the quiet feels like its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you keep private. When the phone finally rings about something new, failure has made you ready.',
     },
@@ -92,6 +95,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · FIVE YEARS',
       title: 'THE VIEW FROM INSIDE',
+      art: 'inter_h_become',
       prose:
         'Five years, three promotions, one division. You are very good at this, which makes it worse. The corridors you once flew close in April, quietly. The press release has your signature at the bottom because that is the job. At night, you open the folder of things you would build if you were free. The non-compete runs out on a Tuesday. You are at June’s door Wednesday.',
     },
@@ -108,6 +112,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE FOUNDATION',
+      art: 'inter_h_open',
       prose:
         'Two years keeping the foundation lean and the spec honest. Four hundred little skies, each with its own name. Then a postcard arrives from Cape Canaveral — relay satellites, launch windows, and a handwritten line. THE NEXT RAILWAY DOESN’T STOP AT THE ATMOSPHERE. You know the handwriting. It used to be yours.',
     },

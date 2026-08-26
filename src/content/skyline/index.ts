@@ -35,6 +35,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE VIEW FROM THE TOP',
+      art: 'inter_s_ascent',
       prose:
         'Two years of ascents — students, honeymooners, welders’ mothers, a nation’s worth of ordinary passengers riding the sky for the price of a car. The company earns like a port and behaves like a public trust, which confuses the analysts and delights everyone else. And at the top of the cable, where the freight transfers to the Moon runs, the traffic reports keep saying the same strange, wonderful thing: the busiest road above the Earth now ends at a pole with dormitories, work crews, and no town. People live up there. Nobody has built them anywhere to live. You stand at the platform rail some evenings, watching the climbers rise, doing the arithmetic of one last impossible thing.',
     },
@@ -51,6 +52,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'THE RICHEST SPECTATOR',
+      art: 'inter_s_domain',
       prose:
         'Three years of watching your road from the shore. The settlement made you wealthy at a scale that stops meaning anything — you fund universities, buy back the old laundromat block and give it to the neighborhood, and still cannot spend the interest. The commission runs the cable at half its capacity, and every quarter you read the traffic reports like letters from a child raised by someone else. What keeps you up at night is the far end of the line: the Moon has crews, contracts, and dormitories, and no one is building the town. In the third spring, you charter a survey of the lunar south pole — just to look, you tell everyone, and almost believe it.',
     },
@@ -67,6 +69,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF THE LONG SHADOW',
+      art: 'inter_s_stump',
       prose:
         'A year of depositions and quiet. The crews scatter to good jobs — a FIRST RUNG résumé opens every door in three industries — and Anders takes a professorship where he teaches a course the students call How Not To Die Building The Impossible, attendance triple the room’s capacity. You do the settlements, keep the workers whole where the law allows it, and watch the dark line in the sky refuse to fall down out of sheer engineering. The consortium that eventually buys the cable from the people who wind down bankrupt companies will need someone who knows how to wake it. Everyone on Earth knows whose phone number that is.',
     },
@@ -83,6 +86,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'INSIDE THE FENCE',
+      art: 'inter_s_garrison',
       prose:
         'Four years of perfect security. The cable earns fortunes moving cargo and cleared personnel, the platform gains a locked floor you have never seen, and twice a year the Admiral toasts you at a dinner where everyone wears the same color. You are rich, protected, and escorted — a founder with a fence around his life’s work and a lanyard to visit it. At night, from the rail, the climbers rise on schedule, carrying freight and soldiers to a Moon that is being staffed like a base instead of settled like a town. Somewhere in the fourth year, you start sketching, privately, a thing no admiral would ever clear: a place up there with no fence at all.',
     },
@@ -99,6 +103,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'THE FOUNDING MINISTER',
+      art: 'inter_s_minister',
       prose:
         'Three years of governing infrastructure for a country that runs like a startup, which mostly means the meetings are shorter and the flags are newer. Rashid keeps every promise. Volkov becomes, of all things, a friend — the only person in the government who tells you the truth at full strength. And the work is real: the cable thrives, the fares drop, Aurelia grows from nine buildings to ninety. But you sign your letters over a title now instead of a company, and some mornings you stand at the harbor and miss owning your own name. In the third year, you draft Aurelia’s space settlement charter yourself — and quietly reserve one lunar parcel, at the south pole, registered not to the ministry but to you.',
     },
@@ -115,6 +120,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE CHAIRMAN OF THE ROAD',
+      art: 'inter_s_port',
       prose:
         'Two years of running the sky’s port authority — the most powerful unpaid job on Earth. Governments comply with you, slowly, filing objections your standards board overrules with data. The cable carries a small city’s population every year at the pledge price. And the far end of the road keeps nagging at you the way empty land nags at a builder: the Moon has industry now, crews on rotation, a pole full of workers counting the days until they go home. Nobody has given them a reason to stay. At the second annual board dinner, Anders — retired, unretired, then retired again — leans over and says the sentence you have been waiting for someone else to say first: “The road is finished. Roads are for going somewhere. So. What is at the end of ours?”',
     },
@@ -131,6 +137,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE YEARS AT THE RAIL',
+      art: 'inter_s_builder',
       prose:
         'Four years of expansion — the second cable rising off the coast of Kiribela, whose treasury now runs a surplus that economists visit like a natural wonder. You hand the CEO title to Mateo in a cafeteria ceremony where the crews stomp the floor so hard the derricks ring, and you keep for yourself exactly one job: chief of whatever is next. The climbers feed the Moon around the clock now — machinery, habitats, crews for the pole. Up there, a workforce the size of a town lives in dormitories built for shifts, and every rotation home, more of them ask the same question in their exit interviews. Why is there nowhere to stay? In the fourth year, you charter the survey. The next impossible thing has coordinates now.',
     },
@@ -147,6 +154,7 @@ const ENDINGS: readonly EndingDef[] = [
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE LONGEST WALK',
+      art: 'inter_s_fall',
       prose:
         'Two years of inquiries, settlements, and learning to enter rooms where everyone recognizes you. You testify honestly, every time, because it is far too late for anything else and because Anders — who never says one public word against you — testifies honestly beside you, which is a mercy you know you did not earn. The strange thing is what survives: the math. The cable held for years before the thin sections failed, and every engineer on Earth now knows both halves of the lesson — that it can be done, and what it costs to do it carelessly. Somebody will build the next one. In the second winter, a consortium calls to ask what you would do differently. You talk for six hours. They take notes the whole time.',
     },

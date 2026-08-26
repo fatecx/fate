@@ -181,8 +181,8 @@ const CHARACTERS: Record<string, CharacterDef> = {
     id: 'okonkwo',
     name: 'Ambassador Okonkwo',
     role: 'Chair, World Orbital Commission',
-    blurb: 'Thirty years of treaty work have left her fair, patient, and immune to charm — the one judge money cannot reach.',
-    hiddenTrait: 'She reads every safety report herself, in full, at night. She has caught three lies that way, and never says which ones.',
+    blurb: 'Thirty years of treaty work have left him fair, patient, and immune to charm — the one judge money cannot reach.',
+    hiddenTrait: 'He reads every safety report himself, in full, at night. He has caught three lies that way, and never says which ones.',
   },
   reyescain: {
     id: 'reyescain',
