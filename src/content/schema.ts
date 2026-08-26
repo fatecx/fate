@@ -74,6 +74,14 @@ export interface SceneDef {
   weight?: number
   /** If set, once dealt the player has N epochs to answer before lateness penalties. */
   fuseEpochs?: number
+  /**
+   * Conditional overlays, evaluated against live state when the scene renders.
+   * The FIRST matching variant replaces the listed fields. LAW: the base scene
+   * must stand alone on every reachable path — variants ADD presence (June in
+   * the room, a fuller shot on the art), they never patch holes. Never write
+   * "If June is in the room…" hedges into prose; write a variant.
+   */
+  vary?: readonly { when: Pred; prose?: string; leadIn?: string; art?: string }[]
   choices: ChoiceDef[]
 }
 

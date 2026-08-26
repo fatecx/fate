@@ -91,6 +91,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cast-name { font-weight: 600; font-size: 12.5px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .cast-name.dim { color: var(--dim); }
 .cast-role { color: var(--dim); font-size: 11px; margin-top: 1px; }
+.cast-role.past-co { opacity: 0.55; }
 .cast-blurb { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11.5px; line-height: 1.5; color: var(--dim); margin-top: 3px; }
 .cchip {
   font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.1em;

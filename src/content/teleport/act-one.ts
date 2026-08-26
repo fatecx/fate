@@ -189,7 +189,14 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The door shuts, and the argument you have circled all week finally lands on the table. This hour will decide which world TELEPORT serves first.',
     prose:
-      'Omid starts with Mars. Of course he does. “The Moon is a demo. Mars is the thesis. Four to twenty-four minutes of delay is the problem worth a life.” His relay chain was born for Mars, and the industry knows it. The numbers on the wall tell a harsher story. Mars is a decade and a billion dollars away. The Moon has bases, contracts, tourists, and a 2.6-second delay you can sell honestly if you are brave enough. If June is in the room, she says it plainly: “Mars is a religion. The Moon is a business.” Omid looks at you. “You’re the tiebreak,” he says quietly. “Break it.”',
+      'Omid starts with Mars. Of course he does. “The Moon is a demo. Mars is the thesis. Four to twenty-four minutes of delay is the problem worth a life.” His relay chain was born for Mars, and the industry knows it. The numbers on the wall tell a harsher story. Mars is a decade and a billion dollars away. The Moon has bases, contracts, tourists, and a 2.6-second delay you can sell honestly if you are brave enough. Omid looks at you. “You’re the tiebreak,” he says quietly. “Break it.”',
+    vary: [
+      {
+        when: { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+        prose:
+          'Omid starts with Mars. Of course he does. “The Moon is a demo. Mars is the thesis. Four to twenty-four minutes of delay is the problem worth a life.” His relay chain was born for Mars, and the industry knows it. The numbers on the wall tell a harsher story. Mars is a decade and a billion dollars away. The Moon has bases, contracts, tourists, and a 2.6-second delay you can sell honestly if you are brave enough. June says it plainly: “Mars is a religion. The Moon is a business.” Omid looks at you. “You’re the tiebreak,” he says quietly. “Break it.”',
+      },
+    ],
     choices: [
       {
         label: 'Moon now. Mars when the cascade earns it — in writing.',
@@ -223,7 +230,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_moon_won',
         result:
-          'One bench, one junior engineer, one long-shot Mars test running at night on borrowed computers. It barely counts as a program. It is a candle, and Omid tends it that way. If June is watching the books, she writes down its exact cost and says nothing yet.',
+          'One bench, one junior engineer, one long-shot Mars test running at night on borrowed computers. It barely counts as a program. It is a candle, and Omid tends it that way. The ledger records its exact cost, and nobody argues with a number that small. Yet.',
       },
     ],
   },
@@ -444,7 +451,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_expo_eve',
         result:
-          'Ray’s shop has spare exhibitor badges and a friendly freight handler who owes him. The plan would embarrass a heist movie. Park the crate at his booth’s edge, find power, and demo in the aisle until security notices. If June is present, she points out that legends and restraining orders often start the same way.',
+          'Ray’s shop has spare exhibitor badges and a friendly freight handler who owes him. The plan would embarrass a heist movie. Park the crate at his booth’s edge, find power, and demo in the aisle until security notices. Ray points out, delighted, that legends and restraining orders often start the same way.',
       },
     ],
   },
@@ -580,7 +587,13 @@ export const ACT_ONE: readonly SceneDef[] = [
     choices: [
       {
         label: 'Ask June to put it on her personal card.',
-        requires: { k: 'met', who: 'june' },
+        requires: {
+          k: 'any',
+          of: [
+            { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+            { k: 'flag', scope: 'company', key: 'june_angel', cmp: 'eq', v: true },
+          ],
+        },
         effects: [
           { e: 'rel', who: 'june', aff: 2 },
           { e: 'treasury', d: -9000 },

@@ -47,6 +47,10 @@ function collect(): { where: string; text: string }[] {
       add(`${ch.id}/${s.id}.prose`, s.prose)
       for (const b of s.screens ?? []) add(`${ch.id}/${s.id}.screen`, b.prose)
       s.choices.forEach((c, i) => add(`${ch.id}/${s.id}.result[${i}]`, c.result))
+      ;(s.vary ?? []).forEach((v, i) => {
+        add(`${ch.id}/${s.id}.vary[${i}].leadIn`, v.leadIn)
+        add(`${ch.id}/${s.id}.vary[${i}].prose`, v.prose)
+      })
     }
     for (const e of ch.endings) {
       add(`${ch.id}/end:${e.id}.prose`, e.prose)
@@ -76,6 +80,16 @@ describe('prose quality', () => {
 
   it('no staccato: never three straight short narration sentences', () => {
     const hits = all.filter((x) => staccatoRun(x.text)).map((x) => x.where)
+    expect(hits, hits.join(', ')).toEqual([])
+  })
+
+  // Presence hedges are logic breaks wearing prose: "If June is in the room…"
+  // means the author didn't know who was there. The schema knows — use
+  // SceneDef.vary for conditional presence, never a hedge in the text.
+  it('no conditional-presence hedges — use vary, not "if X is in the room"', () => {
+    const HEDGE =
+      /\bIf [A-Z][a-zé]+ is (in the room|with you|present|watching|there|around|still here)\b|—? ?or (her|his|their) successor ?—?|\bor whoever is (left|there|present)\b/
+    const hits = all.filter((x) => HEDGE.test(x.text)).map((x) => x.where)
     expect(hits, hits.join(', ')).toEqual([])
   })
 })

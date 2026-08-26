@@ -7,21 +7,21 @@ import type { SceneDef } from '../schema'
  */
 export const ACT_TWO: readonly SceneDef[] = [
   {
-    id: 's_ingrid_margin',
+    id: 's_anders_margin',
     ambience: 'wind',
     landmark: true,
     art: 'world_s_margin',
     title: 'THE MARGIN',
-    speaker: 'ingrid',
+    speaker: 'anders',
     leadIn:
       'Anders asks for you on the platform, in person, which he only does when a drawing cannot carry the weight of what he has to say. He meets you at the derrick with wind in his jacket and a tablet he does not open.',
     prose:
       '“The board wants the cable finished in three years,” he says. “The cable wants five.” He lets the wind have a moment. “I can build it in three. I know how — thinner redundancy, fewer test cycles, climb the schedule instead of the checklist. Other people build that way. Their names are on plaques near flowers.” He finally opens the tablet and shows you two plans, side by side. The fast one saves four hundred million dollars and two years. The slow one has a number at the bottom he has circled by hand — his safety margin, the extra strength the cable keeps in reserve for the day something surprises it. “You hired me with two conditions. This is me holding you to the first one. Choose which plan I build, and know that I will build either one with everything I have. Only one of them lets me sleep.”',
     choices: [
       {
-        label: 'Build it her way. The margin stays.',
+        label: 'Build it his way. The margin stays.',
         effects: [
-          { e: 'rel', who: 'ingrid', aff: 3, resp: 3 },
+          { e: 'rel', who: 'anders', aff: 3, resp: 3 },
           { e: 'burn', d: 40000 },
           { e: 'stress', d: 3 },
           { e: 'flag', scope: 'company', key: 'margin_kept', v: true },
@@ -31,9 +31,9 @@ export const ACT_TWO: readonly SceneDef[] = [
           'The board grumbles for one full meeting, and then Anders presents the failure math in person and the grumbling stops mid-sentence. The schedule slips two years. The circled number stays. On his way out of the boardroom he touches your shoulder once, which from Anders Voss is an embrace.',
       },
       {
-        label: 'Split it. Fast on the tower sections, her margin up high.',
+        label: 'Split it. Fast on the tower sections, his margin up high.',
         effects: [
-          { e: 'rel', who: 'ingrid', aff: -1, resp: 1 },
+          { e: 'rel', who: 'anders', aff: -1, resp: 1 },
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'margin_split', v: true },
         ],
@@ -43,7 +43,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         label: 'The fast plan. Three years. The market will not wait five.',
         effects: [
-          { e: 'rel', who: 'ingrid', aff: -3, resp: -2 },
+          { e: 'rel', who: 'anders', aff: -3, resp: -2 },
           { e: 'treasury', d: 100000000 },
           { e: 'flag', scope: 'company', key: 'margin_cut', v: true },
           { e: 'stress', d: 3 },
@@ -59,7 +59,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     landmark: true,
     priority: true,
     fuseEpochs: 4,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 58 }, { k: 'seen', scene: 's_ingrid_margin' }] },
+    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 58 }, { k: 'seen', scene: 's_anders_margin' }] },
     art: 'world_s_aurelia_b',
     title: 'SIX HUNDRED MILLION',
     speaker: 'rashid',
@@ -141,7 +141,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         label: 'Move to the platform. The cable gets all of you.',
         effects: [
           { e: 'flag', scope: 'company', key: 'uprooted', v: true },
-          { e: 'rel', who: 'ingrid', aff: 2, resp: 2 },
+          { e: 'rel', who: 'anders', aff: 2, resp: 2 },
           { e: 'burn', d: -30000 },
           { e: 'stress', d: 5 },
           { e: 'score', d: 1 },
@@ -154,7 +154,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         label: 'Stay on shore. Some things need you human more than fast.',
         effects: [
           { e: 'flag', scope: 'company', key: 'stayed_ashore', v: true },
-          { e: 'rel', who: 'ingrid', aff: -1 },
+          { e: 'rel', who: 'anders', aff: -1 },
           { e: 'burn', d: 30000 },
           { e: 'stress', d: 3 },
         ],
@@ -200,7 +200,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         label: 'Rate it for people. That was always the point.',
         effects: [
           { e: 'flag', scope: 'company', key: 'humans_rated', v: true },
-          { e: 'rel', who: 'ingrid', resp: 2 },
+          { e: 'rel', who: 'anders', resp: 2 },
           { e: 'burn', d: 120000 },
           { e: 'rep', d: 2 },
           { e: 'stress', d: 4 },
@@ -299,7 +299,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         effects: [
           { e: 'flag', scope: 'company', key: 's_transparent', v: true },
           { e: 'rep', d: 2 },
-          { e: 'rel', who: 'ingrid', resp: 3 },
+          { e: 'rel', who: 'anders', resp: 3 },
           { e: 'revenue', d: -80000 },
           { e: 'stress', d: 6 },
           { e: 'score', d: 2 },
@@ -313,7 +313,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         effects: [
           { e: 'flag', scope: 'company', key: 'snap_quiet', v: true },
           { e: 'stress', d: 3 },
-          { e: 'rel', who: 'ingrid', resp: -1 },
+          { e: 'rel', who: 'anders', resp: -1 },
         ],
         goto: 's_b_after_snap',
         result:
@@ -323,7 +323,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         label: 'Log it internally. The clamps worked. That is the system working.',
         effects: [
           { e: 'flag', scope: 'company', key: 'snap_buried', v: true },
-          { e: 'rel', who: 'ingrid', aff: -3, resp: -3 },
+          { e: 'rel', who: 'anders', aff: -3, resp: -3 },
           { e: 'stress', d: 2 },
         ],
         goto: 's_b_after_snap',

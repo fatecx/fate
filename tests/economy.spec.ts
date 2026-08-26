@@ -207,12 +207,12 @@ const S_ASCENT_ROAD: RegExp[] = [
 
 /** The port authority: same honest road, but the builder lets go on purpose. */
 const S_PORT_ROAD: RegExp[] = S_ASCENT_ROAD.map((re) =>
-  re.source.includes('schoolteacher rides first') ? /(?:Anders|Ingrid) and the crew ride first/ : re,
+  re.source.includes('schoolteacher rides first') ? /Anders and the crew ride first/ : re,
 ).concat([/Give the road to the trust/])
 
 /** The builder stays: honest road, first ride to the crew, never lets go. */
 const S_LONG_ROAD: RegExp[] = S_ASCENT_ROAD.map((re) =>
-  re.source.includes('schoolteacher rides first') ? /(?:Anders|Ingrid) and the crew ride first/ : re,
+  re.source.includes('schoolteacher rides first') ? /Anders and the crew ride first/ : re,
 ).concat([/Keep building until the money runs out or you do/, /Sell to the commission/])
 
 /** The garrison: honest build, but the wolves win by invitation. */

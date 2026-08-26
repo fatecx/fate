@@ -159,7 +159,7 @@ export const SURVIVAL: readonly SceneDef[] = [
         foley: 'pen',
         effects: [
           { e: 'burn', d: -100000 },
-          { e: 'stake', who: 'ingrid', d: 2 },
+          { e: 'stake', who: 'anders', d: 2 },
           { e: 'rep', d: 1 },
           { e: 'stress', d: -3 },
           { e: 'flag', scope: 'company', key: 'platform_paycut', v: true },

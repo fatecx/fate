@@ -9,8 +9,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     kind: 'cutscene',
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
-      'A part in the descent controller fails — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. Mei-Lin Chen, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
-    choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }, { e: 'meet', who: 'meilin' }], goto: 'h_accident' }],
+      'A part in the descent controller fails — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. A nurse, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
+    choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }], goto: 'h_accident' }],
   },
   {
     id: 'h_accident',
@@ -79,7 +79,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
           { e: 'rel', who: 'nadia', aff: 2, resp: 2 },
         ],
-        result: 'Her piece runs with your fault report printed in full and one line everyone repeats. THE FOUNDER GROUNDED THE FLEET BEFORE THE CITY COULD. Mei-Lin Chen is still hurt. The truth is public, and it came from you.',
+        result: 'Her piece runs with your fault report printed in full and one line everyone repeats. THE FOUNDER GROUNDED THE FLEET BEFORE THE CITY COULD. The woman your shuttle struck is still hurt. The truth is public, and it came from you.',
       },
       {
         label: 'Steer her — what to emphasize, what to bury.',
@@ -160,7 +160,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       'The corridors office votes Friday on whether every Hyperchute corridor must shut down during the investigation. Chute’s lobbyists are pushing a “public safety alternative,” which means Chute everywhere, immediately. You can testify yourself, send Tomás, or accept the pause and save your strength.',
     choices: [
       {
-        label: 'Testify yourself. Name Mei-Lin Chen. Admit version nine failed. Show version ten.',
+        label: 'Testify yourself. Name the victim. Admit version nine failed. Show version ten.',
         requires: { k: 'stress', cmp: 'lt', v: 85 },
         effects: [
           { e: 'stress', d: 7 },

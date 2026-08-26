@@ -13,7 +13,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     landmark: true,
     art: 'world_s_strand',
     title: 'THE STRAND THAT WOULD NOT BREAK',
-    speaker: 'ingrid',
+    speaker: 'anders',
     leadIn:
       'It started as a factory accident. Your old tether plant, trying to make relay cables cheaper, produced a strand so strong the testing machine broke before the strand did. The lab ordered a bigger testing machine. That one broke too.',
     prose:
@@ -23,9 +23,9 @@ export const ACT_ONE: readonly SceneDef[] = [
         label: 'Hire him to build it. Chief engineer, real equity.',
         foley: 'pen',
         effects: [
-          { e: 'meet', who: 'ingrid' },
-          { e: 'stake', who: 'ingrid', d: 4 },
-          { e: 'rel', who: 'ingrid', aff: 2, resp: 2 },
+          { e: 'meet', who: 'anders' },
+          { e: 'stake', who: 'anders', d: 4 },
+          { e: 'rel', who: 'anders', aff: 2, resp: 2 },
           { e: 'burn', d: 20000 },
           { e: 'score', d: 1 },
         ],
@@ -36,8 +36,8 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         label: 'Hire him on salary. Keep the equity close.',
         effects: [
-          { e: 'meet', who: 'ingrid' },
-          { e: 'rel', who: 'ingrid', resp: 1 },
+          { e: 'meet', who: 'anders' },
+          { e: 'rel', who: 'anders', resp: 1 },
           { e: 'burn', d: 35000 },
         ],
         goto: 's_b_lab',
@@ -47,8 +47,8 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         label: 'Slow down. Verify the material with outside labs first.',
         effects: [
-          { e: 'meet', who: 'ingrid' },
-          { e: 'rel', who: 'ingrid', resp: 2 },
+          { e: 'meet', who: 'anders' },
+          { e: 'rel', who: 'anders', resp: 2 },
           { e: 'treasury', d: -2000000 },
           { e: 'stress', d: 2 },
           { e: 'flag', scope: 'company', key: 'verified_first', v: true },
@@ -67,15 +67,15 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE QUIET MONTHS',
     prose:
       'The company forms around the strand the way a pearl forms around grit. Anders fills the old tether factory with test rigs and hires metallurgists who thought their careers were over. You file patents under boring names, buy the machines that make the machines, and tell nobody anything. Every night the strand gets longer, and every night the number on Anders’s whiteboard — the length the cable must reach to hold itself against the spin of the Earth — stares back, unimpressed. The whiteboard says 36,000 kilometers. The spool in the lab holds four.',
-    choices: [{ label: 'Continue', effects: [], goto: 's_talia' }],
+    choices: [{ label: 'Continue', effects: [], goto: 's_mateo' }],
   },
   {
-    id: 's_talia',
+    id: 's_mateo',
     ambience: 'office',
     landmark: true,
-    art: 'world_s_talia',
+    art: 'world_s_mateo',
     title: 'THE KID FROM THE FLATS',
-    speaker: 'talia',
+    speaker: 'mateo',
     leadIn:
       'The company needs a chief of staff before it needs anything else, because you now run three buildings, forty engineers, and a secret. The best résumé in the stack comes with a cover letter that starts with your first company, not your last one.',
     prose:
@@ -84,8 +84,8 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         label: 'Hire him. The honesty is the résumé.',
         effects: [
-          { e: 'meet', who: 'talia' },
-          { e: 'rel', who: 'talia', aff: 2, resp: 2 },
+          { e: 'meet', who: 'mateo' },
+          { e: 'rel', who: 'mateo', aff: 2, resp: 2 },
           { e: 'burn', d: 8000 },
           { e: 'score', d: 1 },
         ],
@@ -95,8 +95,8 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         label: 'Hire him, but keep the secret from him for now.',
         effects: [
-          { e: 'meet', who: 'talia' },
-          { e: 'rel', who: 'talia', aff: -1, resp: 1 },
+          { e: 'meet', who: 'mateo' },
+          { e: 'rel', who: 'mateo', aff: -1, resp: 1 },
           { e: 'burn', d: 8000 },
           { e: 'stress', d: 2 },
         ],
@@ -396,6 +396,6 @@ export const ACT_ONE: readonly SceneDef[] = [
     ],
     prose:
       'Year two ends with four hundred people living on a platform called FIRST RUNG, under a cable that climbs into the clouds and stops. The hard part — all 36,000 kilometers of it — is next.',
-    choices: [{ label: 'Continue', effects: [{ e: 'stress', d: -6 }], goto: 's_ingrid_margin' }],
+    choices: [{ label: 'Continue', effects: [{ e: 'stress', d: -6 }], goto: 's_anders_margin' }],
   },
 ]

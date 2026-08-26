@@ -19,7 +19,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       'The screen carries him from the Moon’s south pole, sixteen months into a twenty-month stay, lit by Shackleton’s sideways sun. “Here is my problem,” he says. “Every hour a trained human works outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me less of both. I want them on the maintenance schedule for good — seals, radiators, keeping moon dust out of the wrong places, the boring immortal work. I need to know what happens when tourists want the same hours, because I have seen what companies do when the fun money shows up.” He leans in. “Write me a contract that tells me who you are.”',
     choices: [
       {
-        label: 'Guarantee her hours first. Tourists get what’s left.',
+        label: 'Guarantee his hours first. Tourists get what’s left.',
         foley: 'pen',
         effects: [
           { e: 'revenue', d: 26000 },
@@ -43,7 +43,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           'Big promises, tourist carve-outs, penalty fees you plan to outgrow before they bite. The revenue line jumps. Salazar signs with a look that says he has seen this contract before, on other screens, above other companies’ graves.',
       },
       {
-        label: 'Small and honest: fewer hours than she asked for.',
+        label: 'Small and honest: fewer hours than he asked for.',
         effects: [
           { e: 'revenue', d: 20000 },
           { e: 'rel', who: 'salazar', resp: 2 },
@@ -320,7 +320,14 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Forecast season. The board wants a number for next year. The honest forecast is low and will impress nobody. So you build a second version that assumes everything goes right.',
     prose:
-      'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table: the honest one is low, and the stretch one is big — the number the growth story needs. If June is with you, her handwriting is already in the margin of WAYS WE DIE, item four: we start believing our own deck.',
+      'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table: the honest one is low, and the stretch one is big — the number the growth story needs.',
+    vary: [
+      {
+        when: { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+        prose:
+          'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table: the honest one is low, and the stretch one is big — the number the growth story needs. June’s handwriting is already in the margin of WAYS WE DIE, item four: we start believing our own deck.',
+      },
+    ],
     choices: [
       {
         label: 'Give the honest number and wear the silence.',

@@ -199,7 +199,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
 const SIGNATURES: readonly SignatureDef[] = [
   { scene: 's_entry', choice: 0, text: 'made Anders Voss chief engineer with real equity' },
   { scene: 's_marcus', choice: 0, text: 'took Marcus Vale’s hand and built the alliance' },
-  { scene: 's_ingrid_margin', choice: 0, text: 'kept Anders’s safety margin over the board’s schedule' },
+  { scene: 's_anders_margin', choice: 0, text: 'kept Anders’s safety margin over the board’s schedule' },
   { scene: 's_fork', choice: 0, text: 'rated the cable for people, not just cargo' },
   { scene: 's_strand_snap', choice: 0, text: 'published the tear at kilometer 921' },
   { scene: 's_citizenship', choice: 1, text: 'refused Aurelia’s ministry and kept the cable flagless' },

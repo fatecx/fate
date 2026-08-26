@@ -191,7 +191,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_operator_hands',
     when: { k: 'all', of: [{ k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'not', p: { k: 'corpse', company: 'teleport' } }] }, { k: 'flag', scope: 'company', key: 'cass_chief', cmp: 'eq', v: true }] },
-    text: 'Cass runs the morning calibration with her eyes shut, feeling the signal delay like a tide. The trainees think she is showing off. It is prayer.',
+    text: 'Cass runs the morning calibration with his eyes shut, feeling the signal delay like a tide. The trainees think he is showing off. It is prayer.',
   },
   {
     id: 'f_tourist_letters',
@@ -235,8 +235,8 @@ export const FILLERS: readonly FillerDef[] = [
     text: 'Aurelia’s weekly harbor notices arrive in flawless bureaucratic prose, and Mateo reads them aloud at standup in a dry voice that has become everyone’s favorite radio show.',
   },
   {
-    id: 'f_ingrid_walks',
-    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'ingrid' }] },
+    id: 'f_anders_walks',
+    when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'anders' }] },
     text: 'Anders walks the derrick deck every morning before his coffee, one hand trailing the nearest anchor line, the way other people check on a sleeping child.',
   },
   {

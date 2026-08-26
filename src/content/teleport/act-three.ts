@@ -587,7 +587,14 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Three years can found a company. Four years make it part of the world. TELEPORT has outlived every prediction except yours, and the question on the table has changed. What does it become next?',
     prose:
-      'The board packet this quarter reads like a menu of futures. HALCYON’s standing number, refreshed monthly and patient as tide. The ending plan June — or her successor — modeled at your request: obligations met, satellites brought down with honors, capital returned, heads held high. And the long road: keep building, keep bleeding, keep the chair warm for a future that keeps almost arriving. TELEPORT has spent four years asking what distance is worth. Now it needs an answer.',
+      'The board packet this quarter reads like a menu of futures. HALCYON’s standing number, refreshed monthly and patient as tide. The ending plan the finance office modeled at your request: obligations met, satellites brought down with honors, capital returned, heads held high. And the long road: keep building, keep bleeding, keep the chair warm for a future that keeps almost arriving. TELEPORT has spent four years asking what distance is worth. Now it needs an answer.',
+    vary: [
+      {
+        when: { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+        prose:
+          'The board packet this quarter reads like a menu of futures. HALCYON’s standing number, refreshed monthly and patient as tide. The ending plan June modeled at your request: obligations met, satellites brought down with honors, capital returned, heads held high. And the long road: keep building, keep bleeding, keep the chair warm for a future that keeps almost arriving. TELEPORT has spent four years asking what distance is worth. Now it needs an answer.',
+      },
+    ],
     choices: [
       {
         label: 'Sell to HALCYON. Let the number be the ending.',

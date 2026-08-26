@@ -264,7 +264,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         label: 'Put the Voss siblings in one room. Some walls need a mediator.',
         effects: [
           { e: 'rel', who: 'anneke', aff: 2 },
-          { e: 'rel', who: 'ingrid', aff: 2 },
+          { e: 'rel', who: 'anders', aff: 2 },
           { e: 'stress', d: 1 },
           { e: 'flag', scope: 'company', key: 'sisters_dinner', v: true },
           { e: 'score', d: 1 },
@@ -359,7 +359,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           'He nods once, the way he does at load-bearing things that hold, and takes the evening boat back to shore. Mateo finds you at the rail afterward and asks whether you want prep sessions before the conference. You tell him no, because some tests can only be passed by the person you already are.',
       },
       {
-        label: 'Ask her what the commission actually fears.',
+        label: 'Ask him what the commission actually fears.',
         effects: [
           { e: 'rel', who: 'okonkwo', resp: 1 },
           { e: 'flag', scope: 'company', key: 'okonkwo_candor', v: true },
@@ -536,7 +536,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         label: 'Anders and the crew ride first. Builders before passengers.',
         effects: [
-          { e: 'rel', who: 'ingrid', aff: 3 },
+          { e: 'rel', who: 'anders', aff: 3 },
           { e: 'rep', d: 1 },
           { e: 'score', d: 1 },
           { e: 'stress', d: -4 },
@@ -611,7 +611,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     },
     art: 'world_s_second_storm',
     title: 'THE CABLE REMEMBERS',
-    speaker: 'ingrid',
+    speaker: 'anders',
     leadIn:
       'A second storm system forms along the same track as the one that made the cable sing, and this time the forecasts refuse to call it manageable. Anders walks into your office with the inspection files from incident 4471 — the tear you logged and never told the world about — and shuts the door.',
     prose:
@@ -623,7 +623,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'revenue', d: -200000 },
           { e: 'burn', d: 100000 },
           { e: 'stress', d: 6 },
-          { e: 'rel', who: 'ingrid', resp: 2 },
+          { e: 'rel', who: 'anders', resp: 2 },
           { e: 'flag', scope: 'company', key: 'storm_rebuilt', v: true },
           { e: 'score', d: 1 },
         ],

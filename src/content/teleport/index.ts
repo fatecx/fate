@@ -104,7 +104,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 2,
     prose:
-      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed and model-approved. Your badge photo comes down. The framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trade press quotes for years. The satellite ring flies on over the pole, wearing your decisions and someone else’s name.',
+      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed and model-approved. Your badge photo comes down. The framed 2.61, if it still hung anywhere, goes to storage. The resignations start the same afternoon — two-line letters the trade press quotes for years. The satellite ring flies on over the pole, wearing your decisions and someone else’s name.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',

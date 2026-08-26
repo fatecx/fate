@@ -33,7 +33,13 @@ export const LATE_STUBS: readonly SceneDef[] = [
         requires: {
           k: 'all',
           of: [
-            { k: 'met', who: 'june' },
+            {
+              k: 'any',
+              of: [
+                { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+                { k: 'flag', scope: 'company', key: 'june_angel', cmp: 'eq', v: true },
+              ],
+            },
             { k: 'not', p: { k: 'flag', scope: 'company', key: 'down_used', cmp: 'eq', v: true } },
           ],
         },
@@ -94,7 +100,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
         label: 'Walk away. Let it all end here.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
-          'Some versions of health cost a company. You pay that price. The wind-down is orderly because June — or whoever is left holding the spreadsheet — makes it orderly, and the last thing shipped is everyone’s final paycheck, on time.',
+          'Some versions of health cost a company. You pay that price. The wind-down is orderly because whoever is left holding the spreadsheet makes it orderly, and the last thing shipped is everyone’s final paycheck, on time.',
       },
     ],
   },

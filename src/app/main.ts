@@ -9,6 +9,7 @@ import { newGame, reduce, getScene, choiceLegal, spendBlocked } from '../engine/
 import { evalPred } from '../engine/predicates'
 import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
+import type { SceneDef } from '../content/schema'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
@@ -56,6 +57,14 @@ const app = document.getElementById('app')!
 
 let transcript: BeatRec[] = []
 let st: GameState
+
+/** Scene def resolved against live state: the first matching `vary` overlay
+ *  replaces its listed fields. Every render path reads scenes through this. */
+function liveScene(sceneId: string): SceneDef {
+  const sc = getScene(CONTENT, st.company.id, sceneId)
+  const v = sc.vary?.find((x) => evalPred(x.when, st))
+  return v ? { ...sc, prose: v.prose ?? sc.prose, leadIn: v.leadIn ?? sc.leadIn, art: v.art ?? sc.art } : sc
+}
 let typing = false
 let session: Session | null = null
 
@@ -121,7 +130,7 @@ function fmtRunway(): string {
 function fuseInfo(): { remaining: number; total: number } | null {
   const sceneId = st.company.queue[0]
   const f = st.company.fuses.find((x) => x.sceneId === sceneId)
-  const def = getScene(CONTENT, st.company.id, sceneId)
+  const def = liveScene(sceneId)
   if (!f || !def) return null
   return { remaining: Math.max(1, f.expiresEpoch - st.epoch), total: def.fuseEpochs ?? 1 }
 }
@@ -198,11 +207,15 @@ function castPanelHtml(): string {
   const roster = castRoster()
   const met = roster.filter((c) => c.met)
   const unmet = roster.filter((c) => !c.met)
+  const pastCos = st.world.corpses
+    .map((c) => `<div class="cast-role past-co">Ex-founder — ${esc(chapterTitle(c.company))}, INC.</div>`)
+    .join('')
   const youRow = `<div class="cast-row">
     ${youFaceHtml('cast-face lg')}
     <div class="cast-meta">
       <div class="cast-name">YOU <span class="cchip">${founderPct()}%</span></div>
       <div class="cast-role">Founder — ${esc(chapterTitle(st.company.id))}, INC.</div>
+      ${pastCos}
       <div class="cast-blurb">The founder of record. Every scar in this biography is yours.</div>
     </div>
   </div>`
@@ -515,7 +528,7 @@ function transcriptHtml(): string {
 function cardHtml(): string {
   const sceneId = st.company.queue[0]
   if (!sceneId) return '<aside class="scene-card"></aside>'
-  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const scene = liveScene(sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
   const name = speaker?.name ?? 'THE WORLD'
   const role = speaker?.role ?? ''
@@ -587,7 +600,7 @@ function fxChips(effects: readonly Effect[]): string {
 }
 
 function choicesInner(sceneId: string): string {
-  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const scene = liveScene(sceneId)
   return scene.choices
     .map((c, i) => {
       const legal = choiceLegal(st, c)
@@ -698,7 +711,7 @@ function refreshCard(): void {
  *  unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
-  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const scene = liveScene(sceneId)
   sceneSound(sceneId) // the scene's one diegetic action — the pour, the pen, the train
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">
@@ -766,7 +779,7 @@ function applyStage(film = false): void {
     return
   }
   const sceneId = st.company.queue[0]
-  const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
+  const scene = sceneId ? liveScene(sceneId) : null
   if (scene?.kind === 'cutscene') {
     setStage({ mood: 'film', ambience: null, tension: false })
     return
@@ -806,7 +819,7 @@ function renderPlaying(): void {
   const chapterChanged = st.chapter !== renderedChapter
   renderedChapter = st.chapter
 
-  const scene = sceneId ? getScene(CONTENT, st.company.id, sceneId) : null
+  const scene = sceneId ? liveScene(sceneId) : null
   applyStage()
   if (scene?.kind === 'cutscene') {
     stinger('cut', `cut:${scene.id}`)
@@ -816,7 +829,8 @@ function renderPlaying(): void {
     const chain = [scene]
     let cur = scene
     while (cur.choices.length === 1 && cur.choices[0].goto) {
-      const next = CONTENT.chapters[st.company.id].scenes.find((s) => s.id === cur.choices[0].goto)
+      const found = CONTENT.chapters[st.company.id].scenes.find((s) => s.id === cur.choices[0].goto)
+      const next = found ? liveScene(found.id) : undefined
       if (next?.kind !== 'cutscene' || st.company.seen.includes(next.id)) break
       chain.push(next)
       cur = next
@@ -1642,7 +1656,7 @@ function choose(index: number): void {
   const story = document.getElementById('story')!
   const sceneId = st.company.queue[0]
   const beforeEpoch = st.epoch
-  const scene = getScene(CONTENT, st.company.id, sceneId)
+  const scene = liveScene(sceneId)
   const choice = scene.choices[index]
   if (choice.foley) foley(choice.foley as Parameters<typeof foley>[0])
 
@@ -1715,7 +1729,7 @@ function choose(index: number): void {
   persist()
   const nextId = st.company.queue[0]
   if (nextId) {
-    const next = getScene(CONTENT, st.company.id, nextId)
+    const next = liveScene(nextId)
     if (next.kind === 'cutscene') {
       // World-scale beats always take the whole screen, even mid-session.
       for (const s of preSegs) s.el.textContent = s.text
@@ -1743,7 +1757,7 @@ function warmArt(): void {
   // Current scene first — it's the one about to paint.
   const cur = st?.company?.queue?.[0]
   if (cur) {
-    const s = getScene(CONTENT, st.company.id, cur)
+    const s = liveScene(cur)
     const a = s.art ?? s.speaker
     if (a) ids.add(a)
   }

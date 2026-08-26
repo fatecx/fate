@@ -22,6 +22,7 @@ export const FLAG_PHRASES: Record<string, string> = {
   log_sealed: 'the session log under seal',
   ostra_filed: 'a live OSTRA docket against the monopoly',
   june_seat: 'June Park on the board as cofounder-CFO',
+  june_angel: 'June Park on the cap table as an angel',
   indep_priya: 'Priya Raghavan in the independent seat',
   aleph_raw: 'ALEPH fed the raw feeds, aborts and all',
   farrokh_heard: 'the 3 a.m. hearing-out at the dark bench',

@@ -73,14 +73,6 @@ const CHARACTERS: Record<string, CharacterDef> = {
     blurb: 'Builds everyone’s drones, trusts very few people, delivers early anyway.',
     hiddenTrait: 'Keeps a handwritten ledger of every founder who paid late. Your place in it decides how warmly he answers.',
   },
-  meilin: {
-    id: 'meilin',
-    name: 'Mei-Lin Chen',
-    role: 'Struck by Shuttle Fourteen',
-    blurb:
-      'Fifty-eight. Thirty-one years at the same hospital. She was cycling home when version nine failed. You know her through what your company did to her.',
-    hiddenTrait: 'Her silence is the point.',
-  },
   marisol: {
     id: 'marisol',
     name: 'Mrs. Delgado',
@@ -163,15 +155,15 @@ const CHARACTERS: Record<string, CharacterDef> = {
     hiddenTrait: 'Kept pride quiet at home. Told every man at the union hall, every week, for years.',
   },
   // ---- SKYLINE natives ----------------------------------------------------------
-  ingrid: {
-    id: 'ingrid',
+  anders: {
+    id: 'anders',
     name: 'Anders Voss',
     role: 'Chief cable engineer',
     blurb: 'Built bridges for thirty years before anyone let him build one standing up. Talks to the cable like it can hear him.',
     hiddenTrait: 'He has walked away from two projects in his life, both times over a safety margin. Both projects later failed exactly the way he said they would.',
   },
-  talia: {
-    id: 'talia',
+  mateo: {
+    id: 'mateo',
     name: 'Mateo Reyes',
     role: 'Chief of staff',
     blurb: 'Grew up in the Flats catching your packages as a kid. Twenty-nine now, and runs your world like air traffic control.',
