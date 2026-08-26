@@ -6,6 +6,7 @@ export const ESCAPE: ChapterDef = makeStubChapter({
   id: 'escape',
   title: 'ESCAPE',
   tagline: 'The casino on the Moon.',
+  blurb: 'A casino on the Moon that pays for the first town where ordinary people live.',
   entryProse:
     'The last chapter of the biography begins with a gaming license for the Moon and a site survey of Mare Imbrium. Whatever you were before, the Moon only asks what you are now. Stub for now.',
   midProse:

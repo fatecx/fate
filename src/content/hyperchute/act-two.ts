@@ -79,6 +79,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_couriers',
     ambience: 'street',
     accent: 'crowd',
+    art: 'world_couriers',
     title: 'THE COLLECTIVE',
     weight: 3,
     leadIn:

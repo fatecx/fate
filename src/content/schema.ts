@@ -129,6 +129,8 @@ export interface ChapterDef {
   id: CompanyId
   title: string
   tagline: string
+  /** One-line plain description of the startup — under the name in the company dropdown, above the dates. */
+  blurb?: string
   entry: string // scene id — always queued first, ignores `when`
   /** Enqueued when treasury <= 0; its choices either rescue or end the chapter. */
   insolvency: string

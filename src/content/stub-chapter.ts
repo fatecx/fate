@@ -9,6 +9,7 @@ export function makeStubChapter(cfg: {
   id: CompanyId
   title: string
   tagline: string
+  blurb?: string
   entryProse: string
   midProse: string
   opening: { treasury: number; burn: number; revenue: number }
@@ -173,6 +174,7 @@ export function makeStubChapter(cfg: {
     id: cfg.id,
     title: cfg.title,
     tagline: cfg.tagline,
+    blurb: cfg.blurb,
     entry: `${p}_entry`,
     insolvency: `${p}_insolvency`,
     burnout: `${p}_burnout`,

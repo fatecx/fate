@@ -240,6 +240,8 @@ export const HYPERCHUTE: ChapterDef = {
   id: 'hyperchute',
   title: 'HYPERCHUTE',
   tagline: 'A railway in the sky, built from a garage.',
+  blurb:
+    'Delivery shuttles that park two hundred feet over the block and lower packages onto the porches the big drones fly past.',
   entry: 'h_seedling',
   insolvency: 'h_insolvency',
   burnout: 'h_burnout',

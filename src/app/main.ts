@@ -416,8 +416,10 @@ function capTableLines(): string {
 
 function incPanelHtml(): string {
   const c = st.company
+  const blurb = CONTENT.chapters[c.id as keyof typeof CONTENT.chapters].blurb
   return `
   <div class="inc-title">${esc(chapterTitle(c.id))}, INC.</div>
+  ${blurb ? `<div class="inc-blurb">${esc(blurb)}</div>` : ''}
   <div class="inc-grid">
     <span>Incorporated</span><b>${incDate()}</b>
     <span>Founder</span><b>You <span class="dim">— ${founderPct()}% stake</span></b>
@@ -1224,7 +1226,10 @@ function proceedNext(): void {
   const spanTo = 2031 + Math.floor((st.epoch + years * 52) / 52)
 
   st = reduce(CONTENT, st, { t: 'foundNext' })
+  // The new memoir card joins the ones before it — every chapter the life has
+  // closed stays visible above the stream, oldest first.
   transcript = [
+    ...transcript.filter((b) => b.kind === 'chapter'),
     {
       kind: 'chapter',
       company: prevCompany.id,

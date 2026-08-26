@@ -143,6 +143,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   font-family: var(--mono); font-size: 12px;
 }
 .inc-title { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; margin-bottom: 12px; }
+.inc-blurb { font-size: 12px; line-height: 1.55; color: var(--dim); margin: -4px 0 12px; max-width: 42ch; }
 .inc-grid { display: grid; grid-template-columns: 92px 1fr; gap: 6px 12px; margin-bottom: 14px; }
 .inc-grid span { color: var(--dim); }
 .inc-grid b { font-weight: 500; }
