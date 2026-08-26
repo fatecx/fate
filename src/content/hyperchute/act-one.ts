@@ -699,7 +699,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Mrs. Delgado raises your rent and calls it congratulations — investor or not, business is business. The waiting list is a spreadsheet now. There is money in the account that did not come from anyone’s savings, and there is a folder of letters from the Office of Aerial Corridors thicker than the Bible in the room next door. Whatever comes next — the clone, the war, the thing nobody has thought of yet — the railway is real. You built that. With help you chose well or didn’t.',
+      'Mrs. Delgado raises your rent and calls it congratulations — investor or not, business is business. The waiting list is a spreadsheet now. There is money in the account that did not come from anyone’s savings, and there is a folder of letters from the Office of Aerial Corridors thicker than the Bible in the room next door. Hard things are coming — a copycat, a war, something nobody has thought of yet. But the railway is real now. You built that, with help you chose well or didn’t.',
     choices: [
       {
         label: 'Face year two',
@@ -780,7 +780,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'HOW COMPANIES ACTUALLY DIE',
     prose:
-      'You spend an evening reading startup post-mortems, and the thing that kills most of them is not the market, and it is not the money. It is paperwork. The founder who never assigned the IP and lost the company to a co-founder’s ex-employer. The SAFE with the clause nobody priced. The handshake that became a deposition. Three separate posts, years apart, end on some version of the same sentence: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
+      'You spend an evening reading stories about dead startups, expecting markets and money to be the killers. Mostly it turns out to be paperwork. A founder who never signed the invention over to the company, and lost it to a co-founder’s old employer. An investment note with one clause nobody read closely. A handshake deal that ended up read aloud in a courtroom. Three separate stories, years apart, end on the same advice: get a real lawyer before you need one. The name that keeps surfacing in the replies works out of a shipping container downtown.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
@@ -927,7 +927,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE MARGIN FOR ERROR IS A ROOF',
     prose:
-      'Flying without cover means no second chances — one hard landing on the wrong porch is a headline with your name in it. So you fly conservative, and even conservative shakes: a gimbal correction that fires late, a descent curve that flattens uglier every time the wind has opinions. You read the logs on the stairs at midnight. Whatever this company becomes, the next hire decides it — someone who treats altitude like a scalpel.',
+      'Flying without cover means no second chances — one hard landing on the wrong porch is a headline with your name in it. So you fly conservative, and even conservative shakes: a gimbal correction that fires late, a descent curve that flattens uglier every time the wind has opinions. You read the logs on the stairs at midnight, and every bad line says the same name-shaped hole: this company needs someone who treats altitude like a scalpel, and it needs her before the wind gets lucky.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
   },
   {
@@ -948,7 +948,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'BEING SEEN',
     prose:
-      'The card sits on the workbench for a day before you pin it to the corkboard, slightly off-level, where it watches you work. MERIDIAN knows your name now — a company whose logistics division loses more money by lunch than you will spend this year. Whatever that visit was — scouting, courtesy, appetite — the war for the last mile has noticed the railway. Work faster.',
+      'The card sits on the workbench for a day before you pin it to the corkboard, slightly off-level, where it watches you work. MERIDIAN knows your name now — a company whose logistics division loses more money by lunch than you will spend this year. Maybe the visit was scouting, maybe courtesy, maybe appetite. All three mean the same thing: the war for the last mile has noticed the railway. Work faster.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -958,7 +958,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'FILED AWAY',
     prose:
-      'Journalists never really leave; they file. Whatever version of you Nadia carried down the stairs, it lives now in a drafts folder with your name on it, patient as a savings account, waiting for the day the railway becomes news again. In this city, it always becomes news again. You get one honest thing out of the encounter regardless: hearing your own company described back to you by someone paid to notice what founders hide.',
+      'Journalists never really leave. They file. Some version of you rode down the stairs in Nadia’s notebook, and it lives now in a drafts folder with your name on it, patient as a savings account, waiting for the day the railway becomes news again. In this city, it always becomes news again. The encounter pays you one honest wage anyway: you got to hear your own company described by someone paid to notice what founders hide.',
     choices: [{ label: 'Continue', effects: [] }],
   },
 ]

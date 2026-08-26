@@ -41,7 +41,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE VIEW FROM ALTITUDE',
       prose:
-        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The constellation grows; the chairs multiply; the boring immortal work goes on above you with your name on its chest. And at conferences, in green rooms, a rumor keeps finding you like a compass finding north: a consortium is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has actually built infrastructure between worlds — and told the truth about it twice?',
+        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The constellation grows, the chairs multiply, and the maintenance rotation hums along above you with your name on its chest. And at conferences, in green rooms, a rumor keeps finding you like a compass finding north: a consortium is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has actually built infrastructure between worlds — and told the truth about it twice?',
     },
   },
   {
@@ -52,7 +52,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 3,
     prose:
-      'The constellation changes call signs overnight. The bodies at the Verge get new livery and keep working; the storefront chairs get folded into HALCYON pavilions where the line moves faster and feels like nothing. You are wealthy in the way the model predicted, to the dollar. Somewhere at the pole, the boring immortal work continues, remembering nothing.',
+      'The constellation changes call signs overnight. The bodies at the Verge get new livery and keep working; the storefront chairs get folded into HALCYON pavilions where the line moves faster and feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole the shifts keep running like nothing happened, because for the machines, nothing did.',
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'INSIDE THE MANIFEST',
@@ -84,7 +84,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 3,
     skipYears: 4,
     prose:
-      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully; the customers never learn which motions were theirs; the counter that once hung by a hangar door is in a collector’s lobby with the date wrong on the plaque. It works. It all works. That was never the question.',
+      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. Nobody ever doubted it would work. The doubt was always about something else, and you knew what.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE MANAGED ENVIRONMENT',
@@ -100,12 +100,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 2,
     prose:
-      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down; the framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, doing the boring immortal work, wearing your decisions and someone else’s name.',
+      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down; the framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, holding station over the pole, wearing your decisions and someone else’s name.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO executing your roadmap competently and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. And in the second spring, a consortium building a cable to orbit asks to meet — not with the company, which they could buy, but with you, whom they cannot. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO executing your roadmap competently and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. And in the second spring, a consortium building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {
@@ -116,7 +116,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 5,
     skipYears: 2,
     prose:
-      'The protocol goes to the standards body with the patents stapled to it, free forever. Within eighteen months there are cascade relays around the Moon wearing eleven flags and four languages, all of them honest to the millisecond, because the spec you donated makes lying a compliance violation. The company becomes one implementer among many, and smaller, and prouder. The number is everyone’s now. That was the point.',
+      'The protocol goes to the standards body with the patents stapled to it, free forever. Within eighteen months there are cascade relays around the Moon wearing eleven flags and four languages, all of them honest to the millisecond, because the spec you donated makes lying a compliance violation. The company becomes one builder among many, and smaller, and prouder. The number belongs to everyone now, which is what you gave it away for.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE KEEPER OF THE SPEC',
@@ -133,14 +133,14 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_itch',
     bg: 'night',
     prose:
-      'It starts the way it always starts: with looking up.\n\nWhatever the last chapter left you — money, scar tissue, a shoebox of clippings, all three — the itch survives it. You catch yourself at windows. You catch yourself reading launch manifests the way other people read box scores. The sky over every city you visit is full of other people’s machines, moving other people’s cargo, and none of it, not one gram of it, is the thing you cannot stop thinking about.',
+      'It starts with looking up. It always has.\n\nThe last company left you what it left you — money, scar tissue, a shoebox of clippings, maybe all three. The itch came through untouched. You catch yourself at windows. You catch yourself reading launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo, and the one thing you cannot stop thinking about is still not up there.',
   },
   {
     kicker: 'PROLOGUE',
     title: 'THE PROBLEM',
     art: 'prologue_t_problem',
     prose:
-      'Here is the problem, stated the way you will state it a thousand times:\n\nThere are people on the Moon now. Bases, crews, contracts — a working pole. And every hour of human work up there costs a fortune and risks a life, while down here, the best operators alive sit in chairs, two point six light-seconds away, forbidden by physics from lending a hand.\n\nEveryone says the same thing: the delay makes remote presence impossible.\n\nEveryone said the same thing about your last impossible thing.',
+      'There are people on the Moon now. Bases, crews, contracts, a working pole. Every hour of human work up there costs a fortune and risks a life. Down here, the best machine operators alive sit in chairs, ready to help, and they can’t — because light itself needs 1.3 seconds to reach the Moon, and 1.3 more to come back. Radio can never be faster. A hand on the Moon will always answer 2.6 seconds behind the person driving it.\n\nEveryone in the industry says that gap kills remote work. Too laggy to trust, too dangerous to sell.\n\nEveryone said your last impossible thing was impossible too.',
   },
   {
     kicker: 'PROLOGUE',
@@ -163,7 +163,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
 /** The decisions the whole player base gets measured on. */
 const SIGNATURES: readonly SignatureDef[] = [
   { scene: 't_pact', choice: 0, text: 'split the company fifty-fifty with Dr. Farrokh' },
-  { scene: 't_june_condition', choice: 0, text: 'made June Park a founder, not a check' },
+  { scene: 't_june_condition', choice: 0, text: 'welcomed June Park as the third founder' },
   { scene: 't_expo_demo', choice: 0, text: 'named the delay out loud on the expo floor' },
   { scene: 't_blend_debate', choice: 0, text: 'sold the honest delay and made the gap the brand' },
   { scene: 't_telemetry', choice: 0, text: 'published the eleven seconds and grounded themselves' },

@@ -56,7 +56,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 4,
     prose:
-      'The tubes still run. They are painted MERIDIAN blue now, and they stop where the margins are best, not where people live. You are rich, which is not the same as right. The Flats keeps your sticker on the receiver sleeve anyway.',
+      'The tubes still run. They are painted MERIDIAN blue now, and they stop wherever the margins are best, which is rarely where anyone lives. You are rich. Some nights that feels like winning, and some nights you know better. The Flats keeps your sticker on the receiver sleeve anyway.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE HANDCUFFS',
@@ -104,7 +104,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 5,
     skipYears: 2,
     prose:
-      'You publish everything: flight controller, tube spec, descent safety case. Within a year there are four hundred small railways over four hundred neighborhoods wearing different names. Yours is not one of them. That was the point.',
+      'You publish everything: flight controller, tube spec, descent safety case. Within a year there are four hundred small railways over four hundred neighborhoods, every one wearing a different name, and none of them wearing yours. Which is exactly what you wanted.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE FOUNDATION',

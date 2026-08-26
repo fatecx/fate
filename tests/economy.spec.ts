@@ -95,7 +95,7 @@ const T_LISTING_KEEP: RegExp[] = [
   /Pay it in full\. Flight-rate everything/,
   /The full booth/,
   /Name the delay\. Make the room count it out loud/,
-  /Sign Salazar’s LOI/,
+  /Sign Salazar’s letter of intent/,
   /June steps in and pays it/,
   /Take it — but the independent seat stays yours/,
   /Guarantee her hours first/,

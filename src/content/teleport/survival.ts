@@ -66,7 +66,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     art: 'world_pawn_body',
     title: 'THE MUSEUM PIECE',
     leadIn:
-      'The collector’s email has been sitting flagged for a month — a aerospace-money type who “acquires artifacts of the presence era.” You know what he wants. It is standing in the corner of the hangar, cabled to a rack, retired.',
+      'The collector’s email has been sitting flagged for a month — an aerospace-money type who “acquires artifacts of the presence era.” You know what he wants. It is standing in the corner of the hangar, cabled to a rack, retired.',
     prose:
       'Demo Body One. The expo machine — the one the crowd counted for, the one with the wrist actuator you replaced in a hotel bathroom with a borrowed torque driver. It has not flown a session in a year; the production bodies made it a monument. The collector’s number is ninety thousand dollars, cash, tasteful, insulting. Payroll is in nineteen days. Monuments, it turns out, have a price per kilogram like everything else you have ever loved.',
     choices: [
@@ -88,7 +88,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'You write the refusal in one line and walk to the corner of the hangar, and stand there a while with the machine that started everything. Companies run on money. They are steered by other things. Nineteen days is nineteen days.',
+          'You write the refusal in one line, then walk to the corner of the hangar and stand a while with the machine that started everything. Money keeps a company alive, but this is one of the things that tells it where to go. Nineteen days is nineteen days.',
       },
     ],
   },
@@ -110,7 +110,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The inbound from HALCYON’s partnerships system is worded so neutrally it loops back around to menace: a six-week paid engagement, your operations team training theirs on “remote-asset best practices.”',
     prose:
-      'One hundred and fifty thousand dollars for six weeks of teaching the launch monopoly how telepresence operations actually work — the checklists, the handoff hygiene, the operator selection. Everyone in the room understands what is being purchased: not consulting, reconnaissance. Their skunkworks has been trying to clone your ops culture for a year, and the model has concluded it is cheaper to buy the lessons than keep failing the exam. It is also, the spreadsheet observes with no opinion at all, exactly one payroll cycle of money, arriving exactly one payroll cycle before you need it.',
+      'One hundred and fifty thousand dollars for six weeks of teaching the launch monopoly how telepresence operations actually work — the checklists, the handoff drills, how you pick an operator. Everyone in the room understands what HALCYON is really buying. Their secret robotics lab has spent a year trying to copy your operation and failing, and the model has decided it is cheaper to buy the lessons than to keep failing the exam. The spreadsheet adds one fact with no opinion attached: the fee equals one payroll, and it arrives one payroll before you run out.',
     choices: [
       {
         label: 'Take the engagement. Teach carefully.',

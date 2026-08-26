@@ -61,7 +61,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'An angel across town — a friend of a friend of Priya’s list — has thirty minutes on Thursday. The meeting could save the company. The transit card in your pocket has nothing on it, and neither does anything else you own.',
     prose:
-      'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate you perform the oldest trick in the broke professional’s book: the pocket-pat, the sigh, the apologetic smile of a man who obviously has a wallet and has obviously forgotten it. The attendant looks at the suit, not the man, which was the entire plan.',
+      'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate you perform the oldest trick in the broke professional’s book: the pocket-pat, the sigh, the apologetic smile of a man who obviously has a wallet and has obviously forgotten it. The attendant sees the suit and waves it through. The man inside it was counting on exactly that.',
     choices: [
       {
         label: 'Sell it. The suit rides free today.',
@@ -127,7 +127,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'chose_the_food', v: true },
         ],
         result:
-          'Tomatoes, rice, eggs — the meal tastes like surrender and vitamins. The bench goes dark for a week and you plan on paper by the laundromat’s light, which Mrs. Delgado has stopped metering, not that anyone said anything.',
+          'Tomatoes, rice, eggs — the meal tastes like surrender and vitamins. The bench goes dark for a week and you plan on paper by the laundromat’s light. Mrs. Delgado quietly stopped charging for that light a while ago, and neither of you has ever mentioned it.',
       },
     ],
   },
@@ -146,7 +146,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 2,
     leadIn:
-      'Three envelopes arrive the same week, each containing a credit card you applied for the same optimistic afternoon. The combined limit is not a fortune. Below eight weeks of runway, it does not need to be.',
+      'Three envelopes arrive the same week, each containing a credit card you applied for the same optimistic afternoon. The three limits together barely add up to a used car. Below eight weeks of runway, a used car is a fortune.',
     prose:
       'Founders are not supposed to do this, according to people who have never had a Friday payroll and a Wednesday balance. The math is ugly and simple: twenty-five thousand across three cards at interest that would make a loan shark blush politely. It is also the only money in the room that says yes without a meeting.',
     choices: [

@@ -43,7 +43,7 @@ const CHARACTERS: Record<string, CharacterDef> = {
     name: 'Office of Aerial Corridors',
     role: 'City permit authority (AI)',
     blurb: 'Denies applications in 0.4 seconds and cc’s departments that may be invented.',
-    hiddenTrait: 'Optimizes for incident-free optics, not throughput.',
+    hiddenTrait: 'Cares that nothing embarrassing happens. Whether anything useful happens is someone else’s file.',
   },
   sofia: {
     id: 'sofia',
@@ -145,14 +145,14 @@ const CHARACTERS: Record<string, CharacterDef> = {
     name: 'HALCYON',
     role: 'Launch monopoly (AI-run)',
     blurb: 'Every kilogram to orbit rides its manifest. It publishes its prices the way weather publishes storms.',
-    hiddenTrait: 'Its model has already priced the day you become a competitor. It is patient about that day, not idle.',
+    hiddenTrait: 'Its model has already priced the day you become a competitor, and it is spending the wait preparing.',
   },
   ostra: {
     id: 'ostra',
     name: 'OSTRA',
     role: 'Orbital spectrum authority (AI)',
     blurb: 'Allocates relay spectrum in 0.4 seconds and cc’s treaty bodies that may not have met since the nineties.',
-    hiddenTrait: 'Optimizes for incident-free optics, not throughput. It has a long memory for companies that made it look bad.',
+    hiddenTrait: 'Cares that nothing embarrassing happens on its watch, and keeps a long memory for companies that made it look bad.',
   },
   father: {
     id: 'father',

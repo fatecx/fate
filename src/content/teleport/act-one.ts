@@ -16,7 +16,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The hangar you leased sight-unseen smells like salt and old jet fuel. The Cape is flat and bright and completely indifferent to you, which after everything feels almost like respect.',
     prose:
-      'Dr. Omid Farrokh arrives at the hangar with a cardboard box of bound printouts and no small talk. Nine years at JPL, deep-space communications, and one thesis nobody would fund: a cascade of relay satellites that hands a signal from node to node like a bucket brigade, shaving the Moon down to a two-point-six-second round trip. “Everyone said the market was science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone said was worthless.” He looks up. “I don’t want an acquihire or a job. I want to build it — with someone who ships. I’ve read everything about you. Including the bad quarter.” He slides the top printout across. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
+      'Dr. Omid Farrokh arrives at the hangar with a cardboard box of bound printouts and no small talk. Nine years at JPL, deep-space communications, and one thesis nobody would fund: a cascade of relay satellites that hands a signal from node to node like a bucket brigade, shaving the Moon down to a two-point-six-second round trip. “Everyone said the market was science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone said was worthless.” He looks up. “I don’t want to sell you my work, and I don’t want a job. I want to build it — with someone who ships. I’ve read everything about you. Including the bad quarter.” He slides the top printout across. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
     choices: [
       {
         label: 'Shake his hand. Build it together.',
@@ -221,7 +221,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_moon_won',
         result:
-          'One bench, one grad-student salary, one long-shot simulation running nights on the render cluster. It is not a Mars program; it is a candle. Omid tends it the way people tend candles. June, if she is watching the books, prices the candle at exactly what it costs and says nothing — yet.',
+          'One bench, one grad-student salary, one long-shot simulation running nights on the render cluster. Calling it a Mars program would be generous. It is a candle, and Omid tends it the way people tend candles. June, if she is watching the books, prices the candle at exactly what it costs and says nothing — yet.',
       },
     ],
   },
@@ -302,7 +302,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The first full cascade test uses rented time on three commercial relays and a leased dish in Chile — a bucket brigade with the Moon standing in as itself, no simulation anywhere in the loop.',
     prose:
-      'Mission control is four desks pushed together. Omid counts the handoff down like a man defusing something. The command leaves Earth; the counter he built — big red digits, deliberately merciless — runs up through the silence. At 2.61 seconds the test rig at the far end closes its hand around a rubber ball, and four desks of people come out of their chairs. Omid stays seated, watching the counter with an expression you will think about for years. “Two point six,” he says. “That number is the product. Whatever we tell people we sell — that number is what we sell. Never let anyone make it smaller with words.”',
+      'Mission control is four desks pushed together. Omid counts the handoff down like a man defusing something. The command leaves Earth; the counter he built — big red digits, deliberately merciless — runs up through the silence. At 2.61 seconds the test rig at the far end closes its hand around a rubber ball, and four desks of people come out of their chairs. Omid stays seated, watching the counter with an expression you will think about for years. “Two point six,” he says. “That number is the product. The ads can say anything they want. The customer buys those two point six seconds. Never let anyone make the number smaller with words.”',
     choices: [
       {
         label: 'Frame the number. Hang it where visitors see it.',
@@ -404,9 +404,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_allin',
     title: 'ALL OF IT',
     leadIn:
-      'What is left in the account after the quote clears is not a war chest. It is a nervous system. And the expo has one more page of line items.',
+      'After the quote clears, the account holds just enough to keep the lights on and the people paid, if nothing surprises you. The expo has one more page of line items, and it is all surprises.',
     prose:
-      'Booth space. Freight for a robot in a crate the size of a casket. Union labor at the hall, mandatory. Hotel block, deposit due now. The math is simple enough to be sickening: attending the expo properly costs nearly everything remaining; attending it cheaply costs the impression; not attending costs the year. Around the table nobody says the Hyperchute word — runway — but it is standing in the room in its work boots. Three founders, or two, or one, staring at the same sheet. Whatever this company is going to be, it gets decided by what walks into that hall.',
+      'Booth space. Freight for a robot in a crate the size of a casket. Union labor at the hall, mandatory. Hotel block, deposit due now. Do the expo right and it eats nearly everything left in the account. Do it cheap and ten thousand people meet a cheap company. Skip it and you wait a full year for a room like this to exist again. Around the table nobody says the word runway out loud, but everyone at this table has done that math before, at a different company, in a worse chair. Three days in that hall will decide what this company gets to become.',
     choices: [
       {
         label: 'The full booth. Look like the future or stay home.',
@@ -515,7 +515,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'They come in order of gravity. Commander Ruth Salazar — down the well for the expo, visibly allergic to it — watches the demo twice and says: “My maintenance backlog at the Verge is nine months. Your body, my base, a paid pilot program. Letter of intent, my signature, today.” Then Elliot Vance of ATLAS, older, still signing things in public: “I owed you a proper deal from the last life. Four hundred thousand, strategic, no board seat — SOMEDAY, PROPERLY, and today’s the day.” And at the end of the aisle, unhurried, a man in a gray suit with no company on his badge: Conrad Hale. “ALEPH has been watching your telemetry all week,” he says pleasantly. “The fund would like to lead your Series A. Dinner?”',
     choices: [
       {
-        label: 'Sign Salazar’s LOI on the crate lid, right now.',
+        label: 'Sign Salazar’s letter of intent on the crate lid, right now.',
         foley: 'pen',
         effects: [
           { e: 'meet', who: 'salazar' },
@@ -544,7 +544,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'He signs it at the booth counter with the same fountain pen as the coffee shop, years ago, and taps the memo line: SOMEDAY, PROPERLY — PAID. “Frame this one too,” he says. Salazar’s LOI gets signed twenty minutes later on the crate lid anyway; she waited, arms folded, timing you.',
+          'He signs it at the booth counter with the same fountain pen as the coffee shop, years ago, and taps the memo line: SOMEDAY, PROPERLY — PAID. “Frame this one too,” he says. Salazar’s letter of intent gets signed twenty minutes later on the crate lid anyway. She waited, arms folded, timing you.',
       },
       {
         label: 'All three, one long evening, no sleep.',
@@ -558,7 +558,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'LOI on the crate at five, Vance’s check at seven, and dinner with Conrad Hale at nine, where he orders for the table without looking at the menu and asks questions that feel like they were generated from your bank statements. They were.',
+          'Salazar’s letter signed on the crate at five, Vance’s check at seven, and dinner with Conrad Hale at nine, where he orders for the table without looking at the menu and asks questions that feel like they were generated from your bank statements. They were.',
       },
     ],
   },
@@ -609,7 +609,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hale_terms',
         result:
-          'It takes a manager, a copy of the signed LOI as a character witness, and every ounce of charm left in your ruined voice. The hotel agrees to invoice. You walk out of the lobby of the future you are building, unbanked and undefeated, carrying the future in a tote bag.',
+          'It takes a manager, a copy of Salazar’s signed letter as a character witness, and every ounce of charm left in your ruined voice. The hotel agrees to send a bill. You walk out through a lobby full of the industry you are about to join, flat broke, carrying the company’s entire future in a tote bag.',
       },
     ],
   },
@@ -626,7 +626,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The wires cleared — Vance’s four hundred thousand landed like rain on a drought, and the Verge pilot is being papered. Then ALEPH’s term sheet arrives, and it is not like other term sheets: page one is the deal; page two is a summary of your own company, written by the model, more accurate than your own board deck.',
     prose:
-      'Conrad Hale takes the good chair in your borrowed conference room and lets the document speak. Two and a half million. A fair price, honestly fair — ALEPH does not haggle, it prices. The structure is where the future lives: one board seat for the fund, exercised through Hale, and the right to appoint the independent director when the board expands. “The model doesn’t do control for control’s sake,” Hale says, watching you read. “It does governance hygiene. Its words.” Somewhere in a data center, a thing that has read every document you have ever signed is waiting to hear what you say next.',
+      'Conrad Hale takes the good chair in your borrowed conference room and lets the document speak. Two and a half million. A fair price, honestly fair — ALEPH never haggles, it prices. Read past the money, though, and the important part is the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows to five. Whoever names that fifth seat may someday own a tiebreak. “The model doesn’t do control for control’s sake,” Hale says, watching you read. “It does governance hygiene. Its words.” Somewhere in a data center, a thing that has read every document you have ever signed is waiting to hear what you say next.',
     choices: [
       {
         label: 'Take it — but the independent seat stays yours to name.',

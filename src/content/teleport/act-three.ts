@@ -128,7 +128,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Three weeks after the funeral, a board meeting appears on your calendar that you did not call, with an agenda item you have to read twice: EXECUTIVE LEADERSHIP REVIEW. Conrad Hale asks to see you the night before, alone, which is either a courtesy or a confession.',
     prose:
-      'He meets you at a quiet restaurant and does not touch his food. “I want you to hear it from a person,” he says, and slides a single page across — an ALEPH memo, timestamped 4 a.m. LEADERSHIP VARIANCE EXCEEDS MODEL TOLERANCE. FOUNDER DECISION LATENCY UP 340 PERCENT OVER TRAILING QUARTER. RECOMMEND TRANSITION TO PROFESSIONAL MANAGEMENT. Decision latency. It measured your grief and found it inefficient. “The model doesn’t know what a father is,” Hale says quietly. “I told it. It priced the information.” He folds his hands. “The motion is drafted. There are directors who will vote for it. Tomorrow, the room decides who runs this company — and I have learned the hard way that the room is arithmetic, not sentiment. Whatever you built the board to be, that is what it will be tomorrow.”',
+      'He meets you at a quiet restaurant and does not touch his food. “I want you to hear it from a person,” he says, and slides a single page across — an ALEPH memo, timestamped 4 a.m. LEADERSHIP VARIANCE EXCEEDS MODEL TOLERANCE. FOUNDER DECISION LATENCY UP 340 PERCENT OVER TRAILING QUARTER. RECOMMEND TRANSITION TO PROFESSIONAL MANAGEMENT. Decision latency. It measured your grief and found it inefficient. “The model doesn’t know what a father is,” Hale says quietly. “I told it. It priced the information.” He folds his hands. “The motion is drafted. There are directors who will vote for it. Tomorrow, the room decides who runs this company — and I have learned the hard way that a board vote is arithmetic. Feelings don’t count. Seats count. You spent three years building that board, one seat at a time. Tomorrow you find out what you built.”',
     choices: [
       {
         label: 'Fight. Call the vote yourself, at the head of the table.',
@@ -139,7 +139,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 't_coup_vote',
         result:
-          '“Then let’s do the arithmetic in daylight,” you tell Hale, and take the agenda item for yourself. If the room is going to decide, it will decide looking at you, not at a memo. Hale, to his credit, almost smiles. “For the record,” he says, “this is the version I hoped you’d pick.”',
+          '“Then let’s do the arithmetic in daylight,” you tell Hale, and take the agenda item for yourself. If the room is going to decide, it will have to decide to your face. Hale, to his credit, almost smiles. “For the record,” he says, “this is the version I hoped you’d pick.”',
       },
       {
         label: 'Negotiate. Executive chairman — hand off the CEO title.',
@@ -168,7 +168,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The vote is at nine tomorrow. Tonight the phone sits on the table like a loaded question: there are calls you can still make, and one you can’t — the number for the version of this board you should have built is not in service.',
     prose:
-      'You know the arithmetic cold because you did it in the parking lot, twice. Hale votes for the motion; the model does not send memos it intends to lose. Your seat is yours. Everything else was decided months and years ago — the term sheet you signed, the seat you fought for or conceded, the cofounder you kept whole or broke, the raw feeds you shared or shaded. Tomorrow is not a fight. Tomorrow is an audit of every governance decision you ever made, conducted in a room with very good chairs. Tonight, there is only the question of how you walk in.',
+      'You know the count cold because you ran it in the parking lot, twice. Hale votes for the motion — the model does not send memos it plans to lose. Your seat is yours. Everything else was decided months and years ago: the term sheet you signed, the seat you fought for or gave away, the cofounder you kept whole or broke, the numbers you shared or shaded. Tomorrow the room adds all of it up, out loud, in front of you. Tonight, the only question left is how you walk in.',
     choices: [
       {
         label: 'Sit with June tonight. Walk in with your CFO.',
@@ -204,7 +204,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         label: 'No calls. Sleep like a founder with a clear conscience.',
         effects: [{ e: 'stress', d: -2 }],
         result:
-          'You put the phone face-down, walk the empty hangar once — past the body in its cradle, past the frame by the door if it still hangs there — and go home. Whatever the room is tomorrow, you built it. That is either comfort or verdict, and by 9 a.m. it will have decided which.',
+          'You put the phone face-down, walk the empty hangar once — past the body in its cradle, past the frame by the door if it still hangs there — and go home. The room that votes tomorrow is the room you built. By 9 a.m. you will know if that sentence was a comfort or a verdict.',
       },
     ],
   },
@@ -232,7 +232,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: -12 },
         ],
         result:
-          'The meeting adjourns to its regular agenda — capacity planning, the relay refresh, the boring immortal work — and the strangest, best thing happens: the room simply moves on. Whatever was tested is settled. You run your company.',
+          'The meeting adjourns to its regular agenda — capacity planning, the relay refresh, next quarter’s hiring — and the strangest, best thing happens: the room simply moves on. The question came, the room answered it, and it stays answered. You run your company.',
       },
       {
         label: 'One condition: the memo goes in the minutes, verbatim.',
@@ -260,7 +260,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_coup_loss',
     title: 'THE COUNT',
     leadIn:
-      'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room you built — the one you actually built, not the one you meant to — do its arithmetic.',
+      'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room do its arithmetic. You meant to build a different room. This is the one you built.',
     prose:
       'It is over in eleven minutes. The seats you never filled with allies fill the silence instead; the cofounder you broke, if you broke him, votes the way broken partners vote, without looking up; the model’s memo sits at the center of the table performing the one trick models are honest about — remembering everything. The count carries. Somewhere in the fine print you signed in a year when the money mattered more, there is a clause with your name in it, and the clause activates, politely, like a trapdoor with good manners. Conrad Hale does not gloat; the model does not know how. “Effective immediately,” the counsel says, and the company you founded in a hangar with a box of physics stops returning your badge’s calls while you are still in the building.',
     choices: [
@@ -353,7 +353,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         foley: 'pen',
         effects: [{ e: 'end', ending: 'swallowed' }],
         result:
-          'The signatures take a full day. The wire takes four seconds. The constellation you launched in threes changes its call signs overnight, and somewhere at the pole, a body with a new logo on its chest keeps doing the boring immortal work, remembering nothing.',
+          'The signatures take a full day. The wire takes four seconds. The constellation you launched in threes changes its call signs overnight, and somewhere at the pole a body wakes for its shift wearing a new logo on its chest, and works on, and never once looks up.',
       },
       {
         label: 'Refuse. The road stays open.',
@@ -364,7 +364,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'The refusal is one paragraph. The response is nothing at all — no counter, no pressure, no acknowledgment — which from HALCYON is the most honest thing it has ever sent you: the model has simply moved your file from one queue to another. You have declined to be bought. It has noted you must now be beaten.',
+          'The refusal is one paragraph. The response is nothing at all — no counter, no pressure, no acknowledgment. That silence is the most honest thing HALCYON has ever sent you. Somewhere in its planning system, your file just moved from the queue of things it wants to buy into the queue of things it plans to beat.',
       },
       {
         label: 'Counter: peace, paid for in launch priority.',
@@ -409,7 +409,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The bankers come to the Cape this time — a different bank, or the same bank with a different posture, because the founder they are pitching has done this before, and the file says so.',
     prose:
-      'The book builds itself around a company that has never once been caught lying: the fatality published with the fault line marked, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the price the pop wants — and looks up, and you realize she has read the Hyperchute file, or lived it, because she says, first: “I already know which number you’re going to pick. I told the syndicate to model the honest one.” Around the table: a CFO who waited eleven companies to ring a bell as an operator; a CTO whole or mended or a chair where he should be; and in the corner of the term sheet, in the space for the board’s approval, signatures you earned one vote at a time.',
+      'The book builds itself around a company that has never once been caught lying: the fatality published with the fault line marked, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up, and you realize she has read the Hyperchute file, or lived it, because she says, first: “I already know which number you’re going to pick. I told the syndicate to model the honest one.” Around the table: a CFO who waited eleven companies to ring a bell as an operator; a CTO whole or mended or a chair where he should be; and in the corner of the term sheet, in the space for the board’s approval, signatures you earned one vote at a time.',
     choices: [
       {
         label: 'Take the company public. Price the honest number.',
@@ -458,7 +458,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_dark_listing',
     title: 'THE SEAMLESS STORY',
     leadIn:
-      'The bankers love this version of the company — of course they do. Seamless presence, sealed litigation, a media environment described in the risk factors as “managed.” The book is enormous. The prospectus is a masterpiece of the true-adjacent.',
+      'The bankers love this version of the company — of course they do. Seamless presence, sealed litigation, a media environment described in the risk factors as “managed.” The orders pour in. Every sentence in the prospectus is almost true, and the lawyers have initialed the almost.',
     prose:
       'The roadshow video is beautiful. In it, a hand reaches for a rock at Shackleton and the fingers close without a gap, without a counter, without a number anywhere on screen — the delay retired years ago along with the man who framed it. The risk factors disclose everything material in sentences engineered to be skimmed. The fatality is “an operational incident, fully resolved.” Everyone in the syndicate knows exactly what they are selling, which is the oldest arrangement in finance. The price the pen circles is the biggest number anyone has ever attached to your name. All it costs is the story being true.',
     choices: [
@@ -477,7 +477,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
         ],
         result:
-          'You withdraw the S-1 eleven days before pricing, at a cost the CFO declines to say out loud, for reasons the press release does not manage to name and the people closest to you do not need named. Whatever gets listed under this ticker someday, it will not be that video.',
+          'You pull the listing paperwork eleven days before the bell, at a cost the CFO declines to say out loud, for reasons the press release cannot quite name and the people closest to you do not need named. If this company ever goes public, it will go public as something you can watch with your own eyes open.',
       },
     ],
   },
@@ -499,7 +499,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The letter arrives on actual paper, co-signed by four space agencies and eleven research stations: a request to standardize the cascade — your cascade — as the open deep-space presence protocol. Attached, unofficially, a note in handwriting you know.',
     prose:
-      'The agencies want the cascade the way harbors want lighthouses: owned by no one, maintained by everyone, trusted absolutely. It would mean giving away the moat — the handoff patents, the timing math, the name in the equations — to a standards body with your company reduced to first among equal implementers. It is, commercially, indefensible. It is also, says the handwritten note clipped to page one, the only version of the future where the thing gets built right everywhere instead of profitably somewhere. The note is signed the way its author signs everything: with the number. 2.61.',
+      'The agencies want the cascade the way harbors want lighthouses: owned by no one, maintained by everyone, trusted absolutely. Saying yes means giving away the moat — the handoff patents, the timing math, the name in the equations — to a standards body, with your company reduced to one builder among many. Every banker you know would call it throwing away a fortune. The handwritten note clipped to page one makes the other case: this is the only future where the thing gets built right everywhere, instead of profitably in one place. The note is signed the way its author signs everything. 2.61.',
     choices: [
       {
         label: 'Give the cascade to everyone. Keep only the name.',

@@ -44,10 +44,10 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'down_used', v: true },
         ],
         result:
-          'The round that was supposed to arrive died on somebody’s dashboard. You call June to inform her, not to ask — and she does the June Park thing, the thing she has done across two companies now: “Then I’m in for my share anyway.” It costs real ownership and a price that stings. She wires it before the call ends, and neither of you ever, once, calls it charity.',
+          'The round that was supposed to arrive died on somebody’s dashboard. You call June so she hears it from you first — you have stopped expecting anything — and she does the June Park thing, the thing she has done across two companies now: “Then I’m in for my share anyway.” It costs real ownership and a price that stings. She wires it before the call ends, and neither of you ever, once, calls it charity.',
       },
       {
-        label: 'HALCYON’s acqui-hire: the team survives, the road doesn’t',
+        label: 'Sell to HALCYON: the team survives, the road ends',
         effects: [{ e: 'end', ending: 'swallowed' }],
         result:
           'The monopoly takes the engineers, the patents, and the constellation, at the distressed price its model has been patiently forecasting since the week it met you. The road around the sky becomes a lane inside it.',
@@ -68,7 +68,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
     leadIn:
       'It has a sound, apparently, the moment a founder’s body files its own motion — in your case a waiting room at 4 a.m., a blood pressure cuff, and a doctor reading your intake form with visible professional alarm.',
     prose:
-      'The diagnosis is not dramatic, which the doctor says is the last undramatic thing about it: this is the exit ramp before the dramatic ones. You run a company that lets people stand on the Moon without leaving Earth, and you have not left the building, in any sense that matters, in two years. The machine in the corner of the teleop bay gets scheduled maintenance. The founder does not. The founder is now being told, by someone with a clipboard, that the maintenance is no longer optional.',
+      'The diagnosis is not dramatic, which the doctor says is the last undramatic thing about it: this is the exit ramp before the dramatic ones. You run a company that lets people stand on the Moon without leaving Earth, and you have not left the building, in any sense that matters, in two years. Every machine in the teleop bay gets scheduled maintenance. Nobody ever scheduled any for you, and the woman with the clipboard is explaining, kindly and without room for argument, that your body just scheduled its own.',
     choices: [
       {
         label: 'Take the forced rest. Three real weeks.',

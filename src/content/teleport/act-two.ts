@@ -51,7 +51,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'verge_modest', v: true },
         ],
         result:
-          '“You’re quoting me less than I offered to buy,” she says, and for the first time in your acquaintance, Commander Ruth Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants. It is also bulletproof.',
+          '“You’re quoting me less than I offered to buy,” she says, and for the first time in your acquaintance, Commander Ruth Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants, and nothing in it can break.',
       },
     ],
   },
@@ -278,10 +278,10 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'You pipe the raw feeds through, aborts and all, plus a memo on what broke and what it cost. The model’s acknowledgment arrives in four minutes: REceived. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused: “Whatever you sent, it moved you a tier. It has tiers. I’ve never seen the tiers.”',
+          'You pipe the raw feeds through, aborts and all, plus a memo on what broke and what it cost. The model’s acknowledgment arrives in four minutes: RECEIVED. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused: “Whatever you sent, it moved you a tier. It has tiers. I’ve never seen the tiers.”',
       },
       {
-        label: 'Send the polished pack. It’s a model, not a priest.',
+        label: 'Send the polished pack. The model gets the deck version.',
         effects: [
           { e: 'rel', who: 'aleph', resp: -2 },
           { e: 'flag', scope: 'company', key: 'aleph_polished', v: true },
@@ -290,7 +290,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           'The board pack version goes over: clean charts, contextualized incidents, the winter aborts footnoted into fog. No reply comes, which feels like passing. It is not passing. Somewhere in the weights, a small number that describes you has moved, and nothing that moves it back is free.',
       },
       {
-        label: 'Refuse. Investors get board packs, not bloodwork.',
+        label: 'Refuse. No investor gets the raw feeds.',
         effects: [
           { e: 'rel', who: 'aleph', resp: -2 },
           { e: 'rel', who: 'hale', resp: 1, aff: -1 },
@@ -413,7 +413,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Nadia Osei covered your first company from a folding chair in a laundromat. She has a national column now, and the same notebook, and she asks for coffee somewhere “without a press person in the building.”',
     prose:
-      'She sets a tablet between the cups and plays your newest tourism spot at quarter speed. “Watch the hand,” she says. On screen, a customer reaches for a rock at Shackleton — and the body’s fingers begin to close a breath before the reach. She scrubs back. Again. The motion starts before the command can possibly have arrived. “Two point six seconds each way — your own cofounder’s famous number,” she says, not unkindly. “So either the speed of light took a day off during your shoot, or that machine is guessing.” She closes the tablet. “I’ve got a week of column space and an editor who smells a story about lying to schoolteachers. What I don’t have yet is your version. I’d rather have it. I always would.”',
+      'She sets a tablet between the cups and plays your newest tourism spot at quarter speed. “Watch the hand,” she says. On screen, a customer reaches for a rock at Shackleton — and the body’s fingers begin to close a breath before the reach. She scrubs back. Again. The motion starts before the command can possibly have arrived. “Two point six seconds each way — your own cofounder’s famous number,” she says, and she says it gently. “So either the speed of light took a day off during your shoot, or that machine is guessing.” She closes the tablet. “I’ve got a week of column space and an editor who smells a story about lying to schoolteachers. What I don’t have yet is your version. I’d rather have it. I always would.”',
     choices: [
       {
         label: 'Walk her through the blend. Everything, on the record.',
@@ -491,7 +491,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'A real budget line, two engineers, and the long-delay problem — the honest four-to-twenty-four-minute monster the cascade was born for. He accepts it knowing exactly what it is: not an apology, but a place inside the company where nothing guesses. He starts staying late again. At the Mars bench.',
+          'A real budget line, two engineers, and the long-delay problem — the honest four-to-twenty-four-minute monster the cascade was born for. He accepts it knowing exactly what it is. An apology would be cheaper. This is a place inside the company where nothing guesses. He starts staying late again. At the Mars bench.',
       },
       {
         label: 'Let him cool off. Founders have moods.',
@@ -691,7 +691,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The replacement relay for node four has been sitting in a HALCYON integration queue for five weeks. Then your whole launch year quietly reschedules itself, and the new dates spell out a message.',
     prose:
-      'The notice arrives from HALCYON’s manifest system at 3 a.m., machine-generated, machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details are a partnership that smells like a slow acquisition: exclusivity, data sharing, a right of first refusal on any sale. On the wall map, your constellation suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen the moment you were worth noticing.',
+      'The notice arrives from HALCYON’s manifest system at 3 a.m., machine-generated, machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details read like a slow takeover wearing a partnership costume: they become your only launch provider, they see your data, and if you ever sell the company, they get first claim to buy it. On the wall map, your constellation suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen the moment you were worth noticing.',
     choices: [
       {
         label: 'Pay the expedite fee. Eat it and fly.',
@@ -702,7 +702,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result:
-          'Two hundred thousand dollars buys back your own launch slot, a transaction with the moral texture of paying rent on your mailbox. The relay flies. The invoice goes in a folder June labels, with terrifying calm, EVIDENCE.',
+          'Two hundred thousand dollars buys back the launch slot you already paid for once. It feels like paying rent on your own mailbox. The relay flies. The invoice goes in a folder June labels, with terrifying calm, EVIDENCE.',
       },
       {
         label: 'File a spectrum-access complaint with OSTRA.',
@@ -722,7 +722,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'halcyon', aff: 1 },
         ],
         result:
-          'The meeting is on their campus, in a building shaped like a wing, with humans who defer visibly to a dashboard. The partnership terms are an anaconda drawn as an org chart. You commit to nothing and leave with the one thing they gave away free: how badly they want what you built, and how cheap they hope to get it.',
+          'The meeting is on their campus, in a building shaped like a wing, with humans who defer visibly to a dashboard. The partnership terms would wrap around the company and tighten a little every year. You commit to nothing and leave with the one thing they gave away free: how badly they want what you built, and how cheap they hope to get it.',
       },
     ],
   },

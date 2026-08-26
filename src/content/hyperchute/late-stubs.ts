@@ -45,10 +45,10 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'june_board', v: true },
         ],
         result:
-          'The round that was supposed to save you died this morning — the lead pulled at the wire, the syndicate scattered. You call June to tell her, not to ask. She listens to the whole thing and says, “Then I’m in for my share anyway.” It costs you: a sweetener on the price and a board seat for the woman who showed up when the term sheet didn’t. Worth it. You both know exactly what just happened, and neither of you ever calls it charity.',
+          'The round that was supposed to save you died this morning — the lead investor pulled out at the wire and the rest scattered. You call June so she hears it from you before the rumor reaches her. She listens to the whole thing and says, “Then I’m in for my share anyway.” It costs you: a sweetener on the price and a board seat for the woman who showed up when the term sheet didn’t. Worth it. You both know exactly what just happened, and neither of you ever calls it charity.',
       },
       {
-        label: 'Acqui-hire: the team survives, the dream doesn’t',
+        label: 'Sell to MERIDIAN: the team survives, the dream ends',
         requires: { k: 'met', who: 'marcus' },
         effects: [{ e: 'end', ending: 'acquired' }],
         result:
@@ -71,7 +71,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
     leadIn:
       'It announces itself politely at first — the missed exit on a road you drive daily, the sentence you read four times, the coffee that does nothing. Then one morning your hands are shaking over the keyboard and you cannot remember starting to cry.',
     prose:
-      'Sofia would call it a fault cascade. Priya would call it the thing that kills founders faster than money. Whatever you call it, the truth is on the table between you and the mirror: you are the single point of failure in a company that no longer fits inside one human being. Something yields this week. You choose what.',
+      'Sofia would call it a fault cascade. Priya would call it the thing that kills founders faster than money runs out. The mirror keeps it simpler: you are the single point of failure in a company that no longer fits inside one human being. Something gives this week. You choose what.',
     choices: [
       {
         label: 'Three weeks somewhere with no sky traffic. Doctor\u2019s orders.',
