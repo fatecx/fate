@@ -133,7 +133,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
           { e: 'flag', scope: 'company', key: 'sofia_verdict', v: true },
         ],
-        result: 'She stays. Version ten ships with her name on the commit and a kill-switch she demonstrates at the all-hands by dropping a shuttle onto foam blocks in the laundromat parking lot.',
+        result: 'She stays. Version ten ships with her name on it, plus an emergency stop she proves in front of the whole company — by dropping a live shuttle onto foam blocks in the laundromat parking lot.',
       },
       {
         label: '“We survive. Whatever it takes.”',
@@ -143,7 +143,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_verdict', v: true },
           { e: 'flag', scope: 'company', key: 'sofia_gone', v: true },
         ],
-        result: 'She looks at you for a long moment, then starts packing her oscilloscope. The commit message on her last push reads: “for whoever inherits this.”',
+        result: 'She looks at you for a long moment, then starts packing her tools. The note on her final code update reads: “for whoever inherits this.”',
       },
     ],
   },
@@ -359,7 +359,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE LAST QUARTER',
     priority: true,
     leadIn:
-      'The decision empties the room of everything except what’s true: a whiteboard wiped clean to one column, ninety days drawn as ninety boxes, and the first box already crossed out because today counts.',
+      'The decision clears the room down to what is true: a whiteboard wiped clean to one column, ninety days drawn as ninety boxes, and the first box already crossed out, because today counts.',
     when: {
       k: 'all',
       of: [

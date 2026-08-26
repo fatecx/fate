@@ -67,7 +67,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The chief operator search produces forty résumés of drone pilots and gamers, and then one that stops the room: astronaut corps finalist, three years, cut on a medical in the last round. She asks for a working interview instead of a conversation.',
     prose:
-      'Cass Rivera does not talk about the medical file and you do not ask. She sits in the chair, runs the body at the Verge through a seal inspection, and it is immediately, embarrassingly obvious that everyone else who has ever sat there was driving a machine and she is wearing one. She works the 2.6 seconds like a tide she grew up next to — command, breathe, receive — and when she climbs out forty minutes later her eyes stay on the screen where the Moon is. “I trained eleven years to go,” she says evenly. “They found one shadow on one scan, and I will never fly. This chair is the closest thing that exists.” She finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to.”',
+      'Cass Rivera says nothing about the medical file and you don’t ask. She sits in the chair, runs the body at the Verge through a seal inspection, and within a minute the difference is obvious to everyone watching: every other candidate drove the machine. She wears it. She works the 2.6-second delay like a tide she grew up next to — command, breathe, receive — and when she climbs out forty minutes later, her eyes stay on the screen where the Moon is. “I trained eleven years to go,” she says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” She finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
     choices: [
       {
         label: 'Chief teleoperator, full ride, build the corps around her.',
@@ -470,7 +470,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'It happens by degrees, the way tide goes out: Omid’s standup updates get shorter, his commits get scarcer, and one week you realize the cascade bench — his bench — has been dark after five for a month.',
     prose:
-      'You find him in the hangar at 11 p.m. anyway, because some habits survive their own death, running orbital decay projections he could delegate to an intern. The map of everything is behind him, and someone — him — has taken down the framed 2.61 that used to hang by the door and leaned it against the wall, face inward. “I used to think the enemy was distance,” he says, not turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that tells the truth across a quarter million miles. You are teaching it to guess instead. I need you to know I am still deciding what I do about that.”',
+      'You find him in the hangar at 11 p.m. anyway — old habits — running orbit calculations he could hand to an intern. The map of everything is behind him, and someone — him — has taken the framed 2.61 down from beside the door and leaned it against the wall, face hidden. “I used to think the enemy was distance,” he says, without turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that carries the truth a quarter million miles. You are teaching it to guess instead. I need you to know that I am still deciding what to do about that.”',
     choices: [
       {
         label: 'Stay until 3 a.m. Hear all of it.',

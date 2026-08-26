@@ -15,7 +15,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     landmark: true,
     speaker: 'marisol',
     leadIn:
-      'Week one of being a founder tastes like instant coffee and sounds like dryer drums. You are soldering a gimbal mount at 8 a.m. when the stairs creak with the unmistakable rhythm of a landlady with an agenda.',
+      'Week one as a founder tastes like instant coffee and sounds like dryer drums through the floor. At 8 a.m. you are soldering a motor mount when the stairs creak. You know that walk. Your landlady is coming up, and she wants something.',
     prose:
       'Mrs. Delgado owns the laundromat, the building, and — after thirty years — the final say on everything that happens on this block. She takes the stairs at 8 a.m. with a rent envelope in one hand and a question she has clearly rehearsed: “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job. A railway in the sky. Boxes that fall soft as rain, to anyone, not just the hills. She squints at the tethered shuttle for a long, unhurried minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, bank-banded. Ten thousand dollars. She sets it on the workbench and pushes it toward you with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
     choices: [
@@ -69,10 +69,10 @@ export const ACT_ONE: readonly SceneDef[] = [
     landmark: true,
     art: 'world_garage',
     leadIn:
-      'The stairs stop creaking. The garage is yours again — the tether creaking softly, the whole improbable thing waiting to be started.',
+      'The stairs go quiet. The garage is yours again. The prototype sways gently on its rope, waiting for you to begin.',
     title: 'THE GARAGE',
     prose:
-      'A rented unit above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a braided tether — a shoebox with rotors, feeding a delivery tube you salvaged from a closed bank’s drive-through. On your screen, the company papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past with someone’s cold-pressed juice. Nobody knows your name yet. That cuts both ways.',
+      'A rented room above the Sudz & Spin laundromat in the Flats. Dryer heat, solder smoke, and one prototype shuttle hanging from the ceiling on a rope — a shoebox with rotors, feeding a delivery tube you salvaged from a closed bank’s drive-through. On your screen, the company papers say you own one hundred percent of a company called HYPERCHUTE. Through the window, a MERIDIAN drone hums past carrying someone’s cold-pressed juice. Nobody in the city knows your name yet. Being unknown keeps you safe, and it keeps you small.',
     choices: [
       {
         label: 'File for a city flight permit. Prove it works first',
@@ -355,7 +355,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'SOMEONE IS WATCHING YOUR DEMO',
     priority: true,
     leadIn:
-      'The waiting list crosses two hundred names the same week your test footage escapes whatever you thought a private channel was. Attention, it turns out, does not ask first.',
+      'The waiting list crosses two hundred names the same week your test video leaks out of a group chat you thought was private. Attention never asks first.',
     when: {
       k: 'all',
       of: [
@@ -436,7 +436,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'BEAM DOWN',
     priority: true,
     leadIn:
-      'The batteries finish charging at 4 a.m. and you are awake to see it, because of course you are. Corridor conditions: wind four knots, ceiling clear, one customer in cursive on the schedule.',
+      'The batteries finish charging at 4 a.m. and you are awake to see it, because of course you are. The wind is calm, the sky is clear, and the first customer’s name sits on the schedule in her own cursive handwriting.',
     when: {
       k: 'all',
       of: [
@@ -532,7 +532,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     speaker: 'sofia',
     priority: true,
     leadIn:
-      'You never post the job. Word travels anyway — through the fabricator, through a turbine-industry forum thread titled "someone is doing urban descent for real" — and on a wet Monday there are boots on your stairs.',
+      'Word about your landing problem spreads on its own. The parts shop talks, a wind-power forum starts a thread called “someone is landing boxes on porches for real,” and on a wet Monday, boots come up your stairs.',
     when: {
       k: 'all',
       of: [
@@ -542,7 +542,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     },
     fuseEpochs: 4,
     prose:
-      'Sofia Brandt wrote kill-switch software for wind turbines and treats altitude the way surgeons treat scalpels. She reads your flight logs on the stairs, fixes a gimbal jitter nobody had noticed, and names her price without looking up: ninety-five hundred a month. Then she glances at your company papers. “Or three points. I’ve read your cap table — it’s cute.”',
+      'Sofia Brandt spent years writing the emergency-stop software for wind turbines — the code that keeps a giant spinning machine from hurting anyone. She reads your flight logs standing on the stairs, spots a wobble in your landing code that you had missed, and fixes it before she even says hello. Then she names her price without looking up: ninety-five hundred a month. She glances at your company papers. “Or three percent of the company. I read your cap table. It’s cute.”',
     choices: [
       {
         label: '$9,500 a month, full-time',
@@ -742,7 +742,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'The tether tests are getting boring, which is the polite word for perfect. Sixty feet of proven descent, over and over, above a roof you already own.',
+      'The practice drops are getting boring, which is the polite word for perfect. Sixty feet, package after package, landing soft on a roof you already own.',
     when: {
       k: 'all',
       of: [
@@ -777,7 +777,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT THE CITY HEARS',
     prose:
-      'The confirmation lands at 2:07 a.m.: APPLICATION RECEIVED — OFFICE OF AERIAL CORRIDORS. By morning it has been forwarded, according to the read receipts, to Zoning, to Insurance Compliance, and to something called the Department of Sidewalk Integrity. You spend the days after flying tether tests and refreshing a status page that says PENDING in a font you are learning to hate. Somewhere in a gray building, someone is deciding what to make of a railway in the sky.',
+      'The confirmation lands at 2:07 a.m.: APPLICATION RECEIVED — OFFICE OF AERIAL CORRIDORS. By morning it has been forwarded, according to the read receipts, to Zoning, to Insurance Compliance, and to something called the Department of Sidewalk Integrity. You spend the days after running practice drops and refreshing a status page that says PENDING in a font you are learning to hate. Somewhere in a gray building, someone is deciding what to make of a railway in the sky.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_permit_wall' }],
   },
   {
@@ -834,7 +834,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'ONE HUNDRED PERCENT OF EVERYTHING',
     prose:
-      'Alone means all of it is yours: the equity, and also the incorporation forms at 1 a.m., the insurance questionnaire that wants a ‘chief compliance officer,’ the parts supplier who won’t open a purchase order without a countersigned master agreement. By Thursday you have signed your own name eleven times and understood maybe seven of them. The supplier’s procurement bot bounces your homemade contract with one automated suggestion, in bold: OBTAIN COUNSEL. Everyone you ask downtown mentions the same shipping container.',
+      'Alone means all of it is yours: the equity, and also the incorporation forms at 1 a.m., the insurance questionnaire that wants a ‘chief compliance officer,’ the parts supplier who refuses to sell to you until a master contract is signed by both sides. By Thursday you have signed your own name eleven times and understood maybe seven of them. The supplier’s ordering system rejects your homemade contract with one automated suggestion, in bold: GET A LAWYER. Everyone you ask downtown mentions the same shipping container.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
@@ -845,7 +845,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'REAL ON PAPER',
     prose:
-      'The documents come back in three days, tabbed where you sign. Certificate, bylaws, IP assignment, an equity plan you won’t need until you badly do. It is the least dramatic $18,000 of your life and, Tomás insists, the most important: ‘Nobody ever calls me about the year things went right.’ The company exists now in the way that survives arguments. He leaves you with one unpaid piece of advice at the door: ‘Paper protects you from lawsuits, not from physics. Keep an operator close — someone who has routed real freight.’ Paper doesn’t fly, though. That part is still yours.',
+      'The documents come back in three days, with little tabs where you sign. Certificate, bylaws, the paper that makes your invention legally belong to the company, and an equity plan you won’t need until you badly do. It is the least dramatic $18,000 of your life and, Tomás insists, the most important: “Nobody ever calls me about the year things went right.” The company is real now, in the way that holds up in court. He leaves you one free piece of advice at the door: “Paper protects you from lawsuits, not from physics. Keep an operator close — someone who has moved real freight.” The flying part is still yours.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -858,7 +858,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE ROLODEX WAKES UP',
     speaker: 'tomas',
     prose:
-      'The one percent starts working immediately. Introductions arrive in twos and threes — an insurance broker who doesn’t laugh at the words ‘descent risk,’ a fabricator with spare line capacity, a permits consultant who bills like sin. And one name Tomás mentions almost casually, the way people mention weather: an angel who has been asking around about ‘the tube thing in the Flats.’ ‘June Park,’ he says. ‘If she shows up, don’t negotiate like you’re grateful.’',
+      'The one percent starts working immediately. Introductions arrive in twos and threes — an insurance broker who takes falling packages seriously, a factory with open production capacity, and a permits consultant who bills like sin. And one name Tomás mentions almost casually, the way people mention weather: an angel who has been asking around about ‘the tube thing in the Flats.’ ‘June Park,’ he says. ‘If she shows up, don’t negotiate like you’re grateful.’',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -926,7 +926,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT MONEY SOUNDS LIKE',
     prose:
-      'The wire lands and the garage changes pitch. You pay the laundromat three months forward, order the good connectors, book fabrication line time like someone who means it. June’s first investor-update request is one sentence: ‘Numbers monthly, surprises never.’ You tape it above the workbench. There is suddenly a version of this company that dies from spending instead of starving, and it is your job to never meet it.',
+      'The wire lands and the garage changes pitch. You pay the laundromat three months ahead, order the good connectors, and book factory time like someone who means it. June’s first request as an investor is one sentence: “Numbers monthly, surprises never.” You tape it above the workbench. There is a new way to die now. Broke companies starve, and funded companies overspend. Your job is to dodge both.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -937,7 +937,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'RAMEN MATH',
     prose:
-      'Clean means counting. You do the arithmetic on the whiteboard where an investor’s logo would have gone: every dollar of revenue is one you never have to explain to anyone, and every week is a bet that the machine earns faster than it burns. June’s card stays on the workbench, face up, like a fire alarm behind glass. Some founders are built for this. You are about to find out which kind you are.',
+      'Staying independent means counting everything. You do the math on the whiteboard where an investor’s logo would have hung: every dollar a customer pays is a dollar you never have to explain to anyone, and every week is a bet that the machine earns faster than it burns. June’s card stays on the workbench, face up, like a fire alarm behind glass. Some founders are built for this. You are about to find out which kind you are.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -949,7 +949,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE JITTER',
     prose:
-      'Real porches are not tether tests. Wind eddies off the roofline of the Delgado house, a receiver sleeve sags on its bolts, and somewhere in the descent controller a gimbal correction fires ninety milliseconds late. Drop forty-one lands hard enough to bruise a box of pears. Nobody films that one. You watch the log scroll past midnight and admit what the waiting list won’t let you say out loud: the software is the company now, and it needs somebody better than you.',
+      'Real porches turn out to be much harder than practice drops. Wind gusts swirl off the roof of the Delgado house. A catch-sleeve sags on loose bolts. The landing software reacts a split second too late, and drop forty-one comes down hard enough to bruise a box of pears. You read the flight logs until past midnight, and you finally admit the thing the cheering waiting list makes easy to forget: the software is the company now, and it needs a real expert. Someone better than you.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
   },
   {
@@ -961,7 +961,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE MARGIN FOR ERROR IS A ROOF',
     prose:
-      'Flying without cover means no second chances — one hard landing on the wrong porch is a headline with your name in it. So you fly conservative, and even conservative shakes: a gimbal correction that fires late, a descent curve that flattens uglier every time the wind has opinions. You read the logs on the stairs at midnight, and every bad line says the same name-shaped hole: this company needs someone who treats altitude like a scalpel, and it needs her before the wind gets lucky.',
+      'Flying without a permit means one bad landing on the wrong porch puts your name in a headline. So you fly careful — and even careful shakes. The landing software reacts late in gusts, and the drops get rougher every time the wind picks up. You read the logs on the stairs at midnight, and every bad line points at the same missing person: an expert who treats altitude like a scalpel. You need her before the wind gets lucky.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
   },
   {
@@ -972,7 +972,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'FALL BETTER',
     prose:
-      'Her first week rewrites the descent stack in commits with one-word messages. The shuttle stops correcting like a nervous student and starts correcting like a reflex. The hard landings vanish from the logs entirely. The garage acquires a foam-block test rig and a rule about touching her oscilloscope. Once, near midnight, a black car idles across the street for twenty minutes, then leaves without anyone getting out. The company is getting good enough to be noticed. Both halves of that sentence matter.',
+      'In her first week she rewrites the whole landing system, shipping updates with one-word notes: “fall better.” “no.” The shuttle stops correcting like a nervous student and starts correcting like a reflex, and the hard landings disappear from the logs completely. The garage gains a foam-block crash-test rig and a strict rule about touching her equipment. Once, near midnight, a black car idles across the street for twenty minutes, then leaves without anyone getting out. The company is getting good enough to be noticed. Both halves of that sentence matter.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

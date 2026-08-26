@@ -315,7 +315,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Sofia puts the offer letter on your desk without being asked: MERIDIAN, double salary, a team of nine, a title with “Principal” in it. “I’m not leaving,” she says. “But I’m not pretending I didn’t read it.” The kill-switch author of your entire descent stack is holding a ticket she hasn’t decided to use.',
+      'Sofia puts the offer letter on your desk without being asked: MERIDIAN, double salary, a team of nine, a title with “Principal” in it. “I’m not leaving,” she says. “But I’m not pretending I didn’t read it.” The woman who wrote every safety line in your landing software is holding a ticket she hasn’t decided to use.',
     choices: [
       {
         label: 'Two more percent. Make her a real co-founder.',
@@ -477,7 +477,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The charter is three pages of boilerplate until page four: board composition. June’s term sheet leaves it open, which means it is being decided right now, in this room, by whoever speaks first.',
+      'The company charter is three pages of standard legal filler until page four: who sits on the board. June’s term sheet leaves that open — which means it is being decided right now, in this room, by whoever speaks first.',
     choices: [
       {
         label: 'Founder-controlled: you, June, one neutral.',
@@ -579,7 +579,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'SUPPLY LINES',
     prose:
-      'The shuttle supply steadies. You know your machines’ build dates now the way parents know due dates, and you check the factory schedule before you check the news. Every shuttle that ships on time is a porch Chute doesn’t take while you wait. Nobody films this part of the war. It decides more than the parts they film.',
+      'The shuttle supply steadies. You know your machines’ build dates now the way parents know due dates, and you check the factory schedule before you check the news. Every shuttle that ships on time is a porch Chute can’t steal while you wait. This part of the war happens off camera — and it decides more than the parts on camera.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {

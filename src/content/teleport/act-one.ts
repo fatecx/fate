@@ -289,7 +289,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_first_body',
     title: 'SOMETHING WITH HANDS',
     prose:
-      'Six weeks later there is something with hands standing in the corner of the hangar, cabled to a rack like a patient on monitors. Not pretty — test-mule gray, sensor masts where a head ought to be — but when Omid runs the arm through its wake-up choreography the whole shop floor stops to watch, every single time. Nobody is casual around it. A machine shaped like reaching. The relay math lives in server racks, invisible. The body is the first piece of the company you can stand in front of. Which means it is the first piece the world can be shown.',
+      'Six weeks later there is something with hands standing in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly — test-gray, with camera masts where a head ought to be — but when Omid runs the arm through its wake-up routine, the whole shop floor stops to watch, every single time. Nobody is casual around a machine whose entire purpose is to reach. The relay math lives in server racks, invisible. The body is the first piece of the company you can stand in front of. Which makes it the first piece the world can be shown.',
     choices: [{ label: 'Continue', effects: [], goto: 't_cascade_test' }],
   },
   {
@@ -569,7 +569,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_hotel_card',
     title: 'DECLINED',
     leadIn:
-      'Checkout, day four. In your bag: a signed letter of intent from a lunar base, a strategic check that hasn’t cleared, and a term-sheet dinner that ended in a handshake. On the front desk terminal: a number.',
+      'Checkout, day four. In your bag: a signed letter of intent from a lunar base, an investment check that hasn’t cleared yet, and a handshake deal from dinner. At the front desk, the clerk runs your company card.',
     prose:
       'The desk clerk runs the company card for the room block and the machine makes a sound you have not heard since the garage years — a small, apologetic, catastrophic beep. DECLINED. She tries it again, because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, is more money than the whole building. In the account behind this card — after the shipping invoice that auto-paid itself this morning — there is roughly enough for the minibar. The clerk looks up with professional mercy and asks, quietly, if there is perhaps another card.',
     choices: [

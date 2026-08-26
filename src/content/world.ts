@@ -49,7 +49,7 @@ const CHARACTERS: Record<string, CharacterDef> = {
     id: 'sofia',
     name: 'Sofia Brandt',
     role: 'Flight-controls engineer',
-    blurb: 'Wrote kill-switch software for wind turbines; treats altitude the way surgeons treat scalpels.',
+    blurb: 'Wrote the emergency-stop software for wind turbines. Treats altitude the way surgeons treat scalpels.',
     hiddenTrait: 'Will not ship anything she cannot personally stop.',
   },
   nadia: {
