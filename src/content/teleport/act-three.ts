@@ -72,7 +72,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
         ],
         result:
-          'The quarter needs you, and the sentence is true. He says he understands, and he does. He worked double shifts your whole childhood. Putting things off is the family language. You book flights for the week after close and keep the confirmation email open in a tab, like a promise a browser can hold for you.',
+          'The quarter really does need you, so the sentence is even true. He says he understands, and he does — he worked double shifts your whole childhood, and putting things off is the family language. You book flights for the week after the quarter closes and keep the confirmation email open in a tab, like a promise a browser can hold for you.',
       },
     ],
   },
@@ -178,7 +178,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: -4 },
         ],
         result:
-          'She comes over with the WAYS WE DIE spreadsheet and a bottle of the good stuff. At midnight she closes the laptop. “Eleven companies I watched from the outside,” she says. “You know what I never saw? A founder who deserved the room more than the people trying to take it.” A beat. “You do. See you at nine. I’m wearing the funeral suit — let them sit with that.”',
+          'She comes over with the WAYS WE DIE spreadsheet and a bottle of the good stuff, and at midnight she closes the laptop. “Eleven companies I watched from the outside,” she says. “You know what I never saw? A founder who deserved the room more than the people trying to take it. You do. See you at nine — I’m wearing the funeral suit. Let them sit with that.”',
       },
       {
         label: 'Call Priya. Ask her what an independent owes.',
@@ -198,7 +198,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'One last feed, unpolished: the quarter as it actually was — the missed calls and the caught ones, the decision delay and what it was busy deciding, the funeral invoice filed under travel because there is no expense category for this. No commentary. Let the model read the whole truth and price it. At 2:14 a.m. the answer arrives: RECEIVED. WEIGHTED. Nothing else. From ALEPH, that may be mercy.',
+          'You send one last report, unpolished — the quarter as it actually was, the missed calls and the caught ones, the slow decisions and what they were busy deciding, the funeral invoice filed under travel because no expense category exists for this. You add no commentary, and you let the model read the whole truth and price it. At 2:14 a.m. the answer arrives: RECEIVED. WEIGHTED. Nothing else — which, from ALEPH, may be mercy.',
       },
       {
         label: 'No calls. Sleep like a founder with a clear conscience.',
@@ -262,7 +262,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room count itself. You meant to build a different room. This is the one you built.',
     prose:
-      'It is over in eleven minutes. The seats you never filled with allies fill the silence instead. The cofounder you broke, if you broke him, votes the way broken partners vote, eyes down. The model’s memo sits at the center of the table, doing the one thing models do honestly — remembering everything. The count carries. In the fine print you signed when the money mattered more, a clause with your name on it activates, polite as a trapdoor with manners. Conrad Hale does not gloat. The model has no idea how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
+      'It is over in eleven minutes. The seats you never filled with allies do the deciding, and the cofounder you broke — if you broke him — votes the way broken partners vote, eyes down. The model’s memo sits at the center of the table, doing the one thing models do honestly, which is remember everything. The count carries. Deep in the paperwork you signed back when the money mattered more, a clause with your name in it activates, polite as a trapdoor with manners. Conrad Hale does not gloat, and the model would not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
     choices: [
       {
         label: 'Clean out the desk. Shake every hand on the floor.',
@@ -467,7 +467,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         foley: 'pen',
         effects: [{ e: 'end', ending: 'puppet' }],
         result:
-          'The bell rings on time. The first-day pop is historic. Everyone agrees the podium photographs look seamless.',
+          'The bell rings on time, the first-day price jump makes history, and everyone agrees the podium photographs look seamless.',
       },
       {
         label: 'Pull the filing. Not like this.',

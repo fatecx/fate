@@ -49,7 +49,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_pact',
         result:
-          '“I know,” he says, calm. “Hyperchute was yours alone. This one is physics. Physics has never cared how any founder likes to work.” He waits. You look at the cover again. He is right, and both of you know it.',
+          '“I know,” he says, calm. “Hyperchute was yours alone. This one is physics, and physics has never cared how any founder likes to work.” He waits while you look at the cover page again. He is right, and both of you know it.',
       },
     ],
   },
@@ -124,7 +124,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'June Park calls before the incorporation ink is dry. Of course she already knows. Two days later she flies to the Cape, picks the diner by the causeway, orders before you arrive, and sets a closed folder beside her coffee.',
     prose:
-      'June listens to the whole pitch without touching her coffee. Then she opens the folder. Inside is a seed term sheet, already drafted. “Six hundred and fifty thousand,” she says. “One condition. The money comes with me.” She slides over the second page. CHIEF FINANCIAL OFFICER. “I wrote eleven angel checks and watched other people build. I ran operations for nine years before money found me, and that was the work I was good at. I’m asking to be your third founder.” For the first time since you have known her, June looks nervous.',
+      'June listens to the whole pitch without touching her coffee, then opens the folder and slides a seed term sheet across the table, already drafted. “Six hundred and fifty thousand,” she says. “One condition. The money comes with me.” The second page reads CHIEF FINANCIAL OFFICER. “I wrote eleven angel checks and watched other people do the building. Before the money found me, I ran operations for nine years, and that was the work I was actually good at. I’m asking to be your third founder.” For the first time since you have known her, June looks nervous.',
     choices: [
       {
         label: 'Third founder. Welcome home, June.',
@@ -174,7 +174,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_warroom',
     title: 'THE MAP OF EVERYTHING',
     prose:
-      'Omid takes over the hangar’s back wall. He draws paths around the Moon in chalk, uses magnets for relay satellites, and tapes cost charts over older cost charts. In the center hang two photographs. The Moon, gray and close. Mars, red and far beyond reach. For a week, every talk drifts toward the same fight. On Friday, Omid calls the meeting — founders only, door shut, one hour. Everyone knows what the hour will decide.',
+      'Omid takes over the hangar’s back wall and builds what he calls the map of everything — flight paths around the Moon drawn in chalk, magnets standing in for relay satellites, cost charts taped over older cost charts. In the center hang two photographs: the Moon, gray and close, and Mars, red and far beyond reach. For a week, every conversation in the building drifts toward the same fight, until on Friday Omid finally calls it — founders only, door shut, one hour. Everyone knows what the hour will decide.',
     choices: [{ label: 'Continue', effects: [], goto: 't_moon_v_mars' }],
   },
   {
@@ -528,7 +528,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'She signs on the crate like it is a field desk. For her, it is. “Paper first, dinner never,” she says, already leaving. Vance signs his check at the booth an hour later, SOMEDAY, PROPERLY in fountain pen. Hale’s dinner still waits. Revenue before investors. Salazar would approve.',
+          'She signs on the crate lid like it is a field desk, which for her it is. “Paper first, dinner never,” she says, already leaving. An hour later Vance signs his check at the booth, writing SOMEDAY, PROPERLY on the memo line in fountain pen, and Hale’s dinner invitation still stands. Money from customers before money from investors — Salazar would approve of the order.',
       },
       {
         label: 'Take Vance’s check before compliance wakes up.',
@@ -571,7 +571,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Checkout, day four. In your bag: a signed letter of intent from a lunar base, an investment check that hasn’t cleared yet, and a handshake deal from dinner. At the front desk, the clerk runs your company card.',
     prose:
-      'The desk clerk runs the company card for the room block. The machine makes the old garage-years sound, a small and kind and catastrophic beep. DECLINED. She tries again because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, is more money than the building costs to rent for a week. In the account behind this card, after the shipping invoice paid itself this morning, there is roughly enough for the minibar. The clerk looks up with professional mercy and asks, quietly, if you have another card.',
+      'The desk clerk runs the company card for the rooms, and the machine makes a sound you remember from the garage years — one small, polite, catastrophic beep. DECLINED. She tries again, because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, sits more money than this building costs to rent for a week — but in the actual account behind this card, after the shipping invoice that paid itself this morning, there is roughly enough left for the minibar. The clerk looks up with professional mercy and quietly asks if you have another card.',
     choices: [
       {
         label: 'June steps in and pays it without a word.',
@@ -626,7 +626,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Vance’s $400,000 wire lands like rain on dry ground, and the Verge pilot is being turned into a contract. Then ALEPH’s term sheet arrives. Page one is the deal. Page two is a summary of your company, written by the model and sharper than your own board deck.',
     prose:
-      'Conrad Hale takes the good chair in your borrowed conference room and lets the document speak. Two and a half million. A fair price, honestly fair. ALEPH never haggles. It prices. The important part sits in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. The person who names that fifth seat may someday control a tie. “The model cares about clean board math,” Hale says, watching you read. “Its words.” Somewhere in a data center, a thing that has read every document you ever signed is waiting for your answer.',
+      'Conrad Hale takes the good chair in your borrowed conference room and lets the document do the talking. Two and a half million dollars, at a fair price — honestly fair, because ALEPH never haggles, it calculates. The part that matters hides in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. Whoever names that fifth seat may someday control a tie vote. “The model cares about clean board math,” Hale says, watching you read. “Its words.” Somewhere in a data center, a system that has read every document you ever signed is waiting for your answer.',
     choices: [
       {
         label: 'Take it — but the independent seat stays yours to name.',

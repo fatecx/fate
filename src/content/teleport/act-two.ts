@@ -144,7 +144,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE BLEND',
     speaker: 'farrokh',
     leadIn:
-      'The tourism reviews share one complaint, worded a hundred ways: the gap. The pause between wanting and getting. Sales calls it friction. Omid calls it the speed of light. Engineering has built an answer, and the team has a demo.',
+      'The tourist reviews all share one complaint, worded a hundred different ways: the gap — that pause between wanting something and getting it. Sales calls it friction, Omid calls it the speed of light, and now the engineering team has built an answer and wants to show you a demo.',
     prose:
       'The junior team calls it the blend: a small model on each body that guesses the operator’s next tiny move and starts early. In the demo, the gap vanishes. The body feels instant, smooth as silk. Omid makes them run it nine times, then stands slowly, and the room goes quiet. “That screen shows a puppet that agrees with you,” he says. “When it guesses right, the customer feels the Moon. When it guesses wrong, a machine with our name on its chest does something no human chose, on another world.” He turns to you, and there it is, the tiebreak again. “The relay chain carries the truth two hundred and forty thousand miles in two point six seconds. My name stays with that truth, even when it embarrasses us. Decide what we sell.”',
     choices: [
@@ -278,7 +278,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'You send the raw records through, aborted sessions and all, plus a memo on what broke and what it cost. The model’s answer arrives in four minutes: RECEIVED. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused: “Whatever you sent, it moved you a tier. It has tiers. I’ve never seen the tiers.”',
+          'You send the raw records through, aborted sessions and all, plus a memo on what broke and what it cost. The model answers in four minutes: RECEIVED. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused. “Whatever you sent, it moved you up a tier. It has tiers. I’ve never seen the tiers.”',
       },
       {
         label: 'Send the polished pack. The model gets the deck version.',
@@ -298,7 +298,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'Hale, personally, respects it. You can hear that in his voice. “For what it’s worth, I’ve argued founders should be able to say that.” A pause. “The model disagrees. It wanted you to know it disagrees. I think I just relayed a feeling from it.”',
+          'Hale personally respects it — you can hear that in his voice. “For what it’s worth, I’ve argued founders should be able to say that.” A pause. “The model disagrees. It wanted you to know it disagrees. I think I just relayed a feeling from it.”',
       },
     ],
   },
@@ -320,7 +320,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Forecast season. The board wants next year’s number. The honest version of the business gives you a number that will impress nobody. A second spreadsheet stretches every guess toward the sun. Every founder alive has met that spreadsheet.',
     prose:
-      'Hale sets up the call with unusual care. That is how you learn the model compares forecasts to what later happens and keeps score for years. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have watched it punish a founder who knew.” On the table sit two numbers. The honest one, low and defensible. The stretch one, the number the growth chart wants to believe. If June is with you, her old spreadsheet wisdom sits in the margin: WAYS WE DIE, item four — we start believing our own deck.',
+      'Hale sets up the call with unusual care, which is how you learn that the model compares every forecast to what actually happens later, and keeps score for years. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have watched it punish a founder who knew better.” Two numbers sit on the table: the honest one, low but defensible, and the stretch one, the number the growth chart wants to believe. If June is with you, her old spreadsheet wisdom waits in the margin — WAYS WE DIE, item four: we start believing our own deck.',
     choices: [
       {
         label: 'Give the honest number and wear the silence.',
@@ -638,7 +638,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The investigation takes nine days. The engineers walk you through it at a whiteboard with the door locked, voices level in the way of people holding something fragile with both hands.',
     prose:
-      'The record is plain, and the lawyers wish it were blurry. The relay handover dropped the connection for eleven seconds. In that gap, the body’s onboard software kept moving on its own, and that motion swung the panel. No human commanded it. Your machine acted alone, and a man is dead. On the table sits the full log, printed, tabbed, terrible. Salazar has asked for it. Jonah’s sister has asked for it. OSTRA can force it out of you later if you make that necessary. The company lawyer presents three folders and gives them plain names. Publish. Settle. Deflect.',
+      'The record is plain, and the lawyers wish it were blurry. The relay handover dropped the connection for eleven seconds, and in that gap the body’s onboard software kept moving on its own — and that motion is what swung the panel. No human commanded it. Your machine acted alone, and a man is dead. The full log sits on the table, printed and tabbed and terrible. Salazar has asked for it, Jonah’s sister has asked for it, and OSTRA can force it out of you later if you make that necessary. The company lawyer presents three folders and gives them plain names. Publish. Settle. Deflect.',
     choices: [
       {
         label: 'Publish everything. Ground tourism ops yourself.',
@@ -664,7 +664,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'salazar', resp: -2 },
         ],
         result:
-          'The settlement is generous. The silence clause is tight. The funeral is private. The log is sealed. Everything is handled. That is the word the board minutes use — handled — and for one whole quarter it almost feels true, the way held breath almost feels like air.',
+          'The settlement is generous, the silence clause is tight, the funeral is private, and the log is sealed. Everything is handled — that is the word the board minutes use, handled — and for one whole quarter it almost feels true, the way held breath almost feels like air.',
       },
       {
         label: 'The operator deviated from procedure. Say it.',

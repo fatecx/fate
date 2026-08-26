@@ -61,7 +61,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 3,
     leadIn:
-      'An angel across town — a friend of a friend of Priya’s list — has thirty minutes on Thursday. The meeting could save the company. Your transit card is empty. Your wallet is empty too.',
+      'An angel investor across town — a friend of a friend from Priya’s list — has thirty minutes free on Thursday, and that meeting could save the company. The problem is getting there: your transit card is empty, and so is your wallet.',
     prose:
       'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate, you pat your pockets, sigh, and give the sorry smile of a man who must have left his wallet at home. The attendant sees the suit and waves you through. The man inside the suit was counting on that.',
     choices: [
@@ -163,7 +163,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'maxed_cards', v: true },
         ],
         result:
-          'Three swipes. Three little deaths for your credit score. One alive company. The interest starts running like a cab you cannot get out of. You tape the cards to the wall as a promise and a threat.',
+          'Three swipes kill your credit score and keep one company alive. The interest starts running like a cab meter you cannot shut off, so you tape the dead cards to the wall as a promise and a threat.',
       },
       {
         label: 'Cut them up. Debt with teeth eats founders.',
@@ -171,7 +171,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
           { e: 'flag', scope: 'company', key: 'maxed_cards', v: true },
         ],
-        result: 'The scissors make a satisfying sound. The problem remains exactly the same size. At least it is clean.',
+        result: 'The scissors make a satisfying sound, and the problem stays exactly the same size. At least now it is an honest problem.',
       },
     ],
   },
@@ -230,7 +230,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_signed', v: true },
         ],
         result:
-          'The signed papers stay in a folder. The headcount stays flat. You tell only Priya. She nods slowly and says the four hardest words in venture. “When it clears, celebrate.”',
+          'The signed papers go into a folder, and you hire nobody until the money is real. You tell only Priya, who nods slowly and says the four hardest words in startup investing: “When it clears, celebrate.”',
       },
     ],
   },

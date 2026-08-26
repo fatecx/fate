@@ -15,7 +15,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
     leadIn:
       'The warning signs were there for months. Then Tuesday comes, and the banking app’s balance turns a color you have never seen before.',
     prose:
-      'Payroll bounces. The bank’s notice sounds almost sorry. The inbox goes quiet. HYPERCHUTE has weeks, maybe less. A few doors remain, all of them ugly.',
+      'Payroll bounces, and the bank’s notice sounds almost sorry about it. The inbox goes quiet the way it only goes quiet for founders out of money. HYPERCHUTE has weeks left, maybe less. A few doors remain open, and all of them are ugly.',
     choices: [
       {
         label: 'Bridge loan against everything',

@@ -68,7 +68,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The collector’s email has been flagged for a month. He is a rich space-history type who “acquires artifacts of the presence era.” You know what he wants. It is standing in the corner of the hangar, cabled to a rack, retired.',
     prose:
-      'Demo Body One. The expo machine. The one the crowd counted for. The one with the wrist motor you replaced in a hotel bathroom with a borrowed torque driver. It has sat idle for a year because the newer bodies made it a museum piece. The collector is offering ninety thousand dollars, cash. Payroll is due in nineteen days. It turns out even monuments can be sold by the pound, like everything else you have ever loved.',
+      'Demo Body One waits under a dust sheet by the far wall — the expo machine, the one the crowd counted out loud for, the one whose wrist motor you replaced in a hotel bathroom with a borrowed tool. It has sat idle for a year, because the newer bodies turned it into a museum piece. Now a collector is offering ninety thousand dollars in cash, and payroll is due in nineteen days. It turns out even monuments can be sold by the pound, like everything else you have ever loved.',
     choices: [
       {
         label: 'Sell it. Machines work for the company, even this way.',
@@ -152,7 +152,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The spending spreadsheet becomes the first thing you see every morning and the last thing you see at night, like a newborn that only screams. Somebody has to make the list of cuts. The list is yours to make.',
     prose:
-      'Every line has a face. The second operator shift. The Mars bench, if it still burns. The conference budget, the good coffee, the contractor who fixed the roof and stayed to believe in the thing. The math is brutal: cut deep enough to survive, and shallow enough that a company worth saving still exists afterward. Founders before you have done this at kitchen tables, in garages, and in hangars exactly like this one. They will tell you the same two facts: it works, and you never stop remembering the faces.',
+      'Every line on the cut list has a face: the second operator shift, the Mars bench if it still burns, the conference budget, the good coffee, the contractor who fixed the roof and stayed because he believed in the thing. The math is brutal — cut deep enough to survive, but shallow enough that a company worth saving still exists afterward. Founders before you have made this list at kitchen tables, in garages, and in hangars exactly like this one, and every one of them will tell you the same two facts: it works, and you never stop remembering the faces.',
     choices: [
       {
         label: 'Cut deep. Live long enough to be sorry.',

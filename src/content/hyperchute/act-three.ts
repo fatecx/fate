@@ -157,7 +157,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'The notice goes straight to the public website this time. Courtesy calls and early emails are gone. Friday session, room 4-B again. EMERGENCY REVIEW, HYPERCHUTE FLIGHT RIGHTS. The room where the railway was born will vote on whether it keeps flying.',
+      'The notice goes straight to the public website this time, with no courtesy call and no early email. It reads: Friday session, room 4-B, EMERGENCY REVIEW, HYPERCHUTE FLIGHT RIGHTS. The same room where the railway was born will now vote on whether it keeps flying.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
       'The corridors office votes Friday on whether every Hyperchute corridor must shut down during the investigation. Chute’s lobbyists are pushing a “public safety alternative,” which means Chute everywhere, immediately. You can testify yourself, send Tomás, or accept the pause and save your strength.',
@@ -318,7 +318,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'You fly to eleven cities in nine days. The bankers need a story investors will believe. Your strongest story is simple and true. You grounded the fleet, and it came back. Couriers got health insurance. The full fault report went public. The last meeting sets the IPO price. Somewhere in the building, a banker says “the people’s network” with a straight face, and everyone lets it pass.',
+      'You fly to eleven cities in nine days, because the bankers need a story investors will believe, and your strongest story is the simple, true one: you grounded your own fleet and it came back, your couriers got health insurance, and the full fault report went public with your name on it. The last meeting sets the IPO price. Somewhere in the building, a banker says “the people’s network” with a straight face, and everyone lets it pass.',
     choices: [
       {
         label: 'Price it honest. Ring the bell.',

@@ -16,7 +16,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Week one as a founder tastes like instant coffee. Dryer drums shake the floor below you. At 8 a.m., while you solder a motor mount, the stairs creak. You know that walk. Your landlady is coming up, and she wants an answer.',
     prose:
-      'Mrs. Delgado owns the laundromat, the building, and — after thirty years — this whole block’s respect. She climbs the stairs at 8 a.m. with a rent envelope in one hand and a question she has practiced all morning. “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth. This is the job. A railway in the sky. Boxes that fall soft as rain, to every block, even the Flats. She studies the tethered shuttle for a long, calm minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says. Then she pulls a second envelope from her apron — creased, warm, wrapped with a bank band. Ten thousand dollars. She sets it on the workbench and pushes it toward you with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
+      'Mrs. Delgado owns the laundromat, the building, and — after thirty years — this whole block’s respect. She climbs the stairs at 8 a.m. with a rent envelope in one hand and a question she has practiced all morning. “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job now — a railway in the sky that drops packages soft as rain onto every block, even the Flats. She studies the hanging shuttle for a long, calm minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, wrapped with a bank band. Ten thousand dollars. She pushes it across the workbench with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
     choices: [
       {
         label: 'Take it. One percent, notarized on a laundry receipt.',
@@ -104,7 +104,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     when: { k: 'not', p: { k: 'met', who: 'priya' } },
     weight: 2,
     leadIn:
-      'The Flats talks. Half the neighborhood has read Mrs. Delgado’s taped-up receipt. The company filing is public. Between those two facts, your garage gets a reputation. On Monday, someone far out of your league asks for twenty minutes.',
+      'The Flats talks, and by now half the neighborhood has read the receipt Mrs. Delgado taped up behind her register. Add the public company filing, and your garage has earned itself a reputation — so on Monday, someone far out of your league asks for twenty minutes.',
     prose:
       'Priya Raghavan routed freight across three continents and survived two bankruptcies caused by other people. She gives the garage four seconds of inspection. “You built a machine that drops boxes out of the sky onto people’s homes. You have no permits, no insurance, and no idea which deputy commissioner already hates you. I can fix all three.” She slides a term sheet across the workbench with the terms — two percent, vesting over twelve months, advisory role, introductions included.',
     choices: [
@@ -460,7 +460,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'slow_growth', v: true },
         ],
         goto: 'h_b_scale_strain',
-        result: 'Twenty porches, zero failures. Sofia would call it useful data. Priya would call it money left outside.',
+        result: 'Twenty porches and zero failures. Sofia would call that useful data, and Priya would call it money left sitting outside.',
       },
     ],
   },
@@ -482,7 +482,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Dawn becomes your corridor. You fly before the inspectors start work. Friends-of-friends sign waivers printed at the laundromat. The money is real. So is the city van that circled the block twice last night, with a drone-shaped shadow above it.',
+      'Dawn becomes your delivery window, because you fly before the inspectors start work. Friends of friends sign waivers printed at the laundromat, and the money coming in is real. So is the city van that circled the block twice last night with a drone-shaped shadow riding above it.',
     choices: [
       {
         label: 'Keep flying without a permit until the hearing',
@@ -801,7 +801,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE LIST SHE LEFT ANYWAY',
     prose:
-      'She leaves the term sheet unsigned, but she leaves one handwritten page titled THINGS THAT WILL KILL YOU FIRST — “free of charge, so it kills you slower.” Permits. Insurance. The deputy commissioner, by name. At the top, underlined twice: PAPERWORK. A company with messy papers is a hobby with bills. The last line is an address for a shipping container downtown.',
+      'She leaves the term sheet unsigned, but she leaves behind one handwritten page titled THINGS THAT WILL KILL YOU FIRST — “free of charge, so it kills you slower.” The list covers permits, insurance, and the deputy commissioner by name, and at the top, underlined twice, it says PAPERWORK, because a company with messy papers is just a hobby with bills. The last line is an address for a shipping container downtown.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_b_container' }],
   },
   {
@@ -864,7 +864,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'DAWN SHIFTS',
     prose:
-      'Rogue flying has rules because you wrote them. Dawn only. Your own block. Waivers signed. Catch-nets on the porches of people willing to help. The neighbors who said yes start leaving porch lights on for the 6 a.m. run. The porch lights feel like community until you imagine them in a report. On Thursday, a van with government plates makes its first slow lap of the block. Everyone acts like everyone else is invisible.',
+      'Rogue flying has rules because you wrote them yourself: dawn only, your own block, waivers signed, and catch-nets on the porches of everyone willing to help. The neighbors who said yes start leaving their porch lights on for the 6 a.m. run, which feels like community until you imagine those same lights listed in a city report. On Thursday, a van with government plates makes its first slow lap of the block, and everyone acts like everyone else is invisible.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_first_drops_rogue' }],
   },
   {
@@ -916,7 +916,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE JITTER',
     prose:
-      'Real porches are harder than practice drops. Wind gusts swirl off the Delgado roof. A catch-sleeve sags on loose bolts. The landing software reacts a split second late, and drop forty-one bruises a box of pears. You read the flight logs until past midnight. The cheering waiting list has been hiding the truth. The software is the company now, and it needs a real expert. You need someone better than you.',
+      'Deliveries to real houses go worse than the practice runs. Wind coming off Mrs. Delgado’s roof pushes the shuttle around, the catch-sleeve on her porch has worked loose, and the landing software reacts too slowly to correct for any of it. Drop forty-one hits so hard it bruises a box of pears. You stay up past midnight reading the flight logs, and you finally admit the truth: the waiting list keeps growing, but the landings keep getting worse, and fixing this software is beyond you. You need to hire someone better than you.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_sofia_hire' }],
   },
   {

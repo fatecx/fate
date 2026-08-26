@@ -51,7 +51,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 5 },
           { e: 'flag', scope: 'company', key: 'price_war', v: true },
         ],
-        result: 'Your margins hit zero. The waiting list holds. You stop sleeping well.',
+        result: 'Your prices now barely cover your costs, but the waiting list stops shrinking. So does your sleep.',
         goto: 'h_b_after_pricewar',
       },
       {
@@ -70,7 +70,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'chute_dirt', v: true },
           { e: 'rep', d: -1 },
         ],
-        result: 'The files reach the city unsigned. You tell yourself the reports are accurate. Most of them are.',
+        result: 'The files reach the city with no name attached. You tell yourself the reports are accurate, and most of them are.',
         goto: 'h_b_after_pricewar',
       },
     ],
@@ -213,7 +213,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'press_war', v: true },
           { e: 'score', d: 1 },
         ],
-        result: 'HER PIECE RUNS SUNDAY. THE SKY IS FOR SALE. Cameras suddenly appear at every hearing.',
+        result: 'Her piece runs Sunday under the headline THE SKY IS FOR SALE, and by Monday there are cameras at every hearing.',
       },
       {
         label: 'Hire the regulator who wrote the rules. For 1.5%.',
@@ -514,7 +514,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     marker: 'EIGHTEEN MONTHS LATER',
     skipToWeek: 130,
     prose:
-      'Three corridors were suspended, then reopened. The price war cost both sides a fortune and taught the city your names. Couriers now have health insurance. Sofia’s descent controller reaches version nine. The war keeps aging. Then Richmond Street changes the whole story.',
+      'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. Your couriers got health insurance, and Sofia’s landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
   },
 
