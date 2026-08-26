@@ -29,7 +29,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'Base work before tourist money, in writing, always. She reads it twice and signs. “Most people negotiate that clause out,” she says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money that arrives like weather.',
+          'Base work before tourist money, in writing, always. He reads it twice and signs. “Most people negotiate that clause out,” he says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money that arrives like weather.',
       },
       {
         label: 'Promise everything to everyone. Capacity will catch up.',
@@ -40,7 +40,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sla_hot', v: true },
         ],
         result:
-          'Big promises, tourist carve-outs, penalty fees you plan to outgrow before they bite. The revenue line jumps. Salazar signs with a look that says she has seen this contract before, on other screens, above other companies’ graves.',
+          'Big promises, tourist carve-outs, penalty fees you plan to outgrow before they bite. The revenue line jumps. Salazar signs with a look that says he has seen this contract before, on other screens, above other companies’ graves.',
       },
       {
         label: 'Small and honest: fewer hours than she asked for.',
@@ -51,7 +51,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'verge_modest', v: true },
         ],
         result:
-          '“You’re quoting me less than I offered to buy,” she says, and for the first time since you met her, Commander Ruth Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants, and every promise in it can hold.',
+          '“You’re quoting me less than I offered to buy,” he says, and for the first time since you met him, Commander Rafael Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants, and every promise in it can hold.',
       },
     ],
   },
@@ -67,7 +67,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The chief operator search brings forty résumés from drone pilots and gamers. Then one résumé stops the room: astronaut corps finalist, three years, cut for medical reasons in the last round. Cass Rivera asks for a working interview instead of a conversation.',
     prose:
-      'Cass says nothing about the medical file, and you leave it alone. She sits in the chair, runs the body at the Verge through a seal check, and within a minute the difference is clear. Cass moves like the machine is hers. She works the 2.6-second delay like a tide she grew up beside — command, breathe, receive. When she climbs out forty minutes later, her eyes stay on the screen where the Moon is. “I trained eleven years to go,” she says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” She finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
+      'Cass says nothing about the medical file, and you leave it alone. He sits in the chair, runs the body at the Verge through a seal check, and within a minute the difference is clear. Cass moves like the machine is his. He works the 2.6-second delay like a tide he grew up beside — command, breathe, receive. When he climbs out forty minutes later, his eyes stay on the screen where the Moon is. “I trained eleven years to go,” he says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” He finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
     choices: [
       {
         label: 'Chief teleoperator, full ride, build the corps around her.',
@@ -678,7 +678,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
         ],
         result:
-          'The statement is four sentences and, by the facts, manages to avoid a lie. Cass Rivera reads it at her console, removes her headset, sets it on the desk with unbearable gentleness, and walks out past the mission patch with no mission on it. She slams nothing. Eleven years of training have that much discipline. The control bay is silent for a week, and the company never feels like the same building again.',
+          'The statement is four sentences and, by the facts, manages to avoid a lie. Cass Rivera reads it at his console, removes his headset, sets it on the desk with unbearable gentleness, and walks out past the mission patch with no mission on it. He slams nothing. Eleven years of training have that much discipline. The control bay is silent for a week, and the company never feels like the same building again.',
       },
     ],
   },

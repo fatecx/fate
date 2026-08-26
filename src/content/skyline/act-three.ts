@@ -17,7 +17,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'It starts with a notice so polite it takes two readings to understand: Aurelia’s harbor authority is closing its waters for a “maritime safety review” of indefinite length. Every route to your platform crosses those waters. The pantry inventory says eleven days.',
     prose:
-      'Nobody calls it a blockade, which is how you know it is one. Supply boats idle at the boundary buoys with paperwork that is never quite complete. Aurelia’s officials express regret in beautifully formatted letters. On the platform, four hundred people start doing quiet math about food, fuel, and the medical fridge, and Talia stands at the ops table with the folder called THE SQUEEZE, finally full. Whatever this review is really asking for — leverage before the treaty conference, a lesson about neighbors, a message from Volkov’s notebook — the clock it runs on is your pantry. Eleven days, then ten.',
+      'Nobody calls it a blockade, which is how you know it is one. Supply boats idle at the boundary buoys with paperwork that is never quite complete. Aurelia’s officials express regret in beautifully formatted letters. On the platform, four hundred people start doing quiet math about food, fuel, and the medical fridge, and Mateo stands at the ops table with the folder called THE SQUEEZE, finally full. Whatever this review is really asking for — leverage before the treaty conference, a lesson about neighbors, a message from Volkov’s notebook — the clock it runs on is your pantry. Eleven days, then ten.',
     choices: [
       {
         label: 'Airlift everything. Pay whatever the sky costs.',
@@ -133,7 +133,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_cable_complete',
     title: 'THE LAST KILOMETER',
     prose:
-      'The cable finishes the way marathons finish — slower than the crowd expects and faster than the runner believes. The final strand bundle weaves home at 3:47 a.m. platform time, and Ingrid orders the whole structure load-tested end to end before she allows one word of celebration, because she is Ingrid. Then, for one night, FIRST RUNG becomes the loudest place on the ocean. A road stands from the sea floor to the stars, thirty-six thousand kilometers of it, humming faintly in the trade winds. All that remains is the question the whole world has been sharpening while you built: whose road is it?',
+      'The cable finishes the way marathons finish — slower than the crowd expects and faster than the runner believes. The final strand bundle weaves home at 3:47 a.m. platform time, and Anders orders the whole structure load-tested end to end before he allows one word of celebration, because he is Anders. Then, for one night, FIRST RUNG becomes the loudest place on the ocean. A road stands from the sea floor to the stars, thirty-six thousand kilometers of it, humming faintly in the trade winds. All that remains is the question the whole world has been sharpening while you built: whose road is it?',
     choices: [{ label: 'Continue', effects: [{ e: 'stress', d: -12 }], goto: 's_calloway_hearing' }],
   },
   {
@@ -145,7 +145,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE FRIENDLY HEARING',
     speaker: 'calloway',
     leadIn:
-      'The committee summons arrives wrapped in courtesy — Senator Calloway’s office suggests dates, offers prep materials, and calls it “a conversation between friends of progress.” Talia reads the witness list and stops smiling. Every other name on it wants the cable seized.',
+      'The committee summons arrives wrapped in courtesy — Senator Calloway’s office suggests dates, offers prep materials, and calls it “a conversation between friends of progress.” Mateo reads the witness list and stops smiling. Every other name on it wants the cable seized.',
     prose:
       'The hearing room is warm, the cameras warmer, and Calloway warmest of all. “Nobody in this chamber doubts your achievement,” she opens, and for forty minutes she builds a cathedral of praise with a trapdoor in the floor — every compliment ends in a question about accountability, sovereignty, or catastrophe. “If the cable fell, who answers to the ocean it lands on? If a hostile power buys your company, who stops them? You are one signature away from being owned by a foreign fund as it is.” She leans in, kind as a knife. “Would the founder support an international framework — with American leadership — to safeguard this asset for all mankind?” The question is a corridor with one exit, and every camera in the room is watching you walk it.',
     choices: [
@@ -256,12 +256,12 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE OTHER VOSS',
     speaker: 'anneke',
     leadIn:
-      'The lobbying against you has a human hand, and the hand has a name: Anneke Voss, HALCYON’s director of government affairs. She requests a private meeting, and Ingrid, hearing the name, goes very still and says only, “Ask her if she still hates bridges.”',
+      'The lobbying against you has a human hand, and the hand has a name: Anneke Voss, HALCYON’s director of government affairs. She requests a private meeting, and Anders, hearing the name, goes very still and says only, “Ask her if she still hates bridges.”',
     prose:
-      'Anneke Voss has her sister’s eyes and none of her sister’s calm. “I will save us the theater,” she says. “HALCYON is dying, and your cable is what is killing it. My job is to make sure that if we go down, we take the private ownership of that thing with us — nationalized, internationalized, whatever the treaty calls it, as long as it stops being yours.” She looks out the window toward the horizon where the cable is. “Ingrid built bridges our whole childhood — out of blocks, out of books, out of anything. I built arguments. Our father only ever crossed hers.” A pause you are clearly not meant to fill. “The seizure has the votes unless something changes. I came to see, up close, whether the man my sister finally chose to build for is worth what she thinks. Convince me, or don’t. Either way, family dinner is on you people now. She stopped taking my calls in 2041.”',
+      'Anneke Voss has her brother’s eyes and none of her brother’s calm. “I will save us the theater,” she says. “HALCYON is dying, and your cable is what is killing it. My job is to make sure that if we go down, we take the private ownership of that thing with us — nationalized, internationalized, whatever the treaty calls it, as long as it stops being yours.” She looks out the window toward the horizon where the cable is. “Anders built bridges our whole childhood — out of blocks, out of books, out of anything. I built arguments. Our father only ever crossed his.” A pause you are clearly not meant to fill. “The seizure has the votes unless something changes. I came to see, up close, whether the man my brother finally chose to build for is worth what he thinks. Convince me, or don’t. Either way, family dinner is on you people now. He stopped taking my calls in 2041.”',
     choices: [
       {
-        label: 'Put the sisters in one room. Some walls need a mediator.',
+        label: 'Put the Voss siblings in one room. Some walls need a mediator.',
         effects: [
           { e: 'rel', who: 'anneke', aff: 2 },
           { e: 'rel', who: 'ingrid', aff: 2 },
@@ -270,10 +270,10 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'The dinner happens in the platform cafeteria after hours, because neutral ground matters and Ingrid refuses to leave her cable. It is awful, then quiet, then — around midnight, over the third pot of coffee — something older than HALCYON and the treaty starts talking in Norwegian. You leave them to it. Whatever gets repaired that night belongs to them, and whatever Anneke writes in her next report home is one degree warmer than her job requires.',
+          'The dinner happens in the platform cafeteria after hours, because neutral ground matters and Anders refuses to leave his cable. It is awful, then quiet, then — around midnight, over the third pot of coffee — something older than HALCYON and the treaty starts talking in Norwegian. You leave them to it. Whatever gets repaired that night belongs to them, and whatever Anneke writes in her next report home is one degree warmer than her job requires.',
       },
       {
-        label: 'Answer her honestly: show her the margin Ingrid kept.',
+        label: 'Answer her honestly: show her the margin Anders kept.',
         requires: { k: 'flag', scope: 'company', key: 'margin_kept', cmp: 'eq', v: true },
         effects: [
           { e: 'rel', who: 'anneke', resp: 2 },
@@ -281,7 +281,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'You show her the two build plans from years ago — the fast one that saved four hundred million, and the slow one you chose because her sister circled a number by hand. Anneke studies the circled margin for a long time. “She made you keep it,” she says finally. “And you let her.” She still files her briefs against you, because a job is a job. They arrive noticeably shorter.',
+          'You show her the two build plans from years ago — the fast one that saved four hundred million, and the slow one you chose because her brother circled a number by hand. Anneke studies the circled margin for a long time. “He made you keep it,” she says finally. “And you let him.” She still files her briefs against you, because a job is a job. They arrive noticeably shorter.',
       },
       {
         label: 'Treat her as the enemy she is proud to be.',
@@ -291,7 +291,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'anneke_enemy', v: true },
         ],
         result:
-          'You give her courtesy with nothing inside it, and she leaves with the professional satisfaction of confirmed expectations. Her lobbying continues at full strength and full skill. Ingrid never asks how the meeting went, which is how you know she checked.',
+          'You give her courtesy with nothing inside it, and she leaves with the professional satisfaction of confirmed expectations. Her lobbying continues at full strength and full skill. Anders never asks how the meeting went, which is how you know he checked.',
       },
     ],
   },
@@ -346,7 +346,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Two weeks before the conference, Ambassador Okonkwo does something no chair has done in the commission’s history: she asks to inspect the platform herself, alone, with no delegation and no press. She arrives on the morning supply boat, carrying her own bag.',
     prose:
-      'She spends nine hours on FIRST RUNG and wastes none of them on you. She eats in the cafeteria line with the welders. She reads the storm playbook in the ops room, cover to cover, standing up. She asks Ingrid four questions, one of which makes Ingrid laugh — a sound the platform has heard perhaps twice. At sunset she finds you at the rail, where everyone ends up, and watches the warning lights climb into the dark. “I have chaired thirty years of treaties,” she says. “I have learned to ignore what people say and study what they build into the walls. Escape pods every hundred kilometers, on a cable that could have carried cargo only. A safety report published when burying it was free.” She turns to you. “At the conference, I will ask you one question in front of every nation. I will not tell you what it is. I am telling you now only this — answer it the way you built the walls, and you will be fine. Answer it like a speech, and I cannot help you.”',
+      'She spends nine hours on FIRST RUNG and wastes none of them on you. She eats in the cafeteria line with the welders. She reads the storm playbook in the ops room, cover to cover, standing up. She asks Anders four questions, one of which makes Anders laugh — a sound the platform has heard perhaps twice. At sunset she finds you at the rail, where everyone ends up, and watches the warning lights climb into the dark. “I have chaired thirty years of treaties,” she says. “I have learned to ignore what people say and study what they build into the walls. Escape pods every hundred kilometers, on a cable that could have carried cargo only. A safety report published when burying it was free.” She turns to you. “At the conference, I will ask you one question in front of every nation. I will not tell you what it is. I am telling you now only this — answer it the way you built the walls, and you will be fine. Answer it like a speech, and I cannot help you.”',
     choices: [
       {
         label: 'Thank her, and change nothing. The walls are the answer.',
@@ -356,7 +356,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'She nods once, the way she does at load-bearing things that hold, and takes the evening boat back to shore. Talia finds you at the rail afterward and asks whether you want prep sessions before the conference. You tell her no, because some tests can only be passed by the person you already are.',
+          'She nods once, the way she does at load-bearing things that hold, and takes the evening boat back to shore. Mateo finds you at the rail afterward and asks whether you want prep sessions before the conference. You tell him no, because some tests can only be passed by the person you already are.',
       },
       {
         label: 'Ask her what the commission actually fears.',
@@ -465,7 +465,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_first_ride',
         result:
-          'Article One fails by eleven votes. The hall does not cheer — treaty halls never do — but Okonkwo’s gavel falls on the words “the motion is not carried,” and somewhere behind you Talia exhales five years of held breath. The commission establishes a standards body instead, with inspection rights and your pledge in its founding charter. The road to the sky remains, on the record and against the odds, built and owned by a kid from the Flats.',
+          'Article One fails by eleven votes. The hall does not cheer — treaty halls never do — but Okonkwo’s gavel falls on the words “the motion is not carried,” and somewhere behind you Mateo exhales five years of held breath. The commission establishes a standards body instead, with inspection rights and your pledge in its founding charter. The road to the sky remains, on the record and against the odds, built and owned by a kid from the Flats.',
       },
       {
         label: 'The count goes against you. The seizure carries.',
@@ -505,7 +505,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         label: 'Refuse to sell what they seized. Let them inherit a ruin.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
-          'You reject every number, wind the company down, and hand the commission exactly what the law entitles them to — a cable with no crews, no playbooks, no Ingrid, and no one left who knows how to calm it in a storm. They will spend five years and a fortune learning what you would have given them for a fair price. The workers call the mothballed platform by a new name before the lawyers finish: THE STUMP.',
+          'You reject every number, wind the company down, and hand the commission exactly what the law entitles them to — a cable with no crews, no playbooks, no Anders, and no one left who knows how to calm it in a storm. They will spend five years and a fortune learning what you would have given them for a fair price. The workers call the mothballed platform by a new name before the lawyers finish: THE STUMP.',
       },
     ],
   },
@@ -518,7 +518,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The passenger cabin is certified, the road is open, and one ceremonial question remains — the question every camera on Earth has already asked. Who takes the first ride?',
     prose:
-      'For weeks, candidates propose themselves — heads of state volunteering through diplomatic channels, celebrities offering sums with nine zeros attached. The company’s own crews hold an unofficial lottery that Talia quietly voids for being rigged in your favor. On the morning of the decision, three boarding passes sit on your desk where Talia left them, each printed and real, each a different ending to the same sentence. The founder rides first, and the story is about you. The crew rides first, and the story is about the work. Or the seat goes to a schoolteacher from Ohio who once asked, on camera, whether her class would ever afford the fare — and the story is about everyone.',
+      'For weeks, candidates propose themselves — heads of state volunteering through diplomatic channels, celebrities offering sums with nine zeros attached. The company’s own crews hold an unofficial lottery that Mateo quietly voids for being rigged in your favor. On the morning of the decision, three boarding passes sit on your desk where Mateo left them, each printed and real, each a different ending to the same sentence. The founder rides first, and the story is about you. The crew rides first, and the story is about the work. Or the seat goes to a schoolteacher from Ohio who once asked, on camera, whether her class would ever afford the fare — and the story is about everyone.',
     choices: [
       {
         label: 'The schoolteacher rides first. The road opens to all.',
@@ -534,7 +534,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         effects: [{ e: 'flag', scope: 'company', key: 'rode_open', v: true }, { e: 'end', ending: 'ascent' }],
       },
       {
-        label: 'Ingrid and the crew ride first. Builders before passengers.',
+        label: 'Anders and the crew ride first. Builders before passengers.',
         effects: [
           { e: 'rel', who: 'ingrid', aff: 3 },
           { e: 'rep', d: 1 },
@@ -544,7 +544,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_endgame',
         result:
-          'STEADY GIRL carries Ingrid Voss and eleven of her welders up the line she spent five years talking to, and the footage of her face at the Kármán line — the exact moment the sky turns black and the cable keeps going — becomes the most-watched minute of the decade. She sends one transmission from the top, in Norwegian, translated everywhere by morning: “She holds.”',
+          'STEADY GIRL carries Anders Voss and eleven of his welders up the line he spent five years talking to, and the footage of his face at the Kármán line — the exact moment the sky turns black and the cable keeps going — becomes the most-watched minute of the decade. He sends one transmission from the top, in Norwegian, translated everywhere by morning: “She holds.”',
       },
       {
         label: 'Sell the first seat. Fund a thousand free rides with one ticket.',
@@ -572,7 +572,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The cable runs, and the treaty question is finally settled. What remains is the founder’s last decision — the shape the road takes when its builder finally lets go of the wheel.',
     prose:
-      'Talia brings the futures to your office the way she once brought problem memos, laid side by side. Keep building — decades of expansion, second cables, a life spent at the rail. The commission’s standing offer to buy you out at a fortune’s fortune, dignified and final. Or the third folder, the one Okonkwo’s question planted years ago, grown now into a full plan in your own handwriting and Talia’s formatting: give the road to a trust — a world port authority with your pledge as its charter, your standards as its law, and you as its first chair, owning nothing and steering everything. The folders wait. Roads outlive builders. The only question left is what the builder does about it on purpose.',
+      'Mateo brings the futures to your office the way he once brought problem memos, laid side by side. Keep building — decades of expansion, second cables, a life spent at the rail. The commission’s standing offer to buy you out at a fortune’s fortune, dignified and final. Or the third folder, the one Okonkwo’s question planted years ago, grown now into a full plan in your own handwriting and Mateo’s formatting: give the road to a trust — a world port authority with your pledge as its charter, your standards as its law, and you as its first chair, owning nothing and steering everything. The folders wait. Roads outlive builders. The only question left is what the builder does about it on purpose.',
     choices: [
       {
         label: 'Give the road to the trust. Chair it. Own nothing.',
@@ -613,7 +613,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE CABLE REMEMBERS',
     speaker: 'ingrid',
     leadIn:
-      'A second storm system forms along the same track as the one that made the cable sing, and this time the forecasts refuse to call it manageable. Ingrid walks into your office with the inspection files from incident 4471 — the tear you logged and never told the world about — and shuts the door.',
+      'A second storm system forms along the same track as the one that made the cable sing, and this time the forecasts refuse to call it manageable. Anders walks into your office with the inspection files from incident 4471 — the tear you logged and never told the world about — and shuts the door.',
     prose:
       '“I asked you for a margin and you bought a schedule,” she says, with no heat at all, which is the most frightening version of her. “I asked you to publish the tear and you filed it. Now the same storm is coming back, stronger, and the thin sections I objected to in writing are holding a healed wound at kilometer 921.” She spreads the charts on your desk. “Here is what I can promise. Shut the line down now — every climber grounded, a full season of rebuilding, the freight contracts screaming — and she holds. Run the schedule through this storm, and I am no longer making promises. I am making guesses.” She straightens up and looks at you the way she once looked at a strand that would not break. “You have paid me for ten years to know the difference. Choose.”',
     choices: [
@@ -628,7 +628,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'The line goes dark for a season and the freight customers scream on schedule. Crews rebuild the thin sections through the storm months, kilometer by kilometer, while the accountants learn new shades of gray. When the cable comes back it carries Ingrid’s full margin at last, bought late and at triple price — which, she observes, is how most people finally buy it.',
+          'The line goes dark for a season and the freight customers scream on schedule. Crews rebuild the thin sections through the storm months, kilometer by kilometer, while the accountants learn new shades of gray. When the cable comes back it carries Anders’s full margin at last, bought late and at triple price — which, he observes, is how most people finally buy it.',
       },
       {
         label: 'Keep the schedule. The clamps held once. They will hold again.',

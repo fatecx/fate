@@ -68,7 +68,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF THE LONG SHADOW',
       prose:
-        'A year of depositions and quiet. The crews scatter to good jobs — a FIRST RUNG résumé opens every door in three industries — and Ingrid takes a professorship where she teaches a course the students call How Not To Die Building The Impossible, attendance triple the room’s capacity. You do the settlements, keep the workers whole where the law allows it, and watch the dark line in the sky refuse to fall down out of sheer engineering. The consortium that eventually buys the cable from the receivers will need someone who knows how to wake it. Everyone on Earth knows whose phone number that is.',
+        'A year of depositions and quiet. The crews scatter to good jobs — a FIRST RUNG résumé opens every door in three industries — and Anders takes a professorship where he teaches a course the students call How Not To Die Building The Impossible, attendance triple the room’s capacity. You do the settlements, keep the workers whole where the law allows it, and watch the dark line in the sky refuse to fall down out of sheer engineering. The consortium that eventually buys the cable from the receivers will need someone who knows how to wake it. Everyone on Earth knows whose phone number that is.',
     },
   },
   {
@@ -111,12 +111,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 9,
     skipYears: 2,
     prose:
-      'You give the road away on your own terms — a world trust, your pledge written into its charter, your safety standards as its law, and you in the chair, owning nothing and steering everything. The nations sign because it answers their fear. The crews sign because Ingrid reads the charter first and nods. The fare drops twice in the first year. Historians will argue forever about whether it was surrender or the greatest power move in the history of money. Both sides will be right.',
+      'You give the road away on your own terms — a world trust, your pledge written into its charter, your safety standards as its law, and you in the chair, owning nothing and steering everything. The nations sign because it answers their fear. The crews sign because Anders reads the charter first and nods. The fare drops twice in the first year. Historians will argue forever about whether it was surrender or the greatest power move in the history of money. Both sides will be right.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE CHAIRMAN OF THE ROAD',
       prose:
-        'Two years of running the sky’s port authority — the most powerful unpaid job on Earth. Governments comply with you, slowly, filing objections your standards board overrules with data. The cable carries a small city’s population every year at the pledge price. And the far end of the road keeps nagging at you the way empty land nags at a builder: the Moon has industry now, crews on rotation, a pole full of workers counting the days until they go home. Nobody has given them a reason to stay. At the second annual board dinner, Ingrid — retired, unretired, then retired again — leans over and says the sentence you have been waiting for someone else to say first: “The road is finished. Roads are for going somewhere. So. What is at the end of ours?”',
+        'Two years of running the sky’s port authority — the most powerful unpaid job on Earth. Governments comply with you, slowly, filing objections your standards board overrules with data. The cable carries a small city’s population every year at the pledge price. And the far end of the road keeps nagging at you the way empty land nags at a builder: the Moon has industry now, crews on rotation, a pole full of workers counting the days until they go home. Nobody has given them a reason to stay. At the second annual board dinner, Anders — retired, unretired, then retired again — leans over and says the sentence you have been waiting for someone else to say first: “The road is finished. Roads are for going somewhere. So. What is at the end of ours?”',
     },
   },
   {
@@ -127,12 +127,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 4,
     prose:
-      'You keep the company, keep the rail, and keep building — a second cable surveyed, a third named, the founder still at sea while the world adjusts to the sky having a road. Talia becomes CEO in everything but title, then in title too. You never exactly retire. The ocean would not believe you anyway.',
+      'You keep the company, keep the rail, and keep building — a second cable surveyed, a third named, the founder still at sea while the world adjusts to the sky having a road. Mateo becomes CEO in everything but title, then in title too. You never exactly retire. The ocean would not believe you anyway.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE YEARS AT THE RAIL',
       prose:
-        'Four years of expansion — the second cable rising off the coast of Kiribela, whose treasury now runs a surplus that economists visit like a natural wonder. You hand the CEO title to Talia in a cafeteria ceremony where the crews stomp the floor so hard the derricks ring, and you keep for yourself exactly one job: chief of whatever is next. The climbers feed the Moon around the clock now — machinery, habitats, crews for the pole. Up there, a workforce the size of a town lives in dormitories built for shifts, and every rotation home, more of them ask the same question in their exit interviews. Why is there nowhere to stay? In the fourth year, you charter the survey. The next impossible thing has coordinates now.',
+        'Four years of expansion — the second cable rising off the coast of Kiribela, whose treasury now runs a surplus that economists visit like a natural wonder. You hand the CEO title to Mateo in a cafeteria ceremony where the crews stomp the floor so hard the derricks ring, and you keep for yourself exactly one job: chief of whatever is next. The climbers feed the Moon around the clock now — machinery, habitats, crews for the pole. Up there, a workforce the size of a town lives in dormitories built for shifts, and every rotation home, more of them ask the same question in their exit interviews. Why is there nowhere to stay? In the fourth year, you charter the survey. The next impossible thing has coordinates now.',
     },
   },
   {
@@ -143,12 +143,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 0,
     skipYears: 2,
     prose:
-      'The cable falls for four hours, burning across the whole night sky, and by dawn the age of elevators is over for a generation. No one on the platform dies — Ingrid’s evacuation drills see to that, her last gift to a company that stopped listening to her. The inquiry takes three years and says what her memos said for five. You built the road that touched the sky, and you traded away the margin that held it there, and both of those sentences are yours forever.',
+      'The cable falls for four hours, burning across the whole night sky, and by dawn the age of elevators is over for a generation. No one on the platform dies — Anders’s evacuation drills see to that, his last gift to a company that stopped listening to him. The inquiry takes three years and says what his memos said for five. You built the road that touched the sky, and you traded away the margin that held it there, and both of those sentences are yours forever.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE LONGEST WALK',
       prose:
-        'Two years of inquiries, settlements, and learning to enter rooms where everyone recognizes you. You testify honestly, every time, because it is far too late for anything else and because Ingrid — who never says one public word against you — testifies honestly beside you, which is a mercy you know you did not earn. The strange thing is what survives: the math. The cable held for years before the thin sections failed, and every engineer on Earth now knows both halves of the lesson — that it can be done, and what it costs to do it carelessly. Somebody will build the next one. In the second winter, a consortium calls to ask what you would do differently. You talk for six hours. They take notes the whole time.',
+        'Two years of inquiries, settlements, and learning to enter rooms where everyone recognizes you. You testify honestly, every time, because it is far too late for anything else and because Anders — who never says one public word against you — testifies honestly beside you, which is a mercy you know you did not earn. The strange thing is what survives: the math. The cable held for years before the thin sections failed, and every engineer on Earth now knows both halves of the lesson — that it can be done, and what it costs to do it carelessly. Somebody will build the next one. In the second winter, a consortium calls to ask what you would do differently. You talk for six hours. They take notes the whole time.',
     },
   },
 ]
@@ -175,7 +175,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_s_costs',
     bg: 'night',
     prose:
-      'You know exactly what the last two companies cost you, because you carry the receipts in your body.\n\nThe garage years cost your savings and half your health. The Moon years cost a worker’s life, a cofounder’s peace, and your father — who kept every clipping in a shoebox and never got to see this one.\n\nEvery company is a bet, and you have learned the real stakes are never the money. The money is just how the bet keeps score.\n\nThis one will be the biggest bet anyone has ever placed. Billions of dollars. Thousands of people. Nations at the table, some of them as enemies.\n\nYou are forty-five years old. You do the arithmetic at your kitchen table one night: this is the last one you will have the strength to build from zero.\n\nThen you call Ingrid Voss.',
+      'You know exactly what the last two companies cost you, because you carry the receipts in your body.\n\nThe garage years cost your savings and half your health. The Moon years cost a worker’s life, a cofounder’s peace, and your father — who kept every clipping in a shoebox and never got to see this one.\n\nEvery company is a bet, and you have learned the real stakes are never the money. The money is just how the bet keeps score.\n\nThis one will be the biggest bet anyone has ever placed. Billions of dollars. Thousands of people. Nations at the table, some of them as enemies.\n\nYou are forty-five years old. You do the arithmetic at your kitchen table one night: this is the last one you will have the strength to build from zero.\n\nThen you call Anders Voss.',
   },
   {
     kicker: 'PROLOGUE',
@@ -189,9 +189,9 @@ const PROLOGUE: readonly PrologueBeat[] = [
 
 /** The decisions the whole player base gets measured on. */
 const SIGNATURES: readonly SignatureDef[] = [
-  { scene: 's_entry', choice: 0, text: 'made Ingrid Voss chief engineer with real equity' },
+  { scene: 's_entry', choice: 0, text: 'made Anders Voss chief engineer with real equity' },
   { scene: 's_marcus', choice: 0, text: 'took Marcus Vale’s hand and built the alliance' },
-  { scene: 's_ingrid_margin', choice: 0, text: 'kept Ingrid’s safety margin over the board’s schedule' },
+  { scene: 's_ingrid_margin', choice: 0, text: 'kept Anders’s safety margin over the board’s schedule' },
   { scene: 's_fork', choice: 0, text: 'rated the cable for people, not just cargo' },
   { scene: 's_strand_snap', choice: 0, text: 'published the tear at kilometer 921' },
   { scene: 's_citizenship', choice: 1, text: 'refused Aurelia’s ministry and kept the cable flagless' },

@@ -30,7 +30,7 @@ export const FLAG_PHRASES: Record<string, string> = {
   asked_rashid: 'the real question asked over tea — what Aurelia wants to become',
   territory_struck: 'the territory clause struck from Aurelia’s money',
   s_transparent: 'the tear at kilometer 921 published, marked in your own hand',
-  margin_kept: 'Ingrid’s safety margin kept over the board’s schedule',
+  margin_kept: 'Anders’s safety margin kept over the board’s schedule',
   humans_rated: 'the cable rated for people, escape pods and all',
   refused_garrison: 'the Admiral’s umbrella declined before the vote',
   marcus_alliance: 'Marcus Vale’s alliance signed across a diner table',

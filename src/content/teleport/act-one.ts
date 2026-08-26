@@ -337,7 +337,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'Commander Ruth Salazar watches by video from the lunar south pole, arms folded, and says eleven words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” she says. People who know her later tell you this is the highest rating she has ever given anything with a sales team.',
+          'Commander Rafael Salazar watches by video from the lunar south pole, arms folded, and says eleven words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” he says. People who know him later tell you this is the highest rating he has ever given anything with a sales team.',
       },
     ],
   },
@@ -516,7 +516,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'By the last afternoon, your voice is gone, the demo body needs a new wrist motor, and three people are waiting to talk to you at once. There are worse problems. You have had most of them.',
     prose:
-      'They arrive in order of gravity. Commander Ruth Salazar, down from the Moon for the expo and visibly allergic to it, watches the demo twice. “My maintenance backlog at the Verge is nine months. Your body, my base, a paid pilot program. Letter of intent, my signature, today.” Then Elliot Vance of ATLAS, older and still signing things in public, says, “I owed you a proper deal from the last life. Four hundred thousand, strategic, no board seat. SOMEDAY, PROPERLY, and today’s the day.” At the end of the aisle, a calm man in a gray suit wears a badge with a blank company line. Conrad Hale. “ALEPH has been watching your flight records all week,” he says. “The fund would like to lead your Series A. Dinner?”',
+      'They arrive in order of gravity. Commander Rafael Salazar, down from the Moon for the expo and visibly allergic to it, watches the demo twice. “My maintenance backlog at the Verge is nine months. Your body, my base, a paid pilot program. Letter of intent, my signature, today.” Then Elliot Vance of ATLAS, older and still signing things in public, says, “I owed you a proper deal from the last life. Four hundred thousand, strategic, no board seat. SOMEDAY, PROPERLY, and today’s the day.” At the end of the aisle, a calm man in a gray suit wears a badge with a blank company line. Conrad Hale. “ALEPH has been watching your flight records all week,” he says. “The fund would like to lead your Series A. Dinner?”',
     choices: [
       {
         label: 'Sign Salazar’s letter of intent on the crate lid, right now.',
@@ -532,7 +532,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'She signs on the crate lid like it is a field desk, which for her it is. “Paper first, dinner never,” she says, already leaving. An hour later Vance signs his check at the booth, writing SOMEDAY, PROPERLY on the memo line in fountain pen, and Hale’s dinner invitation still stands. Money from customers before money from investors — Salazar would approve of the order.',
+          'He signs on the crate lid like it is a field desk, which for him it is. “Paper first, dinner never,” he says, already leaving. An hour later Vance signs his check at the booth, writing SOMEDAY, PROPERLY on the memo line in fountain pen, and Hale’s dinner invitation still stands. Money from customers before money from investors — Salazar would approve of the order.',
       },
       {
         label: 'Take Vance’s check first, before his company’s lawyers can kill it.',
@@ -548,7 +548,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'He signs it at the booth counter with the same fountain pen as the coffee shop, years ago, and taps the memo line: SOMEDAY, PROPERLY — PAID. “Frame this one too,” he says. Salazar’s letter of intent gets signed twenty minutes later on the crate lid anyway. She waited, arms folded, timing you.',
+          'He signs it at the booth counter with the same fountain pen as the coffee shop, years ago, and taps the memo line: SOMEDAY, PROPERLY — PAID. “Frame this one too,” he says. Salazar’s letter of intent gets signed twenty minutes later on the crate lid anyway. He waited, arms folded, timing you.',
       },
       {
         label: 'Do all three tonight: Salazar’s letter, Vance’s check, dinner with Hale.',

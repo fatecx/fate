@@ -65,7 +65,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The finance team’s weekly note has developed a tone, and the tone is a politely screaming siren. Payroll for a floating city is due in twenty days, the next round is stuck in diligence, and the only liquid money in reach is the fortune your last company left you.',
     prose:
-      'The shares from the Teleport years sit in a vault account you almost never open — the proof, in numbers, that the second company happened. Selling a block of them at speed means selling at a discount, publicly, with every analyst on Earth reading it as either total commitment or quiet desperation. Talia puts the choice plainly, because that is her job. “It is your personal safety net, boss. You would be feeding it to the company. I am required by loyalty to point out that founders who do this are heroes in the retellings and cautionary tales in the settlements, and nobody knows which one until later.”',
+      'The shares from the Teleport years sit in a vault account you almost never open — the proof, in numbers, that the second company happened. Selling a block of them at speed means selling at a discount, publicly, with every analyst on Earth reading it as either total commitment or quiet desperation. Mateo puts the choice plainly, because that is his job. “It is your personal safety net, boss. You would be feeding it to the company. I am required by loyalty to point out that founders who do this are heroes in the retellings and cautionary tales in the settlements, and nobody knows which one until later.”',
     choices: [
       {
         label: 'Sell the block. The past pays for the future.',
@@ -121,7 +121,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
         ],
         result:
-          'The wire lands in thirty-one hours, which for a nine-figure sovereign transfer is a love letter. From that week on, everything the platform eats, burns, and builds with arrives flying Aurelia’s flag, and the folder called THE SQUEEZE gains a final page in Talia’s handwriting: WE HANDED THEM THE HOSE.',
+          'The wire lands in thirty-one hours, which for a nine-figure sovereign transfer is a love letter. From that week on, everything the platform eats, burns, and builds with arrives flying Aurelia’s flag, and the folder called THE SQUEEZE gains a final page in Mateo’s handwriting: WE HANDED THEM THE HOSE.',
       },
       {
         label: 'Decline. Hungry beats owned.',
@@ -166,7 +166,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'score', d: 2 },
         ],
         result:
-          'The equity pool for the crews papers in a week, with Ingrid holding the trust as their representative, and the cafeteria meeting ends in the loudest sound the platform has ever produced indoors. Years from now, business schools will teach this week. What the case studies will never quite capture is the shift change afterward — four hundred owners walking out to the derricks, checking the weather on their cable.',
+          'The equity pool for the crews papers in a week, with Anders holding the trust as their representative, and the cafeteria meeting ends in the loudest sound the platform has ever produced indoors. Years from now, business schools will teach this week. What the case studies will never quite capture is the shift change afterward — four hundred owners walking out to the derricks, checking the weather on their cable.',
       },
       {
         label: 'Refuse the cut. Their wages are not your runway.',

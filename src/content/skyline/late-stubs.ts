@@ -14,7 +14,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
     leadIn:
       'A company with a road to space dies the same way a garage company dies — the account turns red, the inbox goes quiet, and the phone fills with numbers you owe. The only difference is that this time, four hundred people live inside the thing that is running out of money.',
     prose:
-      'Payroll for a floating city bounces, and the sound it makes is global — the platform makes the evening news on six continents before the bank’s apology email finishes loading. The insurers want calls. The commission wants assurances. Aurelia’s harbor authority expresses, in beautifully formatted language, its concern. Ingrid keeps the cable crews working without being asked, because bridges do not care who is solvent. A few doors remain open, and all of them are ugly.',
+      'Payroll for a floating city bounces, and the sound it makes is global — the platform makes the evening news on six continents before the bank’s apology email finishes loading. The insurers want calls. The commission wants assurances. Aurelia’s harbor authority expresses, in beautifully formatted language, its concern. Anders keeps the cable crews working without being asked, because bridges do not care who is solvent. A few doors remain open, and all of them are ugly.',
     choices: [
       {
         label: 'Bridge loan against the cable itself',
@@ -58,7 +58,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'treasury', d: -1000000 },
         ],
         result:
-          'A month in a house with no rails and no derricks. You sleep nine hours a night by week two, remember what food tastes like by week three, and by week four you can watch the ocean without pricing it. The company runs without you — Talia sees to that — and the fact that it can is medicine of its own strange kind.',
+          'A month in a house with no rails and no derricks. You sleep nine hours a night by week two, remember what food tastes like by week three, and by week four you can watch the ocean without pricing it. The company runs without you — Mateo sees to that — and the fact that it can is medicine of its own strange kind.',
       },
       {
         label: 'Push through. The conference schedule outranks the bloodwork.',
@@ -73,7 +73,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
         label: 'Walk away. Let the road belong to whoever wants it more.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
-          'There is a version of health that costs a company, and you finally pay it. The wind-down is orderly because Talia makes it orderly, and the last thing shipped off the platform is everyone’s final paycheck, on time, with a letter you write yourself.',
+          'There is a version of health that costs a company, and you finally pay it. The wind-down is orderly because Mateo makes it orderly, and the last thing shipped off the platform is everyone’s final paycheck, on time, with a letter you write yourself.',
       },
     ],
   },

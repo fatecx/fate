@@ -27,7 +27,7 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'end_t_verge',
         prose:
-          'At Shackleton Verge it is mid-shift, and nobody stops working for a bell on another world.\n\nCommander Salazar has the feed up in operations, sound off. At 9:31 Earth time she looks at the screen for four seconds — an eternity, from her — and says, to the room, to the bodies on the schedule, to the boring immortal work:\n\n“Back to it.”\n\nHigh praise. The highest.',
+          'At Shackleton Verge it is mid-shift, and nobody stops working for a bell on another world.\n\nCommander Salazar has the feed up in operations, sound off. At 9:31 Earth time he looks at the screen for four seconds — an eternity, from him — and says, to the room, to the bodies on the schedule, to the boring immortal work:\n\n“Back to it.”\n\nHigh praise. The highest.',
       },
       {
         art: 'end_t_chair',
@@ -73,7 +73,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF LETTERS',
       prose:
-        'A year of wind-down paperwork and unexpected mail. The company died owing nothing, and your own accounts survived it — the buyout money from the Hyperchute years was never in the company, and consulting pays absurdly well when every space agency on Earth wants to learn how you ran remote operations. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies she considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
+        'A year of wind-down paperwork and unexpected mail. The company died owing nothing, and your own accounts survived it — the buyout money from the Hyperchute years was never in the company, and consulting pays absurdly well when every space agency on Earth wants to learn how you ran remote operations. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies he considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
     },
   },
   {
@@ -220,7 +220,7 @@ const ACHIEVEMENTS: readonly AchievementDef[] = [
   },
   {
     id: 'her_chair',
-    title: 'HER CHAIR',
+    title: 'THE CHAIR',
     desc: 'Cass Rivera built your operator corps and was never once made the excuse.',
     when: {
       k: 'all',

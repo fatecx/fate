@@ -17,7 +17,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'It started as a factory accident. Your old tether plant, trying to make relay cables cheaper, produced a strand so strong the testing machine broke before the strand did. The lab ordered a bigger testing machine. That one broke too.',
     prose:
-      'Ingrid Voss has spent thirty years building bridges, and she has spent the last three weeks locked in your materials lab with the strand. She meets you at the test rig with a piece of it stretched across a frame — thinner than a shoelace, holding a truck engine off the floor. “Every engineer alive has done this math as a daydream,” she says. “A cable from the ground to orbit. The material was always the missing piece. It was supposed to be thirty years away.” She hands you the strand, and it weighs nothing at all, which is somehow the most convincing part. “Your factory made it by accident. I checked the math nine times, and I will say this once, quietly. We can build the elevator.”',
+      'Anders Voss has spent thirty years building bridges, and he has spent the last three weeks locked in your materials lab with the strand. He meets you at the test rig with a piece of it stretched across a frame — thinner than a shoelace, holding a truck engine off the floor. “Every engineer alive has done this math as a daydream,” he says. “A cable from the ground to orbit. The material was always the missing piece. It was supposed to be thirty years away.” She hands you the strand, and it weighs nothing at all, which is somehow the most convincing part. “Your factory made it by accident. I checked the math nine times, and I will say this once, quietly. We can build the elevator.”',
     choices: [
       {
         label: 'Hire her to build it. Chief engineer, real equity.',
@@ -55,7 +55,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_lab',
         result:
-          'Three independent labs spend six weeks trying to prove the strand is a fluke. All three fail, and one asks to invest. Ingrid approves of the caution more than she says. “Good,” is all she offers. From her, that is a speech.',
+          'Three independent labs spend six weeks trying to prove the strand is a fluke. All three fail, and one asks to invest. Anders approves of the caution more than he says. “Good,” is all he offers. From him, that is a speech.',
       },
     ],
   },
@@ -66,7 +66,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_s_lab',
     title: 'THE QUIET MONTHS',
     prose:
-      'The company forms around the strand the way a pearl forms around grit. Ingrid fills the old tether factory with test rigs and hires metallurgists who thought their careers were over. You file patents under boring names, buy the machines that make the machines, and tell nobody anything. Every night the strand gets longer, and every night the number on Ingrid’s whiteboard — the length the cable must reach to hold itself against the spin of the Earth — stares back, unimpressed. The whiteboard says 36,000 kilometers. The spool in the lab holds four.',
+      'The company forms around the strand the way a pearl forms around grit. Anders fills the old tether factory with test rigs and hires metallurgists who thought their careers were over. You file patents under boring names, buy the machines that make the machines, and tell nobody anything. Every night the strand gets longer, and every night the number on Anders’s whiteboard — the length the cable must reach to hold itself against the spin of the Earth — stares back, unimpressed. The whiteboard says 36,000 kilometers. The spool in the lab holds four.',
     choices: [{ label: 'Continue', effects: [], goto: 's_talia' }],
   },
   {
@@ -79,7 +79,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The company needs a chief of staff before it needs anything else, because you now run three buildings, forty engineers, and a secret. The best résumé in the stack comes with a cover letter that starts with your first company, not your last one.',
     prose:
-      'Talia Reyes is twenty-nine and has run operations for a governor and a shipping line. Her cover letter says she grew up in the Flats, on a street where the packages fell soft as rain. In the interview she is direct about it. “I was nine when your tubes reached our block. My grandmother stopped riding the bus for her medicine that year. I have wanted to work for you since I was nine, and I want to be clear — that is exactly why you should worry about hiring me. People who admire you make bad guards. So test me.” She slides a one-page memo across the desk. It is a list of five problems your company has right now. You knew about three of them.',
+      'Mateo Reyes is twenty-nine and has run operations for a governor and a shipping line. His cover letter says he grew up in the Flats, on a street where the packages fell soft as rain. In the interview he is direct about it. “I was nine when your tubes reached our block. My grandmother stopped riding the bus for her medicine that year. I have wanted to work for you since I was nine, and I want to be clear — that is exactly why you should worry about hiring me. People who admire you make bad guards. So test me.” He slides a one-page memo across the desk. It is a list of five problems your company has right now. You knew about three of them.',
     choices: [
       {
         label: 'Hire her. The honesty is the résumé.',
@@ -163,7 +163,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT THE LUNCH MEANT',
     prose:
-      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that is somehow louder than knowing. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Talia and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Ingrid marks the milestone the way she marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
+      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that is somehow louder than knowing. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way she marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
     choices: [{ label: 'Continue', effects: [], goto: 's_proof' }],
   },
   {
@@ -173,9 +173,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_s_proof',
     title: 'ONE HUNDRED KILOMETERS, STRAIGHT UP',
     leadIn:
-      'The test Ingrid designs is simple to describe and absurd to look at: a balloon platform lifts one end of the strand a hundred kilometers up, to the edge of space, while the other end stays winched to a barge. If the strand holds its own weight at that length, the math for the full cable stops being a daydream.',
+      'The test Anders designs is simple to describe and absurd to look at: a balloon platform lifts one end of the strand a hundred kilometers up, to the edge of space, while the other end stays winched to a barge. If the strand holds its own weight at that length, the math for the full cable stops being a daydream.',
     prose:
-      'At dawn the strand disappears into the sky like a pencil line drawn by someone very patient. Cameras track it until it is invisible, and then the instruments carry the story alone. Tension nominal. Sway within limits. Ingrid stands at the winch console for six hours and speaks only to the cable, softly, in Norwegian. At 1:14 p.m. the test reaches full load, holds it, and keeps holding it. The barge crew starts to cheer, and Ingrid raises one hand for silence like a conductor. She waits another full hour before she lets anyone celebrate. Then she turns to you with wet eyes and total calm and says, “Now you may call the bankers.”',
+      'At dawn the strand disappears into the sky like a pencil line drawn by someone very patient. Cameras track it until it is invisible, and then the instruments carry the story alone. Tension nominal. Sway within limits. Anders stands at the winch console for six hours and speaks only to the cable, softly, in Norwegian. At 1:14 p.m. the test reaches full load, holds it, and keeps holding it. The barge crew starts to cheer, and Anders raises one hand for silence like a conductor. He waits another full hour before he lets anyone celebrate. Then he turns to you with wet eyes and total calm and says, “Now you may call the bankers.”',
     choices: [
       {
         label: 'Announce it to the world. Full proof, full noise.',
@@ -187,7 +187,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_famous',
         result:
-          'The footage of a line vanishing into the sky plays on every screen on Earth within a day. Three governments call before dinner. So does every fund you have ever met, two you haven’t, and one number Talia flags with a note: “This one owns a country’s savings. Careful.”',
+          'The footage of a line vanishing into the sky plays on every screen on Earth within a day. Three governments call before dinner. So does every fund you have ever met, two you haven’t, and one number Mateo flags with a note: “This one owns a country’s savings. Careful.”',
       },
       {
         label: 'Keep it quiet. Show the proof privately, buyer by buyer.',
@@ -223,7 +223,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The Series A for a space elevator does not look like any round you have raised before. The term sheets arrive bound like books, the diligence teams bring their own structural engineers, and every lead investor wants one thing more than returns — a seat at the table where the century gets decided.',
     prose:
-      'Three offers make the final cut, and Talia lays them side by side in the war room. A clean syndicate of the big venture funds — one hundred forty million, standard terms, a board seat for the lead. A strategic round built around aerospace giants — more money, more strings, engineers you could use and politics you could choke on. And a card that arrived by courier with no term sheet at all: SHEIKH RASHID AL-MANSOUR, AURELIA SOVEREIGN FUND, printed on paper that feels like cloth, with four handwritten words. WHENEVER YOU ARE READY. Talia taps that one. “Nine hundred billion under management. Patient as geology. I checked — they have never once led an early round. For you, they are offering to.”',
+      'Three offers make the final cut, and Mateo lays them side by side in the war room. A clean syndicate of the big venture funds — one hundred forty million, standard terms, a board seat for the lead. A strategic round built around aerospace giants — more money, more strings, engineers you could use and politics you could choke on. And a card that arrived by courier with no term sheet at all: SHEIKH RASHID AL-MANSOUR, AURELIA SOVEREIGN FUND, printed on paper that feels like cloth, with four handwritten words. WHENEVER YOU ARE READY. Mateo taps that one. “Nine hundred billion under management. Patient as geology. I checked — they have never once led an early round. For you, they are offering to.”',
     choices: [
       {
         label: 'Take the clean venture syndicate. Boring money, free hands.',
@@ -264,7 +264,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_funded',
         result:
-          'The giants bring forty million extra and engineering teams that shave months off the platform design. They also bring observers to every meeting and a contract clause Talia highlights in yellow and labels REMEMBER THIS ONE — a right to review any change of control. Strings pull both ways. Eventually, everything attached to them moves.',
+          'The giants bring forty million extra and engineering teams that shave months off the platform design. They also bring observers to every meeting and a contract clause Mateo highlights in yellow and labels REMEMBER THIS ONE — a right to review any change of control. Strings pull both ways. Eventually, everything attached to them moves.',
       },
     ],
   },
@@ -288,7 +288,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_funded',
         result:
-          'You part with a handshake and no promises, which he seems to prefer. In the elevator down, Talia reads her phone and goes quiet. “While you were in there,” she says, “Aurelia bought two shipping ports and a satellite firm. He collects infrastructure the way other rich men collect art.”',
+          'You part with a handshake and no promises, which he seems to prefer. In the elevator down, Mateo reads his phone and goes quiet. “While you were in there,” he says, “Aurelia bought two shipping ports and a satellite firm. He collects infrastructure the way other rich men collect art.”',
       },
       {
         label: 'Ask him the real question: what does Aurelia want to become?',
@@ -311,7 +311,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_s_scale',
     title: 'A COMPANY THE SIZE OF THE JOB',
     prose:
-      'The money changes the company’s physics. Headcount triples in a quarter, the old tether factory becomes one corner of a campus, and the burn rate crosses three hundred thousand dollars a week — a number that would have killed your first company in an afternoon and now appears in a Tuesday email without comment. Ingrid’s strand production runs around the clock. Talia builds the org chart like a hull, watertight compartment by compartment. And on the largest wall of the new headquarters, someone hangs a map of the equatorial oceans, because the next decision is the one that decides everything after it. A cable to space has to start somewhere on Earth.',
+      'The money changes the company’s physics. Headcount triples in a quarter, the old tether factory becomes one corner of a campus, and the burn rate crosses three hundred thousand dollars a week — a number that would have killed your first company in an afternoon and now appears in a Tuesday email without comment. Anders’s strand production runs around the clock. Mateo builds the org chart like a hull, watertight compartment by compartment. And on the largest wall of the new headquarters, someone hangs a map of the equatorial oceans, because the next decision is the one that decides everything after it. A cable to space has to start somewhere on Earth.',
     choices: [{ label: 'Continue', effects: [], goto: 's_site' }],
   },
   {
@@ -324,7 +324,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The anchor has to sit near the equator, in deep water, away from storms and shipping lanes. The shortlist comes down to three dots on the ocean map, and every dot is really a question about who you will owe.',
     prose:
-      'Ingrid presents the engineering, then Talia presents the politics, which is the harder half. Option one — the waters of Kiribela, a small island nation drowning in debt, which would lease you a platform zone for almost nothing because it desperately needs the money. Cheap, fast, and fragile, because desperate landlords can be bought out from over your head. Option two — international waters, owned by no one, governed by treaties older than your parents. Nobody can sell your ground to a rival there, and nobody will defend it for you either. Option three — American waters, with Senator Calloway’s public blessing, her committee’s protection, and every string that comes woven into a flag.',
+      'Anders presents the engineering, then Mateo presents the politics, which is the harder half. Option one — the waters of Kiribela, a small island nation drowning in debt, which would lease you a platform zone for almost nothing because it desperately needs the money. Cheap, fast, and fragile, because desperate landlords can be bought out from over your head. Option two — international waters, owned by no one, governed by treaties older than your parents. Nobody can sell your ground to a rival there, and nobody will defend it for you either. Option three — American waters, with Senator Calloway’s public blessing, her committee’s protection, and every string that comes woven into a flag.',
     choices: [
       {
         label: 'Kiribela. Cheap, fast, and a nation that needs the work.',
@@ -348,7 +348,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_site_set',
         result:
-          'The lawyers call it the hard road, and they are right — everything costs more when no country is your landlord. But the ground under the cable belongs to a treaty instead of a government, and no single flag can ever claim the road. Ingrid approves in her quiet way. “Bridges should not have owners,” she says. “Only keepers.”',
+          'The lawyers call it the hard road, and they are right — everything costs more when no country is your landlord. But the ground under the cable belongs to a treaty instead of a government, and no single flag can ever claim the road. Anders approves in his quiet way. “Bridges should not have owners,” he says. “Only keepers.”',
       },
       {
         label: 'American waters. Calloway’s protection, Calloway’s strings.',
@@ -372,7 +372,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_s_platform_build',
     title: 'STEEL ON THE WATER',
     prose:
-      'The anchor platform grows out of the ocean over the next year the way a city grows — first as pilings and promises, then as a floating harbor the size of forty football fields, ringed by supply ships and impatient weather. Crews rotate in on two-week shifts and come home talking about it the way people talk about cathedrals. The strand factory ships spools by the hundred. Ingrid moves her office onto the platform itself, into a container with one window, and starts calling the cable “she.” Costs run ahead of every estimate, because everything at sea costs double and everything unprecedented costs triple. The road to space is being built with money that burns like rocket fuel.',
+      'The anchor platform grows out of the ocean over the next year the way a city grows — first as pilings and promises, then as a floating harbor the size of forty football fields, ringed by supply ships and impatient weather. Crews rotate in on two-week shifts and come home talking about it the way people talk about cathedrals. The strand factory ships spools by the hundred. Anders moves his office onto the platform itself, into a container with one window, and starts calling the cable “she.” Costs run ahead of every estimate, because everything at sea costs double and everything unprecedented costs triple. The road to space is being built with money that burns like rocket fuel.',
     choices: [{ label: 'Continue', effects: [], goto: 's_cut_year_two' }],
   },
   {

@@ -14,7 +14,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE MARGIN',
     speaker: 'ingrid',
     leadIn:
-      'Ingrid asks for you on the platform, in person, which she only does when a drawing cannot carry the weight of what she has to say. She meets you at the derrick with wind in her jacket and a tablet she does not open.',
+      'Anders asks for you on the platform, in person, which he only does when a drawing cannot carry the weight of what he has to say. He meets you at the derrick with wind in his jacket and a tablet he does not open.',
     prose:
       '“The board wants the cable finished in three years,” she says. “The cable wants five.” She lets the wind have a moment. “I can build it in three. I know how — thinner redundancy, fewer test cycles, climb the schedule instead of the checklist. Other people build that way. Their names are on plaques near flowers.” She finally opens the tablet and shows you two plans, side by side. The fast one saves four hundred million dollars and two years. The slow one has a number at the bottom she has circled by hand — her safety margin, the extra strength the cable keeps in reserve for the day something surprises it. “You hired me with two conditions. This is me holding you to the first one. Choose which plan I build, and know that I will build either one with everything I have. Only one of them lets me sleep.”',
     choices: [
@@ -28,7 +28,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 2 },
         ],
         result:
-          'The board grumbles for one full meeting, and then Ingrid presents the failure math in person and the grumbling stops mid-sentence. The schedule slips two years. The circled number stays. On her way out of the boardroom she touches your shoulder once, which from Ingrid Voss is an embrace.',
+          'The board grumbles for one full meeting, and then Anders presents the failure math in person and the grumbling stops mid-sentence. The schedule slips two years. The circled number stays. On his way out of the boardroom he touches your shoulder once, which from Anders Voss is an embrace.',
       },
       {
         label: 'Split it. Fast on the tower sections, her margin up high.',
@@ -49,7 +49,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result:
-          'The savings hit the runway like found money, the board applauds, and the schedule tightens like a fist. Ingrid builds it, exactly as promised, with everything she has. She also stops calling the cable “she.” You notice a month later, and you understand it a year later.',
+          'The savings hit the runway like found money, the board applauds, and the schedule tightens like a fist. Anders builds it, exactly as promised, with everything he has. He also stops calling the cable “she.” You notice a month later, and you understand it a year later.',
       },
     ],
   },
@@ -66,7 +66,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The Series B is a simple sentence with a terrifying number in it: the cable needs six hundred million dollars, and only three kinds of money on Earth write that check — governments, sovereign funds, and things like ALEPH. Sheikh Rashid arrives first, and this time he brings Katarina Volkov.',
     prose:
-      'Rashid does the believing and Volkov does the terms, and watching them work is like watching weather cooperate with a clock. “Six hundred million,” Volkov says, laying the pages out in perfect rows. “No board control. Generous timelines. One board seat, held by the Sheikh personally.” The terms are half a step better than fair — patient money behaving patiently. Then, at the bottom of page nine, one clause in gentle language: Aurelia receives first option to host the anchor operations within any special economic territory it may administer. Talia reads it twice and writes one word on her legal pad, angled so only you can see it. TERRITORY?',
+      'Rashid does the believing and Volkov does the terms, and watching them work is like watching weather cooperate with a clock. “Six hundred million,” Volkov says, laying the pages out in perfect rows. “No board control. Generous timelines. One board seat, held by the Sheikh personally.” The terms are half a step better than fair — patient money behaving patiently. Then, at the bottom of page nine, one clause in gentle language: Aurelia receives first option to host the anchor operations within any special economic territory it may administer. Mateo reads it twice and writes one word on his legal pad, angled so only you can see it. TERRITORY?',
     choices: [
       {
         label: 'Take it — but strike the territory clause first.',
@@ -122,7 +122,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_ports',
     title: 'THE COLLECTOR',
     prose:
-      'Whatever you signed or refused, Aurelia keeps shopping. Over the next two quarters the fund buys a container port in Sri Lanka, a seabed mining fleet, two undersea cable operators, and — Talia flags this one in red — the entire national debt of Kiribela, purchased quietly from its creditors at a discount. Individually, each purchase reads as a rich fund buying boring infrastructure. Laid out on Talia’s wall with string between the pins, they read as something else: every asset sits within nine hundred kilometers of your anchor platform. “Funds diversify,” Talia says, staring at her own wall. “This is not diversifying. This is surrounding.”',
+      'Whatever you signed or refused, Aurelia keeps shopping. Over the next two quarters the fund buys a container port in Sri Lanka, a seabed mining fleet, two undersea cable operators, and — Mateo flags this one in red — the entire national debt of Kiribela, purchased quietly from its creditors at a discount. Individually, each purchase reads as a rich fund buying boring infrastructure. Laid out on Mateo’s wall with string between the pins, they read as something else: every asset sits within nine hundred kilometers of your anchor platform. “Funds diversify,” Mateo says, staring at his own wall. “This is not diversifying. This is surrounding.”',
     choices: [{ label: 'Continue', effects: [], goto: 's_uproot' }],
   },
   {
@@ -133,9 +133,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_uproot',
     title: 'THE UPROOT',
     leadIn:
-      'The build hits the phase every megaproject hits, where decisions queue up faster than they can travel to shore. Ingrid needs answers in hours, and you live eleven time zones and one helicopter away. The math keeps arriving at the same answer, and the answer is you.',
+      'The build hits the phase every megaproject hits, where decisions queue up faster than they can travel to shore. Anders needs answers in hours, and you live eleven time zones and one helicopter away. The math keeps arriving at the same answer, and the answer is you.',
     prose:
-      'Talia lays it out without drama, because the drama is built in. “The next three years decide whether the cable gets finished. Run it from headquarters and you are a photograph on the platform’s wall — every hard call waits half a day for your time zone. Or move to FIRST RUNG and run it from the rail.” She pauses, and drops her voice out of chief-of-staff register into something older. “Boss, be clear-eyed. It is not a business trip. It is a one-way door. June’s Sunday calls become math. Your mother is seventy-eight, and she will not visit a platform six hundred miles from land. The people who move to the work always say they will come back. The work has never once agreed.”',
+      'Mateo lays it out without drama, because the drama is built in. “The next three years decide whether the cable gets finished. Run it from headquarters and you are a photograph on the platform’s wall — every hard call waits half a day for your time zone. Or move to FIRST RUNG and run it from the rail.” He pauses, and drops his voice out of chief-of-staff register into something older. “Boss, be clear-eyed. It is not a business trip. It is a one-way door. June’s Sunday calls become math. Your mother is seventy-eight, and she will not visit a platform six hundred miles from land. The people who move to the work always say they will come back. The work has never once agreed.”',
     choices: [
       {
         label: 'Move to the platform. The cable gets all of you.',
@@ -160,7 +160,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_shore_life',
         result:
-          'You build the best remote command room money can buy and keep your Sundays. The cable slows by months, and Ingrid carries weight that should have been yours — you can hear it in her voice on the night calls. Some prices are paid in schedule. You chose to pay this one there.',
+          'You build the best remote command room money can buy and keep your Sundays. The cable slows by months, and Anders carries weight that should have been yours — you can hear it in his voice on the night calls. Some prices are paid in schedule. You chose to pay this one there.',
       },
     ],
   },
@@ -181,7 +181,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_shore_life',
     title: 'THE LONG DISTANCE',
     prose:
-      'You govern the build from a command room with eleven screens and a coffee machine that knows your schedule. It works the way remote things work — ninety percent as well, with the missing ten percent costing double. Decisions stack overnight. Small fires burn for hours longer than they should. But you are at your mother’s birthday in person, and at June’s table for the holidays, and when Talia asks whether you regret it, you answer honestly that you do and you don’t, most days in that order before lunch and the reverse after.',
+      'You govern the build from a command room with eleven screens and a coffee machine that knows your schedule. It works the way remote things work — ninety percent as well, with the missing ten percent costing double. Decisions stack overnight. Small fires burn for hours longer than they should. But you are at your mother’s birthday in person, and at June’s table for the holidays, and when Mateo asks whether you regret it, you answer honestly that you do and you don’t, most days in that order before lunch and the reverse after.',
     choices: [{ label: 'Continue', effects: [], goto: 's_fork' }],
   },
   {
@@ -194,7 +194,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The design freeze arrives — the date after which the cable becomes whatever it is going to be. One question towers over the freeze, and the whole company knows it, and the whole world is about to.',
     prose:
-      'Ingrid frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — simpler safety case, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes the species. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
+      'Anders frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — simpler safety case, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes the species. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
     choices: [
       {
         label: 'Rate it for people. That was always the point.',
@@ -244,7 +244,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The supply convoy from Kiribela runs the same route every twelve days, so regular you could set clocks by it. At 2 a.m. the ops room wakes you with the sentence nobody has said out loud on Earth in a hundred years: our ships are being boarded.',
     prose:
-      'Three fast boats, professional, armed, and strangely polite — they take the strand spools and nothing else, harm no one, and vanish off every radar the region owns. Piracy, the insurers rule. Except pirates sell what they steal, and your strand never surfaces on any market anywhere. Talia’s analysis takes one page: someone wanted to test your security, delay your schedule, and price your response, all in one night. The navies of three countries offer escorts within the week — Admiral Reyes-Cain’s office first among them, his letter warm as a handshake and heavy as a door. Protection is real. So is what protection costs.',
+      'Three fast boats, professional, armed, and strangely polite — they take the strand spools and nothing else, harm no one, and vanish off every radar the region owns. Piracy, the insurers rule. Except pirates sell what they steal, and your strand never surfaces on any market anywhere. Mateo’s analysis takes one page: someone wanted to test your security, delay your schedule, and price your response, all in one night. The navies of three countries offer escorts within the week — Admiral Reyes-Cain’s office first among them, his letter warm as a handshake and heavy as a door. Protection is real. So is what protection costs.',
     choices: [
       {
         label: 'Hire private security. Stay under your own flag.',
@@ -292,7 +292,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'A storm system the forecasts called manageable arrives eleven percent stronger than manageable. At 11:52 p.m., with a test climber at kilometer 900, the cable does something no simulation ever showed you. It starts to sing.',
     prose:
-      'The sound comes through the platform’s bones before the instruments explain it — a low note like a whale made of metal, the whole line vibrating in the storm wind. At kilometer 900, climber STEADY GIRL grips the shaking cable with two technicians aboard, riding out forces the manual calls theoretical maximums. Ingrid is in ops in ninety seconds, barefoot, calling the storm’s bluff one command at a time — she slows the climber, angles the platform, and damps the vibration with the winches like a woman calming an animal she raised. It takes four hours. At dawn the cable stands quiet, the technicians come down gray-faced and alive, and the inspection drones go up. On strand bundle nine, at kilometer 921, they find it: a partial tear, healed over by the emergency clamps. The cable held. It also, for the first time, got hurt.',
+      'The sound comes through the platform’s bones before the instruments explain it — a low note like a whale made of metal, the whole line vibrating in the storm wind. At kilometer 900, climber STEADY GIRL grips the shaking cable with two technicians aboard, riding out forces the manual calls theoretical maximums. Anders is in ops in ninety seconds, barefoot, calling the storm’s bluff one command at a time — he slows the climber, angles the platform, and damps the vibration with the winches like a man calming an animal he raised. It takes four hours. At dawn the cable stands quiet, the technicians come down gray-faced and alive, and the inspection drones go up. On strand bundle nine, at kilometer 921, they find it: a partial tear, healed over by the emergency clamps. The cable held. It also, for the first time, got hurt.',
     choices: [
       {
         label: 'Publish the tear. Full report, world audience, your name on it.',
@@ -328,7 +328,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_after_snap',
         result:
-          'The tear becomes incident number 4471 in a database with four thousand four hundred seventy other entries. Ingrid signs the log because the law requires her signature, and then she walks to your office and stands in the doorway for a moment without sitting down. “Bridges do not forgive twice,” she says, and leaves. The doorway feels colder for an hour.',
+          'The tear becomes incident number 4471 in a database with four thousand four hundred seventy other entries. Anders signs the log because the law requires his signature, and then he walks to your office and stands in the doorway for a moment without sitting down. “Bridges do not forgive twice,” he says, and leaves. The doorway feels colder for an hour.',
       },
     ],
   },
@@ -339,7 +339,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_repair',
     title: 'THE REPAIR SEASON',
     prose:
-      'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Ingrid rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the photographs of a healed tear at kilometer 921 begin circulating through ministries — attached, always, to the same growing question: should something this important really belong to one person?',
+      'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the photographs of a healed tear at kilometer 921 begin circulating through ministries — attached, always, to the same growing question: should something this important really belong to one person?',
     choices: [{ label: 'Continue', effects: [], goto: 's_cut_flag' }],
   },
   {
@@ -396,7 +396,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_cold_waters',
         result:
-          'Rashid hears the no all the way through, nods slowly, and pours the tea anyway. “Then we are neighbors,” he says, “and neighbors have rules.” On the boat back, Talia hands you her phone. Aurelia’s harbor authority has published its new schedule of fees, inspections, and transit permits, effective in sixty days, applying to everything that crosses its waters. Which is to say — everything you eat, burn, and build with.',
+          'Rashid hears the no all the way through, nods slowly, and pours the tea anyway. “Then we are neighbors,” he says, “and neighbors have rules.” On the boat back, Mateo hands you his phone. Aurelia’s harbor authority has published its new schedule of fees, inspections, and transit permits, effective in sixty days, applying to everything that crosses its waters. Which is to say — everything you eat, burn, and build with.',
       },
       {
         label: 'Counter him: a treaty instead. Aurelia hosts, never owns.',
@@ -420,7 +420,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_cold_waters',
     title: 'NEIGHBORS WITH RULES',
     prose:
-      'Life inside another country’s ring of ocean acquires a rhythm of small frictions. Supply boats wait an extra hour at Aurelia’s inspection buoys. Fees arrive itemized in a currency that did not exist last year. Twice, a “routine customs review” holds a strand shipment just long enough to cost a shift. None of it is hostile, exactly — Volkov’s notes are models of administrative courtesy — and all of it is a language, spoken slowly, that says: you are here because we allow it. Talia starts a folder titled THE SQUEEZE and files each courtesy in order. The folder gets thick. The world’s capitals watch the arrangement with fascination, and begin, in their own chambers, to ask what it teaches them about handling you.',
+      'Life inside another country’s ring of ocean acquires a rhythm of small frictions. Supply boats wait an extra hour at Aurelia’s inspection buoys. Fees arrive itemized in a currency that did not exist last year. Twice, a “routine customs review” holds a strand shipment just long enough to cost a shift. None of it is hostile, exactly — Volkov’s notes are models of administrative courtesy — and all of it is a language, spoken slowly, that says: you are here because we allow it. Mateo starts a folder titled THE SQUEEZE and files each courtesy in order. The folder gets thick. The world’s capitals watch the arrangement with fascination, and begin, in their own chambers, to ask what it teaches them about handling you.',
     choices: [{ label: 'Continue', effects: [], goto: 's_blockade' }],
   },
 ]

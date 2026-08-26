@@ -227,17 +227,17 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_cafeteria_bets',
     when: { k: 'corpse', company: 'teleport' },
-    text: 'The cafeteria betting pool now covers storm arrivals, climber times, and which visiting dignitary will be seasick first. Talia claims not to run it. Talia runs it.',
+    text: 'The cafeteria betting pool now covers storm arrivals, climber times, and which visiting dignitary will be seasick first. Mateo claims not to run it. Mateo runs it.',
   },
   {
     id: 'f_aurelia_paper',
     when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'volkov' }] },
-    text: 'Aurelia’s weekly harbor notices arrive in flawless bureaucratic prose, and Talia reads them aloud at standup in a dry voice that has become everyone’s favorite radio show.',
+    text: 'Aurelia’s weekly harbor notices arrive in flawless bureaucratic prose, and Mateo reads them aloud at standup in a dry voice that has become everyone’s favorite radio show.',
   },
   {
     id: 'f_ingrid_walks',
     when: { k: 'all', of: [{ k: 'corpse', company: 'teleport' }, { k: 'met', who: 'ingrid' }] },
-    text: 'Ingrid walks the derrick deck every morning before her coffee, one hand trailing the nearest anchor line, the way other people check on a sleeping child.',
+    text: 'Anders walks the derrick deck every morning before his coffee, one hand trailing the nearest anchor line, the way other people check on a sleeping child.',
   },
   {
     id: 'f_treaty_chatter',
@@ -247,7 +247,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_flats_postcard',
     when: { k: 'corpse', company: 'teleport' },
-    text: 'A padded envelope arrives from the old neighborhood — a crayon drawing of the cable, signed by a second-grade class from the Flats. Talia frames it before you finish reading the card.',
+    text: 'A padded envelope arrives from the old neighborhood — a crayon drawing of the cable, signed by a second-grade class from the Flats. Mateo frames it before you finish reading the card.',
   },
   {
     id: 'f_burn_platform',
