@@ -193,7 +193,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   position: absolute; inset: 0; text-align: center;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; background: var(--paper, #fafaf7);
-  animation: printIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: portraitIn 0.45s ease both;
 }
 /* The print sits still — full-bleed drift reads as a framing error, not a move. */
 .portrait-img {
@@ -514,6 +514,8 @@ body:has(.lb-shell) { overflow: auto; }
 
 /* ---- micro-motion: manga stills brought to life ---- */
 /* A print laid onto the page — lands slightly off-register, settles true. */
+/* The full-bleed print enters like a film cut — fade only, never a jolt. */
+@keyframes portraitIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes printIn {
   0% { opacity: 0; transform: translate(-6px, -5px); }
   55% { opacity: 1; transform: translate(2px, 2px); }
