@@ -45,7 +45,7 @@ function scanInvariants(st: GameState, violations: string[]): void {
 }
 
 /**
- * Plays one full biography headlessly — four chapters, deaths and all.
+ * Plays one full biography headlessly — every chapter, deaths and all.
  * Determinism of the GAME is independent of the bot's own RNG stream.
  */
 export function playBiography(

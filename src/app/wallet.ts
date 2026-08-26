@@ -8,7 +8,7 @@
 import type { EthereumWallet, SolanaWallet } from '@supabase/supabase-js'
 import { supa } from './cloud'
 
-const STATEMENT = 'Sign the incorporation papers. One life, four companies, every scar on the record.'
+const STATEMENT = 'Sign the incorporation papers. One life, three companies, every scar on the record.'
 
 export interface FoundWallet {
   chain: 'solana' | 'ethereum'

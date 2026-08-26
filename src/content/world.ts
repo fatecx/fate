@@ -2,7 +2,6 @@ import type { CharacterDef, Content } from './schema'
 import { HYPERCHUTE } from './hyperchute'
 import { TELEPORT } from './teleport'
 import { SKYLINE } from './skyline'
-import { ESCAPE } from './escape'
 
 /**
  * The recurring cast. Relationships persist across the whole biography;
@@ -233,6 +232,5 @@ export const CONTENT: Content = {
     hyperchute: HYPERCHUTE,
     teleport: TELEPORT,
     skyline: SKYLINE,
-    escape: ESCAPE,
   },
 }

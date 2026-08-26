@@ -238,6 +238,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 't_b_moon_won',
     ambience: 'hangar',
     kind: 'bridge',
+    art: 'world_moon_won',
     title: 'THE COMPANY THE HOUR BUILT',
     prose:
       'The fight settles into the walls. The map gets rebuilt around one gray photograph, and the company that comes out of that hour is simpler and harder. Relay satellites around the Moon. Robot bodies at the south pole. A chair on Earth that anyone can sit in. Rockets lift off south of you every few days, always carrying someone else’s dream. Rent comes due. Payroll comes due. The box of physics keeps turning into invoices. Next, TELEPORT needs hardware tough enough for another world. The only man who builds machines that good is an hour north, in Fresno.',

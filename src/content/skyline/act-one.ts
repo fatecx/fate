@@ -161,6 +161,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     id: 's_b_alliance',
     ambience: 'night',
     kind: 'bridge',
+    art: 'world_s_alliance',
     title: 'WHAT THE LUNCH MEANT',
     prose:
       'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that silence is louder than any statement. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way he marks all of them — by writing the next, larger number on the whiteboard and going back to work.',

@@ -1,6 +1,6 @@
 # DESIGN.md — fate
 
-**One life. Four companies. Every scar carries forward.**
+**One life. Three companies. Every scar carries forward.**
 
 A narrative founder saga for fate.cx. You play a single founder across a decades-long biography in a near-future world remade by AI corporations. Companies live and die; you persist. Citizen Sleeper is the quality bar: deterministic mechanics wearing excellent prose, constant near-scarcity, consequences that only compound.
 
@@ -33,7 +33,6 @@ Price: **$20 one-time**, paid diegetically — the buy button is the check you w
 | 1 | **HYPERCHUTE** | A railway in the sky — autonomous shuttles hold station above each home and drop deliveries through pneumatic tubes. Robomart's real drama: permits, gig politics, a pedestrian accident, the giant that clones you then tries to bury you. |
 | 2 | **TELEPORT** | Telepresence robots on Mars and the Moon via cascading relay satellites. Space tourism that feels near-instant because latency was engineered out. |
 | 3 | **SKYLINE** | A space elevator. The goods-vs-humans fork lives inside the story as authored branches, each a different game. |
-| 4 | **ESCAPE** | The casino on the Moon. The impossible venue, built by whoever you have become. |
 
 ### Chapter progression rules
 
@@ -82,7 +81,7 @@ Small recurring cast across the biography (~25 named characters): cofounders, hi
 
 ## 7. Endings & The IPO Question
 
-Every company carries a full ending spread (typically five): triumph (IPO/rare), sale, noble failure, disgrace, transformation. **An IPO is possible in any chapter if play is genuinely elite — never locked — but statistically rare early** (single-digit % in Hyperchute) because underwriters demand track record the math won't fake. By ESCAPE, IPO odds rise with Founder Score while the bars grow higher. Players who never IPO still get complete, dramatic stories — the biography is the prize, not the ticker.
+Every company carries a full ending spread (typically five): triumph (IPO/rare), sale, noble failure, disgrace, transformation. **An IPO is possible in any chapter if play is genuinely elite — never locked — but statistically rare early** (single-digit % in Hyperchute) because underwriters demand track record the math won't fake. By SKYLINE, IPO odds rise with Founder Score while the bars grow higher. Players who never IPO still get complete, dramatic stories — the biography is the prize, not the ticker.
 
 ## 8. Presentation & Art Policy
 

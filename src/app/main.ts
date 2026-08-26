@@ -105,7 +105,7 @@ function clearSave(): void {
 
 // ---- helpers ---------------------------------------------------------------
 
-const CHAPTERS = ['hyperchute', 'teleport', 'skyline', 'escape'] as const
+const CHAPTERS = ['hyperchute', 'teleport', 'skyline'] as const
 
 function chapterTitle(id: string): string {
   return CONTENT.chapters[id as keyof typeof CONTENT.chapters].title
@@ -375,7 +375,6 @@ const BANKS: Record<string, string> = {
   hyperchute: 'First Flats Savings & Loan',
   teleport: 'Ceres Federal Trust',
   skyline: 'Anchor & Vantage',
-  escape: 'Imbrium Reserve',
 }
 
 function fmtMoney(n: number): string {
@@ -1255,7 +1254,15 @@ function pushChapterClose(): Promise<void> {
 function proceedNext(): void {
   document.querySelector('.takeover')?.remove()
   if (st.chapter + 1 >= CHAPTERS.length) {
-    renderComplete()
+    // The last company's interlude still plays — the years after, then the record closes.
+    const inter = chapterClose().ending.interlude
+    if (inter) {
+      showScreens(
+        [{ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg }],
+        () => renderComplete(),
+        'Close the record →',
+      )
+    } else renderComplete()
     return
   }
   // Snapshot the life just ended, collapse it into a memoir card, then skip years.
@@ -1461,7 +1468,7 @@ function renderComplete(): void {
        <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a></div>`
   takeover(`
     <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
-    <h1 class="tk-title">FOUR COMPANIES.<br/>ONE LIFE.</h1>
+    <h1 class="tk-title">THREE COMPANIES.<br/>ONE LIFE.</h1>
     <p class="tk-body">Final founder score: ${st.ledger.founderScore}. Roughly ${years} years from a garage above a laundromat to whatever came last. The world remembers all of it.</p>
     ${biographyStrip()}
     ${closing}

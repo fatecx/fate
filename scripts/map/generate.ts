@@ -406,7 +406,7 @@ q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.qu
 </html>`;
 
 // ---- main -------------------------------------------------------------------
-const chapters = ['hyperchute', 'teleport', 'skyline', 'escape'].map(
+const chapters = ['hyperchute', 'teleport', 'skyline'].map(
   (id) => layoutChapter(id, CONTENT.chapters[id as keyof typeof CONTENT.chapters]),
 )
 const html = renderHtml(chapters)

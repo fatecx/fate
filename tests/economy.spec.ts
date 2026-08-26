@@ -333,7 +333,7 @@ describe('monte carlo biography sweep', () => {
     for (const r of all) {
       expect(r.aborted, `seed ${r.seed} aborted`).toBe(false)
       expect(r.violations, `seed ${r.seed}: ${r.violations.join('; ')}`).toEqual([])
-      expect(r.chapters.length).toBe(4)
+      expect(r.chapters.length).toBe(3)
     }
   })
 
@@ -367,7 +367,7 @@ describe('monte carlo biography sweep', () => {
     const seen = new Set(
       [...all, ...witnesses].flatMap((r) => r.chapters.map((c) => `${c.id}:${c.endingId}`)),
     )
-    for (const id of ['hyperchute', 'teleport', 'skyline', 'escape'] as const) {
+    for (const id of ['hyperchute', 'teleport', 'skyline'] as const) {
       for (const e of CONTENT.chapters[id].endings) {
         expect(seen.has(`${id}:${e.id}`), `unreached: ${id}:${e.id}`).toBe(true)
       }

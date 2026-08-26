@@ -1,8 +1,8 @@
 /** Core state types. Everything here is plain serializable JSON — a save IS the state. */
 
-export type CompanyId = 'hyperchute' | 'teleport' | 'skyline' | 'escape'
+export type CompanyId = 'hyperchute' | 'teleport' | 'skyline'
 
-export const COMPANY_ORDER: readonly CompanyId[] = ['hyperchute', 'teleport', 'skyline', 'escape']
+export const COMPANY_ORDER: readonly CompanyId[] = ['hyperchute', 'teleport', 'skyline']
 
 export const FOUNDER = 'founder'
 
