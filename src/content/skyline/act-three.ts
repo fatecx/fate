@@ -65,7 +65,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_after_blockade',
     title: 'WHAT THE SQUEEZE TAUGHT',
     prose:
-      'The waters reopen, and something in the world’s posture has changed for good. The blockade proved a thing every capital suspected and none had tested: the most important structure on Earth can be choked by whoever controls the sea around it, or the treaties above it, or the money beneath it. Editorials bloom in six languages, all circling one question — who should hold the elevator? Senator Calloway’s committee announces hearings. Ambassador Chen’s bloc requests “consultations.” And at the World Orbital Commission, a chairwoman named Okonkwo begins drafting the agenda for a conference that everyone is suddenly calling by one word: the Seizure.',
+      'The waters reopen, and something in the world’s posture has changed for good. The blockade proved a thing every capital suspected and none had tested: the most important structure on Earth can be choked by whoever controls the sea around it, or the treaties above it, or the money beneath it. Editorials bloom in six languages, all circling one question — who should hold the elevator? Senator Calloway’s committee announces hearings. Ambassador Chen’s bloc requests “consultations.” And at the World Orbital Commission, a chairman named Okonkwo begins drafting the agenda for a conference that everyone is suddenly calling by one word: the Seizure.',
     choices: [{ label: 'Continue', effects: [], goto: 's_aleph_anchor' }],
   },
   {
@@ -344,9 +344,9 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE JUDGE COMES TO SEA',
     speaker: 'okonkwo',
     leadIn:
-      'Two weeks before the conference, Ambassador Okonkwo does something no chair has done in the commission’s history: she asks to inspect the platform herself, alone, with no delegation and no press. She arrives on the morning supply boat, carrying her own bag.',
+      'Two weeks before the conference, Ambassador Okonkwo does something no chair has done in the commission’s history: he asks to inspect the platform himself, alone, with no delegation and no press. He arrives on the morning supply boat, carrying his own bag.',
     prose:
-      'She spends nine hours on FIRST RUNG and wastes none of them on you. She eats in the cafeteria line with the welders. She reads the storm playbook in the ops room, cover to cover, standing up. She asks Anders four questions, one of which makes Anders laugh — a sound the platform has heard perhaps twice. At sunset she finds you at the rail, where everyone ends up, and watches the warning lights climb into the dark. “I have chaired thirty years of treaties,” she says. “I have learned to ignore what people say and study what they build into the walls. Escape pods every hundred kilometers, on a cable that could have carried cargo only. A safety report published when burying it was free.” She turns to you. “At the conference, I will ask you one question in front of every nation. I will not tell you what it is. I am telling you now only this — answer it the way you built the walls, and you will be fine. Answer it like a speech, and I cannot help you.”',
+      'He spends nine hours on FIRST RUNG and wastes none of them on you. He eats in the cafeteria line with the welders. He reads the storm playbook in the ops room, cover to cover, standing up. He asks Anders four questions, one of which makes Anders laugh — a sound the platform has heard perhaps twice. At sunset he finds you at the rail, where everyone ends up, and watches the warning lights climb into the dark. “I have chaired thirty years of treaties,” he says. “I have learned to ignore what people say and study what they build into the walls. Escape pods every hundred kilometers, on a cable that could have carried cargo only. A safety report published when burying it was free.” He turns to you. “At the conference, I will ask you one question in front of every nation. I will not tell you what it is. I am telling you now only this — answer it the way you built the walls, and you will be fine. Answer it like a speech, and I cannot help you.”',
     choices: [
       {
         label: 'Thank her, and change nothing. The walls are the answer.',
@@ -356,7 +356,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'She nods once, the way she does at load-bearing things that hold, and takes the evening boat back to shore. Mateo finds you at the rail afterward and asks whether you want prep sessions before the conference. You tell him no, because some tests can only be passed by the person you already are.',
+          'He nods once, the way he does at load-bearing things that hold, and takes the evening boat back to shore. Mateo finds you at the rail afterward and asks whether you want prep sessions before the conference. You tell him no, because some tests can only be passed by the person you already are.',
       },
       {
         label: 'Ask her what the commission actually fears.',
@@ -416,7 +416,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The World Orbital Commission convenes in a hall built for exactly this kind of morning — flags in alphabetical order, translators in glass booths, and on every desk, a draft treaty whose Article One would transfer your cable to international control within eighteen months.',
     prose:
-      'The arguments take two days, and you hear your life narrated by strangers — the garage years cited as precedent, the published tear waved by both sides, the blockade replayed on the hall’s big screens. Calloway’s bloc pushes stewardship with America at the tiller. Chen’s bloc pushes delay by any name. The small nations, burned by a century of things taken from them for the greater good, watch you for signs of what you would do with a century of your own. On the third morning, Ambassador Okonkwo gavels the hall silent and turns to you, and asks her one question, plainly, in front of the world. “Founder. If this body votes today to leave the cable in your hands — what does it cost a schoolteacher to ride it, and when does the answer stop being yours to change?” The hall holds its breath. The walls you built are either the answer, or they are not.',
+      'The arguments take two days, and you hear your life narrated by strangers — the garage years cited as precedent, the published tear waved by both sides, the blockade replayed on the hall’s big screens. Calloway’s bloc pushes stewardship with America at the tiller. Chen’s bloc pushes delay by any name. The small nations, burned by a century of things taken from them for the greater good, watch you for signs of what you would do with a century of your own. On the third morning, Ambassador Okonkwo gavels the hall silent and turns to you, and asks his one question, plainly, in front of the world. “Founder. If this body votes today to leave the cable in your hands — what does it cost a schoolteacher to ride it, and when does the answer stop being yours to change?” The hall holds its breath. The walls you built are either the answer, or they are not.',
     choices: [
       {
         label: 'Answer with the pledge: published prices, locked by charter, forever.',
@@ -427,7 +427,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_vote_count',
         result:
-          'You answer with numbers, not poetry — a rider’s price pinned to the cost of a mid-sized car, published openly, locked into the company’s charter where no future owner can quietly raise it, with the commission itself named as enforcer. Okonkwo writes one line in her folio. The hall votes within the hour.',
+          'You answer with numbers, not poetry — a rider’s price pinned to the cost of a mid-sized car, published openly, locked into the company’s charter where no future owner can quietly raise it, with the commission itself named as enforcer. Okonkwo writes one line in his folio. The hall votes within the hour.',
       },
       {
         label: 'Answer with the record, and let the walls speak for themselves.',
@@ -473,7 +473,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         effects: [{ e: 'flag', scope: 'company', key: 'treaty_lost', v: true }],
         goto: 's_seizure_terms',
         result:
-          'Article One carries at 61 percent. The hall is quiet and procedural about it, which is somehow worse than triumph — nations taking the century’s most important structure with the energy of a zoning committee. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and her eyes find yours once, with something in them that is not victory and is not apology. The alliances you needed were not in the room, because they were never built.',
+          'Article One carries at 61 percent. The hall is quiet and procedural about it, which is somehow worse than triumph — nations taking the century’s most important structure with the energy of a zoning committee. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and his eyes find yours once, with something in them that is not victory and is not apology. The alliances you needed were not in the room, because they were never built.',
       },
     ],
   },
