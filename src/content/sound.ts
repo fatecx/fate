@@ -192,10 +192,11 @@ export const MOODS: Record<string, SoundDef> = {
   },
 }
 
-/** The danger stem — layered OVER the current mood when meters go red. */
+/** The danger stem — layered OVER the current mood when meters go RED, and
+ *  only then: this is the rarest sound in the game or it is wallpaper. */
 export const TENSION: SoundDef = {
   id: 'mus_tension',
-  gain: 0.26,
+  gain: 0.16,
   seconds: 22,
   prompt:
     'Anxious ticking pulse layer: a dry clock tick at a steady urgent tempo, soft low heartbeat thump underneath, subtle rising strain. Designed to sit over an ambient drone. Sparse, dry, seamless loop, no melody, no vocals.',

@@ -736,9 +736,10 @@ function moodOf(): 'build' | 'war' | 'aftermath' | 'endgame' {
   return 'build'
 }
 
-/** The danger stem: ticking fades in when the meters go red. Pure read. */
+/** The danger stem: ticking fades in only when death is actually close —
+ *  arrears, six weeks, or a founder about to break. Rare or it's wallpaper. */
 function tensionNow(): boolean {
-  return st.company.treasury < 0 || runwayWeeks(st.company) < 10 || st.company.stress >= 70
+  return st.company.treasury < 0 || runwayWeeks(st.company) < 6 || st.company.stress >= 85
 }
 
 /** Reconcile the decks with the moment. Film mode overrides the room. */
