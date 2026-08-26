@@ -638,7 +638,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The investigation takes nine days. The engineers walk you through it at a whiteboard with the door locked, voices level in the way of people holding something fragile with both hands.',
     prose:
-      'The record is plain, and the lawyers wish it were blurry. The relay handover dropped the connection for eleven seconds, and in that gap the body’s onboard software kept moving on its own — and that motion is what swung the panel. No human commanded it. Your machine acted alone, and a man is dead. The full log sits on the table, printed and tabbed and terrible. Salazar has asked for it, Jonah’s sister has asked for it, and OSTRA can force it out of you later if you make that necessary. The company lawyer presents three folders and gives them plain names. Publish. Settle. Deflect.',
+      'The record is plain, and the lawyers wish it were blurry. The relay handover dropped the connection for eleven seconds, and in that gap the body’s onboard software kept moving on its own — and that motion is what swung the panel. No human commanded it. Your machine acted alone, and a man is dead. The full log sits on the table, printed and tabbed and terrible. Salazar has asked for it, Jonah’s sister has asked for it, and OSTRA can force it out of you later if you make that necessary. The company lawyer presents three folders with plain names: publish, settle, or deflect.',
     choices: [
       {
         label: 'Publish everything. Ground tourism ops yourself.',

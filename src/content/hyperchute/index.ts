@@ -24,7 +24,7 @@ const ENDINGS: readonly EndingDef[] = [
         art: 'world_bell',
         bg: 'exchange',
         prose:
-          'The exchange floor at 9:28 a.m. smells like carpet cleaner and adrenaline. Somebody hands you a paddle with your own ticker on it, and you realize your hands are steady for the first time in three years.\n\nMrs. Delgado stands at the podium rail in a borrowed coat, house slippers underneath, because at eighty-one she has earned the right to be comfortable at other people’s ceremonies. She holds the ceremonial button the way she once held your first rent envelope — like it belongs to the block.\n\nAt 9:31 she presses it. The bell is louder than you expected. It sounds like dryers.',
+          'The exchange floor at 9:28 a.m. smells like carpet cleaner and adrenaline. Somebody hands you a paddle with your own ticker on it, and you realize your hands are steady for the first time in three years.\n\nMrs. Delgado stands at the podium rail in a borrowed coat, house slippers underneath, because at eighty-one she has earned the right to be comfortable at other people’s ceremonies. She holds the ceremonial button the way she once held your first rent envelope — like it belongs to the block.\n\nAt 9:31 she presses it, and the bell rings louder than you expected. It sounds like dryers.',
       },
       {
         art: 'world_dawn_flights',
@@ -159,7 +159,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_corridor',
     bg: 'wind',
     prose:
-      'The idea is a railway in the sky.\n\nSmall self-flying shuttles that park two hundred feet above the street, like train cars on an invisible track, and lower each package down a soft tube to any porch with a catch-sleeve. Four minutes from warehouse to doorstep. Soft as rain. Priced like a bus ticket.\n\nWhere MERIDIAN sends a swarm of drones, you run one quiet line — over the exact streets their map says are worthless.\n\nThat is the whole plan, and it makes you grin at 3 a.m.: start where MERIDIAN refuses to go. One approved air corridor over one forgotten neighborhood. Sixty paying porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
+      'The idea is a railway in the sky.\n\nSmall self-flying shuttles that park two hundred feet above the street, like train cars on an invisible track, and lower each package down a soft tube to any porch with a catch-sleeve. Four minutes from warehouse to doorstep, soft as rain, priced like a bus ticket.\n\nWhere MERIDIAN sends a swarm of drones, you run one quiet line — over the exact streets their map says are worthless.\n\nThat is the whole plan, and it makes you grin at 3 a.m.: start where MERIDIAN refuses to go. One approved air corridor over one forgotten neighborhood. Sixty paying porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the papers for a company called HYPERCHUTE, INC. It is one hundred percent yours, and it is worth exactly nothing.\n\nFor now.',
   },
 ]
 

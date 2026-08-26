@@ -571,7 +571,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Checkout, day four. In your bag: a signed letter of intent from a lunar base, an investment check that hasn’t cleared yet, and a handshake deal from dinner. At the front desk, the clerk runs your company card.',
     prose:
-      'The desk clerk runs the company card for the rooms, and the machine makes a sound you remember from the garage years — one small, polite, catastrophic beep. DECLINED. She tries again, because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, sits more money than this building costs to rent for a week — but in the actual account behind this card, after the shipping invoice that paid itself this morning, there is roughly enough left for the minibar. The clerk looks up with professional mercy and quietly asks if you have another card.',
+      'The desk clerk runs the company card for the rooms, and the machine makes a sound you remember from the garage years — one small, polite, catastrophic beep. DECLINED. She tries again, because people are kind, and the machine beeps again. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, sits more money than this building costs to rent for a week — but in the actual account behind this card, after the shipping invoice that paid itself this morning, there is roughly enough left for the minibar. The clerk looks up with professional mercy and quietly asks if you have another card.',
     choices: [
       {
         label: 'June steps in and pays it without a word.',

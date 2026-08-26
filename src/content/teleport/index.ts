@@ -156,7 +156,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_cape',
     bg: 'hangar',
     prose:
-      'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nYou have whatever the last life paid out, a lease, and a Tuesday meeting with a man carrying his life’s work in a cardboard box.\n\nYou are buying a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, all the way through.\n\nLast night you filed the papers. TELEPORT, INC.\n\nBe there without going.',
+      'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nYou have whatever the last life paid out, a lease, and a Tuesday meeting with a man carrying his life’s work in a cardboard box.\n\nYou are buying a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, all the way through.\n\nLast night you filed the papers for a company called TELEPORT, INC., and its whole promise fits in four words.\n\nBe there without going.',
   },
 ]
 
