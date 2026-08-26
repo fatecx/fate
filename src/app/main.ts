@@ -515,13 +515,7 @@ function cardHtml(): string {
   const scene = getScene(CONTENT, st.company.id, sceneId)
   const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
   const name = speaker?.name ?? 'THE WORLD'
-  const role = speaker?.role ?? ''
   const initial = name === 'THE WORLD' ? '∴' : name[0]
-  const fuse = fuseInfo()
-  const fuseLine =
-    fuse && fuse.total > 0
-      ? `<div class="np-fuse">ANSWER WITHIN ${fuse.remaining} WEEK${fuse.remaining === 1 ? '' : 'S'}</div>`
-      : ''
   const artId = scene.art ?? scene.speaker ?? null
   return `
   <aside class="scene-card">
@@ -529,15 +523,6 @@ function cardHtml(): string {
     <div class="portrait"><span class="sigil">${initial}</span>${
       artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
     }</div>
-    ${
-      speaker || fuseLine
-        ? `<div class="card-cap">
-      ${speaker ? `<div class="cap-title">${esc(name)}</div>` : ''}
-      ${speaker && role ? `<div class="cap-sub">${esc(role)}</div>` : ''}
-      ${fuseLine}
-    </div>`
-        : ''
-    }
   </aside>`
 }
 
