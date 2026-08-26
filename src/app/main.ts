@@ -667,10 +667,13 @@ function refreshCard(): void {
   holder.innerHTML = cardHtml()
   const next = holder.querySelector('.scene-card') as HTMLElement
   const img = next?.querySelector('.portrait-img') as HTMLImageElement | null
-  // Identical card — same print, same caption — keeps the mounted one. A swap
-  // would replay the fade and make the portrait flash in after the text.
+  // Identical card — same print, same caption — keeps the mounted one, but
+  // only once its print has actually painted. A cold image that arrives late
+  // must go through the decode-wait swap so it fades in instead of popping.
   const mounted = document.querySelector('.scene-card')
-  if (mounted && next && mounted.innerHTML === next.innerHTML) return
+  const mountedImg = mounted?.querySelector('.portrait-img') as HTMLImageElement | null
+  const same = !!mounted && !!next && mounted.innerHTML === next.innerHTML
+  if (same && (!mountedImg || mountedImg.complete)) return
   const n = ++cardSwapN
   const swap = (): void => {
     if (n !== cardSwapN) return // a newer scene already claimed the card
@@ -1695,8 +1698,10 @@ function choose(index: number): void {
 
 // ---- boot --------------------------------------------------------------------
 
-/** Every known print, decoded once and held — retained references keep the
- *  bitmaps warm in the browser's image cache so cards paint instantly.
+/** Warm only what the next moments can need: every portrait (any scene can
+ *  become a dialogue beat) plus the current scene's print. Warming the whole
+ *  library raced the opening scene for bandwidth — the portrait lost and
+ *  popped in late. Everything else loads on demand, under the fade.
  *  Fire-and-forget; play never waits on art (law 5). */
 const ART_CACHE = new Map<string, HTMLImageElement>()
 
@@ -1710,17 +1715,6 @@ function warmArt(): void {
     if (a) ids.add(a)
   }
   for (const id of Object.keys(CONTENT.characters)) ids.add(id)
-  for (const ch of Object.values(CONTENT.chapters)) {
-    for (const p of ch.prologue ?? []) if (p.art) ids.add(p.art)
-    for (const s of ch.scenes) {
-      if (s.art) ids.add(s.art)
-      for (const p of s.screens ?? []) if (p.art) ids.add(p.art)
-    }
-    for (const e of ch.endings) {
-      if (e.art) ids.add(e.art)
-      if (e.interlude?.art) ids.add(e.interlude.art)
-    }
-  }
   for (const id of ids) {
     if (ART_CACHE.has(id)) continue
     const img = new Image()
