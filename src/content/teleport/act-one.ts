@@ -363,7 +363,13 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     fuseEpochs: 3,
-    art: 'world_quote',
+    art: 'world_quote_duo',
+    vary: [
+      {
+        when: { k: 'flag', scope: 'company', key: 'june_seat', cmp: 'eq', v: true },
+        art: 'world_quote',
+      },
+    ],
     title: 'THE QUOTE',
     leadIn:
       'The Lunar Commerce Expo is eleven weeks away. For three days, every Moon base operator, tourist broker, and space investor will share one hall. To earn their attention, your test machine needs to become safe enough for a live public demo.',
