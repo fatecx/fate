@@ -8,7 +8,7 @@ import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
-import { AMBIENCE, FOLEY, MOODS, STINGERS, TENSION } from '../src/content/sound'
+import { AMBIENCE, FOLEY, MOODS, SCENE_BEDS, STINGERS, TENSION } from '../src/content/sound'
 
 describe('soundscape', () => {
   it('every non-cutscene scene in authored chapters names a room from the registry', () => {
@@ -18,6 +18,16 @@ describe('soundscape', () => {
         expect(s.ambience, `${chId}/${s.id}: missing ambience`).toBeDefined()
         expect(AMBIENCE[s.ambience!], `${chId}/${s.id}: unknown room '${s.ambience}'`).toBeDefined()
       }
+    }
+  })
+
+  it('every non-cutscene hyperchute scene has its own bespoke bed', () => {
+    for (const s of CONTENT.chapters.hyperchute.scenes) {
+      if ((s.kind ?? 'scene') === 'cutscene') continue
+      const bed = SCENE_BEDS[s.id]
+      expect(bed, `hyperchute/${s.id}: missing scene bed in soundscape.ts`).toBeDefined()
+      expect(bed.id, `hyperchute/${s.id}: bed id convention`).toBe(`scn_${s.id}`)
+      expect(bed.prompt.length, `hyperchute/${s.id}: bed prompt too thin`).toBeGreaterThan(80)
     }
   })
 
@@ -55,6 +65,7 @@ describe('soundscape', () => {
       TENSION.id,
       ...Object.values(STINGERS).map((d) => d.id),
       ...Object.values(FOLEY).map((d) => d.id),
+      ...Object.values(SCENE_BEDS).map((d) => d.id),
     ]
     expect(new Set(ids).size).toBe(ids.length)
   })
@@ -66,6 +77,7 @@ describe('soundscape', () => {
       TENSION,
       ...Object.values(STINGERS),
       ...Object.values(FOLEY),
+      ...Object.values(SCENE_BEDS),
     ]
     for (const d of defs) {
       const p = resolve(__dirname, `../public/sfx/${d.id}.mp3`)

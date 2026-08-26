@@ -11,7 +11,7 @@
  * silence — audio never blocks play. Autoplay ignition happens on the first
  * user gesture. One switch (SOUND ON/OFF) persists in localStorage.
  */
-import { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY } from '../content/sound'
+import { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY, SCENE_BEDS } from '../content/sound'
 import type { SoundDef } from '../content/sound'
 
 const SOUND_KEY = 'fate-sound'
@@ -36,7 +36,10 @@ let tensionLane: Lane | null = null
 let tensionOn = false
 
 let wantMood: string | null = null
-let wantAmb: string | null = null
+/** Ambience candidates in priority order: scene bed, then room bed. */
+let wantAmbChain: SoundDef[] = []
+let wantAmbKey = ''
+let curAmbKey = ''
 let wantAccent: string | null = null
 let wantTension = false
 
@@ -153,13 +156,15 @@ async function reconcile(): Promise<void> {
       musicLane = null
       if (def) musicLane = await startLoop(def, MUSIC_FADE)
     }
-    if (wantAmb !== (ambLane?.id ?? null)) {
-      const def = wantAmb
-        ? Object.values(AMBIENCE).find((a) => a.id === wantAmb)
-        : undefined
+    if (wantAmbKey !== curAmbKey) {
+      curAmbKey = wantAmbKey
       stopLane(ambLane, AMB_FADE)
       ambLane = null
-      if (def) ambLane = await startLoop(def, AMB_FADE, true)
+      // First candidate whose file exists wins — scene bed, then room, then silence.
+      for (const def of wantAmbChain) {
+        ambLane = await startLoop(def, AMB_FADE, true)
+        if (ambLane) break
+      }
     }
     if (wantAccent !== (accentLane?.id ?? null)) {
       const def = wantAccent
@@ -184,7 +189,7 @@ async function reconcile(): Promise<void> {
   // State may have moved while we awaited decode — settle it.
   if (
     wantMood !== (musicLane?.id ?? null) ||
-    wantAmb !== (ambLane?.id ?? null) ||
+    wantAmbKey !== curAmbKey ||
     wantAccent !== (accentLane?.id ?? null) ||
     wantTension !== tensionOn
   ) {
@@ -195,6 +200,8 @@ async function reconcile(): Promise<void> {
 export interface StageState {
   mood: keyof typeof MOODS | null
   ambience: string | null
+  /** Scene id — when a bespoke scn_<id> bed exists it outranks the room. */
+  scene?: string | null
   /** Optional second room layered low — the scene's seasoning. */
   accent?: string | null
   tension: boolean
@@ -203,7 +210,13 @@ export interface StageState {
 /** The one entry point: render layer describes the moment, decks follow. */
 export function setStage(s: StageState): void {
   wantMood = s.mood ? MOODS[s.mood]?.id ?? null : null
-  wantAmb = s.ambience ? AMBIENCE[s.ambience]?.id ?? null : null
+  const chain: SoundDef[] = []
+  const sceneBed = s.scene ? SCENE_BEDS[s.scene] : undefined
+  if (sceneBed) chain.push(sceneBed)
+  const room = s.ambience ? AMBIENCE[s.ambience] : undefined
+  if (room) chain.push(room)
+  wantAmbChain = chain
+  wantAmbKey = chain.map((d) => d.id).join('|')
   wantAccent = s.accent ? AMBIENCE[s.accent]?.id ?? null : null
   wantTension = s.tension
   if (ctx) void reconcile()
@@ -213,7 +226,9 @@ export function setStage(s: StageState): void {
  *  The next setStage starts the stage from silence. */
 export function resetStage(): void {
   wantMood = null
-  wantAmb = null
+  wantAmbChain = []
+  wantAmbKey = ''
+  curAmbKey = ''
   wantAccent = null
   wantTension = false
   stopLane(musicLane, 0.2)
@@ -234,7 +249,9 @@ export function resetStage(): void {
 export function roomPulse(): void {
   if (!ctx || !ambLane) return
   const g = ambLane.gain.gain
-  const base = Object.values(AMBIENCE).find((a) => a.id === ambLane!.id)?.gain ?? 0.5
+  const base =
+    (SCENE_BEDS[ambLane.id.replace(/^scn_/, '')] ?? Object.values(AMBIENCE).find((a) => a.id === ambLane!.id))
+      ?.gain ?? 0.5
   const at = ctx.currentTime
   g.cancelScheduledValues(at)
   g.setValueAtTime(g.value, at)
@@ -285,6 +302,7 @@ function warm(): void {
     TENSION,
     ...Object.values(STINGERS),
     ...Object.values(FOLEY),
+    ...Object.values(SCENE_BEDS),
   ]) {
     void loadBuffer(d.id)
   }

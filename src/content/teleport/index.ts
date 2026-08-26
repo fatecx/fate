@@ -148,7 +148,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_thesis',
     bg: 'wind',
     prose:
-      'Then someone sends you a nine-year-old PhD thesis, four hundred pages, self-published because no journal wanted the math at the length the math required.\n\nA relay cascade: satellites handing a signal one to the next like a bucket brigade, engineered so hard against loss that the Moon comes down to a clean, honest, guaranteed two point six seconds — no dropouts, no jitter, no lies. The author spent nine years being politely refused by every agency and fund in the industry.\n\nHis name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, someone — him — has written: THE DELAY IS NOT THE ENEMY. THE ENEMY IS PRETENDING IT ISN’T THERE.',
+      'Then someone sends you a nine-year-old research paper. Four hundred pages. Self-published, because no science journal would print math that long.\n\nThe idea inside it: a chain of relay satellites between Earth and Moon, each one handing the signal to the next like firefighters passing buckets. Built right, the chain never drops, never stutters, never lies. The Moon comes down to a clean, guaranteed 2.6 seconds — the smallest delay the laws of physics allow.\n\nThe author spent nine years being politely refused by every agency and fund in the industry. His name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, he has written: THE DELAY IS NOT THE ENEMY. THE ENEMY IS PRETENDING IT ISN’T THERE.',
   },
   {
     kicker: 'PROLOGUE',

@@ -758,6 +758,7 @@ function applyStage(film = false): void {
   setStage({
     mood: (scene?.mood && MOODS[scene.mood] ? scene.mood : moodOf()) as StageState['mood'],
     ambience: scene?.ambience ?? null,
+    scene: sceneId ?? null,
     accent: scene?.accent ?? null,
     tension: tensionNow(),
   })

@@ -283,3 +283,8 @@ export const FOLEY: Record<string, SoundDef> = {
       'A glass shop door opens with a small brass bell chime and swings shut with a soft thud. Interior cafe acoustics. One-shot, no music, no voices.',
   },
 }
+
+// Per-scene beds — one bespoke take per scene, keyed scn_<sceneId>. The
+// engine tries the scene's own bed first, then the room, then silence.
+import { HYPERCHUTE_SCENE_BEDS } from './hyperchute/soundscape'
+export const SCENE_BEDS: Record<string, SoundDef> = { ...HYPERCHUTE_SCENE_BEDS }

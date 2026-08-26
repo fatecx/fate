@@ -18,6 +18,7 @@ const dir = resolve(dirname(fileURLToPath(import.meta.url)), '../../public/sfx')
 
 const TARGETS = [
   { prefix: 'amb_', I: -26 },
+  { prefix: 'scn_', I: -26 },
   { prefix: 'fol_', I: -19 },
   { prefix: 'sting_', I: -16 },
   // mus_* untouched — the owner approved the music level as-is.

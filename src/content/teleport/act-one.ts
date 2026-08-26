@@ -688,7 +688,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         art: 'cut_first_light',
         prose:
-          'The ring goes up in threes. Three relays to a fairing, four launches, a winter of licensing paperwork — and then a night at the hangar when Omid patches the last node into the cascade and the whole constellation comes alive on the wall map like a string of streetlights switching on around the Moon.',
+          'The satellites go up three at a time. Three relays per rocket, four launches, a whole winter of licensing paperwork — and then one night at the hangar, Omid connects the final satellite into the chain, and the whole ring comes alive on the wall map like streetlights switching on around the Moon.',
       },
       {
         art: 'cut_ring_alive',

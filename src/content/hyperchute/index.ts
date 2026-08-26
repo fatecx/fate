@@ -18,7 +18,7 @@ const ENDINGS: readonly EndingDef[] = [
         art: 'world_roadshow',
         bg: 'roadshow',
         prose:
-          'The pricing call runs ninety minutes past midnight. The lead banker keeps circling a higher number with his pen, the number that would make the papers, and you keep saying the other one — the one the porches can survive if the market turns.\n\nWhen you finally say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago come in.',
+          'The night before the company goes public, the pricing call runs ninety minutes past midnight. The lead banker keeps circling the high share price with his pen — the one that makes headlines. You keep saying the lower one — the one that won’t wipe out the ordinary families who buy in, if the market turns ugly.\n\nWhen you say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago finally come in.',
       },
       {
         art: 'world_bell',
@@ -30,7 +30,7 @@ const ENDINGS: readonly EndingDef[] = [
         art: 'world_dawn_flights',
         bg: 'wind',
         prose:
-          'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, to index funds, to a retired dispatcher in Ohio who bought eleven shares at lunch — and, printed on the cover of the prospectus where the lawyers fought you and lost, to THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening the shuttles keep station like they always have, dropping parcels soft as rain onto porches that were a gray zone on somebody’s map. The map was wrong. You are the proof.',
+          'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, to index funds, to a retired dispatcher in Ohio who bought eleven shares at lunch — and, printed right on the cover of the offering documents, where the lawyers fought you and lost, to THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening the shuttles hover exactly where they always have, dropping packages soft as rain onto porches that used to be a gray zone on somebody’s map. The map was wrong. You are the proof.',
       },
       {
         art: 'world_legend_clip',
@@ -121,14 +121,14 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_below',
     bg: 'street',
     prose:
-      'You grew up in the Flats, under a sky that worked for someone else.\n\nThe drones came when you were nineteen — a hundred thousand of them, blue and quiet, sliding along invisible rails toward the hills where the tips are good. You learned to read their running lights the way other kids read constellations. They never stopped on your street. Nothing that flies ever stopped on your street.',
+      'You grew up in the Flats, the poor end of the city.\n\nWhen you were nineteen, the delivery drones arrived — a hundred thousand of them, blue and quiet, flying over your roof to the rich hills where the tips are good. Every kid on your block learned their blinking lights the way other kids learn constellations.\n\nThe drones never stopped on your street. Nothing that flies ever stopped on your street.',
   },
   {
     kicker: 'PROLOGUE · 2031',
     title: 'THE OLD WAY',
     art: 'prologue_street',
     prose:
-      'Down here, deliveries came the old way: a courier on a scratched-up e-bike, racing an algorithm’s stopwatch for rent money, and your neighbor Mrs. Okafor waiting forty minutes for a bus to bring back her insulin because the pharmacy quit stocking it. You watched all of it from below, every day, until watching started to feel like a decision you were making.',
+      'In the Flats, deliveries still came the old way. A courier on a beat-up e-bike, racing a delivery app’s timer for rent money. Your neighbor Mrs. Okafor riding the bus forty minutes each way for her insulin, because the corner pharmacy closed.\n\nYou watched it every day. After a while, just watching started to feel like a choice you were making.',
   },
   {
     kicker: 'PROLOGUE · THE MACHINE',
@@ -136,14 +136,14 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_dispatch',
     bg: 'dispatch',
     prose:
-      'You know exactly how the sky works, because for eight years it was your job.\n\nA dispatch floor, a MERIDIAN sub-contractor, a headset. MERIDIAN LOGISTICS NETWORKS: the ninety-one-billion-dollar colossus whose routing brain makes eleven million decisions a minute and whose executives mostly announce what it already decided. There was a T-shirt the managers wore on launch days — LOGISTICS IS A SOLVED PROBLEM — and for the hills, it was.',
+      'You know exactly how those drones work, because routing them was your job for eight years.\n\nA headset, a dispatch floor, a MERIDIAN subcontractor. MERIDIAN LOGISTICS NETWORKS — the ninety-one-billion-dollar giant whose routing computer makes eleven million decisions a minute, while the executives mostly announce whatever it already decided.\n\nOn launch days the managers wore a T-shirt: LOGISTICS IS A SOLVED PROBLEM. For the rich hills, it was.',
   },
   {
     kicker: 'PROLOGUE · THE MACHINE',
     title: 'THE VERDICT',
     art: 'prologue_map',
     prose:
-      'Over your desk hung the planning map. Your whole neighborhood — your school, your mother’s block, the laundromat on the corner — sat inside a gray zone stamped LOW-DENSITY YIELD. Eight years, you stared at that stamp. A verdict, printed in helvetica, on every street you ever loved.',
+      'Over your desk hung the company’s delivery map. Your whole neighborhood — your school, your mother’s block, the laundromat on the corner — sat inside a gray zone stamped LOW-DENSITY YIELD.\n\nThat’s company language for: not worth delivering to.\n\nYou stared at that stamp for eight years. A verdict, printed in clean corporate type, on every street you ever loved.',
   },
   {
     kicker: 'PROLOGUE · THE TUESDAY',
@@ -151,7 +151,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_garage',
     bg: 'garage',
     prose:
-      'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nWhat you had: a severance check, an index fund, a car, half an apartment deposit, and an idea that would not leave you alone. You sold all of it except the idea — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nWhat you bought: a lease on a garage above the Sudz & Spin laundromat, four months of nights, and the parts. Dryer heat through the floorboards. Solder smoke. And slowly, on a braided tether under the ceiling, a machine taking shape — the thing you saw every night on the dispatch floor when you closed your eyes.',
+      'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nThen you sold everything you owned. The savings, the car, half an apartment deposit — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nYou kept one thing: an idea that would not leave you alone.\n\nThe money bought a garage above the Sudz & Spin laundromat, four months of late nights, and a pile of parts. Dryer heat through the floorboards. Solder smoke. And slowly, hanging from a rope under the ceiling, a machine taking shape — the thing you saw every night when you closed your eyes on the dispatch floor.',
   },
   {
     kicker: 'PROLOGUE · THE RAILWAY',
@@ -159,7 +159,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_corridor',
     bg: 'wind',
     prose:
-      'A railway in the sky. Not drones — a fixed line. Autonomous shuttles that hold station two hundred feet up and lower each parcel down a pneumatic tube to any porch with a receiver sleeve. Four minutes. Soft as rain. Priced like a bus ticket. No propellers over playgrounds, no stopwatch chewing up couriers — gravity, tamed, for the streets the machines forgot.\n\nAnd the plan is the part that makes you grin at 3 a.m.: start exactly where MERIDIAN refuses to go. One permitted corridor over one forgotten neighborhood. Sixty subscribing porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the incorporation papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
+      'The idea is a railway in the sky.\n\nSmall self-flying shuttles that park two hundred feet above the street, like train cars on an invisible track, and lower each package down a soft tube to any porch with a catch-sleeve. Four minutes from warehouse to doorstep. Soft as rain. Priced like a bus ticket.\n\nWhere MERIDIAN sends a swarm of drones, you run one quiet line — over the exact streets their map says are worthless.\n\nThat is the whole plan, and it makes you grin at 3 a.m.: start where MERIDIAN refuses to go. One approved air corridor over one forgotten neighborhood. Sixty paying porches. Then the next street, then the next — until their LOW-DENSITY YIELD map is your empire, drawn in orange.\n\nLast night you filed the papers. HYPERCHUTE, INC. One hundred percent yours, worth exactly nothing.\n\nFor now.',
   },
 ]
 
