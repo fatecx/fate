@@ -13,6 +13,7 @@ import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
+import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
 import { MOODS } from '../content/sound'
@@ -1484,6 +1485,18 @@ function renderWelcome(saved: Save | null): void {
   app.innerHTML = ''
   // The title screen hums the film bed once the first gesture unlocks audio.
   setStage({ mood: 'film', ambience: null, tension: false })
+  // A wallet the game has never met gets the front door: the landing scroll.
+  // Anyone signed or mid-life skips marketing and goes straight to their page.
+  if (!saved && !session) {
+    renderLanding(app, () => {
+      document.querySelector('.landing')?.remove()
+      renderConnect(
+        () => renderWelcome(null),
+        () => void enterAsFounder(),
+      )
+    })
+    return
+  }
   if (saved) {
     takeover(`
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>

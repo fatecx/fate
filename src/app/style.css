@@ -547,3 +547,151 @@ body:has(.lb-shell) { overflow: auto; }
   .rail { gap: 14px; }
   .runway b { font-size: 21px; }
 }
+
+/* ---- the landing scroll — fate.cx's front door (src/app/landing.ts) ----
+   Film register: ink wall, the real prints drifting behind pinned beats.
+   Same type system as the takeovers; the game's own light, marketing nothing
+   the engine can't keep. */
+html:has(.landing), html:has(.landing) body { background: #000; }
+.landing { position: fixed; inset: 0; z-index: 60; background: #000; color: #ecede9; }
+.ld-scroll { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.ld-bg { position: absolute; inset: 0; pointer-events: none; }
+.ld-bg-img {
+  position: absolute; inset: -7%;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.5s ease;
+  animation: ldDrift 26s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+.ld-veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 66%, rgba(0,0,0,0.62) 100%),
+    radial-gradient(ellipse at center, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.74) 82%, #000 100%);
+}
+@keyframes ldDrift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.09) translate3d(1.5%, -1.2%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-bg-img { animation: none; transition: opacity 0.3s ease; }
+  .ld-beat { transition: none !important; }
+}
+.ld-enter-chip {
+  position: absolute; top: 18px; right: 20px; z-index: 5;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+  color: #ecede9; border: 1px solid #3a3d44; border-radius: 99px; padding: 7px 16px;
+  background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
+}
+.ld-enter-chip:hover { color: var(--accent); border-color: var(--accent); }
+.ld-scene { min-height: 100svh; display: grid; place-items: center; padding: 90px 24px; position: relative; }
+.ld-scene.ld-short { min-height: 76svh; }
+.ld-scene.ld-tall { min-height: 100svh; }
+.ld-beat {
+  max-width: 640px; text-align: center; position: relative;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.ld-scene.on .ld-beat { opacity: 1; transform: none; }
+.ld-beat.ld-wide { max-width: 1060px; }
+.ld-kicker {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+  color: var(--accent); text-transform: uppercase;
+}
+.ld-title {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(64px, 17vw, 160px); letter-spacing: 0.12em;
+  margin: 14px 0 8px; line-height: 1;
+}
+.ld-tag { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; color: #c9cac4; }
+.ld-hero .ld-cta { margin-top: 34px; }
+.ld-scrollcue {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: -18svh;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.4em; color: #8b8d85;
+  animation: ldPulse 2.2s ease-in-out infinite;
+}
+@keyframes ldPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+.ld-head {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(26px, 5vw, 44px); letter-spacing: 0.05em; margin: 14px 0 4px;
+  text-wrap: balance;
+}
+.ld-glyph { font-size: 22px; color: var(--accent); margin-bottom: 10px; }
+.ld-body { line-height: 1.8; color: #c9cac4; margin-top: 18px; font-size: 15.5px; text-align: left; }
+.ld-beat > .ld-body:first-of-type { margin-top: 22px; }
+.ld-stat {
+  margin-top: 26px; font-family: var(--mono); font-size: 12px;
+  letter-spacing: 0.22em; color: #ecede9;
+}
+.ld-cta { font-size: 15px; padding: 13px 26px; }
+
+/* chapter cards */
+.ld-chapters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 34px; }
+.ld-card { text-align: left; border: 1px solid #23262c; border-radius: 10px; overflow: hidden; background: rgba(10, 11, 13, 0.72); }
+.ld-card-art { aspect-ratio: 3 / 2; background: #0a0b0d; display: grid; place-items: center; overflow: hidden; }
+.ld-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ld-card-sigil { font-family: var(--display); font-weight: 800; font-size: 44px; color: #23262c; }
+.ld-card-kicker { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.24em; color: var(--accent); padding: 14px 16px 0; }
+.ld-card-name { font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: 0.06em; padding: 5px 16px 0; }
+.ld-card-line { font-size: 12.5px; line-height: 1.65; color: #9b9d96; padding: 8px 16px 16px; margin: 0; }
+.ld-card.sealed .ld-card-name { color: #8b8d85; letter-spacing: 0.2em; }
+
+/* the read-only first scene */
+.ld-stagebox {
+  display: flex; gap: 26px; margin-top: 30px; text-align: left;
+  border: 1px solid #23262c; border-radius: 12px; background: rgba(8, 9, 11, 0.82);
+  padding: 26px; align-items: flex-start;
+}
+.ld-portrait { flex: 0 0 240px; border-radius: 8px; overflow: hidden; border: 1px solid #23262c; position: relative; }
+.ld-portrait img { width: 100%; display: block; }
+.ld-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85)); }
+.ld-cap-name { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
+.ld-cap-role { font-family: var(--mono); font-size: 10px; color: #9b9d96; letter-spacing: 0.08em; margin-top: 2px; }
+.ld-script { min-width: 0; }
+.ld-leadin { font-family: var(--mono); font-size: 12px; color: #8b8d85; line-height: 1.7; }
+.ld-scene-title { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: 0.05em; margin: 12px 0 10px; }
+.ld-prose { line-height: 1.8; color: #c9cac4; font-size: 14.5px; }
+.ld-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+.ld-choice {
+  text-align: left; font-size: 13.5px; padding: 11px 14px;
+  border: 1px solid #2a2d33; border-radius: 8px; color: #7c7e76; cursor: default;
+}
+.ld-choice-gate {
+  margin-top: 14px; width: 100%; text-align: center;
+  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.2em;
+  padding: 13px 14px; border: 1px solid var(--accent); border-radius: 8px; color: var(--accent);
+}
+.ld-choice-gate:hover { background: var(--accent); color: #fff; }
+
+/* plaques */
+.ld-quote {
+  font-size: clamp(19px, 3.4vw, 27px); line-height: 1.6; text-wrap: balance;
+  font-weight: 500;
+}
+.ld-source { margin-top: 18px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; color: #8b8d85; }
+
+/* the record chips */
+.ld-chips { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; }
+.ld-chip {
+  font-family: var(--mono); font-size: 12px; line-height: 1.6; color: #c9cac4;
+  border: 1px solid #2a2d33; border-radius: 8px; padding: 10px 14px; text-align: left;
+}
+.ld-chip b { color: var(--accent); }
+
+/* covenant + footer */
+.ld-covenant {
+  margin-top: 40px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em;
+  color: #ecede9; display: flex; flex-direction: column; gap: 8px;
+}
+.ld-foot { margin-top: 56px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: #8b8d85; }
+
+@media (max-width: 900px) {
+  .ld-chapters { grid-template-columns: repeat(2, 1fr); }
+  .ld-stagebox { flex-direction: column; }
+  .ld-portrait { flex: none; width: min(240px, 60%); }
+}
+@media (max-width: 560px) {
+  .ld-chapters { grid-template-columns: 1fr; }
+  .ld-scene { padding: 70px 18px; }
+  .ld-body { font-size: 14.5px; }
+}
