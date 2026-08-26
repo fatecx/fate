@@ -667,6 +667,10 @@ function refreshCard(): void {
   holder.innerHTML = cardHtml()
   const next = holder.querySelector('.scene-card') as HTMLElement
   const img = next?.querySelector('.portrait-img') as HTMLImageElement | null
+  // Identical card — same print, same caption — keeps the mounted one. A swap
+  // would replay the fade and make the portrait flash in after the text.
+  const mounted = document.querySelector('.scene-card')
+  if (mounted && next && mounted.innerHTML === next.innerHTML) return
   const n = ++cardSwapN
   const swap = (): void => {
     if (n !== cardSwapN) return // a newer scene already claimed the card
