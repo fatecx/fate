@@ -695,7 +695,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Mrs. Delgado raises your rent and calls it congratulations. Even investors pay market rate. The waiting list is a spreadsheet now. Money in the account comes from customers instead of savings. In the room next door, letters from the Office of Aerial Corridors have grown thicker than the Bible. Hard things are coming — a copycat, a war, a problem still hidden from you. The railway is real now. You built it, with help you chose well or chose badly.',
+      'Mrs. Delgado raises your rent and calls it congratulations. Even investors pay market rate. The waiting list is a spreadsheet now. Money in the account comes from customers instead of savings. In the room next door, letters from the Office of Aerial Corridors have grown thicker than the Bible. Hard things are coming — a copycat, a war, a problem still hidden from you. The railway is real now, and you built it, along with every choice about who got to help.',
     choices: [
       {
         label: 'Face year two',

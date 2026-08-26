@@ -214,7 +214,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           'You take the red photograph down yourself. That is the honest way, and the room still goes one degree colder. Omid nods, says “Understood,” and works the rest of the day in silence. By morning the photo is gone from the trash. You leave that mystery alone.',
       },
       {
-        label: 'Split the lab. One bench keeps Mars breathing.',
+        label: 'Split the lab. Keep one small Mars bench alive.',
         effects: [
           { e: 'burn', d: 2500 },
           { e: 'rel', who: 'farrokh', aff: 3 },
@@ -360,7 +360,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The Lunar Commerce Expo is eleven weeks away. For three days, every Moon base operator, tourist broker, and space investor will share one hall. To earn their attention, your test machine needs to become safe enough for a live public demo.',
     prose:
-      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and buying the insurance the hall demands when a robot moves over satellite in front of a crowd. The total sits brutally close to everything the company has left. June’s spreadsheet, or the ghost of it if she is gone, says the same thing: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
+      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and buying the insurance the hall demands when a robot moves over satellite in front of a crowd. The total sits brutally close to everything the company has left. The math says the same thing no matter who reads it: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
     choices: [
       {
         label: 'Pay it in full. Flight-rate everything.',
@@ -535,7 +535,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           'She signs on the crate lid like it is a field desk, which for her it is. “Paper first, dinner never,” she says, already leaving. An hour later Vance signs his check at the booth, writing SOMEDAY, PROPERLY on the memo line in fountain pen, and Hale’s dinner invitation still stands. Money from customers before money from investors — Salazar would approve of the order.',
       },
       {
-        label: 'Take Vance’s check before compliance wakes up.',
+        label: 'Take Vance’s check first, before his company’s lawyers can kill it.',
         foley: 'pen',
         effects: [
           { e: 'meet', who: 'vance' },
@@ -551,7 +551,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           'He signs it at the booth counter with the same fountain pen as the coffee shop, years ago, and taps the memo line: SOMEDAY, PROPERLY — PAID. “Frame this one too,” he says. Salazar’s letter of intent gets signed twenty minutes later on the crate lid anyway. She waited, arms folded, timing you.',
       },
       {
-        label: 'All three, one long evening, no sleep.',
+        label: 'Do all three tonight: Salazar’s letter, Vance’s check, dinner with Hale.',
         effects: [
           { e: 'meet', who: 'salazar' },
           { e: 'meet', who: 'vance' },
@@ -576,10 +576,10 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Checkout, day four. In your bag: a signed letter of intent from a lunar base, an investment check that hasn’t cleared yet, and a handshake deal from dinner. At the front desk, the clerk runs your company card.',
     prose:
-      'The desk clerk runs the company card for the rooms, and the machine makes a sound you remember from the garage years — one small, polite, catastrophic beep. DECLINED. She tries again, because people are kind, and the machine beeps again. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, sits more money than this building costs to rent for a week — but in the actual account behind this card, after the shipping invoice that paid itself this morning, there is roughly enough left for the minibar. The clerk looks up with professional mercy and quietly asks if you have another card.',
+      'The desk clerk runs the company card for the rooms, and the machine makes a sound you remember from the garage years — one small, polite, catastrophic beep. DECLINED. She tries again, because people are kind, and the machine beeps again. The money is real. You checked the balance twice from the elevator. But the freight company’s automatic charge hit the account at 6 a.m., and a charge that large tripped the bank’s fraud alarm, which froze the card on the spot. The department that unfreezes cards opens Monday. It is Friday. Behind you, half the space industry is checking out of the same hotel, and you are, for one long weekend, a founder with money he cannot touch. The clerk looks up with professional mercy and quietly asks if you have another card.',
     choices: [
       {
-        label: 'June steps in and pays it without a word.',
+        label: 'Ask June to put it on her personal card.',
         requires: { k: 'met', who: 'june' },
         effects: [
           { e: 'rel', who: 'june', aff: 2 },
@@ -593,7 +593,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           'Her personal card taps once. She keeps her eyes on the clerk. The conversation about freight keeps moving, as if nothing happened. In the shuttle to the airport she finally says, “We are never telling Hale about this,” and you both laugh the specific laugh of people who were nearly dead an hour ago.',
       },
       {
-        label: 'Omid’s personal card. He offers before you ask.',
+        label: 'Accept Omid’s personal card.',
         effects: [
           { e: 'rel', who: 'farrokh', aff: 2 },
           { e: 'treasury', d: -9000 },
@@ -606,7 +606,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           'He has it out of his wallet before the second beep finishes, and pays a five-figure hotel bill with the flat expression of a man buying gum. Later, on the plane, he says the only thing he will ever say about it: “Nine years nobody funded me. I know that sound. I hear it once. Then I pay.”',
       },
       {
-        label: 'Negotiate: invoice the company, thirty days net.',
+        label: 'Talk the hotel into billing the company later.',
         effects: [
           { e: 'stress', d: 6 },
           { e: 'flag', scope: 'company', key: 'card_talked', v: true },
@@ -614,7 +614,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hale_terms',
         result:
-          'It takes a manager, a copy of Salazar’s signed letter as proof the company is real, and every ounce of charm left in your ruined voice. The hotel agrees to bill you. You walk through a lobby full of the industry you are about to join, broke flat, carrying the company’s future in a tote bag.',
+          'It takes a manager, a copy of Salazar’s signed letter as proof the company is real, and every ounce of charm left in your ruined voice. The hotel agrees to bill you. You walk through a lobby full of the industry you are about to join, locked out of your own money until Monday, carrying the company’s future in a tote bag.',
       },
     ],
   },

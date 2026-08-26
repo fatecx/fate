@@ -83,7 +83,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           'The crate — the same casket-sized crate — gets loaded by people who have no idea what they are carrying. In the collector’s lobby it will stand under track lighting with a plaque that gets the date wrong. Payroll clears. The corner of the hangar stays empty for months because nobody can decide what deserves the spot.',
       },
       {
-        label: 'Keep it. Some things are load-bearing.',
+        label: 'Keep it. Find the payroll money somewhere else.',
         effects: [
           { e: 'flag', scope: 'company', key: 'body_pawned', v: true },
           { e: 'stress', d: 3 },
@@ -170,7 +170,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           'Eleven people, one bench, most of the softness. You tell each of them yourself, face to face. It fixes nothing and matters anyway. The building is quieter afterward in a way that has nothing to do with headcount.',
       },
       {
-        label: 'Cut shallow. Bet on the pipeline instead.',
+        label: 'Cut shallow. Bet the next deal closes in time.',
         effects: [
           { e: 'burn', d: -3000 },
           { e: 'flag', scope: 'company', key: 'great_cut', v: true },

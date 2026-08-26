@@ -66,7 +66,7 @@ export const SURVIVAL: readonly SceneDef[] = [
       'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate, you pat your pockets, sigh, and give the sorry smile of a man who must have left his wallet at home. The attendant sees the suit and waves you through. The man inside the suit was counting on that.',
     choices: [
       {
-        label: 'Sell it. The suit rides free today.',
+        label: 'Bluff your way through the gate. The suit rides free.',
         effects: [
           { e: 'treasury', d: 30000 },
           { e: 'stress', d: 4 },
@@ -114,7 +114,7 @@ export const SURVIVAL: readonly SceneDef[] = [
       'The choice sits on the workbench beside the coins. You can buy a week of electricity or a week of food. The shuttle needs the bench powered. You need to eat. You stand in the garage a long time with the money in your fist, learning something no pitch deck will ever hold.',
     choices: [
       {
-        label: 'The meter. Lights on. Hungry is a work state.',
+        label: 'Spend it on the electric meter. Work hungry.',
         effects: [
           { e: 'stress', d: 5 },
           { e: 'score', d: 2 },
@@ -124,7 +124,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           'The bench hums for seven more days. You work all of them light-headed, precise, and living on plain pasta and tap water. Years from now, someone will ask what founding a company was really like. This story stays yours.',
       },
       {
-        label: 'Food. A body that fails helps nobody.',
+        label: 'Spend it on food. Plan on paper for a week.',
         effects: [
           { e: 'stress', d: -3 },
           { e: 'flag', scope: 'company', key: 'chose_the_food', v: true },

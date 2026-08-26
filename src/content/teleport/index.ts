@@ -22,7 +22,7 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'end_t_bell',
         prose:
-          'The bell rings at 9:31, because you asked for the same minute on purpose.\n\nOn the podium: a CFO who waited eleven companies to stand there as an operator, gripping the rail with both hands. A cofounder — whole, or mended, or watching from a lawn chair at the Cape with the feed on his knees — whose number made the whole thing true. On the big board, under the ticker, where the exchange usually runs a slogan, you paid to keep one line:\n\nEVERY SESSION CARRIES 2.6 SECONDS OF LIGHT-SPEED HONESTY.',
+          'The bell rings at 9:31, because you asked for the same minute on purpose.\n\nOn the podium: a CFO who waited eleven companies to stand there as an operator, gripping the rail with both hands, and beside her the number 2.61, printed on the banner, the cofounder’s truth that made the whole thing possible. On the big board, under the ticker, where the exchange usually runs a slogan, you paid to keep one line:\n\nEVERY SESSION CARRIES 2.6 SECONDS OF LIGHT-SPEED HONESTY.',
       },
       {
         art: 'end_t_verge',
@@ -105,7 +105,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a group building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a group building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {

@@ -175,7 +175,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_s_costs',
     bg: 'night',
     prose:
-      'You know exactly what the last two companies cost you, because you carry the receipts in your body.\n\nThe garage years cost your savings and half your health. The Moon years cost a cofounder’s trust, a worker’s life, and your father’s last flight — the ticket bought eleven days too late, or the visit made just in time, depending on which life you lived.\n\nEvery company is a bet, and you have learned the real stakes are never the money. The money is just how the bet keeps score.\n\nThis one will be the biggest bet anyone has ever placed. Billions of dollars. Thousands of people. Nations at the table, some of them as enemies.\n\nYou are forty-five years old. You do the arithmetic at your kitchen table one night: this is the last one you will have the strength to build from zero.\n\nThen you call Ingrid Voss.',
+      'You know exactly what the last two companies cost you, because you carry the receipts in your body.\n\nThe garage years cost your savings and half your health. The Moon years cost a worker’s life, a cofounder’s peace, and your father — who kept every clipping in a shoebox and never got to see this one.\n\nEvery company is a bet, and you have learned the real stakes are never the money. The money is just how the bet keeps score.\n\nThis one will be the biggest bet anyone has ever placed. Billions of dollars. Thousands of people. Nations at the table, some of them as enemies.\n\nYou are forty-five years old. You do the arithmetic at your kitchen table one night: this is the last one you will have the strength to build from zero.\n\nThen you call Ingrid Voss.',
   },
   {
     kicker: 'PROLOGUE',

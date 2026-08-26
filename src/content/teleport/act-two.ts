@@ -439,7 +439,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           'The statement your comms consultant drafts says almost nothing, and Nadia prints it in full. That is worse than any rebuttal — a paragraph of corporate fog under a slow-motion video of a machine moving before it was told to. She keeps reporting. A source who feels used becomes a headline. A journalist who gets stonewalled becomes an archive.',
       },
       {
-        label: 'Call ATLAS. Vance’s ad budget can find her editor.',
+        label: 'Call Vance. Ask him to lean on her editor with ATLAS’s ad money.',
         effects: [
           { e: 'flag', scope: 'company', key: 'nadia_leaned', v: true },
           { e: 'rel', who: 'nadia', resp: -3, standing: 'hostile' },

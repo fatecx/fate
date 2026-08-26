@@ -375,7 +375,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         result: 'You do eleven interviews in six days and say the same true thing each time. The railway was built for this. The list grows by forty thousand names.',
       },
       {
-        label: 'Send the courier. Keep yourself off camera.',
+        label: 'Send Rosa the courier to the interviews. Stay off camera.',
         goto: 'h_b_after_viral',
         effects: [
           { e: 'rep', d: 1 },

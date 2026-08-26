@@ -20,7 +20,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         art: 'cut_year_three',
         prose:
-          'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds. The Verge schedule runs. The chair in the storefront has a waiting list or a waiting silence, depending on the choices that got you here. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+          'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds, the Verge schedule runs, and the storefront chair keeps its bookings. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
       },
       {
         art: 'cut_year_three_earth',
@@ -83,28 +83,80 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE SHOEBOX',
     skipToWeek: 116,
     priority: true,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 110 }, { k: 'seen', scene: 't_father_call' }] },
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 110 },
+        { k: 'seen', scene: 't_father_call' },
+        { k: 'flag', scope: 'company', key: 'stayed_working', cmp: 'eq', v: true },
+      ],
+    },
     art: 'cut_shoebox',
     screens: [
       {
         art: 'cut_father_hall',
         prose:
-          'He goes in his sleep, in the house he paid off. Eleven days before the flight you finally booked — or eleven days after you flew home, depending on what you chose. Either way, you will do that math for the rest of your life.\n\nThe funeral fills a union hall. Machinists in good suits. Your mother, upright and terrifying in her grief. Casseroles arriving like an airlift. Mrs. Delgado comes, eighty-three now, on her grandson’s arm, and holds your face in both hands. Her silence says everything.',
+          'He goes in his sleep, in the house he paid off — eleven days before the flight you finally booked. The confirmation email is still open in your browser tab when your sister calls. You will do that math for the rest of your life.\n\nThe funeral fills a union hall. Machinists in good suits. Your mother, upright and terrifying in her grief. Casseroles arriving like an airlift. Mrs. Delgado comes, eighty-three now, on her grandson’s arm, and holds your face in both hands. Her silence says everything.',
       },
       {
         art: 'cut_shoebox',
         prose:
-          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping. The garage story, the corridor fight, the accident — the bad ones too, creased from reading. The Hyperchute prospectus, or the bankruptcy notice, or both. A printout of the TELEPORT expo demo, the crowd mid-count. And on top, taped there recently, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And on top, taped there recently, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
       },
     ],
     prose:
-      'Your father dies. The shoebox he leaves holds every clipping of every company — and six words that will outlast all of them.',
+      'Your father dies eleven days before the visit you kept postponing. The shoebox he leaves holds every clipping of every company — and six words that will outlast all of them.',
     choices: [
       {
         label: 'Continue',
         effects: [
           { e: 'flag', scope: 'company', key: 'father_gone', v: true },
-          { e: 'stress', d: 10 },
+          { e: 'stress', d: 12 },
+        ],
+      },
+    ],
+  },
+  {
+    id: 't_father_death_seen',
+    kind: 'cutscene',
+    title: 'THE SHOEBOX',
+    skipToWeek: 116,
+    priority: true,
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 110 },
+        { k: 'seen', scene: 't_father_call' },
+        {
+          k: 'any',
+          of: [
+            { k: 'flag', scope: 'company', key: 'went_home', cmp: 'eq', v: true },
+            { k: 'flag', scope: 'company', key: 'father_cape', cmp: 'eq', v: true },
+          ],
+        },
+      ],
+    },
+    art: 'cut_shoebox',
+    screens: [
+      {
+        art: 'cut_father_hall',
+        prose:
+          'He goes in his sleep, in the house he paid off — eleven days after you saw him last. You got the time with him. Grief takes what it takes anyway, but it cannot take that.\n\nThe funeral fills a union hall. Machinists in good suits. Your mother, upright and terrifying in her grief. Casseroles arriving like an airlift. Mrs. Delgado comes, eighty-three now, on her grandson’s arm, and holds your face in both hands. Her silence says everything.',
+      },
+      {
+        art: 'cut_shoebox',
+        prose:
+          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And at the top of the stack, added in the last month of his life, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+      },
+    ],
+    prose:
+      'Your father dies eleven days after you saw him last — you got the time with him. The shoebox he leaves holds every clipping of every company, and six words that will outlast all of them.',
+    choices: [
+      {
+        label: 'Continue',
+        effects: [
+          { e: 'flag', scope: 'company', key: 'father_gone', v: true },
+          { e: 'stress', d: 9 },
         ],
       },
     ],
@@ -170,7 +222,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The vote is at nine tomorrow. Tonight the phone sits on the table like a loaded question. A few calls are still worth making. The call that would fix everything — to the better board you wish you had built — connects to nobody.',
     prose:
-      'You know the count cold because you ran it in the parking lot, twice. Hale votes for the motion. The model sends memos it expects to win. Your seat is yours. Everything else was decided months and years ago: the term sheet you signed, the seat you fought for or gave away, the cofounder you kept whole or broke, the numbers you shared or shaded. Tomorrow the room adds all of it up, out loud, in front of you. Tonight, the only question left is how you walk in.',
+      'You know the count cold because you ran it in the parking lot, twice. Hale votes for the motion. The model sends memos it expects to win. Your seat is yours. Everything else was decided months and years ago, in rooms that did not look like this one — the term sheet, the fifth chair, the cofounder, the numbers you reported. Tomorrow the room adds all of it up, out loud, in front of you. Tonight, the only question left is how you walk in.',
     choices: [
       {
         label: 'Sit with June tonight. Walk in with your CFO.',
@@ -264,7 +316,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'Nine a.m. The very good chairs. The motion is read aloud, and you watch the room count itself. You meant to build a different room. This is the one you built.',
     prose:
-      'It is over in eleven minutes. The seats you never filled with allies do the deciding, and the cofounder you broke — if you broke him — votes the way broken partners vote, eyes down. The model’s memo sits at the center of the table, doing the one thing models do honestly, which is remember everything. The count carries. Deep in the paperwork you signed back when the money mattered more, a clause with your name in it activates, polite as a trapdoor with manners. Conrad Hale does not gloat, and the model would not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
+      'It is over in eleven minutes. The seats you never filled with allies do the deciding, one polite voice at a time. The model’s memo sits at the center of the table, doing the one thing models do honestly, which is remember everything. The count carries. Deep in the paperwork you signed back when the money mattered more, a clause with your name in it activates, polite as a trapdoor with manners. Conrad Hale does not gloat, and the model would not know how. “Effective immediately,” the lawyer says. Before you reach the parking lot, your badge has stopped opening the doors of the company you founded.',
     choices: [
       {
         label: 'Clean out the desk. Shake every hand on the floor.',
@@ -370,7 +422,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           'The refusal is one paragraph. HALCYON answers with silence: no counter, no pressure, no acknowledgment. That silence is the most honest thing HALCYON has ever sent you. Somewhere in its planning system, your file just moved from the queue of things it wants to buy into the queue of things it plans to beat.',
       },
       {
-        label: 'Counter: peace, paid for in launch priority.',
+        label: 'Counter: you drop the OSTRA case, they guarantee your launches.',
         requires: { k: 'flag', scope: 'company', key: 'ostra_filed', cmp: 'eq', v: true },
         effects: [
           { e: 'treasury', d: 600000 },
@@ -413,7 +465,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The bankers come to the Cape this time — a different bank, or the same bank with a different posture. The founder they are pitching has done this before, and the file says so.',
     prose:
-      'The buyers line up for a company that has told the truth when the truth cost money: the death at the pole published with the fault marked in your own hand, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up. You realize she has read the Hyperchute file, or lived it, because she says this first: “I already know which number you’re going to pick. I told the bank group to model the honest one.” Around the table sit a CFO who waited eleven companies to ring a bell as an operator, a CTO who is whole, or mended, or an empty chair, and board signatures you earned one vote at a time.',
+      'The buyers line up for a company that has told the truth when the truth cost money: the death at the pole published with the fault marked in your own hand, the delay framed by the hangar door, the forecast that came in flat and true. The lead banker circles a price with her pen — the high number, the one that makes headlines on day one and regrets by spring — and looks up. You realize she has read the Hyperchute file, or lived it, because she says this first: “I already know which number you’re going to pick. I told the bank group to model the honest one.” Around the table sit a CFO who waited eleven companies to ring a bell as an operator, and board signatures you earned one vote at a time.',
     choices: [
       {
         label: 'Take the company public. Price the honest number.',
@@ -544,7 +596,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           'The standing number, accepted at last. The integration team arrives wearing your competitor’s patience.',
       },
       {
-        label: 'Sunset with honors. Wind it down whole.',
+        label: 'Close the company with honors. Pay everyone, land everything.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
           'Obligations first: the Verge contract handed off intact, the operators placed, the customers made whole. What cannot be handed off is brought down — carefully, publicly, one satellite at a time. A company that ends on purpose, owing nothing, is so rare the trade press has no template for it.',

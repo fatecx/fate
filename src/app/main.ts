@@ -114,7 +114,7 @@ function hueFor(id: string): number {
 
 function fmtRunway(): string {
   const rw = runwayWeeks(st.company)
-  return Number.isFinite(rw) ? String(Math.max(1, Math.ceil(rw))) : '∞'
+  return Number.isFinite(rw) ? String(Math.max(1, Math.ceil(rw))) : 'PROFITABLE'
 }
 
 function fuseInfo(): { remaining: number; total: number } | null {
@@ -324,7 +324,9 @@ function railHtml(): string {
   }).join('')
   const runwayBlock = arrears
     ? `<div class="runway danger"><b>—</b><span>IN<br/>ARREARS</span></div>`
-    : `<div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>`
+    : Number.isFinite(runwayWeeks(st.company))
+      ? `<div class="runway ${danger ? 'danger' : ''}"><b>${fmtRunway()}</b><span>RUNWAY<br/>WEEKS</span></div>`
+      : `<div class="runway"><b>+</b><span>PROFIT-<br/>ABLE</span></div>`
   return `
   <header class="rail">
     <div class="wordmark">FATE<em>·</em></div>

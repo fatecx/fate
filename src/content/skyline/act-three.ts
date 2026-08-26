@@ -452,7 +452,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The voting board fills nation by nation, green and red climbing like rival tides, and every alliance you built or broke across five years casts its shadow on the wall in real time.',
     prose:
-      'You watch the years vote. MERIDIAN’s bloc of trade partners moves as Marcus promised it would, or does not, because a lunch in the Flats went one way or another. Chen’s delegations abstain or press red, depending on a paragraph of truth at a dinner table. The small nations read the published tear, or the buried one, and vote like people who have been lied to before. And threaded through the tallies, invisible and everywhere, an AI fund’s quiet counsel to forty governments that hold its bonds — priced, as always, on a decade of your honesty. The gavel waits while the board fills, and the count is whatever the years have made it.',
+      'You watch the years cast their votes. Trade blocs move the way old alliances taught them to move. Delegations weigh dinner-table conversations from months ago. The small nations reread your safety record line by line and vote like people who have been lied to before. And threaded through the tallies, invisible and everywhere, runs an AI fund’s quiet counsel to forty governments that hold its bonds — priced, as always, on a decade of your honesty. The gavel waits while the board fills, and the count is whatever the years have made it.',
     choices: [
       {
         label: 'The room holds — the treaty fails, the road stays yours.',
@@ -570,7 +570,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_endgame',
     title: 'WHAT THE ROAD BECOMES',
     leadIn:
-      'The cable runs. The treaty question is settled, one way or another. What remains is the founder’s last decision — the shape the road takes when its builder finally lets go of the wheel.',
+      'The cable runs, and the treaty question is finally settled. What remains is the founder’s last decision — the shape the road takes when its builder finally lets go of the wheel.',
     prose:
       'Talia brings the futures to your office the way she once brought problem memos, laid side by side. Keep building — decades of expansion, second cables, a life spent at the rail. The commission’s standing offer to buy you out at a fortune’s fortune, dignified and final. Or the third folder, the one Okonkwo’s question planted years ago, grown now into a full plan in your own handwriting and Talia’s formatting: give the road to a trust — a world port authority with your pledge as its charter, your standards as its law, and you as its first chair, owning nothing and steering everything. The folders wait. Roads outlive builders. The only question left is what the builder does about it on purpose.',
     choices: [
