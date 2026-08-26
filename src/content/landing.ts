@@ -46,7 +46,7 @@ export const HERO = {
 export const PITCH: readonly LandingPanel[] = [
   {
     kicker: 'THE WORLD',
-    art: 'cut_chute_launch',
+    art: 'prologue_garage',
     head: '2031',
     paras: [
       'The future runs on machines that belong to giants. You are a first-time founder in a rented garage above a laundromat, with a shuttle prototype hanging from the ceiling and one hundred percent of nothing.',
