@@ -141,7 +141,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_warroom',
         result:
-          'She exhales like a woman who held her breath through eleven companies. By Friday she has a desk in the hangar, a payroll system, and a spreadsheet titled WAYS WE DIE. She updates it every week, sends it to all three founders, and somehow makes it the funniest document you fear.',
+          'She exhales like a woman who held her breath through eleven companies. By Friday she has a desk in the hangar, a payroll system, and a spreadsheet titled WAYS WE DIE. She updates it every week, sends it to all three founders, and makes it the funniest document you fear.',
       },
       {
         label: 'Take the money, keep her an angel. Gently.',
@@ -291,7 +291,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_first_body',
     title: 'SOMETHING WITH HANDS',
     prose:
-      'Six weeks later, something with hands stands in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly, test-gray, with camera masts where a head should be. When Omid runs the arm through its wake-up routine, the shop floor stops every time. Everyone goes a little careful around a machine built to reach. The relay math lives unseen in server racks. The body is the first piece of TELEPORT you can stand in front of, which makes it the first piece the world can see.',
+      'Six weeks later, something with hands stands in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly, test-gray, with camera masts where a head should be. When Omid runs the arm through its wake-up routine, the shop floor stops every time. A machine built to reach asks for that much respect. The relay math lives unseen in server racks. The body is the first piece of TELEPORT you can stand in front of, which makes it the first piece the world can see.',
     choices: [{ label: 'Continue', effects: [], goto: 't_cascade_test' }],
   },
   {

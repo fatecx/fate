@@ -90,7 +90,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'He starts Monday and fixes the two problems you did not know about by Thursday. His desk faces the door, and on it sits a photo of a porch with an old delivery tube — the kind your first company installed. You never ask. She never explains.',
+          'He starts Monday and fixes the two problems you did not know about by Thursday. His desk faces the door, and on it sits a photo of a porch with an old delivery tube — the kind your first company installed. You never ask. He never explains.',
       },
       {
         label: 'Hire him, but keep the secret from him for now.',
@@ -163,7 +163,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT THE LUNCH MEANT',
     prose:
-      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that is somehow louder than knowing. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way he marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
+      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that silence is louder than any statement. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way he marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
     choices: [{ label: 'Continue', effects: [], goto: 's_proof' }],
   },
   {
@@ -208,7 +208,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_s_famous',
     title: 'THE WORD ELEVATOR',
     prose:
-      'However carefully the proof travels, the word travels faster. Elevator. It shows up in analyst notes with question marks, then in headlines without them. HALCYON’s stock dips four percent on a rumor and recovers on a denial that names no one. Old friends surface — June calls on a Sunday and laughs for a solid ten seconds before saying anything at all, and Priya sends a one-line email you print and keep: SO IT WAS NEVER ABOUT DELIVERY TRUCKS. Somewhere in a tower you have never visited, someone opens a file on you. Several someones. The age of being underestimated is over for good.',
+      'However carefully the proof travels, the word travels faster. Elevator. It shows up in analyst notes with question marks, then in headlines without them. HALCYON’s stock dips four percent on a rumor and recovers on a denial that names no one. Old friends surface — June calls on a Sunday and laughs for a solid ten seconds before saying anything at all, and Priya sends a one-line email you print and keep: SO IT WAS NEVER ABOUT DELIVERY TRUCKS. In towers you have never visited, files open on you. More than one tower. The age of being underestimated is over for good.',
     choices: [{ label: 'Continue', effects: [], goto: 's_series_a' }],
   },
   {

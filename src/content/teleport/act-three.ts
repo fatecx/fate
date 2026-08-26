@@ -472,10 +472,10 @@ export const ACT_THREE: readonly SceneDef[] = [
         foley: 'pen',
         effects: [{ e: 'flag', scope: 'company', key: 'rang_bell_t', v: true }, { e: 'end', ending: 'listing' }],
         result:
-          'The bank group grumbles for exactly one conference call, and then the roadshow discovers what the expo discovered years ago: honesty at scale is a spectacle. The order book closes full on the number the chairs can survive.',
+          'The bank group grumbles for exactly one conference call, and then the roadshow discovers what the expo discovered years ago: honesty at scale is a spectacle. The buyers close it full on the number the chairs can survive.',
       },
       {
-        label: 'One more year private. The book will be bigger.',
+        label: 'One more year private. The offering grows.',
         effects: [{ e: 'stress', d: 6 }],
         result:
           'You send the bankers home with the kindest no in the industry. The offering may be bigger next year. The window may close. Both futures are yours to hold now, along with everything else the waiting costs.',
@@ -562,7 +562,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         label: 'Give the cascade to everyone. Keep only the name.',
         effects: [{ e: 'end', ending: 'commons' }],
         result:
-          'The signing ceremony is held in the hangar because you refuse anywhere grander. Four agencies, eleven stations, one standards body, and — arriving late, unannounced, in a lawn chair he brings himself if he ever left — the man whose math it always was, watching his number become the world’s.',
+          'The signing ceremony is held in the hangar because you refuse anywhere grander. Four agencies, eleven stations, one standards body, and — arriving late, unannounced, carrying his own lawn chair — the man whose math it always was, watching his number become the world’s.',
       },
       {
         label: 'Keep the moat. Lighthouses can be companies too.',
@@ -612,7 +612,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         },
         effects: [{ e: 'end', ending: 'commons' }],
         result:
-          'The shared rules outlive the company on purpose. It is the rare exit where the mission fires the business, politely, with a pension.',
+          'The shared rules outlive the company on purpose. It is the rare exit where the mission outlives the business — politely, with a pension.',
       },
     ],
   },

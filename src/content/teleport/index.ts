@@ -221,7 +221,7 @@ const ACHIEVEMENTS: readonly AchievementDef[] = [
   {
     id: 'her_chair',
     title: 'THE CHAIR',
-    desc: 'Cass Rivera built your operator corps and was never once made the excuse.',
+    desc: 'Cass Rivera built your operator corps and never once became the excuse.',
     when: {
       k: 'all',
       of: [

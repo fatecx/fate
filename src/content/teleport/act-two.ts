@@ -80,7 +80,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'He writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank her afterward. On the wall of the control bay she hangs one unexplained thing: a mission patch with no mission on it.',
+          'He writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank him afterward. On the wall of the control bay he hangs one unexplained thing: a mission patch with no mission on it.',
       },
       {
         label: 'Contract-to-hire. The medical makes the insurer twitchy.',
@@ -91,7 +91,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'cass_contract', v: true },
         ],
         result:
-          '“Contract,” he repeats, flat as the word deserves, and signs anyway, because the chair is the chair. She is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls him.',
+          '“Contract,” he repeats, flat as the word deserves, and signs anyway, because the chair is the chair. He is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls him.',
       },
       {
         label: 'Pass. Hire the safe pair of hands from the drone firm.',
@@ -500,7 +500,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'farrokh', aff: -2 },
         ],
         result:
-          'You give it space, which is what you call it, and the space fills the way vacuums fill. The dark bench stays dark. His board updates become punctual, complete, and utterly impersonal — the exact letters of a man keeping records.',
+          'You give it space, and the space fills with silence. The dark bench stays dark. His board updates become punctual, complete, and utterly impersonal — the exact letters of a man keeping records.',
       },
     ],
   },

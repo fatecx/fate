@@ -16,7 +16,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Anders asks for you on the platform, in person, which he only does when a drawing cannot carry the weight of what he has to say. He meets you at the derrick with wind in his jacket and a tablet he does not open.',
     prose:
-      '“The board wants the cable finished in three years,” she says. “The cable wants five.” She lets the wind have a moment. “I can build it in three. I know how — thinner redundancy, fewer test cycles, climb the schedule instead of the checklist. Other people build that way. Their names are on plaques near flowers.” She finally opens the tablet and shows you two plans, side by side. The fast one saves four hundred million dollars and two years. The slow one has a number at the bottom she has circled by hand — her safety margin, the extra strength the cable keeps in reserve for the day something surprises it. “You hired me with two conditions. This is me holding you to the first one. Choose which plan I build, and know that I will build either one with everything I have. Only one of them lets me sleep.”',
+      '“The board wants the cable finished in three years,” he says. “The cable wants five.” He lets the wind have a moment. “I can build it in three. I know how — thinner redundancy, fewer test cycles, climb the schedule instead of the checklist. Other people build that way. Their names are on plaques near flowers.” She finally opens the tablet and shows you two plans, side by side. The fast one saves four hundred million dollars and two years. The slow one has a number at the bottom she has circled by hand — her safety margin, the extra strength the cable keeps in reserve for the day something surprises it. “You hired me with two conditions. This is me holding you to the first one. Choose which plan I build, and know that I will build either one with everything I have. Only one of them lets me sleep.”',
     choices: [
       {
         label: 'Build it her way. The margin stays.',
@@ -111,7 +111,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_sovereign',
         result:
-          'The ordinary funds scrape together three hundred fifty million across four months of grinding closings — less money, slower build, cleaner hands. Rashid takes the refusal with unbroken warmth. “The offer does not expire,” he says. Volkov closes her notebook without writing anything, which somehow feels worse.',
+          'The ordinary funds scrape together three hundred fifty million across four months of grinding closings — less money, slower build, cleaner hands. Rashid takes the refusal with unbroken warmth. “The offer does not expire,” he says. Volkov closes her notebook without writing anything, and that is worse than anything she could have written.',
       },
     ],
   },
@@ -194,7 +194,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The design freeze arrives — the date after which the cable becomes whatever it is going to be. One question towers over the freeze, and the whole company knows it, and the whole world is about to.',
     prose:
-      'Anders frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — simpler safety case, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes who the cable is for. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
+      'Anders frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — a simpler safety argument, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes who the cable is for. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
     choices: [
       {
         label: 'Rate it for people. That was always the point.',
@@ -208,7 +208,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_fork_set',
         result:
-          'The announcement plays around the planet: PEOPLE WILL RIDE. Applications to work on the cable triple in a week. So does the lobbying budget of everyone who fears it, and somewhere in a committee room, a senator who shook your hand starts redrafting a treaty with new urgency.',
+          'The announcement plays around the planet: PEOPLE WILL RIDE. Applications to work on the cable triple in a week. So does the lobbying budget of everyone who fears it, and in one committee room, a senator who shook your hand starts redrafting a treaty with new urgency.',
       },
       {
         label: 'Cargo first. People when the road has proven itself.',
@@ -219,7 +219,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         ],
         goto: 's_b_fork_set',
         result:
-          'The freight contracts sign themselves — every factory owner on Earth can do the math of a hundred-dollar kilogram falling to one. The dream files a quiet objection that you promise to hear later. Later is a country the busy rarely visit.',
+          'The freight contracts sign themselves — every factory owner on Earth can do the math of a hundred-dollar kilogram falling to one. The dream files a quiet objection that you promise to hear later. The promise has no date on it.',
       },
     ],
   },
@@ -254,7 +254,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'private_security', v: true },
         ],
         result:
-          'The escort fleet you hire is quiet, expensive, and yours. The raids stop — whoever priced your response got the answer, and the answer was: this one pays for independence. In an office somewhere, a file on you gains a new page with one underlined word. STUBBORN.',
+          'The escort fleet you hire is quiet, expensive, and yours. The raids stop — whoever priced your response got the answer, and the answer was: this one pays for independence. In a ministry office, a file on you gains a new page with one underlined word. STUBBORN.',
       },
       {
         label: 'Accept the Admiral’s escorts. Free, capable, and his.',

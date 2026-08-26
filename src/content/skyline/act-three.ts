@@ -291,7 +291,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'anneke_enemy', v: true },
         ],
         result:
-          'You give her courtesy with nothing inside it, and she leaves with the professional satisfaction of confirmed expectations. Her lobbying continues at full strength and full skill. Anders never asks how the meeting went, which is how you know he checked.',
+          'You give her courtesy with nothing inside it, and she leaves with the professional satisfaction of confirmed expectations. Her lobbying continues at full strength and full skill. Anders never asks how the meeting went. The not-asking tells you he checked.',
       },
     ],
   },
@@ -349,7 +349,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       'He spends nine hours on FIRST RUNG and wastes none of them on you. He eats in the cafeteria line with the welders. He reads the storm playbook in the ops room, cover to cover, standing up. He asks Anders four questions, one of which makes Anders laugh — a sound the platform has heard perhaps twice. At sunset he finds you at the rail, where everyone ends up, and watches the warning lights climb into the dark. “I have chaired thirty years of treaties,” he says. “I have learned to ignore what people say and study what they build into the walls. Escape pods every hundred kilometers, on a cable that could have carried cargo only. A safety report published when burying it was free.” He turns to you. “At the conference, I will ask you one question in front of every nation. I will not tell you what it is. I am telling you now only this — answer it the way you built the walls, and you will be fine. Answer it like a speech, and I cannot help you.”',
     choices: [
       {
-        label: 'Thank her, and change nothing. The walls are the answer.',
+        label: 'Thank him, and change nothing. The walls are the answer.',
         effects: [
           { e: 'rel', who: 'okonkwo', resp: 2 },
           { e: 'stress', d: -2 },
@@ -365,7 +365,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'okonkwo_candor', v: true },
         ],
         result:
-          '“Not you,” she answers immediately. “Your heirs. Every safeguard you have built lives in your choices, and choices retire. The commission fears the cable’s second owner, and its third — the ones we have not met.” She lets that stand between you. “Bring the answer to that fear, and you will have my gavel’s full attention.” The evening boat carries her back toward shore, and the homework she just assigned keeps you at the rail for hours.',
+          '“Not you,” he answers immediately. “Your heirs. Every safeguard you have built lives in your choices, and choices retire. The commission fears the cable’s second owner, and its third — the ones we have not met.” He lets that stand between you. “Bring the answer to that fear, and you will have my gavel’s full attention.” The evening boat carries him back toward shore, and the homework he just assigned keeps you at the rail for hours.',
       },
     ],
   },
@@ -473,7 +473,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         effects: [{ e: 'flag', scope: 'company', key: 'treaty_lost', v: true }],
         goto: 's_seizure_terms',
         result:
-          'Article One carries at 61 percent. The hall is quiet and procedural about it. Nations take the century’s most important structure with the energy of a zoning committee. Somehow that is worse than a fight. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and his eyes find yours once, with something in them that is not victory and is not apology. The alliances you needed were not in the room, because they were never built.',
+          'Article One carries at 61 percent. The hall is quiet and procedural about it. Nations take the century’s most important structure with the energy of a zoning committee. Somehow that is worse than a fight. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and his eyes find yours once. What passes between you is simple acknowledgment. The alliances you needed were not in the room, because they were never built.',
       },
     ],
   },
