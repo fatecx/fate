@@ -408,7 +408,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         foley: 'pen',
         effects: [{ e: 'end', ending: 'swallowed' }],
         result:
-          'The signatures take a full day. The wire takes four seconds. The satellites you launched in threes change their call signs overnight. Somewhere at the pole, a body wakes for its shift wearing a new logo on its chest, works on, and never once looks up.',
+          'The signatures take a full day. The wire takes four seconds. The satellites you launched in threes change their names overnight. Somewhere at the pole, a body wakes for its shift wearing a new logo on its chest, works on, and never once looks up.',
       },
       {
         label: 'Refuse. The road stays open.',

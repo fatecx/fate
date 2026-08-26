@@ -183,7 +183,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_s_road',
     bg: 'wind',
     prose:
-      'The plan fits on one page, which is how you know it is a real plan.\n\nProve the strand at length. Anchor a platform in the deep ocean at the equator. Build the cable one woven kilometer at a time, and hang climber cars on it that walk to orbit at three hundred kilometers an hour.\n\nThen charge so little for the ride that the sky stops being a place for governments and billionaires, and starts being a place, period.\n\nEveryone who fought you before will come back for this one — the giants, the funds, the politicians, and things that did not exist when you started: money with flags, and money that thinks.\n\nLast night you filed the papers for a company called SKYLINE, INC. Its whole promise fits in three words.\n\nThe road up.',
+      'The plan fits on one page, the way real plans do.\n\nProve the strand at length. Anchor a platform in the deep ocean at the equator. Build the cable one woven kilometer at a time, and hang climber cars on it that walk to orbit at three hundred kilometers an hour.\n\nThen charge so little for the ride that the sky stops being a place for governments and billionaires, and starts being a place, period.\n\nEveryone who fought you before will come back for this one — the giants, the funds, the politicians, and things that did not exist when you started: money with flags, and money that thinks.\n\nLast night you filed the papers for a company called SKYLINE, INC. Its whole promise fits in three words.\n\nThe road up.',
   },
 ]
 
