@@ -9,23 +9,22 @@ export const ACT_THREE: readonly SceneDef[] = [
     kind: 'cutscene',
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
-      'A descent controller throws a transient fault — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. Mei-Lin Chen, fifty-eight, cycling home from the hospital where she has worked thirty-one years, is struck and severely injured. There is footage. There is always footage. By midnight, every channel in the city leads with the railway in the sky.',
+      'A part in the descent controller fails — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. Mei-Lin Chen, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
     choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }, { e: 'meet', who: 'meilin' }], goto: 'h_accident' }],
   },
   {
     id: 'h_accident',
     ambience: 'accident',
     foley: 'cameras',
-    mood: 'aftermath',
     landmark: true,
     art: 'world_richmond',
     title: 'THE FIRST FORTY-EIGHT HOURS',
     priority: true,
     fuseEpochs: 2,
     leadIn:
-      'You get the call at 4:53 and are on Richmond Street by 5:20, before the second news van. The parcel is still on the pavement inside a chalk rectangle. Someone has turned off the shuttle’s beacon, and you realize numbly that it was you, from the phone in your hand, on the drive over.',
+      'You get the call at 4:53 and reach Richmond Street by 5:20, before the second news van. The parcel still lies on the pavement inside a chalk rectangle. The shuttle’s beacon is off. Then you realize you turned it off from your phone during the drive over.',
     prose:
-      'The lawyers say admit nothing. The insurer says pay nothing. The pit in your stomach says this machine was yours. The corridors office has opened an emergency investigation. And Chute’s couriers are quietly delivering flowers to Ms. Chen’s block — the most cynical thing you have ever seen, and it is working.',
+      'The lawyers tell you to stay silent. The insurance company tells you to wait before paying. Your gut says the machine was yours. The corridors office has opened an emergency investigation. Chute’s couriers are quietly delivering flowers to Ms. Chen’s block. It is cynical, and it is working.',
     choices: [
       {
         label: 'Ground the fleet. Cooperate with everything.',
@@ -36,7 +35,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 8 },
           { e: 'flag', scope: 'company', key: 'transparent', v: true },
         ],
-        result: 'You ground every shuttle before anyone asks and publish the fault report raw. Your general counsel calls it unilateral disarmament. The city calls it something it hasn’t called a startup in years: decent.',
+        result: 'You ground every shuttle before anyone asks and publish the full fault report. Your company lawyer calls it a mistake. The city calls you decent, a word it almost never uses for startups.',
       },
       {
         label: 'Settle quietly. NDA, sealed, move on.',
@@ -45,7 +44,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 5 },
           { e: 'flag', scope: 'company', key: 'nda', v: true },
         ],
-        result: 'The family’s lawyer is fair and the check is enormous and nobody is allowed to talk about it, including you. The fleet keeps flying. So does the fault, somewhere, in version nine.',
+        result: 'The family’s lawyer is fair. The check is enormous. The deal says everyone stays quiet, including you. The fleet keeps flying. Somewhere in version nine, the same fault keeps flying too.',
       },
       {
         label: 'Blame the installation contractor. It was their sleeve.',
@@ -54,7 +53,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'flag', scope: 'company', key: 'blame_shift', v: true },
         ],
-        result: 'The filing is technically true, and everyone who reads it hates you anyway. The contractor’s lawyers fire back within a day. Now there are two stories in the news, and yours is the one with more money in it.',
+        result: 'Your response to the city is technically true, and everyone who reads it hates you anyway. The contractor’s lawyers answer within a day. Now the news has two stories, and yours is the one with more money behind it.',
       },
     ],
   },
@@ -68,10 +67,10 @@ export const ACT_THREE: readonly SceneDef[] = [
     speaker: 'nadia',
     priority: true,
     leadIn:
-      'The story has stopped being local. National news runs the porch-camera clip on a loop, and a senator you have never met says your company’s name into a microphone. Into that noise, one specific phone buzzes with one specific name on it.',
+      'The story has outgrown the city. National news runs the porch-camera clip on a loop, and a senator you have never met says Hyperchute into a microphone. In that noise, your phone buzzes with Nadia’s name.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
-      'Nadia’s email is two words this time: “Coffee. Now.” She has the preliminary investigation draft — someone inside the corridors office leaked it — and forty-eight hours before she goes to press with whatever she has. “I’d rather have it from you,” she says. “But I’ll run it without you.”',
+      'Nadia’s email is two words. “Coffee. Now.” She has the early investigation draft, leaked by someone inside the corridors office. She has forty-eight hours before she publishes what she knows. “I’d rather have it from you,” she says. “I’ll run it either way.”',
     choices: [
       {
         label: 'Hand her everything, on record.',
@@ -82,7 +81,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
           { e: 'rel', who: 'nadia', aff: 2, resp: 2 },
         ],
-        result: 'Her piece runs with your fault report printed in full and one line everyone repeats: THE FOUNDER GROUNDED THE FLEET BEFORE THE CITY COULD. It does not undo what happened to Mei-Lin Chen. Nothing does. But it is the truth, and it is yours.',
+        result: 'Her piece runs with your fault report printed in full and one line everyone repeats. THE FOUNDER GROUNDED THE FLEET BEFORE THE CITY COULD. Mei-Lin Chen is still hurt. The truth is public, and it came from you.',
       },
       {
         label: 'Steer her — what to emphasize, what to bury.',
@@ -91,7 +90,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
           { e: 'rel', who: 'nadia', resp: -1 },
         ],
-        result: 'The story runs softer than it might have. She notes, in her notebook and in her memory, exactly which sentences you asked her not to write.',
+        result: 'The story runs softer than it could have. In her notebook and in her memory, she marks the exact sentences you asked her to leave out.',
       },
       {
         label: 'Stonewall. No comment, again.',
@@ -99,7 +98,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'rel', who: 'nadia', standing: 'hostile', aff: -2 },
           { e: 'rep', d: -2 },
         ],
-        result: 'She runs it without you. The leak is worse than the report. The word “cover-up” appears in a headline above your company’s name.',
+        result: 'She runs the story without you. The leak looks worse than the report. A headline puts the word “cover-up” above your company’s name.',
       },
     ],
   },
@@ -107,12 +106,11 @@ export const ACT_THREE: readonly SceneDef[] = [
     id: 'h_sofia_verdict',
     ambience: 'garage',
     accent: 'night',
-    mood: 'tender',
     title: 'VERSION NINE',
     speaker: 'sofia',
     priority: true,
     leadIn:
-      'The garage lights have been on every night this week. You find Sofia at the bench at 6 a.m., surrounded by cold coffee and printouts of a stack trace, the fault line circled in red so many times the paper has torn.',
+      'The garage lights have stayed on every night this week. You find Sofia at the bench at 6 a.m. Cold coffee surrounds her, along with printouts of an error report. The failed line is circled in red until the paper has torn.',
     when: {
       k: 'all',
       of: [
@@ -122,7 +120,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Sofia wrote the code that failed. She has not slept, and she has rewritten the descent controller three times — version ten fails safe from any altitude, anywhere. What she cannot rewrite is whether she can stay. “Tell me who we are,” she says, “and I’ll tell you if I’m still here.”',
+      'Sofia wrote the code that failed. She has barely slept, and she has rebuilt the landing system three times. Version ten stops safely from any height, anywhere. The part still hanging over her is whether she can stay. “Tell me who we are,” she says, “and I’ll tell you if I’m still here.”',
     choices: [
       {
         label: '“We ground first, publish everything, and fix it in daylight.”',
@@ -133,7 +131,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
           { e: 'flag', scope: 'company', key: 'sofia_verdict', v: true },
         ],
-        result: 'She stays. Version ten ships with her name on it, plus an emergency stop she proves in front of the whole company — by dropping a live shuttle onto foam blocks in the laundromat parking lot.',
+        result: 'She stays. Version ten ships with her name on it. She proves the emergency stop in front of the whole company by dropping a live shuttle onto foam blocks in the laundromat parking lot.',
       },
       {
         label: '“We survive. Whatever it takes.”',
@@ -143,7 +141,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_verdict', v: true },
           { e: 'flag', scope: 'company', key: 'sofia_gone', v: true },
         ],
-        result: 'She looks at you for a long moment, then starts packing her tools. The note on her final code update reads: “for whoever inherits this.”',
+        result: 'She looks at you for a long moment, then starts packing her tools. Her final code update says, “for whoever inherits this.”',
       },
     ],
   },
@@ -159,10 +157,10 @@ export const ACT_THREE: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'The notice is posted publicly this time — no courtesy call, no email first. Agenda item one, Friday session, room 4-B again: EMERGENCY REVIEW, HYPERCHUTE CORRIDOR AUTHORIZATIONS. The room where the railway was born gets to vote on whether it dies.',
+      'The notice goes straight to the public website this time. Courtesy calls and early emails are gone. Friday session, room 4-B again. EMERGENCY REVIEW, HYPERCHUTE FLIGHT RIGHTS. The room where the railway was born will vote on whether it keeps flying.',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
     prose:
-      'The corridors office votes Friday on emergency suspension of every Hyperchute corridor pending the investigation. Chute’s lobbyists are circulating a “public safety alternative” that is Chute, everywhere, immediately. You can testify, send counsel, or accept the pause and live to fly again.',
+      'The corridors office votes Friday on whether every Hyperchute corridor must shut down during the investigation. Chute’s lobbyists are pushing a “public safety alternative,” which means Chute everywhere, immediately. You can testify yourself, send Tomás, or accept the pause and save your strength.',
     choices: [
       {
         label: 'Testify yourself. Name Mei-Lin Chen. Admit version nine failed. Show version ten.',
@@ -173,7 +171,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
           { e: 'rel', who: 'corr', resp: 2 },
         ],
-        result: 'You testify for eleven minutes with your fleet grounded and your fault report in every commissioner’s hands. The suspension passes 4–1 — with a ninety-day review instead of indefinite, and the dissenting commissioner quotes you in the record.',
+        result: 'You testify for eleven minutes with your fleet grounded and the fault report in every commissioner’s hands. The suspension passes 4–1 with a ninety-day review. The one commissioner who votes for you quotes you in the record.',
       },
       {
         label: 'Send counsel. Let lawyers do lawyer work.',
@@ -182,7 +180,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
           { e: 'rep', d: -1 },
         ],
-        result: 'Tomás wins the procedural points and loses the room. Suspension passes with an indefinite tail. “You should’ve been the one standing there,” he says, not unkindly.',
+        result: 'Tomás wins the rule fight and loses the room. The suspension lasts until the office says otherwise. “You should’ve been the one standing there,” he says, gently.',
       },
       {
         label: 'Accept a 90-day pause without a fight.',
@@ -191,7 +189,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: -4 },
           { e: 'rel', who: 'corr', aff: 1 },
         ],
-        result: 'Ninety days of silence over the Flats. Chute flies your routes at triple surge pricing. The neighborhood remembers who stopped and who profited.',
+        result: 'For ninety days, the sky over the Flats goes quiet. Chute flies your routes at triple surge pricing. The neighborhood remembers who stopped flying and who cashed in.',
       },
     ],
   },
@@ -207,7 +205,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'A month into the storm, the vultures have sorted themselves into tiers: the ones who email, the ones who call, and the one who climbs your stairs in person on a Sunday, holding a folder like it weighs something.',
+      'A month into the storm, the vultures sort themselves by effort. Some email. Some call. One climbs your stairs in person on a Sunday, holding a folder like it has weight.',
     when: {
       k: 'all',
       of: [
@@ -217,7 +215,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Marcus Vale comes to the garage — no car this time, no assistant, just a folder and a face doing something you have never seen it do, which is hesitate. “Acquisition. Two hundred million, your team absorbed, the tubes painted blue. Or keep bleeding through an investigation with my company lobbying your regulators. This isn’t a threat, it’s arithmetic.” He slides the folder across your own workbench. “Take the arithmetic.”',
+      'Marcus Vale comes to the garage on foot, carrying one folder. His face does something you have never seen before. He hesitates. “Acquisition. Two hundred million. Your team joins mine, and the tubes turn blue. Or keep bleeding through an investigation while my company pushes the city office against you. This is arithmetic.” He slides the folder across your own workbench. “Take the arithmetic.”',
     choices: [
       {
         label: 'Sell. Two hundred million ends every problem.',
@@ -243,7 +241,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'refused', v: true },
         ],
         goto: 'h_war_room',
-        result: 'You close the folder. Marcus stands, straightens his jacket, and — for one unguarded second — looks almost relieved. “Then win,” he says, and takes the stairs down.',
+        result: 'You close the folder. Marcus stands and straightens his jacket. For one unguarded second, he looks almost relieved. “Then win,” he says, and takes the stairs down.',
       },
     ],
   },
@@ -257,7 +255,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE WAR ROOM',
     priority: true,
     leadIn:
-      'Word of the refusal gets out by Monday — Marcus doesn’t leak, but folders have gravity. The stock-photo headlines write themselves: DAVID DECLINES. Everyone who still works for you shows up that night without being asked.',
+      'Word of the refusal gets out by Monday. Marcus keeps quiet, but folders have a way of traveling. The headlines choose the easy picture and print DAVID DECLINES. Everyone who still works for you shows up that night without being asked.',
     when: {
       k: 'all',
       of: [
@@ -266,7 +264,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Whiteboards, cold noodles, everyone you have left. Three doors are still open. Take the company public, if the numbers and the name can carry it. Give the technology away to the whole world. Or keep fighting in the streets — one more quarter, porch by porch, with no room for a single mistake.',
+      'The room fills with whiteboards, cold noodles, and everyone you have left. Three doors remain open. Take the company public, if the numbers and the name can carry it. Give the technology to the whole world. Or fight in the streets for one more quarter, porch by porch, where one mistake can sink the company.',
     choices: [
       {
         label: 'Take the company public.',
@@ -282,7 +280,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'stress', d: -10 },
         ],
         goto: 'h_ipo_road',
-        result: 'Deciding is its own medicine. The room exhales. The whiteboard empties to one word: LIST.',
+        result: 'Choosing gives the room its first deep breath in weeks. The whiteboard clears until only one word remains. LIST.',
       },
       {
         label: 'Open-source the stack. Give the railway to everyone.',
@@ -311,7 +309,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE ROAD SHOW',
     priority: true,
     leadIn:
-      'The bankers running the deal arrive with a slide template and leave with religion — Priya’s phrase, after the second meeting runs long because they kept asking real questions. A calendar invite lands: eleven cities, nine days, wheels up Monday.',
+      'The bankers running the IPO arrive with a slide template and leave believing the story. Priya says it after the second meeting runs long because they keep asking real questions. Then a calendar invite lands. Eleven cities, nine days, wheels up Monday.',
     when: {
       k: 'all',
       of: [
@@ -320,7 +318,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Eleven cities in nine days. The bankers want a story to sell, and the only one that works is the one that can’t be faked: a fleet that grounded itself and got back up, a courier pool with health insurance, a fault report printed in full. The last meeting is the pricing call. Somewhere in the building, a banker says the words “the people’s network” without irony and everyone pretends that is normal.',
+      'You fly to eleven cities in nine days. The bankers need a story investors will believe. Your strongest story is simple and true. You grounded the fleet, and it came back. Couriers got health insurance. The full fault report went public. The last meeting sets the IPO price. Somewhere in the building, a banker says “the people’s network” with a straight face, and everyone lets it pass.',
     choices: [
       {
         label: 'Price it honest. Ring the bell.',
@@ -359,7 +357,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE LAST QUARTER',
     priority: true,
     leadIn:
-      'The decision clears the room down to what is true: a whiteboard wiped clean to one column, ninety days drawn as ninety boxes, and the first box already crossed out, because today counts.',
+      'The choice clears the room down to what matters. One whiteboard holds ninety boxes for ninety days. The first box is already crossed out because today counts.',
     when: {
       k: 'all',
       of: [
@@ -368,7 +366,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       ],
     },
     prose:
-      'No bankers, no exits, no folder from Marcus. Just the Flats, the couriers, the porches, and ninety days to prove the railway deserves the sky. Chute outspends you ten to one. You have something they cannot buy, if — only if — it is still true.',
+      'Bankers are gone. Marcus’s folder is gone. What remains is the Flats, the couriers, the porches, and ninety days to prove the railway deserves the sky. Chute outspends you ten to one. The Flats may still trust you, if you can earn that trust again.',
     choices: [
       {
         label: 'Win the city back: free routes for schools and the food bank.',
@@ -388,7 +386,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'last_done', v: true },
         ],
         goto: 'h_ipo_road',
-        result: 'Ninety days later the Flats is yours again, porch by porch — forty thousand subscriptions, prepaid, because the neighborhood pays for what it trusts. The bankers who stopped calling start calling back. There is exactly one door left, and it goes through a pricing call.',
+        result: 'Ninety days later, the Flats is yours again, porch by porch. Forty thousand subscriptions are prepaid because the neighborhood pays for what it trusts. Bankers who stopped calling start calling back. One door remains, and it leads to the IPO price meeting.',
       },
       {
         label: 'Sell to the rival syndicate — anyone but MERIDIAN.',

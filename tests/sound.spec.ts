@@ -31,12 +31,14 @@ describe('soundscape', () => {
     }
   })
 
-  it('every non-cutscene hyperchute scene carries an authored mood', () => {
-    for (const s of CONTENT.chapters.hyperchute.scenes) {
-      if ((s.kind ?? 'scene') === 'cutscene') continue
-      expect(s.mood, `hyperchute/${s.id}: missing mood`).toBeDefined()
+  it('landmark mood overrides are valid and rare — the score holds between them', () => {
+    const scored = CONTENT.chapters.hyperchute.scenes.filter((s) => s.mood)
+    for (const s of scored) {
       expect(MOODS[s.mood!], `hyperchute/${s.id}: unknown mood '${s.mood}'`).toBeDefined()
     }
+    // Music moves on drama, not on every beat: overrides stay a small set.
+    expect(scored.length).toBeGreaterThan(6)
+    expect(scored.length).toBeLessThan(24)
   })
 
   it('every bg and foley reference points into the registry', () => {

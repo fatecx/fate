@@ -18,12 +18,12 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_runway_counting',
     when: { k: 'runway', cmp: 'lt', v: 8 },
-    text: 'You catch yourself doing the runway math during other conversations. The number is always the same. That is the problem with math.',
+    text: 'You catch yourself doing the runway math during other conversations. The number stays the same, no matter how often you count it.',
   },
   {
     id: 'f_runway_groceries',
     when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 8 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
-    text: 'The grocery run gets surgical. Mrs. Delgado slips you a dryer token and pretends she didn’t.',
+    text: 'The grocery run gets surgical. Mrs. Delgado slips you a dryer token and studies the receipt like it was her plan all along.',
   },
   {
     id: 'f_runway_invoices',
@@ -33,7 +33,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_basement',
     when: { k: 'all', of: [{ k: 'runway', cmp: 'lt', v: 5 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
-    text: 'You let the apartment go and move back into your parents’ basement. Your old bedroom still has the model rockets. Nobody says anything at dinner, which is its own kind of love.',
+    text: 'You let the apartment go and move back into your parents’ basement. Your old bedroom still has the model rockets. At dinner, the quiet feels like its own kind of love.',
   },
   {
     id: 'f_arrears_meter',
@@ -43,7 +43,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_subletter_hum',
     when: { k: 'flag', scope: 'company', key: 'subletter', cmp: 'eq', v: true },
-    text: 'The vinyl cutter downstairs-of-your-upstairs hums all day. Your tenant waves at the shuttle each morning like a coworker. In a way, he is.',
+    text: 'The vinyl cutter below your office hums all day. Your tenant waves at the shuttle each morning like a coworker. In a way, he is.',
   },
   // ---- stress ------------------------------------------------------------------
   {
@@ -59,7 +59,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_stress_email',
     when: { k: 'stress', cmp: 'gte', v: 55 },
-    text: 'You reread one sent email eleven times looking for the mistake in it. There is no mistake. There is only Thursday.',
+    text: 'You reread one sent email eleven times, hunting for the mistake. The email is fine. Your nerves are doing the typing now.',
   },
   {
     id: 'f_calm_bench',
@@ -70,22 +70,22 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_sofia_rig',
     when: { k: 'flag', scope: 'company', key: 'sofia_resolved', cmp: 'eq', v: true },
-    text: 'Sofia’s test rig acquires a new foam block and a hand-lettered sign: GRAVITY IS NOT A THEORY. Nobody argues.',
+    text: 'Sofia’s test rig gets a new foam block and a hand-lettered sign that reads GRAVITY ALWAYS COLLECTS. Everyone lets it stand.',
   },
   {
     id: 'f_sofia_commits',
     when: { k: 'flag', scope: 'company', key: 'sofia_resolved', cmp: 'eq', v: true },
-    text: 'The commit log fills at 2 a.m. with messages like "fall better" and "no". The code keeps shrinking. The landings keep softening.',
+    text: 'The commit log fills at 2 a.m. with notes like LAND SOFTER and TOO HARD. The code keeps shrinking. The landings keep softening.',
   },
   {
     id: 'f_priya_check',
     when: { k: 'met', who: 'priya' },
-    text: 'Priya’s weekly check-in is four words or fewer. This week: “Watch your burn.” She is never wrong, which is exhausting.',
+    text: 'Priya’s weekly check-in is four words or fewer. This week she says, “Watch your burn.” She tends to be right, which is exhausting.',
   },
   {
     id: 'f_couriers_wave',
     when: { k: 'flag', scope: 'company', key: 'couriers_ally', cmp: 'eq', v: true },
-    text: 'A courier waves up at the garage window on her route past. The W-2 crowd started calling the tubes “ours.” You let them.',
+    text: 'A courier waves up at the garage window on her route past. The drivers you hired as full employees started calling the tubes “ours.” You let them.',
   },
   {
     id: 'f_funded_burn',
@@ -101,13 +101,13 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_rep_cold',
     when: { k: 'all', of: [{ k: 'rep', cmp: 'lte', v: -2 }, { k: 'not', p: { k: 'corpse', company: 'hyperchute' } }] },
-    text: 'The barista who used to ask about the railway doesn’t ask anymore. Small city. Long memory.',
+    text: 'The barista who used to ask about the railway now only rings you up. Small city. Long memory.',
   },
   // ---- grey market / storm texture ----------------------------------------------
   {
     id: 'f_grey_van',
     when: { k: 'flag', scope: 'company', key: 'grey_market', cmp: 'eq', v: true },
-    text: 'The compliance van does its slow lap of the block. You log its schedule the way it is definitely logging yours.',
+    text: 'The compliance van does its slow lap of the block. You write down its schedule. It is probably writing down yours.',
   },
   {
     id: 'f_storm_quiet',
@@ -117,7 +117,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_storm_letters',
     when: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
-    text: 'Mail arrives for the company in colors it never used to: registered, certified, return receipt requested. You sign for all of it.',
+    text: 'Mail arrives for the company in new colors — stiff envelopes, city stamps, signatures required. You sign for all of it.',
   },
   // ---- always-eligible city & garage ambience ------------------------------------
   {
@@ -128,7 +128,7 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_meridian_sky',
     when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
-    text: 'MERIDIAN’s drones cross the evening sky in perfect intervals, blue lights heading for the hills. You watch one until it isn’t interesting. It takes a while.',
+    text: 'MERIDIAN’s drones cross the evening sky in perfect intervals, blue lights heading for the hills. You watch one until the blue light disappears. It takes a while.',
   },
   {
     id: 'f_flats_night',
@@ -141,7 +141,7 @@ export const FILLERS: readonly FillerDef[] = [
   },
   {
     id: 'f_coffee_ledger',
-    text: 'Somebody finally does the math on the company’s coffee consumption and presents it at standup as a funding round. Nobody laughs harder than the person who paid for it.',
+    text: 'Somebody finally does the math on how much coffee the company drinks and presents it at standup as a funding round. The person who paid for it laughs hardest.',
   },
   {
     id: 'f_small_hours',
@@ -155,18 +155,18 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_citation_list',
     when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
-    text: 'The parking citation with the original waiting list on the back lives in a drawer now. You still can’t throw it away.',
+    text: 'The parking citation with the original waiting list on the back lives in a drawer now. You keep it anyway.',
   },
   {
     id: 'f_weather',
     when: { k: 'not', p: { k: 'corpse', company: 'hyperchute' } },
-    text: 'Weather moves through midweek — real rain, the kind that grounds everything with propellers. The tubes don’t care. It’s a small, private satisfaction.',
+    text: 'Weather moves through midweek — real rain, the kind that grounds everything with propellers. The tubes keep working. It’s a small, private satisfaction.',
   },
   // ---- teleport era ---------------------------------------------------------------
   {
     id: 'f_cape_launch',
     when: { k: 'corpse', company: 'hyperchute' },
-    text: 'A booster goes up from the pads south of you, and the hangar roof drums with delay-shifted thunder. Nobody looks up anymore except you.',
+    text: 'A booster goes up from the pads south of you, and the hangar roof drums with delay-shifted thunder. Only you look up anymore.',
   },
   {
     id: 'f_cape_gulls',
@@ -181,22 +181,22 @@ export const FILLERS: readonly FillerDef[] = [
   {
     id: 'f_moon_sideways',
     when: { k: 'corpse', company: 'hyperchute' },
-    text: 'On the teleop feed the light at the pole comes in sideways, the way it always does, and for a second the whole shift watches an ordinary shadow do something no shadow does on Earth.',
+    text: 'On the remote feed from the Moon, sunlight comes in sideways the way it always does. For a second, the whole shift watches an ordinary shadow do something no Earth shadow does.',
   },
   {
     id: 'f_verge_traffic',
     when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'met', who: 'salazar' }] },
-    text: 'Shackleton Verge’s weekly ops digest arrives at 0400 base time, dry as regolith. Salazar’s only annotation this week: “Adequate.” The team frames it.',
+    text: 'Shackleton Verge’s weekly report arrives at 4 a.m., dry as Moon dust. Salazar’s only note this week is “Adequate.” The team frames it.',
   },
   {
     id: 'f_operator_hands',
     when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'flag', scope: 'company', key: 'cass_chief', cmp: 'eq', v: true }] },
-    text: 'Cass runs the morning calibration with her eyes shut, feeling the delay like tide. The trainees think it’s showing off. It’s prayer.',
+    text: 'Cass runs the morning calibration with her eyes shut, feeling the signal delay like a tide. The trainees think she is showing off. It is prayer.',
   },
   {
     id: 'f_tourist_letters',
     when: { k: 'all', of: [{ k: 'corpse', company: 'hyperchute' }, { k: 'rep', cmp: 'gte', v: 3 }] },
-    text: 'Letters from customers pile in a shoebox by the chair: photos of hands raised against the Earth, thank-yous in shaky cursive. Somebody labels it CARGO, PRICELESS.',
+    text: 'Letters from customers pile in a shoebox by the chair, with photos of hands raised against the Earth and thank-yous in shaky cursive. Somebody labels it CARGO, PRICELESS.',
   },
   {
     id: 'f_halcyon_watch',
@@ -219,14 +219,14 @@ export const FILLERS: readonly FillerDef[] = [
 export const BLUR_FILLERS: readonly FillerDef[] = [
   {
     id: 'fb_weeks_blur',
-    text: 'The weeks run together — solder, invoices, drops, sleep in that order, most days. Nothing breaks. It almost feels like a trick.',
+    text: 'The weeks run together — solder, invoices, drops, sleep in that order, most days. The hardware holds. It almost feels like a trick.',
   },
   {
     id: 'fb_routine',
-    text: 'A stretch of weeks with no fires. You use them the way founders do: badly at first, then, reluctantly, to rest.',
+    text: 'A stretch of quiet weeks. You use them the way founders do, badly at first, then, reluctantly, to rest.',
   },
   {
     id: 'fb_grind',
-    text: 'Quiet weeks stack up like clean laundry. The company gets incrementally better at a hundred things nobody will ever write about.',
+    text: 'Quiet weeks stack up like clean laundry. The company gets a little better at a hundred things few people will ever write about.',
   },
 ]

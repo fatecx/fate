@@ -13,9 +13,9 @@ export const LATE_STUBS: readonly SceneDef[] = [
     landmark: true,
     title: 'RUNWAY ZERO',
     leadIn:
-      'It happens the way everyone warned you it would: slowly for months, and then on a Tuesday, all at once. The banking app’s balance turns a color it has never been before.',
+      'The warning signs were there for months. Then Tuesday comes, and the banking app’s balance turns a color you have never seen before.',
     prose:
-      'Payroll bounces. The bank’s notification tone is almost apologetic. Every founder learns this exact silence — the inbox that stops answering. HYPERCHUTE has weeks, maybe less. But doors remain, even now. They’re just all ugly.',
+      'Payroll bounces. The bank’s notice sounds almost sorry. The inbox goes quiet. HYPERCHUTE has weeks, maybe less. A few doors remain, all of them ugly.',
     choices: [
       {
         label: 'Bridge loan against everything',
@@ -26,7 +26,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'bridge_used', v: true },
         ],
         result:
-          'Signed at 11 p.m., against the IP, the shuttles, and — reading the clauses closely — possibly the tube itself.',
+          'Signed at 11 p.m., against the patents, the shuttles, and — if you read the paperwork twice — the tube itself.',
       },
       {
         label: 'Down round — June doubles down on you',
@@ -46,7 +46,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'june_board', v: true },
         ],
         result:
-          'The round that was supposed to save you died this morning — the lead investor pulled out at the wire and the rest scattered. You call June so she hears it from you before the rumor reaches her. She listens to the whole thing and says, “Then I’m in for my share anyway.” It costs you: a sweetener on the price and a board seat for the woman who showed up when the term sheet didn’t. Worth it. You both know exactly what just happened, and neither of you ever calls it charity.',
+          'The round died this morning. The lead investor walked away before signing, and the rest scattered. You call June so she hears it from you first. She listens to the whole thing and says, “Then I’m in for my share anyway.” The price gets sweeter for her, and she gets a board seat. She showed up when the term sheet failed. Worth it. You both call it business.',
       },
       {
         label: 'Acqui-hire to MERIDIAN: the team survives, the dream ends',
@@ -71,9 +71,9 @@ export const LATE_STUBS: readonly SceneDef[] = [
     title: 'THE BODY KEEPS SCORE',
     landmark: true,
     leadIn:
-      'It announces itself politely at first — the missed exit on a road you drive daily, the sentence you read four times, the coffee that does nothing. Then one morning your hands are shaking over the keyboard and you cannot remember starting to cry.',
+      'It starts politely. You miss an exit on a road you drive every day. You read the same sentence four times. Coffee does nothing. Then one morning your hands shake over the keyboard and you cannot remember when you started crying.',
     prose:
-      'Sofia would call it a fault cascade. Priya would call it the thing that kills founders faster than money runs out. The mirror keeps it simpler: you are the single point of failure in a company that no longer fits inside one human being. Something gives this week. You choose what.',
+      'Sofia would call it a fault cascade. Priya would call it the thing that kills founders faster than money runs out. The mirror keeps it simpler. The whole company depends on one exhausted body. Something gives this week. You choose what.',
     choices: [
       {
         label: 'Three weeks somewhere with no sky traffic. Doctor\u2019s orders.',
@@ -92,12 +92,12 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'rep', d: -1 },
         ],
         result:
-          'You stay at the bench. The work gets done, worse than usual, by someone the team has quietly started managing around. The next time the pressure pegs the gauge, there will be nothing left to spend.',
+          'You stay at the bench. The work gets done, worse than usual, by someone the team has quietly started managing around. Next time, the same pressure will hit an emptier body.',
       },
       {
         label: 'Walk away. The receivers can have it.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
-        result: 'Some ledgers only balance when you stop paying into them.',
+        result: 'Some ledgers only balance when you close them.',
       },
     ],
   },

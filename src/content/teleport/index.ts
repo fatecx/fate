@@ -17,17 +17,17 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'world_listing',
         prose:
-          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive — and the lead banker, who modeled the honest one from the start, closes her binder after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
+          'The pricing call is shorter this time. You have done this before, and the number you keep saying is the number the chairs can survive. The lead banker, who planned around the honest price from the start, closes her binder after twenty minutes and says, “I love a boring pricing call. They’re so rare.”',
       },
       {
         art: 'end_t_bell',
         prose:
-          'The bell rings at 9:31, because you asked for the same minute on purpose.\n\nOn the podium: a CFO who waited eleven companies to stand there as an operator, gripping the rail with both hands. A cofounder — whole, or mended, or watching from a lawn chair at the Cape with the feed on his knees — whose number made the whole thing true. And on the big board, under the ticker, where the exchange usually runs a slogan, the line you paid the listing fee to keep:\n\nEVERY SESSION CARRIES 2.6 SECONDS OF LIGHT-SPEED HONESTY.',
+          'The bell rings at 9:31, because you asked for the same minute on purpose.\n\nOn the podium: a CFO who waited eleven companies to stand there as an operator, gripping the rail with both hands. A cofounder — whole, or mended, or watching from a lawn chair at the Cape with the feed on his knees — whose number made the whole thing true. On the big board, under the ticker, where the exchange usually runs a slogan, you paid to keep one line:\n\nEVERY SESSION CARRIES 2.6 SECONDS OF LIGHT-SPEED HONESTY.',
       },
       {
         art: 'end_t_verge',
         prose:
-          'At Shackleton Verge it is mid-rotation, and nobody stops working for a bell on another world.\n\nBut Commander Salazar has the feed up in ops, sound off, and at 9:31 Earth time she looks at the screen for four seconds — an eternity, from her — and says, to the room, to the bodies on the rotation, to the boring immortal work:\n\n“Back to it.”\n\nHigh praise. The highest.',
+          'At Shackleton Verge it is mid-shift, and nobody stops working for a bell on another world.\n\nCommander Salazar has the feed up in operations, sound off. At 9:31 Earth time she looks at the screen for four seconds — an eternity, from her — and says, to the room, to the bodies on the schedule, to the boring immortal work:\n\n“Back to it.”\n\nHigh praise. The highest.',
       },
       {
         art: 'end_t_chair',
@@ -36,12 +36,12 @@ const ENDINGS: readonly EndingDef[] = [
       },
     ],
     prose:
-      'TELEPORT lists at 9:31 a.m. at the honest price, delay disclosed on the cover of the prospectus. The company that never lied about distance belongs, as of the closing bell, to the people who crossed it — teachers’ pensions, index funds, and a schoolteacher in Ohio with eleven shares.',
+      'TELEPORT lists at 9:31 a.m. at the honest price, with the delay printed on the cover of the listing papers. The company that told the truth about distance now belongs to the people who crossed it — teachers’ pensions, index funds, and a schoolteacher in Ohio with eleven shares.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE VIEW FROM ALTITUDE',
       prose:
-        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The constellation grows, the chairs multiply, and the maintenance rotation hums along above you with your name on its chest. And at conferences, in green rooms, a rumor keeps finding you like a compass finding north: a consortium is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has actually built infrastructure between worlds — and told the truth about it twice?',
+        'Two years of quarterly bells and glass offices, rich in the way that gets footnoted. The satellite ring grows, the chairs multiply, and the maintenance work hums along above you with your name on its chest. At conferences and in green rooms, a rumor keeps finding you: a group is forming around the oldest dream in the business — a cable to orbit, a road straight up, goods first and humans someday. They are calling it a skyline. They keep asking one question in every room where your name comes up: who alive has built a road between worlds and told the truth about it twice?',
     },
   },
   {
@@ -52,12 +52,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 3,
     prose:
-      'The constellation changes call signs overnight. The bodies at the Verge get repainted and keep working. The storefront chairs get folded into HALCYON pavilions, where the line moves faster and the magic feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole the shifts keep running like nothing happened, because for the machines, nothing did.',
+      'The satellite ring changes call signs overnight. The bodies at the Verge get repainted and keep working. The storefront chairs move into HALCYON pavilions, where the line moves faster and the magic feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole, the shifts keep running as if nothing happened, because for the machines, nothing did.',
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'INSIDE THE MANIFEST',
       prose:
-        'Three years of integration committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives. The honest counter does not. In the third spring, your non-compete dies quietly on a Tuesday — and that same week, a consortium building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no manifest can bump.”',
+        'Three years of merger committees and a title with the word “emeritus” hiding in its clauses. You watch the monopoly run your road the way monopolies run everything: efficiently, joylessly, and only where the margins live. The Verge contract survives. The honest counter gets removed. In the third spring, your ban on competing ends quietly on a Tuesday. That same week, a group building a cable to orbit sends a delegation to your kitchen table. They know exactly what you sold and exactly what it cost. “Help us build the one thing,” they say, “that no launch schedule can bump.”',
     },
   },
   {
@@ -68,12 +68,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 1,
     prose:
-      'The bankruptcy people can take the desks and the patents, but nobody can repossess an orbit. So the satellites come down on schedule instead — brought down one by one over six weeks, each a streak of light across somebody’s evening. The last one is visible from the Flats. People come out onto porches that once caught falling packages, and watch a company become a meteor shower. Nobody who saw it ever calls it a failure.',
+      'The bankruptcy people can take the desks and the patents, but nobody can repossess an orbit. So the satellites come down on schedule instead — brought down one by one over six weeks, each a streak of light across somebody’s evening. The last one is visible from the Flats. People come out onto porches that once caught falling packages and watch a company become a meteor shower. Nobody who saw it ever calls it a failure.',
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF LETTERS',
       prose:
-        'A year of wind-down paperwork and unexpected mail. Operators writing to say the training program got them hired at three agencies. A letter from Shackleton Verge in January — Commander Salazar’s annual letters, it turns out, include companies she considered crew. And in the spring, a fat envelope from a consortium you have never heard of, containing the feasibility study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
+        'A year of wind-down paperwork and unexpected mail. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies she considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
     },
   },
   {
@@ -84,12 +84,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 3,
     skipYears: 4,
     prose:
-      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. Nobody ever doubted it would work. The doubt was always about something else, and you knew what.',
+      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. The doubts were always about something else, and you knew what.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE MANAGED ENVIRONMENT',
       prose:
-        'Four years of earnings calls where the word “latency” never appears. The stock performs. The settlements stay sealed. Nadia Osei’s book about the presence era has a chapter with your name on it, and you have never read past its first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year a consortium building a cable to orbit calls. They need capital and credibility. They are not particular, anymore, about the order.',
+        'Four years of earnings calls where the word “delay” never appears. The stock performs. The settlements stay sealed. Nadia Osei’s book about the presence era has a chapter with your name on it, and you have never read past its first page. At night, sometimes, you sit in a chair no customer uses anymore — the honest mode, the counter running — and hold your own hand two point six seconds from itself. In the fourth year, a group building a cable to orbit calls. They need capital and credibility. They are flexible about the order.',
     },
   },
   {
@@ -100,12 +100,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 2,
     prose:
-      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed, model-approved. Your badge photo comes down. The framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trades quote for years. The constellation flies on, holding station over the pole, wearing your decisions and someone else’s name.',
+      'The company you founded in a hangar with a cardboard box of physics continues without you, professionally managed and model-approved. Your badge photo comes down. The framed 2.61, if it still hung anywhere, goes to storage. June resigns the same afternoon, in a two-line letter the trade press quotes for years. The satellite ring flies on over the pole, wearing your decisions and someone else’s name.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO executing your roadmap competently and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. And in the second spring, a consortium building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. You watch your company from the outside — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid, whole or estranged, sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a group building a cable to orbit asks to meet. They could buy your old company any afternoon they liked. They flew here for you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {
@@ -116,12 +116,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 5,
     skipYears: 2,
     prose:
-      'The protocol goes to the standards body with the patents stapled to it, free forever. Within eighteen months there are cascade relays around the Moon wearing eleven flags and four languages, all of them honest to the millisecond, because the spec you donated makes lying a compliance violation. The company becomes one builder among many, and smaller, and prouder. The number belongs to everyone now, which is what you gave it away for.',
+      'The shared rules go to the standards body with the patents attached, free forever. Within eighteen months, cascade relays circle the Moon wearing eleven flags and four languages, all honest to the millisecond, because the rules you donated make lying a violation. The company becomes one builder among many, smaller and prouder. The number belongs to everyone now, which is why you gave it away.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE KEEPER OF THE SPEC',
       prose:
-        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you overrule with citations. The cascade carries presence to the Moon under every flag there is. And at the second annual plenary, an engineering delegation corners you with feasibility studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no manifest can bump, no monopoly can own — if, and only if, someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
+        'Two years chairing a standards body — the most powerful boring job in the solar system. Agencies defer to you. Monopolies comply with you, slowly, filing objections you answer with citations. The cascade carries presence to the Moon under every flag there is. At the second annual meeting, an engineering delegation corners you with studies and a gleam you recognize from a hangar, years ago: a cable to orbit. A road no launch schedule can bump, no monopoly can own — if someone builds it as a commons from the first bolt. “You gave away a protocol,” they say. “Come give away an elevator.”',
     },
   },
 ]
@@ -133,14 +133,14 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_itch',
     bg: 'night',
     prose:
-      'It starts with looking up. It always has.\n\nThe last company left you what it left you — money, scar tissue, a shoebox of clippings, maybe all three. The itch came through untouched. You catch yourself at windows. You catch yourself reading launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo, and the one thing you cannot stop thinking about is still not up there.',
+      'It starts with looking up. It always has.\n\nThe last company left you what it left you — money, scar tissue, a shoebox of clippings, maybe all three. The itch came through untouched. You catch yourself at windows. You read launch schedules the way other people read box scores. The sky over every city you visit is full of other people’s machines moving other people’s cargo. The one thing you cannot stop thinking about is still up there, waiting.',
   },
   {
     kicker: 'PROLOGUE',
     title: 'THE PROBLEM',
     art: 'prologue_t_problem',
     prose:
-      'There are people on the Moon now. Bases, crews, contracts, a working pole. Every hour of human work up there costs a fortune and risks a life. Down here, the best machine operators alive sit in chairs, ready to help, and they can’t — because light itself needs 1.3 seconds to reach the Moon, and 1.3 more to come back. Radio can never be faster. A hand on the Moon will always answer 2.6 seconds behind the person driving it.\n\nEveryone in the industry says that gap kills remote work. Too laggy to trust, too dangerous to sell.\n\nEveryone said your last impossible thing was impossible too.',
+      'There are people on the Moon now. Bases, crews, contracts, a working pole. Every hour of human work up there costs a fortune and risks a life. Down here, the best machine operators alive sit in chairs, ready to help. Light itself needs 1.3 seconds to reach the Moon, and 1.3 more to come back. Radio moves at that speed too. A hand on the Moon will always answer 2.6 seconds behind the person driving it.\n\nEveryone in the industry says that gap kills remote work. Too laggy to trust. Too dangerous to sell.\n\nEveryone said your last impossible thing was impossible too.',
   },
   {
     kicker: 'PROLOGUE',
@@ -148,7 +148,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_thesis',
     bg: 'wind',
     prose:
-      'Then someone sends you a nine-year-old research paper. Four hundred pages. Self-published, because no science journal would print math that long.\n\nThe idea inside it: a chain of relay satellites between Earth and Moon, each one handing the signal to the next like firefighters passing buckets. Built right, the chain never drops, never stutters, never lies. The Moon comes down to a clean, guaranteed 2.6 seconds — the smallest delay the laws of physics allow.\n\nThe author spent nine years being politely refused by every agency and fund in the industry. His name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, he has written: THE DELAY IS NOT THE ENEMY. THE ENEMY IS PRETENDING IT ISN’T THERE.',
+      'Then someone sends you a nine-year-old research paper. Four hundred pages. Self-published, because no science journal would print math that long.\n\nThe idea inside it is a chain of relay satellites between Earth and Moon, each one handing the signal to the next like firefighters passing buckets. Built right, the chain keeps every handoff clean. The Moon comes down to a guaranteed 2.6 seconds — the smallest delay the laws of physics allow.\n\nThe author spent nine years being politely refused by every agency and fund in the industry. His name is Dr. Omid Farrokh. In the margin of page one, in careful engineer’s handwriting, he has written: THE DELAY IS THE PROOF. PRETENDING IS THE ENEMY.',
   },
   {
     kicker: 'PROLOGUE',
@@ -156,7 +156,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     art: 'prologue_t_cape',
     bg: 'hangar',
     prose:
-      'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nWhat you have: whatever the last life paid out, a lease, and a meeting scheduled for Tuesday with a man carrying his life’s work in a cardboard box.\n\nWhat you are buying: a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, or not at all.\n\nLast night you filed the papers. TELEPORT, INC.\n\nBe there without going.',
+      'You lease the hangar over the phone, sight unseen, from a county desperate to rent history: Cape Canaveral, the old coast, where the road to space has started for a hundred years.\n\nYou have whatever the last life paid out, a lease, and a Tuesday meeting with a man carrying his life’s work in a cardboard box.\n\nYou are buying a chair on Earth, a body on the Moon, and the two point six seconds in between — sold honest, all the way through.\n\nLast night you filed the papers. TELEPORT, INC.\n\nBe there without going.',
   },
 ]
 

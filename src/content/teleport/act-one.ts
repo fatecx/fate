@@ -14,9 +14,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE MAN WITH THE THESIS',
     speaker: 'farrokh',
     leadIn:
-      'The hangar you leased sight-unseen smells like salt and old jet fuel. The Cape is flat and bright and completely indifferent to you, which after everything feels almost like respect.',
+      'The hangar you leased sight unseen smells of salt and old jet fuel. The Cape lies flat and bright outside. After the last company, its calm feels almost like respect.',
     prose:
-      'Dr. Omid Farrokh arrives at the hangar with a cardboard box of bound printouts and no small talk. Nine years at JPL, deep-space communications, and one thesis nobody would fund: a cascade of relay satellites that hands a signal from node to node like a bucket brigade, shaving the Moon down to a two-point-six-second round trip. “Everyone said the market was science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone said was worthless.” He looks up. “I don’t want to sell you my work, and I don’t want a job. I want to build it — with someone who ships. I’ve read everything about you. Including the bad quarter.” He slides the top printout across. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
+      'Dr. Omid Farrokh arrives with a cardboard box of bound printouts and a silence where small talk would go. He spent nine years at JPL, NASA’s space lab, trying to fund one idea: a chain of relay satellites that passes a signal from one satellite to the next, cutting a Moon round trip to 2.6 seconds. “Everyone called the market science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone ignored.” He looks up. “I want my work built, with my name on it, beside someone who ships. I read everything about you, including the bad quarter.” He slides over the top printout. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
     choices: [
       {
         label: 'Shake his hand. Build it together.',
@@ -27,7 +27,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_pact',
         result:
-          'His handshake is careful, like everything else about him. “Good,” he says. “Now the hard conversation. Before lawyers make it worse.”',
+          'His handshake is careful, like the rest of him. “Good,” he says. “Now we have the hard talk. Better before lawyers enter the room.”',
       },
       {
         label: 'Test him first. Pick the thesis apart for an hour.',
@@ -38,7 +38,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_pact',
         result:
-          'You attack the link budget, the handoff timing, the station-keeping costs. He answers every question like he has been waiting years for someone to ask them. By the end the whiteboard is full and he is smiling for the first time.',
+          'You press on signal strength, handover timing, and the fuel needed to keep satellites in place. He answers as if he has waited years for real questions. By the end, the whiteboard is full, and he is smiling for the first time.',
       },
       {
         label: 'Be honest: you wanted to do this alone.',
@@ -49,7 +49,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_pact',
         result:
-          '“I know,” he says, unbothered. “Hyperchute was yours alone. This one is physics. Physics has never once cared how anyone wanted to work.” He waits. You look at the cover page again. He is right, and you both know it.',
+          '“I know,” he says, calm. “Hyperchute was yours alone. This one is physics. Physics has never cared how any founder likes to work.” He waits. You look at the cover again. He is right, and both of you know it.',
       },
     ],
   },
@@ -60,9 +60,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE SPLIT',
     speaker: 'farrokh',
     leadIn:
-      'Every partnership signs two documents: the one the lawyers file, and the one neither of you ever writes down. This conversation is both.',
+      'Before lawyers arrive, Omid wants the real deal in plain language: who owns what, who decides, and what each of you is worth.',
     prose:
-      'One table, two chairs, a legal pad. Omid writes three numbers on it and turns it around. “Fifty-fifty means we are married. Sixty-forty means it’s your company and my life’s work lives in it. Anything past that,” he taps the third number, “means I’m an employee with a nice title, and you should say so out loud.” He puts the pen down between you. “I invented the cascade. You know how to build a company that survives contact with the world. Choose what that’s worth. I’ll sign whichever one you circle — but I’ll remember which one it was.”',
+      'At one table, Omid writes three splits on a legal pad. “Fifty-fifty means true partners. Sixty-forty means you lead the company and my life’s work lives inside it. Past that,” he taps the third number, “I become an employee with a nice title, and we should say that clearly.” He puts the pen between you. “I invented the relay chain. You know how to make a company survive the world. Circle the number that matches that. I’ll sign it. I’ll also remember it.”',
     choices: [
       {
         label: 'Even partners. Fifty-fifty.',
@@ -75,7 +75,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_first_night',
         result:
-          'He signs without ceremony, then does something unexpected: writes the date on the corner of the legal pad and tears it off for you to keep. “For when this gets hard,” he says. “And it will get hard.”',
+          'He signs without ceremony. Then he writes the date on the corner of the legal pad and tears it off for you to keep. “For when this gets hard,” he says. “It will.”',
       },
       {
         label: 'Sixty-forty. Someone has to break ties.',
@@ -87,7 +87,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_first_night',
         result:
-          '“Sixty-forty,” he repeats, evenly. He signs it. “For the record: I’d have taken fifty-five.” It is the only joke he makes all day, and it is not entirely a joke.',
+          '“Sixty-forty,” he repeats. He signs. “For the record: I’d have taken fifty-five.” It is his only joke all day, and the joke carries weight.',
       },
       {
         label: 'Seventy-thirty. Market standard for a technical cofounder.',
@@ -99,7 +99,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_first_night',
         result:
-          'A long pause. Then he signs it, folds his copy with two precise creases, and says, “Market standard. Yes. I’ve spent nine years learning exactly what the market thinks my work is worth.” He is polite for the rest of the day, and something in the room does not recover.',
+          'A long pause. He signs, folds his copy with two exact creases, and says, “Market standard. Yes. I have spent nine years learning what the market thinks my work is worth.” He stays polite for the rest of the day. The room loses something.',
       },
     ],
   },
@@ -110,7 +110,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_hangar_night',
     title: 'TWO CHAIRS, ONE HANGAR',
     prose:
-      'The paperwork files at 11 p.m. — TELEPORT, INC., two signatures, a hangar lease, and a cardboard box of physics. Omid stays late, unpacking his printouts onto a steel shelf like a man shelving scripture. Outside, a HALCYON rocket climbs off a pad eleven miles south. You see the light first, and the thunder reaches the roof seconds later, because sound is slow and the rocket is far away. Neither of you says anything. That gap is the whole company — the time it takes for something far away to reach you, and what a person could do inside it.',
+      'At 11 p.m. the paperwork files. TELEPORT, INC., two signatures, a hangar lease, and a cardboard box of physics. Omid stays late, laying his printouts on a steel shelf like sacred books. Outside, a HALCYON rocket climbs from a pad eleven miles south. You see the light first. The thunder reaches the roof a few seconds later because sound is slow and the rocket is far away. Neither of you speaks. That gap becomes the whole company — the time it takes for a far thing to reach you, and what a person can do before it does.',
     choices: [{ label: 'Continue', effects: [], goto: 't_june_condition' }],
   },
   {
@@ -122,9 +122,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'JUNE’S CONDITION',
     speaker: 'june',
     leadIn:
-      'June Park calls before the incorporation ink is dry — of course she already knows — and flies down two days later. She picks the diner by the causeway, orders before you arrive, and has a folder with her that she does not open for the first twenty minutes.',
+      'June Park calls before the incorporation ink is dry. Of course she already knows. Two days later she flies to the Cape, picks the diner by the causeway, orders before you arrive, and sets a closed folder beside her coffee.',
     prose:
-      'She listens to the whole pitch without touching her coffee. Then she opens the folder: a seed term sheet, already drafted. “Six hundred and fifty thousand,” she says. “One condition, and it isn’t negotiable the usual way.” She slides the second page across. CHIEF FINANCIAL OFFICER. “Eleven angel checks, and every one of them was me watching someone else build. I ran operations for nine years before the money found me — that’s the part of my life I was actually good at. I’m not asking to be your investor. I’m asking to be your third founder. The money comes with me, or it doesn’t come.” For the first time since you have known her, June Park looks nervous.',
+      'June listens to the whole pitch without touching her coffee. Then she opens the folder. Inside is a seed term sheet, already drafted. “Six hundred and fifty thousand,” she says. “One condition. The money comes with me.” She slides over the second page. CHIEF FINANCIAL OFFICER. “I wrote eleven angel checks and watched other people build. I ran operations for nine years before money found me, and that was the work I was good at. I’m asking to be your third founder.” For the first time since you have known her, June looks nervous.',
     choices: [
       {
         label: 'Third founder. Welcome home, June.',
@@ -139,7 +139,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_warroom',
         result:
-          'She exhales like a woman who has been holding her breath for eleven companies. By Friday she has a desk in the hangar, a payroll system, and a spreadsheet titled WAYS WE DIE — updated weekly, circulated to all three founders, funniest document you have ever been afraid of.',
+          'She exhales like a woman who held her breath through eleven companies. By Friday she has a desk in the hangar, a payroll system, and a spreadsheet titled WAYS WE DIE. She updates it every week, sends it to all three founders, and somehow makes it the funniest document you fear.',
       },
       {
         label: 'Take the money, keep her an angel. Gently.',
@@ -152,7 +152,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_warroom',
         result:
-          'She takes it better than you deserve — recuts the check to four hundred, wires it the same day, wishes you both luck. But something formal enters her voice that was never there before, and her texts, which used to arrive at midnight full of ideas, start arriving at 10 a.m., full of questions.',
+          'She takes it better than you deserve. She cuts the check to four hundred, wires it that day, and wishes you both luck. Her voice turns formal. Her texts, which once came at midnight full of ideas, now arrive at 10 a.m. full of questions.',
       },
       {
         label: 'No investors yet. Not even June.',
@@ -163,7 +163,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_warroom',
         result:
-          '“Huh,” she says, and studies you for a second. “Bootstrapping a space company. That’s either the best judgment I’ve ever seen from you or the worst.” She pays for lunch and leaves the folder on the table anyway. “When it gets expensive — and it is going to get expensive — you know my number.”',
+          '“Huh,” she says, studying you. “Bootstrapping a space company. Best judgment I’ve ever seen from you, or worst.” She pays for lunch and leaves the folder on the table. “When it gets expensive, and it will, you know my number.”',
       },
     ],
   },
@@ -174,7 +174,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_warroom',
     title: 'THE MAP OF EVERYTHING',
     prose:
-      'Omid takes over the hangar’s back wall and builds what he calls the map of everything: orbits drawn in chalk, relay satellites as magnets, cost charts taped over cost charts. In the center hang two photographs. The Moon, gray and close. Mars, red and impossibly far. For a week the wall fills with notes, and every conversation in the building drifts toward the same fight — the one everyone can feel coming. On Friday, Omid calls it: founders only, door shut, one hour. Everyone knows what the hour is for.',
+      'Omid takes over the hangar’s back wall. He draws paths around the Moon in chalk, uses magnets for relay satellites, and tapes cost charts over older cost charts. In the center hang two photographs. The Moon, gray and close. Mars, red and far beyond reach. For a week, every talk drifts toward the same fight. On Friday, Omid calls the meeting — founders only, door shut, one hour. Everyone knows what the hour will decide.',
     choices: [{ label: 'Continue', effects: [], goto: 't_moon_v_mars' }],
   },
   {
@@ -185,9 +185,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'MOON VERSUS MARS',
     speaker: 'farrokh',
     leadIn:
-      'The door shuts. The argument you have both been circling for a week finally lands on the table, and it turns out to be the whole company.',
+      'The door shuts, and the argument you have circled all week finally lands on the table. This hour will decide which world TELEPORT serves first.',
     prose:
-      'Omid opens with Mars. Of course he does. “The Moon is a demo. Mars is the thesis. Four to twenty-four minutes of delay — that is the problem worth a life.” He isn’t wrong: his cascade was born for Mars, and everyone in the industry knows it. But the numbers on the wall say what they say. Mars is a decade and a billion dollars away. The Moon has bases, contracts, tourists, and a two-point-six-second delay you can almost — almost — engineer into honesty. If June is in the room she says it plainly: “Mars is a religion. The Moon is a business.” Omid looks at you. “You’re the tiebreak,” he says quietly. “Break it.”',
+      'Omid starts with Mars. Of course he does. “The Moon is a demo. Mars is the thesis. Four to twenty-four minutes of delay is the problem worth a life.” His relay chain was born for Mars, and the industry knows it. The numbers on the wall tell a harsher story. Mars is a decade and a billion dollars away. The Moon has bases, contracts, tourists, and a 2.6-second delay you can sell honestly if you are brave enough. If June is in the room, she says it plainly: “Mars is a religion. The Moon is a business.” Omid looks at you. “You’re the tiebreak,” he says quietly. “Break it.”',
     choices: [
       {
         label: 'Moon now. Mars when the cascade earns it — in writing.',
@@ -198,7 +198,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_moon_won',
         result:
-          'You write it on the wall under the red photograph, dated and signed: MARS, WHEN THE MOON PAYS FOR IT. Omid reads the sentence twice. “Then I’ll build you a Moon business,” he says, “that Mars can be proud of.” It is the closest thing to peace this argument will ever produce.',
+          'You write it on the wall under the red photograph, dated and signed: MARS, WHEN THE MOON PAYS FOR IT. Omid reads it twice. “Then I’ll build you a Moon business,” he says, “that Mars can be proud of.” The argument quiets, for now.',
       },
       {
         label: 'Moon only. Take Mars off the wall.',
@@ -209,7 +209,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_moon_won',
         result:
-          'You take the red photograph down yourself, which is the honest way to do it, and it is still a mistake you can hear — the room goes exactly one degree colder. Omid nods, says “Understood,” and works the rest of the day without another word. The photograph disappears from the trash by morning. You do not ask where it lives now.',
+          'You take the red photograph down yourself. That is the honest way, and the room still goes one degree colder. Omid nods, says “Understood,” and works the rest of the day in silence. By morning the photo is gone from the trash. You leave that mystery alone.',
       },
       {
         label: 'Split the lab. One bench keeps Mars breathing.',
@@ -221,7 +221,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_moon_won',
         result:
-          'One bench, one grad-student salary, one long-shot simulation running nights on the render cluster. Calling it a Mars program would be generous. It is a candle, and Omid tends it the way people tend candles. June, if she is watching the books, prices the candle at exactly what it costs and says nothing — yet.',
+          'One bench, one junior engineer, one long-shot Mars test running at night on borrowed computers. It barely counts as a program. It is a candle, and Omid tends it that way. If June is watching the books, she writes down its exact cost and says nothing yet.',
       },
     ],
   },
@@ -231,7 +231,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'THE COMPANY THE HOUR BUILT',
     prose:
-      'The argument settles into the walls and stays there. The map of everything gets rebuilt around one gray photograph, and the company that comes out of that hour is simpler and harder than the one that went in: a ring of relay satellites around the Moon, robot bodies at the south pole, and a chair on Earth that anyone can sit in. Somewhere south, a rocket goes up every few days — someone else’s, always someone else’s. The rent comes due, the payroll comes due, and the box of physics keeps turning into invoices. What you need next is a robot body worth sending to another world — and the only man who builds machines that good is an hour north, in Fresno.',
+      'The fight settles into the walls. The map gets rebuilt around one gray photograph, and the company that comes out of that hour is simpler and harder. Relay satellites around the Moon. Robot bodies at the south pole. A chair on Earth that anyone can sit in. Rockets lift off south of you every few days, always carrying someone else’s dream. Rent comes due. Payroll comes due. The box of physics keeps turning into invoices. Next, TELEPORT needs hardware tough enough for another world. The only man who builds machines that good is an hour north, in Fresno.',
     choices: [{ label: 'Continue', effects: [], goto: 't_ray_bodies' }],
   },
   {
@@ -240,9 +240,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE ONLY HANDS IN TOWN',
     speaker: 'ray',
     leadIn:
-      'Ray Freres has moved his shop twice since Hyperchute and updated nothing else — same hand-written ledger by the register, same policy of trusting nobody and delivering early anyway.',
+      'Ray Freres has moved his shop twice since Hyperchute and changed almost nothing: the handwritten ledger by the register remains, along with his habit of trusting nobody and delivering early.',
     prose:
-      'He walks the requirements sheet once, lips moving at the hard parts. A telepresence chassis that survives lunar regolith, thermal swings of three hundred degrees, and being driven by a tourist. “Everyone wants space now,” he says. “Space is just weather that hates you.” He quotes it honest: airframe-grade everything, three prototype bodies. “Cash up front and I start Monday. Terms and you wait for my other customers. Your call — but I remember how you paid last time, and so does the book.”',
+      'He walks the requirements sheet once, lips moving at the hard parts. You need a robot body that survives moon dust, a 300-degree temperature swing, and a tourist at the controls. “Everyone wants space now,” he says. “Space is just weather that hates you.” His quote is plain: space-grade parts, three prototype bodies. “Cash up front and I start Monday. Terms and you wait behind my other customers. Your call. I remember how you paid last time, and so does the book.”',
     choices: [
       {
         label: 'Cash up front. Start Monday.',
@@ -255,7 +255,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_bodies_started',
         result:
-          'He initials the ledger in front of you, which from Ray Freres is a decoration ceremony. The first chassis frame is jigged before the wire even clears.',
+          'He initials the ledger in front of you, which from Ray Freres is a medal ceremony. The first body frame is in the jig before the wire clears.',
       },
       {
         label: 'Half now, half on delivery.',
@@ -267,7 +267,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_bodies_started',
         result:
-          '“Half,” he allows, and slots you behind a satellite bus job and somebody’s defense subcontract. You will get your bodies. You will get them when you get them.',
+          '“Half,” he allows, and slots you behind a satellite job and somebody’s defense contract. You will get your bodies. You will get them when you get them.',
       },
       {
         label: 'Build them in-house. How hard can a Moon robot be?',
@@ -278,7 +278,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_bodies_started',
         result:
-          'Ray shrugs the shrug of a man adding a line to a different ledger — the mental one titled FOUNDERS WHO LEARNED. You hire two machinists and buy a mill. The hangar starts sounding like a real company and burning like one too.',
+          'Ray gives the shrug of a man adding your name to a private list called FOUNDERS WHO LEARNED. You hire two machinists and buy a mill. The hangar starts sounding like a real company and burning money like one too.',
       },
     ],
   },
@@ -289,7 +289,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_first_body',
     title: 'SOMETHING WITH HANDS',
     prose:
-      'Six weeks later there is something with hands standing in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly — test-gray, with camera masts where a head ought to be — but when Omid runs the arm through its wake-up routine, the whole shop floor stops to watch, every single time. Nobody is casual around a machine whose entire purpose is to reach. The relay math lives in server racks, invisible. The body is the first piece of the company you can stand in front of. Which makes it the first piece the world can be shown.',
+      'Six weeks later, something with hands stands in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly, test-gray, with camera masts where a head should be. When Omid runs the arm through its wake-up routine, the shop floor stops every time. Nobody feels casual around a machine built to reach. The relay math lives unseen in server racks. The body is the first piece of TELEPORT you can stand in front of, which makes it the first piece the world can see.',
     choices: [{ label: 'Continue', effects: [], goto: 't_cascade_test' }],
   },
   {
@@ -300,9 +300,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'TWO POINT SIX',
     speaker: 'farrokh',
     leadIn:
-      'The first full cascade test uses rented time on three commercial relays and a leased dish in Chile — a bucket brigade with the Moon standing in as itself, no simulation anywhere in the loop.',
+      'The first full relay-chain test uses rented time on three commercial satellites and a leased dish in Chile. The Moon stands in as itself, and every signal travels for real.',
     prose:
-      'Mission control is four desks pushed together. Omid counts the handoff down like a man defusing something. The command leaves Earth. The counter he built — big red digits, deliberately merciless — runs up through the silence. At 2.61 seconds the test rig at the far end closes its hand around a rubber ball, and four desks of people come out of their chairs. Omid stays seated, watching the counter with an expression you will think about for years. “Two point six,” he says. “That number is the product. The ads can say anything they want. The customer buys those two point six seconds. Never let anyone make the number smaller with words.”',
+      'Mission control is four desks pushed together. Omid counts down the handover like a man defusing a bomb. The command leaves Earth. The counter he built, huge red digits and no mercy, climbs through the silence. At 2.61 seconds, the test rig at the far end closes its hand around a rubber ball, and four desks of people jump up at once. Omid stays seated, watching the counter with a look you will remember for years. “Two point six,” he says. “That number is the product. The ads can say anything. The customer buys those two point six seconds. Keep the number exactly as it is.”',
     choices: [
       {
         label: 'Frame the number. Hang it where visitors see it.',
@@ -313,7 +313,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          '2.61 goes up by the door, printed poster-size, unexplained. Half the visitors ask about it, which is the point. Omid never mentions the poster, but you catch him straightening it once, with one finger, on his way past.',
+          '2.61 goes up by the door on a captionless poster. Half the visitors ask about it, which is the point. Omid never mentions the poster, but you catch him straightening it once, with one finger, on his way past.',
       },
       {
         label: 'Celebrate tonight. Worry about messaging later.',
@@ -335,7 +335,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'Commander Ruth Salazar attends by video from the lunar south pole, arms folded, and says eleven words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” she says, which people who know her will later tell you is the highest rating she has ever given anything with a sales team.',
+          'Commander Ruth Salazar watches by video from the lunar south pole, arms folded, and says eleven words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” she says. People who know her later tell you this is the highest rating she has ever given anything with a sales team.',
       },
     ],
   },
@@ -355,9 +355,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_quote',
     title: 'THE QUOTE',
     leadIn:
-      'The Lunar Commerce Expo is eleven weeks out — the one room on Earth where every base operator, tourism broker, and space investor stands within shouting distance of each other for three days. To show up with anything worth their eyes, the test mule has to become a flight-rated demonstrator.',
+      'The Lunar Commerce Expo is eleven weeks away. For three days, every Moon base operator, tourist broker, and space investor will share one hall. To earn their attention, your test machine needs to become safe enough for a live public demo.',
     prose:
-      'The quote lands on a Tuesday and sits in the middle of the table like a verdict: flight-rating the demo body, plus certified relay time booked across the expo window, plus the insurance the venue demands when you operate a machine over live satellite in front of a crowd. The bottom line is a number brutally close to everything the company has left. June’s spreadsheet — or the ghost of it, if she isn’t here — says the same thing either way: pay this, and the account drops to almost nothing until new money lands. There is no version of the expo that is half a bet.',
+      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and buying the insurance the hall demands when a robot moves over satellite in front of a crowd. The total sits brutally close to everything the company has left. June’s spreadsheet, or the ghost of it if she is gone, says the same thing: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
     choices: [
       {
         label: 'Pay it in full. Flight-rate everything.',
@@ -370,7 +370,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_allin_expo',
         result:
-          'The wire goes out at 4:59 p.m. and the balance that comes back from the bank has a comma fewer than you are used to. Omid looks at it over your shoulder and says, quietly, “Good. Now it’s real.”',
+          'The wire goes out at 4:59 p.m. The bank balance that returns has one fewer comma than you are used to. Omid looks over your shoulder and says, quietly, “Good. Now it’s real.”',
       },
       {
         label: 'Half the package. Rate the body, skimp the backup relay.',
@@ -382,7 +382,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_allin_expo',
         result:
-          'One relay path instead of two. Omid signs off on it with the enthusiasm of a surgeon agreeing to operate with one glove, and doubles his test schedule without being asked.',
+          'One relay path instead of two. Omid signs off with the joy of a surgeon told to operate with one glove. Then he doubles his test schedule without being asked.',
       },
       {
         label: 'Ray builds it on credit. The ledger remembers.',
@@ -393,7 +393,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_allin_expo',
         result:
-          'Ray hears the account balance in your voice before you finish the ask. He builds the flight kit on terms, initials a new line in the hand-written book, and says only: “Everyone gets one.” You are on the wrong page of the ledger now, and both of you know what that page costs later.',
+          'Ray hears the bank balance in your voice before you finish asking. He builds the flight kit on terms, initials a new line in the handwritten book, and says only, “Everyone gets one.” You are on the wrong page of the ledger now. Both of you know what that page costs later.',
       },
     ],
   },
@@ -404,9 +404,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_allin',
     title: 'ALL OF IT',
     leadIn:
-      'After the quote clears, the account holds just enough to keep the lights on and the people paid, if nothing surprises you. The expo has one more page of line items, and it is all surprises.',
+      'After the quote clears, the account can keep the lights on and payroll paid if nothing surprises you. The expo still has one more page of costs, and every line is a surprise.',
     prose:
-      'Booth space. Freight for a robot in a crate the size of a casket. Union labor at the hall, mandatory. Hotel block, deposit due now. Do the expo right and it eats nearly everything left in the account. Do it cheap and ten thousand people meet a cheap company. Skip it and you wait a full year for a room like this to exist again. Around the table nobody says the word runway out loud, but everyone at this table has done that math before, at a different company, in a worse chair. Three days in that hall will decide what this company gets to become.',
+      'Booth space. Freight for a robot in a crate the size of a casket. Hall labor, required. Hotel rooms, deposit due now. Do the expo right, and it eats almost everything left. Do it cheap, and ten thousand people meet a cheap company. Skip it, and you wait a full year for another room like this. Around the table, nobody says runway. Everyone has done this math before, at another company, in a worse chair. Three days in that hall will decide what TELEPORT becomes.',
     choices: [
       {
         label: 'The full booth. Look like the future or stay home.',
@@ -419,7 +419,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_expo_eve',
         result:
-          'Island booth, twenty-by-twenty, the body on a raised dais under a single spot. The renderings look like a company forty times your size, which is precisely the crime you intend to commit.',
+          'Island booth, twenty-by-twenty, the body on a raised dais under a single spot. The renderings look like a company forty times your size. That is exactly the crime you plan to commit.',
       },
       {
         label: 'A modest corner booth. Let the machine do the talking.',
@@ -431,7 +431,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_expo_eve',
         result:
-          'Ten-by-ten at the end of an aisle, between a valve manufacturer and a startup selling lunar-dust-rated lubricant. Fine. The body doesn’t know what size the booth is.',
+          'Ten-by-ten at the end of an aisle, between a valve maker and a startup selling moon-dust-safe grease. Fine. The body doesn’t know what size the booth is.',
       },
       {
         label: 'No booth. Borrowed badges and audacity.',
@@ -441,7 +441,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_expo_eve',
         result:
-          'Ray’s shop has exhibitor badges going spare and a friendly freight handler who owes him. The plan would embarrass a heist movie: park the crate at his booth’s edge, find a power drop, and demo in the aisle until security has opinions. June — or her ghost — would point out this is how legends and restraining orders both start.',
+          'Ray’s shop has spare exhibitor badges and a friendly freight handler who owes him. The plan would embarrass a heist movie. Park the crate at his booth’s edge, find power, and demo in the aisle until security notices. If June is present, she points out that legends and restraining orders often start the same way.',
       },
     ],
   },
@@ -452,7 +452,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_expo_eve',
     title: 'THE NIGHT BEFORE',
     prose:
-      'The hotel is the mid-price kind where every hallway smells faintly of chlorine and ambition. You run the company card for the rooms at the front desk and watch the machine think about it one second too long before it approves. You decide not to ask why. Upstairs, Omid re-runs the relay reservation confirmations until the numbers blur. Somewhere below, in a loading dock lit like a police interrogation, a crate the size of a casket waits with the entire company inside it. Tomorrow, ten thousand people. Tonight, the ceiling, and the arithmetic, and the sound of your own heart doing launch-day math.',
+      'The hotel is the mid-price kind where every hallway smells faintly of chlorine and ambition. You run the company card for the rooms and watch the machine think one second too long before it approves. You decide to leave the mystery alone. Upstairs, Omid checks the relay booking emails until the numbers blur. Below you, in a loading dock lit like an interrogation room, a crate the size of a casket holds the whole company. Tomorrow, ten thousand people will walk past. Tonight, it is the ceiling, the math, and your heart keeping launch time.',
     choices: [{ label: 'Continue', effects: [], goto: 't_expo_demo' }],
   },
   {
@@ -462,9 +462,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_expo_demo',
     title: 'A CHAIR ON EARTH',
     leadIn:
-      'Day one. The hall is a cathedral of other people’s money — full-scale lander mockups, a sixty-foot LED Moon, HALCYON’s pavilion with its own second floor. And then there is yours: one body, one chair, one live link to a rented test yard, and a counter with big red digits.',
+      'Day one. The hall is built from other people’s money: full-size lander mockups, a sixty-foot LED Moon, and HALCYON’s pavilion with its own second floor. Then there is yours: one body, one chair, one live link to a rented test yard, and a counter with big red digits.',
     prose:
-      'The demo is simple on purpose. A stranger sits in the chair. The body — real, remote, far away — wakes under their hands. They reach. Two point six seconds later, on the screen, the reach happens. The delay is right there, visible, undeniable, and this is the moment: every telepresence pitch in history has hidden that gap. The crowd is watching to see what you do with it.',
+      'The demo is simple on purpose. A stranger sits in the chair. Far away, the robot body wakes under their hands. They reach. Two point six seconds later, on the screen, the hand reaches too. The delay is visible. Every remote-robot pitch has tried to hide that gap. The crowd is watching to see what you do with it.',
     choices: [
       {
         label: 'Name the delay. Make the room count it out loud.',
@@ -476,7 +476,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_expo_checks',
         result:
-          '“Two point six seconds,” you tell every audience, every hour, “is the speed of light being honest with you.” By day two the crowd counts the gap out loud like a launch, and cheers when the hand closes. HALCYON’s pavilion has a second floor. You have the only booth in the building with a chant.',
+          '“Two point six seconds,” you tell every audience, every hour, “is the speed of light being honest with you.” By day two, the crowd counts the gap out loud like a launch and cheers when the hand closes. HALCYON’s pavilion has a second floor. You have the only booth in the building with a chant.',
       },
       {
         label: 'Choreograph around it. Keep the magic seamless.',
@@ -487,7 +487,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_expo_checks',
         result:
-          'Scripted motions, pre-positioned props, patter timed to swallow the gap. It works — the demo feels like sorcery, and the crowd never quite notices what it never quite saw. Omid runs the chair all day with the face of a concert pianist playing a jingle.',
+          'Scripted motions, props set in advance, and patter timed to cover the gap. It works. The demo feels like magic, and the crowd misses what it was never shown. Omid runs the chair all day with the face of a concert pianist playing a jingle.',
       },
       {
         label: 'Hand the chair to strangers. Let the Moon be the Moon.',
@@ -499,7 +499,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_expo_checks',
         result:
-          'Unscripted hands, honest gap, occasional fumbles — and once, when the link stutters, thirty seconds of naked silence you will relive at 3 a.m. for a year. But strangers walk away saying the one sentence money can’t buy: “I touched it. It was real.”',
+          'Unscripted hands, honest gap, occasional fumbles. Once, when the link hiccups, thirty seconds of bare silence arrives and stays with you at 3 a.m. for a year. Strangers still walk away saying the one sentence money cannot buy: “I touched it. It was real.”',
       },
     ],
   },
@@ -510,9 +510,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_expo_checks',
     title: 'THREE PIECES OF PAPER',
     leadIn:
-      'By the last afternoon your voice is gone, the demo body needs a new wrist actuator, and three separate people are waiting to talk to you at the same time. There are worse problems, and you have had most of them.',
+      'By the last afternoon, your voice is gone, the demo body needs a new wrist motor, and three people are waiting to talk to you at once. There are worse problems. You have had most of them.',
     prose:
-      'They come in order of gravity. Commander Ruth Salazar — down the well for the expo, visibly allergic to it — watches the demo twice and says: “My maintenance backlog at the Verge is nine months. Your body, my base, a paid pilot program. Letter of intent, my signature, today.” Then Elliot Vance of ATLAS, older, still signing things in public: “I owed you a proper deal from the last life. Four hundred thousand, strategic, no board seat — SOMEDAY, PROPERLY, and today’s the day.” And at the end of the aisle, unhurried, a man in a gray suit with no company on his badge: Conrad Hale. “ALEPH has been watching your telemetry all week,” he says pleasantly. “The fund would like to lead your Series A. Dinner?”',
+      'They arrive in order of gravity. Commander Ruth Salazar, down from the Moon for the expo and visibly allergic to it, watches the demo twice. “My maintenance backlog at the Verge is nine months. Your body, my base, a paid pilot program. Letter of intent, my signature, today.” Then Elliot Vance of ATLAS, older and still signing things in public, says, “I owed you a proper deal from the last life. Four hundred thousand, strategic, no board seat. SOMEDAY, PROPERLY, and today’s the day.” At the end of the aisle, a calm man in a gray suit wears a badge with a blank company line. Conrad Hale. “ALEPH has been watching your flight records all week,” he says. “The fund would like to lead your Series A. Dinner?”',
     choices: [
       {
         label: 'Sign Salazar’s letter of intent on the crate lid, right now.',
@@ -528,7 +528,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'She signs against the crate like it is a field desk, which for her it is. “Paper first, dinner never,” she says, already leaving. Vance’s check gets signed at the booth an hour later — SOMEDAY, PROPERLY, in fountain pen — and Hale’s dinner stands. Revenue before investors. She would approve of the order.',
+          'She signs on the crate like it is a field desk. For her, it is. “Paper first, dinner never,” she says, already leaving. Vance signs his check at the booth an hour later, SOMEDAY, PROPERLY in fountain pen. Hale’s dinner still waits. Revenue before investors. Salazar would approve.',
       },
       {
         label: 'Take Vance’s check before compliance wakes up.',
@@ -558,7 +558,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hotel_card',
         result:
-          'Salazar’s letter signed on the crate at five, Vance’s check at seven, and dinner with Conrad Hale at nine, where he orders for the table without looking at the menu and asks questions that feel like they were generated from your bank statements. They were.',
+          'Salazar’s letter at five, Vance’s check at seven, dinner with Conrad Hale at nine. Hale orders for the table without looking at the menu and asks questions that sound pulled from your bank statements. They were.',
       },
     ],
   },
@@ -571,7 +571,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Checkout, day four. In your bag: a signed letter of intent from a lunar base, an investment check that hasn’t cleared yet, and a handshake deal from dinner. At the front desk, the clerk runs your company card.',
     prose:
-      'The desk clerk runs the company card for the room block and the machine makes a sound you have not heard since the garage years — a small, apologetic, catastrophic beep. DECLINED. She tries it again, because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, is more money than the whole building. In the account behind this card — after the shipping invoice that auto-paid itself this morning — there is roughly enough for the minibar. The clerk looks up with professional mercy and asks, quietly, if there is perhaps another card.',
+      'The desk clerk runs the company card for the room block. The machine makes the old garage-years sound, a small and kind and catastrophic beep. DECLINED. She tries again because people are kind. Beep. Behind you, half the space industry is checking out of the same hotel. In your bag, on paper, is more money than the building costs to rent for a week. In the account behind this card, after the shipping invoice paid itself this morning, there is roughly enough for the minibar. The clerk looks up with professional mercy and asks, quietly, if you have another card.',
     choices: [
       {
         label: 'June steps in and pays it without a word.',
@@ -585,7 +585,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hale_terms',
         result:
-          'Her personal card, tapped once, no eye contact, conversation about the freight schedule continuing unbroken — a kindness executed like a covert operation. In the shuttle to the airport she finally says, “We are never telling Hale about this,” and you both laugh the specific laugh of people who were nearly dead an hour ago.',
+          'Her personal card taps once. She keeps her eyes on the clerk. The conversation about freight keeps moving, as if nothing happened. In the shuttle to the airport she finally says, “We are never telling Hale about this,” and you both laugh the specific laugh of people who were nearly dead an hour ago.',
       },
       {
         label: 'Omid’s personal card. He offers before you ask.',
@@ -598,7 +598,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hale_terms',
         result:
-          'He has it out of his wallet before the second beep finishes, and pays a five-figure hotel bill with the flat expression of a man buying gum. Later, on the plane, he says the only thing he will ever say about it: “Nine years nobody funded me. I know what a declined card sounds like. No one hears it twice standing next to me.”',
+          'He has it out of his wallet before the second beep finishes, and pays a five-figure hotel bill with the flat expression of a man buying gum. Later, on the plane, he says the only thing he will ever say about it: “Nine years nobody funded me. I know that sound. I hear it once. Then I pay.”',
       },
       {
         label: 'Negotiate: invoice the company, thirty days net.',
@@ -609,7 +609,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_hale_terms',
         result:
-          'It takes a manager, a copy of Salazar’s signed letter as a character witness, and every ounce of charm left in your ruined voice. The hotel agrees to send a bill. You walk out through a lobby full of the industry you are about to join, flat broke, carrying the company’s entire future in a tote bag.',
+          'It takes a manager, a copy of Salazar’s signed letter as proof the company is real, and every ounce of charm left in your ruined voice. The hotel agrees to bill you. You walk through a lobby full of the industry you are about to join, broke flat, carrying the company’s future in a tote bag.',
       },
     ],
   },
@@ -624,9 +624,9 @@ export const ACT_ONE: readonly SceneDef[] = [
     title: 'THE MODEL’S OFFER',
     speaker: 'hale',
     leadIn:
-      'The wires cleared — Vance’s four hundred thousand landed like rain on a drought, and the Verge pilot is being papered. Then ALEPH’s term sheet arrives, and it is not like other term sheets. Page one is the deal. Page two is a summary of your own company, written by the model, more accurate than your own board deck.',
+      'Vance’s $400,000 wire lands like rain on dry ground, and the Verge pilot is being turned into a contract. Then ALEPH’s term sheet arrives. Page one is the deal. Page two is a summary of your company, written by the model and sharper than your own board deck.',
     prose:
-      'Conrad Hale takes the good chair in your borrowed conference room and lets the document speak. Two and a half million. A fair price, honestly fair — ALEPH never haggles, it prices. Read past the money, though, and the important part is the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows to five. Whoever names that fifth seat may someday own a tiebreak. “The model doesn’t do control for control’s sake,” Hale says, watching you read. “It does governance hygiene. Its words.” Somewhere in a data center, a thing that has read every document you have ever signed is waiting to hear what you say next.',
+      'Conrad Hale takes the good chair in your borrowed conference room and lets the document speak. Two and a half million. A fair price, honestly fair. ALEPH never haggles. It prices. The important part sits in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. The person who names that fifth seat may someday control a tie. “The model cares about clean board math,” Hale says, watching you read. “Its words.” Somewhere in a data center, a thing that has read every document you ever signed is waiting for your answer.',
     choices: [
       {
         label: 'Take it — but the independent seat stays yours to name.',
@@ -645,7 +645,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_cut_first_light',
         result:
-          'Hale steps out to “consult,” which means to read. Eleven minutes later he returns: “The model watched your expo demo. It says a founder who names the delay out loud can name a director.” He initials the change by hand. It is the first thing the fund has ever conceded to anyone, and Conrad Hale looks briefly, humanly, delighted.',
+          'Hale steps out to “consult,” which means to read. Eleven minutes later he returns. “The model watched your expo demo. It says a founder who names the delay out loud can name a director.” He initials the change by hand. It is the first thing the fund has ever conceded, and Conrad Hale looks briefly, humanly, delighted.',
       },
       {
         label: 'Take the deal as written. Money now, governance later.',
@@ -661,7 +661,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_cut_first_light',
         result:
-          'You sign it as written, the way the model expected — page two, it turns out, had already predicted you would. The wire lands before Hale reaches the parking lot. Somewhere in the document, in clause 8(c), a seat you do not control waits patiently to matter.',
+          'You sign the deal as written, exactly as the model expected. Page two had already predicted that. The wire lands before Hale reaches the parking lot. In clause 8(c), a board seat outside your control begins waiting for its day.',
       },
       {
         label: 'Refuse the model’s money. Revenue is the round.',
@@ -673,7 +673,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_cut_first_light',
         result:
-          'Hale closes the folder without offense. “For the record, I advised the model you might. It assigned that outcome nine percent.” He shakes your hand at the door, and there is something in his face very like envy. “Most people never get to see what it looks like,” he says, “turning it down.”',
+          'Hale closes the folder without offense. “For the record, I advised the model you might. It gave that outcome nine percent.” He shakes your hand at the door, and his face carries something like envy. “Most people never get to see what turning it down looks like.”',
       },
     ],
   },
@@ -688,16 +688,16 @@ export const ACT_ONE: readonly SceneDef[] = [
       {
         art: 'cut_first_light',
         prose:
-          'The satellites go up three at a time. Three relays per rocket, four launches, a whole winter of licensing paperwork — and then one night at the hangar, Omid connects the final satellite into the chain, and the whole ring comes alive on the wall map like streetlights switching on around the Moon.',
+          'The satellites go up three at a time. Three relays per rocket, four launches, a winter of permits and licenses. Then, one night in the hangar, Omid connects the final satellite to the chain. The ring wakes on the wall map like streetlights around the Moon.',
       },
       {
         art: 'cut_ring_alive',
         prose:
-          'He does not cheer. He stands in front of the map with his hands in his pockets for a long time, a man looking at nine unfunded years turned into light.\n\nThen he picks up the microphone, keys the test channel to the body waiting at the pole, and says the first word ever carried end-to-end on his cascade:\n\n“Hello.”\n\nTwo point six seconds. The hand at Shackleton waves.',
+          'He stays quiet. He stands in front of the map with his hands in his pockets for a long time, looking at nine unfunded years turned into light.\n\nThen he picks up the microphone, opens the test channel to the body waiting at the pole, and says the first word ever carried end to end on his relay chain:\n\n“Hello.”\n\nTwo point six seconds later, the hand at Shackleton waves.',
       },
     ],
     prose:
-      'The relay ring completes. TELEPORT is no longer a demo with a counter — it is infrastructure, humming over the Moon. Year two begins with light.',
+      'The relay ring is complete. TELEPORT is more than a demo with a counter. It is part of how the Moon works now, humming overhead. Year two begins with light.',
     choices: [{ label: 'Begin year two', effects: [{ e: 'stress', d: -8 }], goto: 't_salazar_contract' }],
   },
 ]

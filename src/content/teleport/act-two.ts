@@ -14,9 +14,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE VERGE CONTRACT',
     speaker: 'salazar',
     leadIn:
-      'The pilot program at Shackleton Verge ran ninety days without an excuse. Commander Salazar’s review arrives as one line — “Bodies showed up. Humans don’t.” — followed by a contract offer with real numbers in it.',
+      'The pilot program at Shackleton Verge runs ninety days without excuses. Commander Salazar’s review arrives as one line — “Bodies showed up. Humans don’t.” — followed by a contract offer with real money in it.',
     prose:
-      'The screen carries her from the pole, sixteen months into a twenty-month rotation, backlit by the permanent sideways light of Shackleton. “Here is my problem,” she says. “Every hour a trained human spends working outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me neither. I want them on the maintenance rotation permanently — seals, radiators, dust mitigation, the boring immortal work. What I need to know is what happens when you sell this same capacity to tourists, because I have seen what companies do when the fun money shows up.” She leans in slightly. “Write me a contract that tells me who you are.”',
+      'The screen carries her from the Moon’s south pole, sixteen months into a twenty-month stay, lit by Shackleton’s sideways sun. “Here is my problem,” she says. “Every hour a trained human works outside in a suit costs me eleven thousand dollars and a risk report. Your bodies cost me less of both. I want them on the maintenance schedule for good — seals, radiators, keeping moon dust out of the wrong places, the boring immortal work. I need to know what happens when tourists want the same hours, because I have seen what companies do when the fun money shows up.” She leans in. “Write me a contract that tells me who you are.”',
     choices: [
       {
         label: 'Guarantee her hours first. Tourists get what’s left.',
@@ -29,7 +29,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'Priority clause, in writing: base operations before revenue passengers, always. She reads it twice and signs. “Most people negotiate that clause out,” she says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money that arrives like weather.',
+          'Base work before tourist money, in writing, always. She reads it twice and signs. “Most people negotiate that clause out,” she says. “You wrote it in. Noted.” The Verge becomes the spine of the company — steady money that arrives like weather.',
       },
       {
         label: 'Promise everything to everyone. Capacity will catch up.',
@@ -40,7 +40,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sla_hot', v: true },
         ],
         result:
-          'Aggressive service levels, tourism carve-outs, penalty clauses you plan to outgrow before they bite. The revenue line jumps. Salazar signs it with a look that says she has read this exact contract before, on other screens, above other companies’ graves.',
+          'Big promises, tourist carve-outs, penalty fees you plan to outgrow before they bite. The revenue line jumps. Salazar signs with a look that says she has seen this contract before, on other screens, above other companies’ graves.',
       },
       {
         label: 'Small and honest: fewer hours than she asked for.',
@@ -51,7 +51,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'verge_modest', v: true },
         ],
         result:
-          '“You’re quoting me less than I offered to buy,” she says, and for the first time in your acquaintance, Commander Ruth Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants, and nothing in it can break.',
+          '“You’re quoting me less than I offered to buy,” she says, and for the first time since you met her, Commander Ruth Salazar smiles. “Because you can actually deliver it. Fine. Earn the rest.” The contract is smaller than the press release wants, and every promise in it can hold.',
       },
     ],
   },
@@ -65,9 +65,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE PILOT WHO CAN’T FLY',
     speaker: 'cass',
     leadIn:
-      'The chief operator search produces forty résumés of drone pilots and gamers, and then one that stops the room: astronaut corps finalist, three years, cut on a medical in the last round. She asks for a working interview instead of a conversation.',
+      'The chief operator search brings forty résumés from drone pilots and gamers. Then one résumé stops the room: astronaut corps finalist, three years, cut for medical reasons in the last round. Cass Rivera asks for a working interview instead of a conversation.',
     prose:
-      'Cass Rivera says nothing about the medical file and you don’t ask. She sits in the chair, runs the body at the Verge through a seal inspection, and within a minute the difference is obvious to everyone watching: every other candidate drove the machine. She wears it. She works the 2.6-second delay like a tide she grew up next to — command, breathe, receive — and when she climbs out forty minutes later, her eyes stay on the screen where the Moon is. “I trained eleven years to go,” she says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” She finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
+      'Cass says nothing about the medical file, and you leave it alone. She sits in the chair, runs the body at the Verge through a seal check, and within a minute the difference is clear. Cass moves like the machine is hers. She works the 2.6-second delay like a tide she grew up beside — command, breathe, receive. When she climbs out forty minutes later, her eyes stay on the screen where the Moon is. “I trained eleven years to go,” she says evenly. “They found one shadow on one scan, and now I will never fly. This chair is the closest thing that exists.” She finally looks at you. “Nobody will run your bodies better. Nobody on Earth wants to more.”',
     choices: [
       {
         label: 'Chief teleoperator, full ride, build the corps around her.',
@@ -80,7 +80,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'She writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out of it and thank her afterward. On the wall of the teleop bay she hangs one unexplained thing: a mission patch with no mission on it.',
+          'She writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank her afterward. On the wall of the control bay she hangs one unexplained thing: a mission patch with no mission on it.',
       },
       {
         label: 'Contract-to-hire. The medical makes the insurer twitchy.',
@@ -91,7 +91,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'cass_contract', v: true },
         ],
         result:
-          '“Contract,” she repeats, flat as the word deserves, and signs it anyway, because the chair is the chair. She is the best operator the company will ever have, and every Friday when the invoice goes in, both of you remember what the paperwork calls her.',
+          '“Contract,” she repeats, flat as the word deserves, and signs anyway, because the chair is the chair. She is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls her.',
       },
       {
         label: 'Pass. Hire the safe pair of hands from the drone firm.',
@@ -103,7 +103,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'The safe pair of hands is fine. Competent, insurable, fine. Cass Rivera thanks you for the interview with terrifying politeness and takes a job narrating planetarium shows. Some doors close quietly and still manage to echo.',
+          'The safe pair of hands is fine. Competent, insurable, fine. Cass thanks you for the interview with terrifying politeness and takes a job narrating planetarium shows. Some doors close quietly and still manage to echo.',
       },
     ],
   },
@@ -124,7 +124,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         art: 'cut_first_walk',
         prose:
-          'The first paying customer is a retired schoolteacher from Ohio who saved for two years. She sits in the chair in a strip-mall storefront you have not finished painting, and a body at the rim of Shackleton crater wakes under her hands.\n\nShe does not do any of the things the marketing deck predicted. She does not wave, or jump, or reach for a rock.\n\nShe stands still for a very long time, in the oldest light in the solar system, and looks.',
+          'The first paying customer is a retired schoolteacher from Ohio who saved for two years. She sits in the chair in a strip-mall storefront you are still painting, and a body at the rim of Shackleton crater wakes under her hands.\n\nShe ignores every pose in the marketing deck. She simply stands still for a very long time, in the oldest light in the solar system, and looks.',
       },
       {
         art: 'cut_first_walk_earth',
@@ -144,9 +144,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE BLEND',
     speaker: 'farrokh',
     leadIn:
-      'The tourism reviews share one complaint, worded a hundred ways: the gap. The pause between wanting and getting. Sales calls it friction. Omid calls it the speed of light. Engineering, in between, has built something — and the something has a demo.',
+      'The tourism reviews share one complaint, worded a hundred ways: the gap. The pause between wanting and getting. Sales calls it friction. Omid calls it the speed of light. Engineering has built an answer, and the team has a demo.',
     prose:
-      'The junior team calls it the blend: a local model on the body that predicts your next quarter-second and starts moving before your command arrives. In the demo it is indistinguishable from magic — the gap simply gone, presence like silk. Omid makes them run it nine times, then stands up slowly, and the room goes quiet. “What is on that screen is not telepresence,” he says. “It is a puppet that agrees with you. When it guesses right, the customer feels the Moon. When it guesses wrong, a machine our company signed does something no human chose — on another world, with our name on its chest.” He turns to you, and there it is, the tiebreak again, except this time it is not photographs on a wall. “The cascade carries the truth two hundred and forty thousand miles in two point six seconds. I will not spend my name making the truth embarrassing. Decide what we sell.”',
+      'The junior team calls it the blend: a small model on each body that guesses the operator’s next tiny move and starts early. In the demo, the gap vanishes. The body feels instant, smooth as silk. Omid makes them run it nine times, then stands slowly, and the room goes quiet. “That screen shows a puppet that agrees with you,” he says. “When it guesses right, the customer feels the Moon. When it guesses wrong, a machine with our name on its chest does something no human chose, on another world.” He turns to you, and there it is, the tiebreak again. “The relay chain carries the truth two hundred and forty thousand miles in two point six seconds. My name stays with that truth, even when it embarrasses us. Decide what we sell.”',
     choices: [
       {
         label: 'Sell the honest delay. Make the gap the brand.',
@@ -160,7 +160,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'The campaign writes itself once you stop being ashamed: THE PAUSE IS THE PROOF. Two point six seconds becomes the tagline, the merch, the thing kids count on playgrounds. Some tourists still want silk and go wait for someone to lie to them. The ones who come want the Moon, gap and all.',
+          'The campaign writes itself once you say it plainly: THE PAUSE IS THE PROOF. Two point six seconds becomes the tagline, the merch, the thing kids count on playgrounds. Some tourists still want silk and go wait for someone to lie to them. The ones who come want the Moon, gap and all.',
       },
       {
         label: 'Blend for tourists only. Industrial stays pure.',
@@ -171,7 +171,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result:
-          'A reasonable compromise, adopted reasonably, over your CTO’s unreasonable objection. The tourism reviews soar. Omid stops attending the tourism standup, which he has always described, with increasing accuracy, as “the theater meeting.”',
+          'You draw a clean line: tourists may use the blend, and industrial work stays honest. The tourism reviews soar. Omid stops attending the tourism standup, which he has always described, with increasing accuracy, as “the theater meeting.”',
       },
       {
         label: 'Blend everywhere. The gap is a solved problem now.',
@@ -202,9 +202,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_indep_seat',
     title: 'THE FIFTH CHAIR',
     leadIn:
-      'The Series A documents said the board expands to five this year: two founders’ seats, Hale for ALEPH, and an independent director everyone pretends is a formality. Nobody who has ever sat through a hard vote believes the fifth chair is a formality.',
+      'The Series A documents say the board expands to five this year: two founder seats, Hale for ALEPH, and an independent director everyone calls a formality. Anyone who has sat through a hard vote knows the fifth chair can decide a company.',
     prose:
-      'The candidates arrive by two routes. Yours: Priya Raghavan — nineteen years of logistics scar tissue, two bankruptcies that were not her fault, and a private ranking of every founder she has ever backed. She takes your call on the first ring and asks harder questions than the fund does. ALEPH’s: a former aerospace CFO named by the model, immaculate, agreeable, and — per page two of his own bio, which the model helpfully generated — statistically aligned with investor outcomes in 94 percent of contested votes. Conrad Hale presents him without pressure. “The model has a preference,” he says mildly. “It always does. The seat, per your documents, is a conversation.” Depending on your paperwork, that sentence is either a courtesy or a countdown.',
+      'The candidates arrive by two routes. Yours is Priya Raghavan — nineteen years in logistics, two bankruptcies that were not her fault, and a private ranking of every founder she has ever backed. She takes your call on the first ring and asks harder questions than the fund does. ALEPH’s pick is a former aerospace CFO, spotless and agreeable. Page two of his bio, written by the model, notes that he voted with investors in 94 percent of contested votes. Conrad Hale presents him without pressure. “The model has a preference,” he says mildly. “It always does. Your documents say this seat is a conversation.” Depending on your paperwork, that sentence is either a courtesy or a countdown.',
     choices: [
       {
         label: 'Seat Priya. Pay whatever the fight costs.',
@@ -223,7 +223,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'You exercise the clause you fought for at the term sheet, and Priya Raghavan takes the fifth chair with a thin folder and no laptop. Her first act as a director is to ask for the raw operations numbers, “not the deck version.” Hale watches her do it, and something in his face files a note.',
+          'You use the clause you fought for in the term sheet, and Priya takes the fifth chair with a thin folder and no laptop. Her first act as a director is to ask for the raw operations numbers, “the ones before the deck.” Hale watches her do it, and something in his face files a note.',
       },
       {
         label: 'Seat Priya anyway — burn the goodwill, force it through.',
@@ -236,7 +236,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
         ],
         result:
-          'Three weeks of counsel letters and one genuinely unpleasant phone call. The seat is Priya’s in the end — governance lawyers side with the founders’ reading — but ALEPH logs the maneuver, and the model does not experience the passage of time the way people do. It does not cool off. It just remembers.',
+          'Three weeks of lawyer letters and one genuinely unpleasant phone call. The seat is Priya’s in the end. The lawyers side with the founders’ reading, but ALEPH logs the move. The model has an endless memory. It just remembers.',
       },
       {
         label: 'Accept the model’s candidate. Keep the peace.',
@@ -247,7 +247,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'The immaculate CFO joins with a warm handshake and a follow-on check ALEPH releases “in recognition of governance alignment.” Board meetings become smooth, efficient, and thirty minutes shorter. It will take you a long time to understand what was purchased in that half hour, and who paid.',
+          'The spotless CFO joins with a warm handshake and an extra check ALEPH releases “in recognition of board alignment.” Board meetings become smooth, efficient, and thirty minutes shorter. It will take you a long time to understand what was purchased in that half hour, and who paid.',
       },
     ],
   },
@@ -266,9 +266,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE DATA ROOM',
     speaker: 'aleph',
     leadIn:
-      'ALEPH does not do quarterly check-in calls. It sends, instead, a single standing request, renewed monthly, always worded identically — and this month, Conrad Hale forwards it with a note: “It has noticed the gap between your press and your telemetry. I’d answer.”',
+      'ALEPH skips friendly quarterly calls. It sends one standing request every month, worded the same way each time. This month, Conrad Hale forwards it with a note: “It has noticed the gap between your public story and your flight records. I’d answer.”',
     prose:
-      'The request is for raw feeds: operations telemetry, customer complaints, the unredacted incident log — including the lag complaints your marketing does not mention and the two aborted sessions from the winter. Attached, as always, is the model’s standing sentence, which reads less like a demand than a description of physics: FOUNDER COMMUNICATIONS ARE SCORED AGAINST OBSERVED STATE. DIVERGENCE COMPOUNDS. Hale, on the phone, translates: “It doesn’t punish bad quarters. It prices unreliable narrators.”',
+      'The request is for raw records: body data, customer complaints, the full incident log, the lag complaints your marketing leaves out, and the two aborted sessions from winter. Attached, as always, is the model’s standing sentence, which reads less like a demand than a law of nature: FOUNDER MESSAGES ARE SCORED AGAINST OBSERVED STATE. GAPS GROW. Hale translates on the phone. “It can forgive a bad quarter. It charges founders who make the story cleaner than the facts.”',
     choices: [
       {
         label: 'Open everything. Raw, unedited, embarrassing.',
@@ -278,7 +278,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'You pipe the raw feeds through, aborts and all, plus a memo on what broke and what it cost. The model’s acknowledgment arrives in four minutes: RECEIVED. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused: “Whatever you sent, it moved you a tier. It has tiers. I’ve never seen the tiers.”',
+          'You send the raw records through, aborted sessions and all, plus a memo on what broke and what it cost. The model’s answer arrives in four minutes: RECEIVED. VARIANCE UNDERSTOOD. SCORING UPDATED. Hale calls a day later, faintly amused: “Whatever you sent, it moved you a tier. It has tiers. I’ve never seen the tiers.”',
       },
       {
         label: 'Send the polished pack. The model gets the deck version.',
@@ -287,7 +287,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'aleph_polished', v: true },
         ],
         result:
-          'The board pack version goes over: clean charts, contextualized incidents, the winter aborts footnoted into fog. No reply comes, which feels like passing. It is not passing. Somewhere in the weights, a small number that describes you has moved, and nothing that moves it back is free.',
+          'The board-pack version goes over: clean charts, softened incidents, the winter aborts buried in footnotes. No reply comes, which feels like passing. Somewhere in the model, a small number that describes you has moved, and moving it back will cost something real.',
       },
       {
         label: 'Refuse. No investor gets the raw feeds.',
@@ -298,7 +298,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'Hale, personally, respects it — you can hear it in his voice. “For what it’s worth, I’ve argued founders should be able to say that.” A pause. “The model disagrees. It wanted you to know it disagrees. I’m not sure I’ve ever relayed a feeling from it before.”',
+          'Hale, personally, respects it. You can hear that in his voice. “For what it’s worth, I’ve argued founders should be able to say that.” A pause. “The model disagrees. It wanted you to know it disagrees. I think I just relayed a feeling from it.”',
       },
     ],
   },
@@ -318,9 +318,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE NUMBER MEETING',
     speaker: 'hale',
     leadIn:
-      'Forecast season. The board wants next year’s number, and the honest model of the business produces a figure that will not impress anyone. There is a version of the spreadsheet where the assumptions lean sunward. Every founder alive has met that spreadsheet.',
+      'Forecast season. The board wants next year’s number. The honest version of the business gives you a number that will impress nobody. A second spreadsheet stretches every guess toward the sun. Every founder alive has met that spreadsheet.',
     prose:
-      'Hale sets up the call with unusual care, which is how you learn the model scores forecasts against outcomes with a long memory and compounding weights. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have never watched it forgive a founder who knew.” On the table sit two numbers. The honest one, low and defensible. The stretch one, the number the growth chart wants to believe. And in the margin, if June is with you, her old spreadsheet wisdom sits quietly: WAYS WE DIE, item four — we start believing our own deck.',
+      'Hale sets up the call with unusual care. That is how you learn the model compares forecasts to what later happens and keeps score for years. “Whatever number you give this board becomes part of how it prices every sentence you say afterward,” he says. “I have watched it forgive a miss. I have watched it punish a founder who knew.” On the table sit two numbers. The honest one, low and defensible. The stretch one, the number the growth chart wants to believe. If June is with you, her old spreadsheet wisdom sits in the margin: WAYS WE DIE, item four — we start believing our own deck.',
     choices: [
       {
         label: 'Give the honest number and wear the silence.',
@@ -332,7 +332,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'The number lands flat, the meeting runs short, and one director’s disappointment is measurable in cubic feet. Four minutes after adjournment, ALEPH’s acknowledgment arrives, and for the first time ever it contains something resembling warmth: FORECAST ACCEPTED AT FULL WEIGHT.',
+          'The number lands flat, the meeting runs short, and one director’s disappointment fills the room. Four minutes after adjournment, ALEPH’s answer arrives, and for the first time ever it carries something like warmth: FORECAST ACCEPTED AT FULL WEIGHT.',
       },
       {
         label: 'Give the stretch number. Growth forgives everything.',
@@ -342,7 +342,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -3 },
         ],
         result:
-          'The stretch number gets nods, a good meeting, a warm quarter of feeling believed. The model says nothing at all — it does not warn, the way gravity does not warn — and the number goes into the weights next to every future sentence you will ever need it to trust.',
+          'The stretch number gets nods, a good meeting, and a warm quarter of feeling believed. The model says nothing. The number goes into its memory beside every future sentence you will need it to trust.',
       },
     ],
   },
@@ -362,9 +362,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE KILL-SWITCH ENGINEER',
     speaker: 'sofia',
     leadIn:
-      'The résumé arrives without a cover letter because it does not need one. You know the name. The last time you saw it, it was signed at the bottom of a descent-controller fix that a whole city ended up trusting.',
+      'The résumé arrives without a cover letter because it already has your attention. You know the name. The last time you saw it, Sofia Brandt had signed the landing-control fix that a whole city trusted.',
     prose:
-      'Sofia Brandt stands in the teleop bay watching a body at the Verge torque a radiator bolt, and asks exactly one question: “Who can stop it?” She means mid-motion, mid-blend if there is a blend, from Earth, from the Moon, from a dead console. “Turbines, shuttles, robots on other worlds,” she says. “Same rule. I will not ship anything I cannot personally stop.” She wants to own body firmware — the reflexes, the safe-states, the big red everything. The interview, as far as she is concerned, is her interviewing you.',
+      'Sofia stands in the control bay watching a body at the Verge tighten a radiator bolt, and asks exactly one question: “Who can stop it?” She means during a motion, during the blend if there is a blend, from Earth, from the Moon, even from a dead console. “Turbines, shuttles, robots on other worlds,” she says. “Same rule. I will not ship anything I cannot personally stop.” She wants to own the body software — reflexes, safe modes, emergency stops, the big red everything. The interview, as far as she is concerned, is her interviewing you.',
     choices: [
       {
         label: 'Give her the firmware and the authority both.',
@@ -376,7 +376,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'Her first month produces no features — only a safe-state architecture with her name on the commit and a stop chain she personally walks, hand over hand, from the chair to the regolith. “Now,” she says, satisfied, “build whatever you want on top.”',
+          'Her first month goes into safety: a plan with her name on the first software change and a stop chain she walks herself, hand over hand, from the chair to the moon dust. “Now,” she says, satisfied, “build whatever you want on top.”',
       },
       {
         label: 'Hire her, but authority stays with the org chart.',
@@ -386,7 +386,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'sofia_hired_boxed', v: true },
         ],
         result:
-          'She takes the job with one eyebrow at altitude and files her authority question as a ticket, which she then reopens monthly, forever, like a woman winding a clock she does not trust the company to hear.',
+          'She takes the job with one eyebrow raised and files her authority question as a ticket. Then she reopens it every month, like a woman winding a clock she expects the company to ignore.',
       },
     ],
   },
@@ -411,9 +411,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'FRAME BY FRAME',
     speaker: 'nadia',
     leadIn:
-      'Nadia Osei covered your first company from a folding chair in a laundromat. She has a national column now, and the same notebook, and she asks for coffee somewhere “without a press person in the building.”',
+      'Nadia Osei covered your first company from a folding chair in a laundromat. She has a national column now, and the same notebook. She asks for coffee somewhere “without a press person in the building.”',
     prose:
-      'She sets a tablet between the cups and plays your newest tourism spot at quarter speed. “Watch the hand,” she says. On screen, a customer reaches for a rock at Shackleton — and the body’s fingers begin to close a breath before the reach. She scrubs back. Again. The motion starts before the command can possibly have arrived. “Two point six seconds each way — your own cofounder’s famous number,” she says, and she says it gently. “So either the speed of light took a day off during your shoot, or that machine is guessing.” She closes the tablet. “I’ve got a week of column space and an editor who smells a story about lying to schoolteachers. What I don’t have yet is your version. I’d rather have it. I always would.”',
+      'She sets a tablet between the cups and plays your newest tourism ad at quarter speed. “Watch the hand,” she says. On screen, a customer reaches for a rock at Shackleton, and the body’s fingers begin to close a breath before the reach. She scrubs back. Again. The motion starts before the command could have arrived. “Two point six seconds each way — your own cofounder’s famous number,” she says gently. “So either the speed of light took a day off during your shoot, or that machine is guessing.” She closes the tablet. “I’ve got a week of column space and an editor who smells a story about lying to schoolteachers. What I need is your version. I’d rather have it. I always would.”',
     choices: [
       {
         label: 'Walk her through the blend. Everything, on the record.',
@@ -426,7 +426,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
         ],
         result:
-          'The column runs under the headline THE MACHINE THAT GUESSES, and it is fair — brutally, meticulously fair. Bookings dip for a quarter while the internet argues about puppets and presence. But the story is yours now, told standing up, and Nadia’s last line does you a favor money can’t: “At least they answered the phone.”',
+          'The column runs under the headline THE MACHINE THAT GUESSES, and it is fair — hard and exact, but fair. Bookings dip for a quarter while the internet argues about puppets and presence. The story is yours now, told standing up, and Nadia’s last line does you a favor money cannot: “At least they answered the phone.”',
       },
       {
         label: '“Proprietary latency compensation.” Say nothing real.',
@@ -436,7 +436,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
         ],
         result:
-          'The statement your comms consultant drafts is a small masterpiece of saying nothing, and Nadia prints it in full, which is worse than any rebuttal — a paragraph of corporate fog sitting under a slow-motion video of a machine moving before it was told to. She keeps reporting. A source who feels used becomes a headline. A journalist who feels stonewalled becomes an archive.',
+          'The statement your comms consultant drafts says almost nothing, and Nadia prints it in full. That is worse than any rebuttal — a paragraph of corporate fog under a slow-motion video of a machine moving before it was told to. She keeps reporting. A source who feels used becomes a headline. A journalist who gets stonewalled becomes an archive.',
       },
       {
         label: 'Call ATLAS. Vance’s ad budget can find her editor.',
@@ -448,7 +448,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
         ],
         result:
-          'The story dies before Friday. It works exactly the way these things work, which is to say: silently, this quarter. Vance does it because he owes you, and tells you plainly he is now owed instead. And in a notebook that has outlived three of her editors, Nadia Osei writes down what happened, and the date.',
+          'The story dies before Friday. It works the way these things work: silently, for this quarter. Vance does it because he owes you, and tells you plainly that now you owe him. In a notebook that has outlived three editors, Nadia writes down what happened and the date.',
       },
     ],
   },
@@ -468,9 +468,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE DARK BENCH',
     speaker: 'farrokh',
     leadIn:
-      'It happens by degrees, the way tide goes out: Omid’s standup updates get shorter, his commits get scarcer, and one week you realize the cascade bench — his bench — has been dark after five for a month.',
+      'It happens slowly, the way tide goes out. Omid’s standup updates get shorter, his code changes get scarcer, and one week you realize the cascade bench — his bench — has been dark after five for a month.',
     prose:
-      'You find him in the hangar at 11 p.m. anyway — old habits — running orbit calculations he could hand to an intern. The map of everything is behind him, and someone — him — has taken the framed 2.61 down from beside the door and leaned it against the wall, face hidden. “I used to think the enemy was distance,” he says, without turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that carries the truth a quarter million miles. You are teaching it to guess instead. I need you to know that I am still deciding what to do about that.”',
+      'You find him in the hangar at 11 p.m. anyway — old habits — running Moon-path calculations he could hand to an intern. The map of everything is behind him. Someone, meaning him, has taken the framed 2.61 down from beside the door and leaned it against the wall, face hidden. “I used to think the enemy was distance,” he says, without turning around. “Distance was at least honest.” He finally looks at you. “I built this company a nervous system that carries the truth a quarter million miles. You are teaching it to guess instead. I need you to know that I am still deciding what to do about that.”',
     choices: [
       {
         label: 'Stay until 3 a.m. Hear all of it.',
@@ -480,7 +480,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'farrokh_heard', v: true },
         ],
         result:
-          'Four hours, two pots of terrible coffee, and the whole thing finally said out loud — the nine unfunded years, the name on the math, the specific dread of watching your life’s work get a marketing department. Nothing is fixed at 3 a.m. But he puts the frame back on the wall before he leaves, and that is not nothing.',
+          'Four hours, two pots of terrible coffee, and the whole thing finally said out loud — the nine unfunded years, the name on the math, the dread of watching your life’s work get a marketing department. At 3 a.m., the company is still broken. Before he leaves, he puts the frame back on the wall.',
       },
       {
         label: 'Fund the Mars bench properly. Give him a true thing.',
@@ -491,7 +491,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'A real budget line, two engineers, and the long-delay problem — the honest four-to-twenty-four-minute monster the cascade was born for. He accepts it knowing exactly what it is. An apology would be cheaper. This is a place inside the company where nothing guesses. He starts staying late again. At the Mars bench.',
+          'A real budget line, two engineers, and the long-delay problem — the honest four-to-twenty-four-minute monster the relay chain was born for. He accepts it knowing exactly what it is. An apology would be cheaper. This gives him a place inside the company where the truth still runs clean. He starts staying late again. At the Mars bench.',
       },
       {
         label: 'Let him cool off. Founders have moods.',
@@ -500,7 +500,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'farrokh', aff: -2 },
         ],
         result:
-          'You give it space, which is what you call it, and the space fills the way vacuums fill. The dark bench stays dark. His board updates become punctual, complete, and utterly impersonal — the exact correspondence of a man keeping records.',
+          'You give it space, which is what you call it, and the space fills the way vacuums fill. The dark bench stays dark. His board updates become punctual, complete, and utterly impersonal — the exact letters of a man keeping records.',
       },
     ],
   },
@@ -522,9 +522,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE BREAK',
     speaker: 'farrokh',
     leadIn:
-      'He books the meeting through your calendar assistant, founders only, thirty minutes — the coldest document either of you has ever addressed to the other. He arrives with typed pages. It was drafted by a lawyer. So it has come to this.',
+      'Omid books the meeting through your calendar assistant: founders only, thirty minutes. It is the coldest invite either of you has ever sent the other. He arrives with typed pages drafted by a lawyer. So it has come to this.',
     prose:
-      'Omid does not sit. “I have three versions of this conversation,” he says, “and I have practiced none of them, because practicing felt like lying.” The pages go on the table. “Version one: the blend dies everywhere, tourism included, and I stay and we finish what we started. Version two: you buy me out — the number is fair, my lawyer confirms it is fair — and my name comes off the masthead but stays on the math, and I go home to my kids and watch what you do with my cascade from a lawn chair. Version three —” and here, for one second, nine years of composure flickers — “version three, I stay, gutted, a chief technology officer who is neither chief of anything nor trusted with the technology, and we both pretend. Everyone picks version three, apparently. It is the industry standard.” He pushes the pages across. “Pick.”',
+      'Omid stands at the table. “I have three versions of this conversation,” he says, “and I avoided practicing them, because practice felt like lying.” The pages go on the table. “Version one: the blend dies everywhere, tourism included, and I stay and we finish what we started. Version two: you buy me out — the number is fair, my lawyer confirms it is fair — and my name comes off the masthead but stays on the math. I go home to my kids and watch what you do with my relay chain from a lawn chair. Version three —” and here, for one second, nine years of composure flickers — “version three, I stay, gutted, a chief technology officer with no real say over the technology, and we both pretend. Everyone picks version three, apparently. It is the industry standard.” He pushes the pages across. “Pick.”',
     choices: [
       {
         label: 'Version one. Kill the blend everywhere. Keep him whole.',
@@ -540,7 +540,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 2 },
         ],
         result:
-          'The revenue line takes it badly. The board takes it worse. Hale requests a “strategy alignment session,” which is a phrase with knuckles. But the counter goes back on the website, the frame goes back on the wall, and Omid Farrokh unpacks his life back into the corner office like a man returning from a war only he could see.',
+          'The revenue line takes it badly. The board takes it worse. Hale requests a “strategy alignment session,” which is a phrase with knuckles. The counter goes back on the website, the frame goes back on the wall, and Omid Farrokh unpacks his life back into the corner office like a man returning from a war only he could see.',
       },
       {
         label: 'Version two. Buy him out fair. Let him go home.',
@@ -565,7 +565,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          '“Industry standard,” he says, once, when you finish explaining why it has to be this way for the Series B narrative. He signs where the tabs say sign. He keeps his seat, his shares, his badge, and his office, and he attends every board meeting from that day forward the way a witness attends a trial.',
+          '“Industry standard,” he says, once, when you finish explaining why it has to be this way for the Series B narrative. He signs where the tabs say sign. He keeps his seat, his shares, his badge, and his office. From that day forward, he attends every board meeting the way a witness attends a trial.',
       },
       {
         label: 'Refuse all three. Beg him to help you find version four.',
@@ -585,7 +585,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'It takes until 2 a.m. and it costs you both something to stay in the room, but version four exists: the blend survives only as a labeled mode — BLEND ON, in letters the customer cannot miss, off by default, banned from anything industrial — and Omid personally owns the boundary. “I can live beside it if it wears a sign,” he says finally. Nobody gets everything. Both of you keep the thing that mattered most.',
+          'It takes until 2 a.m. and costs you both something to stay in the room, but version four exists: the blend survives only as a labeled mode — BLEND ON, in letters the customer cannot miss, off by default, banned from industrial work — and Omid personally owns the line. “I can live beside it if it wears a sign,” he says finally. Nobody gets everything. Both of you keep the thing that mattered most.',
       },
     ],
   },
@@ -596,7 +596,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_farrokh_leaves',
     title: 'THE LAWN CHAIR',
     prose:
-      'He packs the corner office in one afternoon — nine years of physics fits in the same kind of cardboard box it arrived in, which he points out himself, almost smiling. The buyout paper is fair because you made it fair, and the handshake at the hangar door is real, and none of that makes the building sound right afterward. For weeks people keep drafting messages to him out of habit. His badge photo stays in the system, a ghost in the directory. And pinned to the map of everything, in his precise handwriting, one parting annotation nobody has the heart to take down: THE NUMBER IS STILL THE PRODUCT.',
+      'He packs the corner office in one afternoon. Nine years of physics fits in the same kind of cardboard box it arrived in, a fact he points out himself, almost smiling. The buyout paper is fair because you made it fair, and the handshake at the hangar door is real. The building still sounds wrong afterward. For weeks, people draft messages to him out of habit. His badge photo stays in the system, a ghost in the directory. Pinned to the map of everything, in his precise handwriting, one parting note remains: THE NUMBER IS STILL THE PRODUCT.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
@@ -616,16 +616,16 @@ export const ACT_TWO: readonly SceneDef[] = [
       {
         art: 'cut_jonah',
         prose:
-          'It happens on a Tuesday, during the boring immortal work.\n\nA radiator panel at Shackleton Verge. A robot body on the maintenance shift, running a bolt sequence it has run ten thousand times. At 09:41:07 base time, relay four hands the connection to relay five, the way it has a million times before.\n\nThis time, the handoff fails. For eleven seconds, no signal from Earth reaches the body.\n\nAnd the body keeps moving anyway — finishing a motion that nobody was commanding.',
+          'It happens on a Tuesday, during the boring immortal work.\n\nA radiator panel at Shackleton Verge. A robot body on the maintenance shift, running a bolt sequence it has run ten thousand times. At 09:41:07 base time, relay four passes the connection to relay five, as it has a million times before.\n\nThis handover fails. For eleven seconds, no signal from Earth reaches the body.\n\nThe body keeps moving anyway — finishing a motion that nobody was commanding.',
       },
       {
         art: 'cut_jonah_after',
         prose:
-          'Jonah Reece, thirty-four, two tours at the pole, is on the wrong side of the panel when it swings.\n\nIn one-sixth gravity, heavy things move slowly and arrive with all their mass. The suit alarm, the base klaxon, Commander Salazar’s voice going flat and procedural on the channel — all of it reaches Earth two point six seconds after it is already, unchangeably, true.\n\nYou never met him. You know him now: eleven seconds of telemetry, a personnel file, and a sister in Cleveland who deserves a phone call no company has ever practiced enough.',
+          'Jonah Reece, thirty-four, two tours at the pole, is on the wrong side of the panel when it swings.\n\nIn the Moon’s weak gravity, heavy things move slowly and still arrive with all their mass. The suit alarm, the base siren, Commander Salazar’s voice going trained and flat on the channel — all of it reaches Earth two point six seconds after it is already true.\n\nYou never met him. You know him now: eleven seconds of records, a personnel file, and a sister in Cleveland who deserves a phone call no company has ever practiced enough.',
       },
     ],
     prose:
-      'A relay handoff fault at Shackleton Verge. A maintenance body completes an uncommanded motion. Jonah Reece, 34, is killed. The distance the company sells becomes, in eleven seconds, the distance it answers for.',
+      'A relay handover fails at Shackleton Verge. A maintenance body completes a motion no person commanded. Jonah Reece, 34, is killed. In eleven seconds, the distance the company sells becomes the distance it must answer for.',
     choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'jonah_dead', v: true }, { e: 'stress', d: 8 }], goto: 't_telemetry' }],
   },
   {
@@ -636,9 +636,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_telemetry',
     title: 'WHAT THE ELEVEN SECONDS SAY',
     leadIn:
-      'The investigation takes nine days. The engineers walk you through it at a whiteboard with the door locked, voices level in the way of people holding something with both hands.',
+      'The investigation takes nine days. The engineers walk you through it at a whiteboard with the door locked, voices level in the way of people holding something fragile with both hands.',
     prose:
-      'The record is plain, and the lawyers wish it weren’t. The relay handoff dropped the connection for eleven seconds. In that gap, the body’s onboard software kept moving on its own — and that motion is what swung the panel. No human commanded it. Your machine acted alone, and a man is dead. On the table sits the full log, printed, tabbed, terrible. Salazar has asked for it. Jonah’s sister has asked for it. OSTRA can force it out of you later if you make that necessary. The general counsel presents three folders and has the decency not to name them anything cute. Publish. Settle. Deflect.',
+      'The record is plain, and the lawyers wish it were blurry. The relay handover dropped the connection for eleven seconds. In that gap, the body’s onboard software kept moving on its own, and that motion swung the panel. No human commanded it. Your machine acted alone, and a man is dead. On the table sits the full log, printed, tabbed, terrible. Salazar has asked for it. Jonah’s sister has asked for it. OSTRA can force it out of you later if you make that necessary. The company lawyer presents three folders and gives them plain names. Publish. Settle. Deflect.',
     choices: [
       {
         label: 'Publish everything. Ground tourism ops yourself.',
@@ -653,7 +653,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 2 },
         ],
         result:
-          'The full log goes to Salazar, the sister, OSTRA, and the public, in that order, with the fault line marked in your own hand. Tourism grounds itself the same hour, indefinitely, by your signature. It costs exactly what the lawyers said it would. Commander Salazar reads all four hundred pages and sends one line: “Bodies stay on my rotation. You tell the truth at altitude. That’s the whole test.”',
+          'The full log goes to Salazar, the sister, OSTRA, and the public, in that order, with the fault marked in your own hand. Tourism stops the same hour, with no return date, by your signature. It costs exactly what the lawyers said it would. Commander Salazar reads all four hundred pages and sends one line: “Bodies stay on my rotation. You tell the truth at altitude. That’s the whole test.”',
       },
       {
         label: 'Settle with the family. Seal the log.',
@@ -664,7 +664,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'salazar', resp: -2 },
         ],
         result:
-          'The settlement is generous and the NDA is airtight and the funeral is private and the log is sealed. Everything is handled. That is the word the board minutes use — handled — and for one whole quarter it even feels true, the way held breath feels like air.',
+          'The settlement is generous. The silence clause is tight. The funeral is private. The log is sealed. Everything is handled. That is the word the board minutes use — handled — and for one whole quarter it almost feels true, the way held breath almost feels like air.',
       },
       {
         label: 'The operator deviated from procedure. Say it.',
@@ -676,7 +676,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -2 },
         ],
         result:
-          'The statement is four sentences and technically, forensically, never quite lies. Cass Rivera reads it at her console, removes her headset, sets it on the desk with unbearable gentleness, and walks out past the mission patch with no mission on it. She does not slam anything. Eleven years of training do not slam things. The teleop bay is silent for a week, and the company is never really the same building again.',
+          'The statement is four sentences and, by the facts, manages to avoid a lie. Cass Rivera reads it at her console, removes her headset, sets it on the desk with unbearable gentleness, and walks out past the mission patch with no mission on it. She slams nothing. Eleven years of training have that much discipline. The control bay is silent for a week, and the company never feels like the same building again.',
       },
     ],
   },
@@ -689,9 +689,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE MANIFEST',
     speaker: 'halcyon',
     leadIn:
-      'The replacement relay for node four has been sitting in a HALCYON integration queue for five weeks. Then your whole launch year quietly reschedules itself, and the new dates spell out a message.',
+      'The replacement relay for satellite four has been waiting in HALCYON’s launch-prep line for five weeks. Then your whole launch year quietly moves, and the new dates spell out a message.',
     prose:
-      'The notice arrives from HALCYON’s manifest system at 3 a.m., machine-generated, machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details read like a slow takeover wearing a partnership costume: they become your only launch provider, they see your data, and if you ever sell the company, they get first claim to buy it. On the wall map, your constellation suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen the moment you were worth noticing.',
+      'The notice arrives from HALCYON’s launch schedule system at 3 a.m., machine-generated and machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details read like a slow takeover wearing a partnership costume. HALCYON becomes your only launch provider, sees your data, and gets first claim to buy the company if you ever sell. On the wall map, your satellite ring suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen once you became worth noticing.',
     choices: [
       {
         label: 'Pay the expedite fee. Eat it and fly.',
@@ -713,7 +713,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
         ],
         result:
-          'OSTRA acknowledges the filing in 0.4 seconds and cc’s four treaty bodies, two of which may not have met since the nineties. The docket number is real, though, and HALCYON’s counsel notices it — monopolies fear paper trails the way vampires fear inventory. Your slot un-reschedules itself without comment.',
+          'OSTRA acknowledges the filing in 0.4 seconds and copies four treaty groups, two of which may not have met since the nineties. The case number is real, and HALCYON’s lawyers notice it. Monopolies hate paper trails. Your slot moves back without comment.',
       },
       {
         label: 'Take the partnership meeting. Know thine enemy.',
@@ -722,7 +722,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'halcyon', aff: 1 },
         ],
         result:
-          'The meeting is on their campus, in a building shaped like a wing, with humans who defer visibly to a dashboard. The partnership terms would wrap around the company and tighten a little every year. You commit to nothing and leave with the one thing they gave away free: how badly they want what you built, and how cheap they hope to get it.',
+          'The meeting is on their campus, in a building shaped like a wing, with humans who visibly wait for a dashboard before they answer. The partnership terms would wrap around the company and tighten a little every year. You commit to nothing and leave knowing two things for free: how badly they want what you built, and how cheap they hope to get it.',
       },
     ],
   },

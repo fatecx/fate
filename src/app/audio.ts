@@ -93,42 +93,43 @@ function loadBuffer(id: string): Promise<AudioBuffer | null> {
   return p
 }
 
-/** Establish-then-recede — the film mix, for rooms. On the cut the room plays
- *  at presence (you hear WHERE you are once), then glides to a subliminal
- *  floor for the rest of the scene: place stays felt, loops repeat below
- *  attention, nothing becomes a metronome. */
-const AMB_FLOOR = 0.4
-const AMB_HOLD = 6
-const AMB_RECEDE = 5
+/** Rooms play ONCE per scene — one take at presence (~the read time), then a
+ *  self-fade into silence over the final seconds. The era music carries the
+ *  room after the take ends; loops can never become metronomes. */
+const AMB_TAIL = 3.2
 /** Accent lane level relative to its bed's own gain — seasoning, not a duet. */
 const ACCENT_MIX = 0.35
 
-/** Start a looped lane and fade it in; returns null when the file is absent. */
-async function startLoop(def: SoundDef, fade: number, recede = false): Promise<Lane | null> {
+/** Start a lane. Loop mode for music/tension; 'once' plays a single take with
+ *  a scheduled tail fade. Returns null when the file is absent. */
+async function startLoop(def: SoundDef, fade: number, mode: 'loop' | 'once' = 'loop'): Promise<Lane | null> {
   const c = ensureCtx()
   if (!c || !master) return null
   const buf = await loadBuffer(def.id)
   if (!buf || !c) return null
   const src = c.createBufferSource()
   src.buffer = buf
-  src.loop = true
-  // Skip encoder padding at the seam so mp3 loops don't click.
-  src.loopStart = Math.min(0.12, buf.duration / 8)
-  src.loopEnd = buf.duration - Math.min(0.12, buf.duration / 8)
   const gain = c.createGain()
   gain.gain.value = 0
   src.connect(gain)
   gain.connect(master)
-  // Random entry point: even the establish window differs every visit,
-  // so the same bed never opens on the same phrase twice.
-  const span = Math.max(0, src.loopEnd - src.loopStart - 0.5)
-  src.start(0, src.loopStart + Math.random() * span)
   const t0 = c.currentTime
   const g = gain.gain
-  g.linearRampToValueAtTime(def.gain, t0 + fade)
-  if (recede) {
-    g.linearRampToValueAtTime(def.gain, t0 + fade + AMB_HOLD)
-    g.linearRampToValueAtTime(def.gain * AMB_FLOOR, t0 + fade + AMB_HOLD + AMB_RECEDE)
+  if (mode === 'loop') {
+    src.loop = true
+    // Skip encoder padding at the seam so mp3 loops don't click.
+    src.loopStart = Math.min(0.12, buf.duration / 8)
+    src.loopEnd = buf.duration - Math.min(0.12, buf.duration / 8)
+    // Random entry point: the same bed never opens on the same phrase twice.
+    const span = Math.max(0, src.loopEnd - src.loopStart - 0.5)
+    src.start(0, src.loopStart + Math.random() * span)
+    g.linearRampToValueAtTime(def.gain, t0 + fade)
+  } else {
+    src.start(0)
+    g.linearRampToValueAtTime(def.gain, t0 + fade)
+    const tailAt = t0 + Math.max(fade + 1, buf.duration - AMB_TAIL)
+    g.linearRampToValueAtTime(def.gain, tailAt)
+    g.linearRampToValueAtTime(0, t0 + buf.duration)
   }
   return { src, gain, id: def.id }
 }
@@ -177,7 +178,7 @@ async function reconcile(): Promise<void> {
       ambLane = null
       // First candidate whose file exists wins — scene bed, then room, then silence.
       for (const def of wantAmbChain) {
-        ambLane = await startLoop(def, ambIn, true)
+        ambLane = await startLoop(def, ambIn, 'once')
         if (ambLane) break
       }
     }
@@ -188,7 +189,7 @@ async function reconcile(): Promise<void> {
       stopLane(accentLane, ambOut)
       accentLane = null
       // Accents season under the room: same bed library, a third the level.
-      if (def) accentLane = await startLoop({ ...def, gain: def.gain * ACCENT_MIX }, ambIn + 1)
+      if (def) accentLane = await startLoop({ ...def, gain: def.gain * ACCENT_MIX }, ambIn + 1, 'once')
     }
     if (wantTension !== tensionOn) {
       tensionOn = wantTension
@@ -256,23 +257,6 @@ export function resetStage(): void {
   tensionLane = null
   tensionOn = false
   stung.clear()
-}
-
-/** The film cut, for the ear: a new scene re-establishes its room at
- *  presence, then recedes to the floor again — identity once per scene,
- *  wallpaper never. */
-export function roomPulse(): void {
-  if (!ctx || !ambLane) return
-  const g = ambLane.gain.gain
-  const base =
-    (SCENE_BEDS[ambLane.id.replace(/^scn_/, '')] ?? Object.values(AMBIENCE).find((a) => a.id === ambLane!.id))
-      ?.gain ?? 0.5
-  const at = ctx.currentTime
-  g.cancelScheduledValues(at)
-  g.setValueAtTime(g.value, at)
-  g.linearRampToValueAtTime(base, at + 0.7)
-  g.linearRampToValueAtTime(base, at + 0.7 + AMB_HOLD)
-  g.linearRampToValueAtTime(base * AMB_FLOOR, at + 0.7 + AMB_HOLD + AMB_RECEDE)
 }
 
 const stung = new Set<string>()

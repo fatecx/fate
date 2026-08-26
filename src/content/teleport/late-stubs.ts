@@ -12,9 +12,9 @@ export const LATE_STUBS: readonly SceneDef[] = [
     landmark: true,
     title: 'RUNWAY ZERO',
     leadIn:
-      'Space companies do not die differently from garage companies. The account turns the same color. The silence in the inbox is the same silence. The only change is the number of zeros on the way down.',
+      'Space companies die like garage companies. The account turns the same color. The inbox goes just as quiet. The only change is the number of zeros on the way down.',
     prose:
-      'Payroll bounces at a company with hardware around the Moon. The constellation keeps flying — orbital mechanics does not read the news — but everything on the ground goes brittle at once: the insurer wants a call, the landlord wants a call, and the people who moved their families to the Cape for you want, deserve, more than a call. Doors remain, even now. They are all ugly, and they are all real.',
+      'Payroll bounces at a company with hardware around the Moon. The satellite ring keeps flying because objects in orbit do not read the news. Everything on the ground goes brittle at once: the insurer wants a call, the landlord wants a call, and the people who moved their families to the Cape for you want, deserve, more than a call. Doors remain, even now. They are all ugly, and they are all real.',
     choices: [
       {
         label: 'Bridge loan against the constellation itself',
@@ -25,7 +25,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'bridge_used', v: true },
         ],
         result:
-          'Signed at midnight against the relays, the bodies, the patents — the collateral schedule reads like an inventory of your life. The lender’s engineer asks, during diligence, how one repossesses a satellite. Nobody laughs.',
+          'Signed at midnight against the relays, the bodies, the patents — the list of pledged assets reads like an inventory of your life. During review, the lender’s engineer asks how someone takes back a satellite. Nobody laughs.',
       },
       {
         label: 'Down round — June doubles down on you',
@@ -44,13 +44,13 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'down_used', v: true },
         ],
         result:
-          'The round that was supposed to arrive died on somebody’s dashboard. You call June so she hears it from you first — you have stopped expecting anything — and she does the June Park thing, the thing she has done across two companies now: “Then I’m in for my share anyway.” It costs real ownership and a price that stings. She wires it before the call ends, and neither of you ever, once, calls it charity.',
+          'The round that was supposed to arrive dies on somebody’s dashboard. You call June so she hears it from you first. You have stopped expecting anything, and she does the June Park thing, the thing she has done across two companies now: “Then I’m in for my share anyway.” It costs real ownership and a price that stings. She wires it before the call ends, and neither of you ever calls it charity.',
       },
       {
         label: 'Acqui-hire to HALCYON: the team survives, the road ends',
         effects: [{ e: 'end', ending: 'swallowed' }],
         result:
-          'The monopoly takes the engineers, the patents, and the constellation, at the distressed price its model has been patiently forecasting since the week it met you. The road around the sky becomes a lane inside it.',
+          'The monopoly takes the engineers, the patents, and the satellite ring at the distressed price its model has been patiently forecasting since the week it met you. The road around the sky becomes a lane inside it.',
       },
       {
         label: 'Surrender',
@@ -66,9 +66,9 @@ export const LATE_STUBS: readonly SceneDef[] = [
     landmark: true,
     title: 'THE BODY KEEPS SCORE',
     leadIn:
-      'It has a sound, apparently, the moment a founder’s body files its own motion — in your case a waiting room at 4 a.m., a blood pressure cuff, and a doctor reading your intake form with visible professional alarm.',
+      'A founder’s body has its own alarm. Yours sounds like a waiting room at 4 a.m., a blood pressure cuff, and a doctor reading your intake form with visible professional concern.',
     prose:
-      'The diagnosis is not dramatic, which the doctor says is the last undramatic thing about it: this is the exit ramp before the dramatic ones. You run a company that lets people stand on the Moon without leaving Earth, and you have not left the building, in any sense that matters, in two years. Every machine in the teleop bay gets scheduled maintenance. Nobody ever scheduled any for you, and the woman with the clipboard is explaining, kindly and without room for argument, that your body just scheduled its own.',
+      'The diagnosis sounds small, and the doctor treats that as the warning. This is the exit ramp before the dramatic ones. You run a company that lets people stand on the Moon without leaving Earth, and in every way that matters, you have lived inside the building for two years. Every machine in the control bay gets scheduled maintenance. Your body just scheduled its own, and the woman with the clipboard is explaining that kindly and with no room for argument.',
     choices: [
       {
         label: 'Take the forced rest. Three real weeks.',
@@ -77,7 +77,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'treasury', d: -30000 },
         ],
         result:
-          'Three weeks of handed-off decisions and phone-free mornings. The company survives you resting, which is the finding that rearranges you more than the bloodwork: it can breathe without you. That fact will matter again someday, in a room with very good chairs.',
+          'Three weeks of handed-off decisions and phone-free mornings. The company survives you resting. That finding rearranges you more than the bloodwork: it can breathe without you. That fact will matter again someday, in a room with very good chairs.',
       },
       {
         label: 'White-knuckle it. Decline the diagnosis.',
@@ -86,13 +86,13 @@ export const LATE_STUBS: readonly SceneDef[] = [
           { e: 'rep', d: -1 },
         ],
         result:
-          'You negotiate with your own body like it is a vendor, and it extends terms, once, the way vendors do — with interest, and a note in the file. Nothing left in the tank next time. The doctor’s exact words, written where you will find them again.',
+          'You negotiate with your own body like it is a vendor, and it extends terms once, the way vendors do — with interest, and a note in the file. “Nothing left in the tank next time.” The doctor’s exact words, written where you will find them again.',
       },
       {
         label: 'Walk away. Let it all end here.',
         effects: [{ e: 'end', ending: 'bankrupt' }],
         result:
-          'There is a version of health that costs a company. You pay it. The wind-down is orderly because June — or whoever is left holding the spreadsheet — makes it orderly, and the last thing shipped is everyone’s final paycheck, on time.',
+          'Some versions of health cost a company. You pay that price. The wind-down is orderly because June — or whoever is left holding the spreadsheet — makes it orderly, and the last thing shipped is everyone’s final paycheck, on time.',
       },
     ],
   },

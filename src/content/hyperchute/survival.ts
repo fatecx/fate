@@ -22,9 +22,9 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 3,
     leadIn:
-      'The rent is due Friday and the account will not survive it. You have spent two days staring at the problem when the problem knocks: a man from the vinyl-cutting shop that just lost its lease, asking if you know anyone with space.',
+      'The rent is due Friday. The account is already too thin. You have stared at the numbers for two days when a man from the vinyl-cutting shop knocks. He lost his lease. He asks if you know anyone with space.',
     prose:
-      'You do know someone with space. You are standing in it. Half a garage is still a garage — and a tenant who pays the quarter up front, in advance, today, is the difference between the railway existing on Saturday and not. He looks up at the shuttle hanging from the ceiling. “That thing safe?” he asks. “Safer than my landlord,” he decides, and gets out his checkbook.',
+      'You know someone with space. You are standing in it. Half the garage could keep the lights on. He can pay the quarter up front, today. He looks up at the shuttle hanging from the ceiling. “That thing safe?” he asks. “Safer than my landlord,” he decides, and gets out his checkbook.',
     choices: [
       {
         label: 'Sublet half the garage — quarter up front, cash today.',
@@ -35,13 +35,13 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'subletter', v: true },
         ],
         result:
-          'By Monday there is a vinyl cutter humming under Shuttle One and a stranger’s coffee mug on your workbench. It is cramped, absurd, and it works: rent covered with someone else’s rent. Mrs. Delgado approves so hard she brings him a plant.',
+          'By Monday a vinyl cutter hums under Shuttle One, and a stranger’s coffee mug sits on your workbench. The room is cramped. The rent is covered by someone else’s rent. Mrs. Delgado approves so hard she brings him a plant.',
       },
       {
         label: 'Keep the space. Find the rent some other way.',
         effects: [{ e: 'stress', d: 4 }],
         result:
-          'The garage stays yours, all of it, echoing. You spend the week you just bought figuring out what to sell instead. There is always something left to sell. That is the scary part.',
+          'The garage stays yours, all of it, echoing. You spend the week you just bought figuring out what to sell. Something always remains. That is the scary part.',
       },
     ],
   },
@@ -61,9 +61,9 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 3,
     leadIn:
-      'An angel across town — a friend of a friend of Priya’s list — has thirty minutes on Thursday. The meeting could save the company. The transit card in your pocket has nothing on it, and neither does anything else you own.',
+      'An angel across town — a friend of a friend of Priya’s list — has thirty minutes on Thursday. The meeting could save the company. Your transit card is empty. Your wallet is empty too.',
     prose:
-      'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate you perform the oldest trick in the broke professional’s book: the pocket-pat, the sigh, the apologetic smile of a man who obviously has a wallet and has obviously forgotten it. The attendant sees the suit and waves it through. The man inside it was counting on exactly that.',
+      'You put on the one good suit — the interview suit, the funeral suit, the suit that has outlived three phones — and the dress shoes that pinch. At the station gate, you pat your pockets, sigh, and give the sorry smile of a man who must have left his wallet at home. The attendant sees the suit and waves you through. The man inside the suit was counting on that.',
     choices: [
       {
         label: 'Sell it. The suit rides free today.',
@@ -74,7 +74,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'fare_blagged', v: true },
         ],
         result:
-          'Buzzed through. Forty minutes later you pitch like a man with nothing to lose, because you are one, and the angel writes thirty thousand dollars on the strength of it. On the ride home you pay the fare forward to a kid in a hoodie. Some debts you settle sideways.',
+          'Buzzed through. Forty minutes later you pitch with your back against the wall. The angel writes thirty thousand dollars on the strength of it. On the ride home you load a fare card for a kid in a hoodie.',
       },
       {
         label: 'Walk it. Ninety minutes each way, arrive honest.',
@@ -84,7 +84,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'fare_walked', v: true },
         ],
         result:
-          'You arrive with dust on the dress shoes and close a slightly smaller check from a man who respects punctuality less than he thinks he does. Your feet file a formal complaint that lasts a week.',
+          'You arrive with dust on the dress shoes and close a slightly smaller check from a man who respects punctuality less than he thinks he does. Your feet complain for a week.',
       },
       {
         label: 'Ask Mrs. Delgado for the fare.',
@@ -94,7 +94,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'She does not hand you coins. She hands you a laminated senior transit pass with a photo of a woman who is not you. “Maria retired,” she says. “She won’t mind.” You close the angel and return the pass with a full fare card taped to it.',
+          'She hands you a laminated senior transit pass with a photo of Maria from three streets over. “Maria retired,” Mrs. Delgado says. “She won’t mind.” You close the angel and return the pass with a full fare card taped to it.',
       },
     ],
   },
@@ -109,9 +109,9 @@ export const SURVIVAL: readonly SceneDef[] = [
     when: { k: 'treasury', cmp: 'lt', v: 0 },
     weight: 4,
     leadIn:
-      'Below zero, the arithmetic gets very simple and very cruel. The meter on the garage wall eats coins and gives back light. Your stomach has opinions. What is left in the world, in total, is fifteen dollars.',
+      'Below zero, the math gets cruel. The meter on the garage wall eats coins and gives back light. Your stomach growls through the afternoon. Everything you have left adds up to fifteen dollars.',
     prose:
-      'The choice sits on the workbench like a part you cannot buy: a week of electricity, or a week of food. Fifteen dollars will not cover both. The shuttle needs the bench powered to exist. You need to eat to exist. You stand in the garage a long time with the coins in your fist, learning something about yourself that no pitch deck will ever hold.',
+      'The choice sits on the workbench beside the coins. You can buy a week of electricity or a week of food. The shuttle needs the bench powered. You need to eat. You stand in the garage a long time with the money in your fist, learning something no pitch deck will ever hold.',
     choices: [
       {
         label: 'The meter. Lights on. Hungry is a work state.',
@@ -121,7 +121,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'chose_the_meter', v: true },
         ],
         result:
-          'The bench hums for seven more days and you work all of them, light-headed and precise, on tomato-less pasta and tap water. Years from now, someone will ask what founding a company was really like, and you will not tell them this story. It is yours.',
+          'The bench hums for seven more days. You work all of them light-headed, precise, and living on plain pasta and tap water. Years from now, someone will ask what founding a company was really like. This story stays yours.',
       },
       {
         label: 'Food. A body that fails helps nobody.',
@@ -130,7 +130,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'chose_the_food', v: true },
         ],
         result:
-          'Tomatoes, rice, eggs — the meal tastes like surrender and vitamins. The bench goes dark for a week and you plan on paper by the laundromat’s light. Mrs. Delgado quietly stopped charging for that light a while ago, and neither of you has ever mentioned it.',
+          'Tomatoes, rice, eggs — the meal tastes like surrender and vitamins. The bench goes dark for a week, and you plan on paper by the laundromat’s light. Mrs. Delgado stopped charging for that light a while ago. You both keep quiet about it.',
       },
     ],
   },
@@ -150,9 +150,9 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 2,
     leadIn:
-      'Three envelopes arrive the same week, each containing a credit card you applied for the same optimistic afternoon. The three limits together barely add up to a used car. Below eight weeks of runway, a used car is a fortune.',
+      'Three envelopes arrive the same week, each holding a credit card you applied for on the same hopeful afternoon. The three limits together barely add up to a used car. Below eight weeks of runway, a used car is a fortune.',
     prose:
-      'Founders are not supposed to do this, according to people who have never had a Friday payroll and a Wednesday balance. The math is ugly and simple: twenty-five thousand across three cards at interest that would make a loan shark blush politely. It is also the only money in the room that says yes without a meeting.',
+      'People with savings call this reckless. People with payroll due Friday understand the room you are in. The math is ugly and simple. Twenty-five thousand across three cards, at interest that would make a loan shark blush. The cards are the only money that says yes today.',
     choices: [
       {
         label: 'Max them. All three. The railway pays it back or nothing matters.',
@@ -163,7 +163,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'maxed_cards', v: true },
         ],
         result:
-          'Three swipes, three small deaths of financial respectability, one alive company. The interest starts its meter like a cab you can’t get out of. You tape the cards to the wall as a promise and a threat.',
+          'Three swipes. Three little deaths for your credit score. One alive company. The interest starts running like a cab you cannot get out of. You tape the cards to the wall as a promise and a threat.',
       },
       {
         label: 'Cut them up. Debt with teeth eats founders.',
@@ -171,7 +171,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
           { e: 'flag', scope: 'company', key: 'maxed_cards', v: true },
         ],
-        result: 'The scissors make a satisfying sound. The problem remains exactly the size it was, but it remains honestly.',
+        result: 'The scissors make a satisfying sound. The problem remains exactly the same size. At least it is clean.',
       },
     ],
   },
@@ -182,7 +182,6 @@ export const SURVIVAL: readonly SceneDef[] = [
     ambience: 'cafe',
     accent: 'street',
     foley: 'door',
-    mood: 'tender',
     art: 'world_coffee_shop',
     kind: 'bridge',
     title: 'THE COFFEE SHOP',
@@ -195,21 +194,20 @@ export const SURVIVAL: readonly SceneDef[] = [
     },
     weight: 2,
     leadIn:
-      'The intro comes gilded: Elliot Vance, president of ATLAS Retail, wants to meet. Not at his office — at a coffee shop in the Flats, which his assistant calls charming and you correctly read as homework.',
+      'The intro arrives polished. Elliot Vance, president of ATLAS Retail, wants to meet. The place is a coffee shop in the Flats. His assistant calls it charming. You read it as homework.',
     prose:
-      'The shop is four blocks from the garage, the kind of place with steamed windows and one good table. Through the glass you can see him already there, coat off, your corridor map sketched on a napkin in front of him. A town car idles at the curb, embarrassed about the neighborhood. You push the door open.',
+      'The shop is four blocks from the garage, with steamed windows and one good table. Through the glass you can see him already there, coat off, your corridor map sketched on a napkin in front of him. A town car idles at the curb, embarrassed about the neighborhood. You push the door open.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_ghost_check' }],
   },
   {
     id: 'h_ghost_check',
     ambience: 'cafe',
     foley: 'pen',
-    mood: 'tender',
     title: 'SIGNED OVER COFFEE',
     speaker: 'vance',
-    leadIn: 'He stands to shake your hand before you reach the table, and half the shop pretends not to watch.',
+    leadIn: 'He stands to shake your hand before you reach the table, and half the shop studies its cups.',
     prose:
-      'He is better in person than his keynote clips: sharp questions, real laughter, a napkin sketch of your corridor map annotated from memory. Then, between refills, he says the sentence founders retell for years: “I’m in. Two hundred and fifty. Personal money, not ATLAS.” He signs the papers right there against the window glass and shakes your hand with both of his. “Wire lands within the month,” he says. Everyone in the coffee shop pretends they weren’t listening. Nobody was pretending.',
+      'He is better in person than his keynote clips. Sharp questions, real laughter, a napkin sketch of your corridor map marked from memory. Then, between refills, he says the sentence founders retell for years. “I’m in. Two hundred and fifty. My own money, separate from ATLAS.” He signs the papers against the window glass and shakes your hand with both of his. “Wire lands within the month,” he says. Everyone in the coffee shop hears it and returns to their cups like professionals.',
     choices: [
       {
         label: 'Treat it as money in the bank. Start hiring tonight.',
@@ -221,7 +219,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_spent', v: true },
         ],
         result:
-          'You post two roles before the coffee is cold in the cup. Signed is signed. Signed is money. Everyone knows signed is money.',
+          'You post two roles before the coffee is cold. Signed means signed. Signed means money. Everyone in the shop saw him do it.',
       },
       {
         label: 'Smile, file it, and spend nothing until the wire lands.',
@@ -232,7 +230,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_signed', v: true },
         ],
         result:
-          'You frame nothing, hire nobody, and tell only Priya — who nods slowly and says the four hardest words in venture: “When it clears, celebrate.”',
+          'The signed papers stay in a folder. The headcount stays flat. You tell only Priya. She nods slowly and says the four hardest words in venture. “When it clears, celebrate.”',
       },
     ],
   },
@@ -252,9 +250,9 @@ export const SURVIVAL: readonly SceneDef[] = [
       ],
     },
     leadIn:
-      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one: “Legal is processing.” Week two: silence. Week three: his assistant stops using exclamation points, which in assistant means the building is on fire.',
+      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one brings “Legal is processing.” Week two brings silence. Week three brings his assistant dropping the exclamation points. In assistant language, the building is on fire.',
     prose:
-      'The call comes on a Tuesday, from a number that is no longer an ATLAS number. “I owe you honesty,” Elliot says, and delivers it. He is leaving ATLAS for a rival, with a bigger title and a compliance office that treats his personal investments like radioactive material. The money is dead. You have two hires starting Monday against a promise that no longer exists.',
+      'The call comes on a Tuesday, from a number outside ATLAS. “I owe you honesty,” Elliot says. He is leaving for a rival with a bigger title. Their rules bar his personal investments, including yours. The money is dead. You have two hires starting Monday against a promise that vanished.',
     choices: [
       {
         label: 'Take it back. Call both hires tonight and cancel.',
@@ -265,7 +263,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'Two phone calls you will remember longer than the people you called. The burn drops back to survivable, and the lesson sticks for the rest of your career: money is not money until it is in the account.',
+          'Two phone calls you will remember longer than the people you called. The burn drops back to survivable, and the lesson stays with you for the rest of your career. Money counts after it hits the account.',
       },
       {
         label: 'Keep your word to the hires. Find the money somewhere else.',
@@ -276,7 +274,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'The hires start Monday and are never told how close it came. Priya finds out anyway — she always finds out — and says nothing, but her next intro is to someone who actually wires.',
+          'The hires start Monday, unaware how close it came. Priya finds out anyway — she always finds out — and keeps her face still. Her next intro is to someone who actually wires.',
       },
     ],
   },
@@ -297,9 +295,9 @@ export const SURVIVAL: readonly SceneDef[] = [
       ],
     },
     leadIn:
-      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one: “Legal is processing.” Week two: silence. Week three: the call, from a number that is no longer an ATLAS number.',
+      'Elliot Vance’s wire — the two hundred fifty thousand he signed over at the coffee shop — is three weeks late. Week one brings “Legal is processing.” Week two brings silence. Week three brings a call from a number outside ATLAS.',
     prose:
-      '“I owe you honesty,” Elliot says, and delivers it. He is leaving ATLAS for a rival, and the new company’s rules kill every personal investment on his books — including the check he signed against the window glass a few months ago. He apologizes twice, means it once. You hold the phone and feel the strange weightlessness of losing money you never had. Across the garage, the budget you refused to touch sits exactly where it was: intact, unspent, yours.',
+      '“I owe you honesty,” Elliot says. He is leaving ATLAS for a rival, and the new company’s rules bar his personal investments, including the check he signed against the window glass. He apologizes twice. One of them lands. You hold the phone and feel the strange weightlessness of money that stayed imaginary. Across the garage, the budget you refused to touch sits intact.',
     choices: [
       {
         label: 'Thank him for calling you himself. Part on good terms.',
@@ -310,7 +308,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'He remembers the grace. Men like Elliot resurface every few years with new budgets and old guilt — and somewhere in a rival tower, your name now lives in the folder marked SOMEDAY, PROPERLY.',
+          'He remembers the grace. Elliot resurfaces every few years with new budgets and old guilt. Somewhere in a rival tower, your name now lives in the folder marked SOMEDAY, PROPERLY.',
       },
       {
         label: 'Tell him what his broken promise cost you.',
@@ -320,7 +318,7 @@ export const SURVIVAL: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'ghost_dead', v: true },
         ],
         result:
-          'It feels good for exactly one phone call. It also closes every door he might have opened for you later, out of guilt. Some things you say just to have said them.',
+          'It feels good for one phone call. It also closes every door he might have opened for you later, out of guilt. Some lines feel true and still cost too much.',
       },
     ],
   },

@@ -14,7 +14,7 @@ import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
 import { lockCopy } from './locks'
-import { setStage, resetStage, stinger, foley, roomPulse, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
+import { setStage, resetStage, stinger, foley, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
 import { MOODS } from '../content/sound'
 import { makeFmt } from '../../scripts/map/format'
 
@@ -681,7 +681,6 @@ function refreshCard(): void {
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
   const scene = getScene(CONTENT, st.company.id, sceneId)
-  roomPulse() // the cut re-announces the room, even when the place holds
   if (scene.foley) foley(scene.foley as Parameters<typeof foley>[0])
   const tpl = document.createElement('template')
   tpl.innerHTML = `<section class="beat">

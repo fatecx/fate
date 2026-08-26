@@ -18,7 +18,7 @@ const ENDINGS: readonly EndingDef[] = [
         art: 'world_roadshow',
         bg: 'roadshow',
         prose:
-          'The night before the company goes public, the pricing call runs ninety minutes past midnight. The lead banker keeps circling the high share price with his pen — the one that makes headlines. You keep saying the lower one — the one that won’t wipe out the ordinary families who buy in, if the market turns ugly.\n\nWhen you say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago finally come in.',
+          'The night before the company goes public, the pricing call runs ninety minutes past midnight. The lead banker keeps circling the high share price with his pen — the one that makes headlines. You keep saying the lower one — the one ordinary families can survive if the market turns ugly.\n\nWhen you say it out loud for the last time, the line goes quiet. Priya, on mute in the corner of your screen, closes her eyes like a woman hearing a bet she made years ago finally come in.',
       },
       {
         art: 'world_bell',
@@ -30,22 +30,22 @@ const ENDINGS: readonly EndingDef[] = [
         art: 'world_dawn_flights',
         bg: 'wind',
         prose:
-          'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, to index funds, to a retired dispatcher in Ohio who bought eleven shares at lunch — and, printed right on the cover of the offering documents, where the lawyers fought you and lost, to THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening the shuttles hover exactly where they always have, dropping packages soft as rain onto porches that used to be a gray zone on somebody’s map. The map was wrong. You are the proof.',
+          'By the time the market closes, the railway in the sky belongs to teachers’ pension funds, index funds, and a retired dispatcher in Ohio who bought eleven shares at lunch. The cover of the offering documents says what the lawyers fought and lost. THE NEIGHBORHOODS IT SERVES.\n\nOver the Flats that evening, the shuttles hover where they always have, dropping packages soft as rain onto porches that used to sit in a gray zone on somebody’s map. The map was wrong. You are the proof.',
       },
       {
         art: 'world_legend_clip',
         bg: 'corp',
         prose:
-          'Somewhere in a MERIDIAN planning office, a printer hums out a new corridor map. The stamp over your neighborhood has changed. It doesn’t say LOW-DENSITY YIELD anymore.\n\nIt says COMPETITOR.',
+          'Somewhere in a MERIDIAN planning office, a printer hums out a new corridor map. The old LOW-DENSITY YIELD stamp over your neighborhood is gone.\n\nThe new stamp says COMPETITOR.',
       },
     ],
     prose:
-      'HYPERCHUTE lists at 9:31 a.m. Mrs. Delgado holds the ceremonial button on the exchange floor, still wearing her house slippers under the borrowed coat. The railway in the sky belongs to the street it was built for — and to the founder who refused, in order: a giant, a discount, and common sense.',
+      'HYPERCHUTE lists at 9:31 a.m. Mrs. Delgado holds the ceremonial button on the exchange floor, still wearing her house slippers under the borrowed coat. The railway in the sky belongs to the street it was built for — and to the founder who held the line against a giant, a discount, and common sense.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE BELL AND AFTER',
       prose:
-        'Two years of board decks and quarterly smiles. You are rich in the way that gets quoted. The sky over the Flats is full of your shuttles and someone else’s ambitions, and every time one drops a parcel soft as rain you feel the itch of the next impossible thing. June answers on the first ring, the way she has since the beginning: “I knew it. What are we building?”',
+        'Two years of board decks and quarterly smiles. You are rich in the way headlines understand. The sky over the Flats is full of your shuttles and someone else’s ambitions. Every parcel that drops soft as rain makes the next impossible thing itch. June answers on the first ring, the way she has since the beginning. “I knew it. What are we building?”',
     },
   },
   {
@@ -56,12 +56,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 4,
     prose:
-      'The tubes still run. They are painted MERIDIAN blue now, and they stop wherever the margins are best, which is rarely where anyone lives. You are rich. Some nights that feels like winning, and some nights you know better. The Flats keeps your sticker on the receiver sleeve anyway.',
+      'The tubes still run. MERIDIAN painted them blue and sends them wherever margins are best, which is rarely where anyone lives. You are rich. Some nights that feels like winning. Some nights the Flats sticker on the receiver sleeve tells the truth.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE HANDCUFFS',
       prose:
-        'Four years of vesting inside the company that buried you. A good office with your name on the door and no window. You watch MERIDIAN starve your corridors, then close them, then call it optimization. In the fourth winter you walk past your own old prototype in the lobby glass and realize the non-compete expired in June. You call June Park that night. She picks up before the first ring ends. “There you are,” she says. “What took you so long?”',
+        'Four years of vesting inside the company that buried you. A good office with your name on the door and no window. You watch MERIDIAN starve your corridors, close them, and call it efficiency. In the fourth winter you pass your old prototype in the lobby glass. The non-compete expired in June. You call June Park that night. She picks up before the first ring ends. “There you are,” she says. “What took you so long?”',
     },
   },
   {
@@ -72,12 +72,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 1,
     prose:
-      'The bank takes the shuttles back. But nobody can repossess what the neighborhood saw. Sixty porches watched parcels fall out of the sky like weather that loved them. Doors close. Some of them stay unlocked.',
+      'The bank takes the shuttles back. The neighborhood keeps what it saw. Sixty porches watched parcels fall out of the sky like weather that loved them. Doors close. Some stay unlocked.',
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF ODD JOBS',
       prose:
-        'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets. Nobody says anything at dinner, which is its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you do not explain to anyone. When the phone finally rings about something new, you are ready in a way that only failing teaches.',
+        'A year in your parents’ basement, consulting for people who want your scar tissue more than your ideas. Your old bedroom still has the model rockets. At dinner, the quiet feels like its own kind of love. You drive a delivery van for a competitor for three months, just to learn their routes from the inside. The cards from sixty porches live in a shoebox you keep private. When the phone finally rings about something new, failure has made you ready.',
     },
   },
   {
@@ -88,12 +88,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 3,
     skipYears: 5,
     prose:
-      'The badge is heavy and gets lighter every year. Your old prototype hangs in the MERIDIAN lobby under glass, labeled HERITAGE ARTIFACT. Sometimes you ride past the laundromat in the black car and do not look up.',
+      'The badge is heavy. Each year it feels lighter. Your old prototype hangs in the MERIDIAN lobby under glass, labeled HERITAGE ARTIFACT. Sometimes you ride past the laundromat in the black car and keep your eyes on the road.',
     interlude: {
       kicker: 'INTERLUDE · FIVE YEARS',
       title: 'THE VIEW FROM INSIDE',
       prose:
-        'Five years, three promotions, one division. You are very good at this, which is the problem. The corridors you once flew close in April, quietly, and the press release has your signature at the bottom because that is the job. At night, sometimes, you open the folder of things you would build if you were free. The non-compete runs out on a Tuesday. You are at June’s door Wednesday.',
+        'Five years, three promotions, one division. You are very good at this, which makes it worse. The corridors you once flew close in April, quietly. The press release has your signature at the bottom because that is the job. At night, you open the folder of things you would build if you were free. The non-compete runs out on a Tuesday. You are at June’s door Wednesday.',
     },
   },
   {
@@ -104,12 +104,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 5,
     skipYears: 2,
     prose:
-      'You publish everything: flight controller, tube spec, descent safety case. Within a year there are four hundred small railways over four hundred neighborhoods, every one wearing a different name, and none of them wearing yours. Which is exactly what you wanted.',
+      'You publish everything — the flight controller, the tube spec, the descent safety case. Within a year, four hundred small railways cross four hundred neighborhoods. Each one wears a different name. That is exactly what you wanted.',
     interlude: {
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE FOUNDATION',
       prose:
-        'Two years keeping the foundation lean and the spec honest. Four hundred little skies, none of them yours. Then a postcard arrives from Cape Canaveral — relay satellites, launch windows, a handwritten line: THE NEXT RAILWAY DOESN’T STOP AT THE ATMOSPHERE. You know the handwriting. It used to be yours.',
+        'Two years keeping the foundation lean and the spec honest. Four hundred little skies, each with its own name. Then a postcard arrives from Cape Canaveral — relay satellites, launch windows, and a handwritten line. THE NEXT RAILWAY DOESN’T STOP AT THE ATMOSPHERE. You know the handwriting. It used to be yours.',
     },
   },
 ]

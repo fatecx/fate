@@ -15,34 +15,33 @@ export const ACT_TWO: readonly SceneDef[] = [
         art: 'cut_year_two',
         bg: 'street',
         prose:
-          'The garage is an office now. Six desks, a server rack where the workbench used to be, and a corridor map that no longer fits on one wall.',
+          'The garage has become an office. Six desks line the floor. A server rack stands where the workbench used to be. The corridor map spills onto a second wall.',
       },
       {
         title: 'THE CLONE',
         art: 'cut_chute_launch',
         bg: 'street',
         prose:
-          'Then MERIDIAN launches a copy of you. It is called Chute. It sells the same deliveries at forty percent less and loses money on every drop, on purpose, because it can afford to. The war you wanted is here. It wants everything you have.',
+          'Then MERIDIAN launches Chute, a cheaper copy of Hyperchute. It sells the same drops for forty percent less and loses money on each one because MERIDIAN can afford it. The war you wanted has arrived, and your company is the target.',
       },
     ],
     prose:
-      'The garage is an office now. Six desks, a server rack where the workbench used to be, and a corridor map that no longer fits on one wall. Then MERIDIAN launches a copy of you. It is called Chute. It sells the same deliveries at forty percent less and loses money on every drop, on purpose, because it can afford to. The war you wanted is here. It wants everything you have.',
+      'The garage has become an office. Six desks line the floor. A server rack stands where the workbench used to be. The corridor map spills onto a second wall. Then MERIDIAN launches Chute, a cheaper copy of Hyperchute. It sells the same drops for forty percent less and loses money on each one because MERIDIAN can afford it. The war you wanted has arrived, and your company is the target.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_price_war' }],
   },
   {
     id: 'h_price_war',
     ambience: 'street',
     accent: 'crowd',
-    mood: 'war',
     art: 'world_price_war',
     title: 'THE PRICE OF PRICE',
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'The first blue tube appears on a lamppost four blocks east, then six more overnight, like mushrooms after rain. CHUTE, the stencil says. INTRODUCTORY PRICING. Your phone starts buzzing before you finish reading the second one.',
+      'The first blue tube appears on a lamppost four blocks east. Six more show up overnight, like mushrooms after rain. The stencil says CHUTE. INTRODUCTORY PRICING. Your phone starts buzzing before you finish the second sign.',
     when: { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
     prose:
-      'Chute’s underpricing works. Your waiting list stops growing, and two customers a day drift over the fence to their blue tubes. The board — you, and whoever you let in — meets over cold pizza. Somebody has to blink first.',
+      'Chute’s lower price works. Your waiting list stalls, and two customers a day move to the blue tubes. The board meets over cold pizza. Right now the board is you, plus anyone you let in. Someone has to move first.',
     choices: [
       {
         label: 'Match them. Burn cash to hold the streets.',
@@ -52,7 +51,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 5 },
           { e: 'flag', scope: 'company', key: 'price_war', v: true },
         ],
-        result: 'Margins go to zero. The list stops shrinking. So does your sleep.',
+        result: 'Your margins hit zero. The waiting list holds. You stop sleeping well.',
         goto: 'h_b_after_pricewar',
       },
       {
@@ -61,7 +60,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'revenue', d: 900 },
           { e: 'rep', d: 1 },
         ],
-        result: 'You publish a 99.97% on-time ledger, signed weekly. The Flats notices. So does the insurance industry.',
+        result: 'You publish a weekly on-time report at 99.97%. The Flats notices. Insurance companies start calling.',
         goto: 'h_b_after_pricewar',
       },
       {
@@ -71,7 +70,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'chute_dirt', v: true },
           { e: 'rep', d: -1 },
         ],
-        result: 'Anonymous, untraceable, effective. You tell yourself the reports are accurate. They are. Mostly.',
+        result: 'The files reach the city unsigned. You tell yourself the reports are accurate. Most of them are.',
         goto: 'h_b_after_pricewar',
       },
     ],
@@ -80,11 +79,10 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_couriers',
     ambience: 'street',
     accent: 'crowd',
-    mood: 'negotiate',
     title: 'THE COLLECTIVE',
     weight: 3,
     leadIn:
-      'You know the couriers by first name now — Rosa, Dmitri, the twins who split a route. Lately their group chat has gone quiet when you walk past, which is how you know something formal is coming.',
+      'You know the couriers by first name now — Rosa, Dmitri, and the twins who split one route. Lately their group chat goes quiet when you walk by. That is how you know a real ask is coming.',
     when: {
       k: 'all',
       of: [
@@ -93,7 +91,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The last mile is still human — contract couriers carry what tubes can’t reach upstairs. Their group arrives with a letter: make the couriers real employees, or nobody carries your packages up another staircase. MERIDIAN’s couriers asked for nothing and got nothing. Yours read the news.',
+      'People still handle the last mile. Contract couriers carry the packages the tubes leave downstairs. They arrive with a letter. Make them employees with steady pay and benefits, or they stop carrying your packages up any staircase. MERIDIAN’s couriers asked for nothing and got nothing. Yours read the news.',
     choices: [
       {
         label: 'Say yes. Full employees: W-2s, benefits, everything.',
@@ -104,7 +102,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'couriers_ally', v: true },
           { e: 'stress', d: -3 },
         ],
-        result: 'The letter comes back signed with a note: FIRST COMPANY TO ASK PROPERLY. Your burn jumps. So does your standing.',
+        result: 'The letter comes back signed. The note reads FIRST COMPANY TO ASK PROPERLY. Your burn rises, and the neighborhood sees it.',
         goto: 'h_b_after_couriers',
       },
       {
@@ -113,7 +111,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'burn', d: 1400 },
           { e: 'stress', d: 3 },
         ],
-        result: 'Half sign. Half organize harder.',
+        result: 'Half of them sign. The other half organize harder.',
         goto: 'h_b_after_couriers',
       },
       {
@@ -124,7 +122,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 5 },
           { e: 'flag', scope: 'company', key: 'couriers_enemy', v: true },
         ],
-        result: 'Stair-climbing attachments ship in six weeks. The picket signs appear in five.',
+        result: 'You order stair-climbing attachments. They ship in six weeks. Five weeks from now, picket signs show up outside the garage.',
         goto: 'h_b_after_couriers',
       },
     ],
@@ -133,16 +131,15 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_strike',
     ambience: 'crowd',
     accent: 'street',
-    mood: 'siege',
     art: 'world_strike',
     title: 'THE PORCHES GO QUIET',
     priority: true,
     fuseEpochs: 2,
     leadIn:
-      'It starts on a Monday, without a single raised voice. The morning routes just don’t happen. By noon the neighborhood has read the flyer taped to every receiver sleeve, and so have you.',
+      'It starts on a Monday with quiet streets. The morning routes never happen. By noon, every receiver sleeve has the same flyer taped to it. The neighborhood has read it, and so have you.',
     when: { k: 'flag', scope: 'company', key: 'couriers_enemy', cmp: 'eq', v: true },
     prose:
-      'The strike is polite and devastating: no courier serves a Hyperchute address, and the couriers taught the porches why. Chute’s couriers cross your picket lines for double pay. The neighborhood watches who blinks.',
+      'The strike is calm and devastating. Couriers refuse every Hyperchute address, and they explain why at each porch. Chute pays its couriers double to cross your picket lines. The neighborhood watches what you do next.',
     choices: [
       {
         label: 'Negotiate. You were wrong about the stairs.',
@@ -152,7 +149,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'couriers_ally', v: true },
           { e: 'stress', d: -4 },
         ],
-        result: 'You sign at the laundromat, on a table still warm from someone’s laundry. It plays on every local channel.',
+        result: 'You sign the deal at the laundromat on a table still warm from someone’s laundry. Every local channel plays the clip.',
         goto: 'h_b_after_strike',
       },
       {
@@ -162,7 +159,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
           { e: 'rep', d: -1 },
         ],
-        result: 'The drop success rate holds at 94% and falls a point every week. The Flats starts a counter-list: porches that refuse your tubes.',
+        result: 'The drop success rate holds at 94%, then falls one point each week. The Flats starts a counter-list of porches that refuse your tubes.',
         goto: 'h_b_after_strike',
       },
     ],
@@ -183,20 +180,19 @@ export const ACT_TWO: readonly SceneDef[] = [
     },
     title: 'MERIDIAN GOES PUBLIC',
     prose:
-      'They ring the bell on a Tuesday. By close, MERIDIAN is worth more than the city you live in. Its founder is on every financial channel, silver-haired and certain under the studio lights: “Logistics is a solved problem. The last mile belongs to whoever owns the sky.” The ticker behind him reads $91B. Yours reads a garage above a laundromat.',
+      'MERIDIAN rings the bell on a Tuesday. By the end of the day, it is worth more than the city you live in. Its founder sits on every financial channel, silver-haired and certain under the studio lights. “Logistics is solved. The last mile belongs to whoever owns the sky.” The number behind him reads $91B. Your company still lives in a garage above a laundromat.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_permit_war' }],
   },
   {
     id: 'h_permit_war',
     ambience: 'garage',
     accent: 'office',
-    mood: 'siege',
     art: 'world_audit',
     title: 'THE AUDIT',
     priority: true,
     fuseEpochs: 4,
     leadIn:
-      'The letter arrives certified, which is never good, on letterhead you last saw granting you a corridor. Two men in gray park outside the same morning and photograph the receiver sleeves, methodically, like appraisers.',
+      'The letter arrives by certified mail, which always feels bad. The letterhead is from the same office that gave you your first corridor. That morning, two men in gray park outside and take careful photos of every receiver sleeve.',
     when: {
       k: 'all',
       of: [
@@ -205,7 +201,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The Office of Aerial Corridors opens a full audit of every Hyperchute corridor — “routine,” says the press release MERIDIAN’s lobbyists helped write. Three of your eleven corridors suspend pending review. The city that loved you is being lobbied by people who own it.',
+      'The Office of Aerial Corridors starts a full review of every Hyperchute corridor. The press release calls it “routine,” and MERIDIAN’s lobbyists helped write it. Three of your eleven corridors must stop flying while the office reviews them. The city once loved you. Now people with deeper pockets are working the city against you.',
     choices: [
       {
         label: 'Unleash Nadia. Make the lobbying the story.',
@@ -217,7 +213,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'press_war', v: true },
           { e: 'score', d: 1 },
         ],
-        result: 'HER PIECE RUNS SUNDAY: THE SKY IS FOR SALE. The audit committee suddenly finds cameras at every hearing.',
+        result: 'HER PIECE RUNS SUNDAY. THE SKY IS FOR SALE. Cameras suddenly appear at every hearing.',
       },
       {
         label: 'Hire the regulator who wrote the rules. For 1.5%.',
@@ -228,7 +224,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
           { e: 'flag', scope: 'company', key: 'regulator_insider', v: true },
         ],
-        result: 'Dana Okafor spent nine years running the corridors office. She knows which signatures mean what. The audit finds “procedural irregularities, resolved.”',
+        result: 'Dana Okafor ran the corridors office for nine years. She knows which signatures matter and who avoids calls. The review ends with a bland letter that says the problems are fixed.',
       },
       {
         label: 'Comply completely. Pause the flagged corridors.',
@@ -238,19 +234,18 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -3 },
           { e: 'rel', who: 'corr', resp: 1 },
         ],
-        result: 'Slow, clean, survivable. The corridors reopen in nine weeks with a letter of commendation nobody reads.',
+        result: 'You pause the flagged corridors and give the office every file it asks for. Nine weeks later, the corridors reopen with a praise letter nobody reads.',
       },
     ],
   },
   {
     id: 'h_fresno',
     ambience: 'warehouse',
-    mood: 'dread',
     art: 'world_fresno',
     title: 'FRESNO IS BEHIND',
     weight: 2,
     leadIn:
-      'The first sign is an apologetic email about "component allocation." The second is your account manager’s calendar, suddenly full for three weeks. Suppliers never announce bad news. They let you figure it out.',
+      'The first sign is an apologetic email about parts going to larger buyers. The second sign is your account manager’s calendar, suddenly full for three weeks. Suppliers rarely announce bad news. They let you discover it.',
     when: {
       k: 'all',
       of: [
@@ -259,7 +254,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The Fresno plant builds your shuttles and everyone else’s drones, and everyone else just ordered bigger. Lead times stretch from six weeks to nineteen. Every grounded shuttle is a porch you serve with a human courier at a loss.',
+      'The Fresno plant builds your shuttles and everyone else’s drones. Everyone else just placed bigger orders. Wait times stretch from six weeks to nineteen. Every grounded shuttle means a human courier serves that porch at a loss.',
     choices: [
       {
         label: 'Double the order. Cash up front for priority.',
@@ -270,7 +265,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'revenue', d: 1300 },
           { e: 'stress', d: 3 },
         ],
-        result: 'Your shuttles move to line three, ahead of Chute’s. Money talks; Fresno listens.',
+        result: 'Your shuttles move to line three, ahead of Chute’s. Fresno listens when cash arrives first.',
       },
       {
         label: 'Line up a second supplier in Reno.',
@@ -280,7 +275,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 3 },
           { e: 'flag', scope: 'company', key: 'dual_source', v: true },
         ],
-        result: 'Reno’s tolerances are looser and their price is worse, but when Fresno wobbles, you don’t.',
+        result: 'Reno’s parts fit a little worse and cost more. When Fresno slips again, you still have shuttles coming.',
       },
       {
         label: 'Give Fresno’s owner equity for guaranteed capacity.',
@@ -291,7 +286,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'fresno_points', v: true },
           { e: 'revenue', d: 700 },
         ],
-        result: 'You carve two points from your own share for the man who makes your machines. He frames the certificate next to his first dollar.',
+        result: 'You give two points from your own share to the man who makes your machines. He frames the certificate next to his first dollar.',
       },
     ],
   },
@@ -299,13 +294,12 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_poach_sofia',
     ambience: 'garage',
     accent: 'corp',
-    mood: 'negotiate',
     title: 'THE OFFICE SHE DIDN’T ASK FOR',
     speaker: 'sofia',
     priority: true,
     fuseEpochs: 3,
     leadIn:
-      'A MERIDIAN recruiter has called the garage’s landline twice this month asking for "the descent engineer." Sofia hung up both times. The third approach doesn’t call. It arrives by courier, on paper, in an envelope too nice to ignore.',
+      'A MERIDIAN recruiter has called the garage’s landline twice this month asking for “the descent engineer.” Sofia hung up both times. The third approach comes by courier, on paper, in an envelope too nice to ignore.',
     when: {
       k: 'all',
       of: [
@@ -315,7 +309,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'Sofia puts the offer letter on your desk without being asked: MERIDIAN, double salary, a team of nine, a title with “Principal” in it. “I’m not leaving,” she says. “But I’m not pretending I didn’t read it.” The woman who wrote every safety line in your landing software is holding a ticket she hasn’t decided to use.',
+      'Sofia puts the offer letter on your desk without being asked. MERIDIAN offers double salary, a team of nine, and a title with “Principal” in it. “I’m staying,” she says. “And I read every line.” She wrote the safety code that tells every shuttle how to land, and now she is holding an escape hatch.',
     choices: [
       {
         label: 'Two more percent. Make her a real co-founder.',
@@ -336,7 +330,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'burn', d: 6000 },
           { e: 'rel', who: 'sofia', aff: -1 },
         ],
-        result: 'She stays for the number. Both of you know what that means, and it isn’t love.',
+        result: 'She stays for the number. Both of you understand the price, and it feels cold.',
       },
       {
         label: 'Let her go with blessing and a reference.',
@@ -346,7 +340,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
           { e: 'flag', scope: 'company', key: 'sofia_gone', v: true },
         ],
-        result: 'The descent controller has her fingerprints on every line. MERIDIAN just bought themselves a very good conscience and you lost yours.',
+        result: 'Her fingerprints are on every line of the landing code. MERIDIAN just hired the person who made you safe. You stand in the garage and feel less safe immediately.',
       },
     ],
   },
@@ -355,12 +349,11 @@ export const ACT_TWO: readonly SceneDef[] = [
     ambience: 'garage',
     accent: 'street',
     foley: 'phone',
-    mood: 'hustle',
     art: 'world_four_minutes',
     title: 'THE FOUR MINUTES',
     weight: 3,
     leadIn:
-      'Tuesday is ordinary until 3:12 p.m. Then every phone in the garage lights up at once, and the notifications are all the same porch camera clip, and the view counter is adding a zero while you watch.',
+      'Tuesday feels normal until 3:12 p.m. Then every phone in the garage lights up with the same porch-camera clip. The view count adds another zero while you watch.',
     when: {
       k: 'all',
       of: [
@@ -369,7 +362,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'A man on Forty-First Street collapses. The 911 drone ETA is eleven minutes. The nearest Hyperchute tube carries a defibrillator to his porch in four — the courier who reached it first also knew CPR. The porch camera does the rest: 40 million views, every caption some version of THIS is what it’s for.',
+      'A man on Forty-First Street collapses. The 911 drone is eleven minutes away. The nearest Hyperchute tube sends a defibrillator to his porch in four minutes, and the first courier there knows CPR. The porch camera turns it into a national story. It reaches 40 million views. Every caption says some version of THIS is what it’s for.',
     choices: [
       {
         label: 'Ride it. National shows, op-eds, the whole arc.',
@@ -380,7 +373,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 5 },
           { e: 'flag', scope: 'company', key: 'went_national', v: true },
         ],
-        result: 'You do eleven interviews in six days and say the same true thing each time: the railway was always for this. The list grows by forty thousand names.',
+        result: 'You do eleven interviews in six days and say the same true thing each time. The railway was built for this. The list grows by forty thousand names.',
       },
       {
         label: 'Send the courier. Keep yourself off camera.',
@@ -390,7 +383,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 1 },
           { e: 'rel', who: 'nadia', resp: 1 },
         ],
-        result: 'Rosa from the courier pool does the shows, better than you ever would. The story becomes hers, which makes it bigger.',
+        result: 'Rosa from the courier pool does the shows and tells the story better than you could. The moment becomes hers. That makes it bigger.',
       },
     ],
   },
@@ -406,7 +399,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     priority: true,
     fuseEpochs: 4,
     leadIn:
-      'June books a meeting a week out, with an agenda, which from her is practically a formal declaration. She arrives with someone new: gray suit, firm handshake, the unmistakable air of a man who has already read your data room.',
+      'June books a meeting a week out and sends an agenda. From June, that is practically a formal declaration. She arrives with someone new in a gray suit, with a firm handshake and the calm of a man who has already read your company files.',
     when: {
       k: 'all',
       of: [
@@ -418,7 +411,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'June brings a partner from Sandhill and lets him talk for twenty minutes before she cuts in. “Two million. Twenty points. A real board, real governance, and enough runway to win the war instead of surviving it. This is the door I told you about. It only opens once.”',
+      'June brings a partner from Sandhill and lets him talk for twenty minutes. Then she cuts in. “Two million. Twenty points. A real board, clear rules, and enough runway to fight the war instead of surviving it. This is the door I told you about. It only opens once.”',
     choices: [
       {
         label: 'Take it. Win the war.',
@@ -431,7 +424,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -5 },
           { e: 'flag', scope: 'company', key: 'series_a', v: true },
         ],
-        result: 'The wire clears on a Friday. On Monday there is a recruiting plan, a legal budget, and a board meeting on the calendar that includes you but is no longer yours alone.',
+        result: 'The $2 million lands on Friday. By Monday, you have a hiring plan, a legal budget, and a board meeting on the calendar. You are included, and other people now share the wheel.',
       },
       {
         label: 'Counter at fifteen percent.',
@@ -443,7 +436,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 3 },
           { e: 'flag', scope: 'company', key: 'series_a', v: true },
         ],
-        result: '“Eighteen,” she says, “because you asked twice.” The wire clears Friday.',
+        result: '“Eighteen,” she says, “because you asked twice.” The $2 million lands Friday.',
       },
       {
         label: 'Stay independent. Own the whole thing or lose it all.',
@@ -454,7 +447,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'independent', v: true },
           { e: 'rel', who: 'june', aff: -1 },
         ],
-        result: 'June nods slowly. “Then you’re betting the company every single week. Some founders are wired that way.” The door closes politely, forever.',
+        result: 'June nods slowly. “Then you’re betting the company every single week. Some founders are wired that way.” She closes the door politely, forever.',
       },
     ],
   },
@@ -467,7 +460,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'WHO HOLDS THE GAVEL',
     priority: true,
     leadIn:
-      'The lawyers exchange drafts for a week — polite, expensive volleys with your company’s future in the tracked changes. Then everyone gathers in a conference room borrowed from June’s fund, because the garage has folding chairs.',
+      'The lawyers trade drafts for a week. Each version is polite, expensive, and full of edits that shape your future. Then everyone gathers in a conference room borrowed from June’s fund, because the garage still has folding chairs.',
     when: {
       k: 'all',
       of: [
@@ -477,7 +470,7 @@ export const ACT_TWO: readonly SceneDef[] = [
       ],
     },
     prose:
-      'The company charter is three pages of standard legal filler until page four: who sits on the board. June’s term sheet leaves that open — which means it is being decided right now, in this room, by whoever speaks first.',
+      'The company rules run three dull pages before the line that matters, which is who sits on the board. June’s term sheet leaves that open, so the choice is happening right now, in this room, by whoever speaks first.',
     choices: [
       {
         label: 'Founder-controlled: you, June, one neutral.',
@@ -488,7 +481,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'control', v: 'founder' },
           { e: 'score', d: 1 },
         ],
-        result: 'You keep the gavel. June votes with you twice in year one and against you once, memorably.',
+        result: 'You keep the gavel. June votes with you twice in year one. The third vote goes against you, and you remember it.',
       },
       {
         label: 'Even: you, June, an independent both accept.',
@@ -499,7 +492,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
           { e: 'stress', d: 3 },
         ],
-        result: 'Governance as marriage counseling. The independent is a retired ferry captain with no patience for either of you, which turns out to be exactly right.',
+        result: 'The board becomes marriage counseling with votes. The independent is a retired ferry captain with little patience for either of you. That turns out to be exactly right.',
       },
     ],
   },
@@ -521,7 +514,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     marker: 'EIGHTEEN MONTHS LATER',
     skipToWeek: 130,
     prose:
-      'Three corridors suspended, then reopened. A price war that cost you both a fortune and taught the city your names. Couriers with health insurance. Sofia’s descent controller, version nine. The war doesn’t end. It just gets older — until the morning it stops mattering, because of what happens on Richmond Street.',
+      'Three corridors were suspended, then reopened. The price war cost both sides a fortune and taught the city your names. Couriers now have health insurance. Sofia’s descent controller reaches version nine. The war keeps aging. Then Richmond Street changes the whole story.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
   },
 
@@ -530,102 +523,93 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_b_after_pricewar',
     ambience: 'street',
     accent: 'crowd',
-    mood: 'war',
     art: 'world_trenches',
     kind: 'bridge',
     title: 'TRENCHES',
     prose:
-      'The fence-line stops moving. Both sides dug in. Blue tubes fall off lampposts in your blocks, and strangers straighten yours without being asked. Pricing pages update hourly now, two ops teams learning each other’s rhythms like chess players who hate each other politely. You start to understand that a war like this never really ends. It just becomes part of the price of everything — for customers, for suppliers, and eventually for people with much bigger spreadsheets than yours.',
+      'The blocks stop changing hands. Both sides dig in. Blue tubes fall off lampposts in your blocks, and strangers put your tubes back straight. Pricing pages change every hour while two ops teams learn each other’s habits. The price war becomes part of the business. Customers feel it, suppliers feel it, and larger companies start running the math.',
     choices: [{ label: 'Continue', effects: [], goto: 'h_couriers' }],
   },
   {
     id: 'h_b_after_couriers',
     ambience: 'street',
-    mood: 'tender',
     art: 'world_courier_bench',
     kind: 'bridge',
     title: 'THE LAST MILE HAS A FACE',
     prose:
-      'The decision travels through the courier pool faster than any memo could — group chats, stairwells, the bench outside the laundromat. For a while deliveries continue as they always did. But the porches heard about it too, because the couriers told them, name by name, landing by landing. In the Flats, how you treat the person on the stairs is public information. It compounds, one direction or the other, from here.',
+      'The decision moves through the courier pool faster than any memo. Group chats, stairwells, and the bench outside the laundromat all carry it. Deliveries keep moving for now. The porches hear too, because the couriers explain it name by name and landing by landing. In the Flats, how you treat the person on the stairs becomes public knowledge. That judgment starts building from here.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_strike',
     ambience: 'street',
-    mood: 'war',
     art: 'world_flyer_sleeve',
     kind: 'bridge',
     title: 'AFTER THE PICKETS',
     prose:
-      'A strike leaves marks either way. Routes resume. Some porches keep the flyer taped inside the receiver sleeve, as a warning or a receipt, depending. The couriers know exactly what you are now, and so does the neighborhood, and so does MERIDIAN — whose channels covered every day of it, gleefully, in HD, under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war has a labor front now. You opened it.',
+      'A strike leaves marks either way. Routes resume. Some porches keep the flyer taped inside the receiver sleeve as a warning or a receipt. The couriers know what you chose. The neighborhood knows too. MERIDIAN’s channels cover every day in HD under the banner GROWING PAINS AT THE LITTLE RAILWAY. The war now has a labor front. You opened it.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_audit',
     ambience: 'office',
-    mood: 'war',
     art: 'world_paper_weather',
     kind: 'bridge',
     title: 'PAPER WEATHER',
     prose:
-      'Audits end the way weather does — gradually, then officially, with a letter that thanks you for your cooperation whether you cooperated or not. The gray sedans stop appearing. What stays is the lesson: the sky you operate in is licensed, and licenses have politics, and politics has a payroll. Somewhere downtown a MERIDIAN lobbyist closes your file and opens next quarter’s version of it.',
+      'The review ends like bad weather. First the gray sedans stop appearing. Then a letter thanks you for your cooperation, whether you helped or fought. The lesson stays. The sky you use belongs to a city office, and city offices have politics. Somewhere downtown, a MERIDIAN lobbyist closes your file and opens the next version for next quarter.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_fresno',
     ambience: 'warehouse',
-    mood: 'war',
     art: 'world_build_dates',
     kind: 'bridge',
     title: 'SUPPLY LINES',
     prose:
-      'The shuttle supply steadies. You know your machines’ build dates now the way parents know due dates, and you check the factory schedule before you check the news. Every shuttle that ships on time is a porch Chute can’t steal while you wait. This part of the war happens off camera — and it decides more than the parts on camera.',
+      'The shuttle supply steadies. You know each machine’s build date the way parents know due dates, and you check the factory schedule before the news. Every shuttle that ships on time protects one porch while Chute waits outside. This part of the war happens far from cameras, and it decides more than the parts people see.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_poach',
     ambience: 'garage',
-    mood: 'tender',
     art: 'world_poach_letter',
     kind: 'bridge',
     title: 'WHAT THE LETTER MEANT',
     prose:
-      'The envelope goes into a drawer, but what it means stays out on the bench: MERIDIAN is recruiting your company one name at a time. Somewhere in a database there is an org chart of your garage, and keeping it current is somebody’s whole job. The war is about people now, and everyone on your stairs has a number next to their name that someone else is willing to pay.',
+      'The envelope goes into a drawer. The meaning stays on the bench. MERIDIAN is trying to hire your company one person at a time. Somewhere in its files, someone keeps an org chart of your garage current. The war is about people now. Everyone on your stairs has a number next to their name that someone else will pay.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_viral',
     ambience: 'garage',
     accent: 'street',
-    mood: 'hustle',
     art: 'world_legend_clip',
     kind: 'bridge',
     title: 'AFTER THE FOUR MINUTES',
     prose:
-      'The clip ages into legend at internet speed: stitched, captioned, argued about, taught. The waiting list grows by a whole suburb. City hall calls twice — once to congratulate, once, quieter, to ask about capacity. Attention this size has weather of its own. For a few weeks everything the company does happens slightly on camera, and you learn to move like someone who knows it.',
+      'The clip becomes legend at internet speed. People stitch it, caption it, argue over it, and teach it in safety decks. The waiting list grows by a whole suburb. City hall calls twice. First they congratulate you. Then they quietly ask how much capacity you have. Attention this big has its own weather. For a few weeks, everything the company does happens on camera.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_a',
     ambience: 'office',
     accent: 'corp',
-    mood: 'build',
     art: 'world_board_invite',
     kind: 'bridge',
     title: 'GOVERNANCE ARRIVES',
     prose:
-      'The money changes everything it touches. Hiring plans become real documents with real start dates. So does a calendar invite titled BOARD MEETING — the first meeting in the company’s life that you were invited to instead of calling yourself. June’s texts get shorter and land harder. The garage feels watched now, in a way it never did when it was only yours.',
+      'The money changes everything it touches. Hiring plans become real documents with start dates. A calendar invite arrives titled BOARD MEETING, the first meeting in the company’s life that you joined instead of called. June’s texts get shorter and land harder. The garage feels watched now in a way it never did when it belonged only to you.',
     choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 'h_b_after_indep',
     ambience: 'night',
-    mood: 'build',
     art: 'world_runway_taped',
     kind: 'bridge',
     title: 'THE WHOLE THING',
     prose:
-      'Owning all of it has a sound: the door June closed, clicking, politely, forever. From here, payroll only clears if customers paid that week. There is no cushion and nobody coming. You tape the runway math to the wall where a term sheet would have hung and find, to your surprise, that you like looking at it. Some founders are built for this. The next quarter finds out which kind you are.',
+      'Owning all of it has a sound. It is the door June closed, clicking politely behind her. From here, payroll clears only when customers paid that week. Every dollar has to come from customers now. Rescue is far away. You tape the runway math to the wall where a term sheet would have hung. To your surprise, you like seeing it. The next quarter will show what kind of founder you are.',
     choices: [{ label: 'Continue', effects: [] }],
   },
 ]
