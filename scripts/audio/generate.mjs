@@ -36,7 +36,13 @@ const only = args.find((a) => a.startsWith('--only='))?.slice(7).split(',')
 
 const defs = [
   ...Object.values(AMBIENCE).map((d) => ({ ...d, loop: true, seconds: d.seconds ?? 22 })),
-  ...Object.values(MOODS).map((d) => ({ ...d, loop: true, seconds: d.seconds ?? 26 })),
+  ...Object.values(MOODS).flatMap((d) => {
+    const takes = [{ ...d, loop: true, seconds: d.seconds ?? 26 }]
+    for (let n = 2; n <= (d.takes ?? 1); n++) {
+      takes.push({ ...d, id: `${d.id}_${n}`, loop: true, seconds: d.seconds ?? 26 })
+    }
+    return takes
+  }),
   { ...TENSION, loop: true, seconds: TENSION.seconds ?? 22 },
   ...Object.values(STINGERS).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 6 })),
   ...Object.values(FOLEY).map((d) => ({ ...d, loop: false, seconds: d.seconds ?? 4 })),

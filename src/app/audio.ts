@@ -15,9 +15,11 @@ import { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY, SCENE_BEDS } from '../conten
 import type { SoundDef } from '../content/sound'
 
 const SOUND_KEY = 'fate-sound'
-const MUSIC_FADE = 4
+const MUSIC_FADE = 2.5
 const AMB_FADE = 1.6
 const TENSION_FADE = 2.5
+/** Crossfade between takes of the same mood — the hum breathes, never loops. */
+const TAKE_XFADE = 3.5
 /** Films are CUTS, not modulations: into one, sound drops near-instantly and
  *  the film bed lands under the sting; out of one, the room returns quickly. */
 const CUT_OUT = 0.25
@@ -151,6 +153,58 @@ function stopLane(lane: Lane | null, fade: number): void {
   }, fade * 1000 + 120)
 }
 
+// ---- the music cycle: same mood, moving tones, never a loop -------------------
+
+let takeTimer = 0
+let lastTake = 1
+
+function takeFile(def: SoundDef, n: number): string {
+  return n <= 1 ? def.id : `${def.id}_${n}`
+}
+
+/** Play one take of the mood through, then crossfade into a different take of
+ *  the same idea — the hum breathes instead of looping. Recursion is guarded
+ *  by lane identity: a mood change orphans the timer chain. */
+async function startMusicCycle(def: SoundDef, fadeIn: number): Promise<Lane | null> {
+  const c = ensureCtx()
+  if (!c || !master) return null
+  const total = def.takes ?? 1
+  let n = 1
+  if (total > 1) {
+    const opts = Array.from({ length: total }, (_, i) => i + 1).filter((x) => x !== lastTake)
+    n = opts[Math.floor(Math.random() * opts.length)]
+  }
+  let buf = await loadBuffer(takeFile(def, n))
+  if (!buf && n !== 1) {
+    n = 1
+    buf = await loadBuffer(def.id)
+  }
+  if (!buf || !c) return null
+  lastTake = n
+  const src = c.createBufferSource()
+  src.buffer = buf
+  const gain = c.createGain()
+  gain.gain.value = 0
+  src.connect(gain)
+  gain.connect(master)
+  src.start(0)
+  gain.gain.linearRampToValueAtTime(def.gain, c.currentTime + fadeIn)
+  const lane: Lane = { src, gain, id: def.id }
+  const handoff = (): void => {
+    if (musicLane !== lane || !ctx) return
+    void startMusicCycle(def, TAKE_XFADE).then((next) => {
+      if (next && musicLane === lane) {
+        stopLane(lane, TAKE_XFADE)
+        musicLane = next
+      }
+    })
+  }
+  window.clearTimeout(takeTimer)
+  takeTimer = window.setTimeout(handoff, Math.max(4000, (buf.duration - TAKE_XFADE) * 1000))
+  src.onended = handoff // background-tab timers throttle; the source itself backstops
+  return lane
+}
+
 let applying = false
 /** Reconcile the decks with the wanted state. Serialized; latest wins. */
 async function reconcile(): Promise<void> {
@@ -167,10 +221,11 @@ async function reconcile(): Promise<void> {
   const ambIn = intoFilm ? CUT_IN : AMB_FADE
   try {
     if (wantMood !== (musicLane?.id ?? null)) {
+      window.clearTimeout(takeTimer)
       const def = wantMood ? Object.values(MOODS).find((m) => m.id === wantMood) : undefined
       stopLane(musicLane, musicOut)
       musicLane = null
-      if (def) musicLane = await startLoop(def, musicIn)
+      if (def) musicLane = await startMusicCycle(def, musicIn)
     }
     if (wantAmbKey !== curAmbKey) {
       curAmbKey = wantAmbKey
@@ -247,6 +302,7 @@ export function resetStage(): void {
   curAmbKey = ''
   wantAccent = null
   wantTension = false
+  window.clearTimeout(takeTimer)
   stopLane(musicLane, 0.2)
   stopLane(ambLane, 0.2)
   stopLane(accentLane, 0.2)
@@ -304,6 +360,10 @@ function warm(): void {
     ...Object.values(SCENE_BEDS),
   ]) {
     void loadBuffer(d.id)
+  }
+  // Alternate takes warm too — the first crossfade should never stutter.
+  for (const d of Object.values(MOODS)) {
+    for (let n = 2; n <= (d.takes ?? 1); n++) void loadBuffer(`${d.id}_${n}`)
   }
 }
 

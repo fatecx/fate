@@ -89,9 +89,13 @@ describe('soundscape', () => {
       ...Object.values(FOLEY),
       ...Object.values(SCENE_BEDS),
     ]
-    for (const d of defs) {
-      const p = resolve(__dirname, `../public/sfx/${d.id}.mp3`)
-      expect(existsSync(p), `public/sfx/${d.id}.mp3 missing — run scripts/audio/generate.mjs`).toBe(true)
+    const files = defs.map((d) => d.id)
+    for (const d of Object.values(MOODS)) {
+      for (let n = 2; n <= (d.takes ?? 1); n++) files.push(`${d.id}_${n}`)
+    }
+    for (const id of files) {
+      const p = resolve(__dirname, `../public/sfx/${id}.mp3`)
+      expect(existsSync(p), `public/sfx/${id}.mp3 missing — run scripts/audio/generate.mjs`).toBe(true)
     }
   })
 
