@@ -18,6 +18,12 @@ const SOUND_KEY = 'fate-sound'
 const MUSIC_FADE = 4
 const AMB_FADE = 1.6
 const TENSION_FADE = 2.5
+/** Films are CUTS, not modulations: into one, sound drops near-instantly and
+ *  the film bed lands under the sting; out of one, the room returns quickly. */
+const CUT_OUT = 0.25
+const CUT_IN = 0.6
+const FILM_EXIT_OUT = 0.6
+const FILM_EXIT_IN = 1.2
 
 let ctx: AudioContext | null = null
 let master: GainNode | null = null
@@ -149,20 +155,29 @@ let applying = false
 async function reconcile(): Promise<void> {
   if (applying || !ctx) return
   applying = true
+  const FILM_ID = MOODS.film.id
+  // The cut law: entering a film is abrupt; leaving one is quick; everything
+  // else modulates at musical pace.
+  const intoFilm = wantMood === FILM_ID && musicLane?.id !== FILM_ID
+  const outOfFilm = musicLane?.id === FILM_ID && wantMood !== FILM_ID
+  const musicOut = intoFilm ? CUT_OUT : outOfFilm ? FILM_EXIT_OUT : MUSIC_FADE
+  const musicIn = intoFilm ? CUT_IN : outOfFilm ? FILM_EXIT_IN : MUSIC_FADE
+  const ambOut = intoFilm ? CUT_OUT : AMB_FADE
+  const ambIn = intoFilm ? CUT_IN : AMB_FADE
   try {
     if (wantMood !== (musicLane?.id ?? null)) {
       const def = wantMood ? Object.values(MOODS).find((m) => m.id === wantMood) : undefined
-      stopLane(musicLane, MUSIC_FADE)
+      stopLane(musicLane, musicOut)
       musicLane = null
-      if (def) musicLane = await startLoop(def, MUSIC_FADE)
+      if (def) musicLane = await startLoop(def, musicIn)
     }
     if (wantAmbKey !== curAmbKey) {
       curAmbKey = wantAmbKey
-      stopLane(ambLane, AMB_FADE)
+      stopLane(ambLane, ambOut)
       ambLane = null
       // First candidate whose file exists wins — scene bed, then room, then silence.
       for (const def of wantAmbChain) {
-        ambLane = await startLoop(def, AMB_FADE, true)
+        ambLane = await startLoop(def, ambIn, true)
         if (ambLane) break
       }
     }
@@ -170,16 +185,16 @@ async function reconcile(): Promise<void> {
       const def = wantAccent
         ? Object.values(AMBIENCE).find((a) => a.id === wantAccent)
         : undefined
-      stopLane(accentLane, AMB_FADE)
+      stopLane(accentLane, ambOut)
       accentLane = null
       // Accents season under the room: same bed library, a third the level.
-      if (def) accentLane = await startLoop({ ...def, gain: def.gain * ACCENT_MIX }, AMB_FADE + 1)
+      if (def) accentLane = await startLoop({ ...def, gain: def.gain * ACCENT_MIX }, ambIn + 1)
     }
     if (wantTension !== tensionOn) {
       tensionOn = wantTension
       if (wantTension && !tensionLane) tensionLane = await startLoop(TENSION, TENSION_FADE)
       else if (!wantTension && tensionLane) {
-        stopLane(tensionLane, TENSION_FADE)
+        stopLane(tensionLane, intoFilm ? CUT_OUT : TENSION_FADE)
         tensionLane = null
       }
     }
