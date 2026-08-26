@@ -52,7 +52,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 6,
     skipYears: 3,
     prose:
-      'The satellite ring changes call signs overnight. The bodies at the Verge get repainted and keep working. The storefront chairs move into HALCYON pavilions, where the line moves faster and the magic feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole, the shifts keep running as if nothing happened, because for the machines, nothing did.',
+      'The satellite ring changes its names overnight. The bodies at the Verge get repainted and keep working. The storefront chairs move into HALCYON pavilions, where the line moves faster and the magic feels like nothing. You are wealthy in the way the model predicted, to the dollar. Up at the pole, the shifts keep running as if nothing happened, because for the machines, nothing did.',
     interlude: {
       kicker: 'INTERLUDE · THREE YEARS',
       title: 'INSIDE THE MANIFEST',
@@ -68,12 +68,12 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 4,
     skipYears: 1,
     prose:
-      'The bankruptcy people can take the desks and the patents, but nobody can repossess an orbit. So the satellites come down on schedule instead — brought down one by one over six weeks, each a streak of light across somebody’s evening. The last one is visible from the Flats. People come out onto porches that once caught falling packages and watch a company become a meteor shower. Nobody who saw it ever calls it a failure.',
+      'The bankruptcy people can take the desks and the patents, but nobody can repossess an orbit. So the satellites come down on schedule instead — brought down one by one over six weeks, each a streak of light across somebody’s evening. The last one is visible from the Flats. People come out onto porches that once caught falling packages and watch a company become a meteor shower. People who saw it have never once called it a failure.',
     interlude: {
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF LETTERS',
       prose:
-        'A year of wind-down paperwork and unexpected mail. The company died owing nothing, and your own accounts survived it — the buyout money from the Hyperchute years was never in the company, and consulting pays absurdly well when every space agency on Earth wants to learn how you ran remote operations. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies he considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
+        'A year of wind-down paperwork and unexpected mail. The company died owing nothing, and your own accounts survived it. The buyout money from the Hyperchute years was never in the company. And consulting pays absurdly well when every space agency on Earth wants to learn how you ran remote operations. Operators write to say the training program got them hired at three agencies. A letter arrives from Shackleton Verge in January. Commander Salazar’s annual letters, it turns out, include companies he considered crew. In the spring, a fat envelope arrives from a group you have never heard of. Inside is a study for a space elevator and a sticky note in an engineer’s hand: WE READ THE ELEVEN SECONDS. WE WANT PEOPLE WHO PUBLISH. CALL US.',
     },
   },
   {
@@ -84,7 +84,7 @@ const ENDINGS: readonly EndingDef[] = [
     scoreBonus: 3,
     skipYears: 4,
     prose:
-      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. Nobody ever doubted the machines. The doubt was about telling people the truth, and you settled that question years ago.',
+      'The seamless story prices at the seamless number and makes everyone rich, especially you. The machines guess beautifully, the customers never learn which motions were theirs, and the counter that once hung by a hangar door sits in a collector’s lobby with the date wrong on the plaque. All of it works exactly as sold. The machines do exactly what the customers see. The guessing stays secret, and you settled that question years ago.',
     interlude: {
       kicker: 'INTERLUDE · FOUR YEARS',
       title: 'THE MANAGED ENVIRONMENT',
@@ -105,7 +105,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · TWO YEARS',
       title: 'THE WILDERNESS',
       prose:
-        'Two years of being the cautionary tale at other people’s board dinners. Here is what the board could not take: your shares. They fired you from the job, never from the ownership, and in the second year you quietly sell a piece of your stake back to the company — millions in the bank, wired by the same people who removed you. You watch your company from the outside after that — the launches you planned, the storefronts you sited, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a company planning to build a space elevator — a cable from the ground straight up to orbit — asks to meet. They are not shopping for a company to buy. They flew here to recruit you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
+        'Two years of being the cautionary tale at other people’s board dinners. Here is what the board could not take: your shares. They fired you from the job, never from the ownership, and in the second year you quietly sell a piece of your stake back to the company — millions in the bank, wired by the same people who removed you. You watch your company from the outside after that — the launches you planned, the storefronts you picked, the professional CEO running your roadmap well and calling it a turnaround. June calls every Sunday. Omid sends exactly one message, on the anniversary: THE NUMBER IS STILL THE PRODUCT. In the second spring, a company planning to build a space elevator — a cable from the ground straight up to orbit — asks to meet. They are not shopping for a company to buy. They flew here to recruit you. “The board that fired you,” their chair says, “published its reasoning. We read it twice. We concluded we were reading a reference letter.”',
     },
   },
   {

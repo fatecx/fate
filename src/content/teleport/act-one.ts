@@ -16,7 +16,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The hangar you leased sight unseen smells of salt and old jet fuel. The Cape lies flat and bright outside. After the last company, its calm feels almost like respect.',
     prose:
-      'Dr. Omid Farrokh arrives with a cardboard box of bound printouts and a silence where small talk would go. He spent nine years at JPL, NASA’s space lab, trying to fund one idea: a chain of relay satellites that passes a signal from one satellite to the next, cutting a Moon round trip to 2.6 seconds. “Everyone called the market science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone ignored.” He looks up. “I want my work built, with my name on it, beside someone who ships. I read everything about you, including the bad quarter.” He slides over the top printout. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
+      'Dr. Omid Farrokh arrives with a cardboard box of bound printouts and a silence where small talk would go. He spent nine years at NASA, trying to fund one idea: a chain of relay satellites that hands a signal from one to the next, cutting a Moon round trip to 2.6 seconds. “Everyone called the market science fiction,” he says, setting the box on your one table. “Then you flew parcels over a neighborhood everyone ignored.” He looks up. “I want my work built, with my name on it, beside someone who ships. I read everything about you, including the bad quarter.” He slides over the top printout. On the cover, in his handwriting: A BODY ON THE MOON, A CHAIR ON EARTH.',
     choices: [
       {
         label: 'Shake his hand. Build it together.',
@@ -111,7 +111,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_hangar_night',
     title: 'TWO CHAIRS, ONE HANGAR',
     prose:
-      'At 11 p.m. the paperwork files. TELEPORT, INC., two signatures, a hangar lease, and a cardboard box of physics. Omid stays late, laying his printouts on a steel shelf like sacred books. Outside, a HALCYON rocket climbs from a pad eleven miles south. You see the light first. The thunder reaches the roof a few seconds later because sound is slow and the rocket is far away. Neither of you speaks. That gap becomes the whole company — the time it takes for a far thing to reach you, and what a person can do before it does.',
+      'At 11 p.m. the paperwork files. TELEPORT, INC., two signatures, a hangar lease, and a cardboard box of physics. Omid stays late, laying his printouts on a steel shelf like sacred books. Outside, a HALCYON rocket climbs from a pad eleven miles south. You see the light first. The thunder reaches the roof a few seconds later because sound is slow and the rocket is far away. Neither of you speaks. That gap becomes the whole company — the time it takes for a far thing to reach you, and what a machine can do while it waits.',
     choices: [{ label: 'Continue', effects: [], goto: 't_june_condition' }],
   },
   {
@@ -176,7 +176,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_warroom',
     title: 'THE MAP OF EVERYTHING',
     prose:
-      'Omid takes over the hangar’s back wall and builds what he calls the map of everything — flight paths around the Moon drawn in chalk, magnets standing in for relay satellites, cost charts taped over older cost charts. In the center hang two photographs: the Moon, gray and close, and Mars, red and far beyond reach. For a week, every conversation in the building drifts toward the same fight, until on Friday Omid finally calls it — founders only, door shut, one hour. Everyone knows what the hour will decide.',
+      'Omid takes over the hangar’s back wall and builds what he calls the map of everything. Flight paths around the Moon, drawn in chalk. Magnets for relay satellites. Cost charts taped over older cost charts. In the center hang two photographs: the Moon, gray and close, and Mars, red and far beyond reach. For a week, every conversation in the building drifts toward the same fight, until on Friday Omid finally calls it — founders only, door shut, one hour. Everyone knows what the hour will decide.',
     choices: [{ label: 'Continue', effects: [], goto: 't_moon_v_mars' }],
   },
   {
@@ -257,7 +257,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_bodies_started',
         result:
-          'He initials the ledger in front of you, which from Ray Freres is a medal ceremony. The first body frame is in the jig before the wire clears.',
+          'He initials the ledger in front of you, which from Ray Freres is a medal ceremony. The first body frame is on the bench before the wire clears.',
       },
       {
         label: 'Half now, half on delivery.',
@@ -280,7 +280,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_bodies_started',
         result:
-          'Ray gives the shrug of a man adding your name to a private list called FOUNDERS WHO LEARNED. You hire two machinists and buy a mill. The hangar starts sounding like a real company and burning money like one too.',
+          'Ray gives the shrug of a man adding your name to a private list called FOUNDERS WHO LEARNED. You hire two machinists and buy the machine that cuts the metal. The hangar starts sounding like a real company and burning money like one too.',
       },
     ],
   },
@@ -291,7 +291,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     art: 'world_first_body',
     title: 'SOMETHING WITH HANDS',
     prose:
-      'Six weeks later, something with hands stands in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly, test-gray, with camera masts where a head should be. When Omid runs the arm through its wake-up routine, the shop floor stops every time. Nobody feels casual around a machine built to reach. The relay math lives unseen in server racks. The body is the first piece of TELEPORT you can stand in front of, which makes it the first piece the world can see.',
+      'Six weeks later, something with hands stands in the corner of the hangar, cabled to a rack like a patient on monitors. It is ugly, test-gray, with camera masts where a head should be. When Omid runs the arm through its wake-up routine, the shop floor stops every time. Everyone goes a little careful around a machine built to reach. The relay math lives unseen in server racks. The body is the first piece of TELEPORT you can stand in front of, which makes it the first piece the world can see.',
     choices: [{ label: 'Continue', effects: [], goto: 't_cascade_test' }],
   },
   {
@@ -337,7 +337,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'Commander Rafael Salazar watches by video from the lunar south pole, arms folded, and says eleven words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” he says. People who know him later tell you this is the highest rating he has ever given anything with a sales team.',
+          'Commander Rafael Salazar watches by video from the lunar south pole, arms folded, and says three words in forty minutes: “Run it again.” You run it again. It holds. “Interesting,” he says. People who know him later tell you this is the highest rating he has ever given anything with a sales team.',
       },
     ],
   },
@@ -360,7 +360,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'The Lunar Commerce Expo is eleven weeks away. For three days, every Moon base operator, tourist broker, and space investor will share one hall. To earn their attention, your test machine needs to become safe enough for a live public demo.',
     prose:
-      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers hardening the demo body, booking live relay time during the expo, and the insurance the hall demands before you can drive a robot by satellite in front of a crowd. The total sits brutally close to everything the company has left. The math says the same thing no matter who reads it: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
+      'The quote lands on a Tuesday and sits in the middle of the table like a verdict. It covers toughening the demo body, booking live relay time during the expo, and the insurance the hall demands before you can drive a robot by satellite in front of a crowd. The total sits brutally close to everything the company has left. The math says the same thing no matter who reads it: pay this, and the account drops near zero until new money lands. The expo only works as a full bet.',
     choices: [
       {
         label: 'Pay it in full. Flight-rate everything.',
@@ -422,7 +422,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_b_expo_eve',
         result:
-          'Island booth, twenty-by-twenty, the body on a raised dais under a single spot. The renderings look like a company forty times your size. That is exactly the crime you plan to commit.',
+          'Island booth, twenty-by-twenty, the body on a raised stage under a single spot. The renderings look like a company forty times your size. That is exactly the crime you plan to commit.',
       },
       {
         label: 'A modest corner booth. Let the machine do the talking.',
@@ -490,7 +490,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 't_expo_checks',
         result:
-          'Scripted motions, props set in advance, and patter timed to cover the gap. It works. The demo feels like magic, and the crowd misses what it was never shown. Omid runs the chair all day with the face of a concert pianist playing a jingle.',
+          'Scripted motions, props set in advance, and patter timed to cover the gap. It works. The demo feels like magic, and the crowd never learns there was a gap to hide. Omid runs the chair all day with the face of a concert pianist playing a jingle.',
       },
       {
         label: 'Hand the chair to strangers. Let the Moon be the Moon.',
@@ -632,7 +632,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'Vance’s $400,000 wire lands like rain on dry ground, and the Verge pilot is being turned into a contract. Then ALEPH’s term sheet arrives. Page one is the deal. Page two is a summary of your company, written by the model and sharper than your own board deck.',
     prose:
-      'Conrad Hale takes the good chair in your borrowed conference room and lets the document do the talking. Two and a half million dollars, at a fair price — honestly fair, because ALEPH never haggles, it calculates. The part that matters hides in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. Whoever names that fifth seat may someday control a tie vote. “The model cares about clean board math,” Hale says, watching you read. “Its words, not mine.” Somewhere in a data center, a system that has read every document you ever signed is waiting for your answer.',
+      'Conrad Hale takes the good chair in your borrowed conference room and lets the document do the talking. Two and a half million dollars, at a fair price — honestly fair, because ALEPH never haggles, it calculates. The part that matters hides in the fine print: one board seat for the fund, filled by Hale, plus the right to pick the fifth director when the board grows. Whoever names that fifth seat may someday control a tie vote. “The model cares about clean board math,” Hale says, watching you read. “Its words, not mine.” In a data center that never sleeps, a system that has read every document you ever signed is waiting for your answer.',
     choices: [
       {
         label: 'Take it — but the independent seat stays yours to name.',

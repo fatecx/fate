@@ -17,10 +17,10 @@ export const ACT_ONE: readonly SceneDef[] = [
     leadIn:
       'It started as a factory accident. Your old tether plant, trying to make relay cables cheaper, produced a strand so strong the testing machine broke before the strand did. The lab ordered a bigger testing machine. That one broke too.',
     prose:
-      'Anders Voss has spent thirty years building bridges, and he has spent the last three weeks locked in your materials lab with the strand. He meets you at the test rig with a piece of it stretched across a frame — thinner than a shoelace, holding a truck engine off the floor. “Every engineer alive has done this math as a daydream,” he says. “A cable from the ground to orbit. The material was always the missing piece. It was supposed to be thirty years away.” She hands you the strand, and it weighs nothing at all, which is somehow the most convincing part. “Your factory made it by accident. I checked the math nine times, and I will say this once, quietly. We can build the elevator.”',
+      'Anders Voss has spent thirty years building bridges, and he has spent the last three weeks locked in your materials lab with the strand. He meets you at the test rig with a piece of it stretched across a frame — thinner than a shoelace, holding a truck engine off the floor. “Every engineer alive has done this math as a daydream,” he says. “A cable from the ground to orbit. The material was always the missing piece. It was supposed to be thirty years away.” He hands you the strand, and it weighs nothing at all. That does more convincing than anything he says. “Your factory made it by accident. I checked the math nine times, and I will say this once, quietly. We can build the elevator.”',
     choices: [
       {
-        label: 'Hire her to build it. Chief engineer, real equity.',
+        label: 'Hire him to build it. Chief engineer, real equity.',
         foley: 'pen',
         effects: [
           { e: 'meet', who: 'ingrid' },
@@ -31,10 +31,10 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_lab',
         result:
-          'She reads the offer once and signs it against the test rig. “Two conditions,” she says. “I set the safety margins, and nobody ever argues me down with a calendar.” You shake on both conditions, and the years ahead will test you on both.',
+          'He reads the offer once and signs it against the test rig. “Two conditions,” he says. “I set the safety margins, and nobody ever argues me down with a calendar.” You shake on both conditions, and the years ahead will test you on both.',
       },
       {
-        label: 'Hire her on salary. Keep the equity close.',
+        label: 'Hire him on salary. Keep the equity close.',
         effects: [
           { e: 'meet', who: 'ingrid' },
           { e: 'rel', who: 'ingrid', resp: 1 },
@@ -42,7 +42,7 @@ export const ACT_ONE: readonly SceneDef[] = [
         ],
         goto: 's_b_lab',
         result:
-          'She takes the salary without blinking, because the cable matters more to her than the money. Something in her manner stays formal, though — the care of a builder who knows exactly whose name is on the deed.',
+          'He takes the salary without blinking, because the cable matters more to him than the money. Something in his manner stays formal, though — the care of a builder who knows exactly whose name is on the deed.',
       },
       {
         label: 'Slow down. Verify the material with outside labs first.',
@@ -82,7 +82,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'Mateo Reyes is twenty-nine and has run operations for a governor and a shipping line. His cover letter says he grew up in the Flats, on a street where the packages fell soft as rain. In the interview he is direct about it. “I was nine when your tubes reached our block. My grandmother stopped riding the bus for her medicine that year. I have wanted to work for you since I was nine, and I want to be clear — that is exactly why you should worry about hiring me. People who admire you make bad guards. So test me.” He slides a one-page memo across the desk. It is a list of five problems your company has right now. You knew about three of them.',
     choices: [
       {
-        label: 'Hire her. The honesty is the résumé.',
+        label: 'Hire him. The honesty is the résumé.',
         effects: [
           { e: 'meet', who: 'talia' },
           { e: 'rel', who: 'talia', aff: 2, resp: 2 },
@@ -90,10 +90,10 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'She starts Monday and fixes the two problems you did not know about by Thursday. Her desk faces the door, and on it sits a photo of a porch with an old delivery tube — the kind your first company installed. You never ask. She never explains.',
+          'He starts Monday and fixes the two problems you did not know about by Thursday. His desk faces the door, and on it sits a photo of a porch with an old delivery tube — the kind your first company installed. You never ask. She never explains.',
       },
       {
-        label: 'Hire her, but keep the secret from her for now.',
+        label: 'Hire him, but keep the secret from him for now.',
         effects: [
           { e: 'meet', who: 'talia' },
           { e: 'rel', who: 'talia', aff: -1, resp: 1 },
@@ -101,7 +101,7 @@ export const ACT_ONE: readonly SceneDef[] = [
           { e: 'stress', d: 2 },
         ],
         result:
-          'She runs the visible company brilliantly and figures out the invisible one in eleven days, because the strand purchases leave a paper trail a good operator can read. She never mentions it. You find out she knows when she hands you a briefing titled THE THING WE ARE NOT DISCUSSING.',
+          'He runs the visible company brilliantly and figures out the invisible one in eleven days, because the strand purchases leave a paper trail a good operator can read. He never mentions it. You find out he knows when he hands you a briefing titled THE THING WE ARE NOT DISCUSSING.',
       },
     ],
   },
@@ -163,7 +163,7 @@ export const ACT_ONE: readonly SceneDef[] = [
     kind: 'bridge',
     title: 'WHAT THE LUNCH MEANT',
     prose:
-      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that is somehow louder than knowing. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way she marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
+      'Word of the meeting moves through the industry within a week, because a MERIDIAN chairman does not eat pie in the Flats by accident. Nobody knows what was said, and that is somehow louder than knowing. Two investment funds that ignored your emails in the spring now ask for meetings. A logistics reporter calls Mateo and asks, carefully, whether the rumors about a “vertical project” are worth her time. The strand in the lab crosses forty kilometers of spooled length the same night, and Anders marks the milestone the way he marks all of them — by writing the next, larger number on the whiteboard and going back to work.',
     choices: [{ label: 'Continue', effects: [], goto: 's_proof' }],
   },
   {

@@ -22,7 +22,7 @@ const ENDINGS: readonly EndingDef[] = [
       {
         art: 'end_s_ascent',
         prose:
-          'The climb takes two days. She teaches a lesson from the cabin at kilometer 400, live to eleven million students, and loses her composure only once — at the Kármán line, where the sky quits being blue and the cable just keeps going.\n\nAt the top, in the orbital station’s big window, she floats her class photo against the glass so the Earth can see it.\n\nDown on FIRST RUNG, four hundred builders crowd the cafeteria where every hard thing was ever decided, watching the feed in a silence that no one wants to be the first to break.',
+          'The climb takes two days. She teaches a lesson from the cabin at kilometer 400, live to eleven million students, and loses her composure only once — at the edge of space, where the sky quits being blue and the cable just keeps going.\n\nAt the top, in the orbital station’s big window, she floats her class photo against the glass so the Earth can see it.\n\nDown on FIRST RUNG, four hundred builders crowd the cafeteria where every hard thing was ever decided, watching the feed in a silence that no one wants to be the first to break.',
       },
       {
         art: 'end_s_flats',
@@ -68,7 +68,7 @@ const ENDINGS: readonly EndingDef[] = [
       kicker: 'INTERLUDE · ONE YEAR',
       title: 'THE YEAR OF THE LONG SHADOW',
       prose:
-        'A year of depositions and quiet. The crews scatter to good jobs — a FIRST RUNG résumé opens every door in three industries — and Anders takes a professorship where he teaches a course the students call How Not To Die Building The Impossible, attendance triple the room’s capacity. You do the settlements, keep the workers whole where the law allows it, and watch the dark line in the sky refuse to fall down out of sheer engineering. The consortium that eventually buys the cable from the receivers will need someone who knows how to wake it. Everyone on Earth knows whose phone number that is.',
+        'A year of depositions and quiet. The crews scatter to good jobs — a FIRST RUNG résumé opens every door in three industries — and Anders takes a professorship where he teaches a course the students call How Not To Die Building The Impossible, attendance triple the room’s capacity. You do the settlements, keep the workers whole where the law allows it, and watch the dark line in the sky refuse to fall down out of sheer engineering. The consortium that eventually buys the cable from the people who wind down bankrupt companies will need someone who knows how to wake it. Everyone on Earth knows whose phone number that is.',
     },
   },
   {

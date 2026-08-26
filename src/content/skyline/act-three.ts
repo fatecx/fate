@@ -17,7 +17,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'It starts with a notice so polite it takes two readings to understand: Aurelia’s harbor authority is closing its waters for a “maritime safety review” of indefinite length. Every route to your platform crosses those waters. The pantry inventory says eleven days.',
     prose:
-      'Nobody calls it a blockade, which is how you know it is one. Supply boats idle at the boundary buoys with paperwork that is never quite complete. Aurelia’s officials express regret in beautifully formatted letters. On the platform, four hundred people start doing quiet math about food, fuel, and the medical fridge, and Mateo stands at the ops table with the folder called THE SQUEEZE, finally full. Whatever this review is really asking for — leverage before the treaty conference, a lesson about neighbors, a message from Volkov’s notebook — the clock it runs on is your pantry. Eleven days, then ten.',
+      'It is a blockade. Everyone just calls it a paperwork review. Supply boats sit at the boundary buoys, and their forms are always missing one signature. Aurelia’s officials send letters that say how sorry they are. On the platform, four hundred people count what they have — food, fuel, the medical fridge. Mateo stands at the ops table with the folder called THE SQUEEZE, finally full. The review can take its time. The pantry cannot — eleven days of food, then ten.',
     choices: [
       {
         label: 'Airlift everything. Pay whatever the sky costs.',
@@ -96,7 +96,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_b_fully_funded',
         result:
-          'The wire arrives in tranches that briefly appear on currency-flow charts. You resume the old practice from the Teleport years — raw operations data, unpolished, straight to the model — and its acknowledgment arrives in the familiar four minutes: RECEIVED. CONTINUITY NOTED. WEIGHTED ACROSS TWO COMPANIES. Somewhere in those weights, a decade of your honesty is compounding like interest.',
+          'The wire arrives in installments that briefly bend the currency-flow charts. You resume the old practice from the Teleport years — raw operations data, unpolished, straight to the model — and its acknowledgment arrives in the familiar four minutes: RECEIVED. CONTINUITY NOTED. WEIGHTED ACROSS TWO COMPANIES. Somewhere in those weights, a decade of your honesty is compounding like interest.',
       },
       {
         label: 'Take the money, share the board packs, keep the raw feeds private.',
@@ -195,7 +195,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_press_wall',
     title: 'THE QUESTION EVERYWHERE',
     prose:
-      'After the hearing, the question stops belonging to committees and starts belonging to everyone. Taxi drivers ask you about it. Late-night hosts do segments with elevator puns and surprisingly sharp final thirty seconds. A schoolteacher in Ohio — the internet finds her within a day — asks on camera whether her class will ever afford a ride, and her clip outruns every official statement from every government combined. The world is not debating whether the cable matters. It is deciding, loudly, in every language at once, who it should answer to. The treaty conference has a date now. Everything before it is positioning.',
+      'After the hearing, the question stops belonging to committees and starts belonging to everyone. Taxi drivers ask you about it. Late-night hosts do segments with elevator puns and surprisingly sharp final thirty seconds. A schoolteacher in Ohio — the internet finds her within a day — asks on camera whether her class will ever afford a ride, and her clip outruns every official statement from every government combined. The world has moved past debating whether the cable matters. Now it is deciding, loudly, in every language at once, who it should answer to. The treaty conference has a date now. Everything before it is positioning.',
     choices: [{ label: 'Continue', effects: [], goto: 's_chen_dinner' }],
   },
   {
@@ -258,7 +258,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     leadIn:
       'The lobbying against you has a human hand, and the hand has a name: Anneke Voss, HALCYON’s director of government affairs. She requests a private meeting, and Anders, hearing the name, goes very still and says only, “Ask her if she still hates bridges.”',
     prose:
-      'Anneke Voss has her brother’s eyes and none of her brother’s calm. “I will save us the theater,” she says. “HALCYON is dying, and your cable is what is killing it. My job is to make sure that if we go down, we take the private ownership of that thing with us — nationalized, internationalized, whatever the treaty calls it, as long as it stops being yours.” She looks out the window toward the horizon where the cable is. “Anders built bridges our whole childhood — out of blocks, out of books, out of anything. I built arguments. Our father only ever crossed his.” A pause you are clearly not meant to fill. “The seizure has the votes unless something changes. I came to see, up close, whether the man my brother finally chose to build for is worth what he thinks. Convince me, or don’t. Either way, family dinner is on you people now. He stopped taking my calls in 2041.”',
+      'Anneke Voss has her brother’s eyes and none of her brother’s calm. “I will save us the theater,” she says. “HALCYON is dying, and your cable is what is killing it. My job is to make sure that if we go down, we take the private ownership of that thing with us — nationalized, internationalized, whatever the treaty calls it, as long as it stops being yours.” She looks out the window toward the horizon where the cable is. “Anders built bridges our whole childhood — out of blocks, out of books, out of anything. I built arguments. Our father walked his bridges. Mine, he never read.” A pause you are clearly not meant to fill. “The seizure has the votes unless something changes. I came to see, up close, whether the man my brother finally chose to build for is worth what he thinks. Convince me, or don’t. Either way, family dinner is on you people now. He stopped taking my calls in 2041.”',
     choices: [
       {
         label: 'Put the Voss siblings in one room. Some walls need a mediator.',
@@ -320,7 +320,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'You tell her the truth you have been circling for years — that builders should own what they build long enough to build it right, and that roads outlive their builders, and that the honest answer to “who should own it forever” is a plan for letting go someday, on the builder’s terms. She writes for a long time. The column runs under the headline HE KNOWS, and delegates quote it at the conference — both sides, which is how you know it was true.',
+          'You tell her the truth you have been circling for years. Builders should own what they build long enough to build it right. Roads outlive their builders. And the honest answer to “who should own it forever” is a plan for letting go someday, on the builder’s terms. She writes for a long time. The column runs under the headline HE KNOWS, and delegates quote it at the conference — both sides, and only the true ones get quoted by both.',
       },
       {
         label: 'Make the case for yourself, plainly: owners who publish their failures.',
@@ -427,7 +427,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_vote_count',
         result:
-          'You answer with numbers, not poetry — a rider’s price pinned to the cost of a mid-sized car, published openly, locked into the company’s charter where no future owner can quietly raise it, with the commission itself named as enforcer. Okonkwo writes one line in his folio. The hall votes within the hour.',
+          'You answer with numbers: a rider’s price pinned to the cost of a mid-sized car, published openly, locked into the company’s charter where no future owner can quietly raise it, with the commission itself named as enforcer. Okonkwo writes one line in his folio. The hall votes within the hour.',
       },
       {
         label: 'Answer with the record, and let the walls speak for themselves.',
@@ -473,7 +473,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         effects: [{ e: 'flag', scope: 'company', key: 'treaty_lost', v: true }],
         goto: 's_seizure_terms',
         result:
-          'Article One carries at 61 percent. The hall is quiet and procedural about it, which is somehow worse than triumph — nations taking the century’s most important structure with the energy of a zoning committee. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and his eyes find yours once, with something in them that is not victory and is not apology. The alliances you needed were not in the room, because they were never built.',
+          'Article One carries at 61 percent. The hall is quiet and procedural about it. Nations take the century’s most important structure with the energy of a zoning committee. Somehow that is worse than a fight. Okonkwo reads the transfer timeline aloud, eighteen months, compensation to be determined, and his eyes find yours once, with something in them that is not victory and is not apology. The alliances you needed were not in the room, because they were never built.',
       },
     ],
   },
@@ -484,7 +484,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_seizure',
     title: 'THE PRICE OF EVERYTHING',
     leadIn:
-      'The transfer commission arrives with actuaries, and the negotiation that follows is the strangest of your life — arguing over the price of a thing you built, with buyers who already own it by law.',
+      'The transfer commission arrives with the people who price risk for a living, and the negotiation that follows is the strangest of your life — arguing over the price of a thing you built, with buyers who already own it by law.',
     prose:
       'Eighteen months of process condense into one number the lawyers fight to the decimal: the compensation. The commission’s opening offer is generous by any measure except the only one that matters — it is a payment for steel and strand, priced by people who believe the cable is a structure. You know it is a road, and roads are worth what travels them for a century. The gap between those two beliefs is about forty billion dollars, and the negotiation is really a question wearing a number: whether the world thanks its builders, or merely reimburses them.',
     choices: [
@@ -544,7 +544,7 @@ export const ACT_THREE: readonly SceneDef[] = [
         ],
         goto: 's_endgame',
         result:
-          'STEADY GIRL carries Anders Voss and eleven of his welders up the line he spent five years talking to, and the footage of his face at the Kármán line — the exact moment the sky turns black and the cable keeps going — becomes the most-watched minute of the decade. He sends one transmission from the top, in Norwegian, translated everywhere by morning: “She holds.”',
+          'STEADY GIRL carries Anders Voss and eleven of his welders up the line he spent five years talking to, and the footage of his face at the edge of space — the exact moment the sky turns black and the cable keeps going — becomes the most-watched minute of the decade. He sends one transmission from the top, in Norwegian, translated everywhere by morning: “She holds.”',
       },
       {
         label: 'Sell the first seat. Fund a thousand free rides with one ticket.',

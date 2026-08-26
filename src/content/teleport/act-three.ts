@@ -399,9 +399,9 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'THE NUMBER',
     speaker: 'halcyon',
     leadIn:
-      'It arrives the way HALCYON does everything — machine-generated, machine-polite, and timed to your weakest quarter: an acquisition offer with a number large enough to change the weather.',
+      'It arrives the way HALCYON does everything — machine-generated, machine-polite, and timed to your weakest quarter: an acquisition offer with a number big enough to change everything.',
     prose:
-      'Three hundred and forty million. The deck attached is respectful, thorough, and quietly obscene: your satellite ring absorbed into their launch system, your bodies repainted in their colors, your storefronts moved inside their pavilions, “founder transition support” on page nine, where they put the part where you leave. The monopoly feels no anger about the road you built around it. It has simply priced the road, the way it prices everything, and the price is real, wired-funds real, generational-wealth real. Around the table, the people who own the company you built look at the number, and then at you.',
+      'Three hundred and forty million. The deck attached is respectful, thorough, and quietly obscene: your satellite ring absorbed into their launch system, your bodies repainted in their colors, your storefronts moved inside their pavilions, “founder transition support” on page nine, where they put the part where you leave. The monopoly feels no anger about the road you built around it. It has simply priced the road, the way it prices everything. The price is real, and it would make your family rich for generations. Around the table, the people who own the company you built look at the number, and then at you.',
     choices: [
       {
         label: 'Take the number. Let the sky have it.',

@@ -38,7 +38,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'margin_split', v: true },
         ],
         result:
-          'She takes the compromise the way engineers take compromises — fully, formally, and with a memo. The memo lists which sections carry the thinner reserve and states, in one plain sentence, that she objects. “File it where the future can find it,” she says, and you do — thinking, the whole time, about where the future usually goes looking.',
+          'He takes the compromise the way engineers take compromises — fully, formally, and with a memo. The memo lists which sections carry the thinner reserve and states, in one plain sentence, that he objects. “File it where the future can find it,” he says, and you do — thinking, the whole time, about where the future usually goes looking.',
       },
       {
         label: 'The fast plan. Three years. The market will not wait five.',
@@ -66,7 +66,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The Series B is a simple sentence with a terrifying number in it: the cable needs six hundred million dollars, and only three kinds of money on Earth write that check — governments, sovereign funds, and things like ALEPH. Sheikh Rashid arrives first, and this time he brings Katarina Volkov.',
     prose:
-      'Rashid does the believing and Volkov does the terms, and watching them work is like watching weather cooperate with a clock. “Six hundred million,” Volkov says, laying the pages out in perfect rows. “No board control. Generous timelines. One board seat, held by the Sheikh personally.” The terms are half a step better than fair — patient money behaving patiently. Then, at the bottom of page nine, one clause in gentle language: Aurelia receives first option to host the anchor operations within any special economic territory it may administer. Mateo reads it twice and writes one word on his legal pad, angled so only you can see it. TERRITORY?',
+      'Rashid does the believing and Volkov does the terms, and the two of them run the meeting like one person. “Six hundred million,” Volkov says, laying the pages out in perfect rows. “No board control. Generous timelines. One board seat, held by the Sheikh personally.” The terms are half a step better than fair — patient money behaving patiently. Then, at the bottom of page nine, one clause in gentle language: Aurelia receives first option to host the anchor operations within any special economic territory it may administer. Mateo reads it twice and writes one word on his legal pad, angled so only you can see it. TERRITORY?',
     choices: [
       {
         label: 'Take it — but strike the territory clause first.',
@@ -194,7 +194,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The design freeze arrives — the date after which the cable becomes whatever it is going to be. One question towers over the freeze, and the whole company knows it, and the whole world is about to.',
     prose:
-      'Anders frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — simpler safety case, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes the species. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
+      'Anders frames it in one sentence at the all-hands: “A cargo cable and a passenger cable are different machines wearing the same line.” Cargo only means freight climbs cheap and nothing else matters — simpler safety case, faster approval, and profit like a tide. Rating it for people means triple redundancy, escape pods every hundred kilometers, years more work — and it changes who the cable is for. A teacher could ride to orbit for the price of a car. The treaty fight gets harder too, because a cable that moves people past every border on Earth frightens governments in a way freight never will. The room waits. Choose what the road is for.',
     choices: [
       {
         label: 'Rate it for people. That was always the point.',
@@ -292,7 +292,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'A storm system the forecasts called manageable arrives eleven percent stronger than manageable. At 11:52 p.m., with a test climber at kilometer 900, the cable does something no simulation ever showed you. It starts to sing.',
     prose:
-      'The sound comes through the platform’s bones before the instruments explain it — a low note like a whale made of metal, the whole line vibrating in the storm wind. At kilometer 900, climber STEADY GIRL grips the shaking cable with two technicians aboard, riding out forces the manual calls theoretical maximums. Anders is in ops in ninety seconds, barefoot, calling the storm’s bluff one command at a time — he slows the climber, angles the platform, and damps the vibration with the winches like a man calming an animal he raised. It takes four hours. At dawn the cable stands quiet, the technicians come down gray-faced and alive, and the inspection drones go up. On strand bundle nine, at kilometer 921, they find it: a partial tear, healed over by the emergency clamps. The cable held. It also, for the first time, got hurt.',
+      'The sound comes through the platform’s bones before the instruments explain it — a low note like a whale made of metal, the whole line vibrating in the storm wind. At kilometer 900, climber STEADY GIRL grips the shaking cable with two technicians aboard, riding out forces the manual calls impossible. Anders is in ops in ninety seconds, barefoot, calling the storm’s bluff one command at a time — he slows the climber, angles the platform, and damps the vibration with the winches like a man calming an animal he raised. It takes four hours. At dawn the cable stands quiet, the technicians come down gray-faced and alive, and the inspection drones go up. On strand bundle nine, at kilometer 921, they find it: a partial tear, healed over by the emergency clamps. The cable held. It also, for the first time, got hurt.',
     choices: [
       {
         label: 'Publish the tear. Full report, world audience, your name on it.',
@@ -376,7 +376,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE MINISTRY',
     speaker: 'rashid',
     leadIn:
-      'Rashid requests a meeting on his new soil, in a capital that is nine buildings and a harbor, all of it smelling of fresh paint and seawater. Volkov meets you at the dock with diplomatic courtesy, which is a new flavor of chilling.',
+      'Rashid requests a meeting on his new soil, in a capital that is nine buildings and a harbor, all of it smelling of fresh paint and seawater. Volkov meets you at the dock with diplomatic courtesy, which is its own kind of cold.',
     prose:
       'He receives you on a terrace overlooking your own platform on the horizon, and he does not pretend the view is an accident. “I told you once I wanted Aurelia to be a place. You are standing in it.” The offer comes on one page, beautiful and terrible. Citizenship, first class. A founding ministry — INFRASTRUCTURE OF THE CENTURY — with powers written for you personally. And the elevator reclassified as Aurelia’s national asset: protected by its treaties, funded by its treasury, wrapped in its flag. “Every government on Earth is circling your cable,” he says gently. “I am offering you the only shelter that was built for it. Join the country your work created. The alternative, my friend, is standing alone in the water while the old world decides what to do about you — and I say this with love. The old world has never once decided in favor of the new thing’s owner.”',
     choices: [

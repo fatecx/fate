@@ -320,7 +320,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Forecast season. The board wants a number for next year. The honest forecast is low and will impress nobody. So you build a second version that assumes everything goes right.',
     prose:
-      'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table. The honest one is low. The stretch one is big, and it is the one the growth story needs. If June is with you, her handwriting is already in the margin of WAYS WE DIE, item four: we start believing our own deck.',
+      'Hale sets up the call carefully, and the care tells you something. The fund’s model checks every forecast against what really happens. It remembers for years. “Whatever number you give this board, the model keeps it,” he says. “Every promise you make later gets measured against it. I have watched it forgive a miss. I have watched it punish a founder who should have known better.” Two numbers sit on the table: the honest one is low, and the stretch one is big — the number the growth story needs. If June is with you, her handwriting is already in the margin of WAYS WE DIE, item four: we start believing our own deck.',
     choices: [
       {
         label: 'Give the honest number and wear the silence.',
@@ -342,7 +342,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -3 },
         ],
         result:
-          'The stretch number gets nods, a good meeting, and a warm quarter of feeling believed. The model says nothing. The number goes into its memory beside every future sentence you will need it to trust.',
+          'The stretch number gets nods, a good meeting, and a warm quarter of feeling believed. The model says nothing. The model files the number away, to check every future promise against it.',
       },
     ],
   },
@@ -586,7 +586,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'score', d: 1 },
         ],
         result:
-          'It takes until 2 a.m. and costs you both something to stay in the room, but version four exists: the blend survives only as a labeled mode — BLEND ON, in letters the customer cannot miss, off by default, banned from industrial work — and Omid personally owns the line. “I can live beside it if it wears a sign,” he says finally. Nobody gets everything. Both of you keep the thing that mattered most.',
+          'It takes until 2 a.m., and it costs you both something to stay in the room. But version four exists. The blend survives only as a labeled mode — BLEND ON, in letters the customer cannot miss, off by default, banned from industrial work — and Omid personally owns the line. “I can live beside it if it wears a sign,” he says finally. Nobody gets everything. Both of you keep the thing that mattered most.',
       },
     ],
   },
@@ -693,7 +693,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'The replacement relay for satellite four has been waiting in HALCYON’s launch-prep line for five weeks. Then your whole launch year quietly moves, and the new dates spell out a message.',
     prose:
-      'The notice arrives from HALCYON’s launch schedule system at 3 a.m., machine-generated and machine-polite: your Q3 slot is now Q1 next year, your backup slot is “under review,” and priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details are simple, and they amount to a takeover. HALCYON becomes your only launch provider, sees your data, and gets first claim to buy the company if you ever sell. On the wall map, your satellite ring suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen once you became worth noticing.',
+      'The notice arrives at 3 a.m. from HALCYON’s launch system, machine-generated and machine-polite. Your Q3 slot is now Q1 next year. Your backup slot is “under review.” And priority rebooking is available under the company’s STRATEGIC PARTNERS program — details enclosed. The details are simple, and they amount to a takeover. HALCYON becomes your only launch provider, sees your data, and gets first claim to buy the company if you ever sell. On the wall map, your satellite ring suddenly has a hole in it and a clock on it. The monopoly has noticed you, which was always going to happen once you became worth noticing.',
     choices: [
       {
         label: 'Pay the expedite fee. Eat it and fly.',
