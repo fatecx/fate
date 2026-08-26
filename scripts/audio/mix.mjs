@@ -21,7 +21,7 @@ const TARGETS = [
   { prefix: 'scn_', I: -26 },
   { prefix: 'fol_', I: -19 },
   { prefix: 'sting_', I: -16 },
-  // mus_* untouched — the owner approved the music level as-is.
+  { prefix: 'mus_', I: -17 },
 ]
 
 for (const f of readdirSync(dir).filter((f) => f.endsWith('.mp3'))) {
