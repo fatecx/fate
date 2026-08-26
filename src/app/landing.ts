@@ -249,8 +249,12 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
         const t = en.target as HTMLElement
         if (en.isIntersecting) {
           t.classList.add('on')
-          if (t === hero) heroLive = true
-          else if (en.intersectionRatio >= 0.4) {
+          if (t === hero) {
+            // Returning to the title never inherits a section's print —
+            // the hero shows only its own reel, immediately.
+            heroLive = true
+            show(HERO_ART[heroIdx])
+          } else if (en.intersectionRatio >= 0.4) {
             heroLive = false
             show(t.dataset.art ?? '')
             if (t.dataset.demo !== undefined) void startDemo()

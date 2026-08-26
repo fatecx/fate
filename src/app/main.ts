@@ -28,8 +28,7 @@ function saveKey(uid: string): string {
 
 interface BeatRec {
   kind: 'scene' | 'you' | 'outcome' | 'week' | 'chapter' | 'divider'
-  title?: string
-  speakerName?: string
+  title?: string  speakerName?: string
   prose?: string
   leadIn?: string
   filler?: string
@@ -1504,11 +1503,11 @@ function wireLogout(): void {
 /** Welcome screen — every page load starts here. */
 function renderWelcome(saved: Save | null): void {
   app.innerHTML = ''
-  // The title screen hums the film bed once the first gesture unlocks audio.
-  setStage({ mood: 'film', ambience: null, tension: false })
   // A wallet the game has never met gets the front door: the landing scroll.
+  // The landing is a website, not the live game — it stays silent.
   // Anyone signed or mid-life skips marketing and goes straight to their page.
   if (!saved && !session) {
+    resetStage()
     renderLanding(app, () => {
       document.querySelector('.landing')?.remove()
       renderConnect(
@@ -1518,6 +1517,8 @@ function renderWelcome(saved: Save | null): void {
     })
     return
   }
+  // The title screen hums the film bed once the first gesture unlocks audio.
+  setStage({ mood: 'film', ambience: null, tension: false })
   if (saved) {
     takeover(`
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
