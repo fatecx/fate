@@ -125,7 +125,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     title: 'THE CITY FROM BELOW',
     art: 'prologue_below',
     prose:
-      'You grew up in the Flats, the poor end of the city.\n\nWhen you were nineteen, the delivery drones arrived — a hundred thousand of them, blue and quiet, flying over your roof to the rich hills where the tips are good. Every kid on your block learned their blinking lights the way other kids learn constellations.\n\nThe drones never stopped on your street. Nothing that flies ever stopped on your street.',
+      'You grew up in the Flats, the poor end of the city.\n\nWhen you were nineteen, the delivery drones arrived — a hundred thousand of them, blue and quiet, flying over your roof to the rich hills. Every kid on your block learned their blinking lights the way other kids learn constellations.\n\nThe drones never stopped on your street. Nothing that flies ever stopped on your street.',
   },
   {
     kicker: 'PROLOGUE · 2031',
