@@ -14,6 +14,7 @@ import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
+import { isAdmin, hasPaid, claimReceipt, recordPayment, wireCheck, PRICE_LABEL } from './pay'
 import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
@@ -516,8 +517,10 @@ function incPanelHtml(): string {
   <div class="inc-cap"><div class="mlabel" style="margin-bottom:6px"><span>CAP TABLE</span><span>${fmtRunway()} WKS RUNWAY</span></div>${capTableLines()}</div>`
 }
 
-// Dev tools (restart) ship only while VITE_DEV_TOOLS=1; launch = delete the var.
-const DEV_TOOLS = (import.meta.env.VITE_DEV_TOOLS as string | undefined) === '1'
+// Dev tools answer only to the admin wallet — no env var can arm them.
+function DEV_TOOLS(): boolean {
+  return isAdmin(session)
+}
 
 /** Account + settings section of the company dropdown. One wallet, one life. */
 function accountHtml(): string {
@@ -535,8 +538,8 @@ function accountHtml(): string {
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
       ${st?.phase === 'playing' ? `<button class="paction danger" id="actSurrender">DECLARE BANKRUPTCY</button>` : ''}
-      ${DEV_TOOLS && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
-      ${DEV_TOOLS ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
+      ${DEV_TOOLS() && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
+      ${DEV_TOOLS() ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
     </div>
     <div class="inc-law">One wallet, one life. The biography is permanent.</div>
   </div>`
@@ -1167,14 +1170,14 @@ app.addEventListener('click', (e) => {
     return
   }
   if (target.closest('#actDevRestart')) {
-    if (DEV_TOOLS && confirm('[DEV] Overwrite this biography with a fresh life?')) {
+    if (DEV_TOOLS() && confirm('[DEV] Overwrite this biography with a fresh life?')) {
       document.getElementById('coPanel')?.setAttribute('hidden', '')
       startNewLife()
     }
     return
   }
   if (target.closest('#actDevSkip')) {
-    if (DEV_TOOLS && st.phase === 'playing') {
+    if (DEV_TOOLS() && st.phase === 'playing') {
       const endings = CONTENT.chapters[st.company.id].endings
       const best = endings.find((e) => e.kind === 'triumph') ?? endings[0]
       if (confirm(`[DEV] Close ${st.company.id.toUpperCase()} with "${best.title}" and move on?`)) {
@@ -1572,7 +1575,7 @@ function wireLogout(): void {
 }
 
 /** Welcome screen — every page load starts here. */
-function renderWelcome(saved: Save | null): void {
+function renderWelcome(saved: Save | null, entitled = false): void {
   app.innerHTML = ''
   // A wallet the game has never met gets the front door: the landing scroll.
   // The landing is a website, not the live game — it stays silent.
@@ -1607,6 +1610,10 @@ function renderWelcome(saved: Save | null): void {
     wireLogout()
     return
   }
+  if (session && !entitled) {
+    renderIncorporation()
+    return
+  }
   const actions = session
     ? `<button class="cta" id="wlBegin">Incorporate →</button>
       <div class="tk-id">One wallet, one life. What you sign here is permanent.</div>`
@@ -1628,6 +1635,59 @@ ${INTRO}</p>
     )
   })
   wireLogout()
+}
+
+/** The incorporation — the filing fee stands between a signed wallet and its
+ *  first company. $20 in USDC on Base, wired to the studio treasury from any
+ *  wallet in the browser; the biography binds to the signed address. */
+function renderIncorporation(): void {
+  const wallets = listWallets()
+  const list = wallets.length
+    ? wallets
+        .map(
+          (w, i) => `
+      <button class="wallet-opt" data-pay="${i}">
+        ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
+        <span class="wname">${esc(w.name)}</span>
+        <span class="wchain">USDC · BASE</span>
+      </button>`,
+        )
+        .join('')
+    : `<p class="tk-body">No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back — the papers will wait.</p>`
+  takeover(`
+    <div class="tk-kicker">THE INCORPORATION</div>
+    <h1 class="tk-title">THE FILING FEE</h1>
+    <p class="tk-body">One life costs ${PRICE_LABEL}, paid once — the check that incorporates your first company. USDC on Base, wired to the studio treasury. Pay from any wallet below; the biography stays bound to the address you signed with.</p>
+    <div class="wallet-list">${list}</div>
+    <div class="werr" id="payErr"></div>
+    ${signedRowHtml()}
+  `)
+  wireLogout()
+  document.querySelectorAll<HTMLButtonElement>('[data-pay]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      void (async () => {
+        const w = wallets[Number(btn.dataset.pay)]
+        const err = document.getElementById('payErr')
+        const label = btn.querySelector('.wname')
+        const orig = label?.textContent ?? w.name
+        if (err) err.textContent = ''
+        btn.disabled = true
+        try {
+          if (label) label.textContent = 'WIRING…'
+          const provider = await w.provider()
+          const { tx, payer } = await wireCheck(provider)
+          if (label) label.textContent = 'CONFIRMED'
+          if (session) await recordPayment(session, tx, payer)
+          document.querySelector('.takeover')?.remove()
+          startNewLife()
+        } catch (ex) {
+          btn.disabled = false
+          if (label) label.textContent = orig
+          if (err) err.textContent = ex instanceof Error ? ex.message : 'The wire failed. Nothing was charged — try again.'
+        }
+      })()
+    })
+  })
 }
 
 /** Fate-styled wallet picker — the headless connect surface. */
@@ -1686,14 +1746,18 @@ function renderConnect(onBack: () => void, onDone: () => void): void {
 /** After sign-in from the welcome flow: surface this wallet's biography, if any. */
 async function enterAsFounder(): Promise<void> {
   let best: Save | null = null
+  let entitled = false
   if (session) {
     const local = load(session.user.id)
     const remote = (await cloudLoad()) as Save | null
     best = pickSave(local, remote) as Save | null
     // The same retired-build guard for whichever copy won.
     if (best && !saveValid(best)) best = null
+    // The filing fee: a biography, a payment row, a local receipt, or the
+    // admin wallet all open the door; everyone else meets the incorporation.
+    entitled = !!best || isAdmin(session) || (await hasPaid()) || (await claimReceipt(session))
   }
-  renderWelcome(best)
+  renderWelcome(best, entitled)
 }
 
 function startNewLife(): void {

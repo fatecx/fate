@@ -16,6 +16,8 @@ export interface FoundWallet {
   icon?: string
   /** Connect + sign-in; throws with a human-readable message on failure. */
   sign: () => Promise<void>
+  /** Raw EIP-1193 provider access, for payments through the same wallet. */
+  provider: () => Promise<EthProvider>
 }
 
 interface EthProvider {
@@ -59,18 +61,18 @@ export function listWallets(): FoundWallet[] {
   for (const w of evmWallets) {
     // Announced icons that fail the data-URI check fall back to the marks we carry.
     const icon = safeIcon(w.icon) ?? (w.name.toLowerCase().includes('phantom') ? PHANTOM_ICON : undefined)
-    out.push({ chain: 'ethereum', name: w.name, icon, sign: () => signEthereum(w.provider) })
+    out.push({ chain: 'ethereum', name: w.name, icon, sign: () => signEthereum(w.provider), provider: async () => w.provider })
   }
   // Phantom's Ethereum side — some builds skip EIP-6963 and only inject.
   const phantom = (window as { phantom?: { ethereum?: EthProvider } }).phantom?.ethereum
   if (phantom && !out.some((x) => x.name.toLowerCase().includes('phantom'))) {
-    out.push({ chain: 'ethereum', name: 'Phantom', icon: PHANTOM_ICON, sign: () => signEthereum(phantom) })
+    out.push({ chain: 'ethereum', name: 'Phantom', icon: PHANTOM_ICON, sign: () => signEthereum(phantom), provider: async () => phantom })
   }
   const legacyEth = (window as { ethereum?: EthProvider }).ethereum
   if (!out.length && legacyEth) {
-    out.push({ chain: 'ethereum', name: 'Browser wallet', sign: () => signEthereum(legacyEth) })
+    out.push({ chain: 'ethereum', name: 'Browser wallet', sign: () => signEthereum(legacyEth), provider: async () => legacyEth })
   }
-  out.push({ chain: 'ethereum', name: 'Base', icon: BASE_ICON, sign: () => signBase() })
+  out.push({ chain: 'ethereum', name: 'Base', icon: BASE_ICON, sign: () => signBase(), provider: () => baseProvider() })
   return out
 }
 
@@ -102,11 +104,14 @@ async function signEthereum(provider: EthProvider): Promise<void> {
 
 /** Base Account — Coinbase's passkey smart wallet; needs no extension, the
  *  SDK opens its own popup. Loaded lazily so the bundle stays lean. */
-async function signBase(): Promise<void> {
+async function baseProvider(): Promise<EthProvider> {
   const { createBaseAccountSDK } = await import('@base-org/account')
-  const provider = createBaseAccountSDK({
+  return createBaseAccountSDK({
     appName: 'FATE',
     appLogoUrl: 'https://www.fate.cx/art/cut_ring_alive.webp',
-  }).getProvider()
-  await signEthereum(provider as unknown as EthProvider)
+  }).getProvider() as unknown as EthProvider
+}
+
+async function signBase(): Promise<void> {
+  await signEthereum(await baseProvider())
 }
