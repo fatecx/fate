@@ -79,7 +79,7 @@ export const CHAPTERS: readonly ChapterCard[] = [
     kicker: 'CHAPTER THREE',
     name: 'SKYLINE',
     art: 'cut_s_year_two',
-    line: 'A space elevator that combines everything you learned in logistics and space systems. Nations, unions, and your own investors fight over who rides it first.',
+    line: 'A space elevator that combines everything you built in logistics and space systems. Nations, unions, and your own investors fight over who gets access first.',
   },
 ]
 
