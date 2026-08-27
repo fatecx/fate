@@ -175,6 +175,11 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 .lightbox img{max-width:min(94vw,960px);max-height:76vh;border-radius:4px;box-shadow:0 18px 60px rgba(0,0,0,.5)}
 .lbmeta{font:12px/1.7 var(--mono);color:#E8E8E4;text-align:center;max-width:82ch}
 .lbmeta b{color:#fff}
+.lbnav{position:fixed;top:50%;transform:translateY(-50%);font-size:44px;line-height:1;color:#E8E8E4;padding:18px 20px;opacity:.65;z-index:101;cursor:pointer;user-select:none}
+.lbnav:hover{opacity:1;color:#fff}
+.lbprev{left:8px}
+.lbnext{right:8px}
+.lbcount{color:#8b8d85}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
 </head>
@@ -216,7 +221,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
     <div class="artgrid" id="artgrid"></div>
   </div>
 </div></main>
-<div class="lightbox" id="lightbox"><img id="lbimg" alt=""><div class="lbmeta" id="lbmeta"></div></div>
+<div class="lightbox" id="lightbox"><button class="lbnav lbprev" id="lbprev" aria-label="Previous">‹</button><img id="lbimg" alt=""><button class="lbnav lbnext" id="lbnext" aria-label="Next">›</button><div class="lbmeta" id="lbmeta"></div></div>
 <aside class="drawer" id="drawer">
   <div class="dhead"><div class="dkicker" id="dkicker"></div><div class="dtitle" id="dtitle"></div><button class="dclose" id="dclose" aria-label="Close">✕</button></div>
   <div class="dbody" id="dbody"></div>
@@ -361,13 +366,30 @@ function applyArtFilter(){const v=q.value.trim().toLowerCase();
     const qOk=!v||(a.id+' '+a.uses.join(' ')+' '+a.chars.join(' ')).toLowerCase().includes(v);
     const on=gOk&&sOk&&qOk;el.style.display=on?'':'none';if(on)shown++;});
   const c=document.getElementById('afcount');if(c)c.textContent=shown+' of '+DATA.art.length+' frames';}
+function lbList(){return [...document.querySelectorAll('.acard')].filter(el=>el.style.display!=='none').map(el=>el._art);}
 function openLightbox(a){
+  const list=lbList(),i=list.findIndex(x=>x.id===a.id);
   document.getElementById('lbimg').src=ARTBASE+a.id+'.webp';
   document.getElementById('lbmeta').innerHTML='<b>'+eh(a.id)+'</b> · '+eh(a.sub)+' · '+eh(a.grp)
+    +(i>=0?' <span class="lbcount">· '+(i+1)+' / '+list.length+'</span>':'')
     +(a.chars.length?'<br>'+a.chars.map(eh).join(' · '):'')
     +'<br>'+a.uses.map(eh).join('<br>');
+  document.getElementById('lightbox').dataset.cur=a.id;
   document.getElementById('lightbox').classList.add('open');}
+function lbStep(dir){
+  const lb=document.getElementById('lightbox');
+  if(!lb.classList.contains('open'))return;
+  const list=lbList();if(!list.length)return;
+  const i=list.findIndex(x=>x.id===lb.dataset.cur);
+  openLightbox(list[(i+dir+list.length)%list.length]);}
 document.getElementById('lightbox').addEventListener('click',()=>document.getElementById('lightbox').classList.remove('open'));
+document.getElementById('lbprev').addEventListener('click',e=>{e.stopPropagation();lbStep(-1);});
+document.getElementById('lbnext').addEventListener('click',e=>{e.stopPropagation();lbStep(1);});
+document.getElementById('lbimg').addEventListener('click',e=>{e.stopPropagation();lbStep(1);});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowRight'){e.preventDefault();lbStep(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();lbStep(-1);}});
 function buildArt(){
   const side=document.getElementById('artside'),grid=document.getElementById('artgrid'),chips=document.getElementById('artchips');
   const grps=['ALL'];DATA.art.forEach(a=>{if(!grps.includes(a.grp))grps.push(a.grp);});grps.push('FLAGGED');
