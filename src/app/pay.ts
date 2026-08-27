@@ -28,11 +28,65 @@ export function isAdmin(session: Session | null): boolean {
   return !!session && walletAddress(session).toLowerCase() === ADMIN
 }
 
+export type PayAsset = 'usdc' | 'eth'
+
 /** ERC-20 transfer(to, amount) calldata. */
 function transferData(): string {
   const to = TREASURY.slice(2).toLowerCase().padStart(64, '0')
   const amount = PRICE_UNITS.toString(16).padStart(64, '0')
   return `0xa9059cbb${to}${amount}`
+}
+
+const RPC = 'https://mainnet.base.org'
+
+async function rpc(method: string, params: unknown[]): Promise<unknown> {
+  const res = await fetch(RPC, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+  })
+  const body = (await res.json()) as { result?: unknown }
+  return body.result
+}
+
+/** ETH spot in USD — Coinbase first, CoinGecko as understudy. */
+export async function ethSpot(): Promise<number | null> {
+  try {
+    const r = await fetch('https://api.coinbase.com/v2/prices/ETH-USD/spot')
+    const j = (await r.json()) as { data?: { amount?: string } }
+    const n = Number(j.data?.amount)
+    if (n > 0) return n
+  } catch {
+    /* understudy takes the stage */
+  }
+  try {
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+    const j = (await r.json()) as { ethereum?: { usd?: number } }
+    const n = Number(j.ethereum?.usd)
+    if (n > 0) return n
+  } catch {
+    /* no quote — the screen falls back to USDC only */
+  }
+  return null
+}
+
+/** Wei owed for $20 at the given spot. */
+export function weiFor(spot: number): bigint {
+  return (20n * 10n ** 18n * 1000n) / BigInt(Math.round(spot * 1000))
+}
+
+/** What the signed wallet can afford, read silently off public RPC. */
+export async function readBalances(address: string): Promise<{ usdc: bigint; eth: bigint }> {
+  try {
+    const bal = '0x70a08231' + address.slice(2).toLowerCase().padStart(64, '0')
+    const [u, e] = await Promise.all([
+      rpc('eth_call', [{ to: USDC, data: bal }, 'latest']),
+      rpc('eth_getBalance', [address, 'latest']),
+    ])
+    return { usdc: BigInt((u as string) || '0x0'), eth: BigInt((e as string) || '0x0') }
+  } catch {
+    return { usdc: 0n, eth: 0n }
+  }
 }
 
 async function ensureBaseChain(p: Eip1193): Promise<void> {
@@ -58,14 +112,20 @@ async function ensureBaseChain(p: Eip1193): Promise<void> {
 }
 
 /** Send the check and wait for the chain to confirm it. Returns the tx hash. */
-export async function wireCheck(p: Eip1193): Promise<{ tx: string; payer: string }> {
+export async function wireCheck(p: Eip1193, asset: PayAsset, ethWei?: bigint): Promise<{ tx: string; payer: string; units: bigint }> {
   const accounts = (await p.request({ method: 'eth_requestAccounts' })) as string[]
   const payer = accounts?.[0]
   if (!payer) throw new Error('The wallet returned no account.')
   await ensureBaseChain(p)
+  const units = asset === 'eth' ? (ethWei ?? 0n) : PRICE_UNITS
+  if (asset === 'eth' && units <= 0n) throw new Error('No live ETH quote — pay in USDC instead.')
+  const call =
+    asset === 'eth'
+      ? { from: payer, to: TREASURY, value: '0x' + units.toString(16) }
+      : { from: payer, to: USDC, data: transferData(), value: '0x0' }
   const tx = (await p.request({
     method: 'eth_sendTransaction',
-    params: [{ from: payer, to: USDC, data: transferData(), value: '0x0' }],
+    params: [call],
   })) as string
   if (!tx) throw new Error('The wallet returned no transaction.')
   // The check is in the mail — hold until the chain stamps it.
@@ -74,7 +134,7 @@ export async function wireCheck(p: Eip1193): Promise<{ tx: string; payer: string
     const receipt = (await p
       .request({ method: 'eth_getTransactionReceipt', params: [tx] })
       .catch(() => null)) as { status?: string } | null
-    if (receipt?.status === '0x1') return { tx, payer }
+    if (receipt?.status === '0x1') return { tx, payer, units }
     if (receipt?.status === '0x0') throw new Error('The transfer failed on-chain. Nothing was charged twice — try again.')
   }
   throw new Error(`The chain is slow to confirm. Your payment may still land — reload in a minute. Tx: ${tx}`)
@@ -92,9 +152,9 @@ export async function hasPaid(): Promise<boolean> {
 }
 
 /** Write the payment row; receipt survives locally until the row lands. */
-export async function recordPayment(session: Session, tx: string, payer: string): Promise<void> {
+export async function recordPayment(session: Session, tx: string, payer: string, asset: PayAsset = 'usdc', units: bigint = PRICE_UNITS): Promise<void> {
   try {
-    localStorage.setItem(RECEIPT_KEY, JSON.stringify({ tx, payer, uid: session.user.id }))
+    localStorage.setItem(RECEIPT_KEY, JSON.stringify({ tx, payer, uid: session.user.id, asset }))
   } catch {
     /* private mode — the row insert below still carries it */
   }
@@ -106,7 +166,8 @@ export async function recordPayment(session: Session, tx: string, payer: string)
       payer,
       chain: 'base',
       tx,
-      amount: Number(PRICE_UNITS),
+      asset,
+      amount: Number(units),
     })
     localStorage.removeItem(RECEIPT_KEY)
   } catch {

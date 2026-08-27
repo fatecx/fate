@@ -14,7 +14,7 @@ import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
 import { initWalletDiscovery, listWallets } from './wallet'
-import { isAdmin, hasPaid, claimReceipt, recordPayment, wireCheck, PRICE_LABEL } from './pay'
+import { isAdmin, hasPaid, claimReceipt, recordPayment, wireCheck, ethSpot, weiFor, readBalances, type PayAsset } from './pay'
 import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
@@ -1637,16 +1637,16 @@ ${INTRO}</p>
   wireLogout()
 }
 
-/** The incorporation — a checkout, not a menu. The invoice names the price,
- *  one button wires the check through the wallet that signed the session
- *  (remembered at connect, confirmed by an eth_accounts probe), and a quiet
- *  line offers any other wallet in the browser for founders whose funds live
- *  elsewhere. USDC on Base, to the studio treasury. */
+/** The incorporation — a checkout, not a menu. One invoice, one button; the
+ *  check wires through the wallet that signed (remembered at connect,
+ *  confirmed by a silent eth_accounts probe). USDC exact or ETH at spot,
+ *  quoted live and refreshed each minute; balances read silently off public
+ *  RPC pick the default the wallet can actually pay. Different wallet =
+ *  log out, sign back in. */
 async function payerWallet(): Promise<ReturnType<typeof listWallets>[number] | null> {
   const wallets = listWallets()
   if (!wallets.length) return null
   const addr = session ? walletAddress(session).toLowerCase() : ''
-  // Silent probe: which provider already holds the signed address?
   for (const w of wallets) {
     try {
       const p = await w.provider()
@@ -1669,17 +1669,17 @@ function renderIncorporation(): void {
   takeover(`
     <div class="tk-kicker">THE INCORPORATION</div>
     <h1 class="tk-title">THE FILING FEE</h1>
-    <p class="tk-body">One payment incorporates your first company and opens the whole biography. The check wires as USDC on Base to the studio treasury.</p>
+    <p class="tk-body">One payment incorporates your first company and opens the whole biography. The check wires on Base to the studio treasury.</p>
     <div class="inv">
       <div class="inv-row"><span>One life · three companies</span><b>$20.00</b></div>
       <div class="inv-sub">Filing fee. Paid once — there is nothing else to buy, ever.</div>
-      <div class="inv-total"><span>DUE TODAY</span><b>$20.00 <i>USDC · BASE</i></b></div>
-      <button class="inv-cta" id="invPay">Wire the check — $20 →</button>
+      <div class="inv-total"><span>DUE TODAY</span><span class="inv-seg" id="invSeg">
+        <button class="seg on" data-asset="usdc">20.00 USDC</button><button class="seg" data-asset="eth" id="segEth" disabled>… ETH</button>
+      </span></div>
+      <button class="inv-cta" id="invPay">Wire the check — 20 USDC →</button>
       <div class="inv-payer" id="invPayer"></div>
       <div class="werr" id="payErr"></div>
     </div>
-    <button class="tk-link" id="invOther" hidden>pay from a different wallet</button>
-    <div class="wallet-list" id="invList" hidden></div>
     ${signedRowHtml()}
   `)
   wireLogout()
@@ -1687,31 +1687,68 @@ function renderIncorporation(): void {
   const payBtn = document.getElementById('invPay') as HTMLButtonElement | null
   const payerEl = document.getElementById('invPayer')
   const err = document.getElementById('payErr')
+  const segEth = document.getElementById('segEth') as HTMLButtonElement | null
   let chosen: ReturnType<typeof listWallets>[number] | null = null
+  let asset: PayAsset = 'usdc'
+  let spot: number | null = null
+  let busy = false
 
-  const pay = (w: ReturnType<typeof listWallets>[number]): void => {
+  const ethLabel = (): string => (spot ? `≈ ${(20 / spot).toFixed(5)} ETH` : '… ETH')
+  const ctaLabel = (): string =>
+    asset === 'usdc' ? 'Wire the check — 20 USDC →' : `Wire the check — ${ethLabel()} →`
+  const paint = (): void => {
+    if (segEth) segEth.textContent = ethLabel()
+    if (payBtn && !busy) payBtn.textContent = ctaLabel()
+  }
+  const setAsset = (a: PayAsset): void => {
+    asset = a
+    document.querySelectorAll<HTMLButtonElement>('#invSeg .seg').forEach((b) => {
+      b.classList.toggle('on', b.dataset.asset === a)
+    })
+    paint()
+  }
+  document.querySelectorAll<HTMLButtonElement>('#invSeg .seg').forEach((b) => {
+    b.addEventListener('click', () => setAsset(b.dataset.asset as PayAsset))
+  })
+
+  // The quote breathes: fetch now, refresh each minute while the sheet is up.
+  const quote = async (): Promise<void> => {
+    spot = await ethSpot()
+    if (segEth) segEth.disabled = !spot
+    paint()
+  }
+  void quote()
+  const quoteTimer = window.setInterval(() => {
+    if (!document.getElementById('invSeg')) {
+      window.clearInterval(quoteTimer)
+      return
+    }
+    void quote()
+  }, 60_000)
+
+  payBtn?.addEventListener('click', () => {
+    if (!chosen || busy) return
     void (async () => {
       if (!payBtn) return
       if (err) err.textContent = ''
+      busy = true
       payBtn.disabled = true
       try {
         payBtn.textContent = 'WIRING…'
-        const provider = await w.provider()
-        const { tx, payer } = await wireCheck(provider)
+        const provider = await chosen.provider()
+        const wei = asset === 'eth' && spot ? weiFor(spot) : undefined
+        const { tx, payer, units } = await wireCheck(provider, asset, wei)
         payBtn.textContent = 'CONFIRMED ✓'
-        if (session) await recordPayment(session, tx, payer)
+        if (session) await recordPayment(session, tx, payer, asset, units)
         document.querySelector('.takeover')?.remove()
         startNewLife()
       } catch (ex) {
+        busy = false
         payBtn.disabled = false
-        payBtn.textContent = 'Wire the check — $20 →'
+        payBtn.textContent = ctaLabel()
         if (err) err.textContent = ex instanceof Error ? ex.message : 'The wire failed. Nothing was charged — try again.'
       }
     })()
-  }
-
-  payBtn?.addEventListener('click', () => {
-    if (chosen) pay(chosen)
   })
 
   void (async () => {
@@ -1723,37 +1760,12 @@ function renderIncorporation(): void {
       return
     }
     if (payerEl) {
-      payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}${session ? ` · ${esc(walletLabel(session))}` : ''}`
+      payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}${session ? ` · ${esc(walletLabel(session))}` : ''} · <span class="inv-switch">to use another wallet, log out</span>`
     }
-    // The escape hatch: funds sometimes live in a different wallet.
-    const other = document.getElementById('invOther')
-    const list = document.getElementById('invList')
-    const wallets = listWallets()
-    if (other && list && wallets.length > 1) {
-      other.hidden = false
-      other.addEventListener('click', () => {
-        list.hidden = !list.hidden
-        if (!list.innerHTML) {
-          list.innerHTML = wallets
-            .map(
-              (w, i) => `
-            <button class="wallet-opt" data-pick="${i}">
-              ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
-              <span class="wname">${esc(w.name)}</span>
-              <span class="wchain">USDC · BASE</span>
-            </button>`,
-            )
-            .join('')
-          list.querySelectorAll<HTMLButtonElement>('[data-pick]').forEach((b) => {
-            b.addEventListener('click', () => {
-              chosen = wallets[Number(b.dataset.pick)]
-              list.hidden = true
-              if (payerEl)
-                payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}`
-            })
-          })
-        }
-      })
+    // Pick the asset the signed wallet can actually pay with.
+    if (session) {
+      const b = await readBalances(walletAddress(session))
+      if (b.usdc < 20_000_000n && b.eth > 0n) setAsset('eth')
     }
   })()
 }
