@@ -1676,8 +1676,7 @@ function renderIncorporation(): void {
       <div class="inv-total"><span>DUE TODAY</span><span class="inv-seg" id="invSeg">
         <button class="seg on" data-asset="usdc">20.00 USDC</button><button class="seg" data-asset="eth" id="segEth" disabled>… ETH</button>
       </span></div>
-      <div class="inv-sub inv-chain">All checks clear on <b>Base</b>. Funds on other networks can't be seen from here — bridge first, or pay with what this wallet holds on Base.</div>
-      <div class="inv-sub" id="invBal"></div>
+      <div class="inv-base"><span class="inv-basemark"></span>on Base</div>
       <button class="inv-cta" id="invPay">Wire the check — 20 USDC →</button>
       <div class="inv-payer" id="invPayer"></div>
       <div class="werr" id="payErr"></div>
@@ -1773,19 +1772,7 @@ function renderIncorporation(): void {
     // the asset that can genuinely clear. Gas rides on ETH either way.
     if (session) {
       const b = await readBalances(walletAddress(session))
-      const balEl = document.getElementById('invBal')
-      const ethFloat = Number(b.eth) / 1e18
-      const usdcFloat = Number(b.usdc) / 1e6
-      if (balEl)
-        balEl.innerHTML = `This wallet on Base: <b>${usdcFloat.toFixed(2)} USDC</b> · <b>${ethFloat.toFixed(5)} ETH</b>`
-      const gas = 3_000_000_000_000_000n // ~0.003 ETH headroom for gas
-      const wei = spot ? weiFor(spot) : 0n
-      const canUsdc = b.usdc >= 20_000_000n && b.eth > 300_000_000_000_000n
-      const canEth = wei > 0n && b.eth >= wei + gas
-      if (canUsdc) setAsset('usdc')
-      else if (canEth) setAsset('eth')
-      else if (err)
-        err.textContent = 'Too little on Base to clear the check. Bridge USDC or ETH to Base in your wallet, or log out and sign with a funded one.'
+      if (b.usdc < 20_000_000n && b.eth > 0n) setAsset('eth')
     }
   })()
 }

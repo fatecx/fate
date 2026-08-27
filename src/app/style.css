@@ -842,6 +842,9 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 .inv-seg .seg + .seg { border-left: 1px solid #2a2d33; }
 .inv-seg .seg:disabled { opacity: 0.45; cursor: default; }
 .inv-switch { color: #6b6d66; }
-.inv-chain { margin-top: 12px; }
-.inv-chain b, #invBal b { color: #c9cac4; font-weight: 600; }
-#invBal { margin-top: 6px; }
+.inv-base {
+  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+  margin-top: 10px; font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: 0.14em; color: #8b8d85; text-transform: uppercase;
+}
+.inv-basemark { width: 11px; height: 11px; border-radius: 3px; background: #0000ff; display: inline-block; }
