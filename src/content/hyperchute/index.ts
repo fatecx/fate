@@ -153,7 +153,7 @@ const PROLOGUE: readonly PrologueBeat[] = [
     title: 'EVERYTHING YOU HAD',
     art: 'prologue_garage',
     prose:
-      'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nThen you sold everything you owned. The savings, the car, half an apartment deposit — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nYou kept one thing: an idea that would not leave you alone.\n\nThe money bought a garage above the Sudz & Spin laundromat, four months of late nights, and a pile of parts. Dryer heat through the floorboards. Solder smoke. And slowly, hanging from a rope under the ceiling, a machine taking shape — the thing you saw every night when you closed your eyes on the dispatch floor.',
+      'You quit on a Tuesday. No speech. You left the headset on the desk and took the stairs.\n\nThen you sold everything you owned. The savings, the car, half an apartment deposit — $120,000, everything you have ever been worth, moved into a company account that didn’t have a company yet.\n\nYou kept one thing: an idea for a startup that would not leave you alone.\n\nThe money bought a garage above the Sudz & Spin laundromat, four months of late nights, and a pile of parts. Dryer heat through the floorboards. Solder smoke. And slowly, hanging from a rope under the ceiling, a machine taking shape — the thing you saw every night when you closed your eyes on the dispatch floor.',
   },
   {
     kicker: 'PROLOGUE · THE RAILWAY',
