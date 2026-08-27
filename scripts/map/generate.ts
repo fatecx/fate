@@ -16,13 +16,17 @@ interface MapNode {
   y: number
   w: number
   h: number
-  kind: 'scene' | 'ending' | 'deck' | 'bank'
+  kind: 'scene' | 'ending'
   title: string
   speaker?: string
   prose?: string
   endKind?: string
   priority?: boolean
   fuse?: boolean
+  /** Formatted `when` — THE WORLD deals this scene in once the condition ripens. */
+  dealt?: string
+  /** Forced-ruin badge: '$0' (insolvency) or 'STRESS 100' (burnout). */
+  ruin?: string
   choices?: { label: string; requires?: string; effects: string[]; result?: string; targets: string[] }[]
 }
 
@@ -46,8 +50,6 @@ interface MapChapter {
 
 function nodeSize(n: Omit<MapNode, 'x' | 'y' | 'w' | 'h'>): { w: number; h: number } {
   if (n.kind === 'ending') return { w: 168, h: 58 }
-  if (n.kind === 'deck') return { w: 96, h: 40 }
-  if (n.kind === 'bank') return { w: 96, h: 40 }
   const lines = Math.min(3, Math.ceil((n.prose?.length ?? 0) / 210))
   return { w: 208, h: 64 + lines * 15 }
 }
@@ -60,23 +62,6 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
   const nodesRaw: Omit<MapNode, 'x' | 'y'>[] = []
   const byId = new Map<string, Omit<MapNode, 'x' | 'y'>>()
 
-  const deckId = pid('_deck')
-  const deck: Omit<MapNode, 'x' | 'y'> = {
-    id: deckId,
-    kind: 'deck',
-    title: 'THE WORLD',
-    prose: 'Deals scenes into play as weeks pass.',
-  }
-  const bank: Omit<MapNode, 'x' | 'y'> = {
-    id: pid('_bank'),
-    kind: 'bank',
-    title: '$0',
-    prose: 'Treasury hits zero — the insolvency scene forces a rescue or the end.',
-  }
-  nodesRaw.push(deck, bank)
-  byId.set(deckId, deck)
-  byId.set(pid('_bank'), bank)
-
   for (const s of def.scenes) {
     const n: Omit<MapNode, 'x' | 'y'> = {
       id: pid(s.id),
@@ -86,6 +71,7 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
       prose: s.prose,
       priority: s.priority === true,
       fuse: s.fuseEpochs !== undefined,
+      dealt: s.when ? fmt.fmtPred(s.when) : undefined,
       choices: s.choices.map((c) => ({
         label: c.label,
         requires: c.requires ? fmt.fmtPred(c.requires) : undefined,
@@ -116,6 +102,14 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     byId.set(pid(`end:${e.id}`), n)
   }
 
+  // Forced-ruin scenes wear their trigger as a badge — no abstract pill nodes.
+  {
+    const ins = byId.get(pid(def.insolvency))
+    if (ins) ins.ruin = '$0'
+    const burn = byId.get(pid(def.burnout))
+    if (burn) burn.ruin = 'STRESS 100'
+  }
+
   // ---- edges -------------------------------------------------------------
   const edgeMap = new Map<string, MapEdge>()
   const addEdge = (from: string, to: string, cls: MapEdge['cls'], label?: string): void => {
@@ -123,13 +117,6 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     const key = `${from}|${to}|${cls}`
     if (!edgeMap.has(key)) edgeMap.set(key, { from, to, cls, label })
   }
-
-  // Deal pool: dashed edges from THE WORLD to every scene carrying a `when`.
-  for (const s of def.scenes) {
-    if (s.when) addEdge(deckId, pid(s.id), 'deal')
-  }
-  addEdge(pid('_bank'), pid(def.insolvency), 'ruin', '$0')
-  addEdge(deckId, pid(def.burnout), 'ruin', '100 stress')
 
   for (const s of def.scenes) {
     for (const c of s.choices) {
@@ -164,16 +151,16 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     }
     if (!moved) break
   }
-  // Feeders (pool scenes, the deck, the bank): unranked nodes that fire into
-  // the ranked story land just above their earliest target; anything they
-  // lead to settles below. A few passes catch chains.
+  // Feeders (world interrupts): unranked nodes that fire into the ranked
+  // story get a HALF rank — their own row between story beats, never sharing
+  // a row with a genuine choice-fork. Anything they lead to settles below.
   for (let pass = 0; pass < 4; pass++) {
     let moved = false
     for (const n of nodesRaw) {
       if (rank.has(n.id)) continue
       const outs = story.filter((e) => e.from === n.id && rank.has(e.to)).map((e) => rank.get(e.to)!)
       if (outs.length) {
-        rank.set(n.id, Math.max(0, Math.min(...outs) - 1))
+        rank.set(n.id, Math.max(0.5, Math.min(...outs) - 0.5))
         moved = true
         continue
       }
@@ -236,7 +223,10 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
       }
       for (const row of rows) {
         const totalW = row.reduce((s, id) => s + nodeSize(byId.get(id)!).w, 0) + (row.length - 1) * 18
-        let cx = 24 + Math.max(0, (COLW - 48 - totalW) / 2)
+        // Story ranks center; interrupt half-ranks hug the right margin so the
+        // spine and the world's intrusions read as two different voices.
+        const frac = r % 1 !== 0
+        let cx = frac ? 24 + Math.max(0, COLW - 48 - totalW) : 24 + Math.max(0, (COLW - 48 - totalW) / 2)
         let rowH = 0
         for (const id of row) {
           const { w, h } = nodeSize(byId.get(id)!)
@@ -532,13 +522,14 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .node{position:absolute;background:var(--panel);border:1.5px solid var(--ink);border-radius:4px;padding:9px 11px;cursor:pointer;transition:box-shadow .12s, opacity .15s}
 .node:hover{box-shadow:0 2px 0 0 var(--ink)}
 .node.pool{border-style:dashed;border-color:var(--dim)}
-.node.deck,.node.bank{border-radius:999px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;color:var(--dim);border-color:var(--dim)}
-.node.bank{color:#9C3B2E;border-color:#9C3B2E}
 .ntitle{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.02em;line-height:1.35}
 .ngist{color:var(--dim);font-size:11px;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .chiprow{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
 .chip{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:1px 6px;border:1px solid var(--line);border-radius:99px;color:var(--dim)}
 .chip.spk{color:var(--accent);border-color:var(--accent)}
+.chip.ruinc{color:#9C3B2E;border-color:#9C3B2E;font-weight:700}
+.dwhen{font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--accent);border:1px dashed var(--accent);border-radius:4px;padding:6px 10px;margin-bottom:10px}
+.dwhen.ruinc{color:#9C3B2E;border-color:#9C3B2E}
 .node.ending{border-width:2px;text-align:left}
 .node.ending .ntitle{font-size:11px}
 .k-triumph{border-color:var(--triumph)} .k-sale{border-color:var(--sale)} .k-noble{border-color:var(--noble)} .k-disgrace{border-color:var(--disgrace)} .k-ruin{border-color:var(--ruin)}
@@ -676,11 +667,10 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   <nav class="tabs filters" id="tabs"></nav>
   <div class="zoomer"><button class="tab" id="zout">−</button><button class="tab" id="zpct">100%</button><button class="tab" id="zin">+</button><button class="tab" id="zfit">FIT</button></div>
   <div class="legend">
-    <span class="lg"><span class="sw"></span>authored sequence</span>
-    <span class="lg"><span class="sw deal"></span>world-dealt pool</span>
-    <span class="lg"><span class="sw ruin"></span>$0 insolvency route</span>
-    <span class="lg"><span class="dotk"></span>scene&nbsp;&nbsp;<span class="dotk" style="border-color:#B98A1F"></span>ending</span>
-    <span class="lg">dashed border = random-pool · chip = speaker/fuse</span>
+    <span class="lg"><span class="sw"></span>a choice leads there</span>
+    <span class="lg"><span class="dotk" style="border-style:dashed"></span>dashed + right-shifted = THE WORLD deals it in when its moment ripens</span>
+    <span class="lg"><span class="dotk" style="border-color:#9C3B2E"></span>$0 / STRESS 100 = forced ruin scene</span>
+    <span class="lg">bottom shelf = side deals off the main road</span>
   </div>
 </div>
 <main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div><div class="artpane" id="artpane" style="display:none">
@@ -724,10 +714,10 @@ DATA.chapters.forEach(ch=>{
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','edges');
   // Mount FIRST so edge-path lookups can find nodes in the document.
   wrap.appendChild(canvas);lane.appendChild(wrap);stage.appendChild(lane);
-  ch.nodes.forEach(n=>{const el=document.createElement('div');el.className='node '+n.kind+(n.kind==='scene'&&!n.priority?' pool':'')+(n.endKind?' k-'+n.endKind:'');el.dataset.id=n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';el.style.width=n.w+'px';el.style.minHeight=n.h+'px';
+  ch.nodes.forEach(n=>{const el=document.createElement('div');el.className='node '+n.kind+(n.kind==='scene'&&n.dealt?' pool':'')+(n.endKind?' k-'+n.endKind:'');el.dataset.id=n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';el.style.width=n.w+'px';el.style.minHeight=n.h+'px';
     let inner='<div class="ntitle">'+n.title+'</div>';
     if(n.kind==='scene'&&n.prose)inner+='<div class="ngist">'+n.prose.slice(0,150)+'…</div>';
-    const chips=[];if(n.speaker)chips.push('<span class="chip spk">'+n.speaker+'</span>');if(n.fuse)chips.push('<span class="chip">⏱ FUSE</span>');
+    const chips=[];if(n.ruin)chips.push('<span class="chip ruinc">'+n.ruin+' →</span>');if(n.speaker)chips.push('<span class="chip spk">'+n.speaker+'</span>');if(n.fuse)chips.push('<span class="chip">⏱ FUSE</span>');
     if(chips.length)inner+='<div class="chiprow">'+chips.join('')+'</div>';
     el.innerHTML=inner;canvas.appendChild(el);el._node=n;
     el.addEventListener('click',ev=>{ev.stopPropagation();
@@ -745,6 +735,8 @@ function openDrawer(n,ch){
   dk.textContent=(n.kind==='ending'?('ENDING · '+n.endKind):ch.title)+(n.speaker?(' · '+n.speaker):'');
   document.getElementById('dtitle').textContent=n.title;
   const body=document.getElementById('dbody');let html='';
+  if(n.dealt)html+='<div class="dwhen">THE WORLD deals this in · when '+n.dealt+'</div>';
+  if(n.ruin)html+='<div class="dwhen ruinc">FORCED · the moment '+(n.ruin==='$0'?'the treasury hits $0':'stress hits 100')+'</div>';
   if(n.prose)html+='<div class="dspeaker">'+(n.speaker?n.speaker+' — ':'')+(n.kind==='ending'?'':'')+'</div><p class="dprose">'+n.prose+'</p>';
   if(n.choices&&n.choices.length){html+='<div class="dchoices">';
     n.choices.forEach(c=>{const jump=c.targets.length>0;const tid=jump?c.targets[0]:null;
