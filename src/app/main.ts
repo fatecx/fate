@@ -84,15 +84,28 @@ function persist(): void {
   cloudPush(blob)
 }
 
+/** A save is playable only if this build still carries everything it points at —
+ *  the chapter, and every scene waiting in its queue. Anything else reads as
+ *  no save: the row stays server-side, the client simply declines to walk into
+ *  content that has moved out from under it. */
+function saveValid(s: Save): boolean {
+  const ch = CONTENT.chapters[s.st.company.id as keyof typeof CONTENT.chapters]
+  if (!ch) return false
+  try {
+    for (const sceneId of s.st.company.queue ?? []) getScene(CONTENT, s.st.company.id, sceneId)
+  } catch {
+    return false
+  }
+  return true
+}
+
 function load(uid: string): Save | null {
   try {
     const raw = localStorage.getItem(saveKey(uid))
     if (!raw) return null
     const s = JSON.parse(raw) as Save
     if (!s?.st?.company || s.st.phase === undefined) return null
-    // A save from a retired build (a chapter this content no longer carries)
-    // must never reach the renderer — it reads as no save at all.
-    if (!CONTENT.chapters[s.st.company.id as keyof typeof CONTENT.chapters]) return null
+    if (!saveValid(s)) return null
     return s
   } catch {
     return null
@@ -1678,7 +1691,7 @@ async function enterAsFounder(): Promise<void> {
     const remote = (await cloudLoad()) as Save | null
     best = pickSave(local, remote) as Save | null
     // The same retired-build guard for whichever copy won.
-    if (best && !CONTENT.chapters[best.st.company.id as keyof typeof CONTENT.chapters]) best = null
+    if (best && !saveValid(best)) best = null
   }
   renderWelcome(best)
 }
