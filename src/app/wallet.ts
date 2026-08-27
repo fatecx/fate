@@ -5,6 +5,7 @@
  * (SIWE) verified by Supabase; the address becomes the founder,
  * no email, no funds, nothing else leaves the browser.
  */
+import { keccak256 } from 'js-sha3'
 import { supa } from './cloud'
 
 const STATEMENT = 'Sign the incorporation papers. One life, three companies, every scar on the record.'
@@ -97,11 +98,28 @@ function toHexMsg(value: string): string {
   return '0x' + Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
 }
 
+/** EIP-55 checksum — the canonical casing, independent of wallet habits. */
+function checksum(address: string): string {
+  const addr = address.toLowerCase().replace(/^0x/, '')
+  const hash = keccak256(addr)
+  let out = '0x'
+  for (let i = 0; i < addr.length; i++) {
+    out += parseInt(hash[i], 16) >= 8 ? addr[i].toUpperCase() : addr[i]
+  }
+  return out
+}
+
 async function signEthereum(provider: EthProvider): Promise<void> {
   const client = requireSupa()
+  // Ask for the account chooser where wallets support it — a one-life game
+  // must never silently reuse a stale site connection's account.
+  await provider
+    .request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] })
+    .catch(() => {}) // unsupported or dismissed-to-default: requestAccounts decides
   const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as string[]
-  const address = accounts?.[0]
-  if (!address) throw new Error('The wallet returned no account.')
+  const raw = accounts?.[0]
+  if (!raw) throw new Error('The wallet returned no account.')
+  const address = checksum(raw)
   const chainIdHex = (await provider.request({ method: 'eth_chainId' })) as string
   const chainId = parseInt(chainIdHex, 16)
   const message =
