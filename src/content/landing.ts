@@ -13,8 +13,8 @@ export interface LandingPanel {
   paras: string[]
   /** Animated game chips — the pills the play surface stamps after a choice. */
   pills?: { t: string; k: 'good' | 'bad' | 'dim' | 'accent' }[]
-  /** Portrait circles — character ids whose faces this card wears. */
-  cast?: string[]
+  /** When true the card wears the entire cast of the game, every face. */
+  cast?: boolean
   /** The covenant's mark: a plain signature rule, label and value. */
   sig?: { label: string; value: string }
 }
@@ -98,7 +98,7 @@ export const FEATURES: readonly LandingPanel[] = [
     paras: [
       'Companies die and the story keeps going. The investor you burned in chapter one blocks a door in chapter three.',
     ],
-    cast: ['marisol', 'priya', 'tomas', 'june', 'sofia', 'nadia', 'marcus', 'farrokh', 'hale', 'vance'],
+    cast: true,
   },
   {
     kicker: 'THE ENGINE',
@@ -160,6 +160,5 @@ export const COVENANT = [
 export const LANDING_ART: readonly string[] = [
   ...HERO_ART,
   ...[...PITCH, ...FEATURES, RECORD, FINALE].map((p) => p.art),
-  ...FEATURES.flatMap((p) => p.cast ?? []),
   ...CHAPTERS.map((c) => c.art),
 ].filter((a): a is string => !!a)

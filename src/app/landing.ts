@@ -142,8 +142,11 @@ function featuresHtml(): string {
           }
           ${
             f.cast
-              ? `<div class="ld-castrow">${f.cast
-                  .map((id, i) => `<span class="ld-face" style="transition-delay:${(i * 0.07).toFixed(2)}s"><img src="/art/${id}.webp" alt="" loading="lazy" onerror="this.remove()"></span>`)
+              ? `<div class="ld-castrow">${Object.entries(CONTENT.characters)
+                  .map(
+                    ([id, ch], i) =>
+                      `<span class="ld-face" title="${esc(ch.name)}" style="transition-delay:${(i * 0.045).toFixed(3)}s"><i>${esc(ch.name[0] ?? '·')}</i><img src="/art/${id}.webp" alt="" loading="lazy" onerror="this.remove()"></span>`,
+                  )
                   .join('')}</div>`
               : ''
           }
