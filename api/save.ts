@@ -23,6 +23,13 @@ const sha256 = (s: string) => createHash('sha256').update(s).digest()
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Cache-Control', 'no-store')
+  // The map runs from a blob: page whose origin may be www.fate.cx while the
+  // API lives on the apex — CORS must say yes. Auth is the passphrase in the
+  // body (no cookies), so a wildcard is safe.
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' })
 
   const body = req.body ?? {}

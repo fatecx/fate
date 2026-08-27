@@ -90,6 +90,9 @@ function load(uid: string): Save | null {
     if (!raw) return null
     const s = JSON.parse(raw) as Save
     if (!s?.st?.company || s.st.phase === undefined) return null
+    // A save from a retired build (a chapter this content no longer carries)
+    // must never reach the renderer — it reads as no save at all.
+    if (!CONTENT.chapters[s.st.company.id as keyof typeof CONTENT.chapters]) return null
     return s
   } catch {
     return null
@@ -1674,6 +1677,8 @@ async function enterAsFounder(): Promise<void> {
     const local = load(session.user.id)
     const remote = (await cloudLoad()) as Save | null
     best = pickSave(local, remote) as Save | null
+    // The same retired-build guard for whichever copy won.
+    if (best && !CONTENT.chapters[best.st.company.id as keyof typeof CONTENT.chapters]) best = null
   }
   renderWelcome(best)
 }
@@ -1847,7 +1852,43 @@ function warmArt(): void {
   }
 }
 
+/** The last line of defense: an uncaught throw paints a card, never blank paper. */
+function armCrashScreen(): void {
+  const show = (msg: string): void => {
+    if (document.querySelector('.crashcard')) return
+    const el = document.createElement('div')
+    el.className = 'crashcard'
+    el.setAttribute(
+      'style',
+      'position:fixed;inset:0;z-index:999;background:#000;color:#ecede9;display:flex;align-items:center;justify-content:center;padding:30px;font-family:ui-monospace,monospace;',
+    )
+    const inner = document.createElement('div')
+    inner.setAttribute('style', 'max-width:60ch')
+    const kick = document.createElement('div')
+    kick.setAttribute('style', 'color:#b4540a;font-size:11px;letter-spacing:0.22em')
+    kick.textContent = 'SOMETHING BROKE'
+    const body = document.createElement('div')
+    body.setAttribute('style', 'margin:14px 0;line-height:1.7;font-size:13px;word-break:break-word')
+    body.textContent = msg
+    const btn = document.createElement('button')
+    btn.setAttribute(
+      'style',
+      'border:1px solid #b4540a;color:#b4540a;background:none;padding:10px 18px;border-radius:8px;cursor:pointer;font:inherit',
+    )
+    btn.textContent = 'Reload'
+    btn.addEventListener('click', () => location.reload())
+    inner.append(kick, body, btn)
+    el.appendChild(inner)
+    document.body.appendChild(el)
+  }
+  window.addEventListener('error', (e) => show(e.error instanceof Error ? e.error.message : e.message))
+  window.addEventListener('unhandledrejection', (e) =>
+    show(e.reason instanceof Error ? e.reason.message : String(e.reason)),
+  )
+}
+
 async function boot(): Promise<void> {
+  armCrashScreen()
   initWalletDiscovery()
   warmArt()
   igniteOnFirstGesture()

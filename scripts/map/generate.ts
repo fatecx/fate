@@ -555,7 +555,10 @@ function mapPass(){let p=sessionStorage.getItem('fate-map-pass');
     if(p){p=p.trim();sessionStorage.setItem('fate-map-pass',p);}}
   return p;}
 async function api(body){
-  const res=await fetch('https://fate.cx/api/save',{method:'POST',
+  // Same host the map was unlocked on (blob pages inherit the creator origin);
+  // the apex 308-redirects to www, and redirects break CORS preflights.
+  const base=(self.origin&&self.origin.indexOf('http')===0)?self.origin:'https://www.fate.cx';
+  const res=await fetch(base+'/api/save',{method:'POST',
     headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const j=await res.json().catch(()=>({}));
   if(res.status===401){sessionStorage.removeItem('fate-map-pass');throw new Error('passphrase rejected — click SAVE and enter it again');}
