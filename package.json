@@ -21,6 +21,7 @@
     "vitest": "^2.1.9"
   },
   "dependencies": {
+    "@base-org/account": "^2.5.10",
     "@supabase/supabase-js": "^2.112.3"
   }
 }
