@@ -1625,11 +1625,11 @@ function renderConnect(onBack: () => void, onDone: () => void): void {
       <button class="wallet-opt" data-w="${i}">
         ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
         <span class="wname">${esc(w.name)}</span>
-        <span class="wchain">${w.chain === 'solana' ? 'SOL' : 'ETH'}</span>
+        <span class="wchain">ETH</span>
       </button>`,
         )
         .join('')
-    : `<p class="tk-body">No wallets found in this browser. Install Phantom (Solana) or MetaMask (Ethereum), then come back — the papers will wait.</p>`
+    : `<p class="tk-body">No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back — the papers will wait.</p>`
   takeover(`
     <div class="tk-kicker">SIGN THE PAPERS</div>
     <h1 class="tk-title">THE FOUNDER OF RECORD</h1>
