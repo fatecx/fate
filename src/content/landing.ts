@@ -65,19 +65,19 @@ export const PITCH: readonly LandingPanel[] = [
 export const CHAPTERS: readonly ChapterCard[] = [
   {
     kicker: 'CHAPTER ONE',
-    name: 'HYPERCHUTE, INC.',
+    name: 'HYPERCHUTE',
     art: 'world_first_drop',
     line: 'A railway in the sky. Autonomous shuttles hold station above each home and drop deliveries through a tube to the doorstep.',
   },
   {
     kicker: 'CHAPTER TWO',
-    name: 'TELEPORT, INC.',
+    name: 'TELEPORT',
     art: 'cut_first_walk',
     line: 'Walk on the Moon from a room on Earth. Relay satellites cut the delay to 2.6 seconds, and what you say about those seconds decides who stays on your board.',
   },
   {
     kicker: 'CHAPTER THREE',
-    name: 'SKYLINE, INC.',
+    name: 'SKYLINE',
     art: 'cut_s_year_two',
     line: 'A space elevator that combines everything you learned in logistics and space systems. Nations, unions, and your own investors fight over who rides it first.',
   },
