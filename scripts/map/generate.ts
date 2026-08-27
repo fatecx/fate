@@ -144,24 +144,66 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
 
   // ---- dagre layout ------------------------------------------------------
   const g = new dagre.graphlib.Graph()
-  g.setGraph({ rankdir: 'LR', nodesep: 34, ranksep: 78, marginx: 24, marginy: 24 })
+  g.setGraph({ rankdir: 'TB', nodesep: 18, ranksep: 52, marginx: 24, marginy: 24, ranker: 'tight-tree' })
   g.setDefaultEdgeLabel(() => ({}))
+  // Deal edges render (dashed) but don't rank — otherwise every world-dealt
+  // scene lines up in one giant rank under THE WORLD. Nodes with no story
+  // edge at all skip dagre and grid-wrap below the spine instead.
+  const ranked = new Set<string>()
+  for (const e of edgeMap.values())
+    if (e.cls !== 'deal') {
+      ranked.add(e.from)
+      ranked.add(e.to)
+    }
   for (const n of nodesRaw) {
+    if (!ranked.has(n.id)) continue
     const { w, h } = nodeSize(n)
     g.setNode(n.id, { width: w, height: h })
   }
-  for (const e of edgeMap.values()) g.setEdge(e.from, e.to)
+  for (const e of edgeMap.values()) if (e.cls !== 'deal') g.setEdge(e.from, e.to)
 
   // Insolvency is reachable only via the $0 bank node, never as a dealt scene.
   dagre.layout(g)
 
+  const gi = g.graph()
+  const spineW = gi.width ?? 800
+  const spineH = gi.height ?? 400
+
+  // THE WORLD's pool — scenes only the deck deals in. Rank means nothing for
+  // them, so they wrap into a compact grid beneath the story spine.
+  const loose = nodesRaw.filter((n) => !ranked.has(n.id))
+  const GRIDW = Math.max(1200, Math.min(spineW, 1800))
+  const loosePos = new Map<string, { x: number; y: number }>()
+  {
+    let x = 24
+    let y = spineH + 40
+    let rowH = 0
+    for (const n of loose) {
+      const { w, h } = nodeSize(n)
+      if (x + w > GRIDW) {
+        x = 24
+        y += rowH + 26
+        rowH = 0
+      }
+      loosePos.set(n.id, { x, y })
+      x += w + 26
+      rowH = Math.max(rowH, h)
+    }
+  }
+
   const nodes: MapNode[] = nodesRaw.map((n) => {
-    const pos = g.node(n.id)
     const { w, h } = nodeSize(n)
+    const lp = loosePos.get(n.id)
+    if (lp) return { ...n, x: lp.x, y: lp.y, w, h }
+    const pos = g.node(n.id)
     return { ...n, x: Math.round(pos.x - w / 2), y: Math.round(pos.y - h / 2), w, h }
   })
-  const gi = g.graph()
   const edges = [...edgeMap.values()]
+
+  const laneW = Math.max(spineW, loose.length ? GRIDW : 0)
+  const laneH = loose.length
+    ? Math.max(...[...loosePos.values()].map((p) => p.y)) + 180
+    : spineH
 
   let choiceCount = 0
   for (const s of def.scenes) choiceCount += s.choices.length
@@ -173,8 +215,8 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     stats: { scenes: def.scenes.length, choices: choiceCount, endings: def.endings.length },
     nodes,
     edges,
-    width: gi.width ?? 800,
-    height: gi.height ?? 400,
+    width: laneW,
+    height: laneH,
   }
 }
 
@@ -378,6 +420,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .search input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
 .legend{display:flex;gap:16px;font-family:var(--mono);font-size:11px;color:var(--dim);flex-wrap:wrap;align-items:center;margin-left:auto}
 .subbar{display:flex;gap:18px;align-items:center;padding:7px 20px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.zoomer{display:flex;gap:5px;align-items:center}
+.zoomer .tab{font-size:11px;padding:4px 9px;min-width:34px;text-align:center}
+.cwrap{position:relative;overflow:hidden}
+.canvas{transform-origin:0 0}
 .filters .tab{font-size:11px;padding:4px 10px}
 .pg{font-weight:600;letter-spacing:.1em}
 .lg{display:flex;gap:6px;align-items:center}
@@ -546,6 +592,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 </header>
 <div class="subbar" id="subbar">
   <nav class="tabs filters" id="tabs"></nav>
+  <div class="zoomer"><button class="tab" id="zout">−</button><button class="tab" id="zpct">100%</button><button class="tab" id="zin">+</button><button class="tab" id="zfit">FIT</button></div>
   <div class="legend">
     <span class="lg"><span class="sw"></span>authored sequence</span>
     <span class="lg"><span class="sw deal"></span>world-dealt pool</span>
@@ -590,9 +637,11 @@ DATA.chapters.forEach(ch=>{
   lane.innerHTML='<div class="lane-head"><span class="lane-title">'+ch.title+'</span><span class="lane-tag">'+ch.tagline+'</span><span class="lane-stats">'+ch.stats.scenes+' scenes · '+ch.stats.choices+' choices · '+ch.stats.endings+' endings</span></div>';
   const canvas=document.createElement('div');canvas.className='canvas';
   canvas.style.width=ch.width+'px';canvas.style.height=ch.height+'px';
+  const wrap=document.createElement('div');wrap.className='cwrap';
+  wrap.style.width=ch.width+'px';wrap.style.height=ch.height+'px';
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','edges');
   // Mount FIRST so edge-path lookups can find nodes in the document.
-  lane.appendChild(canvas);stage.appendChild(lane);
+  wrap.appendChild(canvas);lane.appendChild(wrap);stage.appendChild(lane);
   ch.nodes.forEach(n=>{const el=document.createElement('div');el.className='node '+n.kind+(n.kind==='scene'&&!n.priority?' pool':'')+(n.endKind?' k-'+n.endKind:'');el.dataset.id=n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';el.style.width=n.w+'px';el.style.minHeight=n.h+'px';
     let inner='<div class="ntitle">'+n.title+'</div>';
     if(n.kind==='scene'&&n.prose)inner+='<div class="ngist">'+n.prose.slice(0,150)+'…</div>';
@@ -608,8 +657,8 @@ DATA.chapters.forEach(ch=>{
 });
 function nodeEl(id){return document.querySelector('.node[data-id="'+CSS.escape(id)+'"]');}
 function pathFor(ch,e){const a=nodeEl(e.from),b=nodeEl(e.to);if(!a||!b)return null;const n1=a._node,n2=b._node;
-  const x1=n1.x+n1.w,y1=n1.y+n1.h/2,x2=n2.x,y2=n2.y+n2.h/2;const dx=Math.max(36,(x2-x1)*0.45);
-  return 'M'+x1+','+y1+' C'+(x1+dx)+','+y1+' '+(x2-dx)+','+y2+' '+x2+','+y2;}
+  const x1=n1.x+n1.w/2,y1=n1.y+n1.h,x2=n2.x+n2.w/2,y2=n2.y;const dy=Math.max(30,(y2-y1)*0.45);
+  return 'M'+x1+','+y1+' C'+x1+','+(y1+dy)+' '+x2+','+(y2-dy)+' '+x2+','+y2;}
 function openDrawer(n,ch){
   dk.textContent=(n.kind==='ending'?('ENDING · '+n.endKind):ch.title)+(n.speaker?(' · '+n.speaker):'');
   document.getElementById('dtitle').textContent=n.title;
@@ -629,7 +678,7 @@ function openDrawer(n,ch){
     // PATH VIEW — every scene on any road that reaches this ending, in play order,
     // with the exact choice + gate that keeps you on the road.
     const lit=bfs(n.id,radj);
-    const steps=ch.nodes.filter(x=>x.kind==='scene'&&lit.has(x.id)).sort((a,b)=>a.x-b.x);
+    const steps=ch.nodes.filter(x=>x.kind==='scene'&&lit.has(x.id)).sort((a,b)=>a.y-b.y);
     if(steps.length){
       html+='<div class="roads"><h4>ROADS TO HERE · '+steps.length+' BEATS</h4>';
       steps.forEach(s=>{
@@ -651,6 +700,24 @@ tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(currentTab==='all'||l.dataset.ch===currentTab)?'':'none';});
   clearFocus();drawer.classList.remove('open');});
 {const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);}
+// ZOOM — scale the canvases; FIT sizes the widest visible chapter to the screen.
+let ZOOM=1;
+function applyZoom(){
+  document.querySelectorAll('.canvas').forEach(c=>{
+    c.style.transform=ZOOM===1?'':'scale('+ZOOM+')';
+    const w=parseFloat(c.style.width),h=parseFloat(c.style.height);
+    c.parentElement.style.width=(w*ZOOM)+'px';c.parentElement.style.height=(h*ZOOM)+'px';});
+  document.getElementById('zpct').textContent=Math.round(ZOOM*100)+'%';}
+function setZoom(z){ZOOM=Math.min(1.5,Math.max(0.1,z));applyZoom();}
+document.getElementById('zin').addEventListener('click',()=>setZoom(ZOOM*1.25));
+document.getElementById('zout').addEventListener('click',()=>setZoom(ZOOM/1.25));
+document.getElementById('zpct').addEventListener('click',()=>setZoom(1));
+document.getElementById('zfit').addEventListener('click',()=>{
+  let w=0;
+  document.querySelectorAll('.lane').forEach(l=>{
+    if(l.style.display==='none')return;
+    const c=l.querySelector('.canvas');if(c)w=Math.max(w,parseFloat(c.style.width));});
+  if(w)setZoom((stage.clientWidth-70)/w);});
 // PAGES (header) — MAP, SCRIPT and ART are different rooms, not filters.
 document.getElementById('pages').addEventListener('click',e=>{const b=e.target.closest('.pg');if(!b)return;
   const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',mapOn=page==='map';
