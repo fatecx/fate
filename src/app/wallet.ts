@@ -54,7 +54,9 @@ function safeIcon(icon?: string): string | undefined {
 export function listWallets(): FoundWallet[] {
   const out: FoundWallet[] = []
   for (const w of evmWallets) {
-    out.push({ chain: 'ethereum', name: w.name, icon: safeIcon(w.icon), sign: () => signEthereum(w.provider) })
+    // Announced icons that fail the data-URI check fall back to the marks we carry.
+    const icon = safeIcon(w.icon) ?? (w.name.toLowerCase().includes('phantom') ? PHANTOM_ICON : undefined)
+    out.push({ chain: 'ethereum', name: w.name, icon, sign: () => signEthereum(w.provider) })
   }
   // Phantom's Ethereum side — some builds skip EIP-6963 and only inject.
   const phantom = (window as { phantom?: { ethereum?: EthProvider } }).phantom?.ethereum
@@ -75,12 +77,34 @@ function requireSupa(): NonNullable<typeof supa> {
   return supa
 }
 
+const HEX_RE = /^0x[0-9a-fA-F]*$/
+
+/** personal_sign expects the message hex-encoded. MetaMask forgives plain
+ *  UTF-8; Phantom refuses it as "invalid formatting". The shim encodes the
+ *  message parameter to spec for every provider, changing nothing else. */
+function hexSignShim(provider: EthProvider): EthProvider {
+  return {
+    request: (args) => {
+      if (args.method === 'personal_sign' && Array.isArray(args.params)) {
+        const params = [...(args.params as unknown[])]
+        if (typeof params[0] === 'string' && !HEX_RE.test(params[0])) {
+          params[0] =
+            '0x' +
+            [...new TextEncoder().encode(params[0])].map((b) => b.toString(16).padStart(2, '0')).join('')
+        }
+        return provider.request({ method: 'personal_sign', params })
+      }
+      return provider.request(args)
+    },
+  }
+}
+
 async function signEthereum(provider: EthProvider): Promise<void> {
   const client = requireSupa()
   const { error } = await client.auth.signInWithWeb3({
     chain: 'ethereum',
     statement: STATEMENT,
-    wallet: provider as EthereumWallet,
+    wallet: hexSignShim(provider) as EthereumWallet,
   })
   if (error) throw new Error(error.message)
 }
