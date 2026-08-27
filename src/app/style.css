@@ -805,3 +805,33 @@ html:has(.landing), html:has(.landing) body { background: #000; }
   .ld-scene { padding: 70px 18px; }
   .ld-sub { width: 100%; }
 }
+
+/* ---- the incorporation checkout — an invoice, one button ---- */
+.inv {
+  margin-top: 30px; border: 1px solid #2a2d33; border-radius: 12px;
+  background: rgba(8, 9, 11, 0.9); padding: 24px 24px 20px; max-width: 460px;
+}
+.inv-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 15px; }
+.inv-row b { font-variant-numeric: tabular-nums; }
+.inv-sub { font-family: var(--mono); font-size: 11px; color: #8b8d85; margin-top: 6px; line-height: 1.6; }
+.inv-total {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  border-top: 1px solid #2a2d33; margin-top: 16px; padding-top: 14px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: #c9cac4;
+}
+.inv-total b { font-size: 17px; color: #f6f6f2; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.inv-total i { font-style: normal; font-size: 10px; color: #8b8d85; letter-spacing: 0.12em; margin-left: 6px; }
+.inv-cta {
+  width: 100%; margin-top: 18px; padding: 14px 18px;
+  background: var(--accent); color: #fff; border-radius: 9px;
+  font-weight: 600; font-size: 15px;
+}
+.inv-cta:hover { filter: brightness(1.08); }
+.inv-cta:disabled { opacity: 0.55; cursor: default; }
+.inv-payer {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 12px; font-family: var(--mono); font-size: 11px; color: #9b9d96; letter-spacing: 0.06em;
+}
+.inv-wicon { width: 16px; height: 16px; border-radius: 4px; }
+#invOther { margin-top: 18px; }
+#invList { margin-top: 12px; }

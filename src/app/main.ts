@@ -1637,57 +1637,125 @@ ${INTRO}</p>
   wireLogout()
 }
 
-/** The incorporation — the filing fee stands between a signed wallet and its
- *  first company. $20 in USDC on Base, wired to the studio treasury from any
- *  wallet in the browser; the biography binds to the signed address. */
-function renderIncorporation(): void {
+/** The incorporation — a checkout, not a menu. The invoice names the price,
+ *  one button wires the check through the wallet that signed the session
+ *  (remembered at connect, confirmed by an eth_accounts probe), and a quiet
+ *  line offers any other wallet in the browser for founders whose funds live
+ *  elsewhere. USDC on Base, to the studio treasury. */
+async function payerWallet(): Promise<ReturnType<typeof listWallets>[number] | null> {
   const wallets = listWallets()
-  const list = wallets.length
-    ? wallets
-        .map(
-          (w, i) => `
-      <button class="wallet-opt" data-pay="${i}">
-        ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
-        <span class="wname">${esc(w.name)}</span>
-        <span class="wchain">USDC · BASE</span>
-      </button>`,
-        )
-        .join('')
-    : `<p class="tk-body">No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back — the papers will wait.</p>`
+  if (!wallets.length) return null
+  const addr = session ? walletAddress(session).toLowerCase() : ''
+  // Silent probe: which provider already holds the signed address?
+  for (const w of wallets) {
+    try {
+      const p = await w.provider()
+      const accs = (await p.request({ method: 'eth_accounts' })) as string[]
+      if (accs?.some((a) => a.toLowerCase() === addr)) return w
+    } catch {
+      /* provider refused a silent read — the name match below decides */
+    }
+  }
+  let remembered: string | null = null
+  try {
+    remembered = localStorage.getItem('fate-wallet')
+  } catch {
+    /* private mode */
+  }
+  return wallets.find((w) => w.name === remembered) ?? wallets[0]
+}
+
+function renderIncorporation(): void {
   takeover(`
     <div class="tk-kicker">THE INCORPORATION</div>
     <h1 class="tk-title">THE FILING FEE</h1>
-    <p class="tk-body">One life costs ${PRICE_LABEL}, paid once — the check that incorporates your first company. USDC on Base, wired to the studio treasury. Pay from any wallet below; the biography stays bound to the address you signed with.</p>
-    <div class="wallet-list">${list}</div>
-    <div class="werr" id="payErr"></div>
+    <p class="tk-body">One payment incorporates your first company and opens the whole biography. The check wires as USDC on Base to the studio treasury.</p>
+    <div class="inv">
+      <div class="inv-row"><span>One life · three companies</span><b>$20.00</b></div>
+      <div class="inv-sub">Filing fee. Paid once — there is nothing else to buy, ever.</div>
+      <div class="inv-total"><span>DUE TODAY</span><b>$20.00 <i>USDC · BASE</i></b></div>
+      <button class="inv-cta" id="invPay">Wire the check — $20 →</button>
+      <div class="inv-payer" id="invPayer"></div>
+      <div class="werr" id="payErr"></div>
+    </div>
+    <button class="tk-link" id="invOther" hidden>pay from a different wallet</button>
+    <div class="wallet-list" id="invList" hidden></div>
     ${signedRowHtml()}
   `)
   wireLogout()
-  document.querySelectorAll<HTMLButtonElement>('[data-pay]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      void (async () => {
-        const w = wallets[Number(btn.dataset.pay)]
-        const err = document.getElementById('payErr')
-        const label = btn.querySelector('.wname')
-        const orig = label?.textContent ?? w.name
-        if (err) err.textContent = ''
-        btn.disabled = true
-        try {
-          if (label) label.textContent = 'WIRING…'
-          const provider = await w.provider()
-          const { tx, payer } = await wireCheck(provider)
-          if (label) label.textContent = 'CONFIRMED'
-          if (session) await recordPayment(session, tx, payer)
-          document.querySelector('.takeover')?.remove()
-          startNewLife()
-        } catch (ex) {
-          btn.disabled = false
-          if (label) label.textContent = orig
-          if (err) err.textContent = ex instanceof Error ? ex.message : 'The wire failed. Nothing was charged — try again.'
-        }
-      })()
-    })
+
+  const payBtn = document.getElementById('invPay') as HTMLButtonElement | null
+  const payerEl = document.getElementById('invPayer')
+  const err = document.getElementById('payErr')
+  let chosen: ReturnType<typeof listWallets>[number] | null = null
+
+  const pay = (w: ReturnType<typeof listWallets>[number]): void => {
+    void (async () => {
+      if (!payBtn) return
+      if (err) err.textContent = ''
+      payBtn.disabled = true
+      try {
+        payBtn.textContent = 'WIRING…'
+        const provider = await w.provider()
+        const { tx, payer } = await wireCheck(provider)
+        payBtn.textContent = 'CONFIRMED ✓'
+        if (session) await recordPayment(session, tx, payer)
+        document.querySelector('.takeover')?.remove()
+        startNewLife()
+      } catch (ex) {
+        payBtn.disabled = false
+        payBtn.textContent = 'Wire the check — $20 →'
+        if (err) err.textContent = ex instanceof Error ? ex.message : 'The wire failed. Nothing was charged — try again.'
+      }
+    })()
+  }
+
+  payBtn?.addEventListener('click', () => {
+    if (chosen) pay(chosen)
   })
+
+  void (async () => {
+    chosen = await payerWallet()
+    if (!chosen) {
+      if (payBtn) payBtn.disabled = true
+      if (payerEl)
+        payerEl.textContent = 'No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back.'
+      return
+    }
+    if (payerEl) {
+      payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}${session ? ` · ${esc(walletLabel(session))}` : ''}`
+    }
+    // The escape hatch: funds sometimes live in a different wallet.
+    const other = document.getElementById('invOther')
+    const list = document.getElementById('invList')
+    const wallets = listWallets()
+    if (other && list && wallets.length > 1) {
+      other.hidden = false
+      other.addEventListener('click', () => {
+        list.hidden = !list.hidden
+        if (!list.innerHTML) {
+          list.innerHTML = wallets
+            .map(
+              (w, i) => `
+            <button class="wallet-opt" data-pick="${i}">
+              ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
+              <span class="wname">${esc(w.name)}</span>
+              <span class="wchain">USDC · BASE</span>
+            </button>`,
+            )
+            .join('')
+          list.querySelectorAll<HTMLButtonElement>('[data-pick]').forEach((b) => {
+            b.addEventListener('click', () => {
+              chosen = wallets[Number(b.dataset.pick)]
+              list.hidden = true
+              if (payerEl)
+                payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}`
+            })
+          })
+        }
+      })
+    }
+  })()
 }
 
 /** Fate-styled wallet picker — the headless connect surface. */
@@ -1730,6 +1798,11 @@ function renderConnect(onBack: () => void, onDone: () => void): void {
         if (label) label.textContent = 'SIGNING…'
         try {
           await w.sign()
+          try {
+            localStorage.setItem('fate-wallet', w.name)
+          } catch {
+            /* private mode: the eth_accounts probe finds it instead */
+          }
           session = await getSession()
           document.querySelector('.takeover')?.remove()
           onDone()
