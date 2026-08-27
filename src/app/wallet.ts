@@ -5,7 +5,6 @@
  * (SIWE) verified by Supabase; the address becomes the founder,
  * no email, no funds, nothing else leaves the browser.
  */
-import type { EthereumWallet } from '@supabase/supabase-js'
 import { supa } from './cloud'
 
 const STATEMENT = 'Sign the incorporation papers. One life, three companies, every scar on the record.'
@@ -49,7 +48,7 @@ export function initWalletDiscovery(): void {
 const PHANTOM_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDgiIGhlaWdodD0iMTA4IiB2aWV3Qm94PSIwIDAgMTA4IDEwOCIgZmlsbD0ibm9uZSI+CjxyZWN0IHdpZHRoPSIxMDgiIGhlaWdodD0iMTA4IiByeD0iMjYiIGZpbGw9IiNBQjlGRjIiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00Ni41MjY3IDY5LjkyMjlDNDIuMDA1NCA3Ni44NTA5IDM0LjQyOTIgODUuNjE4MiAyNC4zNDggODUuNjE4MkMxOS41ODI0IDg1LjYxODIgMTUgODMuNjU2MyAxNSA3NS4xMzQyQzE1IDUzLjQzMDUgNDQuNjMyNiAxOS44MzI3IDcyLjEyNjggMTkuODMyN0M4Ny43NjggMTkuODMyNyA5NCAzMC42ODQ2IDk0IDQzLjAwNzlDOTQgNTguODI1OCA4My43MzU1IDc2LjkxMjIgNzMuNTMyMSA3Ni45MTIyQzcwLjI5MzkgNzYuOTEyMiA2OC43MDUzIDc1LjEzNDIgNjguNzA1MyA3Mi4zMTRDNjguNzA1MyA3MS41NzgzIDY4LjgyNzUgNzAuNzgxMiA2OS4wNzE5IDY5LjkyMjlDNjUuNTg5MyA3NS44Njk5IDU4Ljg2ODUgODEuMzg3OCA1Mi41NzU0IDgxLjM4NzhDNDcuOTkzIDgxLjM4NzggNDUuNjcxMyA3OC41MDYzIDQ1LjY3MTMgNzQuNDU5OEM0NS42NzEzIDcyLjk4ODQgNDUuOTc2OCA3MS40NTU2IDQ2LjUyNjcgNjkuOTIyOVpNODMuNjc2MSA0Mi41Nzk0QzgzLjY3NjEgNDYuMTcwNCA4MS41NTc1IDQ3Ljk2NTggNzkuMTg3NSA0Ny45NjU4Qzc2Ljc4MTYgNDcuOTY1OCA3NC42OTg5IDQ2LjE3MDQgNzQuNjk4OSA0Mi41Nzk0Qzc0LjY5ODkgMzguOTg4NSA3Ni43ODE2IDM3LjE5MzEgNzkuMTg3NSAzNy4xOTMxQzgxLjU1NzUgMzcuMTkzMSA4My42NzYxIDM4Ljk4ODUgODMuNjc2MSA0Mi41Nzk0Wk03MC4yMTAzIDQyLjU3OTVDNzAuMjEwMyA0Ni4xNzA0IDY4LjA5MTYgNDcuOTY1OCA2NS43MjE2IDQ3Ljk2NThDNjMuMzE1NyA0Ny45NjU4IDYxLjIzMyA0Ni4xNzA0IDYxLjIzMyA0Mi41Nzk1QzYxLjIzMyAzOC45ODg1IDYzLjMxNTcgMzcuMTkzMSA2NS43MjE2IDM3LjE5MzFDNjguMDkxNiAzNy4xOTMxIDcwLjIxMDMgMzguOTg4NSA3MC4yMTAzIDQyLjU3OTVaIiBmaWxsPSIjRkZGREY4Ii8+Cjwvc3ZnPg=='
 
 /** The basemark, for the Base Account entry. */
-const BASE_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTEgMTExIj48cmVjdCB3aWR0aD0iMTExIiBoZWlnaHQ9IjExMSIgcng9IjI0IiBmaWxsPSIjZmZmIi8+PHBhdGggZmlsbD0iIzAwNTJGRiIgZD0iTTU0LjkgMTEwLjVjMzAuNSAwIDU1LjItMjQuNyA1NS4yLTU1LjJTODUuNC4xIDU0LjkuMUMyNiAuMSAyLjIgMjIuMy0uMSA1MC42aDczdjkuOWgtNzNjMi4zIDI4LjMgMjYuMSA1MCA1NSA1MHoiLz48L3N2Zz4='
+const BASE_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTEgMTExIj48cmVjdCB3aWR0aD0iMTExIiBoZWlnaHQ9IjExMSIgcng9IjE4IiBmaWxsPSIjMDAwMEZGIi8+PC9zdmc+'
 
 function safeIcon(icon?: string): string | undefined {
   return icon?.startsWith('data:image') ? icon : undefined
@@ -83,22 +82,42 @@ function requireSupa(): NonNullable<typeof supa> {
   return supa
 }
 
-/** EIP-4361 requires a nonce line; supabase omits it when the caller sends
- *  none, and Phantom's strict SIWE parser rejects the message as "invalid
- *  formatting" (MetaMask parses loosely and never noticed). Always send one. */
+/** Fate builds its own EIP-4361 message instead of letting supabase-js do it.
+ *  Two Phantom strictnesses forced this: the message must carry a Nonce line,
+ *  and the address must appear exactly as the wallet holds it (EIP-55 case) —
+ *  supabase lowercases it and Phantom refuses to show the sheet. The signed
+ *  message goes back through signInWithWeb3 as a message+signature pair. */
 function siweNonce(): string {
   const abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
   return Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => abc[b % abc.length]).join('')
 }
 
+function toHexMsg(value: string): string {
+  const bytes = new TextEncoder().encode(value)
+  return '0x' + Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
+}
+
 async function signEthereum(provider: EthProvider): Promise<void> {
   const client = requireSupa()
+  const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as string[]
+  const address = accounts?.[0]
+  if (!address) throw new Error('The wallet returned no account.')
+  const chainIdHex = (await provider.request({ method: 'eth_chainId' })) as string
+  const chainId = parseInt(chainIdHex, 16)
+  const message =
+    `${location.host} wants you to sign in with your Ethereum account:\n${address}\n\n` +
+    `${STATEMENT}\n\n` +
+    `URI: ${location.href}\nVersion: 1\nChain ID: ${chainId}\nNonce: ${siweNonce()}\nIssued At: ${new Date().toISOString()}`
+  const signature = (await provider.request({
+    method: 'personal_sign',
+    params: [toHexMsg(message), address],
+  })) as string
+  if (!signature) throw new Error('The wallet returned no signature.')
   const { error } = await client.auth.signInWithWeb3({
     chain: 'ethereum',
-    statement: STATEMENT,
-    wallet: provider as EthereumWallet,
-    options: { signInWithEthereum: { nonce: siweNonce() } },
-  })
+    message,
+    signature,
+  } as unknown as Parameters<typeof client.auth.signInWithWeb3>[0])
   if (error) throw new Error(error.message)
 }
 
