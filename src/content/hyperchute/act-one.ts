@@ -18,7 +18,7 @@ export const ACT_ONE: readonly SceneDef[] = [
       'Mrs. Delgado owns the laundromat, the building, and — after thirty years — this whole block’s respect. She climbs the stairs at 8 a.m. with a rent envelope in one hand and a question she has practiced all morning. “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job now — a railway in the sky that drops packages soft as rain onto every block, even the Flats. She studies the hanging shuttle for a long, calm minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, wrapped with a bank band. Ten thousand dollars. She pushes it across the workbench with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
     choices: [
       {
-        label: 'Take it. One percent, notarized on a laundry receipt. [EDITTEST]',
+        label: 'Take it. One percent, notarized on a laundry receipt.',
         foley: 'pen',
         effects: [
           { e: 'meet', who: 'marisol' },
