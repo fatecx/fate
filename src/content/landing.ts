@@ -142,7 +142,7 @@ export const FINALE: LandingPanel = {
   head: 'OUT NOW',
   paras: [
     'Fate runs in your browser. Your wallet is your signature, and the first scene starts in the garage.',
-    'The twenty dollars you pay is the check that incorporates your first company.',
+    'The twenty dollars you pay incorporates your first company.',
   ],
 }
 
