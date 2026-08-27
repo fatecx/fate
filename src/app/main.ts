@@ -1676,6 +1676,8 @@ function renderIncorporation(): void {
       <div class="inv-total"><span>DUE TODAY</span><span class="inv-seg" id="invSeg">
         <button class="seg on" data-asset="usdc">20.00 USDC</button><button class="seg" data-asset="eth" id="segEth" disabled>… ETH</button>
       </span></div>
+      <div class="inv-sub inv-chain">All checks clear on <b>Base</b>. Funds on other networks can't be seen from here — bridge first, or pay with what this wallet holds on Base.</div>
+      <div class="inv-sub" id="invBal"></div>
       <button class="inv-cta" id="invPay">Wire the check — 20 USDC →</button>
       <div class="inv-payer" id="invPayer"></div>
       <div class="werr" id="payErr"></div>
@@ -1746,7 +1748,12 @@ function renderIncorporation(): void {
         busy = false
         payBtn.disabled = false
         payBtn.textContent = ctaLabel()
-        if (err) err.textContent = ex instanceof Error ? ex.message : 'The wire failed. Nothing was charged — try again.'
+        const raw = ex instanceof Error ? ex.message : String(ex)
+        const broke = /outoffunds|insufficient funds|insufficient balance|exceeds balance/i.test(raw)
+        if (err)
+          err.textContent = broke
+            ? 'Not enough on Base. Your funds may live on another network — the check clears on Base only. Bridge, or pay in the other currency.'
+            : raw || 'The wire failed. Nothing was charged — try again.'
       }
     })()
   })
@@ -1762,10 +1769,23 @@ function renderIncorporation(): void {
     if (payerEl) {
       payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}${session ? ` · ${esc(walletLabel(session))}` : ''} · <span class="inv-switch">to use another wallet, log out</span>`
     }
-    // Pick the asset the signed wallet can actually pay with.
+    // Read what the wallet actually holds ON BASE, show it, and preselect
+    // the asset that can genuinely clear. Gas rides on ETH either way.
     if (session) {
       const b = await readBalances(walletAddress(session))
-      if (b.usdc < 20_000_000n && b.eth > 0n) setAsset('eth')
+      const balEl = document.getElementById('invBal')
+      const ethFloat = Number(b.eth) / 1e18
+      const usdcFloat = Number(b.usdc) / 1e6
+      if (balEl)
+        balEl.innerHTML = `This wallet on Base: <b>${usdcFloat.toFixed(2)} USDC</b> · <b>${ethFloat.toFixed(5)} ETH</b>`
+      const gas = 3_000_000_000_000_000n // ~0.003 ETH headroom for gas
+      const wei = spot ? weiFor(spot) : 0n
+      const canUsdc = b.usdc >= 20_000_000n && b.eth > 300_000_000_000_000n
+      const canEth = wei > 0n && b.eth >= wei + gas
+      if (canUsdc) setAsset('usdc')
+      else if (canEth) setAsset('eth')
+      else if (err)
+        err.textContent = 'Too little on Base to clear the check. Bridge USDC or ETH to Base in your wallet, or log out and sign with a funded one.'
     }
   })()
 }
