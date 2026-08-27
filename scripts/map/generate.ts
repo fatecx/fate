@@ -186,7 +186,7 @@ const hesc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;
 // Build-time literal index: every editable block is mapped to the one content
 // file that contains its exact TS literal. Blocks whose literal is not unique
 // across src/content render read-only in the editor.
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 
 function contentFiles(dir: string): string[] {
   const out: string[] = []
@@ -223,6 +223,64 @@ function editable(path: string, text: string): string {
   LOCK[path] = text
   FILEOF[path] = file
   return ` data-path="${hesc(path)}"`
+}
+
+// ---- ART GALLERY — every image in the game, grouped for audit ----------------
+interface ArtCard {
+  id: string
+  grp: string // CAST | chapter title | ORPHANS
+  sub: string // PFP | SCENE | CUTSCENE | BRIDGE | FILM | PROLOGUE | VARIANT | ENDING | INTERLUDE | FILE
+  uses: string[]
+  chars: string[]
+}
+
+function artCards(): ArtCard[] {
+  const cards = new Map<string, ArtCard>()
+  const charName = (id?: string): string => (id ? CONTENT.characters[id]?.name ?? id : '')
+  const add = (id: string | undefined, grp: string, sub: string, use: string, chars: string[] = []): void => {
+    if (!id) return
+    let c = cards.get(id)
+    if (!c) {
+      c = { id, grp, sub, uses: [], chars: [] }
+      cards.set(id, c)
+    }
+    if (!c.uses.includes(use)) c.uses.push(use)
+    for (const nm of chars) if (nm && !c.chars.includes(nm)) c.chars.push(nm)
+  }
+  for (const [cid, cdef] of Object.entries(CONTENT.characters))
+    if (existsSync(join(process.cwd(), 'public', 'art', `${cid}.webp`)))
+      add(cid, 'CAST', 'PFP', `${cdef.name} — ${cdef.role}`, [cdef.name])
+  for (const ch of Object.values(CONTENT.chapters)) {
+    const G = ch.title
+    ch.prologue?.forEach((p, i) =>
+      add(p.art, G, 'PROLOGUE', `opening film · screen ${i + 1}${p.title ? ` · ${p.title}` : ''}`),
+    )
+    for (const s of ch.scenes) {
+      const sub = s.kind === 'cutscene' ? 'CUTSCENE' : s.kind === 'bridge' ? 'BRIDGE' : 'SCENE'
+      add(s.art, G, sub, `${s.title} · ${s.id}`, [charName(s.speaker)])
+      s.screens?.forEach((p, i) => add(p.art, G, 'FILM', `${s.title} · film screen ${i + 1}`, [charName(s.speaker)]))
+      s.vary?.forEach((v, i) => add(v.art, G, 'VARIANT', `${s.title} · variant ${i + 1}`, [charName(s.speaker)]))
+    }
+    for (const e of ch.endings) {
+      add(e.art, G, 'ENDING', `ending · ${e.title}`)
+      e.screens?.forEach((p, i) => add(p.art, G, 'FILM', `${e.title} · film screen ${i + 1}`))
+      if (e.interlude?.art) add(e.interlude.art, G, 'INTERLUDE', `${e.title} · the years after`)
+    }
+  }
+  // Orphans — files on disk that no content references. Remake/retire audit pile.
+  for (const f of readdirSync(join(process.cwd(), 'public', 'art')))
+    if (f.endsWith('.webp')) {
+      const id = f.slice(0, -5)
+      if (!cards.has(id)) add(id, 'ORPHANS', 'FILE', 'not referenced by any content')
+    }
+  return [...cards.values()]
+}
+
+let ART_FLAGS: string[] = []
+try {
+  ART_FLAGS = JSON.parse(readFileSync(join(process.cwd(), 'art', 'flags.json'), 'utf8')).flagged ?? []
+} catch {
+  /* no flags yet */
 }
 
 /** The whole game as one readable, editable document — the SCRIPT tab. */
@@ -272,6 +330,8 @@ function renderHtml(chapters: MapChapter[]): string {
     script,
     lock: LOCK,
     fileOf: FILEOF,
+    art: artCards(),
+    flags: ART_FLAGS,
     repo: 'fatecx/fate',
     branch: 'main',
   })
@@ -423,6 +483,38 @@ body[data-edit] .scriptpane [data-path]{outline:1px dashed var(--line);outline-o
 body[data-edit] .scriptpane [data-path]:focus{outline:1.5px solid var(--accent)}
 body[data-edit] .scriptpane [data-path].dirty{background:var(--accent-soft)}
 body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .s-cl:not([data-path]){opacity:.45}
+.artpane{display:flex;align-items:flex-start;min-height:100%}
+.artside{position:sticky;top:0;flex:0 0 218px;max-height:calc(100vh - 60px);overflow-y:auto;padding:16px 12px 24px;border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;gap:2px}
+.af{font-family:var(--mono);font-size:12px;text-align:left;padding:6px 10px;border-radius:3px;color:var(--dim);display:flex;justify-content:space-between;gap:10px}
+.af:hover{color:var(--ink)}
+.af.on{color:var(--accent);font-weight:600;background:var(--accent-soft)}
+.af .n{opacity:.65}
+.af-h{font:600 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--dim);margin:14px 0 5px;padding:0 10px}
+.af-save{margin-top:16px;font:700 11px var(--mono);letter-spacing:.08em;padding:9px;border:1px solid var(--line);border-radius:4px;color:var(--dim)}
+.af-save.has{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.af-note{font:10.5px/1.5 var(--mono);color:var(--dim);padding:8px 10px 0}
+.artmain{flex:1;min-width:0;padding:16px 20px 90px}
+.artchips{flex-wrap:wrap;margin-bottom:14px}
+.artchips .tab{font-size:10.5px;padding:3px 9px}
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;align-items:start}
+.acard{border:1px solid var(--line);border-radius:5px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.acard.flagged{border-color:var(--disgrace);box-shadow:0 0 0 1.5px var(--disgrace)}
+.acard img{width:100%;height:auto;display:block;cursor:zoom-in;background:var(--paper);min-height:80px}
+.ainfo{padding:8px 10px 10px;display:flex;flex-direction:column;gap:5px}
+.ahead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.aid{font:600 11px var(--mono);word-break:break-all}
+.aflagbtn{font-size:13px;color:var(--dim);flex:none;line-height:1}
+.aflagbtn:hover{color:var(--disgrace)}
+.aflagbtn.on{color:var(--disgrace)}
+.arow{display:flex;gap:4px;flex-wrap:wrap}
+.atag{font:600 9px var(--mono);letter-spacing:.06em;padding:1.5px 6px;border:1px solid var(--line);border-radius:99px;color:var(--dim)}
+.atag.k{color:var(--accent);border-color:var(--accent)}
+.ause{font-size:10.5px;color:var(--dim);line-height:1.5}
+.lightbox{position:fixed;inset:0;background:rgba(10,10,10,.86);display:none;z-index:100;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(94vw,960px);max-height:76vh;border-radius:4px;box-shadow:0 18px 60px rgba(0,0,0,.5)}
+.lbmeta{font:12px/1.7 var(--mono);color:#E8E8E4;text-align:center;max-width:82ch}
+.lbmeta b{color:#fff}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
 </head>
@@ -432,6 +524,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   <nav class="tabs" id="pages">
     <button class="tab pg on" data-page="map">MAP</button>
     <button class="tab pg" data-page="script">SCRIPT</button>
+    <button class="tab pg" data-page="art">ART</button>
   </nav>
   <div class="search"><input id="q" type="search" placeholder="search scenes…" aria-label="Search scenes"></div>
   <div class="edbar" id="edbar" style="display:none">
@@ -456,7 +549,14 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
     <span class="lg">dashed border = random-pool · chip = speaker/fuse</span>
   </div>
 </div>
-<main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div></main>
+<main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div><div class="artpane" id="artpane" style="display:none">
+  <aside class="artside" id="artside"></aside>
+  <div class="artmain">
+    <nav class="tabs artchips" id="artchips"></nav>
+    <div class="artgrid" id="artgrid"></div>
+  </div>
+</div></main>
+<div class="lightbox" id="lightbox"><img id="lbimg" alt=""><div class="lbmeta" id="lbmeta"></div></div>
 <aside class="drawer" id="drawer">
   <div class="dhead"><div class="dkicker" id="dkicker"></div><div class="dtitle" id="dtitle"></div><button class="dclose" id="dclose" aria-label="Close">✕</button></div>
   <div class="dbody" id="dbody"></div>
@@ -546,24 +646,112 @@ tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(currentTab==='all'||l.dataset.ch===currentTab)?'':'none';});
   clearFocus();drawer.classList.remove('open');});
 {const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);}
-// PAGES (header) — MAP and SCRIPT are different rooms, not filters.
+// PAGES (header) — MAP, SCRIPT and ART are different rooms, not filters.
 document.getElementById('pages').addEventListener('click',e=>{const b=e.target.closest('.pg');if(!b)return;
-  const scriptOn=b.dataset.page==='script';
+  const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',mapOn=page==='map';
   document.querySelectorAll('.pg').forEach(t=>t.classList.toggle('on',t===b));
   const pane=document.getElementById('scriptpane');
   pane.style.display=scriptOn?'':'none';
   if(scriptOn&&!pane.dataset.built){pane.innerHTML=DATA.script;pane.dataset.built='1';
     if(document.body.hasAttribute('data-edit'))applyEditable(true);}
+  const ap=document.getElementById('artpane');
+  ap.style.display=artOn?'':'none';
+  if(artOn&&!ap.dataset.built){buildArt();ap.dataset.built='1';}
   document.getElementById('edbar').style.display=scriptOn?'':'none';
-  document.getElementById('subbar').style.display=scriptOn?'none':'';
+  document.getElementById('subbar').style.display=mapOn?'':'none';
   document.querySelector('.search').style.display=scriptOn?'none':'';
-  document.querySelector('.hint').style.display=scriptOn?'none':'';
-  document.querySelectorAll('.lane').forEach(l=>{l.style.display=(!scriptOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
+  q.placeholder=artOn?'search art…':'search scenes…';
+  document.querySelector('.hint').style.display=mapOn?'':'none';
+  document.querySelectorAll('.lane').forEach(l=>{l.style.display=(mapOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
   clearFocus();drawer.classList.remove('open');});
 document.getElementById('dclose').addEventListener('click',()=>{drawer.classList.remove('open');clearFocus();});
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');document.getElementById('pubdrop').classList.remove('open');clearFocus();}});
-q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');document.getElementById('pubdrop').classList.remove('open');document.getElementById('lightbox').classList.remove('open');clearFocus();}});
+q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});
+  if(document.getElementById('artpane').dataset.built)applyArtFilter();});
+
+// ---- ART GALLERY — every frame in the game, foldered, filterable, flaggable --
+// Sidebar folders scope by group (cast / chapter / orphans / flagged); chips
+// filter by type; search matches id, usage and character. Flag any card and
+// SAVE FLAGS commits art/flags.json through /api/save — a remake list any
+// agent can pick up.
+const AFLAGS=new Set(DATA.flags||[]);
+let artGrp='ALL',artSub='ALL';
+const ARTBASE=location.protocol==='file:'?'public/art/':'/art/';
+const eh=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function flagDirty(){const base=new Set(DATA.flags||[]);let n=0;
+  AFLAGS.forEach(x=>{if(!base.has(x))n++;});base.forEach(x=>{if(!AFLAGS.has(x))n++;});return n;}
+function refreshFlagUI(){
+  const btn=document.getElementById('afsave');if(!btn)return;
+  const d=flagDirty();
+  btn.textContent=d?('SAVE FLAGS ('+d+')'):'FLAGS SAVED';
+  btn.classList.toggle('has',d>0);btn.disabled=!d;
+  const fl=document.querySelector('.af[data-grp="FLAGGED"] .n');if(fl)fl.textContent=AFLAGS.size;}
+function toggleFlag(id){
+  if(AFLAGS.has(id))AFLAGS.delete(id);else AFLAGS.add(id);
+  document.querySelectorAll('.acard[data-id="'+CSS.escape(id)+'"]').forEach(el=>{
+    el.classList.toggle('flagged',AFLAGS.has(id));
+    el.querySelector('.aflagbtn').classList.toggle('on',AFLAGS.has(id));});
+  refreshFlagUI();if(artGrp==='FLAGGED')applyArtFilter();}
+function applyArtFilter(){const v=q.value.trim().toLowerCase();
+  let shown=0;
+  document.querySelectorAll('.acard').forEach(el=>{const a=el._art;
+    const gOk=artGrp==='ALL'||(artGrp==='FLAGGED'?AFLAGS.has(a.id):a.grp===artGrp);
+    const sOk=artSub==='ALL'||a.sub===artSub;
+    const qOk=!v||(a.id+' '+a.uses.join(' ')+' '+a.chars.join(' ')).toLowerCase().includes(v);
+    const on=gOk&&sOk&&qOk;el.style.display=on?'':'none';if(on)shown++;});
+  const c=document.getElementById('afcount');if(c)c.textContent=shown+' of '+DATA.art.length+' frames';}
+function openLightbox(a){
+  document.getElementById('lbimg').src=ARTBASE+a.id+'.webp';
+  document.getElementById('lbmeta').innerHTML='<b>'+eh(a.id)+'</b> · '+eh(a.sub)+' · '+eh(a.grp)
+    +(a.chars.length?'<br>'+a.chars.map(eh).join(' · '):'')
+    +'<br>'+a.uses.map(eh).join('<br>');
+  document.getElementById('lightbox').classList.add('open');}
+document.getElementById('lightbox').addEventListener('click',()=>document.getElementById('lightbox').classList.remove('open'));
+function buildArt(){
+  const side=document.getElementById('artside'),grid=document.getElementById('artgrid'),chips=document.getElementById('artchips');
+  const grps=['ALL'];DATA.art.forEach(a=>{if(!grps.includes(a.grp))grps.push(a.grp);});grps.push('FLAGGED');
+  const count=g=>g==='ALL'?DATA.art.length:g==='FLAGGED'?AFLAGS.size:DATA.art.filter(a=>a.grp===g).length;
+  side.innerHTML='<div class="af-h">FOLDERS</div>'
+    +grps.map(g=>'<button class="af'+(g==='ALL'?' on':'')+'" data-grp="'+eh(g)+'"><span>'+(g==='FLAGGED'?'⚑ FLAGGED':eh(g))+'</span><span class="n">'+count(g)+'</span></button>').join('')
+    +'<button class="af-save" id="afsave" disabled>FLAGS SAVED</button>'
+    +'<div class="af-note" id="afcount"></div>'
+    +'<div class="af-note">⚑ marks a frame for remake. SAVE commits the list to the repo.</div>';
+  const subs=['ALL'];DATA.art.forEach(a=>{if(!subs.includes(a.sub))subs.push(a.sub);});
+  chips.innerHTML=subs.map(s=>'<button class="tab'+(s==='ALL'?' on':'')+'" data-sub="'+eh(s)+'">'+(s==='PFP'?'PFPS':eh(s)+(s==='ALL'?'':'S')).replace('ALLS','ALL')+'</button>').join('');
+  DATA.art.forEach(a=>{
+    const el=document.createElement('div');
+    el.className='acard'+(AFLAGS.has(a.id)?' flagged':'');el.dataset.id=a.id;
+    el.innerHTML='<img loading="lazy" src="'+ARTBASE+eh(a.id)+'.webp" alt="'+eh(a.id)+'">'
+      +'<div class="ainfo"><div class="ahead"><span class="aid">'+eh(a.id)+'</span>'
+      +'<button class="aflagbtn'+(AFLAGS.has(a.id)?' on':'')+'" title="flag for remake">⚑</button></div>'
+      +'<div class="arow"><span class="atag k">'+eh(a.sub)+'</span><span class="atag">'+eh(a.grp)+'</span>'+a.chars.map(c=>'<span class="atag">'+eh(c)+'</span>').join('')+'</div>'
+      +'<div class="ause">'+a.uses.slice(0,3).map(eh).join('<br>')+(a.uses.length>3?'<br>+'+(a.uses.length-3)+' more':'')+'</div></div>';
+    grid.appendChild(el);el._art=a;
+    el.querySelector('img').addEventListener('click',()=>openLightbox(a));
+    el.querySelector('.aflagbtn').addEventListener('click',()=>toggleFlag(a.id));});
+  side.addEventListener('click',e=>{const b=e.target.closest('.af');if(!b)return;
+    artGrp=b.dataset.grp;
+    side.querySelectorAll('.af').forEach(x=>x.classList.toggle('on',x===b));
+    applyArtFilter();});
+  chips.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
+    artSub=b.dataset.sub;
+    chips.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));
+    applyArtFilter();});
+  document.getElementById('afsave').addEventListener('click',async()=>{
+    const btn=document.getElementById('afsave');
+    if(!flagDirty())return;
+    const pass=mapPass();if(!pass)return;
+    btn.disabled=true;btn.textContent='SAVING…';
+    try{
+      const out=await api({pass:pass,action:'flags',flags:[...AFLAGS].sort()});
+      DATA.flags=[...AFLAGS];
+      btn.textContent='SAVED · '+out.sha.slice(0,7);
+      setTimeout(refreshFlagUI,2500);
+    }catch(err){btn.textContent='FAILED — TRY AGAIN';btn.disabled=false;
+      alert(String(err&&err.message||err));}
+  });
+  refreshFlagUI();applyArtFilter();}
 
 // ---- SCRIPT EDITOR — edit prose in the browser, PUBLISH ships it -------------
 // Every [data-path] block maps to ONE unique TS string literal (DATA.lock /

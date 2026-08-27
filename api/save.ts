@@ -7,6 +7,7 @@
  * already have.
  *
  * POST { pass, action: 'save',   edits: [{ file, from, to }] } → { sha }
+ * POST { pass, action: 'flags',  flags: [artId] }              → { sha }
  * POST { pass, action: 'status', sha }                         → { found, status, conclusion }
  *
  * 'save' rewrites each unique literal in the named content file and pushes ONE
@@ -61,6 +62,31 @@ export default async function handler(req: any, res: any) {
       const runs = await gh('GET', `/actions/runs?head_sha=${body.sha}`)
       const run = runs.workflow_runs?.[0]
       return res.status(200).json({ found: !!run, status: run?.status ?? null, conclusion: run?.conclusion ?? null })
+    }
+
+    if (body.action === 'flags') {
+      // The ART tab's remake list — one tracked JSON file, one commit.
+      const flags = body.flags
+      if (
+        !Array.isArray(flags) || flags.length > 600 ||
+        flags.some((f: unknown) => typeof f !== 'string' || !/^[a-z0-9_-]{1,80}$/i.test(f))
+      )
+        return res.status(400).json({ error: 'bad flags' })
+      const content = JSON.stringify({ flagged: [...flags].sort() }, null, 2) + '\n'
+      const base = (await gh('GET', `/git/ref/heads/${BRANCH}`)).object.sha
+      const baseTree = (await gh('GET', `/git/commits/${base}`)).tree.sha
+      const blob = await gh('POST', '/git/blobs', { content, encoding: 'utf-8' })
+      const newTree = await gh('POST', '/git/trees', {
+        base_tree: baseTree,
+        tree: [{ path: 'art/flags.json', mode: '100644', type: 'blob', sha: blob.sha }],
+      })
+      const commit = await gh('POST', '/git/commits', {
+        message: `Art flags from the map (${flags.length} flagged)`,
+        tree: newTree.sha,
+        parents: [base],
+      })
+      await gh('PATCH', `/git/refs/heads/${BRANCH}`, { sha: commit.sha })
+      return res.status(200).json({ sha: commit.sha })
     }
 
     if (body.action === 'save') {
