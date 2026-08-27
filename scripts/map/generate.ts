@@ -183,44 +183,99 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
 const esc = (s: string): string => s.replace(/</g, '\\u003c')
 const hesc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
-/** The whole game as one readable document — the SCRIPT tab. */
+// Build-time literal index: every editable block is mapped to the one content
+// file that contains its exact TS literal. Blocks whose literal is not unique
+// across src/content render read-only in the editor.
+import { readFileSync, readdirSync, statSync } from 'node:fs'
+
+function contentFiles(dir: string): string[] {
+  const out: string[] = []
+  for (const name of readdirSync(dir)) {
+    const p = join(dir, name)
+    if (statSync(p).isDirectory()) out.push(...contentFiles(p))
+    else if (name.endsWith('.ts')) out.push(p)
+  }
+  return out
+}
+const SRC_FILES = contentFiles(join(process.cwd(), 'src', 'content')).map((f) => ({
+  rel: f.slice(process.cwd().length + 1),
+  src: readFileSync(f, 'utf8'),
+}))
+const toLiteral = (text: string): string => text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n')
+
+const LOCK: Record<string, string> = {}
+const FILEOF: Record<string, string> = {}
+
+/** Register an editable block; returns the data attrs if uniquely locatable. */
+function editable(path: string, text: string): string {
+  const lit = toLiteral(text)
+  let file = ''
+  let hits = 0
+  for (const f of SRC_FILES) {
+    let at = f.src.indexOf(lit)
+    while (at !== -1) {
+      hits++
+      file = f.rel
+      at = f.src.indexOf(lit, at + 1)
+    }
+  }
+  if (hits !== 1) return ''
+  LOCK[path] = text
+  FILEOF[path] = file
+  return ` data-path="${hesc(path)}"`
+}
+
+/** The whole game as one readable, editable document — the SCRIPT tab. */
 function scriptHtml(): string {
   const out: string[] = []
-  const block = (label: string, text?: string): void => {
+  const block = (label: string, path: string, text?: string): void => {
     if (!text) return
-    out.push(`<div class="sb"><div class="sb-k">${hesc(label)}</div><div class="sb-t">${hesc(text)}</div></div>`)
+    out.push(`<div class="sb"><div class="sb-k">${hesc(label)}</div><div class="sb-t"${editable(path, text)}>${hesc(text)}</div></div>`)
   }
   for (const ch of Object.values(CONTENT.chapters)) {
     out.push(`<h1 class="s-ch">${hesc(ch.title)}, INC. <span>— ${hesc(ch.tagline)}</span></h1>`)
-    ch.prologue?.forEach((p, i) => block(`opening film · screen ${i + 1}${p.title ? ` · ${p.title}` : ''}`, p.prose))
+    ch.prologue?.forEach((p, i) => block(`opening film · screen ${i + 1}${p.title ? ` · ${p.title}` : ''}`, `${ch.id}/prologue[${i}].prose`, p.prose))
     for (const s of ch.scenes) {
       const spk = s.speaker ? CONTENT.characters[s.speaker]?.name ?? s.speaker : 'THE WORLD'
       out.push(`<h2 class="s-sc" id="s-${hesc(s.id)}">${hesc(s.title)} <span>· ${hesc(s.id)} · ${hesc(spk)}${s.kind ? ` · ${s.kind}` : ''}</span></h2>`)
-      block('lead-in', s.leadIn)
-      block('prose', s.prose)
-      s.screens?.forEach((p, i) => block(`film screen ${i + 1}`, p.prose))
+      block('lead-in', `${ch.id}/${s.id}.leadIn`, s.leadIn)
+      block('prose', `${ch.id}/${s.id}.prose`, s.prose)
+      s.screens?.forEach((p, i) => block(`film screen ${i + 1}`, `${ch.id}/${s.id}.screen[${i}].prose`, p.prose))
       s.vary?.forEach((v, i) => {
-        block(`variant ${i + 1} · lead-in`, v.leadIn)
-        block(`variant ${i + 1} · prose`, v.prose)
+        block(`variant ${i + 1} · lead-in`, `${ch.id}/${s.id}.vary[${i}].leadIn`, v.leadIn)
+        block(`variant ${i + 1} · prose`, `${ch.id}/${s.id}.vary[${i}].prose`, v.prose)
       })
       s.choices.forEach((c, i) => {
-        out.push(`<div class="s-choice"><div class="sb-k">choice ${i + 1}${c.goto ? ` → ${hesc(c.goto)}` : ''}</div><div class="s-cl">${hesc(c.label)}</div>${c.result ? `<div class="sb-t">${hesc(c.result)}</div>` : ''}</div>`)
+        out.push(
+          `<div class="s-choice"><div class="sb-k">choice ${i + 1}${c.goto ? ` → ${hesc(c.goto)}` : ''}</div>` +
+            `<div class="s-cl"${editable(`${ch.id}/${s.id}.choice[${i}].label`, c.label)}>${hesc(c.label)}</div>` +
+            (c.result ? `<div class="sb-t"${editable(`${ch.id}/${s.id}.choice[${i}].result`, c.result)}>${hesc(c.result)}</div>` : '') +
+            `</div>`,
+        )
       })
     }
     out.push(`<h2 class="s-sc">${hesc(ch.title)} · ENDINGS</h2>`)
     for (const e of ch.endings) {
       out.push(`<h3 class="s-end">${hesc(e.title)} <span>· ${hesc(e.id)} · ${hesc(e.kind)}</span></h3>`)
-      block('epilogue', e.prose)
-      e.screens?.forEach((p, i) => block(`film screen ${i + 1}`, p.prose))
-      block('interlude — the years after', e.interlude?.prose)
+      block('epilogue', `${ch.id}/end.${e.id}.prose`, e.prose)
+      e.screens?.forEach((p, i) => block(`film screen ${i + 1}`, `${ch.id}/end.${e.id}.screen[${i}].prose`, p.prose))
+      if (e.interlude) block('interlude — the years after', `${ch.id}/end.${e.id}.interlude.prose`, e.interlude.prose)
     }
   }
   return out.join('')
 }
 
 function renderHtml(chapters: MapChapter[]): string {
-  const data = JSON.stringify({ chapters, script: scriptHtml() })
-  return TEMPLATE.replace('__DATA__', esc(data))
+  const script = scriptHtml()
+  const data = JSON.stringify({
+    chapters,
+    script,
+    lock: LOCK,
+    fileOf: FILEOF,
+    repo: 'fatecx/fate',
+    branch: 'main',
+  })
+  return TEMPLATE.split('__DATA__').join(esc(data))
 }
 
 const TEMPLATE = String.raw`<!doctype html>
@@ -340,6 +395,16 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .s-choice{border-left:3px solid var(--ink);padding:7px 12px;margin:12px 0;background:var(--panel);border-radius:0 4px 4px 0}
 .s-cl{font-weight:600;font-size:13.5px;margin:1px 0 4px}
 .s-choice .sb-t{font-size:12.5px;color:var(--dim)}
+.edbar{display:flex;gap:6px;align-items:center}
+.edbar .tab.on{color:var(--accent);border-color:var(--accent);font-weight:600}
+#edsave:disabled{opacity:.35;cursor:default}
+.edstatus{font-family:var(--mono);font-size:11px;color:var(--dim);max-width:420px}
+.edstatus.err{color:var(--disgrace)}
+.edstatus.ok{color:var(--triumph)}
+body[data-edit] .scriptpane [data-path]{outline:1px dashed var(--line);outline-offset:3px;border-radius:2px;cursor:text}
+body[data-edit] .scriptpane [data-path]:focus{outline:1.5px solid var(--accent)}
+body[data-edit] .scriptpane [data-path].dirty{background:var(--accent-soft)}
+body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .s-cl:not([data-path]){opacity:.45}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
 </head>
@@ -348,6 +413,11 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   <div class="masthead">FATE<span>·</span>STORYLINE MAP</div>
   <nav class="tabs" id="tabs"></nav>
   <div class="search"><input id="q" type="search" placeholder="search scenes…" aria-label="Search scenes"></div>
+  <div class="edbar" id="edbar" style="display:none">
+    <button class="tab" id="edtoggle">EDIT</button>
+    <button class="tab" id="edsave" disabled>SAVE</button>
+    <span class="edstatus" id="edstatus"></span>
+  </div>
 </header>
 <div class="legend">
   <span class="lg"><span class="sw"></span>authored sequence</span>
@@ -445,6 +515,7 @@ tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
   const scriptOn=currentTab==='script';
   const pane=document.getElementById('scriptpane');
   pane.style.display=scriptOn?'':'none';
+  document.getElementById('edbar').style.display=scriptOn?'':'none';
   if(scriptOn&&!pane.dataset.built){pane.innerHTML=DATA.script;pane.dataset.built='1';}
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(!scriptOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
   clearFocus();drawer.classList.remove('open');});
@@ -454,6 +525,86 @@ document.getElementById('dclose').addEventListener('click',()=>{drawer.classList
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');clearFocus();}});
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});});
+
+// ---- SCRIPT EDITOR — edit prose in the browser, SAVE commits to GitHub -------
+// Every [data-path] block maps to ONE unique TS string literal (DATA.lock /
+// DATA.fileOf, built at generate time). SAVE rewrites those literals in the
+// content files and pushes one commit; the ship workflow then tests + deploys.
+const edtoggle=document.getElementById('edtoggle'),edsave=document.getElementById('edsave'),edstatus=document.getElementById('edstatus');
+const CE=(()=>{const d=document.createElement('div');try{d.contentEditable='plaintext-only';return 'plaintext-only';}catch(e){return 'true';}})();
+const toLit=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
+const blockText=el=>el.innerText.replace(/\u00A0/g,' ').replace(/^\s+|\s+$/g,'');
+function setStatus(msg,cls){edstatus.textContent=msg||'';edstatus.className='edstatus'+(cls?' '+cls:'');}
+function refreshDirty(){const out={};let n=0;
+  document.querySelectorAll('#scriptpane [data-path]').forEach(el=>{
+    const p=el.dataset.path,t=blockText(el),d=t!==DATA.lock[p];
+    el.classList.toggle('dirty',d);if(d){out[p]=t;n++;}});
+  edsave.disabled=!n;edsave.textContent=n?'SAVE ('+n+')':'SAVE';return out;}
+edtoggle.addEventListener('click',()=>{
+  const on=!document.body.hasAttribute('data-edit');
+  if(on)document.body.setAttribute('data-edit','1');else document.body.removeAttribute('data-edit');
+  edtoggle.classList.toggle('on',on);
+  document.querySelectorAll('#scriptpane [data-path]').forEach(el=>{
+    if(on)el.setAttribute('contenteditable',CE);else el.removeAttribute('contenteditable');});
+  setStatus(on?'edit mode — click any outlined block and type; dim blocks are locked (text not unique in source)':'');});
+document.getElementById('scriptpane').addEventListener('input',e=>{if(e.target.closest('[data-path]'))refreshDirty();});
+function ghToken(){let t=localStorage.getItem('fate-gh-token');
+  if(!t){t=prompt('GitHub token with write access to '+DATA.repo+'\n(stored only in this browser):');
+    if(t){t=t.trim();localStorage.setItem('fate-gh-token',t);}}
+  return t;}
+async function gh(method,path,body,raw){
+  const res=await fetch('https://api.github.com/repos/'+DATA.repo+path,{method:method,
+    headers:{Authorization:'Bearer '+localStorage.getItem('fate-gh-token'),
+      Accept:raw?'application/vnd.github.raw':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},
+    body:body?JSON.stringify(body):undefined});
+  if(res.status===401){localStorage.removeItem('fate-gh-token');throw new Error('token rejected — click SAVE and paste a fresh one');}
+  if(!res.ok)throw new Error(method+' '+path+' → HTTP '+res.status);
+  return raw?res.text():res.json();}
+edsave.addEventListener('click',async()=>{
+  const dirty=refreshDirty();const n=Object.keys(dirty).length;
+  if(!n||!ghToken())return;
+  edsave.disabled=true;
+  try{
+    setStatus('reading source files…');
+    const byFile={};for(const p in dirty){const f=DATA.fileOf[p];(byFile[f]=byFile[f]||[]).push(p);}
+    const updates={};
+    for(const f in byFile){
+      let src=await gh('GET','/contents/'+f+'?ref='+DATA.branch,null,true);
+      for(const p of byFile[f]){
+        const oldLit=toLit(DATA.lock[p]);
+        const at=src.indexOf(oldLit);
+        if(at===-1)throw new Error(p+': original text not found in '+f+' — file changed since this map was built; redeploy the map first');
+        if(src.indexOf(oldLit,at+1)!==-1)throw new Error(p+': text no longer unique in '+f);
+        src=src.slice(0,at)+toLit(dirty[p])+src.slice(at+oldLit.length);}
+      updates[f]=src;}
+    setStatus('committing '+n+' edit'+(n>1?'s':'')+' to '+Object.keys(updates).length+' file(s)…');
+    const base=(await gh('GET','/git/ref/heads/'+DATA.branch)).object.sha;
+    const baseTree=(await gh('GET','/git/commits/'+base)).tree.sha;
+    const tree=[];
+    for(const f in updates){const blob=await gh('POST','/git/blobs',{content:updates[f],encoding:'utf-8'});
+      tree.push({path:f,mode:'100644',type:'blob',sha:blob.sha});}
+    const newTree=await gh('POST','/git/trees',{base_tree:baseTree,tree:tree});
+    const commit=await gh('POST','/git/commits',{message:'Script edits from the map editor ('+n+' block'+(n>1?'s':'')+')',tree:newTree.sha,parents:[base]});
+    await gh('PATCH','/git/refs/heads/'+DATA.branch,{sha:commit.sha});
+    for(const p in dirty)DATA.lock[p]=dirty[p];
+    refreshDirty();
+    setStatus('committed '+commit.sha.slice(0,7)+' — tests + deploy running…','ok');
+    pollShip(commit.sha);
+  }catch(err){setStatus(String(err&&err.message||err),'err');refreshDirty();}});
+async function pollShip(sha){
+  for(let i=0;i<90;i++){
+    await new Promise(r=>setTimeout(r,10000));
+    try{
+      const runs=await gh('GET','/actions/runs?head_sha='+sha);
+      const run=runs.workflow_runs&&runs.workflow_runs[0];
+      if(!run){setStatus(sha.slice(0,7)+' committed — waiting for pipeline to start…','ok');continue;}
+      if(run.status!=='completed'){setStatus(sha.slice(0,7)+' — pipeline '+run.status.split('_').join(' ')+'…','ok');continue;}
+      if(run.conclusion==='success')setStatus(sha.slice(0,7)+' — tests passed, LIVE on fate.cx ✓','ok');
+      else setStatus(sha.slice(0,7)+' — pipeline '+run.conclusion+': committed but NOT live. Check github.com/'+DATA.repo+'/actions','err');
+      return;
+    }catch(e){}
+  }
+}
 </script>
 </body>
 </html>`;

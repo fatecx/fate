@@ -1,0 +1,41 @@
+# Ship: every push to main is tested, built, and deployed to fate.cx.
+# This is the safety net behind the map's browser editor — a bad edit fails
+# `vitest` here and never reaches production.
+name: ship
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ship
+  cancel-in-progress: false
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_nthIDYv0ryECBKm7uosuZjEO
+      VERCEL_PROJECT_ID: prj_fUkxeenuF17o9itlzdtFX9fJsOB3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npx vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: npx vercel build --prod --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          FATE_MAP_PASS: ${{ secrets.FATE_MAP_PASS }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          # LAUNCH CHECKLIST: delete this line — RESTART (DEV) must never ship at launch.
+          VITE_DEV_TOOLS: "1"
+      - run: npx vercel deploy --prebuilt --prod --yes --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

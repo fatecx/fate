@@ -61,7 +61,9 @@ async function unlock(pass){
   const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:un(IV)},key,un(DATA));
   const html=new TextDecoder().decode(plain);
   sessionStorage.setItem('fate-map-pass',pass);
-  document.open();document.write(html);document.close();
+  // Blob navigation (not document.write): a real page load, so the map's own
+  // scripts execute. blob: inherits this page's origin — storage keeps working.
+  location.replace(URL.createObjectURL(new Blob([html],{type:'text/html'})));
 }
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
   unlock(document.getElementById('p').value).catch(()=>{document.getElementById('err').style.display='block';});});
