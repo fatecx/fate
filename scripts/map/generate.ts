@@ -165,14 +165,52 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
   // Insolvency is reachable only via the $0 bank node, never as a dealt scene.
   dagre.layout(g)
 
-  const gi = g.graph()
-  const spineW = gi.width ?? 800
-  const spineH = gi.height ?? 400
+  // ---- rank wrap: dagre decides ORDER (rank + within-rank position); we
+  // decide GEOMETRY. Each rank wraps into rows inside a fixed-width column,
+  // so the whole map is one screen wide and only ever grows DOWN.
+  const COLW = 1240
+  const pos = new Map<string, { x: number; y: number }>()
+  {
+    const byRank = new Map<number, string[]>()
+    for (const id of ranked) {
+      const p = g.node(id)
+      if (!p) continue
+      const r = Math.round(p.y)
+      if (!byRank.has(r)) byRank.set(r, [])
+      byRank.get(r)!.push(id)
+    }
+    const rankYs = [...byRank.keys()].sort((a, b) => a - b)
+    let y = 24
+    for (const r of rankYs) {
+      const ids = byRank.get(r)!.sort((a, b) => g.node(a).x - g.node(b).x)
+      let x = 24
+      let rowH = 0
+      let rankStartY = y
+      for (const id of ids) {
+        const n = byId.get(id)!
+        const { w, h } = nodeSize(n)
+        if (x + w > COLW && x > 24) {
+          x = 24
+          y += rowH + 16
+          rowH = 0
+        }
+        pos.set(id, { x, y })
+        x += w + 18
+        rowH = Math.max(rowH, h)
+      }
+      y += rowH + 46
+      void rankStartY
+    }
+  }
+  const spineW = COLW
+  const spineH = [...pos.keys()].length
+    ? Math.max(...[...pos.entries()].map(([id, p]) => p.y + nodeSize(byId.get(id)!).h))
+    : 400
 
   // THE WORLD's pool — scenes only the deck deals in. Rank means nothing for
   // them, so they wrap into a compact grid beneath the story spine.
   const loose = nodesRaw.filter((n) => !ranked.has(n.id))
-  const GRIDW = Math.max(1200, Math.min(spineW, 1800))
+  const GRIDW = COLW
   const loosePos = new Map<string, { x: number; y: number }>()
   {
     let x = 24
@@ -193,17 +231,16 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
 
   const nodes: MapNode[] = nodesRaw.map((n) => {
     const { w, h } = nodeSize(n)
-    const lp = loosePos.get(n.id)
+    const lp = loosePos.get(n.id) ?? pos.get(n.id)
     if (lp) return { ...n, x: lp.x, y: lp.y, w, h }
-    const pos = g.node(n.id)
-    return { ...n, x: Math.round(pos.x - w / 2), y: Math.round(pos.y - h / 2), w, h }
+    return { ...n, x: 24, y: 24, w, h }
   })
   const edges = [...edgeMap.values()]
 
-  const laneW = Math.max(spineW, loose.length ? GRIDW : 0)
+  const laneW = Math.max(spineW, loose.length ? GRIDW : 0) + 24
   const laneH = loose.length
     ? Math.max(...[...loosePos.values()].map((p) => p.y)) + 180
-    : spineH
+    : spineH + 40
 
   let choiceCount = 0
   for (const s of def.scenes) choiceCount += s.choices.length
