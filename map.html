@@ -246,10 +246,12 @@ stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.conta
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');clearFocus();}});
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});});
 
-// ---- SCRIPT EDITOR — edit prose in the browser, SAVE commits to GitHub -------
+// ---- SCRIPT EDITOR — edit prose in the browser, SAVE ships it ---------------
 // Every [data-path] block maps to ONE unique TS string literal (DATA.lock /
-// DATA.fileOf, built at generate time). SAVE rewrites those literals in the
-// content files and pushes one commit; the ship workflow then tests + deploys.
+// DATA.fileOf, built at generate time). SAVE posts the edits to /api/save,
+// which holds the GitHub token server-side and pushes one commit to main;
+// the ship workflow then tests + deploys. Auth = the map passphrase you
+// already entered at the gate (sessionStorage) — nothing else to paste.
 const edtoggle=document.getElementById('edtoggle'),edsave=document.getElementById('edsave'),edstatus=document.getElementById('edstatus');
 const CE=(()=>{const d=document.createElement('div');try{d.contentEditable='plaintext-only';return 'plaintext-only';}catch(e){return 'true';}})();
 const toLit=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
@@ -268,59 +270,40 @@ edtoggle.addEventListener('click',()=>{
     if(on)el.setAttribute('contenteditable',CE);else el.removeAttribute('contenteditable');});
   setStatus(on?'edit mode — click any outlined block and type; dim blocks are locked (text not unique in source)':'');});
 document.getElementById('scriptpane').addEventListener('input',e=>{if(e.target.closest('[data-path]'))refreshDirty();});
-function ghToken(){let t=localStorage.getItem('fate-gh-token');
-  if(!t){t=prompt('GitHub token with write access to '+DATA.repo+'\n(stored only in this browser):');
-    if(t){t=t.trim();localStorage.setItem('fate-gh-token',t);}}
-  return t;}
-async function gh(method,path,body,raw){
-  const res=await fetch('https://api.github.com/repos/'+DATA.repo+path,{method:method,
-    headers:{Authorization:'Bearer '+localStorage.getItem('fate-gh-token'),
-      Accept:raw?'application/vnd.github.raw':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},
-    body:body?JSON.stringify(body):undefined});
-  if(res.status===401){localStorage.removeItem('fate-gh-token');throw new Error('token rejected — click SAVE and paste a fresh one');}
-  if(!res.ok)throw new Error(method+' '+path+' → HTTP '+res.status);
-  return raw?res.text():res.json();}
+function mapPass(){let p=sessionStorage.getItem('fate-map-pass');
+  if(!p){p=prompt('Map passphrase (the one that unlocked this page):');
+    if(p){p=p.trim();sessionStorage.setItem('fate-map-pass',p);}}
+  return p;}
+async function api(body){
+  const res=await fetch('https://fate.cx/api/save',{method:'POST',
+    headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await res.json().catch(()=>({}));
+  if(res.status===401){sessionStorage.removeItem('fate-map-pass');throw new Error('passphrase rejected — click SAVE and enter it again');}
+  if(!res.ok)throw new Error(j.error||('HTTP '+res.status));
+  return j;}
 edsave.addEventListener('click',async()=>{
   const dirty=refreshDirty();const n=Object.keys(dirty).length;
-  if(!n||!ghToken())return;
+  if(!n)return;
+  const pass=mapPass();if(!pass)return;
   edsave.disabled=true;
   try{
-    setStatus('reading source files…');
-    const byFile={};for(const p in dirty){const f=DATA.fileOf[p];(byFile[f]=byFile[f]||[]).push(p);}
-    const updates={};
-    for(const f in byFile){
-      let src=await gh('GET','/contents/'+f+'?ref='+DATA.branch,null,true);
-      for(const p of byFile[f]){
-        const oldLit=toLit(DATA.lock[p]);
-        const at=src.indexOf(oldLit);
-        if(at===-1)throw new Error(p+': original text not found in '+f+' — file changed since this map was built; redeploy the map first');
-        if(src.indexOf(oldLit,at+1)!==-1)throw new Error(p+': text no longer unique in '+f);
-        src=src.slice(0,at)+toLit(dirty[p])+src.slice(at+oldLit.length);}
-      updates[f]=src;}
-    setStatus('committing '+n+' edit'+(n>1?'s':'')+' to '+Object.keys(updates).length+' file(s)…');
-    const base=(await gh('GET','/git/ref/heads/'+DATA.branch)).object.sha;
-    const baseTree=(await gh('GET','/git/commits/'+base)).tree.sha;
-    const tree=[];
-    for(const f in updates){const blob=await gh('POST','/git/blobs',{content:updates[f],encoding:'utf-8'});
-      tree.push({path:f,mode:'100644',type:'blob',sha:blob.sha});}
-    const newTree=await gh('POST','/git/trees',{base_tree:baseTree,tree:tree});
-    const commit=await gh('POST','/git/commits',{message:'Script edits from the map editor ('+n+' block'+(n>1?'s':'')+')',tree:newTree.sha,parents:[base]});
-    await gh('PATCH','/git/refs/heads/'+DATA.branch,{sha:commit.sha});
+    setStatus('saving…');
+    const edits=Object.keys(dirty).map(p=>({file:DATA.fileOf[p],from:toLit(DATA.lock[p]),to:toLit(dirty[p])}));
+    const out=await api({pass:pass,action:'save',edits:edits});
     for(const p in dirty)DATA.lock[p]=dirty[p];
     refreshDirty();
-    setStatus('committed '+commit.sha.slice(0,7)+' — tests + deploy running…','ok');
-    pollShip(commit.sha);
+    setStatus('saved '+out.sha.slice(0,7)+' — tests + deploy running…','ok');
+    pollShip(out.sha,pass);
   }catch(err){setStatus(String(err&&err.message||err),'err');refreshDirty();}});
-async function pollShip(sha){
+async function pollShip(sha,pass){
   for(let i=0;i<90;i++){
     await new Promise(r=>setTimeout(r,10000));
     try{
-      const runs=await gh('GET','/actions/runs?head_sha='+sha);
-      const run=runs.workflow_runs&&runs.workflow_runs[0];
-      if(!run){setStatus(sha.slice(0,7)+' committed — waiting for pipeline to start…','ok');continue;}
+      const run=await api({pass:pass,action:'status',sha:sha});
+      if(!run.found){setStatus(sha.slice(0,7)+' saved — waiting for pipeline to start…','ok');continue;}
       if(run.status!=='completed'){setStatus(sha.slice(0,7)+' — pipeline '+run.status.split('_').join(' ')+'…','ok');continue;}
       if(run.conclusion==='success')setStatus(sha.slice(0,7)+' — tests passed, LIVE on fate.cx ✓','ok');
-      else setStatus(sha.slice(0,7)+' — pipeline '+run.conclusion+': committed but NOT live. Check github.com/'+DATA.repo+'/actions','err');
+      else setStatus(sha.slice(0,7)+' — pipeline '+run.conclusion+': saved but NOT live. Check github.com/'+DATA.repo+'/actions','err');
       return;
     }catch(e){}
   }
