@@ -61,9 +61,15 @@ async function unlock(pass){
   const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:un(IV)},key,un(DATA));
   const html=new TextDecoder().decode(plain);
   sessionStorage.setItem('fate-map-pass',pass);
-  // Blob navigation (not document.write): a real page load, so the map's own
-  // scripts execute. blob: inherits this page's origin — storage keeps working.
-  location.replace(URL.createObjectURL(new Blob([html],{type:'text/html'})));
+  // Render in a full-viewport srcdoc iframe: the URL stays fate.cx/map, the
+  // map's scripts run, and (same origin) storage + /api/save keep working.
+  document.title='Fate Storyline Map';
+  document.body.innerHTML='';
+  document.body.style.cssText='margin:0;overflow:hidden';
+  const fr=document.createElement('iframe');
+  fr.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;border:0;background:#fafaf7';
+  fr.srcdoc=html;
+  document.body.appendChild(fr);
 }
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
   unlock(document.getElementById('p').value).catch(()=>{document.getElementById('err').style.display='block';});});
