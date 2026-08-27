@@ -283,26 +283,40 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     step()
   }
 
-  // ---- scene activation: reveal beats, swap the wall to the scene's print ----
+  // ---- scene activation: the most-visible scene owns the wall, always ----
+  // Dominance is recomputed from live ratios on every crossing, so the wall
+  // can never hold a stale print on the way up or skip one on a slow way down,
+  // and the hero reel runs only while the hero itself rules the screen.
   const scenes = [...el.querySelectorAll<HTMLElement>('.ld-scene')]
   const hero = scenes[0]
   let heroLive = true
+  const ratios = new Map<Element, number>()
   const io = new IntersectionObserver(
     (entries) => {
       for (const en of entries) {
-        const t = en.target as HTMLElement
-        if (en.isIntersecting) {
-          t.classList.add('on')
-          if (t === hero) heroLive = true
-          else if (en.intersectionRatio >= 0.4) {
-            heroLive = false
-            show(t.dataset.art ?? '')
-            if (t.dataset.demo !== undefined) startDemo()
-          }
-        } else if (t === hero) heroLive = false
+        ratios.set(en.target, en.isIntersecting ? en.intersectionRatio : 0)
+        if (en.isIntersecting && en.intersectionRatio >= 0.12) (en.target as HTMLElement).classList.add('on')
+      }
+      let best: HTMLElement | null = null
+      let bestR = 0
+      for (const sc of scenes) {
+        const r = ratios.get(sc) ?? 0
+        if (r > bestR) {
+          bestR = r
+          best = sc
+        }
+      }
+      if (!best) return
+      if (best === hero) {
+        heroLive = true
+        show(HERO_ART[heroIdx])
+      } else {
+        heroLive = false
+        show(best.dataset.art ?? '')
+        if (best.dataset.demo !== undefined) startDemo()
       }
     },
-    { root: el.querySelector('.ld-scroll'), threshold: [0.15, 0.4] },
+    { root: el.querySelector('.ld-scroll'), threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] },
   )
   scenes.forEach((s) => io.observe(s))
 
