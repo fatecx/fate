@@ -4,7 +4,6 @@
  *
  * Run: npm run map
  */
-import dagre from 'dagre'
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CONTENT } from '../../src/content/world'
@@ -142,74 +141,120 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
     }
   }
 
-  // ---- dagre layout ------------------------------------------------------
-  const g = new dagre.graphlib.Graph()
-  g.setGraph({ rankdir: 'TB', nodesep: 18, ranksep: 52, marginx: 24, marginy: 24, ranker: 'tight-tree' })
-  g.setDefaultEdgeLabel(() => ({}))
-  // Deal edges render (dashed) but don't rank — otherwise every world-dealt
-  // scene lines up in one giant rank under THE WORLD. Nodes with no story
-  // edge at all skip dagre and grid-wrap below the spine instead.
-  const ranked = new Set<string>()
-  for (const e of edgeMap.values())
-    if (e.cls !== 'deal') {
-      ranked.add(e.from)
-      ranked.add(e.to)
+  // ---- story-order layout --------------------------------------------------
+  // The map opens where the game opens. Rank = longest story distance from
+  // the chapter's ENTRY scene, so play order reads straight down and only
+  // genuinely competing paths share a row. Pool scenes that can interrupt
+  // the story sit one row above the beat they feed into; self-contained
+  // deals shelf at the bottom. Deal edges draw dashed but never rank.
+  const story = [...edgeMap.values()].filter((e) => e.cls !== 'deal')
+  const entry = pid(def.entry)
+  const rank = new Map<string, number>()
+  rank.set(entry, 0)
+  for (let round = 0; round < 64; round++) {
+    let moved = false
+    for (const e of story) {
+      const ru = rank.get(e.from)
+      if (ru === undefined) continue
+      const rv = rank.get(e.to)
+      if (rv === undefined || rv < ru + 1) {
+        rank.set(e.to, ru + 1)
+        moved = true
+      }
     }
-  for (const n of nodesRaw) {
-    if (!ranked.has(n.id)) continue
-    const { w, h } = nodeSize(n)
-    g.setNode(n.id, { width: w, height: h })
+    if (!moved) break
   }
-  for (const e of edgeMap.values()) if (e.cls !== 'deal') g.setEdge(e.from, e.to)
+  // Feeders (pool scenes, the deck, the bank): unranked nodes that fire into
+  // the ranked story land just above their earliest target; anything they
+  // lead to settles below. A few passes catch chains.
+  for (let pass = 0; pass < 4; pass++) {
+    let moved = false
+    for (const n of nodesRaw) {
+      if (rank.has(n.id)) continue
+      const outs = story.filter((e) => e.from === n.id && rank.has(e.to)).map((e) => rank.get(e.to)!)
+      if (outs.length) {
+        rank.set(n.id, Math.max(0, Math.min(...outs) - 1))
+        moved = true
+        continue
+      }
+      const ins = story.filter((e) => e.to === n.id && rank.has(e.from)).map((e) => rank.get(e.from)!)
+      if (ins.length) {
+        rank.set(n.id, Math.max(...ins) + 1)
+        moved = true
+      }
+    }
+    if (!moved) break
+  }
 
-  // Insolvency is reachable only via the $0 bank node, never as a dealt scene.
-  dagre.layout(g)
+  // Within-rank order: DFS pre-order from the entry keeps sibling branches
+  // adjacent; feeders inherit their target's order so they sit beside the
+  // beat they interrupt.
+  const outAdj = new Map<string, string[]>()
+  for (const e of story) {
+    if (!outAdj.has(e.from)) outAdj.set(e.from, [])
+    outAdj.get(e.from)!.push(e.to)
+  }
+  const order = new Map<string, number>()
+  {
+    let i = 0
+    const stack = [entry]
+    while (stack.length) {
+      const id = stack.pop()!
+      if (order.has(id)) continue
+      order.set(id, i++)
+      const kids = (outAdj.get(id) ?? []).slice().reverse()
+      for (const k of kids) if (!order.has(k)) stack.push(k)
+    }
+  }
+  for (const n of nodesRaw)
+    if (rank.has(n.id) && !order.has(n.id)) {
+      const t = story.find((e) => e.from === n.id && order.has(e.to))
+      order.set(n.id, (t ? order.get(t.to)! : 9e5) + 0.5)
+    }
 
-  // ---- rank wrap: dagre decides ORDER (rank + within-rank position); we
-  // decide GEOMETRY. Each rank wraps into rows inside a fixed-width column,
-  // so the whole map is one screen wide and only ever grows DOWN.
+  // ---- geometry: centered rows inside a one-screen column -------------------
   const COLW = 1240
   const pos = new Map<string, { x: number; y: number }>()
+  let cursorY = 24
   {
-    const byRank = new Map<number, string[]>()
-    for (const id of ranked) {
-      const p = g.node(id)
-      if (!p) continue
-      const r = Math.round(p.y)
-      if (!byRank.has(r)) byRank.set(r, [])
-      byRank.get(r)!.push(id)
-    }
-    const rankYs = [...byRank.keys()].sort((a, b) => a - b)
-    let y = 24
-    for (const r of rankYs) {
-      const ids = byRank.get(r)!.sort((a, b) => g.node(a).x - g.node(b).x)
-      let x = 24
-      let rowH = 0
-      let rankStartY = y
+    const rankVals = [...new Set(rank.values())].sort((a, b) => a - b)
+    for (const r of rankVals) {
+      const ids = nodesRaw
+        .filter((n) => rank.get(n.id) === r)
+        .sort((a, b) => (order.get(a.id) ?? 9e5) - (order.get(b.id) ?? 9e5))
+        .map((n) => n.id)
+      const rows: string[][] = [[]]
+      let rw = 0
       for (const id of ids) {
-        const n = byId.get(id)!
-        const { w, h } = nodeSize(n)
-        if (x + w > COLW && x > 24) {
-          x = 24
-          y += rowH + 16
-          rowH = 0
+        const { w } = nodeSize(byId.get(id)!)
+        if (rw + w + 18 > COLW - 48 && rows[rows.length - 1].length) {
+          rows.push([])
+          rw = 0
         }
-        pos.set(id, { x, y })
-        x += w + 18
-        rowH = Math.max(rowH, h)
+        rows[rows.length - 1].push(id)
+        rw += w + 18
       }
-      y += rowH + 46
-      void rankStartY
+      for (const row of rows) {
+        const totalW = row.reduce((s, id) => s + nodeSize(byId.get(id)!).w, 0) + (row.length - 1) * 18
+        let cx = 24 + Math.max(0, (COLW - 48 - totalW) / 2)
+        let rowH = 0
+        for (const id of row) {
+          const { w, h } = nodeSize(byId.get(id)!)
+          pos.set(id, { x: Math.round(cx), y: cursorY })
+          cx += w + 18
+          rowH = Math.max(rowH, h)
+        }
+        cursorY += rowH + 16
+      }
+      cursorY += 30
     }
   }
   const spineW = COLW
-  const spineH = [...pos.keys()].length
-    ? Math.max(...[...pos.entries()].map(([id, p]) => p.y + nodeSize(byId.get(id)!).h))
-    : 400
+  const spineH = cursorY
 
-  // THE WORLD's pool — scenes only the deck deals in. Rank means nothing for
-  // them, so they wrap into a compact grid beneath the story spine.
-  const loose = nodesRaw.filter((n) => !ranked.has(n.id))
+  // THE WORLD's pool — self-contained deals no story thread touches. They
+  // wrap into a compact grid beneath the story spine.
+  const loose = nodesRaw.filter((n) => !rank.has(n.id))
   const GRIDW = COLW
   const loosePos = new Map<string, { x: number; y: number }>()
   {
