@@ -160,6 +160,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 's_b_alliance',
     ambience: 'night',
+    place: 'THE FLATS',
     kind: 'bridge',
     art: 'world_s_alliance',
     title: 'WHAT THE LUNCH MEANT',
@@ -170,6 +171,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 's_proof',
     ambience: 'wind',
+    place: 'THE TEST SITE',
     landmark: true,
     art: 'world_s_proof',
     title: 'ONE HUNDRED KILOMETERS, STRAIGHT UP',
@@ -369,6 +371,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 's_b_site_set',
     ambience: 'wind',
+    place: 'THE ANCHOR SITE',
     kind: 'bridge',
     art: 'world_s_platform_build',
     title: 'STEEL ON THE WATER',

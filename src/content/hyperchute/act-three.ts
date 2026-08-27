@@ -5,6 +5,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_cut_accident',
     ambience: 'accident',
+    place: 'RICHMOND STREET',
     art: 'cut_richmond_451',
     kind: 'cutscene',
     title: 'RICHMOND STREET, 4:51 P.M.',
@@ -15,6 +16,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_accident',
     ambience: 'accident',
+    place: 'HYPERCHUTE HQ',
     landmark: true,
     art: 'world_richmond',
     title: 'THE FIRST FORTY-EIGHT HOURS',
@@ -244,6 +246,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_war_room',
     ambience: 'night',
+    place: 'THE WAR ROOM',
     accent: 'garage',
     mood: 'endgame',
     landmark: true,
@@ -346,6 +349,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 'h_last_stand',
     ambience: 'night',
+    place: 'THE FLATS',
     accent: 'garage',
     mood: 'endgame',
     art: 'world_last_stand',

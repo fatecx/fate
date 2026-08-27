@@ -61,6 +61,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_b_after_blockade',
     ambience: 'night',
+    place: 'FIRST RUNG',
     kind: 'bridge',
     art: 'world_s_after_blockade',
     title: 'WHAT THE SQUEEZE TAUGHT',
@@ -129,6 +130,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_b_fully_funded',
     ambience: 'wind',
+    place: 'FIRST RUNG',
     kind: 'bridge',
     art: 'world_s_cable_complete',
     title: 'THE LAST KILOMETER',
@@ -249,6 +251,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_voss_sisters',
     ambience: 'night',
+    place: 'THE RESTAURANT',
     landmark: true,
     when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 140 }, { k: 'seen', scene: 's_calloway_hearing' }] },
     priority: true,
@@ -337,6 +340,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_okonkwo_visit',
     ambience: 'wind',
+    place: 'FIRST RUNG',
     landmark: true,
     when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 144 }, { k: 'seen', scene: 's_blockade' }] },
     priority: true,
@@ -512,6 +516,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_first_ride',
     ambience: 'wind',
+    place: 'FIRST RUNG',
     landmark: true,
     art: 'world_s_first_ride',
     title: 'WHO RIDES FIRST',
@@ -598,6 +603,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 's_second_storm',
     ambience: 'accident',
+    place: 'FIRST RUNG',
     landmark: true,
     priority: true,
     fuseEpochs: 2,

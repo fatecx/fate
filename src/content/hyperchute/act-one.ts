@@ -803,6 +803,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_priya_alone',
     ambience: 'night',
+    place: 'THE GARAGE',
     art: 'world_alone_night',
     kind: 'bridge',
     title: 'ONE HUNDRED PERCENT OF EVERYTHING',
@@ -835,6 +836,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_diy',
     ambience: 'night',
+    place: 'THE GARAGE',
     art: 'world_diy_legal',
     kind: 'bridge',
     title: 'PROBABLY FINE',
@@ -845,6 +847,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_appeal_prep',
     ambience: 'night',
+    place: 'THE GARAGE',
     art: 'world_appeal_doc',
     kind: 'bridge',
     title: 'FORTY PAGES OF HOPE',
@@ -855,6 +858,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_rogue_nights',
     ambience: 'night',
+    place: 'THE FLATS',
     accent: 'wind',
     art: 'world_dawn_flights',
     kind: 'bridge',
@@ -897,6 +901,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 'h_b_bootstrap',
     ambience: 'night',
+    place: 'THE GARAGE',
     art: 'world_ramen_math',
     kind: 'bridge',
     title: 'RAMEN MATH',

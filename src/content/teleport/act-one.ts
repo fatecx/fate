@@ -107,6 +107,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 't_b_first_night',
     ambience: 'night',
+    place: 'THE HANGAR',
     kind: 'bridge',
     art: 'world_hangar_night',
     title: 'TWO CHAIRS, ONE HANGAR',

@@ -8,6 +8,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 's_s_guarantee',
     ambience: 'night',
+    place: "THE LAWYER'S OFFICE",
     when: {
       k: 'all',
       of: [
@@ -139,6 +140,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 's_s_paycut',
     ambience: 'wind',
+    place: 'THE CAFETERIA',
     when: {
       k: 'all',
       of: [

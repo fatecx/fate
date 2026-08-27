@@ -10,6 +10,7 @@ export const SURVIVAL: readonly SceneDef[] = [
     id: 't_s_farrokh_loan',
     mood: 'dread',
     ambience: 'night',
+    place: 'TELEPORT HQ',
     when: {
       k: 'all',
       of: [

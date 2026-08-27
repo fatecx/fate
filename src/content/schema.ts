@@ -54,6 +54,11 @@ export interface SceneDef {
    * test) on every non-cutscene Hyperchute scene; cutscenes ride the film bed.
    */
   ambience?: string
+  /** Where the scene stands, as the header names it (DELGADO'S LAUNDRY,
+   *  SHACKLETON VERGE). Optional: rooms with a literal ambience (garage,
+   *  boardroom…) get a default name; author this when the room tone is a
+   *  mood (night, crowd, wind, accident) or the place deserves its name. */
+  place?: string
   /** Second room layered low under the ambience (src/content/sound.ts
    *  AMBIENCE) — the scene's own seasoning: wind over the rooftop drops,
    *  the crowd outside the suspension hearing. Composition, not clutter. */

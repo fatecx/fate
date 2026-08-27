@@ -462,6 +462,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 't_farrokh_dark',
     ambience: 'night',
+    place: 'THE HANGAR',
     when: {
       k: 'all',
       of: [

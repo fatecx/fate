@@ -8,6 +8,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 's_insolvency',
     ambience: 'night',
+    place: 'FIRST RUNG',
     art: 'world_s_runway_zero',
     landmark: true,
     title: 'RUNWAY ZERO',
@@ -43,6 +44,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 's_burnout',
     ambience: 'night',
+    place: 'THE MEDICAL BAY',
     art: 'world_s_burnout',
     landmark: true,
     title: 'THE BODY KEEPS SCORE',

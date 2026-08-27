@@ -9,6 +9,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_anders_margin',
     ambience: 'wind',
+    place: 'THE PLATFORM RAIL',
     landmark: true,
     art: 'world_s_margin',
     title: 'THE MARGIN',
@@ -128,6 +129,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_uproot',
     ambience: 'night',
+    place: 'SKYLINE HQ',
     landmark: true,
     fuseEpochs: 5,
     art: 'world_s_uproot',
@@ -167,6 +169,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_b_platform_life',
     ambience: 'wind',
+    place: 'FIRST RUNG',
     kind: 'bridge',
     art: 'world_s_platform_life',
     title: 'LIFE AT THE RAIL',
@@ -283,6 +286,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_strand_snap',
     ambience: 'accident',
+    place: 'FIRST RUNG',
     landmark: true,
     priority: true,
     fuseEpochs: 2,
@@ -335,6 +339,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_b_after_snap',
     ambience: 'wind',
+    place: 'KILOMETER 921',
     kind: 'bridge',
     art: 'world_s_repair',
     title: 'THE REPAIR SEASON',
@@ -416,6 +421,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_b_cold_waters',
     ambience: 'wind',
+    place: 'AURELIAN WATERS',
     kind: 'bridge',
     art: 'world_s_cold_waters',
     title: 'NEIGHBORS WITH RULES',

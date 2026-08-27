@@ -137,6 +137,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_plastic',
     ambience: 'night',
+    place: 'THE KITCHEN TABLE',
     mood: 'dread',
     art: 'world_plastic',
     title: 'THE PLASTIC',
@@ -235,6 +236,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_ghost_dies_spent',
     ambience: 'night',
+    place: 'HYPERCHUTE HQ',
     mood: 'dread',
     art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',
@@ -279,6 +281,7 @@ export const SURVIVAL: readonly SceneDef[] = [
   {
     id: 'h_ghost_dies_clean',
     ambience: 'night',
+    place: 'HYPERCHUTE HQ',
     mood: 'aftermath',
     art: 'world_ghost_wire',
     title: 'THE WIRE THAT NEVER WAS',

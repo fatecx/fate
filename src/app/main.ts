@@ -347,16 +347,14 @@ function clockLabel(): string {
   return `YEAR ${Math.floor(w / 52) + 1} · WEEK ${(w % 52) + 1}`
 }
 
-// ---- split-flap board — when a scene lands it announces the week (time just
-// moved), then flips to the place and rests there. Two faces only: the header
-// owns the running clock; the board's job is the room you are standing in.
-const ROOM_NAMES: Record<string, string> = {
-  accident: 'THE CRASH SITE',
+// ---- the header flap — the clock rests; when the STORY MOVES ROOMS the tag
+// flips to the new place for a breath, then flips back to time. Fires only on
+// a real change of location, so the motion keeps its meaning.
+const ROOM_PLACES: Record<string, string> = {
   boardroom: 'THE BOARDROOM',
   cafe: 'THE DINER',
   cleanroom: 'THE CLEANROOM',
   corp: 'THE TOWER',
-  crowd: 'THE CROWD',
   exchange: 'THE EXCHANGE',
   expo: 'THE EXPO FLOOR',
   garage: 'THE GARAGE',
@@ -365,65 +363,46 @@ const ROOM_NAMES: Record<string, string> = {
   hotel: 'THE HOTEL',
   mission: 'MISSION CONTROL',
   moonlink: 'MOON UPLINK',
-  night: 'THE SMALL HOURS',
-  office: 'THE OFFICE',
   roadshow: 'THE ROADSHOW',
   street: 'THE STREET',
   warehouse: 'THE WAREHOUSE',
-  wind: 'THE OPEN AIR',
 }
-const FB_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789· '
-let fbTimer = 0
-function flipTo(board: HTMLElement, text: string): void {
-  const t = text.toUpperCase()
+let lastPlace = ''
+let flipTimer = 0
+function placeOf(sceneId: string): string | null {
+  const scene = liveScene(sceneId)
+  if (scene.place) return scene.place.toUpperCase()
+  const amb = scene.ambience ?? ''
+  if (amb === 'office') return `${chapterTitle(st.company.id).toUpperCase()} HQ`
+  return ROOM_PLACES[amb] ?? null
+}
+function flashPlace(sceneId: string): void {
+  const place = placeOf(sceneId)
+  if (!place || place === lastPlace) return
+  lastPlace = place
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const cells = Array.from(board.children) as HTMLElement[]
-  while (cells.length < t.length) {
-    const c = document.createElement('span')
-    c.className = 'fb-c'
-    c.textContent = ' '
-    board.appendChild(c)
-    cells.push(c)
-  }
-  while (cells.length > t.length) board.removeChild(cells.pop() as HTMLElement)
-  cells.forEach((c, i) => {
-    const target = t[i]
-    c.classList.toggle('sp', target === ' ')
-    if (c.textContent === target) return
+  const swap = (text: string, on: boolean): void => {
+    const tag = document.querySelector('.weektag') as HTMLElement | null
+    if (!tag) return
     if (reduced) {
-      c.textContent = target
+      tag.textContent = text
+      tag.classList.toggle('place', on)
       return
     }
-    let spins = 2 + Math.floor(Math.random() * 3)
-    const tick = (): void => {
-      if (!c.isConnected) return
-      c.classList.remove('tick')
-      void c.offsetWidth
-      c.classList.add('tick')
-      c.textContent = spins > 0 ? FB_GLYPHS[Math.floor(Math.random() * FB_GLYPHS.length)] : target
-      if (spins-- > 0) window.setTimeout(tick, 50 + Math.random() * 30)
-    }
-    window.setTimeout(tick, 60 + i * 38)
-  })
-}
-function boardFor(sceneId: string): void {
-  const stageEl = document.querySelector('.stage') as HTMLElement | null
-  if (!stageEl) return
-  let board = stageEl.querySelector('.flipboard') as HTMLElement | null
-  if (!board) {
-    board = document.createElement('div')
-    board.className = 'flipboard'
-    stageEl.appendChild(board)
+    tag.classList.add('wt-out')
+    window.setTimeout(() => {
+      const t = document.querySelector('.weektag') as HTMLElement | null
+      if (!t) return
+      t.textContent = text
+      t.classList.toggle('place', on)
+      t.classList.remove('wt-out')
+      t.classList.add('wt-in')
+      window.setTimeout(() => t.classList.remove('wt-in'), 260)
+    }, 210)
   }
-  window.clearTimeout(fbTimer)
-  flipTo(board, clockLabel())
-  const place = ROOM_NAMES[liveScene(sceneId).ambience ?? '']
-  if (place) {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    fbTimer = window.setTimeout(() => {
-      if (board.isConnected) flipTo(board, place)
-    }, reduced ? 1800 : 4200)
-  }
+  window.clearTimeout(flipTimer)
+  swap(place, true)
+  flipTimer = window.setTimeout(() => swap(clockLabel(), false), reduced ? 2400 : 4000)
 }
 
 function railHtml(): string {
@@ -862,7 +841,7 @@ function refreshCard(): void {
  *  unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
-  boardFor(sceneId)
+  flashPlace(sceneId)
   const scene = liveScene(sceneId)
   sceneSound(sceneId) // the scene's one diegetic action — the pour, the pen, the train
   const tpl = document.createElement('template')

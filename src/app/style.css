@@ -51,6 +51,13 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .wordmark { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.16em; }
 .wordmark em { font-style: normal; color: var(--accent); }
 .weektag { font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.1em; }
+/* The header flap: the clock rests; a change of place flips the tag over
+   for a breath — one piece, like a station board — then flips back. */
+.weektag.place { color: var(--accent); font-weight: 600; }
+.weektag.wt-out { animation: wtOut 0.21s ease-in forwards; }
+.weektag.wt-in { animation: wtIn 0.26s ease-out; }
+@keyframes wtOut { to { transform: perspective(320px) rotateX(88deg); opacity: 0; } }
+@keyframes wtIn { from { transform: perspective(320px) rotateX(-88deg); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ---- cast cluster: the faces this life has met, stacked in the header ---- */
 .cast {
@@ -289,20 +296,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   to { opacity: 0.85; transform: none; }
 }
 .fxpills.past .fxpill { opacity: 0.5; animation: none; }
-/* Split-flap board — top-left of the print. Announces the week, rests on the place. */
-.flipboard { position: absolute; top: 14px; left: 14px; z-index: 6; display: flex; gap: 2px; pointer-events: none; }
-.fb-c {
-  width: 15px; height: 22px; border-radius: 2.5px; position: relative;
-  background: rgba(13, 14, 17, 0.86); color: #f2f2ee;
-  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
-  line-height: 22px; text-align: center;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.07), 0 1px 2px rgba(13, 14, 17, 0.35);
-}
-.fb-c::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255, 255, 255, 0.09); }
-.fb-c.sp { background: transparent; box-shadow: none; }
-.fb-c.sp::after { display: none; }
-.fb-c.tick { animation: fbflip 0.09s ease; }
-@keyframes fbflip { 0% { transform: rotateX(0); } 49% { transform: rotateX(88deg); } 100% { transform: rotateX(0); } }
 .kbd {
   font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
   text-transform: uppercase; border: 1px solid currentColor; border-radius: 3px;

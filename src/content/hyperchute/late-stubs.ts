@@ -8,6 +8,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 'h_insolvency',
     ambience: 'night',
+    place: 'THE EMPTY OFFICE',
     mood: 'dread',
     art: 'world_runway_zero',
     landmark: true,
@@ -66,6 +67,7 @@ export const LATE_STUBS: readonly SceneDef[] = [
   {
     id: 'h_burnout',
     ambience: 'night',
+    place: 'THE APARTMENT',
     mood: 'aftermath',
     art: 'world_burnout',
     title: 'THE BODY KEEPS SCORE',

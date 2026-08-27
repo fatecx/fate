@@ -35,6 +35,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     id: 't_father_call',
     mood: 'tender',
     ambience: 'night',
+    place: 'TELEPORT HQ',
     landmark: true,
     art: 'world_father_call',
     title: 'THE CALL',
@@ -216,6 +217,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 't_coup_vote',
     ambience: 'night',
+    place: 'THE PARKING LOT',
     landmark: true,
     art: 'world_coup_vote',
     title: 'THE NIGHT BEFORE THE VOTE',

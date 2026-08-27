@@ -131,6 +131,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_strike',
     ambience: 'crowd',
+    place: 'THE FLATS',
     accent: 'street',
     art: 'world_strike',
     title: 'THE PORCHES GO QUIET',
@@ -499,6 +500,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_bridge_pre_act3',
     ambience: 'night',
+    place: 'THE CITY',
     art: 'cut_eighteen_months',
     kind: 'cutscene',
     priority: true,
@@ -605,6 +607,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 'h_b_after_indep',
     ambience: 'night',
+    place: 'THE GARAGE',
     art: 'world_runway_taped',
     kind: 'bridge',
     title: 'THE WHOLE THING',
