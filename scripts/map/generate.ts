@@ -316,7 +316,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .search{margin-left:auto;display:flex;align-items:center;gap:8px}
 .search input{font-family:var(--mono);font-size:12px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:5px 10px;width:200px}
 .search input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
-.legend{display:flex;gap:16px;padding:7px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--dim);flex-wrap:wrap;background:var(--panel)}
+.legend{display:flex;gap:16px;font-family:var(--mono);font-size:11px;color:var(--dim);flex-wrap:wrap;align-items:center;margin-left:auto}
+.subbar{display:flex;gap:18px;align-items:center;padding:7px 20px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.filters .tab{font-size:11px;padding:4px 10px}
+.pg{font-weight:600;letter-spacing:.1em}
 .lg{display:flex;gap:6px;align-items:center}
 .sw{width:22px;height:0;border-top:2px solid var(--ink);display:inline-block}
 .sw.deal{border-top-style:dashed}
@@ -395,12 +398,27 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .s-choice{border-left:3px solid var(--ink);padding:7px 12px;margin:12px 0;background:var(--panel);border-radius:0 4px 4px 0}
 .s-cl{font-weight:600;font-size:13.5px;margin:1px 0 4px}
 .s-choice .sb-t{font-size:12.5px;color:var(--dim)}
-.edbar{display:flex;gap:6px;align-items:center}
+.edbar{display:flex;gap:6px;align-items:center;margin-left:auto}
 .edbar .tab.on{color:var(--accent);border-color:var(--accent);font-weight:600}
-#edsave:disabled{opacity:.35;cursor:default}
-.edstatus{font-family:var(--mono);font-size:11px;color:var(--dim);max-width:420px}
-.edstatus.err{color:var(--disgrace)}
-.edstatus.ok{color:var(--triumph)}
+.pubwrap{position:relative}
+.pub{font-weight:600;letter-spacing:.06em}
+.pub.has{color:var(--paper);background:var(--accent);border-color:var(--accent)}
+.pub .spin{display:none;width:10px;height:10px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.pub.busy .spin{display:inline-block;animation:pspin .7s linear infinite}
+@keyframes pspin{to{transform:rotate(360deg)}}
+.pubdrop{position:absolute;top:calc(100% + 10px);right:0;width:min(380px,92vw);background:var(--panel);border:1px solid var(--line);border-radius:6px;box-shadow:0 10px 32px rgba(0,0,0,.14);padding:14px 16px;display:none;z-index:60}
+.pubdrop.open{display:block}
+.pd-head{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.6}
+.publog{margin-top:4px}
+.publog:empty{display:none}
+.pl{font-family:var(--mono);font-size:11.5px;line-height:1.55;padding:7px 0;border-top:1px dashed var(--line);display:flex;gap:9px;align-items:baseline}
+.pl::before{flex:none}
+.pl.run::before{content:'';width:9px;height:9px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;display:inline-block;animation:pspin .7s linear infinite;align-self:center}
+.pl.ok::before{content:'✓';color:var(--triumph);font-weight:600}
+.pl.err::before{content:'✕';color:var(--disgrace);font-weight:600}
+.pl.err{color:var(--disgrace)}
+.pd-go{display:block;width:100%;margin-top:12px;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.1em;padding:9px;border-radius:4px;background:var(--accent);color:var(--paper);border:1px solid var(--accent)}
+.pd-go:disabled{opacity:.35;cursor:default}
 body[data-edit] .scriptpane [data-path]{outline:1px dashed var(--line);outline-offset:3px;border-radius:2px;cursor:text}
 body[data-edit] .scriptpane [data-path]:focus{outline:1.5px solid var(--accent)}
 body[data-edit] .scriptpane [data-path].dirty{background:var(--accent-soft)}
@@ -411,20 +429,32 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 <body>
 <header class="topbar">
   <div class="masthead">FATE<span>·</span>STORYLINE MAP</div>
-  <nav class="tabs" id="tabs"></nav>
+  <nav class="tabs" id="pages">
+    <button class="tab pg on" data-page="map">MAP</button>
+    <button class="tab pg" data-page="script">SCRIPT</button>
+  </nav>
   <div class="search"><input id="q" type="search" placeholder="search scenes…" aria-label="Search scenes"></div>
   <div class="edbar" id="edbar" style="display:none">
     <button class="tab" id="edtoggle">EDIT</button>
-    <button class="tab" id="edsave" disabled>SAVE</button>
-    <span class="edstatus" id="edstatus"></span>
+    <div class="pubwrap">
+      <button class="tab pub" id="edsave">PUBLISH</button>
+      <div class="pubdrop" id="pubdrop">
+        <div class="pd-head" id="pdhead">No unpublished edits.</div>
+        <div class="publog" id="publog"></div>
+        <button class="pd-go" id="pdgo" disabled>PUSH LIVE</button>
+      </div>
+    </div>
   </div>
 </header>
-<div class="legend">
-  <span class="lg"><span class="sw"></span>authored sequence</span>
-  <span class="lg"><span class="sw deal"></span>world-dealt pool</span>
-  <span class="lg"><span class="sw ruin"></span>$0 insolvency route</span>
-  <span class="lg"><span class="dotk"></span>scene&nbsp;&nbsp;<span class="dotk" style="border-color:#B98A1F"></span>ending</span>
-  <span class="lg">dashed border = random-pool scene · chip = speaker/fuse</span>
+<div class="subbar" id="subbar">
+  <nav class="tabs filters" id="tabs"></nav>
+  <div class="legend">
+    <span class="lg"><span class="sw"></span>authored sequence</span>
+    <span class="lg"><span class="sw deal"></span>world-dealt pool</span>
+    <span class="lg"><span class="sw ruin"></span>$0 insolvency route</span>
+    <span class="lg"><span class="dotk"></span>scene&nbsp;&nbsp;<span class="dotk" style="border-color:#B98A1F"></span>ending</span>
+    <span class="lg">dashed border = random-pool · chip = speaker/fuse</span>
+  </div>
 </div>
 <main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div></main>
 <aside class="drawer" id="drawer">
@@ -509,88 +539,113 @@ function openDrawer(n,ch){
   body.innerHTML=html;drawer.classList.add('open');
   body.querySelectorAll('.choice.jump').forEach(el=>el.addEventListener('click',()=>{const t=nodeEl(el.dataset.tid);if(t)t.click();}));
 }
+// Chapter FILTERS (subbar) — they scope the map; the pages live in the header.
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
   currentTab=b.dataset.ch;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b));
-  const scriptOn=currentTab==='script';
+  document.querySelectorAll('#tabs .tab').forEach(t=>t.classList.toggle('on',t===b));
+  document.querySelectorAll('.lane').forEach(l=>{l.style.display=(currentTab==='all'||l.dataset.ch===currentTab)?'':'none';});
+  clearFocus();drawer.classList.remove('open');});
+{const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);}
+// PAGES (header) — MAP and SCRIPT are different rooms, not filters.
+document.getElementById('pages').addEventListener('click',e=>{const b=e.target.closest('.pg');if(!b)return;
+  const scriptOn=b.dataset.page==='script';
+  document.querySelectorAll('.pg').forEach(t=>t.classList.toggle('on',t===b));
   const pane=document.getElementById('scriptpane');
   pane.style.display=scriptOn?'':'none';
+  if(scriptOn&&!pane.dataset.built){pane.innerHTML=DATA.script;pane.dataset.built='1';
+    if(document.body.hasAttribute('data-edit'))applyEditable(true);}
   document.getElementById('edbar').style.display=scriptOn?'':'none';
-  if(scriptOn&&!pane.dataset.built){pane.innerHTML=DATA.script;pane.dataset.built='1';}
+  document.getElementById('subbar').style.display=scriptOn?'none':'';
+  document.querySelector('.search').style.display=scriptOn?'none':'';
+  document.querySelector('.hint').style.display=scriptOn?'none':'';
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(!scriptOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
   clearFocus();drawer.classList.remove('open');});
-{const all=document.createElement('button');all.className='tab on';all.dataset.ch='all';all.textContent='ALL CHAPTERS';tabs.prepend(all);
- const sc=document.createElement('button');sc.className='tab';sc.dataset.ch='script';sc.textContent='SCRIPT';tabs.appendChild(sc);}
 document.getElementById('dclose').addEventListener('click',()=>{drawer.classList.remove('open');clearFocus();});
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');clearFocus();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');document.getElementById('pubdrop').classList.remove('open');clearFocus();}});
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});});
 
-// ---- SCRIPT EDITOR — edit prose in the browser, SAVE ships it ---------------
+// ---- SCRIPT EDITOR — edit prose in the browser, PUBLISH ships it -------------
 // Every [data-path] block maps to ONE unique TS string literal (DATA.lock /
-// DATA.fileOf, built at generate time). SAVE posts the edits to /api/save,
-// which holds the GitHub token server-side and pushes one commit to main;
-// the ship workflow then tests + deploys. Auth = the map passphrase you
-// already entered at the gate (sessionStorage) — nothing else to paste.
-const edtoggle=document.getElementById('edtoggle'),edsave=document.getElementById('edsave'),edstatus=document.getElementById('edstatus');
+// DATA.fileOf, built at generate time). PUBLISH opens a panel; PUSH LIVE posts
+// the edits to /api/save (GitHub token lives server-side), which commits to
+// main — then the panel follows the pipeline: checks must pass before deploy.
+// Auth = the map passphrase from the gate (sessionStorage) — nothing to paste.
+const edtoggle=document.getElementById('edtoggle'),edsave=document.getElementById('edsave');
+const pubdrop=document.getElementById('pubdrop'),pdhead=document.getElementById('pdhead');
+const publog=document.getElementById('publog'),pdgo=document.getElementById('pdgo');
+let publishing=false;
 const CE=(()=>{const d=document.createElement('div');try{d.contentEditable='plaintext-only';return 'plaintext-only';}catch(e){return 'true';}})();
 const toLit=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
 const blockText=el=>el.innerText.replace(/\u00A0/g,' ').replace(/^\s+|\s+$/g,'');
-function setStatus(msg,cls){edstatus.textContent=msg||'';edstatus.className='edstatus'+(cls?' '+cls:'');}
+function applyEditable(on){document.querySelectorAll('#scriptpane [data-path]').forEach(el=>{
+  if(on)el.setAttribute('contenteditable',CE);else el.removeAttribute('contenteditable');});}
 function refreshDirty(){const out={};let n=0;
   document.querySelectorAll('#scriptpane [data-path]').forEach(el=>{
     const p=el.dataset.path,t=blockText(el),d=t!==DATA.lock[p];
     el.classList.toggle('dirty',d);if(d){out[p]=t;n++;}});
-  edsave.disabled=!n;edsave.textContent=n?'SAVE ('+n+')':'SAVE';return out;}
+  edsave.textContent=n?'PUBLISH ('+n+')':'PUBLISH';
+  edsave.classList.toggle('has',n>0);
+  if(edsave.classList.contains('busy'))edsave.insertAdjacentHTML('afterbegin','<span class="spin"></span>');
+  pdgo.disabled=!n||publishing;
+  if(!publishing)pdhead.textContent=n?(n+' edited block'+(n>1?'s':'')+' ready. Push to run the checks and go live.')
+    :(document.body.hasAttribute('data-edit')?'Edit mode on — click any outlined block and type. Dim blocks are locked (their text repeats in source).':'No unpublished edits.');
+  return out;}
 edtoggle.addEventListener('click',()=>{
   const on=!document.body.hasAttribute('data-edit');
   if(on)document.body.setAttribute('data-edit','1');else document.body.removeAttribute('data-edit');
   edtoggle.classList.toggle('on',on);
-  document.querySelectorAll('#scriptpane [data-path]').forEach(el=>{
-    if(on)el.setAttribute('contenteditable',CE);else el.removeAttribute('contenteditable');});
-  setStatus(on?'edit mode — click any outlined block and type; dim blocks are locked (text not unique in source)':'');});
+  applyEditable(on);refreshDirty();});
 document.getElementById('scriptpane').addEventListener('input',e=>{if(e.target.closest('[data-path]'))refreshDirty();});
+edsave.addEventListener('click',()=>{refreshDirty();pubdrop.classList.toggle('open');});
+document.addEventListener('click',e=>{if(!e.target.closest('.pubwrap'))pubdrop.classList.remove('open');});
 function mapPass(){let p=sessionStorage.getItem('fate-map-pass');
   if(!p){p=prompt('Map passphrase (the one that unlocked this page):');
     if(p){p=p.trim();sessionStorage.setItem('fate-map-pass',p);}}
   return p;}
 async function api(body){
-  // Same host the map was unlocked on (blob pages inherit the creator origin);
-  // the apex 308-redirects to www, and redirects break CORS preflights.
+  // Same host the map was unlocked on; the apex 308-redirects to www, and
+  // redirects break CORS preflights.
   const base=(self.origin&&self.origin.indexOf('http')===0)?self.origin:'https://www.fate.cx';
   const res=await fetch(base+'/api/save',{method:'POST',
     headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const j=await res.json().catch(()=>({}));
-  if(res.status===401){sessionStorage.removeItem('fate-map-pass');throw new Error('passphrase rejected — click SAVE and enter it again');}
+  if(res.status===401){sessionStorage.removeItem('fate-map-pass');throw new Error('passphrase rejected — push again and re-enter it');}
   if(!res.ok)throw new Error(j.error||('HTTP '+res.status));
   return j;}
-edsave.addEventListener('click',async()=>{
+pdgo.addEventListener('click',async()=>{
   const dirty=refreshDirty();const n=Object.keys(dirty).length;
-  if(!n)return;
+  if(!n||publishing)return;
   const pass=mapPass();if(!pass)return;
-  edsave.disabled=true;
+  publishing=true;pdgo.disabled=true;pdgo.textContent='PUBLISHING…';
+  edsave.classList.add('busy');edsave.insertAdjacentHTML('afterbegin','<span class="spin"></span>');
+  publog.innerHTML='';
+  const step=(cls,msg)=>{const el=document.createElement('div');el.className='pl '+cls;el.textContent=msg;publog.appendChild(el);return el;};
+  const set=(el,cls,msg)=>{el.className='pl '+cls;if(msg!=null)el.textContent=msg;};
+  let s=step('run','Saving '+n+' block'+(n>1?'s':'')+' to the repo…');
   try{
-    setStatus('saving…');
     const edits=Object.keys(dirty).map(p=>({file:DATA.fileOf[p],from:toLit(DATA.lock[p]),to:toLit(dirty[p])}));
     const out=await api({pass:pass,action:'save',edits:edits});
     for(const p in dirty)DATA.lock[p]=dirty[p];
-    refreshDirty();
-    setStatus('saved '+out.sha.slice(0,7)+' — tests + deploy running…','ok');
-    pollShip(out.sha,pass);
-  }catch(err){setStatus(String(err&&err.message||err),'err');refreshDirty();}});
-async function pollShip(sha,pass){
-  for(let i=0;i<90;i++){
-    await new Promise(r=>setTimeout(r,10000));
-    try{
-      const run=await api({pass:pass,action:'status',sha:sha});
-      if(!run.found){setStatus(sha.slice(0,7)+' saved — waiting for pipeline to start…','ok');continue;}
-      if(run.status!=='completed'){setStatus(sha.slice(0,7)+' — pipeline '+run.status.split('_').join(' ')+'…','ok');continue;}
-      if(run.conclusion==='success')setStatus(sha.slice(0,7)+' — tests passed, LIVE on fate.cx ✓','ok');
-      else setStatus(sha.slice(0,7)+' — pipeline '+run.conclusion+': saved but NOT live. Check github.com/'+DATA.repo+'/actions','err');
-      return;
-    }catch(e){}
-  }
-}
+    set(s,'ok','Saved — commit '+out.sha.slice(0,7));
+    s=step('run','Running checks — story graph, prose laws, art coverage, endings…');
+    let fin='timeout';
+    for(let i=0;i<90;i++){
+      await new Promise(r=>setTimeout(r,10000));
+      try{
+        const run=await api({pass:pass,action:'status',sha:out.sha});
+        if(!run.found)continue;
+        if(run.status!=='completed'){set(s,'run','Checks '+run.status.split('_').join(' ')+'… (nothing ships unless every test passes)');continue;}
+        fin=run.conclusion;break;
+      }catch(e){}
+    }
+    if(fin==='success'){set(s,'ok','All checks passed');step('ok','LIVE on fate.cx');}
+    else set(s,'err','Pipeline '+fin+' — the edit is saved in the repo but NOT live. Check github.com/'+DATA.repo+'/actions');
+  }catch(err){set(s,'err',String(err&&err.message||err));}
+  publishing=false;
+  edsave.classList.remove('busy');
+  pdgo.textContent='PUSH LIVE';
+  refreshDirty();});
 </script>
 </body>
 </html>`;
