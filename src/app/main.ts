@@ -368,7 +368,6 @@ const ROOM_PLACES: Record<string, string> = {
   warehouse: 'THE WAREHOUSE',
 }
 let lastPlace = ''
-let flipTimer = 0
 function placeOf(sceneId: string): string | null {
   const scene = liveScene(sceneId)
   if (scene.place) return scene.place.toUpperCase()
@@ -376,33 +375,26 @@ function placeOf(sceneId: string): string | null {
   if (amb === 'office') return `${chapterTitle(st.company.id).toUpperCase()} HQ`
   return ROOM_PLACES[amb] ?? null
 }
-function flashPlace(sceneId: string): void {
+/** Film-slug interstitial: when the story moves rooms, the prose column goes
+ *  blank paper with one line — the place — then the scene streams in.
+ *  Returns how long mountScene should hold before typing. */
+function announcePlace(sceneId: string, story: HTMLElement): number {
   const place = placeOf(sceneId)
-  if (!place || place === lastPlace) return
+  if (!place || place === lastPlace) return 0
   lastPlace = place
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const swap = (text: string, on: boolean): void => {
-    const tag = document.querySelector('.weektag') as HTMLElement | null
-    if (!tag) return
-    if (reduced) {
-      tag.textContent = text
-      tag.classList.toggle('place', on)
-      return
-    }
-    tag.classList.add('wt-out')
-    window.setTimeout(() => {
-      const t = document.querySelector('.weektag') as HTMLElement | null
-      if (!t) return
-      t.textContent = text
-      t.classList.toggle('place', on)
-      t.classList.remove('wt-out')
-      t.classList.add('wt-in')
-      window.setTimeout(() => t.classList.remove('wt-in'), 260)
-    }, 210)
-  }
-  window.clearTimeout(flipTimer)
-  swap(place, true)
-  flipTimer = window.setTimeout(() => swap(clockLabel(), false), reduced ? 2400 : 4000)
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0
+  const host = story.parentElement
+  if (!host) return 0
+  host.querySelector('.placeslug')?.remove()
+  const slug = document.createElement('div')
+  slug.className = 'placeslug'
+  slug.style.left = `${story.offsetLeft}px`
+  slug.innerHTML = `<span>${place}</span>`
+  host.appendChild(slug)
+  requestAnimationFrame(() => slug.classList.add('on'))
+  window.setTimeout(() => slug.classList.remove('on'), 1150)
+  window.setTimeout(() => slug.remove(), 1600)
+  return 900
 }
 
 function railHtml(): string {
@@ -841,7 +833,7 @@ function refreshCard(): void {
  *  unbroken stream. */
 function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElement; text: string }[] = []): void {
   refreshCard()
-  flashPlace(sceneId)
+  const hold = announcePlace(sceneId, story)
   const scene = liveScene(sceneId)
   sceneSound(sceneId) // the scene's one diegetic action — the pour, the pen, the train
   const tpl = document.createElement('template')
@@ -881,7 +873,9 @@ function mountScene(story: HTMLElement, sceneId: string, preSegs: { el: HTMLElem
     const wait = Math.min(620, 220 + (p.textContent?.length ?? 0) * 4)
     revealTimer = window.setTimeout(revealQueue.length ? step : finishTyping, wait)
   }
-  step()
+  // Hold under the place slug, then let the scene stream back in.
+  if (hold) revealTimer = window.setTimeout(step, hold)
+  else step()
 }
 
 let renderedChapter = -1
