@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "model": "music_v2",
+  "seconds": 90,
+  "variantsPerComposition": 8,
+  "shared": {
+    "motif": "A four-note Fate motif with scale degrees 1, flat 3, 5, 4. It must be heard as a melody within the first second, then transformed rather than mechanically repeated.",
+    "production": [
+      "instrumental narrative game score",
+      "music begins on the first beat with no fade-in",
+      "clear memorable four-note melodic theme",
+      "midrange-forward mix that remains audible on laptop speakers",
+      "organic performance with human timing and expression",
+      "harmonic movement and orchestral development",
+      "wide dynamics without sudden overpowering peaks",
+      "high production quality"
+    ],
+    "negativeStyles": [
+      "vocals",
+      "spoken word",
+      "long fade-in",
+      "silence at the beginning",
+      "ambient noise bed",
+      "static drone",
+      "sustained pad foundation",
+      "sub-bass rumble",
+      "one-note ostinato",
+      "monotonous repetition",
+      "sound effects",
+      "horror score",
+      "trailer music",
+      "braams",
+      "EDM drop",
+      "wall of sound",
+      "harsh high frequencies",
+      "clipping"
+    ]
+  },
+  "compositions": [
+    {
+      "id": "h_gravity_softened",
+      "title": "Gravity, Softened",
+      "chapter": "HYPERCHUTE",
+      "role": "COMPANY THEME",
+      "level": "BENCHMARK",
+      "art": "prologue_dispatch",
+      "scenes": ["h_seedling", "h_entry", "h_first_drops_clean"],
+      "note": "The Fate motif as something handmade and civic: a garage invention becoming part of the city without losing the people below.",
+      "key": "D Dorian",
+      "motifNotes": "D, F, A, G",
+      "tempo": "76 BPM",
+      "meter": "4/4 with subtle human swing",
+      "palette": [
+        "felt piano melody",
+        "dry wooden mallet countermelody",
+        "short warm poly-synth chords",
+        "pizzicato cello",
+        "soft brushed percussion"
+      ],
+      "seedBase": 471100,
+      "sections": [
+        {
+          "name": "COLD OPEN",
+          "durationMs": 6000,
+          "direction": "Felt piano states D, F, A, G immediately as a confident melodic sentence. A dry wooden pluck answers before the sixth second. No atmospheric prelude."
+        },
+        {
+          "name": "THE GARAGE",
+          "durationMs": 18000,
+          "direction": "Short warm chords establish D Dorian harmony under the complete motif. Pizzicato cello gives forward motion; the melody breathes and changes its ending."
+        },
+        {
+          "name": "FIRST DELIVERY",
+          "durationMs": 18000,
+          "direction": "Wooden mallets carry a brighter variation while piano becomes a countermelody. Add a restrained brushed groove and a new chord every two bars."
+        },
+        {
+          "name": "THE CITY RESISTS",
+          "durationMs": 18000,
+          "direction": "Move briefly toward B-flat major, thin the percussion, and let cello reshape the motif in longer notes. Tension comes from harmony, not noise or low rumble."
+        },
+        {
+          "name": "THE NETWORK MOVES",
+          "durationMs": 18000,
+          "direction": "Return to D Dorian with piano, mallets, cello, and brushes in active dialogue. Increase rhythmic confidence without becoming busy or cinematic."
+        },
+        {
+          "name": "ONE PORCH",
+          "durationMs": 12000,
+          "direction": "Strip back to piano and one warm chord instrument. State a shortened motif once, answer it, and resolve cleanly with a two-second natural tail rather than a fade."
+        }
+      ]
+    },
+    {
+      "id": "t_the_human_delay",
+      "title": "The Human Delay",
+      "chapter": "TELEPORT",
+      "role": "COMPANY THEME",
+      "level": "BENCHMARK",
+      "art": "world_cape_hangar",
+      "scenes": ["t_entry", "t_b_first_night", "t_cascade_test"],
+      "note": "The same Fate motif made precise and distant: bodies separated by impossible space, held together by human attention.",
+      "key": "F-sharp minor with Dorian color",
+      "motifNotes": "F-sharp, A, C-sharp, B",
+      "tempo": "72 BPM",
+      "meter": "4/4 with precise syncopation",
+      "palette": [
+        "prepared piano melody",
+        "rounded glass marimba",
+        "breathy chamber organ chords",
+        "warm electric bass in the middle register",
+        "restrained rim and brush percussion"
+      ],
+      "seedBase": 582200,
+      "sections": [
+        {
+          "name": "COLD OPEN",
+          "durationMs": 6000,
+          "direction": "Prepared piano states F-sharp, A, C-sharp, B immediately with a clear attack. A rounded glass marimba answers in a different register. No space ambience or electronic prelude."
+        },
+        {
+          "name": "TWO CHAIRS",
+          "durationMs": 18000,
+          "direction": "Breathy chamber-organ chords and warm midrange bass establish a precise minor harmony. Piano repeats the theme once with altered rhythm, then leaves room."
+        },
+        {
+          "name": "THE SIGNAL CROSSES",
+          "durationMs": 18000,
+          "direction": "Glass marimba takes the motif over a light syncopated rim-and-brush pattern. Shift chord voicings and introduce a small answering melody rather than another loop."
+        },
+        {
+          "name": "LATENCY",
+          "durationMs": 18000,
+          "direction": "Open the harmony around D major while piano notes arrive in expressive call and response. Create suspense through displaced rhythm and rests, never through drones, beeps, or rumble."
+        },
+        {
+          "name": "PRESENCE",
+          "durationMs": 18000,
+          "direction": "Bring piano, marimba, bass, organ, and brushes into a warm interlocking arrangement. The motif rises and gains confidence while the mix stays transparent for reading."
+        },
+        {
+          "name": "A CHAIR ON EARTH",
+          "durationMs": 12000,
+          "direction": "Remove percussion. Let prepared piano play the motif softly, followed by one humanly timed marimba answer and a suspended organ resolution with a short natural tail."
+        }
+      ]
+    },
+    {
+      "id": "s_weight_of_sky",
+      "title": "The Weight of Sky",
+      "chapter": "SKYLINE",
+      "role": "COMPANY THEME",
+      "level": "BENCHMARK",
+      "art": "world_s_strand",
+      "scenes": ["s_entry", "s_b_lab", "s_proof"],
+      "note": "The Fate motif enlarged without bombast: material, labor and consequence rising from one fragile strand.",
+      "key": "C minor with Dorian color",
+      "motifNotes": "C, E-flat, G, F",
+      "tempo": "68 BPM",
+      "meter": "6/8 with a measured walking pulse",
+      "palette": [
+        "concert piano melody",
+        "solo cello countermelody",
+        "bowed vibraphone",
+        "low chamber organ chords without drone",
+        "tuned metal percussion",
+        "restrained frame drum"
+      ],
+      "seedBase": 693300,
+      "sections": [
+        {
+          "name": "COLD OPEN",
+          "durationMs": 6000,
+          "direction": "Concert piano states C, E-flat, G, F immediately in a spacious but definite 6/8 phrase. Solo cello answers the final two notes before the sixth second. No swelling intro."
+        },
+        {
+          "name": "THE STRAND",
+          "durationMs": 18000,
+          "direction": "Bowed vibraphone and short low organ chords establish C Dorian harmony. Piano carries the theme while cello adds a distinct descending countermelody."
+        },
+        {
+          "name": "STEEL ON WATER",
+          "durationMs": 18000,
+          "direction": "Tuned metal and a restrained frame drum create a measured construction rhythm. Cello takes the motif in a higher register as piano changes the harmony every two bars."
+        },
+        {
+          "name": "LOAD TEST",
+          "durationMs": 18000,
+          "direction": "Move toward A-flat major, remove the frame drum, and break the motif into a tense piano-cello conversation. Weight is expressed through harmony and register, not continuous bass."
+        },
+        {
+          "name": "THE ROAD RISES",
+          "durationMs": 18000,
+          "direction": "Restore the 6/8 pulse with piano, cello, vibraphone, tuned metal, and compact organ chords. Broaden the motif into an earned melodic ascent without heroic bombast."
+        },
+        {
+          "name": "ONE PERSON ASCENDS",
+          "durationMs": 12000,
+          "direction": "Return to solo piano and cello. State the original four notes slowly, answer with a warmer variation, and land on an open human-scale cadence with a short natural tail."
+        }
+      ]
+    }
+  ],
+  "curated": [
+    {
+      "id": "h_gravity_softened_v7",
+      "composition": "h_gravity_softened",
+      "variant": 7,
+      "seed": 471106,
+      "score": 99.2,
+      "metrics": {
+        "introDelay": 0.803,
+        "lowBandDelta": -5.8,
+        "medianCentroid": 843.44,
+        "sectionCentroidRangeRatio": 1.056,
+        "integratedLufs": -16.7,
+        "loudnessRange": 4.1,
+        "loudnessSurge": 4.1
+      }
+    },
+    {
+      "id": "t_the_human_delay_v6",
+      "composition": "t_the_human_delay",
+      "variant": 6,
+      "seed": 582205,
+      "score": 100,
+      "metrics": {
+        "introDelay": 0.439,
+        "lowBandDelta": -6.4,
+        "medianCentroid": 1173.24,
+        "sectionCentroidRangeRatio": 0.522,
+        "integratedLufs": -15.1,
+        "loudnessRange": 4.1,
+        "loudnessSurge": 2.3
+      }
+    },
+    {
+      "id": "s_weight_of_sky_v1",
+      "composition": "s_weight_of_sky",
+      "variant": 1,
+      "seed": 693300,
+      "score": 94.7,
+      "metrics": {
+        "introDelay": 0.917,
+        "lowBandDelta": -5.6,
+        "medianCentroid": 1327.22,
+        "sectionCentroidRangeRatio": 0.687,
+        "integratedLufs": -15.7,
+        "loudnessRange": 6.6,
+        "loudnessSurge": 2
+      }
+    }
+  ]
+}

@@ -22,6 +22,39 @@ const manifest = JSON.parse(readFileSync(resolve(__dirname, '../music/candidates
     seconds?: number
   }>
 }
+const benchmarks = JSON.parse(readFileSync(resolve(__dirname, '../music/benchmarks.json'), 'utf8')) as {
+  model: string
+  seconds: number
+  variantsPerComposition: number
+  shared: { motif: string; negativeStyles: string[] }
+  compositions: Array<{
+    id: string
+    title: string
+    chapter: string
+    role: string
+    level: string
+    art: string
+    scenes: string[]
+    seedBase: number
+    sections: Array<{ name: string; durationMs: number; direction: string }>
+  }>
+  curated: Array<{
+    id: string
+    composition: string
+    variant: number
+    seed: number
+    score: number
+    metrics: {
+      introDelay: number
+      lowBandDelta: number
+      medianCentroid: number
+      sectionCentroidRangeRatio: number
+      integratedLufs: number
+      loudnessRange: number
+      loudnessSurge: number
+    }
+  }>
+}
 const review = JSON.parse(readFileSync(resolve(__dirname, '../music/review.json'), 'utf8')) as {
   decisions: Record<string, string>
 }
@@ -59,8 +92,54 @@ describe('music auditions', () => {
     }
   })
 
+  it('has one structured benchmark composition and one curated render per company', () => {
+    expect(benchmarks.model).toBe('music_v2')
+    expect(benchmarks.seconds).toBe(90)
+    expect(benchmarks.variantsPerComposition).toBe(8)
+    expect(benchmarks.compositions).toHaveLength(3)
+    expect(benchmarks.curated).toHaveLength(3)
+    expect(benchmarks.shared.motif).toContain('1, flat 3, 5, 4')
+    expect(benchmarks.shared.negativeStyles).toEqual(expect.arrayContaining([
+      'long fade-in',
+      'static drone',
+      'sub-bass rumble',
+      'monotonous repetition',
+    ]))
+
+    const compositionIds = new Set(benchmarks.compositions.map((composition) => composition.id))
+    expect(compositionIds.size).toBe(3)
+    expect(new Set(benchmarks.compositions.map((composition) => composition.chapter))).toEqual(
+      new Set(['HYPERCHUTE', 'TELEPORT', 'SKYLINE']),
+    )
+    for (const composition of benchmarks.compositions) {
+      expect(composition.sections).toHaveLength(6)
+      expect(composition.sections.reduce((total, section) => total + section.durationMs, 0)).toBe(90_000)
+      expect(composition.sections[0].durationMs).toBe(6_000)
+      for (const section of composition.sections) {
+        expect(section.durationMs).toBeGreaterThanOrEqual(3_000)
+        expect(section.direction.length).toBeGreaterThan(40)
+      }
+    }
+
+    expect(new Set(benchmarks.curated.map((selection) => selection.composition))).toEqual(compositionIds)
+    for (const selection of benchmarks.curated) {
+      const composition = benchmarks.compositions.find((candidate) => candidate.id === selection.composition)!
+      expect(selection.variant).toBeGreaterThanOrEqual(1)
+      expect(selection.variant).toBeLessThanOrEqual(benchmarks.variantsPerComposition)
+      expect(selection.seed).toBe(composition.seedBase + selection.variant - 1)
+      expect(selection.score).toBeGreaterThanOrEqual(80)
+      expect(selection.metrics.introDelay).toBeLessThanOrEqual(1)
+      expect(selection.metrics.lowBandDelta).toBeLessThanOrEqual(-3)
+      expect(selection.metrics.medianCentroid).toBeGreaterThanOrEqual(350)
+      expect(selection.metrics.loudnessSurge).toBeLessThanOrEqual(12)
+      const file = resolve(__dirname, `../public/music-benchmarks/${selection.id}.mp3`)
+      expect(existsSync(file), `${selection.id}: curated render missing`).toBe(true)
+      expect(statSync(file).size, `${selection.id}: curated render suspiciously small`).toBeGreaterThan(100_000)
+    }
+  })
+
   it('review data is valid and candidates remain outside the runtime score', () => {
-    const candidateIds = new Set(manifest.candidates.map((c) => c.id))
+    const candidateIds = new Set([...manifest.candidates.map((c) => c.id), ...benchmarks.curated.map((c) => c.id)])
     for (const [id, status] of Object.entries(review.decisions)) {
       expect(candidateIds.has(id), `review for unknown candidate '${id}'`).toBe(true)
       expect(['approved', 'rejected'], id).toContain(status)
