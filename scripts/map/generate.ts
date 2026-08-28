@@ -8,6 +8,7 @@ import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CONTENT } from '../../src/content/world'
 import type { ChapterDef } from '../../src/content/schema'
+import type { Pred } from '../../src/engine/predicates'
 import { makeFmt } from './format'
 
 interface MapNode {
@@ -27,13 +28,13 @@ interface MapNode {
   dealt?: string
   /** Forced-ruin badge: '$0' (insolvency) or 'STRESS 100' (burnout). */
   ruin?: string
-  choices?: { label: string; requires?: string; effects: string[]; result?: string; targets: string[] }[]
+  choices?: { label: string; requires?: string; effects: string[]; result?: string; targets: string[]; ripens?: string[] }[]
 }
 
 interface MapEdge {
   from: string
   to: string
-  cls: '' | 'deal' | 'ruin'
+  cls: '' | 'deal' | 'ruin' | 'flag'
   label?: string
 }
 
@@ -127,6 +128,64 @@ function layoutChapter(id: string, def: ChapterDef): MapChapter {
       }
     }
   }
+
+  // ---- causal edges: the connective tissue goto never draws ----------------
+  // Most progression is a scene setting a FLAG and a later scene's `when`
+  // waiting for it (or for a scene having been SEEN). The engine reads this;
+  // the map must draw it, or chains look severed and endings look orphaned.
+  type Need = { flags: { scope: string; key: string; cmp: string; v: unknown }[]; seen: string[]; met: string[] }
+  const needsOf = (p: Pred, pos: boolean, out: Need): Need => {
+    if (p.k === 'all' || p.k === 'any') for (const q of p.of) needsOf(q, pos, out)
+    else if (p.k === 'not') needsOf(p.p, !pos, out)
+    else if (pos && p.k === 'flag') out.flags.push({ scope: p.scope, key: p.key, cmp: p.cmp, v: p.v })
+    else if (pos && p.k === 'seen') out.seen.push(p.scene)
+    else if (pos && p.k === 'met') out.met.push(p.who)
+    return out
+  }
+  const setters = new Map<string, { scene: string; ci: number; v: unknown }[]>()
+  const meeters = new Map<string, string[]>() // character id → scenes that introduce them
+  for (const s of def.scenes)
+    s.choices.forEach((c, ci) => {
+      for (const fx of c.effects) {
+        if (fx.e === 'flag') {
+          const k = `${fx.scope}:${fx.key}`
+          if (!setters.has(k)) setters.set(k, [])
+          setters.get(k)!.push({ scene: s.id, ci, v: fx.v })
+        }
+        if (fx.e === 'meet') {
+          if (!meeters.has(fx.who)) meeters.set(fx.who, [])
+          meeters.get(fx.who)!.push(s.id)
+        }
+      }
+    })
+  const ripensByChoice = new Map<string, Set<string>>() // "sceneId|ci" → unlocked scene pids
+  for (const s of def.scenes) {
+    if (!s.when) continue
+    const need = needsOf(s.when, true, { flags: [], seen: [], met: [] })
+    for (const f of need.flags)
+      for (const st of setters.get(`${f.scope}:${f.key}`) ?? []) {
+        if (st.scene === s.id) continue
+        if (f.cmp === 'eq' && String(st.v) !== String(f.v)) continue
+        if (!edgeMap.has(`${pid(st.scene)}|${pid(s.id)}|`)) addEdge(pid(st.scene), pid(s.id), 'flag')
+        const ck = `${st.scene}|${st.ci}`
+        if (!ripensByChoice.has(ck)) ripensByChoice.set(ck, new Set())
+        ripensByChoice.get(ck)!.add(pid(s.id))
+      }
+    for (const seen of need.seen)
+      if (seen !== s.id && !edgeMap.has(`${pid(seen)}|${pid(s.id)}|`)) addEdge(pid(seen), pid(s.id), 'flag')
+    for (const who of need.met)
+      for (const m of meeters.get(who) ?? [])
+        if (m !== s.id && !edgeMap.has(`${pid(m)}|${pid(s.id)}|`)) addEdge(pid(m), pid(s.id), 'flag')
+  }
+  // Choices learn what they ripen, so ROADS TO HERE can name the exact move.
+  for (const s of def.scenes)
+    s.choices.forEach((c, ci) => {
+      const r = ripensByChoice.get(`${s.id}|${ci}`)
+      if (!r) return
+      const node = byId.get(pid(s.id))!
+      const ch = node.choices![ci]
+      ch.ripens = [...r].filter((t) => !ch.targets.includes(t))
+    })
 
   // ---- story-order layout --------------------------------------------------
   // The map opens where the game opens. Rank = longest story distance from
@@ -517,6 +576,7 @@ svg.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .edge{fill:none;stroke:var(--ink);stroke-opacity:.38;stroke-width:1.4}
 .edge.deal{stroke-dasharray:5 5;stroke-opacity:.26}
 .edge.ruin{stroke:#9C3B2E;stroke-dasharray:2 4;stroke-opacity:.75}
+.edge.flag{stroke:var(--accent);stroke-opacity:.3;stroke-dasharray:2 6;stroke-width:1.5}
 .edge.hl{stroke:var(--accent);stroke-opacity:1;stroke-width:2}
 .edge.dimmed{stroke-opacity:.05}
 .node{position:absolute;background:var(--panel);border:1.5px solid var(--ink);border-radius:4px;padding:9px 11px;cursor:pointer;transition:box-shadow .12s, opacity .15s}
@@ -668,6 +728,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   <div class="zoomer"><button class="tab" id="zout">−</button><button class="tab" id="zpct">100%</button><button class="tab" id="zin">+</button><button class="tab" id="zfit">FIT</button></div>
   <div class="legend">
     <span class="lg"><span class="sw"></span>a choice leads there</span>
+    <span class="lg"><span class="sw" style="border-top-style:dotted;border-top-color:var(--accent)"></span>a choice here ripens it (sets its flag)</span>
     <span class="lg"><span class="dotk" style="border-style:dashed"></span>dashed + right-shifted = THE WORLD deals it in when its moment ripens</span>
     <span class="lg"><span class="dotk" style="border-color:#9C3B2E"></span>$0 / STRESS 100 = forced ruin scene</span>
     <span class="lg">bottom shelf = side deals off the main road</span>
@@ -717,7 +778,7 @@ DATA.chapters.forEach(ch=>{
   ch.nodes.forEach(n=>{const el=document.createElement('div');el.className='node '+n.kind+(n.kind==='scene'&&n.dealt?' pool':'')+(n.endKind?' k-'+n.endKind:'');el.dataset.id=n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';el.style.width=n.w+'px';el.style.minHeight=n.h+'px';
     let inner='<div class="ntitle">'+n.title+'</div>';
     if(n.kind==='scene'&&n.prose)inner+='<div class="ngist">'+n.prose.slice(0,150)+'…</div>';
-    const chips=[];if(n.ruin)chips.push('<span class="chip ruinc">'+n.ruin+' →</span>');if(n.speaker)chips.push('<span class="chip spk">'+n.speaker+'</span>');if(n.fuse)chips.push('<span class="chip">⏱ FUSE</span>');
+    const chips=[];if(n.kind==='ending'&&n.endKind)chips.push('<span class="chip spk">'+n.endKind.toUpperCase()+'</span>');if(n.ruin)chips.push('<span class="chip ruinc">'+n.ruin+' →</span>');if(n.speaker)chips.push('<span class="chip spk">'+n.speaker+'</span>');if(n.fuse)chips.push('<span class="chip">⏱ FUSE</span>');
     if(chips.length)inner+='<div class="chiprow">'+chips.join('')+'</div>';
     el.innerHTML=inner;canvas.appendChild(el);el._node=n;
     el.addEventListener('click',ev=>{ev.stopPropagation();
@@ -740,12 +801,14 @@ function openDrawer(n,ch){
   if(n.prose)html+='<div class="dspeaker">'+(n.speaker?n.speaker+' — ':'')+(n.kind==='ending'?'':'')+'</div><p class="dprose">'+n.prose+'</p>';
   if(n.choices&&n.choices.length){html+='<div class="dchoices">';
     n.choices.forEach(c=>{const jump=c.targets.length>0;const tid=jump?c.targets[0]:null;
+      const nameOf=t=>{const tn=DATA.chapters.flatMap(c=>c.nodes).find(nn=>nn.id===t);return tn?tn.title:t};
       html+='<div class="choice'+(jump?' jump':'')+'"'+(tid?' data-tid="'+tid+'"':'')+'>'
         +'<div class="clabel">'+c.label+'</div>'
         +(c.requires?'<div class="creq">requires '+c.requires+'</div>':'')
         +(c.effects.length?'<div class="ceffects">'+c.effects.map(x=>'<span>'+x+'</span>').join('')+'</div>':'')
         +(c.result?'<div class="cresult">'+c.result+'</div>':'')
-        +(jump?'<div class="ctargets">→ '+c.targets.map(t=>{const tn=DATA.chapters.flatMap(c=>c.nodes).find(nn=>nn.id===t);return tn?tn.title:t}).join(', ')+'</div>':'')
+        +(jump?'<div class="ctargets">→ '+c.targets.map(nameOf).join(', ')+'</div>':'')
+        +(c.ripens&&c.ripens.length?'<div class="ctargets">⚑ ripens '+c.ripens.map(nameOf).join(', ')+'</div>':'')
       +'</div>';});
     html+='</div>';}
   if(n.kind==='ending'){
@@ -756,7 +819,7 @@ function openDrawer(n,ch){
     if(steps.length){
       html+='<div class="roads"><h4>ROADS TO HERE · '+steps.length+' BEATS</h4>';
       steps.forEach(s=>{
-        const vias=(s.choices||[]).filter(c=>c.targets.some(t=>lit.has(t)));
+        const vias=(s.choices||[]).filter(c=>c.targets.concat(c.ripens||[]).some(t=>lit.has(t)));
         html+='<div class="rstep"><div class="rt">'+s.title+'</div>'
           +vias.map(c=>'<div class="rvia">▸ '+c.label
             +(c.requires?'<br><span class="rgate">'+c.requires+'</span>':'')+'</div>').join('')
