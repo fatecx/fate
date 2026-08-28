@@ -795,9 +795,14 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 .mplay:hover,.mplay.active{border-color:var(--accent);color:var(--accent)}
 .mcover .mplay{position:absolute;left:14px;bottom:14px;z-index:2;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.8);background:rgba(20,22,26,.78);color:#fff;font-size:16px;backdrop-filter:blur(6px)}
 .mcover .mplay.active{background:var(--accent);border-color:var(--accent)}
-.mprogress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.28);z-index:3}
-.mprogress i{display:block;width:0;height:100%;background:var(--accent)}
+.mprogress{position:absolute;left:0;right:0;bottom:0;height:12px;padding:0;border:0;background:transparent;z-index:3;cursor:ew-resize}
+.mprogress::before{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.28)}
+.mprogress i{position:absolute;left:0;bottom:0;display:block;width:0;height:3px;background:var(--accent);pointer-events:none}
+.mprogress:hover::before,.mprogress:focus-visible::before{height:5px}
 .mtime{position:absolute;right:12px;bottom:14px;z-index:2;font:10.5px var(--mono);color:#fff}
+.mskip{position:absolute;left:68px;bottom:17px;z-index:2;display:flex;gap:5px}
+.mskip button{font:600 9.5px var(--mono);padding:4px 7px;border:1px solid rgba(255,255,255,.55);border-radius:99px;background:rgba(20,22,26,.68);color:#fff;backdrop-filter:blur(6px)}
+.mskip button:hover{border-color:#fff}
 .mbody{padding:11px 12px 12px;display:flex;flex-direction:column;gap:8px}
 .mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .mtitle{font:600 13px/1.35 var(--mono);letter-spacing:.02em}
@@ -811,9 +816,12 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 .mreview button{font:700 10px var(--mono);letter-spacing:.08em;padding:7px;border:1px solid var(--line);border-radius:4px;color:var(--dim)}
 .mreview .approve.on{color:#fff;background:var(--triumph);border-color:var(--triumph)}
 .mreview .reject.on{color:#fff;background:var(--disgrace);border-color:var(--disgrace)}
-.moldhead{height:82px;background:linear-gradient(135deg,var(--accent-soft),var(--panel));display:flex;align-items:flex-end;padding:12px;position:relative}
+.moldhead{height:112px;background:linear-gradient(135deg,var(--accent-soft),var(--panel));padding:12px;position:relative}
 .moldhead::before{content:'';position:absolute;inset:12px;background:repeating-linear-gradient(90deg,transparent 0 7px,var(--line) 7px 8px);opacity:.5;mask-image:linear-gradient(to top,#000,transparent)}
 .mtakes{display:flex;gap:6px;flex-wrap:wrap;position:relative}
+.moldhead .mskip{left:12px}
+.moldhead .mtime{color:var(--dim)}
+.moldhead .mprogress::before{background:var(--line)}
 @media(max-width:680px){.musicpane{padding:12px 12px 80px}.musicgrid{grid-template-columns:1fr}.mreviewcount{margin-left:0}.musicbar{position:relative}.mintro{display:block}.mintro .model{margin-top:6px}}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
@@ -1129,18 +1137,25 @@ function refreshMusicReview(){
   const count=document.getElementById('mreviewcount');if(count)count.textContent=approved+' approved · '+rejected+' rejected · '+(DATA.music.candidates.length-approved-rejected)+' open';
   const save=document.getElementById('msave');if(save){const d=musicDirty();save.textContent=d?('SAVE REVIEWS ('+d+')'):'REVIEWS SAVED';save.classList.toggle('has',d>0);save.disabled=!d;}}
 function resetMusicButtons(){document.querySelectorAll('.mplay').forEach(b=>{b.classList.remove('active');b.textContent=b.dataset.label||'▶';});}
-function stopMusic(){musicPlayer.pause();musicActive=null;resetMusicButtons();}
+function resetMusicCard(card){if(!card)return;const bar=card.querySelector('.mprogress i'),progress=card.querySelector('.mprogress'),time=card.querySelector('.mtime');
+  if(bar)bar.style.width='0';if(progress)progress.setAttribute('aria-valuenow','0');if(time)time.textContent='0:00 / '+mtime(Number(card.dataset.duration));}
+function stopMusic(){const card=musicActive&&musicActive.card;musicPlayer.pause();musicActive=null;resetMusicButtons();resetMusicCard(card);}
 function playMusic(btn){const path=btn.dataset.path;
   if(musicActive&&musicActive.path===path){
     if(musicPlayer.paused){musicPlayer.play().catch(()=>{});btn.classList.add('active');btn.textContent='Ⅱ';}
     else{musicPlayer.pause();btn.classList.remove('active');btn.textContent=btn.dataset.label||'▶';}
     return;}
-  musicPlayer.pause();resetMusicButtons();musicPlayer.src=ASSETBASE+path;musicActive={path:path,btn:btn,card:btn.closest('.mcard')};
+  musicPlayer.pause();if(musicActive)resetMusicCard(musicActive.card);resetMusicButtons();musicPlayer.src=ASSETBASE+path;musicActive={path:path,btn:btn,card:btn.closest('.mcard')};
   btn.classList.add('active');btn.textContent='Ⅱ';
   musicPlayer.play().catch(err=>{stopMusic();alert('Could not play this track: '+String(err&&err.message||err));});}
 musicPlayer.addEventListener('timeupdate',()=>{if(!musicActive)return;const card=musicActive.card,bar=card.querySelector('.mprogress i'),time=card.querySelector('.mtime');
-  if(bar&&musicPlayer.duration)bar.style.width=(musicPlayer.currentTime/musicPlayer.duration*100)+'%';if(time)time.textContent=mtime(musicPlayer.currentTime)+' / '+mtime(musicPlayer.duration);});
-musicPlayer.addEventListener('ended',()=>{if(musicActive){const bar=musicActive.card.querySelector('.mprogress i');if(bar)bar.style.width='0';}musicActive=null;resetMusicButtons();});
+  const progress=card.querySelector('.mprogress'),pct=musicPlayer.duration?musicPlayer.currentTime/musicPlayer.duration*100:0;
+  if(bar)bar.style.width=pct+'%';if(progress)progress.setAttribute('aria-valuenow',String(Math.round(pct)));if(time)time.textContent=mtime(musicPlayer.currentTime)+' / '+mtime(musicPlayer.duration);});
+musicPlayer.addEventListener('ended',()=>{const card=musicActive&&musicActive.card;musicActive=null;resetMusicButtons();resetMusicCard(card);});
+function skipMusic(seconds,card){if(!musicActive||musicActive.card!==card||!Number.isFinite(musicPlayer.duration))return;
+  musicPlayer.currentTime=Math.max(0,Math.min(musicPlayer.duration,musicPlayer.currentTime+seconds));}
+function scrubMusic(progress,event){const card=progress.closest('.mcard');if(!musicActive||musicActive.card!==card||!Number.isFinite(musicPlayer.duration))return;
+  const box=progress.getBoundingClientRect(),ratio=Math.max(0,Math.min(1,(event.clientX-box.left)/box.width));musicPlayer.currentTime=ratio*musicPlayer.duration;}
 function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
   document.querySelectorAll('.mcard').forEach(card=>{const setOk=card.dataset.set===musicSet,chOk=musicSet==='current'||musicChapter==='ALL'||card.dataset.chapter===musicChapter;
     const qOk=!v||card._musicSearch.includes(v),on=setOk&&chOk&&qOk;card.style.display=on?'':'none';if(on)shown++;});
@@ -1154,21 +1169,21 @@ function buildMusic(){const grid=document.getElementById('musicgrid'),filters=do
   filters.innerHTML=chapters.map(ch=>'<button class="tab'+(ch==='ALL'?' on':'')+'" data-chapter="'+eh(ch)+'">'+eh(ch)+'</button>').join('');
   filters.addEventListener('click',e=>{const b=e.target.closest('[data-chapter]');if(!b)return;musicChapter=b.dataset.chapter;
     filters.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));applyMusicFilter();});
-  DATA.music.candidates.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='new';card.dataset.chapter=c.chapter;card.dataset.candidate=c.id;
+  DATA.music.candidates.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='new';card.dataset.chapter=c.chapter;card.dataset.candidate=c.id;card.dataset.duration=c.seconds;
     card._musicSearch=(c.id+' '+c.title+' '+c.chapter+' '+c.role+' '+c.level+' '+c.note+' '+c.uses.join(' ')).toLowerCase();
     card.innerHTML='<div class="mcover"><img loading="lazy" src="'+ARTBASE+eh(c.art)+'.webp" alt="">'
-      +'<button class="mplay" data-path="'+eh(c.path)+'" data-label="▶" aria-label="Play '+eh(c.title)+'">▶</button><span class="mtime">0:00 / '+mtime(c.seconds)+'</span><span class="mprogress"><i></i></span></div>'
+      +'<button class="mplay" data-path="'+eh(c.path)+'" data-label="▶" aria-label="Play '+eh(c.title)+'">▶</button><div class="mskip"><button data-skip="-15" aria-label="Back 15 seconds">−15</button><button data-skip="15" aria-label="Forward 15 seconds">+15</button></div><span class="mtime">0:00 / '+mtime(c.seconds)+'</span><button class="mprogress" aria-label="Scrub '+eh(c.title)+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></button></div>'
       +'<div class="mbody"><div class="mtop"><div><div class="mtitle">'+eh(c.title)+'</div><div class="mid">'+eh(c.id)+'</div></div><div class="mbadges"><span class="mbadge role">'+eh(c.role)+'</span><span class="mbadge">'+eh(c.level)+'</span><span class="mbadge">'+eh(c.chapter)+'</span></div></div>'
       +'<p class="mnote">'+eh(c.note)+'</p><div class="muses">FOR · '+c.uses.map(eh).join(' · ')+'</div>'
       +'<div class="mreview"><button class="approve">APPROVE</button><button class="reject">REJECT</button></div></div>';
     grid.appendChild(card);});
-  DATA.music.current.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='current';
+  DATA.music.current.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='current';card.dataset.duration=c.seconds;
     card._musicSearch=(c.id+' '+c.title+' '+c.role+' '+c.prompt).toLowerCase();
-    card.innerHTML='<div class="moldhead"><div class="mtakes">'+c.tracks.map((t,i)=>'<button class="mplay" data-path="'+eh(t.path)+'" data-label="▶ '+(i+1)+'">▶ '+(i+1)+'</button>').join('')+'</div></div>'
+    card.innerHTML='<div class="moldhead"><div class="mtakes">'+c.tracks.map((t,i)=>'<button class="mplay" data-path="'+eh(t.path)+'" data-label="▶ '+(i+1)+'">▶ '+(i+1)+'</button>').join('')+'</div><div class="mskip"><button data-skip="-10" aria-label="Back 10 seconds">−10</button><button data-skip="10" aria-label="Forward 10 seconds">+10</button></div><span class="mtime">0:00 / '+mtime(c.seconds)+'</span><button class="mprogress" aria-label="Scrub '+eh(c.title)+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></button></div>'
       +'<div class="mbody"><div class="mtop"><div><div class="mtitle">'+eh(c.title)+'</div><div class="mid">'+eh(c.id)+'</div></div><div class="mbadges"><span class="mbadge role">'+eh(c.role)+'</span><span class="mbadge">GAIN '+c.gain+'</span></div></div>'
       +'<p class="mnote">'+eh(c.prompt)+'</p><div class="muses">'+c.tracks.length+' TAKE'+(c.tracks.length===1?'':'S')+' · '+c.seconds+'S EACH · LIVE IN GAME</div></div>';
     grid.appendChild(card);});
-  grid.addEventListener('click',e=>{const play=e.target.closest('.mplay');if(play){playMusic(play);return;}const review=e.target.closest('.mreview button');if(!review)return;
+  grid.addEventListener('click',e=>{const play=e.target.closest('.mplay');if(play){playMusic(play);return;}const skip=e.target.closest('[data-skip]');if(skip){skipMusic(Number(skip.dataset.skip),skip.closest('.mcard'));return;}const progress=e.target.closest('.mprogress');if(progress){scrubMusic(progress,e);return;}const review=e.target.closest('.mreview button');if(!review)return;
     const id=review.closest('.mcard').dataset.candidate,want=review.classList.contains('approve')?'approved':'rejected';if(MDEC[id]===want)delete MDEC[id];else MDEC[id]=want;refreshMusicReview();});
   document.getElementById('mswitch').addEventListener('click',e=>{const b=e.target.closest('[data-set]');if(!b)return;musicSet=b.dataset.set;
     document.querySelectorAll('#mswitch button').forEach(x=>x.classList.toggle('on',x===b));stopMusic();applyMusicFilter();});
