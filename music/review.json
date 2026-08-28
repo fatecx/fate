@@ -1,3 +1,16 @@
 {
-  "decisions": {}
+  "decisions": {
+    "h_porches_go_quiet": "rejected",
+    "h_soft_as_rain": "rejected",
+    "h_the_city_below": "approved",
+    "h_the_price_of_price": "rejected",
+    "s_steel_on_water": "rejected",
+    "s_the_cable_sings": "rejected",
+    "s_the_road_to_orbit": "rejected",
+    "s_the_strand": "rejected",
+    "t_a_chair_on_earth": "approved",
+    "t_eleven_seconds": "rejected",
+    "t_the_ring_holds": "rejected",
+    "t_two_point_six_seconds": "rejected"
+  }
 }
