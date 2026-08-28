@@ -8,6 +8,7 @@
  *
  * POST { pass, action: 'save',   edits: [{ file, from, to }] } → { sha }
  * POST { pass, action: 'flags',  flags: [artId] }              → { sha }
+ * POST { pass, action: 'music-review', decisions: { id: status } } → { sha }
  * POST { pass, action: 'status', sha }                         → { found, status, conclusion }
  *
  * 'save' rewrites each unique literal in the named content file and pushes ONE
@@ -82,6 +83,36 @@ export default async function handler(req: any, res: any) {
       })
       const commit = await gh('POST', '/git/commits', {
         message: `Art flags from the map (${flags.length} flagged)`,
+        tree: newTree.sha,
+        parents: [base],
+      })
+      await gh('PATCH', `/git/refs/heads/${BRANCH}`, { sha: commit.sha })
+      return res.status(200).json({ sha: commit.sha })
+    }
+
+    if (body.action === 'music-review') {
+      // Audition verdicts only. This never edits the runtime sound registry,
+      // so approval cannot accidentally put a candidate into the game.
+      const decisions = body.decisions
+      if (
+        !decisions || typeof decisions !== 'object' || Array.isArray(decisions) ||
+        Object.keys(decisions).length > 100 ||
+        Object.entries(decisions).some(
+          ([id, status]) => !/^[a-z0-9_-]{1,80}$/i.test(id) || !['approved', 'rejected'].includes(String(status)),
+        )
+      )
+        return res.status(400).json({ error: 'bad music review' })
+      const sorted = Object.fromEntries(Object.entries(decisions).sort(([a], [b]) => a.localeCompare(b)))
+      const content = JSON.stringify({ decisions: sorted }, null, 2) + '\n'
+      const base = (await gh('GET', `/git/ref/heads/${BRANCH}`)).object.sha
+      const baseTree = (await gh('GET', `/git/commits/${base}`)).tree.sha
+      const blob = await gh('POST', '/git/blobs', { content, encoding: 'utf-8' })
+      const newTree = await gh('POST', '/git/trees', {
+        base_tree: baseTree,
+        tree: [{ path: 'music/review.json', mode: '100644', type: 'blob', sha: blob.sha }],
+      })
+      const commit = await gh('POST', '/git/commits', {
+        message: `Music reviews from the map (${Object.keys(decisions).length} decided)`,
         tree: newTree.sha,
         parents: [base],
       })

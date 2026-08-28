@@ -7,6 +7,7 @@
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CONTENT } from '../../src/content/world'
+import { MOODS, TENSION } from '../../src/content/sound'
 import type { ChapterDef } from '../../src/content/schema'
 import type { Pred } from '../../src/engine/predicates'
 import { makeFmt } from './format'
@@ -456,6 +457,75 @@ try {
   /* no flags yet */
 }
 
+// ---- MUSIC ROOM — live baseline + isolated Eleven Music auditions -----------
+interface MusicCandidate {
+  id: string
+  title: string
+  chapter: string
+  role: string
+  level: string
+  art: string
+  scenes: string[]
+  note: string
+  prompt: string
+  seconds?: number
+}
+
+function musicData() {
+  const manifest = JSON.parse(
+    readFileSync(join(process.cwd(), 'music', 'candidates.json'), 'utf8'),
+  ) as { model: string; seconds: number; candidates: MusicCandidate[] }
+  let decisions: Record<string, 'approved' | 'rejected'> = {}
+  try {
+    decisions = JSON.parse(
+      readFileSync(join(process.cwd(), 'music', 'review.json'), 'utf8'),
+    ).decisions ?? {}
+  } catch {
+    /* An empty review is the normal first-run state. */
+  }
+
+  const current = [
+    ...Object.entries(MOODS).map(([role, def]) => ({
+      id: def.id,
+      title: role.replace(/_/g, ' ').toUpperCase(),
+      role: 'CURRENT MOOD',
+      prompt: def.prompt,
+      gain: def.gain,
+      seconds: def.seconds ?? 30,
+      tracks: Array.from({ length: def.takes ?? 1 }, (_, i) => ({
+        id: i ? `${def.id}_${i + 1}` : def.id,
+        label: `TAKE ${i + 1}`,
+        path: `sfx/${i ? `${def.id}_${i + 1}` : def.id}.mp3`,
+      })),
+    })),
+    {
+      id: TENSION.id,
+      title: 'TENSION',
+      role: 'CURRENT STEM',
+      prompt: TENSION.prompt,
+      gain: TENSION.gain,
+      seconds: TENSION.seconds ?? 22,
+      tracks: [{ id: TENSION.id, label: 'PLAY', path: `sfx/${TENSION.id}.mp3` }],
+    },
+  ]
+
+  const candidates = manifest.candidates.map((candidate) => {
+    const chapter = CONTENT.chapters[candidate.chapter.toLowerCase() as keyof typeof CONTENT.chapters]
+    const uses = candidate.scenes.map((id) => {
+      if (id.startsWith('end:')) return chapter?.endings.find((e) => e.id === id.slice(4))?.title ?? id
+      return chapter?.scenes.find((s) => s.id === id)?.title ?? id
+    })
+    return {
+      ...candidate,
+      seconds: candidate.seconds ?? manifest.seconds,
+      path: `music-candidates/${candidate.id}.mp3`,
+      uses,
+    }
+  })
+
+  return { model: manifest.model, current, candidates, decisions }
+}
+
 /** The whole game as one readable, editable document — the SCRIPT tab. */
 function scriptHtml(): string {
   const out: string[] = []
@@ -505,6 +575,7 @@ function renderHtml(chapters: MapChapter[]): string {
     fileOf: FILEOF,
     art: artCards(),
     flags: ART_FLAGS,
+    music: musicData(),
     repo: 'fatecx/fate',
     branch: 'main',
   })
@@ -699,6 +770,51 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 .lbprev{left:8px}
 .lbnext{right:8px}
 .lbcount{color:#8b8d85}
+.musicpane{min-height:100%;padding:18px 22px 100px}
+.musicbar{position:sticky;top:0;z-index:8;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;margin:-2px -4px 18px;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:6px}
+.mswitch{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel)}
+.mswitch button{font:600 10.5px var(--mono);letter-spacing:.08em;padding:7px 11px;color:var(--dim);border-right:1px solid var(--line)}
+.mswitch button:last-child{border-right:0}
+.mswitch button.on{color:var(--paper);background:var(--ink)}
+.mfilters{display:flex;gap:5px;flex-wrap:wrap}
+.mfilters .tab{font-size:10px;padding:4px 8px}
+.mreviewcount{margin-left:auto;font:10.5px var(--mono);color:var(--dim)}
+.msave{font:700 10.5px var(--mono);letter-spacing:.08em;padding:7px 11px;border:1px solid var(--line);border-radius:4px;color:var(--dim)}
+.msave.has{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.mintro{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin:0 2px 14px}
+.mintro p{max-width:78ch;color:var(--dim);font-size:12.5px}
+.mintro .model{flex:none;font:10px var(--mono);letter-spacing:.08em;color:var(--dim)}
+.musicgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;align-items:start}
+.mcard{border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.mcard.approved{border-color:var(--triumph);box-shadow:0 0 0 1px var(--triumph)}
+.mcard.rejected{border-color:var(--disgrace);opacity:.68}
+.mcover{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,var(--accent-soft),var(--panel))}
+.mcover img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(.96)}
+.mcover::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.62));pointer-events:none}
+.mplay{font:700 11px var(--mono);border:1px solid var(--line);border-radius:99px;padding:6px 10px;background:var(--panel);color:var(--ink);white-space:nowrap}
+.mplay:hover,.mplay.active{border-color:var(--accent);color:var(--accent)}
+.mcover .mplay{position:absolute;left:14px;bottom:14px;z-index:2;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.8);background:rgba(20,22,26,.78);color:#fff;font-size:16px;backdrop-filter:blur(6px)}
+.mcover .mplay.active{background:var(--accent);border-color:var(--accent)}
+.mprogress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.28);z-index:3}
+.mprogress i{display:block;width:0;height:100%;background:var(--accent)}
+.mtime{position:absolute;right:12px;bottom:14px;z-index:2;font:10.5px var(--mono);color:#fff}
+.mbody{padding:11px 12px 12px;display:flex;flex-direction:column;gap:8px}
+.mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mtitle{font:600 13px/1.35 var(--mono);letter-spacing:.02em}
+.mid{font:9.5px var(--mono);color:var(--dim);margin-top:2px;word-break:break-all}
+.mbadges{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.mbadge{font:600 8.5px var(--mono);letter-spacing:.08em;padding:2px 6px;border:1px solid var(--line);border-radius:99px;color:var(--dim);white-space:nowrap}
+.mbadge.role{color:var(--accent);border-color:var(--accent)}
+.mnote{font-size:12px;line-height:1.55}
+.muses{font:10px/1.55 var(--mono);color:var(--dim);border-top:1px dashed var(--line);padding-top:7px}
+.mreview{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:2px}
+.mreview button{font:700 10px var(--mono);letter-spacing:.08em;padding:7px;border:1px solid var(--line);border-radius:4px;color:var(--dim)}
+.mreview .approve.on{color:#fff;background:var(--triumph);border-color:var(--triumph)}
+.mreview .reject.on{color:#fff;background:var(--disgrace);border-color:var(--disgrace)}
+.moldhead{height:82px;background:linear-gradient(135deg,var(--accent-soft),var(--panel));display:flex;align-items:flex-end;padding:12px;position:relative}
+.moldhead::before{content:'';position:absolute;inset:12px;background:repeating-linear-gradient(90deg,transparent 0 7px,var(--line) 7px 8px);opacity:.5;mask-image:linear-gradient(to top,#000,transparent)}
+.mtakes{display:flex;gap:6px;flex-wrap:wrap;position:relative}
+@media(max-width:680px){.musicpane{padding:12px 12px 80px}.musicgrid{grid-template-columns:1fr}.mreviewcount{margin-left:0}.musicbar{position:relative}.mintro{display:block}.mintro .model{margin-top:6px}}
 @media (prefers-reduced-motion:no-preference){.node{transition:box-shadow .12s,opacity .15s}.drawer{transition:transform .18s ease}}
 </style>
 </head>
@@ -708,6 +824,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   <nav class="tabs" id="pages">
     <button class="tab pg on" data-page="map">MAP</button>
     <button class="tab pg" data-page="art">ART</button>
+    <button class="tab pg" data-page="music">MUSIC</button>
     <button class="tab pg" data-page="script">SCRIPT</button>
   </nav>
   <div class="search"><input id="q" type="search" placeholder="search scenes…" aria-label="Search scenes"></div>
@@ -740,6 +857,15 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
     <nav class="tabs artchips" id="artchips"></nav>
     <div class="artgrid" id="artgrid"></div>
   </div>
+</div><div class="musicpane" id="musicpane" style="display:none">
+  <div class="musicbar">
+    <div class="mswitch" id="mswitch"><button data-set="new" class="on">NEW AUDITIONS</button><button data-set="current">CURRENT SCORE</button></div>
+    <div class="mfilters" id="mfilters"></div>
+    <span class="mreviewcount" id="mreviewcount"></span>
+    <button class="msave" id="msave" disabled>REVIEWS SAVED</button>
+  </div>
+  <div class="mintro"><p id="mintro"></p><span class="model" id="mmodel"></span></div>
+  <div class="musicgrid" id="musicgrid"></div>
 </div></main>
 <div class="lightbox" id="lightbox"><button class="lbnav lbprev" id="lbprev" aria-label="Previous">‹</button><img id="lbimg" alt=""><button class="lbnav lbnext" id="lbnext" aria-label="Next">›</button><div class="lbmeta" id="lbmeta"></div></div>
 <aside class="drawer" id="drawer">
@@ -855,9 +981,9 @@ document.getElementById('zfit').addEventListener('click',()=>{
     if(l.style.display==='none')return;
     const c=l.querySelector('.canvas');if(c)w=Math.max(w,parseFloat(c.style.width));});
   if(w)setZoom((stage.clientWidth-70)/w);});
-// PAGES (header) — MAP, SCRIPT and ART are different rooms, not filters.
+// PAGES (header) — MAP, SCRIPT, ART and MUSIC are different rooms, not filters.
 document.getElementById('pages').addEventListener('click',e=>{const b=e.target.closest('.pg');if(!b)return;
-  const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',mapOn=page==='map';
+  const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',musicOn=page==='music',mapOn=page==='map';
   document.querySelectorAll('.pg').forEach(t=>t.classList.toggle('on',t===b));
   const pane=document.getElementById('scriptpane');
   pane.style.display=scriptOn?'':'none';
@@ -866,10 +992,14 @@ document.getElementById('pages').addEventListener('click',e=>{const b=e.target.c
   const ap=document.getElementById('artpane');
   ap.style.display=artOn?'':'none';
   if(artOn&&!ap.dataset.built){buildArt();ap.dataset.built='1';}
+  const mp=document.getElementById('musicpane');
+  mp.style.display=musicOn?'':'none';
+  if(musicOn&&!mp.dataset.built){buildMusic();mp.dataset.built='1';}
+  if(!musicOn)stopMusic();
   document.getElementById('edbar').style.display=scriptOn?'':'none';
   document.getElementById('subbar').style.display=mapOn?'':'none';
   document.querySelector('.search').style.display=scriptOn?'none':'';
-  q.placeholder=artOn?'search art…':'search scenes…';
+  q.placeholder=artOn?'search art…':musicOn?'search music…':'search scenes…';
   document.querySelector('.hint').style.display=mapOn?'':'none';
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(mapOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
   clearFocus();drawer.classList.remove('open');});
@@ -877,7 +1007,8 @@ document.getElementById('dclose').addEventListener('click',()=>{drawer.classList
 stage.addEventListener('click',e=>{if(e.target===stage||e.target.classList.contains('canvas')){drawer.classList.remove('open');clearFocus();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');document.getElementById('pubdrop').classList.remove('open');document.getElementById('lightbox').classList.remove('open');clearFocus();}});
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();document.querySelectorAll('.node').forEach(el=>{const n=el._node;if(!n)return;const hit=!v||(n.title+' '+(n.prose||'')).toLowerCase().includes(v);el.classList.toggle('q-dim',!hit);});
-  if(document.getElementById('artpane').dataset.built)applyArtFilter();});
+  if(document.getElementById('artpane').dataset.built)applyArtFilter();
+  if(document.getElementById('musicpane').dataset.built)applyMusicFilter();});
 
 // ---- ART GALLERY — every frame in the game, foldered, filterable, flaggable --
 // Sidebar folders scope by group (cast / chapter / orphans / flagged); chips
@@ -978,6 +1109,73 @@ function buildArt(){
       alert(String(err&&err.message||err));}
   });
   refreshFlagUI();applyArtFilter();}
+
+// ---- MUSIC ROOM — A/B the current score against isolated new auditions -----
+// One shared player prevents accidental cacophony. Review decisions are data,
+// saved to music/review.json; candidate files are deliberately absent from the
+// runtime registry until a later, explicit integration pass.
+const MDEC=Object.assign({},DATA.music.decisions||{});
+const musicPlayer=new Audio();
+let musicSet='new',musicChapter='ALL',musicActive=null;
+const ASSETBASE=location.protocol==='file:'?'public/':'/';
+const mtime=s=>{if(!Number.isFinite(s))return '0:00';const n=Math.max(0,Math.floor(s));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0');};
+function musicDirty(){const base=DATA.music.decisions||{};const ids=new Set(Object.keys(base).concat(Object.keys(MDEC)));let n=0;
+  ids.forEach(id=>{if((base[id]||'')!==(MDEC[id]||''))n++;});return n;}
+function refreshMusicReview(){
+  document.querySelectorAll('.mcard[data-candidate]').forEach(card=>{const s=MDEC[card.dataset.candidate]||'';
+    card.classList.toggle('approved',s==='approved');card.classList.toggle('rejected',s==='rejected');
+    card.querySelector('.approve').classList.toggle('on',s==='approved');card.querySelector('.reject').classList.toggle('on',s==='rejected');});
+  const approved=Object.values(MDEC).filter(x=>x==='approved').length,rejected=Object.values(MDEC).filter(x=>x==='rejected').length;
+  const count=document.getElementById('mreviewcount');if(count)count.textContent=approved+' approved · '+rejected+' rejected · '+(DATA.music.candidates.length-approved-rejected)+' open';
+  const save=document.getElementById('msave');if(save){const d=musicDirty();save.textContent=d?('SAVE REVIEWS ('+d+')'):'REVIEWS SAVED';save.classList.toggle('has',d>0);save.disabled=!d;}}
+function resetMusicButtons(){document.querySelectorAll('.mplay').forEach(b=>{b.classList.remove('active');b.textContent=b.dataset.label||'▶';});}
+function stopMusic(){musicPlayer.pause();musicActive=null;resetMusicButtons();}
+function playMusic(btn){const path=btn.dataset.path;
+  if(musicActive&&musicActive.path===path){
+    if(musicPlayer.paused){musicPlayer.play().catch(()=>{});btn.classList.add('active');btn.textContent='Ⅱ';}
+    else{musicPlayer.pause();btn.classList.remove('active');btn.textContent=btn.dataset.label||'▶';}
+    return;}
+  musicPlayer.pause();resetMusicButtons();musicPlayer.src=ASSETBASE+path;musicActive={path:path,btn:btn,card:btn.closest('.mcard')};
+  btn.classList.add('active');btn.textContent='Ⅱ';
+  musicPlayer.play().catch(err=>{stopMusic();alert('Could not play this track: '+String(err&&err.message||err));});}
+musicPlayer.addEventListener('timeupdate',()=>{if(!musicActive)return;const card=musicActive.card,bar=card.querySelector('.mprogress i'),time=card.querySelector('.mtime');
+  if(bar&&musicPlayer.duration)bar.style.width=(musicPlayer.currentTime/musicPlayer.duration*100)+'%';if(time)time.textContent=mtime(musicPlayer.currentTime)+' / '+mtime(musicPlayer.duration);});
+musicPlayer.addEventListener('ended',()=>{if(musicActive){const bar=musicActive.card.querySelector('.mprogress i');if(bar)bar.style.width='0';}musicActive=null;resetMusicButtons();});
+function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
+  document.querySelectorAll('.mcard').forEach(card=>{const setOk=card.dataset.set===musicSet,chOk=musicSet==='current'||musicChapter==='ALL'||card.dataset.chapter===musicChapter;
+    const qOk=!v||card._musicSearch.includes(v),on=setOk&&chOk&&qOk;card.style.display=on?'':'none';if(on)shown++;});
+  const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='new'
+    ?'12 isolated 90-second auditions — one step more musical than the ambient score, still sparse enough to sit beneath reading. Nothing here plays in the game.'
+    :'The live baseline: ten 30-second mood beds with six takes each, plus the tension stem. This is what the game uses today.';
+  const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
+  document.getElementById('mfilters').style.display=musicSet==='new'?'':'none';}
+function buildMusic(){const grid=document.getElementById('musicgrid'),filters=document.getElementById('mfilters');
+  const chapters=['ALL'];DATA.music.candidates.forEach(c=>{if(!chapters.includes(c.chapter))chapters.push(c.chapter);});
+  filters.innerHTML=chapters.map(ch=>'<button class="tab'+(ch==='ALL'?' on':'')+'" data-chapter="'+eh(ch)+'">'+eh(ch)+'</button>').join('');
+  filters.addEventListener('click',e=>{const b=e.target.closest('[data-chapter]');if(!b)return;musicChapter=b.dataset.chapter;
+    filters.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));applyMusicFilter();});
+  DATA.music.candidates.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='new';card.dataset.chapter=c.chapter;card.dataset.candidate=c.id;
+    card._musicSearch=(c.id+' '+c.title+' '+c.chapter+' '+c.role+' '+c.level+' '+c.note+' '+c.uses.join(' ')).toLowerCase();
+    card.innerHTML='<div class="mcover"><img loading="lazy" src="'+ARTBASE+eh(c.art)+'.webp" alt="">'
+      +'<button class="mplay" data-path="'+eh(c.path)+'" data-label="▶" aria-label="Play '+eh(c.title)+'">▶</button><span class="mtime">0:00 / '+mtime(c.seconds)+'</span><span class="mprogress"><i></i></span></div>'
+      +'<div class="mbody"><div class="mtop"><div><div class="mtitle">'+eh(c.title)+'</div><div class="mid">'+eh(c.id)+'</div></div><div class="mbadges"><span class="mbadge role">'+eh(c.role)+'</span><span class="mbadge">'+eh(c.level)+'</span><span class="mbadge">'+eh(c.chapter)+'</span></div></div>'
+      +'<p class="mnote">'+eh(c.note)+'</p><div class="muses">FOR · '+c.uses.map(eh).join(' · ')+'</div>'
+      +'<div class="mreview"><button class="approve">APPROVE</button><button class="reject">REJECT</button></div></div>';
+    grid.appendChild(card);});
+  DATA.music.current.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='current';
+    card._musicSearch=(c.id+' '+c.title+' '+c.role+' '+c.prompt).toLowerCase();
+    card.innerHTML='<div class="moldhead"><div class="mtakes">'+c.tracks.map((t,i)=>'<button class="mplay" data-path="'+eh(t.path)+'" data-label="▶ '+(i+1)+'">▶ '+(i+1)+'</button>').join('')+'</div></div>'
+      +'<div class="mbody"><div class="mtop"><div><div class="mtitle">'+eh(c.title)+'</div><div class="mid">'+eh(c.id)+'</div></div><div class="mbadges"><span class="mbadge role">'+eh(c.role)+'</span><span class="mbadge">GAIN '+c.gain+'</span></div></div>'
+      +'<p class="mnote">'+eh(c.prompt)+'</p><div class="muses">'+c.tracks.length+' TAKE'+(c.tracks.length===1?'':'S')+' · '+c.seconds+'S EACH · LIVE IN GAME</div></div>';
+    grid.appendChild(card);});
+  grid.addEventListener('click',e=>{const play=e.target.closest('.mplay');if(play){playMusic(play);return;}const review=e.target.closest('.mreview button');if(!review)return;
+    const id=review.closest('.mcard').dataset.candidate,want=review.classList.contains('approve')?'approved':'rejected';if(MDEC[id]===want)delete MDEC[id];else MDEC[id]=want;refreshMusicReview();});
+  document.getElementById('mswitch').addEventListener('click',e=>{const b=e.target.closest('[data-set]');if(!b)return;musicSet=b.dataset.set;
+    document.querySelectorAll('#mswitch button').forEach(x=>x.classList.toggle('on',x===b));stopMusic();applyMusicFilter();});
+  document.getElementById('msave').addEventListener('click',async()=>{if(!musicDirty())return;const pass=mapPass();if(!pass)return;const btn=document.getElementById('msave');btn.disabled=true;btn.textContent='SAVING…';
+    try{const out=await api({pass:pass,action:'music-review',decisions:MDEC});DATA.music.decisions=Object.assign({},MDEC);btn.textContent='SAVED · '+out.sha.slice(0,7);setTimeout(refreshMusicReview,2500);}
+    catch(err){btn.textContent='FAILED — TRY AGAIN';btn.disabled=false;alert(String(err&&err.message||err));}});
+  refreshMusicReview();applyMusicFilter();}
 
 // ---- SCRIPT EDITOR — edit prose in the browser, PUBLISH ships it -------------
 // Every [data-path] block maps to ONE unique TS string literal (DATA.lock /

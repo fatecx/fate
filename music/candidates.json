@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "model": "music_v2",
+  "seconds": 90,
+  "candidates": [
+    {
+      "id": "h_soft_as_rain",
+      "title": "Soft as Rain",
+      "chapter": "HYPERCHUTE",
+      "role": "BUILD",
+      "level": "SUBTLE",
+      "art": "prologue_dispatch",
+      "scenes": ["h_seedling", "h_entry", "h_first_drops_clean"],
+      "note": "The garage and the first working line: intimate, handmade, quietly optimistic.",
+      "prompt": "Instrumental underscore for a text-heavy narrative strategy game, designed to sit beneath long reading at low volume. Warm restrained ambient electronic music with a real but very simple harmonic progression: soft analog synthesizer chords, one sparse glassy plucked motif, faint music-box color, gentle low bass warmth, and lots of air. About 72 BPM, patient and intimate, the feeling of building a useful machine at night above a laundromat and watching the first package fall softly onto a porch. Evolve slowly across ninety seconds without a large climax. No vocals, no spoken word, no sound effects, no trailer hits, no drums beyond an almost imperceptible soft pulse, no busy arpeggios, no bright lead synth, no sudden transitions. Calm opening and ending that can crossfade naturally. Music should reward attention but never demand it."
+    },
+    {
+      "id": "h_the_price_of_price",
+      "title": "The Price of Price",
+      "chapter": "HYPERCHUTE",
+      "role": "PRESSURE",
+      "level": "MUSICAL",
+      "art": "world_price_war",
+      "scenes": ["h_price_war", "h_permit_war", "h_poach_sofia"],
+      "note": "Competition and institutional pressure without turning the reading experience into an action scene.",
+      "prompt": "Instrumental dramatic underscore for a text-heavy narrative strategy game, mixed to support reading rather than dominate it. Restrained warm analog synth score in a minor key with a slow four-chord movement, muted low pulse around 80 BPM, occasional dry soft percussion far in the background, and a thin cold shimmer above. The emotion is a price war closing in on a small company: focused, adult, controlled, never frantic. Establish a memorable two-note motif and vary it subtly across ninety seconds. No vocals, no spoken word, no aggressive drums, no trailer braams, no risers, no drops, no distorted bass, no constant arpeggio, no sudden loud events. Keep the middle register clear and the ending calm enough for a crossfade."
+    },
+    {
+      "id": "h_porches_go_quiet",
+      "title": "The Porches Go Quiet",
+      "chapter": "HYPERCHUTE",
+      "role": "AFTERMATH",
+      "level": "SUBTLE",
+      "art": "world_strike",
+      "scenes": ["h_strike", "h_accident", "h_suspension"],
+      "note": "Loss, responsibility and the city withdrawing its trust.",
+      "prompt": "Sparse instrumental underscore for a text-heavy narrative game. A slow, restrained felt-piano theme over a soft cold analog pad, with a distant low cello-like synthesizer and very occasional harmonic movement. Around 58 BPM, mournful but not sentimental, carrying responsibility after an accident and the image of neighborhood porches going quiet. Leave long silences between piano phrases. Ninety seconds with gradual subtle development and no climax. No vocals, no spoken word, no drums, no heartbeat, no sound effects, no horror drones, no trailer language, no swells that overpower reading, no sudden changes. Warm low end, gentle high frequencies, a quiet ending suitable for crossfade."
+    },
+    {
+      "id": "h_the_city_below",
+      "title": "The City Below",
+      "chapter": "HYPERCHUTE",
+      "role": "ENDGAME",
+      "level": "MUSICAL",
+      "art": "world_four_minutes",
+      "scenes": ["h_viral", "h_ipo_road", "h_last_stand"],
+      "note": "Scale arrives, but the original neighborhood remains inside the music.",
+      "prompt": "Hopeful instrumental underscore for a text-heavy founder saga. Warm analog pads, soft felt piano, a restrained repeating glass motif derived from three notes, and a very gentle low pulse around 70 BPM. The music should feel like a city seen from above after years of work: scale, consequence, and the memory of one garage still present. Build a clear emotional progression across ninety seconds but remain understated and readable underneath; arrive at quiet earned uplift, not triumph. No vocals, no spoken word, no cinematic drums, no brass fanfare, no trailer crescendo, no busy percussion, no soaring lead, no sudden events. Calm opening and a resolved low-volume ending for crossfade."
+    },
+    {
+      "id": "t_a_chair_on_earth",
+      "title": "A Chair on Earth",
+      "chapter": "TELEPORT",
+      "role": "BUILD",
+      "level": "SUBTLE",
+      "art": "world_cape_hangar",
+      "scenes": ["t_entry", "t_b_first_night", "t_cascade_test"],
+      "note": "Technical wonder at human scale: a body far away, a chair still here.",
+      "prompt": "Instrumental ambient electronic underscore for a text-heavy science-fiction strategy game. Sparse cold modular synthesizer chords softened by one intimate felt-piano motif, faint rounded sub bass, and a slow almost weightless pulse around 66 BPM. The feeling is technical wonder built by exhausted people in a salt-air hangar: a body on the Moon and a chair on Earth. Give the piece a real melodic identity using only three or four notes, evolving slowly across ninety seconds while leaving space for reading. No vocals, no spoken word, no radio sound effects, no beeps, no drums, no busy sequencer, no epic space trailer gestures, no sudden changes. Quiet beginning and ending suitable for crossfade."
+    },
+    {
+      "id": "t_two_point_six_seconds",
+      "title": "Two Point Six Seconds",
+      "chapter": "TELEPORT",
+      "role": "MOMENTUM",
+      "level": "MUSICAL",
+      "art": "world_expo_demo",
+      "scenes": ["t_expo_demo", "t_quote", "t_first_walk"],
+      "note": "The relay works; momentum comes from precision rather than spectacle.",
+      "prompt": "Restrained instrumental electronic score for a text-heavy narrative strategy game. Precise soft synth plucks form a minimal repeating pattern around 78 BPM, supported by warm low chords, brushed electronic percussion used very sparingly, and a faint high glass tone. The emotion is a live technical demonstration succeeding in front of a skeptical room: controlled momentum, human relief, exact engineering. Develop the pattern with small harmonic changes across ninety seconds, never becoming busy. No vocals, no spoken word, no EDM drop, no strong kick drum, no hi-hat wash, no glitch barrage, no trailer hits, no sudden transitions, no dominant lead melody. Maintain space for reading and finish gently for a crossfade."
+    },
+    {
+      "id": "t_eleven_seconds",
+      "title": "Eleven Seconds",
+      "chapter": "TELEPORT",
+      "role": "AFTERMATH",
+      "level": "SUBTLE",
+      "art": "cut_jonah",
+      "scenes": ["t_jonah", "t_telemetry", "t_farrokh_break"],
+      "note": "Grief examined through telemetry: humane, cold and unsentimental.",
+      "prompt": "Minimal instrumental underscore for a text-heavy narrative game about grief and responsibility. Very sparse felt piano notes with long decay, a cold sustained harmonic bed, one low cello-like synth tone that changes slowly, and nearly silent high air. Around 52 BPM with no explicit beat. The feeling is eleven seconds of telemetry being studied after a death: factual, humane, exhausted, never manipulative. Ninety seconds, with silence and restraint doing as much work as the notes. No vocals, no spoken word, no heartbeat, no radio noise, no sound effects, no drums, no horror tension, no cinematic swell, no sentimental climax. End quietly and unresolved enough to crossfade."
+    },
+    {
+      "id": "t_the_ring_holds",
+      "title": "The Ring Holds",
+      "chapter": "TELEPORT",
+      "role": "ENDGAME",
+      "level": "MUSICAL",
+      "art": "cut_ring_alive",
+      "scenes": ["t_cut_first_light", "t_listing", "t_endgame"],
+      "note": "A distant system becomes dependable enough that people build their lives around it.",
+      "prompt": "Patient instrumental science-fiction score for a text-heavy founder saga. Broad warm synthesizer chords, a restrained ascending piano-and-glass motif, soft rounded bass, and a gentle pulse around 68 BPM. It should feel like a fragile satellite ring finally holding and human presence crossing an impossible distance: earned wonder, not spectacle. Let the harmony open gradually over ninety seconds with a memorable motif, always quiet enough beneath prose. No vocals, no spoken word, no orchestral bombast, no big drums, no trailer rise, no bright heroic lead, no rapid arpeggios, no sudden changes. Finish on a warm suspended chord suitable for crossfade."
+    },
+    {
+      "id": "s_the_strand",
+      "title": "The Strand",
+      "chapter": "SKYLINE",
+      "role": "BUILD",
+      "level": "SUBTLE",
+      "art": "world_s_strand",
+      "scenes": ["s_entry", "s_b_lab", "s_proof"],
+      "note": "A nearly weightless material opens a project too large to understand all at once.",
+      "prompt": "Restrained instrumental underscore for a text-heavy near-future strategy game. Slow bowed-glass harmonics, warm low strings-like synthesizer, a simple three-note piano motif, and soft metallic resonance used as musical color rather than sound effect. Around 60 BPM, spacious and patient. The emotion is holding a strand thinner than a shoelace that can support a road to orbit: quiet disbelief becoming careful purpose. Evolve slowly across ninety seconds without demanding attention. No vocals, no spoken word, no percussion except an almost inaudible low pulse, no epic orchestra, no trailer hits, no loud metallic impacts, no busy arpeggio, no climax. Gentle crossfade-ready beginning and ending."
+    },
+    {
+      "id": "s_steel_on_water",
+      "title": "Steel on Water",
+      "chapter": "SKYLINE",
+      "role": "MOMENTUM",
+      "level": "MUSICAL",
+      "art": "world_s_platform_build",
+      "scenes": ["s_b_site_set", "s_b_funded", "s_b_platform_life"],
+      "note": "A huge construction effort rendered as disciplined daily work.",
+      "prompt": "Understated instrumental construction score for a text-heavy narrative strategy game. A measured low synth pulse around 74 BPM, soft mallet-like notes, warm sustained chords, muted brushed percussion, and a restrained repeating motif that suggests cranes and crews moving in sequence. The feeling is steel rising from water through disciplined daily work, not a montage trailer. Develop gradually over ninety seconds with clear harmony but ample room for reading. No vocals, no spoken word, no industrial sound effects, no hammer impacts, no large drums, no fanfare, no busy rhythm, no drop, no sudden transitions. Keep dynamics even and end smoothly for crossfade."
+    },
+    {
+      "id": "s_the_cable_sings",
+      "title": "The Cable Sings",
+      "chapter": "SKYLINE",
+      "role": "PRESSURE",
+      "level": "SUBTLE",
+      "art": "world_s_snap",
+      "scenes": ["s_anders_margin", "s_strand_snap", "s_blockade"],
+      "note": "Structural danger and political pressure, held just below panic.",
+      "prompt": "Dark restrained instrumental underscore for a text-heavy narrative game. Low bowed synth tones, a slow minor harmonic progression, one thin metallic overtone, and a quiet irregular pulse around 62 BPM that suggests load moving through a vast cable. Tense but controlled, the sound of engineers watching margins narrow and governments applying pressure. Ninety seconds with slow evolution and no release into action music. No vocals, no spoken word, no cable or wind sound effects, no alarms, no horror drone, no aggressive percussion, no trailer braams, no risers, no sudden loud events. Keep it readable underneath prose and crossfade gently."
+    },
+    {
+      "id": "s_the_road_to_orbit",
+      "title": "The Road to Orbit",
+      "chapter": "SKYLINE",
+      "role": "ENDGAME",
+      "level": "MUSICAL",
+      "art": "end_s_ascent",
+      "scenes": ["s_first_ride", "s_endgame", "end:ascent"],
+      "note": "Civilizational scale without losing the human being inside the machine.",
+      "prompt": "Earned, restrained instrumental finale underscore for a text-heavy founder saga. Deep warm pads, soft piano, low strings-like synthesizer, a noble four-note motif, and a very gentle pulse around 68 BPM. The image is a schoolteacher taking the first public ride on a road from Earth to orbit after decades of compromise. Civilizational scale seen through one ordinary person: luminous, humane, reflective, never bombastic. Let the harmony widen across ninety seconds but keep the arrangement sparse and suitable beneath reading. No vocals, no spoken word, no epic drums, no brass fanfare, no choir, no trailer crescendo, no soaring solo, no sudden changes. End with quiet wonder and room for a crossfade."
+    }
+  ]
+}
