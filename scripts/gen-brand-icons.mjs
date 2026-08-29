@@ -20,10 +20,6 @@ const supersampling = 4
 const transparent = 0
 const paper = 1
 const ink = 2
-const palette = {
-  [paper]: [231, 222, 210, 255],
-  [ink]: [22, 24, 29, 255],
-}
 
 mkdirSync(designDir, { recursive: true })
 mkdirSync(join(publicDir, 'brand'), { recursive: true })
@@ -74,6 +70,60 @@ function markPixel(x, y, kind) {
   return inSpine || inCircle ? ink : paper
 }
 
+function noise(x, y, seed) {
+  let value = Math.imul(x ^ seed, 374761393) + Math.imul(y ^ (seed * 31), 668265263)
+  value = Math.imul(value ^ (value >>> 13), 1274126177)
+  return ((value ^ (value >>> 16)) >>> 0) / 4294967295
+}
+
+function valueNoise(x, y, columns, rows, seed) {
+  const scaledX = x * columns
+  const scaledY = y * rows
+  const left = Math.floor(scaledX)
+  const top = Math.floor(scaledY)
+  const blendX = (scaledX - left) ** 2 * (3 - 2 * (scaledX - left))
+  const blendY = (scaledY - top) ** 2 * (3 - 2 * (scaledY - top))
+  const upper = noise(left, top, seed) * (1 - blendX) + noise(left + 1, top, seed) * blendX
+  const lower = noise(left, top + 1, seed) * (1 - blendX) + noise(left + 1, top + 1, seed) * blendX
+  return upper * (1 - blendY) + lower * blendY
+}
+
+function clampChannel(value) {
+  return Math.max(0, Math.min(255, Math.round(value)))
+}
+
+function colorAt(colorId, x, y, kind) {
+  if (kind === 'mark') return [22, 24, 29]
+
+  if (colorId === ink) {
+    const printedGrain = (noise(Math.floor(x * 1024), Math.floor(y * 1024), 71) - 0.5) * 5
+    const inkDrift = (valueNoise(x, y, 31, 27, 43) - 0.5) * 4
+    const lift = noise(Math.floor(x * 760), Math.floor(y * 760), 113) < 0.012 ? 7 : 0
+    const density = printedGrain + inkDrift + lift
+    return [
+      clampChannel(22 + density),
+      clampChannel(24 + density),
+      clampChannel(29 + density * 1.05),
+    ]
+  }
+
+  const broadMottle = (valueNoise(x, y, 9, 8, 17) - 0.5) * 18
+  const smallMottle = (valueNoise(x, y, 37, 29, 53) - 0.5) * 8
+  const paperFiber = (valueNoise(x, y, 113, 97, 89) - 0.5) * 4
+  const fineGrain = (noise(Math.floor(x * 1024), Math.floor(y * 1024), 131) - 0.5) * 6
+  const fleck = noise(Math.floor(x * 720), Math.floor(y * 720), 197)
+  const fleckTone = fleck < 0.014 ? -13 * (1 - fleck / 0.014) : fleck > 0.992 ? 5 : 0
+  const edge = Math.max(Math.abs(x - 0.5), Math.abs(y - 0.5))
+  const edgeTone = -Math.max(0, edge - 0.28) * 15
+  const tone = broadMottle + smallMottle + paperFiber + fineGrain + fleckTone + edgeTone
+
+  return [
+    clampChannel(222 + tone),
+    clampChannel(209 + tone * 0.9),
+    clampChannel(188 + tone * 0.72),
+  ]
+}
+
 function renderRgba(size, kind) {
   const rgba = Buffer.alloc(size * size * 4)
   const samples = supersampling * supersampling
@@ -91,11 +141,11 @@ function renderRgba(size, kind) {
           const normalizedY = (y + (sampleY + 0.5) / supersampling) / size
           const colorId = markPixel(normalizedX, normalizedY, kind)
           if (colorId === transparent) continue
-          const [r, g, b, a] = palette[colorId]
-          alpha += a
-          red += r * a
-          green += g * a
-          blue += b * a
+          const [r, g, b] = colorAt(colorId, normalizedX, normalizedY, kind)
+          alpha += 255
+          red += r * 255
+          green += g * 255
+          blue += b * 255
         }
       }
 
