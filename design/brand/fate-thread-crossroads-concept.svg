@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1400" viewBox="0 0 1400 1400">
+  <defs>
+    <g id="crossroads-mark">
+      <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter">
+        <path d="M88 72L128 32L168 72"/>
+        <path d="M72 88L32 128L72 168"/>
+        <path d="M184 88L224 128L184 168"/>
+        <path d="M88 184L128 224L168 184"/>
+      </g>
+      <path d="M48 128H112Q128 128 128 112V48" fill="none" stroke="#b4540a" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter"/>
+    </g>
+  </defs>
+
+  <rect width="1400" height="1400" fill="#fafaf7"/>
+  <text x="70" y="78" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" font-weight="700" letter-spacing="4" fill="#b4540a">FATE IDENTITY · REFINED DIRECTION</text>
+  <text x="70" y="126" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="44" font-weight="900" letter-spacing="5" fill="#16181d">THE THREAD / CROSSROADS</text>
+
+  <rect x="70" y="170" width="1260" height="570" rx="22" fill="#ffffff" stroke="#dadbd3" stroke-width="2"/>
+  <g transform="translate(150 236) scale(1.65)" color="#16181d">
+    <use href="#crossroads-mark"/>
+  </g>
+  <text x="625" y="440" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="142" font-weight="900" letter-spacing="16" fill="#16181d">FATE</text>
+  <circle cx="1168" cy="409" r="20" fill="#b4540a"/>
+  <text x="632" y="500" font-family="IBM Plex Mono, Menlo, monospace" font-size="16" font-weight="700" letter-spacing="4" fill="#b4540a">ONE LIFE. EVERY CONSEQUENCE.</text>
+  <text x="632" y="567" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#7c7e76">Four gates are available.</text>
+  <text x="632" y="597" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#7c7e76">Only one thread becomes the biography.</text>
+  <text x="632" y="650" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="2" fill="#7c7e76">DECISIONS, NOT CHANCE.</text>
+
+  <rect x="70" y="780" width="600" height="500" rx="22" fill="#ffffff" stroke="#dadbd3" stroke-width="2"/>
+  <text x="108" y="830" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" font-weight="700" letter-spacing="3" fill="#b4540a">DESKTOP ICON</text>
+  <!-- The black plate is deliberately 80.5% of its notional icon canvas,
+       preserving the corrected Arc Dock-icon optical size. -->
+  <rect x="169" y="866" width="402" height="402" rx="84" fill="#16181d"/>
+  <g transform="translate(237 934) scale(1.04)" color="#fafaf7">
+    <use href="#crossroads-mark"/>
+  </g>
+
+  <rect x="730" y="780" width="600" height="500" rx="22" fill="#ffffff" stroke="#dadbd3" stroke-width="2"/>
+  <text x="768" y="830" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" font-weight="700" letter-spacing="3" fill="#b4540a">MONOCHROME + SMALL SIZE</text>
+  <g transform="translate(770 868) scale(0.94)" color="#16181d">
+    <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter">
+      <path d="M88 72L128 32L168 72"/>
+      <path d="M72 88L32 128L72 168"/>
+      <path d="M184 88L224 128L184 168"/>
+      <path d="M88 184L128 224L168 184"/>
+    </g>
+    <path d="M48 128H112Q128 128 128 112V48" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+  <line x1="1046" y1="878" x2="1046" y2="1195" stroke="#dadbd3" stroke-width="2"/>
+
+  <g color="#16181d">
+    <g transform="translate(1090 890) scale(.25)"><use href="#crossroads-mark"/></g>
+    <g transform="translate(1175 874) scale(.375)"><use href="#crossroads-mark"/></g>
+    <g transform="translate(1090 1000) scale(.5)"><use href="#crossroads-mark"/></g>
+  </g>
+  <text x="1100" y="978" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" fill="#7c7e76">16</text>
+  <text x="1195" y="978" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" fill="#7c7e76">24</text>
+  <text x="1144" y="1148" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" fill="#7c7e76">32</text>
+  <text x="770" y="1235" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" fill="#7c7e76">The accent can disappear without losing the mark.</text>
+
+  <text x="700" y="1350" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">INK #16181D · PAPER #FAFAF7 · THREAD #B4540A</text>
+</svg>
