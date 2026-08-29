@@ -192,7 +192,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           <div class="ld-price">${esc(PRICE_CHIP)}</div>
           <div><button class="cta ld-cta" data-enter>${esc(CTA_LABEL)}</button></div>
           <div class="ld-covenant">${COVENANT.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
-          <div class="ld-foot">© 2026 STUDIO BUXOR</div>
+          <div class="ld-foot">DEVELOPED BY PLAYURE</div>
         </div>
       </section>
     </div>`
