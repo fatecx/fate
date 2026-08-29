@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
   <title id="title">Fate application icon</title>
-  <rect x="100" y="100" width="824" height="824" rx="165" fill="#fafaf7"/>
+  <rect x="100" y="100" width="824" height="824" rx="165" fill="#e7ded2"/>
   <path d="M512 182L540 512L512 842L484 512Z" fill="#16181d"/>
   <circle cx="512" cy="512" r="196" fill="#16181d"/>
 </svg>

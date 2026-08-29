@@ -21,7 +21,7 @@ const transparent = 0
 const paper = 1
 const ink = 2
 const palette = {
-  [paper]: [250, 250, 247, 255],
+  [paper]: [231, 222, 210, 255],
   [ink]: [22, 24, 29, 255],
 }
 
