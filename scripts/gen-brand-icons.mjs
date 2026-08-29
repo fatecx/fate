@@ -50,6 +50,15 @@ function markPixel(x, y, kind) {
     return inSpine || inCircle ? ink : transparent
   }
 
+  if (kind === 'social') {
+    // Full-bleed paper for circular avatar crops (X/e.g.): no plate, no transparency.
+    const inSpine = insideSpine(x, y, 182 / 1024, 842 / 1024, 28 / 1024)
+    const dx = x - 0.5
+    const dy = y - 0.5
+    const inCircle = dx * dx + dy * dy <= (196 / 1024) ** 2
+    return inSpine || inCircle ? ink : paper
+  }
+
   const plateSize = 824 / 1024
   const plateStart = (1 - plateSize) / 2
   const onPlate = insideRoundedRect(
@@ -240,6 +249,7 @@ function makeIco(pngBuffer) {
 
 writePng('design/brand/fate-orbital-spine-1024.png', 1024, 'mark')
 writePng('design/brand/fate-app-icon-1024.png', 1024, 'app')
+writePng('design/brand/fate-x-pfp-1024.png', 1024, 'social')
 writePng('public/brand/fate-orbital-spine-1024.png', 1024, 'mark')
 
 writePng('public/favicon-16x16.png', 16, 'mark')
