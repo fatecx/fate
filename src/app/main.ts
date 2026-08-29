@@ -2109,10 +2109,25 @@ function armCrashScreen(): void {
     el.appendChild(inner)
     document.body.appendChild(el)
   }
-  window.addEventListener('error', (e) => show(e.error instanceof Error ? e.error.message : e.message))
-  window.addEventListener('unhandledrejection', (e) =>
-    show(e.reason instanceof Error ? e.reason.message : String(e.reason)),
-  )
+  // Injected wallet extensions (MetaMask & co.) throw their own async errors
+  // into the page — a broken extension throws on every load, no interaction
+  // needed. Those are theirs, not ours: never paint the death card for them.
+  // Our own connect flow catches wallet errors and shows them in the picker.
+  const foreign = (msg: string, src: string): boolean =>
+    src.includes('-extension://') ||
+    /metamask|phantom|coinbase|rabby|trust ?wallet|okx|backpack|solflare|keplr|binance|exodus/i.test(msg)
+  window.addEventListener('error', (e) => {
+    const msg = e.error instanceof Error ? e.error.message : e.message
+    const src = `${e.filename ?? ''} ${(e.error instanceof Error && e.error.stack) || ''}`
+    if (foreign(String(msg), src)) return
+    show(String(msg))
+  })
+  window.addEventListener('unhandledrejection', (e) => {
+    const msg = e.reason instanceof Error ? e.reason.message : String(e.reason)
+    const src = (e.reason instanceof Error && e.reason.stack) || ''
+    if (foreign(msg, src)) return
+    show(msg)
+  })
 }
 
 async function boot(): Promise<void> {
