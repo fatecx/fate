@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <defs>
+    <mask id="moon-crescent">
+      <rect width="256" height="256" fill="#000"/>
+      <circle cx="128" cy="128" r="90" fill="#fff"/>
+      <circle cx="170" cy="94" r="78" fill="#000"/>
+    </mask>
+
+    <g id="mark-thread">
+      <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter">
+        <path d="M88 72L128 32L168 72"/>
+        <path d="M72 88L32 128L72 168"/>
+        <path d="M184 88L224 128L184 168"/>
+        <path d="M88 184L128 224L168 184"/>
+      </g>
+      <path d="M48 128H112Q128 128 128 112V48" fill="none" stroke="#b4540a" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter"/>
+    </g>
+
+    <g id="mark-moon">
+      <rect width="256" height="256" fill="currentColor" mask="url(#moon-crescent)"/>
+      <path d="M65 168L94 151" fill="none" stroke="#b4540a" stroke-width="12" stroke-linecap="square"/>
+    </g>
+
+    <g id="mark-sphere" fill="none" stroke-linecap="square">
+      <circle cx="128" cy="128" r="38" fill="#b4540a" stroke="none"/>
+      <path d="M54 72A96 96 0 0 1 207 70" stroke="currentColor" stroke-width="15"/>
+      <path d="M218 96A96 96 0 0 1 185 203" stroke="currentColor" stroke-width="15"/>
+      <path d="M160 219A96 96 0 0 1 45 178" stroke="currentColor" stroke-width="15"/>
+      <path d="M35 150A96 96 0 0 1 39 112" stroke="currentColor" stroke-width="15"/>
+      <path d="M78 98A63 63 0 0 1 183 107" stroke="currentColor" stroke-width="12"/>
+      <path d="M188 137A63 63 0 0 1 160 181" stroke="currentColor" stroke-width="12"/>
+      <path d="M96 184A63 63 0 0 1 69 146" stroke="currentColor" stroke-width="12"/>
+      <path d="M43 105L70 115M190 84L177 108M179 190L159 172" stroke="#b4540a" stroke-width="8"/>
+    </g>
+
+    <g id="mark-bell" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+      <path d="M72 164V136Q72 69 128 69Q184 69 184 136V164" stroke="currentColor" stroke-width="18"/>
+      <path d="M55 174H201" stroke="currentColor" stroke-width="18"/>
+      <path d="M128 68V43" stroke="currentColor" stroke-width="18"/>
+      <path d="M128 184V202" stroke="#b4540a" stroke-width="10"/>
+      <circle cx="128" cy="216" r="14" fill="#b4540a" stroke="none"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="1600" fill="#fafaf7"/>
+  <text x="64" y="72" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="34" font-weight="900" letter-spacing="7" fill="#16181d">FATE</text>
+  <text x="64" y="112" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" letter-spacing="3" fill="#7c7e76">SYMBOL COMPARISON · IDENTICAL SCALE AND TREATMENT</text>
+
+  <!-- A -->
+  <g transform="translate(48 152)">
+    <rect width="736" height="626" rx="20" fill="#fff" stroke="#dadbd3" stroke-width="2"/>
+    <text x="36" y="48" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" font-weight="700" letter-spacing="3" fill="#b4540a">A · DECISION THREAD</text>
+    <rect x="36" y="88" width="300" height="300" rx="62" fill="#16181d"/>
+    <g transform="translate(58 110)" color="#fafaf7"><use href="#mark-thread"/></g>
+    <text x="380" y="225" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="76" font-weight="900" letter-spacing="8" fill="#16181d">FATE</text>
+    <circle cx="665" cy="203" r="13" fill="#b4540a"/>
+    <text x="382" y="274" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" font-weight="700" letter-spacing="2" fill="#b4540a">DECISION</text>
+    <text x="36" y="462" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#16181d">The game mechanic.</text>
+    <text x="36" y="496" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" fill="#7c7e76">Many paths; one biography becomes real.</text>
+    <text x="36" y="548" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">ABSTRACT · OWNABLE · SYSTEMIC</text>
+  </g>
+
+  <!-- B -->
+  <g transform="translate(816 152)">
+    <rect width="736" height="626" rx="20" fill="#fff" stroke="#dadbd3" stroke-width="2"/>
+    <text x="36" y="48" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" font-weight="700" letter-spacing="3" fill="#b4540a">B · SCARRED MOON</text>
+    <rect x="36" y="88" width="300" height="300" rx="62" fill="#16181d"/>
+    <g transform="translate(58 110)" color="#fafaf7"><use href="#mark-moon"/></g>
+    <text x="380" y="225" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="76" font-weight="900" letter-spacing="8" fill="#16181d">FATE</text>
+    <circle cx="665" cy="203" r="13" fill="#b4540a"/>
+    <text x="382" y="274" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" font-weight="700" letter-spacing="2" fill="#b4540a">ASCENT</text>
+    <text x="36" y="462" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#16181d">The destination overhead.</text>
+    <text x="36" y="496" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" fill="#7c7e76">Human ambition seen from every chapter.</text>
+    <text x="36" y="548" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">ICONIC · EMOTIONAL · FAMILIAR</text>
+  </g>
+
+  <!-- C -->
+  <g transform="translate(48 810)">
+    <rect width="736" height="626" rx="20" fill="#fff" stroke="#dadbd3" stroke-width="2"/>
+    <text x="36" y="48" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" font-weight="700" letter-spacing="3" fill="#b4540a">C · UNFINISHED SPHERE</text>
+    <rect x="36" y="88" width="300" height="300" rx="62" fill="#16181d"/>
+    <g transform="translate(58 110)" color="#fafaf7"><use href="#mark-sphere"/></g>
+    <text x="380" y="225" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="76" font-weight="900" letter-spacing="8" fill="#16181d">FATE</text>
+    <circle cx="665" cy="203" r="13" fill="#b4540a"/>
+    <text x="382" y="274" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" font-weight="700" letter-spacing="2" fill="#b4540a">AMBITION</text>
+    <text x="36" y="462" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#16181d">The impossible thing under construction.</text>
+    <text x="36" y="496" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" fill="#7c7e76">Every company is one more ring around the future.</text>
+    <text x="36" y="548" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">EPIC · DISTINCTIVE · WORLD-LEVEL</text>
+  </g>
+
+  <!-- D -->
+  <g transform="translate(816 810)">
+    <rect width="736" height="626" rx="20" fill="#fff" stroke="#dadbd3" stroke-width="2"/>
+    <text x="36" y="48" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" font-weight="700" letter-spacing="3" fill="#b4540a">D · OPENING BELL</text>
+    <rect x="36" y="88" width="300" height="300" rx="62" fill="#16181d"/>
+    <g transform="translate(58 110)" color="#fafaf7"><use href="#mark-bell"/></g>
+    <text x="380" y="225" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="76" font-weight="900" letter-spacing="8" fill="#16181d">FATE</text>
+    <circle cx="665" cy="203" r="13" fill="#b4540a"/>
+    <text x="382" y="274" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" font-weight="700" letter-spacing="2" fill="#b4540a">TRIUMPH</text>
+    <text x="36" y="462" font-family="IBM Plex Mono, Menlo, monospace" font-size="15" fill="#16181d">The startup dream made audible.</text>
+    <text x="36" y="496" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" fill="#7c7e76">Powerful, but represents only one possible ending.</text>
+    <text x="36" y="548" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">STARTUP · TACTILE · OUTCOME-BOUND</text>
+  </g>
+
+  <text x="800" y="1526" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="12" letter-spacing="2" fill="#7c7e76">INK #16181D · PAPER #FAFAF7 · BURNT ORANGE #B4540A</text>
+</svg>
