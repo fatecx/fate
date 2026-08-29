@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <defs>
+    <g id="ascent-mark">
+      <path fill-rule="evenodd" d="M36 224L98 24H158L220 224H176L163 178H93L80 224ZM105 139H151L128 61Z"
+        fill="var(--ink)"/>
+      <!-- The tower is open to the sky, not capped. -->
+      <path d="M123 24H133V100H123Z" fill="var(--ground)"/>
+      <!-- One life suspended beyond the current horizon. -->
+      <circle cx="128" cy="125" r="11" fill="var(--accent)"/>
+    </g>
+
+    <g id="ascent-wordmark">
+      <path d="M0 0H116V29H32V75H102V104H32V180H0Z" fill="var(--ink)"/>
+      <g transform="translate(150 -5) scale(.82)"><use href="#ascent-mark"/></g>
+      <path d="M370 0H506V29H454V180H422V29H370Z" fill="var(--ink)"/>
+      <path d="M540 0H660V29H572V75H644V104H572V151H660V180H540Z" fill="var(--ink)"/>
+    </g>
+  </defs>
+
+  <!-- Primary identity -->
+  <rect width="1600" height="920" fill="#fafaf7"/>
+  <g transform="translate(126 155) scale(2.2)"
+    style="--ink:#16181d;--ground:#fafaf7;--accent:#b4540a">
+    <use href="#ascent-mark"/>
+  </g>
+  <g transform="translate(700 330) scale(1.08)"
+    style="--ink:#16181d;--ground:#fafaf7;--accent:#b4540a">
+    <use href="#ascent-wordmark"/>
+  </g>
+  <text x="707" y="594" font-family="IBM Plex Mono, Menlo, monospace" font-size="16" font-weight="600" letter-spacing="5" fill="#b4540a">AMBITION HAS A COST</text>
+  <path d="M707 666H1436" stroke="#dadbd3" stroke-width="2"/>
+  <text x="707" y="714" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="2" fill="#7c7e76">THE ASCENT</text>
+
+  <!-- Dark application system -->
+  <rect y="920" width="1600" height="680" fill="#0d0e11"/>
+  <rect x="128" y="1016" width="402" height="402" rx="84" fill="#16181d" stroke="#292c32" stroke-width="2"/>
+  <g transform="translate(197 1085) scale(1.03)"
+    style="--ink:#fafaf7;--ground:#16181d;--accent:#b4540a">
+    <use href="#ascent-mark"/>
+  </g>
+
+  <g transform="translate(624 1118) scale(1.12)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#b4540a">
+    <use href="#ascent-wordmark"/>
+  </g>
+  <text x="631" y="1378" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="3" fill="#8b8d85">ONE LIFE · THREE COMPANIES · EVERY SCAR CARRIES FORWARD</text>
+
+  <g transform="translate(1238 1462) scale(.20)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#b4540a"><use href="#ascent-mark"/></g>
+  <g transform="translate(1322 1449) scale(.26)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#fafaf7"><use href="#ascent-mark"/></g>
+  <g transform="translate(1425 1432) scale(.33)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#fafaf7"><use href="#ascent-mark"/></g>
+</svg>

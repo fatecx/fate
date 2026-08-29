@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <defs>
+    <g id="orbital-spine">
+      <!-- The orbital route sits behind the body. -->
+      <ellipse cx="128" cy="126" rx="106" ry="44" transform="rotate(-12 128 126)"
+        fill="none" stroke="var(--ink)" stroke-width="12"/>
+      <!-- The built world. -->
+      <circle cx="128" cy="126" r="59" fill="var(--ink)"/>
+      <!-- One infrastructure spine: street to orbit. -->
+      <path d="M128 15L140 126L128 225L116 126Z" fill="var(--ink)"/>
+      <!-- Optical cuts keep the spine separate from the world at small size. -->
+      <path d="M119 69L113 126L119 178L126 126Z" fill="var(--ground)"/>
+      <path d="M137 69L143 126L137 178L130 126Z" fill="var(--ground)"/>
+      <!-- Telepresence: a remote point on the same system. -->
+      <circle cx="222" cy="78" r="12" fill="var(--accent)"/>
+    </g>
+
+    <g id="fate-wordmark">
+      <!-- F -->
+      <path d="M0 0H116V29H32V75H102V104H32V180H0Z" fill="var(--ink)"/>
+      <!-- A -->
+      <path fill-rule="evenodd" d="M150 180L197 0H235L282 180H249L238 137H191L181 180ZM198 108H231L214 42Z" fill="var(--ink)"/>
+      <!-- The same remote node becomes the A's counter. -->
+      <circle cx="214" cy="96" r="9" fill="var(--accent)"/>
+      <!-- T -->
+      <path d="M310 0H446V29H394V180H362V29H310Z" fill="var(--ink)"/>
+      <!-- E -->
+      <path d="M480 0H600V29H512V75H584V104H512V151H600V180H480Z" fill="var(--ink)"/>
+    </g>
+  </defs>
+
+  <!-- Primary light lockup -->
+  <rect width="1600" height="920" fill="#fafaf7"/>
+  <g transform="translate(118 164) scale(2.15)"
+    style="--ink:#16181d;--ground:#fafaf7;--accent:#b4540a">
+    <use href="#orbital-spine"/>
+  </g>
+  <g transform="translate(720 314) scale(1.12)"
+    style="--ink:#16181d;--ground:#fafaf7;--accent:#b4540a">
+    <use href="#fate-wordmark"/>
+  </g>
+  <text x="728" y="584" font-family="IBM Plex Mono, Menlo, monospace" font-size="16" font-weight="600" letter-spacing="5" fill="#b4540a">ONE LIFE · THREE COMPANIES</text>
+  <text x="728" y="631" font-family="IBM Plex Mono, Menlo, monospace" font-size="14" letter-spacing="2" fill="#7c7e76">STREET  /  ORBIT  /  SKYLINE</text>
+  <path d="M728 682H1426" stroke="#dadbd3" stroke-width="2"/>
+  <text x="728" y="730" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="2" fill="#7c7e76">THE ORBITAL SPINE</text>
+
+  <!-- Dark application system -->
+  <rect y="920" width="1600" height="680" fill="#0d0e11"/>
+
+  <!-- Dock icon, using the corrected 80.5% Arc plate ratio. -->
+  <rect x="128" y="1016" width="402" height="402" rx="84" fill="#16181d" stroke="#292c32" stroke-width="2"/>
+  <g transform="translate(196 1084) scale(1.04)"
+    style="--ink:#fafaf7;--ground:#16181d;--accent:#b4540a">
+    <use href="#orbital-spine"/>
+  </g>
+
+  <g transform="translate(646 1108) scale(1.23)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#b4540a">
+    <use href="#fate-wordmark"/>
+  </g>
+  <text x="651" y="1378" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="3" fill="#8b8d85">THE IMMUTABLE FOUNDER SAGA</text>
+
+  <!-- Tiny proofs: color and one-ink. -->
+  <g transform="translate(1238 1462) scale(.20)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#b4540a">
+    <use href="#orbital-spine"/>
+  </g>
+  <g transform="translate(1322 1449) scale(.26)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#fafaf7">
+    <use href="#orbital-spine"/>
+  </g>
+  <g transform="translate(1425 1432) scale(.33)"
+    style="--ink:#fafaf7;--ground:#0d0e11;--accent:#fafaf7">
+    <use href="#orbital-spine"/>
+  </g>
+</svg>
