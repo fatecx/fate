@@ -6,6 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "icons": "node scripts/gen-brand-icons.mjs",
     "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs",
     "script": "esbuild scripts/script/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-script-gen.mjs && node /tmp/fate-script-gen.mjs",
     "script:apply": "esbuild scripts/script/apply.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-script-apply.mjs && node /tmp/fate-script-apply.mjs",
