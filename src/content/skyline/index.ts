@@ -11,6 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE ROAD OPEN TO ALL',
     kind: 'triumph',
     art: 'end_s_ascent',
+    score: 'hold',
     scoreBonus: 14,
     skipYears: 2,
     screens: [
@@ -277,6 +278,7 @@ export const SKYLINE: ChapterDef = {
   opening: { treasury: 8000000, burn: 90000, revenue: 0 },
   prologue: PROLOGUE,
   dateline: '2042\nTHE ANCHOR SEA',
+  score: 'hold',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
   signatures: SIGNATURES,

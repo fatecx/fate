@@ -110,6 +110,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 't_first_walk',
     kind: 'cutscene',
+    mood: 'first_walk',
     title: 'THE FIRST WALK',
     when: {
       k: 'all',
@@ -610,7 +611,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   },
   {
     id: 't_jonah',
-    mood: 'aftermath',
+    mood: 'eleven',
     kind: 'cutscene',
     title: 'ELEVEN SECONDS',
     priority: true,

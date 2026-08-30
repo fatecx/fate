@@ -114,6 +114,8 @@ export interface EndingDef {
   /** Full-screen film beats played the moment the chapter closes with this
    *  ending, before the epilogue card. Reserved for world-scale exits (IPO). */
   screens?: readonly PrologueBeat[]
+  /** Picture-score mood id for `screens`. Omitted = the generic film bed. */
+  score?: string
   scoreBonus: number
   /** Years skipped between this ending and the next chapter's opening. */
   skipYears?: number
@@ -155,6 +157,9 @@ export interface ChapterDef {
   /** Establishing card before the prologue — film-style place/year, one line
    *  per \n (first line small, rest large). Fades in and out; never skippable. */
   dateline?: string
+  /** Picture-score mood id (src/content/sound.ts MOODS, film: true) for the
+   *  chapter prologue. Omitted = the generic film bed. */
+  score?: string
   scenes: readonly SceneDef[]
   endings: readonly EndingDef[]
   /** The score's eras — evaluated in order, first matching predicate names the

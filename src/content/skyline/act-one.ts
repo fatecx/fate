@@ -382,6 +382,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 's_cut_year_two',
     kind: 'cutscene',
+    mood: 'hold',
     title: 'YEAR TWO',
     marker: 'YEAR TWO',
     skipToWeek: 52,

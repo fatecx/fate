@@ -276,6 +276,274 @@
           "context_adherence": "high"
         }
       ]
+    },
+    {
+      "id": "v2_latency",
+      "title": "Latency",
+      "chapter": "TELEPORT",
+      "role": "ANALOG FUTURE",
+      "level": "MUSIC 2.0",
+      "art": "cut_ring_alive",
+      "moments": ["THE HANGAR", "FIRST LIGHT", "YEAR THREE"],
+      "note": "Cold analog score for a future hangar: salt air, relays, 2.6 seconds of honest delay. No choir, no drums, no period war — machines that wait.",
+      "seedBase": 310831,
+      "chunks": [
+        {
+          "text": "[Hangar] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "cold analog synthesizer score",
+            "precise electric piano",
+            "salt-air hangar atmosphere as music not sound effect",
+            "F-sharp minor",
+            "68 BPM",
+            "tape saturation",
+            "future not past",
+            "instrumental science-fiction",
+            "high production quality"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "orchestra", "trailer", "lyrics", "vocals", "war drums", "period piece"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Delay] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thin cold analog lead",
+            "musical rests like a 2.6 second light-speed delay",
+            "precise analog chords",
+            "nocturnal future",
+            "emotional restraint"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "lyrics", "trailer"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Ring] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog pads widening",
+            "distant analog lead",
+            "satellites as harmony not beeps",
+            "awe without bombast",
+            "still no percussion"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "lyrics", "trailer climax"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[A chair on Earth] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog",
+            "electric piano unresolved",
+            "human scale inside a machine",
+            "quiet ending",
+            "future hangar night"
+          ],
+          "negative_styles": ["choir", "drums", "trailer", "sudden stop"],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_richmond",
+      "title": "Richmond Street",
+      "chapter": "HYPERCHUTE",
+      "role": "THE ACCIDENT",
+      "level": "MUSIC 2.0",
+      "art": "cut_richmond_451",
+      "moments": ["THE AFTERNOON", "THE DROP", "THE CITY WATCHES"],
+      "note": "A held analog chord that cracks. Human, sudden, a future city in the afternoon — not a war, not a period piece.",
+      "seedBase": 310841,
+      "chunks": [
+        {
+          "text": "[Afternoon] {instrumental}",
+          "duration_ms": 15000,
+          "positive_styles": [
+            "sparse analog synthesizer",
+            "ordinary afternoon turning wrong",
+            "D minor",
+            "60 BPM",
+            "future city",
+            "instrumental",
+            "high production quality"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "orchestra fanfare", "trailer", "lyrics", "war", "period piece"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The drop] {instrumental}",
+          "duration_ms": 25000,
+          "positive_styles": [
+            "a held analog chord that cracks",
+            "sudden human gravity",
+            "sparse piano-like analog",
+            "no percussion",
+            "grief of a machine that failed"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "trailer braams", "lyrics"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The city watches] {instrumental}",
+          "duration_ms": 25000,
+          "positive_styles": [
+            "widening cold analog pads",
+            "news-cycle dread without drums",
+            "human and mechanical",
+            "restrained",
+            "emotional"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "trailer", "lyrics"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 25000,
+          "positive_styles": [
+            "thin analog residue",
+            "unresolved",
+            "quiet responsibility",
+            "no climax"
+          ],
+          "negative_styles": ["choir", "drums", "trailer climax", "lyrics"],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_eleven",
+      "title": "Eleven Seconds",
+      "chapter": "TELEPORT",
+      "role": "THE HANDOFF",
+      "level": "MUSIC 2.0",
+      "art": "cut_jonah",
+      "moments": ["BORING IMMORTAL WORK", "ELEVEN SECONDS", "A SISTER IN CLEVELAND"],
+      "note": "Telemetry as grief: a two-note handshake that fails, then silence doing the work. Humane, cold, future.",
+      "seedBase": 310851,
+      "chunks": [
+        {
+          "text": "[Boring immortal work] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "extremely sparse analog pad",
+            "clinical and humane",
+            "C minor",
+            "52 BPM",
+            "future control room as music",
+            "instrumental",
+            "high production quality"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "orchestra", "trailer", "lyrics", "vocals", "horror sting"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Eleven seconds] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "a two-note analog handshake that fails",
+            "silence as material",
+            "held breath",
+            "no percussion",
+            "factual grief"
+          ],
+          "negative_styles": ["choir", "drums", "lyrics", "trailer", "horror score"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The call] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "sparse analog",
+            "one human interval",
+            "cold and kind",
+            "unresolved",
+            "no swell"
+          ],
+          "negative_styles": ["choir", "drums", "lyrics", "trailer climax"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The record] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thin residual pad",
+            "telemetry quiet",
+            "humane ending",
+            "no resolution"
+          ],
+          "negative_styles": ["choir", "drums", "trailer", "lyrics"],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_first_walk",
+      "title": "The First Walk",
+      "chapter": "TELEPORT",
+      "role": "THE LOOKING",
+      "level": "MUSIC 2.0",
+      "art": "cut_first_walk",
+      "moments": ["THE CHAIR", "SHE STANDS", "THE BLUE COIN"],
+      "note": "Analog wonder looking up. Same family as Night Run — awe instead of rain. A hand against the Earth.",
+      "seedBase": 310861,
+      "chunks": [
+        {
+          "text": "[The chair] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "warm analog synthesizer",
+            "electric piano",
+            "quiet wonder",
+            "A minor with Lydian color",
+            "70 BPM",
+            "tape saturation",
+            "instrumental science-fiction",
+            "high production quality"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "pipe organ", "trailer", "lyrics", "vocals"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[She stands] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead",
+            "oldest light",
+            "human scale",
+            "emotional restraint",
+            "spacious"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "organ", "trailer", "lyrics"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The blue coin] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog pads lifting gently",
+            "awe without bombast",
+            "Earthlight",
+            "soft analog brass",
+            "still no drums"
+          ],
+          "negative_styles": ["choir", "drums", "taiko", "trailer climax", "lyrics"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[It looked back] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog",
+            "human afterglow",
+            "unresolved warmth",
+            "quiet ending"
+          ],
+          "negative_styles": ["choir", "drums", "trailer", "lyrics"],
+          "context_adherence": "high"
+        }
+      ]
     }
   ]
 }

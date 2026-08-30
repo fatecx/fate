@@ -11,6 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE HONEST DELAY',
     kind: 'triumph',
     art: 'end_t_listing',
+    score: 'latency',
     scoreBonus: 12,
     skipYears: 2,
     screens: [
@@ -256,6 +257,7 @@ export const TELEPORT: ChapterDef = {
   opening: { treasury: 240000, burn: 9000, revenue: 0 },
   prologue: PROLOGUE,
   dateline: 'YEARS LATER\nTHE CAPE',
+  score: 'latency',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
   eras: [

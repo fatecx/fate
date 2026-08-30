@@ -1283,7 +1283,7 @@ function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
       ?'12 first-pass 90-second auditions generated from one prose prompt each. Preserved with your original decisions for comparison; nothing here plays in the game.'
       :musicSet==='benchmark'
         ?'3 rejected company-theme benchmarks curated from 24 structured renders. Preserved for comparison; nothing here plays in the game.'
-        :'The live baseline: ten 30-second mood beds with six takes each, plus the tension stem. This is what the game uses today.';
+        :'The live baseline: play-scene drones, picture scores on films, and the tension stem. Same scene, same take. This is what the game uses today.';
   const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='v2'?(shown+' SHOWN · ELEVEN '+DATA.music.v2Model.toUpperCase()):musicSet==='direction'?(shown+' SHOWN · '+DATA.music.directionRenders+' INTERNAL RENDERS · ELEVEN '+DATA.music.directionModel.toUpperCase()):musicSet==='benchmark'?(shown+' SHOWN · 24 RENDERS · ELEVEN '+DATA.music.benchmarkModel.toUpperCase()):musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
   document.getElementById('mfilters').style.display=musicSet==='current'?'none':'';refreshMusicReview();}
 function buildMusic(){const grid=document.getElementById('musicgrid'),filters=document.getElementById('mfilters');

@@ -37,6 +37,7 @@ const only = args.find((a) => a.startsWith('--only='))?.slice(7).split(',')
 const defs = [
   ...Object.values(AMBIENCE).map((d) => ({ ...d, loop: true, seconds: d.seconds ?? 22 })),
   ...Object.values(MOODS).flatMap((d) => {
+    if (d.source === 'music') return [] // picture scores — generate-music-v2.mjs
     const takes = [{ ...d, loop: true, seconds: d.seconds ?? 26 }]
     for (let n = 2; n <= (d.takes ?? 1); n++) {
       takes.push({ ...d, id: `${d.id}_${n}`, loop: true, seconds: d.seconds ?? 26 })

@@ -9,6 +9,7 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
 import { AMBIENCE, FOLEY, MOODS, SCENE_BEDS, STINGERS, TENSION } from '../src/content/sound'
+import { takeIndex } from '../src/app/audio'
 
 describe('soundscape', () => {
   it('every non-cutscene scene in authored chapters names a room from the registry', () => {
@@ -107,6 +108,62 @@ describe('soundscape', () => {
     for (const id of files) {
       const p = resolve(__dirname, `../public/sfx/${id}.mp3`)
       expect(existsSync(p), `public/sfx/${id}.mp3 missing — run scripts/audio/generate.mjs`).toBe(true)
+    }
+  })
+
+  it('picture scores are film cues with committed files and no SFX takes', () => {
+    const ids = ['night_run', 'hold', 'latency', 'richmond', 'eleven', 'first_walk'] as const
+    for (const id of ids) {
+      const def = MOODS[id]
+      expect(def, id).toBeDefined()
+      expect(def.film, id).toBe(true)
+      expect(def.source, id).toBe('music')
+      expect(def.takes ?? 1, id).toBe(1)
+      expect(existsSync(resolve(__dirname, `../public/sfx/${def.id}.mp3`)), `${def.id}.mp3`).toBe(true)
+    }
+    expect(MOODS.film.film).toBe(true)
+  })
+
+  it('assigns picture scores to prologues, cutscenes, and ending films', () => {
+    expect(CONTENT.chapters.hyperchute.score).toBe('night_run')
+    expect(CONTENT.chapters.teleport.score).toBe('latency')
+    expect(CONTENT.chapters.skyline.score).toBe('hold')
+    expect(CONTENT.chapters.hyperchute.endings.find((e) => e.id === 'triumph_ipo')?.score).toBe('night_run')
+    expect(CONTENT.chapters.teleport.endings.find((e) => e.id === 'listing')?.score).toBe('latency')
+    expect(CONTENT.chapters.skyline.endings.find((e) => e.id === 'ascent')?.score).toBe('hold')
+    const assigned: Record<string, string> = {
+      h_bridge_y2: 'night_run',
+      h_cut_meridian_ipo: 'night_run',
+      h_bridge_pre_act3: 'night_run',
+      h_cut_accident: 'richmond',
+      t_cut_first_light: 'latency',
+      t_bridge_y3: 'latency',
+      t_father_death: 'latency',
+      t_father_death_seen: 'latency',
+      t_first_walk: 'first_walk',
+      t_jonah: 'eleven',
+      s_cut_year_two: 'hold',
+      s_cut_flag: 'hold',
+    }
+    for (const ch of Object.values(CONTENT.chapters)) {
+      for (const s of ch.scenes) {
+        if ((s.kind ?? 'scene') !== 'cutscene') continue
+        const want = assigned[s.id]
+        if (!want) continue
+        expect(s.mood, s.id).toBe(want)
+        expect(MOODS[want]?.film, `${s.id} → ${want}`).toBe(true)
+      }
+    }
+  })
+
+  it('music takes are a pure function of the scene id', () => {
+    expect(takeIndex('h_seedling', 6)).toBe(takeIndex('h_seedling', 6))
+    expect(takeIndex('h_seedling', 6)).not.toBe(takeIndex('t_entry', 6))
+    expect(takeIndex('h_seedling', 1)).toBe(1)
+    for (const id of ['h_seedling', 't_jonah', 's_entry', 'film']) {
+      const n = takeIndex(id, 6)
+      expect(n).toBeGreaterThanOrEqual(1)
+      expect(n).toBeLessThanOrEqual(6)
     }
   })
 

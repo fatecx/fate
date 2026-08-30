@@ -10,6 +10,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 't_bridge_y3',
     kind: 'cutscene',
+    mood: 'latency',
     title: 'YEAR THREE',
     marker: 'YEAR THREE',
     skipToWeek: 104,
@@ -81,6 +82,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 't_father_death',
     kind: 'cutscene',
+    mood: 'latency',
     title: 'THE SHOEBOX',
     skipToWeek: 116,
     priority: true,
@@ -120,6 +122,7 @@ export const ACT_THREE: readonly SceneDef[] = [
   {
     id: 't_father_death_seen',
     kind: 'cutscene',
+    mood: 'latency',
     title: 'THE SHOEBOX',
     skipToWeek: 116,
     priority: true,

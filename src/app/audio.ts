@@ -44,6 +44,9 @@ let tensionLane: Lane | null = null
 let tensionOn = false
 
 let wantMood: string | null = null
+/** Stable key for take pick — a scene id. Same key, same take, forever. */
+let wantTakeKey = ''
+let curTakeKey = ''
 /** Ambience candidates in priority order: scene bed, then room bed. */
 let wantAmbChain: SoundDef[] = []
 let wantAmbKey = ''
@@ -154,34 +157,42 @@ function stopLane(lane: Lane | null, fade: number): void {
   }, fade * 1000 + 120)
 }
 
-// ---- the music cycle: same mood, moving tones, never a loop -------------------
+// ---- the music cycle: one assigned take, looped — never a shuffle ------------
 
 let takeTimer = 0
-let lastTake = 1
 
 function takeFile(def: SoundDef, n: number): string {
   return n <= 1 ? def.id : `${def.id}_${n}`
 }
 
-/** Play one take of the mood through, then crossfade into a different take of
- *  the same idea — the hum breathes instead of looping. Recursion is guarded
- *  by lane identity: a mood change orphans the timer chain. */
+/** Stable take from a scene id. Same scene, same file, every restart. */
+export function takeIndex(key: string, total: number): number {
+  if (total <= 1) return 1
+  let h = 2166136261
+  for (let i = 0; i < key.length; i++) {
+    h ^= key.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return ((h >>> 0) % total) + 1
+}
+
+function isFilmId(id: string | null): boolean {
+  if (!id) return false
+  return Object.values(MOODS).some((m) => m.id === id && m.film)
+}
+
+/** Play the assigned take of the mood. Recursion is guarded by lane identity:
+ *  a mood change orphans the timer chain. */
 async function startMusicCycle(def: SoundDef, fadeIn: number): Promise<Lane | null> {
   const c = ensureCtx()
   if (!c || !master) return null
   const total = def.takes ?? 1
-  let n = 1
-  if (total > 1) {
-    const opts = Array.from({ length: total }, (_, i) => i + 1).filter((x) => x !== lastTake)
-    n = opts[Math.floor(Math.random() * opts.length)]
-  }
+  const n = takeIndex(wantTakeKey || def.id, total)
   let buf = await loadBuffer(takeFile(def, n))
   if (!buf && n !== 1) {
-    n = 1
     buf = await loadBuffer(def.id)
   }
   if (!buf || !c) return null
-  lastTake = n
   const src = c.createBufferSource()
   src.buffer = buf
   const gain = c.createGain()
@@ -211,21 +222,21 @@ let applying = false
 async function reconcile(): Promise<void> {
   if (applying || !ctx) return
   applying = true
-  const FILM_ID = MOODS.film.id
-  // The cut law: entering a film is abrupt; leaving one is quick; everything
-  // else modulates at musical pace.
-  const intoFilm = wantMood === FILM_ID && musicLane?.id !== FILM_ID
-  const outOfFilm = musicLane?.id === FILM_ID && wantMood !== FILM_ID
+  // The cut law: entering a picture score is abrupt; leaving one is quick;
+  // everything else modulates at musical pace.
+  const intoFilm = isFilmId(wantMood) && musicLane?.id !== wantMood
+  const outOfFilm = isFilmId(musicLane?.id ?? null) && !isFilmId(wantMood)
   const musicOut = intoFilm ? CUT_OUT : outOfFilm ? FILM_EXIT_OUT : MUSIC_FADE
   const musicIn = intoFilm ? CUT_IN : outOfFilm ? FILM_EXIT_IN : MUSIC_FADE
   const ambOut = intoFilm ? CUT_OUT : AMB_FADE
   const ambIn = intoFilm ? CUT_IN : AMB_FADE
   try {
-    if (wantMood !== (musicLane?.id ?? null)) {
+    if (wantMood !== (musicLane?.id ?? null) || wantTakeKey !== curTakeKey) {
       window.clearTimeout(takeTimer)
       const def = wantMood ? Object.values(MOODS).find((m) => m.id === wantMood) : undefined
       stopLane(musicLane, musicOut)
       musicLane = null
+      curTakeKey = wantTakeKey
       if (def) musicLane = await startMusicCycle(def, musicIn)
     }
     if (wantAmbKey !== curAmbKey) {
@@ -261,6 +272,7 @@ async function reconcile(): Promise<void> {
   // State may have moved while we awaited decode — settle it.
   if (
     wantMood !== (musicLane?.id ?? null) ||
+    wantTakeKey !== curTakeKey ||
     wantAmbKey !== curAmbKey ||
     wantAccent !== (accentLane?.id ?? null) ||
     wantTension !== tensionOn
@@ -274,6 +286,8 @@ export interface StageState {
   ambience: string | null
   /** Scene id — when a bespoke scn_<id> bed exists it outranks the room. */
   scene?: string | null
+  /** Stable key for the music take. Same key, same take. */
+  takeKey?: string | null
   /** Optional second room layered low — the scene's seasoning. */
   accent?: string | null
   tension: boolean
@@ -282,6 +296,7 @@ export interface StageState {
 /** The one entry point: render layer describes the moment, decks follow. */
 export function setStage(s: StageState): void {
   wantMood = s.mood ? MOODS[s.mood]?.id ?? null : null
+  wantTakeKey = s.takeKey || s.scene || wantMood || ''
   const chain: SoundDef[] = []
   const sceneBed = s.scene ? SCENE_BEDS[s.scene] : undefined
   if (sceneBed) chain.push(sceneBed)
@@ -298,6 +313,8 @@ export function setStage(s: StageState): void {
  *  The next setStage starts the stage from silence. */
 export function resetStage(): void {
   wantMood = null
+  wantTakeKey = ''
+  curTakeKey = ''
   wantAmbChain = []
   wantAmbKey = ''
   curAmbKey = ''

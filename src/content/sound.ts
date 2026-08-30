@@ -15,9 +15,13 @@ export interface SoundDef {
   prompt: string
   /** Requested loop length in seconds (generation-time only). */
   seconds?: number
-  /** Alternate takes of the same idea (files id_2, id_3…). The music lane
-   *  cycles takes with crossfades — same mood, moving tones, never a loop. */
+  /** Alternate takes of the same idea (files id_2, id_3…). Play scenes pick
+   *  one take from the scene id — same scene, same take, forever. */
   takes?: number
+  /** Picture cue: cutscenes, prologues, ending films. Cuts in, does not drone. */
+  film?: boolean
+  /** `music` scores are rendered by scripts/audio/generate-music-v2.mjs, never the SFX model. */
+  source?: 'sfx' | 'music'
 }
 
 /** Diegetic room tone. The unit is the PLACE — scenes reference these by id. */
@@ -195,8 +199,63 @@ export const MOODS: Record<string, SoundDef> = {
     gain: 0.32,
     seconds: 30,
     takes: 6,
+    film: true,
     prompt:
       'Dark cinematic ambient instrumental music: a deep evolving synthesizer pad with slow tonal movement, distant resonant piano note echoing rarely, held-breath suspense of a film interlude. Heavy, spacious, seamless loop, no drums, no vocals.',
+  },
+  night_run: {
+    id: 'mus_night_run',
+    gain: 0.4,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Nocturnal analog score: electric piano, lonely lead, rain on a future city. Slow, aching, human-scale science fiction. Instrumental, no drums, no choir.',
+  },
+  hold: {
+    id: 'mus_hold',
+    gain: 0.4,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Cathedral pipe-organ ostinato, ticking, strings that refuse to let go. Relentless, then the sky opens. Instrumental, no choir, no trailer horns.',
+  },
+  latency: {
+    id: 'mus_latency',
+    gain: 0.4,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Cold analog score for a future hangar: salt air, relays, musical rests like a 2.6-second delay. Precise, future not past. Instrumental, no choir, no drums, no taiko.',
+  },
+  richmond: {
+    id: 'mus_richmond',
+    gain: 0.38,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'A held analog chord that cracks. Human, sudden, a future city in the afternoon. Grief of a machine that failed. Instrumental, no drums, no choir, no war.',
+  },
+  eleven: {
+    id: 'mus_eleven',
+    gain: 0.36,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Telemetry as grief: a two-note analog handshake that fails, then silence. Humane, cold, future. Instrumental, no drums, no choir.',
+  },
+  first_walk: {
+    id: 'mus_first_walk',
+    gain: 0.4,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Analog wonder looking up. Quiet awe, Earth as a blue coin, a hand against the light. Instrumental, no drums, no choir, no organ.',
   },
   hustle: {
     id: 'mus_hustle',

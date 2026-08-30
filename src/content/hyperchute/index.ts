@@ -11,6 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE PEOPLE’S NETWORK',
     kind: 'triumph',
     art: 'world_bell',
+    score: 'night_run',
     scoreBonus: 12,
     skipYears: 2,
     screens: [
@@ -253,6 +254,7 @@ export const HYPERCHUTE: ChapterDef = {
   opening: { treasury: 120000, burn: 3800, revenue: 0 },
   prologue: PROLOGUE,
   dateline: '2031\nTHE FLATS',
+  score: 'night_run',
   scenes: [...ACT_ONE, ...ACT_TWO, ...ACT_THREE, ...SURVIVAL, ...LATE_STUBS],
   endings: ENDINGS,
   eras: [

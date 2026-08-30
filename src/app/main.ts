@@ -919,21 +919,31 @@ function tensionNow(): boolean {
   return st.company.treasury < 0 || runwayWeeks(st.company) < 6 || st.company.stress >= 85
 }
 
+function filmMood(id?: string | null): StageState['mood'] {
+  return (id && MOODS[id] ? id : 'film') as StageState['mood']
+}
+
 /** Reconcile the decks with the moment. Film mode overrides the room. */
 function applyStage(film = false): void {
   if (!st) return
   if (film || st.phase !== 'playing') {
-    setStage({ mood: 'film', ambience: null, tension: false })
+    setStage({ mood: 'film', takeKey: 'film', ambience: null, tension: false })
     return
   }
   const sceneId = st.company.queue[0]
   const scene = sceneId ? liveScene(sceneId) : null
   if (scene?.kind === 'cutscene') {
-    setStage({ mood: 'film', ambience: null, tension: false })
+    setStage({
+      mood: filmMood(scene.mood),
+      takeKey: scene.id,
+      ambience: null,
+      tension: false,
+    })
     return
   }
   setStage({
     mood: (scene?.mood && MOODS[scene.mood] ? scene.mood : moodOf()) as StageState['mood'],
+    takeKey: sceneId ?? 'play',
     ambience: null, // in play, rooms are one-shot scene events, not beds
     scene: null,
     accent: null,
@@ -985,8 +995,8 @@ function renderPlaying(): void {
     }
     const beats = chain.flatMap((sc) =>
       sc.screens?.length
-        ? sc.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg ?? sc.ambience }))
-        : [{ prose: sc.prose, art: sc.art, bg: sc.ambience }],
+        ? sc.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg ?? sc.ambience, score: sc.mood }))
+        : [{ prose: sc.prose, art: sc.art, bg: sc.ambience, score: sc.mood }],
     )
     showScreens(
       beats,
@@ -1025,13 +1035,13 @@ function renderPlaying(): void {
  *  in, hold at reading pace, fade out. Nothing accumulates, nothing grows.
  *  Unskippable by design; only the final passage offers a button. */
 function showScreens(
-  beats: { kicker?: string; title?: string; prose: string; art?: string; bg?: string }[],
+  beats: { kicker?: string; title?: string; prose: string; art?: string; bg?: string; score?: string }[],
   onDone?: () => void,
   cta = 'Begin \u2192',
   dateline?: string,
 ): void {
   // One "thought" per screen: sentences grouped to a subtitle-sized breath.
-  type Unit = { art?: string; bg?: string; text: string; head: boolean }
+  type Unit = { art?: string; bg?: string; text: string; head: boolean; score?: string }
   const units: Unit[] = []
   for (const b of beats) {
     let head = true
@@ -1040,14 +1050,14 @@ function showScreens(
       let buf = ''
       for (const s of SENT_BREAK ? para.split(SENT_BREAK) : [para]) {
         if (buf && (buf + s).length > 170) {
-          units.push({ art: b.art, bg: b.bg, text: buf.trim(), head })
+          units.push({ art: b.art, bg: b.bg, text: buf.trim(), head, score: b.score })
           head = false
           buf = ''
         }
         buf += s
       }
       if (buf.trim()) {
-        units.push({ art: b.art, bg: b.bg, text: buf.trim(), head })
+        units.push({ art: b.art, bg: b.bg, text: buf.trim(), head, score: b.score })
         head = false
       }
     }
@@ -1057,7 +1067,8 @@ function showScreens(
     onDone?.()
     return
   }
-  setStage({ mood: 'film', ambience: null, tension: false }) // films own the air
+  const opening = filmMood(beats[0]?.score)
+  setStage({ mood: opening, takeKey: opening, ambience: null, tension: false }) // films own the air
   const cardMarkup = dateline
     ? `<div class="cine-card">${dateline
         .split('\n')
@@ -1146,7 +1157,7 @@ function showScreens(
     if (u.head) {
       setArt(u.art)
       // The panel's room fades in with its print — the film keeps the score.
-      setStage({ mood: 'film', ambience: u.bg ?? null, tension: false })
+      setStage({ mood: filmMood(u.score), takeKey: filmMood(u.score), ambience: u.bg ?? null, tension: false })
       wait(i === 0 ? 800 : 1400, speak) // the print breathes alone first
     } else {
       wait(420, speak) // clear air between thoughts
@@ -1407,7 +1418,7 @@ function proceedNext(): void {
     const inter = chapterClose().ending.interlude
     if (inter) {
       showScreens(
-        [{ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg }],
+        [{ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg, score: 'film' }],
         () => renderComplete(),
         'Close the record →',
       )
@@ -1445,10 +1456,11 @@ function proceedNext(): void {
   render()
 
   const inter = c.ending.interlude
-  const pro = CONTENT.chapters[st.company.id]?.prologue ?? []
-  const screens: { kicker?: string; title?: string; prose: string; art?: string; bg?: string }[] = []
-  if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg })
-  for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg })
+  const nextCh = CONTENT.chapters[st.company.id]
+  const pro = nextCh?.prologue ?? []
+  const screens: { kicker?: string; title?: string; prose: string; art?: string; bg?: string; score?: string }[] = []
+  if (inter) screens.push({ kicker: inter.kicker, title: inter.title, prose: inter.prose, art: inter.art, bg: inter.bg, score: 'film' })
+  for (const p of pro) screens.push({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg, score: nextCh?.score })
   if (screens.length)
     showScreens(screens, () => render(), 'Begin →', CONTENT.chapters[st.company.id]?.dateline)
 }
@@ -1586,7 +1598,7 @@ function showEpilogue(): void {
   if (c.ending.screens?.length && filmPlayedFor !== filmKey) {
     filmPlayedFor = filmKey
     showScreens(
-      c.ending.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg })),
+      c.ending.screens.map((p) => ({ prose: p.prose, art: p.art, bg: p.bg, score: c.ending.score })),
       () => showEpilogue(),
       'Continue →',
     )
@@ -1946,12 +1958,15 @@ function startNewLife(): void {
   const pro = CONTENT.chapters[st.company.id].prologue
   // Re-render when the prologue closes so the first scene streams in view,
   // not invisibly underneath the takeover.
-  if (pro) showScreens(
-    pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg })),
-    () => render(),
-    'Begin →',
-    CONTENT.chapters[st.company.id].dateline,
-  )
+  if (pro) {
+    const ch = CONTENT.chapters[st.company.id]
+    showScreens(
+      pro.map((p) => ({ kicker: p.kicker, title: p.title, prose: p.prose, art: p.art, bg: p.bg, score: ch.score })),
+      () => render(),
+      'Begin →',
+      ch.dateline,
+    )
+  }
 }
 
 function render(): void {

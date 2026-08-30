@@ -6,6 +6,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 'h_bridge_y2',
     art: 'cut_year_two',
     kind: 'cutscene',
+    mood: 'night_run',
     title: 'YEAR TWO',
     marker: 'YEAR TWO',
     skipToWeek: 52,
@@ -171,6 +172,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     ambience: 'exchange',
     art: 'cut_meridian_ipo',
     kind: 'cutscene',
+    mood: 'night_run',
     priority: true,
     when: {
       k: 'all',
@@ -503,6 +505,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     place: 'THE CITY',
     art: 'cut_eighteen_months',
     kind: 'cutscene',
+    mood: 'night_run',
     priority: true,
     when: {
       k: 'all',

@@ -8,6 +8,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     place: 'RICHMOND STREET',
     art: 'cut_richmond_451',
     kind: 'cutscene',
+    mood: 'richmond',
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
       'A part in the descent controller fails — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. A nurse, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
