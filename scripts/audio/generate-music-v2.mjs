@@ -26,8 +26,15 @@ if (!key) {
 const args = process.argv.slice(2)
 const force = args.includes('--force')
 const only = args.find((a) => a.startsWith('--only='))?.slice(7).split(',')
+const variants = Math.max(1, Math.min(4, Number(args.find((a) => a.startsWith('--variants='))?.slice(11) ?? 1)))
 const concurrency = Math.max(1, Math.min(3, Number(args.find((a) => a.startsWith('--concurrency='))?.slice(14) ?? 2)))
-const queue = manifest.tracks.filter((t) => !only || only.includes(t.id))
+const queue = manifest.tracks.filter((t) => !only || only.includes(t.id)).flatMap((t) =>
+  Array.from({ length: variants }, (_, i) => ({
+    ...t,
+    outId: variants > 1 ? `${t.id}_v${i + 1}` : t.id,
+    seed: t.seedBase + i,
+  })),
+)
 
 const pause = (ms) => new Promise((r) => setTimeout(r, ms))
 
@@ -42,11 +49,11 @@ async function fetchWithRetry(url, options, id) {
 }
 
 async function render(track) {
-  const file = resolve(outDir, `${track.id}.mp3`)
+  const file = resolve(outDir, `${track.outId}.mp3`)
   if (!force) {
     try {
       if (statSync(file).size > 100_000) {
-        console.log(`skip   ${track.id} (exists)`)
+        console.log(`skip   ${track.outId} (exists)`)
         return
       }
     } catch {
@@ -55,7 +62,7 @@ async function render(track) {
   }
 
   const seconds = manifest.seconds
-  process.stdout.write(`render ${track.id} (${seconds}s, ${manifest.model})… `)
+  process.stdout.write(`render ${track.outId} (${seconds}s, seed ${track.seed})… `)
   const response = await fetchWithRetry(
     'https://api.elevenlabs.io/v1/music?output_format=mp3_48000_192',
     {
@@ -64,25 +71,25 @@ async function render(track) {
       body: JSON.stringify({
         composition_plan: { chunks: track.chunks },
         model_id: manifest.model,
-        seed: track.seedBase,
+        seed: track.seed,
         store_for_inpainting: true,
         sign_with_c2pa: false,
       }),
     },
-    track.id,
+    track.outId,
   )
 
-  if (!response.ok) throw new Error(`${track.id}: ${response.status} ${(await response.text()).slice(0, 600)}`)
+  if (!response.ok) throw new Error(`${track.outId}: ${response.status} ${(await response.text()).slice(0, 600)}`)
   const bytes = Buffer.from(await response.arrayBuffer())
-  if (bytes.length < 100_000) throw new Error(`${track.id}: suspiciously small response (${bytes.length} bytes)`)
+  if (bytes.length < 100_000) throw new Error(`${track.outId}: suspiciously small response (${bytes.length} bytes)`)
   const tmp = `${file}.part`
   writeFileSync(tmp, bytes)
   renameSync(tmp, file)
   writeFileSync(
-    resolve(outDir, `${track.id}.json`),
+    resolve(outDir, `${track.outId}.json`),
     `${JSON.stringify({
-      id: track.id,
-      seed: track.seedBase,
+      id: track.outId,
+      seed: track.seed,
       songId: response.headers.get('song-id'),
       generatedAt: new Date().toISOString(),
       seconds,
@@ -100,7 +107,7 @@ async function worker() {
       await render(track)
     } catch (err) {
       failed = true
-      try { unlinkSync(resolve(outDir, `${track.id}.mp3.part`)) } catch {}
+      try { unlinkSync(resolve(outDir, `${track.outId}.mp3.part`)) } catch {}
       console.error(`FAILED ${String(err?.message ?? err)}`)
     }
   }

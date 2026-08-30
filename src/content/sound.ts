@@ -228,7 +228,7 @@ export const MOODS: Record<string, SoundDef> = {
     film: true,
     source: 'music',
     prompt:
-      'Cold analog score for a future hangar: salt air, relays, musical rests like a 2.6-second delay. Precise, future not past. Instrumental, no choir, no drums, no taiko.',
+      'Analog hangar-night score: a melody stated, then answered 2.6 seconds later, thinner and farther. Electric piano, analog brass, F-sharp minor.',
   },
   richmond: {
     id: 'mus_richmond',
@@ -237,7 +237,7 @@ export const MOODS: Record<string, SoundDef> = {
     film: true,
     source: 'music',
     prompt:
-      'A held analog chord that cracks. Human, sudden, a future city in the afternoon. Grief of a machine that failed. Instrumental, no drums, no choir, no war.',
+      'A falling analog theme over a city afternoon. Electric piano, low strings, D minor, slow heartbreak.',
   },
   eleven: {
     id: 'mus_eleven',
@@ -246,7 +246,7 @@ export const MOODS: Record<string, SoundDef> = {
     film: true,
     source: 'music',
     prompt:
-      'Telemetry as grief: a two-note analog handshake that fails, then silence. Humane, cold, future. Instrumental, no drums, no choir.',
+      'A four-note analog elegy. Soft analog piano, cello-like synth, C-sharp minor. Sparse mix, complete melody.',
   },
   first_walk: {
     id: 'mus_first_walk',
@@ -255,7 +255,7 @@ export const MOODS: Record<string, SoundDef> = {
     film: true,
     source: 'music',
     prompt:
-      'Analog wonder looking up. Quiet awe, Earth as a blue coin, a hand against the light. Instrumental, no drums, no choir, no organ.',
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   hustle: {
     id: 'mus_hustle',

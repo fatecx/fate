@@ -12,7 +12,11 @@
       "role": "ANALOG NOIR",
       "level": "MUSIC 2.0",
       "art": "prologue_street",
-      "moments": ["THE GARAGE AT 2AM", "FIRST DROP", "THE CITY BELOW"],
+      "moments": [
+        "THE GARAGE AT 2AM",
+        "FIRST DROP",
+        "THE CITY BELOW"
+      ],
       "note": "Nocturnal analog score: electric piano, lonely lead, rain on a city that does not know it is being saved. Slow, aching, human-scale science fiction.",
       "seedBase": 310801,
       "chunks": [
@@ -56,7 +60,14 @@
             "spacious nocturnal mix",
             "64 BPM"
           ],
-          "negative_styles": ["drums", "choir", "lyrics", "vocals", "trailer music", "EDM"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM"
+          ],
           "context_adherence": "high"
         },
         {
@@ -70,7 +81,13 @@
             "rain-soaked reverb",
             "heartbreaking and restrained"
           ],
-          "negative_styles": ["drums", "choir", "lyrics", "trailer drop", "climax stinger"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "trailer drop",
+            "climax stinger"
+          ],
           "context_adherence": "high"
         },
         {
@@ -84,7 +101,12 @@
             "nocturnal",
             "no fade to silence"
           ],
-          "negative_styles": ["drums", "choir", "trailer climax", "sudden stop"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "trailer climax",
+            "sudden stop"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -96,7 +118,11 @@
       "role": "RITUAL CHOIR",
       "level": "MUSIC 2.0",
       "art": "world_first_body",
-      "moments": ["THE HANGAR", "THE HANDOFF", "THE RING"],
+      "moments": [
+        "THE HANGAR",
+        "THE HANDOFF",
+        "THE RING"
+      ],
       "note": "A sacred-industrial rite: guttural wordless choir, temple drums, bells, a body crossing an impossible distance. Whisper to overwhelm, then the silence after.",
       "seedBase": 310811,
       "chunks": [
@@ -136,7 +162,12 @@
             "72 BPM",
             "building ritual"
           ],
-          "negative_styles": ["sung English lyrics", "pop", "EDM", "analog saxophone lead"],
+          "negative_styles": [
+            "sung English lyrics",
+            "pop",
+            "EDM",
+            "analog saxophone lead"
+          ],
           "context_adherence": "high"
         },
         {
@@ -150,7 +181,12 @@
             "tense strings",
             "relentless sacred machine"
           ],
-          "negative_styles": ["sung English lyrics", "pop", "trailer braams", "EDM"],
+          "negative_styles": [
+            "sung English lyrics",
+            "pop",
+            "trailer braams",
+            "EDM"
+          ],
           "context_adherence": "high"
         },
         {
@@ -164,7 +200,12 @@
             "overwhelming sacred terror",
             "emotional peak"
           ],
-          "negative_styles": ["sung English lyrics", "pop", "EDM", "fade out"],
+          "negative_styles": [
+            "sung English lyrics",
+            "pop",
+            "EDM",
+            "fade out"
+          ],
           "context_adherence": "medium"
         },
         {
@@ -178,7 +219,11 @@
             "unresolved",
             "quiet aftermath"
           ],
-          "negative_styles": ["sung English lyrics", "trailer climax", "pop"],
+          "negative_styles": [
+            "sung English lyrics",
+            "trailer climax",
+            "pop"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -190,7 +235,11 @@
       "role": "ORGAN AND ORCHESTRA",
       "level": "MUSIC 2.0",
       "art": "end_s_ascent",
-      "moments": ["THE STRAND", "THE STORM", "THE FIRST RIDE"],
+      "moments": [
+        "THE STRAND",
+        "THE STORM",
+        "THE FIRST RIDE"
+      ],
       "note": "A clock in a cathedral: pipe-organ ostinato, ticking, strings that refuse to let go. Relentless, guttural, then the sky opens.",
       "seedBase": 310821,
       "chunks": [
@@ -230,7 +279,13 @@
             "12/8 relentless",
             "96 BPM"
           ],
-          "negative_styles": ["choir", "lyrics", "vocals", "trailer braams", "silence"],
+          "negative_styles": [
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer braams",
+            "silence"
+          ],
           "context_adherence": "high"
         },
         {
@@ -244,7 +299,12 @@
             "rising emotional tension",
             "12/8"
           ],
-          "negative_styles": ["choir", "lyrics", "EDM drop", "pop"],
+          "negative_styles": [
+            "choir",
+            "lyrics",
+            "EDM drop",
+            "pop"
+          ],
           "context_adherence": "high"
         },
         {
@@ -258,7 +318,13 @@
             "emotional climax",
             "civilizational scale without trailer horns"
           ],
-          "negative_styles": ["choir", "lyrics", "braams", "EDM", "pop vocals"],
+          "negative_styles": [
+            "choir",
+            "lyrics",
+            "braams",
+            "EDM",
+            "pop vocals"
+          ],
           "context_adherence": "medium"
         },
         {
@@ -272,7 +338,12 @@
             "open sky",
             "unresolved major color"
           ],
-          "negative_styles": ["choir", "lyrics", "sudden stop", "trailer sting"],
+          "negative_styles": [
+            "choir",
+            "lyrics",
+            "sudden stop",
+            "trailer sting"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -284,64 +355,96 @@
       "role": "ANALOG FUTURE",
       "level": "MUSIC 2.0",
       "art": "cut_ring_alive",
-      "moments": ["THE HANGAR", "FIRST LIGHT", "YEAR THREE"],
-      "note": "Analog score for a coastal hangar at night: a melody stated, then answered 2.6 seconds later, thinner and farther. Distance you can hear.",
-      "seedBase": 420101,
+      "moments": [
+        "THE HANGAR",
+        "FIRST LIGHT",
+        "YEAR THREE"
+      ],
+      "note": "A melody stated in a coastal hangar, then answered 2.6 seconds later \u2014 thinner, farther, the same phrase arriving from the Moon.",
+      "seedBase": 420201,
       "chunks": [
         {
-          "text": "[Hangar] {instrumental}",
+          "text": "[Night] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
-            "cold analog synthesizer score",
-            "precise electric piano",
-            "salt-air hangar atmosphere as music not sound effect",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "nocturnal melancholy",
+            "66 BPM",
             "F-sharp minor",
-            "68 BPM",
             "tape saturation",
-            "future not past",
-            "instrumental science-fiction",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
             "high production quality"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "orchestra", "trailer", "lyrics", "vocals", "war drums", "period piece"],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Delay] {instrumental analog lead}",
-          "duration_ms": 24000,
-          "positive_styles": [
-            "thin cold analog lead",
-            "musical rests like a 2.6 second light-speed delay",
-            "precise analog chords",
-            "nocturnal future",
-            "emotional restraint"
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "lyrics", "trailer"],
           "context_adherence": "high"
         },
         {
-          "text": "[The Ring] {instrumental}",
+          "text": "[The Street] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog pads widening",
-            "distant analog lead",
-            "satellites as harmony not beeps",
-            "awe without bombast",
-            "still no percussion"
+            "lonely analog lead with saxophone timbre",
+            "a second thinner analog voice answering the melody late",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "66 BPM"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "lyrics", "trailer climax"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[A chair on Earth] {instrumental}",
+          "text": "[Memory] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "thinning analog",
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the late answering voice still present",
+            "sparse electric piano",
+            "deep analog bass",
+            "heartbreaking and restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Into the rain] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
             "electric piano unresolved",
-            "human scale inside a machine",
             "quiet ending",
-            "future hangar night"
+            "nocturnal"
           ],
-          "negative_styles": ["choir", "drums", "trailer", "sudden stop"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "trailer climax",
+            "sudden stop"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -353,61 +456,104 @@
       "role": "THE ACCIDENT",
       "level": "MUSIC 2.0",
       "art": "cut_richmond_451",
-      "moments": ["THE AFTERNOON", "THE DROP", "THE CITY WATCHES"],
-      "note": "A held analog chord that cracks. Human, sudden, a future city in the afternoon — not a war, not a period piece.",
-      "seedBase": 310841,
+      "moments": [
+        "THE AFTERNOON",
+        "THE DROP",
+        "THE CITY WATCHES"
+      ],
+      "note": "A falling analog theme over a city afternoon. Slow, human, irreversible.",
+      "seedBase": 420111,
       "chunks": [
         {
-          "text": "[Afternoon] {instrumental}",
-          "duration_ms": 15000,
+          "text": "[Ordinary light] {instrumental}",
+          "duration_ms": 16000,
           "positive_styles": [
-            "sparse analog synthesizer",
-            "ordinary afternoon turning wrong",
+            "1970s analog synthesizer score",
+            "electric piano in the midrange",
+            "warm pads",
             "D minor",
-            "60 BPM",
-            "future city",
-            "instrumental",
+            "58 BPM",
+            "tape saturation",
+            "open daylight reverb",
+            "instrumental science-fiction",
             "high production quality"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "orchestra fanfare", "trailer", "lyrics", "war", "period piece"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[The drop] {instrumental}",
-          "duration_ms": 25000,
+          "text": "[The fall] {instrumental analog lead}",
+          "duration_ms": 26000,
           "positive_styles": [
-            "a held analog chord that cracks",
-            "sudden human gravity",
-            "sparse piano-like analog",
-            "no percussion",
-            "grief of a machine that failed"
+            "a falling analog melody",
+            "low strings under the synth",
+            "electric piano",
+            "slow heartbreak",
+            "58 BPM",
+            "every note lands late"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "trailer braams", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "braams"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[The city watches] {instrumental}",
-          "duration_ms": 25000,
+          "text": "[The city] {instrumental}",
+          "duration_ms": 26000,
           "positive_styles": [
-            "widening cold analog pads",
-            "news-cycle dread without drums",
-            "human and mechanical",
-            "restrained",
-            "emotional"
+            "analog brass in a minor hymn",
+            "the falling theme again, fuller",
+            "low strings",
+            "restrained and devastating",
+            "still slow"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "trailer", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
           "context_adherence": "high"
         },
         {
           "text": "[After] {instrumental}",
-          "duration_ms": 25000,
+          "duration_ms": 22000,
           "positive_styles": [
-            "thin analog residue",
-            "unresolved",
-            "quiet responsibility",
-            "no climax"
+            "electric piano alone with the theme",
+            "thin analog pad",
+            "unresolved D minor",
+            "quiet ending",
+            "human"
           ],
-          "negative_styles": ["choir", "drums", "trailer climax", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -419,61 +565,105 @@
       "role": "THE HANDOFF",
       "level": "MUSIC 2.0",
       "art": "cut_jonah",
-      "moments": ["BORING IMMORTAL WORK", "ELEVEN SECONDS", "A SISTER IN CLEVELAND"],
-      "note": "Telemetry as grief: a two-note handshake that fails, then silence doing the work. Humane, cold, future.",
-      "seedBase": 310851,
+      "moments": [
+        "BORING IMMORTAL WORK",
+        "ELEVEN SECONDS",
+        "A SISTER IN CLEVELAND"
+      ],
+      "note": "A four-note analog elegy. Sparse mix, complete melody \u2014 the handshake that does not come back.",
+      "seedBase": 420121,
       "chunks": [
         {
-          "text": "[Boring immortal work] {instrumental}",
+          "text": "[The shift] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
-            "extremely sparse analog pad",
-            "clinical and humane",
-            "C minor",
-            "52 BPM",
-            "future control room as music",
-            "instrumental",
+            "1970s analog synthesizer score",
+            "soft analog piano",
+            "a four-note melody stated clearly",
+            "C-sharp minor",
+            "54 BPM",
+            "tape saturation",
+            "close and dry then a little room",
+            "instrumental science-fiction",
             "high production quality"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "orchestra", "trailer", "lyrics", "vocals", "horror sting"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "long silence"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[Eleven seconds] {instrumental}",
+          "text": "[The gap] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "a two-note analog handshake that fails",
-            "silence as material",
-            "held breath",
-            "no percussion",
-            "factual grief"
+            "the four-note theme stretched",
+            "cello-like analog under it",
+            "music continues without a hole",
+            "held breath inside the notes",
+            "54 BPM"
           ],
-          "negative_styles": ["choir", "drums", "lyrics", "trailer", "horror score"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "long silence",
+            "dead air"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[The call] {instrumental}",
+          "text": "[The sister] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "sparse analog",
-            "one human interval",
-            "cold and kind",
-            "unresolved",
-            "no swell"
+            "analog piano and pad",
+            "the theme in a higher register",
+            "humane",
+            "slow",
+            "no swell, just the melody"
           ],
-          "negative_styles": ["choir", "drums", "lyrics", "trailer climax"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer climax"
+          ],
           "context_adherence": "high"
         },
         {
           "text": "[The record] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "thin residual pad",
-            "telemetry quiet",
-            "humane ending",
-            "no resolution"
+            "the four notes once more, quieter",
+            "unresolved C-sharp minor",
+            "analog piano last",
+            "quiet ending that still has notes"
           ],
-          "negative_styles": ["choir", "drums", "trailer", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop",
+            "long silence"
+          ],
           "context_adherence": "high"
         }
       ]
@@ -485,62 +675,107 @@
       "role": "THE LOOKING",
       "level": "MUSIC 2.0",
       "art": "cut_first_walk",
-      "moments": ["THE CHAIR", "SHE STANDS", "THE BLUE COIN"],
-      "note": "Analog wonder looking up. Same family as Night Run — awe instead of rain. A hand against the Earth.",
-      "seedBase": 310861,
+      "moments": [
+        "THE CHAIR",
+        "SHE STANDS",
+        "THE BLUE COIN"
+      ],
+      "note": "Analog wonder looking up. A rising three-note motif, Earthlight, a hand against the sky.",
+      "seedBase": 420141,
       "chunks": [
         {
-          "text": "[The chair] {instrumental}",
+          "text": "[Chair] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
-            "warm analog synthesizer",
+            "1970s analog synthesizer score",
             "electric piano",
-            "quiet wonder",
-            "A minor with Lydian color",
-            "70 BPM",
+            "warm analog pads",
+            "A minor",
+            "68 BPM",
             "tape saturation",
-            "instrumental science-fiction",
+            "vast plate reverb",
+            "quiet wonder",
             "high production quality"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "pipe organ", "trailer", "lyrics", "vocals"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[She stands] {instrumental analog lead}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
             "lonely analog lead",
-            "oldest light",
-            "human scale",
-            "emotional restraint",
-            "spacious"
+            "a rising three-note motif",
+            "warm analog brass",
+            "electric piano",
+            "slow awe",
+            "68 BPM"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "organ", "trailer", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[The blue coin] {instrumental}",
+          "text": "[The sky] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog pads lifting gently",
-            "awe without bombast",
-            "Earthlight",
-            "soft analog brass",
-            "still no drums"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
-          "negative_styles": ["choir", "drums", "taiko", "trailer climax", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
+            "trailer drop"
+          ],
           "context_adherence": "high"
         },
         {
-          "text": "[It looked back] {instrumental}",
+          "text": "[After] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "thinning analog",
-            "human afterglow",
-            "unresolved warmth",
-            "quiet ending"
+            "the three notes once, warm",
+            "thinning analog pads",
+            "electric piano unresolved on C",
+            "quiet ending",
+            "human"
           ],
-          "negative_styles": ["choir", "drums", "trailer", "lyrics"],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
+            "sudden stop"
+          ],
           "context_adherence": "high"
         }
       ]
