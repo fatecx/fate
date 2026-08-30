@@ -7,4 +7,6 @@ dist/
 src-tauri/target/
 src-tauri/gen/
 music/benchmark-renders/
+music/cutscene-renders/
 music/grok-pass/
+music/v2-renders/

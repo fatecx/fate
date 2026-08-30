@@ -84,6 +84,22 @@ const directions = JSON.parse(readFileSync(resolve(__dirname, '../music/directio
     }
   }>
 }
+const v2 = JSON.parse(readFileSync(resolve(__dirname, '../music/v2.json'), 'utf8')) as {
+  model: string
+  seconds: number
+  label: string
+  tracks: Array<{
+    id: string
+    title: string
+    chapter: string
+    role: string
+    level: string
+    art: string
+    moments: string[]
+    note: string
+    chunks: Array<{ text: string; duration_ms: number; positive_styles: string[] }>
+  }>
+}
 const review = JSON.parse(readFileSync(resolve(__dirname, '../music/review.json'), 'utf8')) as {
   decisions: Record<string, string>
 }
@@ -210,11 +226,40 @@ describe('music auditions', () => {
     }
   })
 
+  it('has three isolated MUSIC 2.0 scores that do not overwrite earlier auditions', () => {
+    expect(v2.model).toBe('music_v2')
+    expect(v2.seconds).toBe(90)
+    expect(v2.label).toBe('MUSIC 2.0')
+    expect(v2.tracks).toHaveLength(3)
+    expect(new Set(v2.tracks.map((t) => t.chapter))).toEqual(new Set(['HYPERCHUTE', 'TELEPORT', 'SKYLINE']))
+    expect(new Set(v2.tracks.map((t) => t.id))).toEqual(
+      new Set(['v2_night_run', 'v2_machine_prayer', 'v2_hold']),
+    )
+    const earlier = new Set([
+      ...manifest.candidates.map((c) => c.id),
+      ...benchmarks.curated.map((c) => c.id),
+      ...directions.curated.map((c) => c.id),
+    ])
+    for (const track of v2.tracks) {
+      expect(track.id.startsWith('v2_'), track.id).toBe(true)
+      expect(earlier.has(track.id), `${track.id} collides with a Codex audition id`).toBe(false)
+      expect(track.level).toBe('MUSIC 2.0')
+      expect(track.chunks.length, track.id).toBeGreaterThanOrEqual(4)
+      expect(track.chunks.reduce((n, c) => n + c.duration_ms, 0), track.id).toBe(90_000)
+      expect(existsSync(resolve(__dirname, `../public/art/${track.art}.webp`)), `${track.id}: art`).toBe(true)
+      expect(track.moments.length, track.id).toBeGreaterThanOrEqual(3)
+      const file = resolve(__dirname, `../public/music-v2/${track.id}.mp3`)
+      expect(existsSync(file), `${track.id}: render missing`).toBe(true)
+      expect(statSync(file).size, `${track.id}: render suspiciously small`).toBeGreaterThan(100_000)
+    }
+  })
+
   it('review data is valid and candidates remain outside the runtime score', () => {
     const candidateIds = new Set([
       ...manifest.candidates.map((c) => c.id),
       ...benchmarks.curated.map((c) => c.id),
       ...directions.curated.map((c) => c.id),
+      ...v2.tracks.map((c) => c.id),
     ])
     for (const [id, status] of Object.entries(review.decisions)) {
       expect(candidateIds.has(id), `review for unknown candidate '${id}'`).toBe(true)

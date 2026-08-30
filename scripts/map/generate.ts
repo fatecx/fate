@@ -502,6 +502,17 @@ interface MusicDirectionComposition extends MusicBenchmarkComposition {
   moments: string[]
 }
 
+interface MusicV2Track {
+  id: string
+  title: string
+  chapter: string
+  role: string
+  level: string
+  art: string
+  moments: string[]
+  note: string
+}
+
 function musicData() {
   const manifest = JSON.parse(
     readFileSync(join(process.cwd(), 'music', 'candidates.json'), 'utf8'),
@@ -524,6 +535,9 @@ function musicData() {
     compositions: MusicDirectionComposition[]
     curated: MusicBenchmarkSelection[]
   }
+  const v2Manifest = JSON.parse(
+    readFileSync(join(process.cwd(), 'music', 'v2.json'), 'utf8'),
+  ) as { model: string; seconds: number; tracks: MusicV2Track[] }
   let decisions: Record<string, 'approved' | 'rejected'> = {}
   try {
     decisions = JSON.parse(
@@ -605,15 +619,24 @@ function musicData() {
     }
   })
 
+  const v2 = v2Manifest.tracks.map((track) => ({
+    ...track,
+    seconds: v2Manifest.seconds,
+    path: `music-v2/${track.id}.mp3`,
+    uses: track.moments,
+  }))
+
   return {
     model: manifest.model,
     benchmarkModel: benchmarkManifest.model,
     directionModel: directionManifest.model,
     directionRenders: directionManifest.compositions.length * directionManifest.variantsPerComposition,
+    v2Model: v2Manifest.model,
     current,
     candidates,
     benchmarks,
     directions,
+    v2,
     decisions,
   }
 }
@@ -959,7 +982,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   </div>
 </div><div class="musicpane" id="musicpane" style="display:none">
   <div class="musicbar">
-    <div class="mswitch" id="mswitch"><button data-set="direction" class="on">DIRECTION TEST</button><button data-set="benchmark">BENCHMARK ROUND</button><button data-set="new">FIRST AUDITIONS</button><button data-set="current">CURRENT SCORE</button></div>
+    <div class="mswitch" id="mswitch"><button data-set="v2" class="on">MUSIC 2.0</button><button data-set="direction">DIRECTION TEST</button><button data-set="benchmark">BENCHMARK ROUND</button><button data-set="new">FIRST AUDITIONS</button><button data-set="current">CURRENT SCORE</button></div>
     <div class="mfilters" id="mfilters"></div>
     <span class="mreviewcount" id="mreviewcount"></span>
     <button class="msave" id="msave" disabled>REVIEWS SAVED</button>
@@ -1216,7 +1239,7 @@ function buildArt(){
 // runtime registry until a later, explicit integration pass.
 const MDEC=Object.assign({},DATA.music.decisions||{});
 const musicPlayer=new Audio();
-let musicSet='direction',musicChapter='ALL',musicActive=null;
+let musicSet='v2',musicChapter='ALL',musicActive=null;
 const ASSETBASE=location.protocol==='file:'?'public/':'/';
 const mtime=s=>{if(!Number.isFinite(s))return '0:00';const n=Math.max(0,Math.floor(s));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0');};
 function musicDirty(){const base=DATA.music.decisions||{};const ids=new Set(Object.keys(base).concat(Object.keys(MDEC)));let n=0;
@@ -1225,7 +1248,7 @@ function refreshMusicReview(){
   document.querySelectorAll('.mcard[data-candidate]').forEach(card=>{const s=MDEC[card.dataset.candidate]||'';
     card.classList.toggle('approved',s==='approved');card.classList.toggle('rejected',s==='rejected');
     card.querySelector('.approve').classList.toggle('on',s==='approved');card.querySelector('.reject').classList.toggle('on',s==='rejected');});
-  const pool=musicSet==='direction'?DATA.music.directions:musicSet==='benchmark'?DATA.music.benchmarks:musicSet==='new'?DATA.music.candidates:[],ids=new Set(pool.map(x=>x.id));
+  const pool=musicSet==='v2'?DATA.music.v2:musicSet==='direction'?DATA.music.directions:musicSet==='benchmark'?DATA.music.benchmarks:musicSet==='new'?DATA.music.candidates:[],ids=new Set(pool.map(x=>x.id));
   const approved=Object.entries(MDEC).filter(([id,status])=>ids.has(id)&&status==='approved').length,rejected=Object.entries(MDEC).filter(([id,status])=>ids.has(id)&&status==='rejected').length;
   const count=document.getElementById('mreviewcount');if(count)count.textContent=musicSet==='current'?'':approved+' approved · '+rejected+' rejected · '+(pool.length-approved-rejected)+' open';
   const save=document.getElementById('msave');if(save){const d=musicDirty();save.textContent=d?('SAVE REVIEWS ('+d+')'):'REVIEWS SAVED';save.classList.toggle('has',d>0);save.disabled=!d;}}
@@ -1252,17 +1275,19 @@ function scrubMusic(progress,event){const card=progress.closest('.mcard');if(!mu
 function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
   document.querySelectorAll('.mcard').forEach(card=>{const setOk=card.dataset.set===musicSet,chOk=musicSet==='current'||musicChapter==='ALL'||card.dataset.chapter===musicChapter;
     const qOk=!v||card._musicSearch.includes(v),on=setOk&&chOk&&qOk;card.style.display=on?'':'none';if(on)shown++;});
-  const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='direction'
+  const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='v2'
+    ?'Three 90-second sci-fi scores, generated fresh — not conditioned on the live beds, not replacing Codex’s rounds. Analog-noir, ritual choir, organ-and-orchestra. Your ears make the decision; nothing here plays in the game.'
+    :musicSet==='direction'
     ?'3 fresh 60-second composition directions curated from 12 internal renders: orchestral, analog, and hybrid. Every selection starts within two seconds and changes orchestration across the minute. Your ears make the decision; nothing here plays in the game.'
     :musicSet==='new'
       ?'12 first-pass 90-second auditions generated from one prose prompt each. Preserved with your original decisions for comparison; nothing here plays in the game.'
       :musicSet==='benchmark'
         ?'3 rejected company-theme benchmarks curated from 24 structured renders. Preserved for comparison; nothing here plays in the game.'
         :'The live baseline: ten 30-second mood beds with six takes each, plus the tension stem. This is what the game uses today.';
-  const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='direction'?(shown+' SHOWN · '+DATA.music.directionRenders+' INTERNAL RENDERS · ELEVEN '+DATA.music.directionModel.toUpperCase()):musicSet==='benchmark'?(shown+' SHOWN · 24 RENDERS · ELEVEN '+DATA.music.benchmarkModel.toUpperCase()):musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
+  const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='v2'?(shown+' SHOWN · ELEVEN '+DATA.music.v2Model.toUpperCase()):musicSet==='direction'?(shown+' SHOWN · '+DATA.music.directionRenders+' INTERNAL RENDERS · ELEVEN '+DATA.music.directionModel.toUpperCase()):musicSet==='benchmark'?(shown+' SHOWN · 24 RENDERS · ELEVEN '+DATA.music.benchmarkModel.toUpperCase()):musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
   document.getElementById('mfilters').style.display=musicSet==='current'?'none':'';refreshMusicReview();}
 function buildMusic(){const grid=document.getElementById('musicgrid'),filters=document.getElementById('mfilters');
-  const chapters=['ALL'];DATA.music.directions.concat(DATA.music.benchmarks,DATA.music.candidates).forEach(c=>{if(!chapters.includes(c.chapter))chapters.push(c.chapter);});
+  const chapters=['ALL'];DATA.music.v2.concat(DATA.music.directions,DATA.music.benchmarks,DATA.music.candidates).forEach(c=>{if(!chapters.includes(c.chapter))chapters.push(c.chapter);});
   filters.innerHTML=chapters.map(ch=>'<button class="tab'+(ch==='ALL'?' on':'')+'" data-chapter="'+eh(ch)+'">'+eh(ch)+'</button>').join('');
   filters.addEventListener('click',e=>{const b=e.target.closest('[data-chapter]');if(!b)return;musicChapter=b.dataset.chapter;
     filters.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));applyMusicFilter();});
@@ -1275,6 +1300,7 @@ function buildMusic(){const grid=document.getElementById('musicgrid'),filters=do
       +'<p class="mnote">'+eh(c.note)+'</p>'+metrics+'<div class="muses">FOR · '+c.uses.map(eh).join(' · ')+'</div>'
       +'<div class="mreview"><button class="approve">APPROVE</button><button class="reject">REJECT</button></div></div>';
     grid.appendChild(card);}
+  DATA.music.v2.forEach(c=>appendAudition(c,'v2'));
   DATA.music.directions.forEach(c=>appendAudition(c,'direction'));
   DATA.music.benchmarks.forEach(c=>appendAudition(c,'benchmark'));
   DATA.music.candidates.forEach(c=>appendAudition(c,'new'));

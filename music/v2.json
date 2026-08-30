@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "model": "music_v2",
+  "seconds": 90,
+  "label": "MUSIC 2.0",
+  "note": "Fresh sci-fi scores. Not conditioned on the live beds. Not Codex's audition rounds.",
+  "tracks": [
+    {
+      "id": "v2_night_run",
+      "title": "Night Run",
+      "chapter": "HYPERCHUTE",
+      "role": "ANALOG NOIR",
+      "level": "MUSIC 2.0",
+      "art": "prologue_street",
+      "moments": ["THE GARAGE AT 2AM", "FIRST DROP", "THE CITY BELOW"],
+      "note": "Nocturnal analog score: electric piano, lonely lead, rain on a city that does not know it is being saved. Slow, aching, human-scale science fiction.",
+      "seedBase": 310801,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "nocturnal melancholy",
+            "64 BPM",
+            "E-flat minor",
+            "tape saturation",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "taiko",
+            "ticking clock",
+            "orchestra",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "spacious nocturnal mix",
+            "64 BPM"
+          ],
+          "negative_styles": ["drums", "choir", "lyrics", "vocals", "trailer music", "EDM"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "sparse electric piano",
+            "deep analog bass",
+            "rain-soaked reverb",
+            "heartbreaking and restrained"
+          ],
+          "negative_styles": ["drums", "choir", "lyrics", "trailer drop", "climax stinger"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Into the rain] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal",
+            "no fade to silence"
+          ],
+          "negative_styles": ["drums", "choir", "trailer climax", "sudden stop"],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_machine_prayer",
+      "title": "The Machine Prayer",
+      "chapter": "TELEPORT",
+      "role": "RITUAL CHOIR",
+      "level": "MUSIC 2.0",
+      "art": "world_first_body",
+      "moments": ["THE HANGAR", "THE HANDOFF", "THE RING"],
+      "note": "A sacred-industrial rite: guttural wordless choir, temple drums, bells, a body crossing an impossible distance. Whisper to overwhelm, then the silence after.",
+      "seedBase": 310811,
+      "chunks": [
+        {
+          "text": "[The Rite] {wordless guttural choir, no lyrics}",
+          "duration_ms": 12000,
+          "positive_styles": [
+            "ritual wordless choir",
+            "guttural low male drones",
+            "distant temple bell",
+            "C minor",
+            "haunting sacred-industrial",
+            "sparse opening",
+            "cinematic",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "pop vocals",
+            "sung English lyrics",
+            "rap",
+            "EDM",
+            "saxophone",
+            "electric piano",
+            "trailer braams",
+            "long fade-in"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Body] {wordless choir} {ritual drums}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "large ritual barrel drums",
+            "wordless choir",
+            "temple bells",
+            "dissonant low strings",
+            "72 BPM",
+            "building ritual"
+          ],
+          "negative_styles": ["sung English lyrics", "pop", "EDM", "analog saxophone lead"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Distance] {wordless choir}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "full ritual choir",
+            "pounding temple drums",
+            "metallic industrial percussion",
+            "court-music woodwinds",
+            "tense strings",
+            "relentless sacred machine"
+          ],
+          "negative_styles": ["sung English lyrics", "pop", "trailer braams", "EDM"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Handoff] {wordless choir at full voice}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "massive guttural choir",
+            "thunderous ritual drums",
+            "dissonant screaming strings",
+            "industrial hits",
+            "overwhelming sacred terror",
+            "emotional peak"
+          ],
+          "negative_styles": ["sung English lyrics", "pop", "EDM", "fade out"],
+          "context_adherence": "medium"
+        },
+        {
+          "text": "[After] {wordless choir}",
+          "duration_ms": 16000,
+          "positive_styles": [
+            "thin residual choir",
+            "one distant drum",
+            "temple bell",
+            "haunted",
+            "unresolved",
+            "quiet aftermath"
+          ],
+          "negative_styles": ["sung English lyrics", "trailer climax", "pop"],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_hold",
+      "title": "Hold",
+      "chapter": "SKYLINE",
+      "role": "ORGAN AND ORCHESTRA",
+      "level": "MUSIC 2.0",
+      "art": "end_s_ascent",
+      "moments": ["THE STRAND", "THE STORM", "THE FIRST RIDE"],
+      "note": "A clock in a cathedral: pipe-organ ostinato, ticking, strings that refuse to let go. Relentless, guttural, then the sky opens.",
+      "seedBase": 310821,
+      "chunks": [
+        {
+          "text": "[The Clock] {pipe organ ostinato} {ticking}",
+          "duration_ms": 12000,
+          "positive_styles": [
+            "cathedral pipe organ ostinato",
+            "ticking percussion like a clock",
+            "A minor",
+            "12/8",
+            "96 BPM",
+            "starts on the first beat",
+            "instrumental",
+            "dry then vast room",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "choir",
+            "saxophone",
+            "lyrics",
+            "vocals",
+            "silence at the beginning",
+            "long fade-in",
+            "EDM"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Cable] {organ and strings}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "pipe organ ostinato continues",
+            "ticking percussion",
+            "low strings entering",
+            "rising tension",
+            "12/8 relentless",
+            "96 BPM"
+          ],
+          "negative_styles": ["choir", "lyrics", "vocals", "trailer braams", "silence"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Hold] {orchestra and organ}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "full string orchestra",
+            "pipe organ",
+            "low guttural brass",
+            "ticking still present",
+            "rising emotional tension",
+            "12/8"
+          ],
+          "negative_styles": ["choir", "lyrics", "EDM drop", "pop"],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Ascent] {full orchestra}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "massive pipe organ and orchestra",
+            "guttural low brass",
+            "high strings",
+            "ticking still audible",
+            "emotional climax",
+            "civilizational scale without trailer horns"
+          ],
+          "negative_styles": ["choir", "lyrics", "braams", "EDM", "pop vocals"],
+          "context_adherence": "medium"
+        },
+        {
+          "text": "[Orbit] {organ and strings}",
+          "duration_ms": 16000,
+          "positive_styles": [
+            "organ holding a vast chord",
+            "strings resolving toward light",
+            "ticking fading",
+            "human-scale wonder",
+            "open sky",
+            "unresolved major color"
+          ],
+          "negative_styles": ["choir", "lyrics", "sudden stop", "trailer sting"],
+          "context_adherence": "high"
+        }
+      ]
+    }
+  ]
+}
