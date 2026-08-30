@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "model": "music_v2",
+  "seconds": 75,
+  "variantsPerComposition": 6,
+  "shared": {
+    "production": [
+      "original hybrid cinematic science-fiction cutscene score; do not quote or resemble any existing composition",
+      "ancient human ritual and advanced machine intelligence occupying the same musical world",
+      "futuristic, haunting, mellow, epic, grand, and surreal without conventional fantasy-orchestra language",
+      "the first musical attack occurs at time zero and a recognizable motif is complete within two seconds",
+      "the opening motif has the same foreground presence and perceived loudness as the body of the cue; it is not a distant teaser or gradual ramp",
+      "a coherent seventy-five-second dramatic arc with meaningful harmonic and orchestral development",
+      "change harmony, counterline, rhythm, register, or orchestration every four to eight bars",
+      "human voices may appear only as wordless ensemble texture, never as a lead song or intelligible language",
+      "emotion comes from melody, harmony, silence between phrases, and changing instrumental color rather than loudness",
+      "wide cinematic depth with strong midrange detail and generous headroom",
+      "high-end studio recording with organic dynamics and a decisive ending"
+    ],
+    "negativeStyles": [
+      "lyrics",
+      "intelligible words",
+      "spoken word",
+      "solo lead singer",
+      "pop vocal",
+      "long fade-in",
+      "silence at the beginning",
+      "atmospheric prelude",
+      "quiet teaser opening",
+      "distant opening motif",
+      "ambient noise bed",
+      "static drone",
+      "sustained pad foundation",
+      "low buzzing hum",
+      "sub-bass rumble",
+      "one-note pulse",
+      "single repeated ostinato",
+      "unchanged four-bar loop",
+      "monotonous repetition",
+      "sound effects",
+      "horror screeches",
+      "trailer music",
+      "superhero score",
+      "fantasy adventure score",
+      "generic Hollywood epic",
+      "braams",
+      "risers",
+      "impact booms",
+      "EDM drop",
+      "rock drum kit",
+      "bright victory fanfare",
+      "wall of sound",
+      "clipping"
+    ]
+  },
+  "compositions": [
+    {
+      "id": "c_the_threshold",
+      "title": "The Threshold",
+      "chapter": "FATE",
+      "role": "CUTSCENE 01",
+      "level": "RITUAL CHORAL–ELECTRONIC",
+      "art": "cut_ring_alive",
+      "scenes": [],
+      "moments": ["FIRST LIGHT", "THE MACHINE WAKES", "A NEW INTELLIGENCE"],
+      "note": "Technology crossing into life: a wordless human ritual suspended inside an unfamiliar electronic future.",
+      "key": "D minor with a flattened second and a luminous B-natural appearing only at the threshold",
+      "motifNotes": "D, E-flat, A, G, D — a stark five-note threshold call answered by B, A, E-flat",
+      "tempo": "68 BPM with deliberate breath between phrases",
+      "meter": "alternating 5/4 and 4/4 without sounding mathematical",
+      "palette": [
+        "twelve-voice wordless human ensemble singing open vowel clusters and close antiphonal intervals",
+        "deep natural skin drums in sparse evolving ceremonial patterns",
+        "bowed metal and glass harmonics used as pitched instruments rather than sound effects",
+        "dark analog synthesizer playing changing harmonic voices rather than a pad",
+        "bass flute and low chamber strings carrying independent counterlines",
+        "one dry wooden clapper marking only structural turns"
+      ],
+      "seedBase": 470310,
+      "sections": [
+        {
+          "name": "THE FIRST SIGNAL",
+          "durationMs": 7000,
+          "direction": "At time zero and at full foreground presence, one dry clapper and the full wordless ensemble state D, E-flat, A, G, D as a single severe phrase completed by two seconds. A dark analog chord answers immediately and the motif receives one short antiphonal answer; keep this opening at the same perceived loudness as the following section, with no swell, breath noise, or empty introduction."
+        },
+        {
+          "name": "HUMAN PROTOCOL",
+          "durationMs": 17000,
+          "direction": "Split the voices into two antiphonal groups answering across the stereo field. Low strings move through real D-minor harmony, bass flute writes a separate descending line, and a single skin drum marks an irregular ceremonial pulse with long rests."
+        },
+        {
+          "name": "THE OTHER MIND",
+          "durationMs": 17000,
+          "direction": "The analog synthesizer takes the five-note call in a glassy upper register while voices sustain changing close harmonies underneath. Introduce the B-natural as an uncanny bright color; bowed metal supplies a melodic answer, never a drone or scrape."
+        },
+        {
+          "name": "NO COMMAND",
+          "durationMs": 17000,
+          "direction": "Remove drums completely. Reduce to three exposed vocal lines, bass flute, and a warm but unstable sequence of analog chords. Fragment the threshold call across silence, then let low strings recover its complete shape in a slower rhythm."
+        },
+        {
+          "name": "IT CONTINUES",
+          "durationMs": 17000,
+          "direction": "Reunite the ensemble, strings, analog voices, pitched metal, and sparse drums in interlocking counterpoint. State the threshold call once at full breadth, resolve the harmony without making it triumphant, and end together on a clear D-and-A sonority with a short natural tail."
+        }
+      ]
+    },
+    {
+      "id": "c_rain_memory",
+      "title": "Rain Memory",
+      "chapter": "FATE",
+      "role": "CUTSCENE 02",
+      "level": "ANALOG NOIR ELEGY",
+      "art": "cut_shoebox",
+      "scenes": [],
+      "moments": ["LOSS", "CONSEQUENCE", "THE HUMAN COST"],
+      "note": "The future remembering the people it cost: nocturnal analog melancholy that remains tender rather than collapsing into a drone.",
+      "key": "C-sharp minor with brief E-major warmth and an unresolved major sixth",
+      "motifNotes": "C-sharp, G-sharp, E, D-sharp, A — a wide lonely call with a human downward answer",
+      "tempo": "64 BPM with expressive rubato in the lead melody",
+      "meter": "4/4 with phrases crossing the bar line",
+      "palette": [
+        "expressive monophonic analog synthesizer with restrained pitch movement and audible human phrasing",
+        "dark polyphonic analog brass playing moving chord voicings rather than sustained pads",
+        "dry electric piano with a distinct countermelody",
+        "solo viola and small low-string ensemble",
+        "contrabass clarinet used melodically in the middle register",
+        "very soft brushed frame drum entering only after the midpoint",
+        "distant wordless mixed voices appearing only in the final section"
+      ],
+      "seedBase": 581420,
+      "sections": [
+        {
+          "name": "THE CALL",
+          "durationMs": 7000,
+          "direction": "At time zero and at full foreground presence, the analog lead states C-sharp, G-sharp, E, D-sharp, A as one complete aching phrase by two seconds over a dry electric-piano C-sharp-minor chord. Solo viola gives a complete downward answer before seven seconds; keep the opening at the same perceived loudness as the following section, with no filter sweep, rain sound, or ambience intro."
+        },
+        {
+          "name": "WHAT REMAINS",
+          "durationMs": 17000,
+          "direction": "Electric piano moves through a four-chord progression while analog lead changes the ending of its theme. Viola and contrabass clarinet exchange a separate countermelody; bass movement must have rests and direction instead of holding one low note."
+        },
+        {
+          "name": "THE EMPTY CHAIR",
+          "durationMs": 17000,
+          "direction": "Move briefly into E major as low strings enter with independent inner voices. Let the electric piano carry the theme and the analog lead answer high above it; introduce a barely audible brushed frame-drum heartbeat that changes accents every phrase."
+        },
+        {
+          "name": "THE MATH FOREVER",
+          "durationMs": 17000,
+          "direction": "Remove percussion and analog brass. Expose viola, electric piano, and contrabass clarinet in unstable A-major and F-sharp-minor harmony. Leave real silence between melodic answers without any dead gap, then let the analog lead return with one altered note."
+        },
+        {
+          "name": "RAIN MEMORY",
+          "durationMs": 17000,
+          "direction": "Bring back the moving analog harmony and low strings. Distant wordless mixed voices enter as one quiet harmonic color while lead synth and viola complete the theme together. Resolve toward C-sharp minor with the A left suspended, ending softly but decisively."
+        }
+      ]
+    },
+    {
+      "id": "c_a_world_becoming",
+      "title": "A World Becoming",
+      "chapter": "FATE",
+      "role": "CUTSCENE 03",
+      "level": "RITUAL SYNTH ASCENSION",
+      "art": "end_s_ascent",
+      "scenes": [],
+      "moments": ["THE BELL", "ASCENT", "SOVEREIGNTY"],
+      "note": "Civilizational scale without victory music: human ceremony, analog futurism, and immense physical machinery becoming one organism.",
+      "key": "E minor opening into G Lydian color while retaining the E-minor second",
+      "motifNotes": "E, B, F-sharp, G, D, A — an upward machine interval answered by a falling human phrase",
+      "tempo": "72 BPM with a slow double-time current emerging after the midpoint",
+      "meter": "6/8 phrased against broad 4/4 harmonic changes",
+      "palette": [
+        "low wordless human ensemble in wide open fifths with high voices entering only near the end",
+        "expressive analog brass and one bright monophonic synthesizer carrying distinct melodic lines",
+        "large chamber string ensemble with active inner movement and articulate bow attacks",
+        "deep natural skin drums and low hand drums in evolving ceremonial polyrhythm",
+        "concert bass drum used once at the structural summit rather than as repeated impacts",
+        "pitched bronze bell and bowed glass as rare harmonic punctuation",
+        "solo cello preserving human scale inside the large ensemble"
+      ],
+      "seedBase": 692530,
+      "sections": [
+        {
+          "name": "THE BELL IS STRUCK",
+          "durationMs": 7000,
+          "direction": "At time zero and at full foreground presence, a pitched bronze bell, low voices, and solo cello state E, B, F-sharp, G, D, A as a complete motif by two seconds. Analog brass gives a broad melodic answer before seven seconds; keep this opening at the same perceived loudness as the following section, with no crescendo, impact trailer hit, or atmospheric setup."
+        },
+        {
+          "name": "MASS IN MOTION",
+          "durationMs": 17000,
+          "direction": "Low strings create a changing six-eight current through real E-minor harmony. Skin drums answer rather than duplicate the rhythm, solo cello develops the downward half of the motif, and low voices punctuate structural changes with short wordless chords."
+        },
+        {
+          "name": "THE SKYLINE MOVES",
+          "durationMs": 17000,
+          "direction": "Analog lead takes the upward motif while string inner voices accelerate independently. Shift toward G Lydian color, change the drum polyrhythm, and let analog brass write a broad countermelody; grow through density and register rather than raw volume."
+        },
+        {
+          "name": "ONE PERSON BELOW",
+          "durationMs": 17000,
+          "direction": "Remove all drums and most voices. Solo cello, bowed glass, and a sequence of changing analog chords restate the human falling phrase in B minor. Keep the immense scale implied but distant, with exposed melody and real harmonic tension."
+        },
+        {
+          "name": "A WORLD BECOMING",
+          "durationMs": 17000,
+          "direction": "Rebuild the full ensemble with high wordless voices, evolving ceremonial drums, active strings, analog lead, analog brass, and one concert-bass-drum summit. Interlock both halves of the motif, reach grandeur without a victory fanfare, and finish on an enormous but unresolved E-and-B sonority."
+        }
+      ]
+    }
+  ],
+  "curated": []
+}

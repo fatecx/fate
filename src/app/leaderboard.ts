@@ -1,5 +1,5 @@
 /**
- * The Founders' Ledger — every wallet that has closed at least one chapter,
+ * The Founders' Ledger — every founder who has closed at least one chapter,
  * ranked by founder score. Read-only mirror of engine numbers; the page
  * invents nothing.
  */
@@ -41,7 +41,7 @@ async function boot(): Promise<void> {
       <div class="rail-meters"><a class="lb-back" href="/">← BACK TO THE LIFE</a></div>
     </header>
     <main class="lb-main">
-      <div class="lb-intro">Every biography on the record — one wallet, one life, ranked by founder score. Scores accrue across all three companies; nothing here can be reset or replayed.</div>
+      <div class="lb-intro">Every biography on the record — one signature, one life, ranked by founder score. Scores accrue across all three companies; nothing here can be reset or replayed.</div>
       <div class="lb-table" id="lbTable"><div class="lb-loading">Opening the ledger…</div></div>
     </main>
   </div>`

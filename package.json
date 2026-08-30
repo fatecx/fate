@@ -24,8 +24,8 @@
     "vitest": "^2.1.9"
   },
   "dependencies": {
-    "@base-org/account": "^2.5.10",
-    "@supabase/supabase-js": "^2.112.3",
-    "js-sha3": "^0.13.0"
+    "@simplewebauthn/browser": "^13.3.0",
+    "@simplewebauthn/server": "^13.3.3",
+    "@supabase/supabase-js": "^2.112.4"
   }
 }

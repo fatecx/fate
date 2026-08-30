@@ -1,8 +1,8 @@
 /**
- * Cloud save — one row per wallet, the server remembers and does nothing else.
+ * Cloud save — one row per founder, the server remembers and does nothing else.
  * The engine stays client-authoritative; this module only stores/restores
- * serialized GameState for a signed-in founder. Identity comes from
- * signInWithWeb3 (see wallet.ts); guests are never written down.
+ * serialized GameState for a signed-in founder. Identity comes from a passkey
+ * (see passkey.ts); guests are never written down.
  */
 import { createClient, type Session } from '@supabase/supabase-js'
 import type { GameState } from '../engine/types'
@@ -45,24 +45,15 @@ function claims(session: Session): Record<string, unknown> {
   return (meta?.custom_claims as Record<string, unknown>) ?? {}
 }
 
-/** Full on-chain address of the signed founder ('' when unknown). */
-export function walletAddress(session: Session): string {
+/** Founder of record, e.g. "FOUNDER Nº 4F2A81C3". Wallet-era sessions keep
+ *  their old address label so existing biographies still read as themselves. */
+export function founderLabel(session: Session): string {
   const c = claims(session)
-  return typeof c.address === 'string' ? c.address : ''
-}
-
-export function walletChain(session: Session): string {
-  const c = claims(session)
-  return typeof c.chain === 'string' ? c.chain : ''
-}
-
-/** Short wallet label, e.g. "0xaaf9…2884 · ETH". */
-export function walletLabel(session: Session): string {
-  const addr = walletAddress(session)
-  const chain = walletChain(session)
-  if (!addr) return 'wallet'
-  const tag = chain ? ` · ${chain.slice(0, 3).toUpperCase()}` : ''
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}${tag}`
+  if (typeof c.address === 'string' && c.address) {
+    const a = c.address
+    return `${a.slice(0, 6)}…${a.slice(-4)}`
+  }
+  return `FOUNDER Nº ${session.user.id.slice(0, 8).toUpperCase()}`
 }
 
 // ---- save transport -----------------------------------------------------------
@@ -145,8 +136,8 @@ export async function pushFounder(row: Omit<FounderRow, 'user_id' | 'wallet' | '
     if (!session) return
     await supa.from('founders').upsert({
       user_id: session.user.id,
-      wallet: walletLabel(session),
-      chain: walletChain(session),
+      wallet: founderLabel(session),
+      chain: 'passkey',
       ...row,
       updated_at: new Date().toISOString(),
     })

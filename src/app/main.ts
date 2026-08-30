@@ -12,9 +12,9 @@ import type { GameState } from '../engine/types'
 import type { SceneDef } from '../content/schema'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
-import { cloudLoad, cloudPush, pickSave, getSession, signOut, walletLabel, walletAddress, walletChain, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
-import { initWalletDiscovery, listWallets } from './wallet'
-import { isAdmin, hasPaid, claimReceipt, recordPayment, wireCheck, ethSpot, weiFor, readBalances, type PayAsset } from './pay'
+import { cloudLoad, cloudPush, pickSave, getSession, signOut, founderLabel, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
+import { passkeySupported, passkeyRegister, passkeyLogin } from './passkey'
+import { hasPaid, claimFeeReceipt, claimPendingFee, WHOP_PLAN_ID } from './fee'
 import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
@@ -74,8 +74,7 @@ let session: Session | null = null
 // ---- desktop shell -----------------------------------------------------------
 // Inside Tauri there are no wallet extensions: the desktop build plays as a
 // local founder — saves live in localStorage under one fixed id, the landing
-// and the filing fee never appear. (The wallet code leaves entirely once the
-// desktop app ships; this flag is the seam it will be cut along.)
+// and the filing fee never appear.
 const DESKTOP =
   typeof window !== 'undefined' &&
   ('__TAURI_INTERNALS__' in window || location.protocol === 'tauri:')
@@ -592,18 +591,18 @@ function incPanelHtml(): string {
   <div class="inc-cap"><div class="mlabel" style="margin-bottom:6px"><span>CAP TABLE</span><span>${fmtRunway()} WKS RUNWAY</span></div>${capTableLines()}</div>`
 }
 
-// Dev tools answer only to the admin wallet — no env var can arm them.
+// Dev tools ride the build flag — never shipped once the launch checklist runs.
 function DEV_TOOLS(): boolean {
-  return isAdmin(session)
+  return import.meta.env.VITE_DEV_TOOLS === '1'
 }
 
-/** Account + settings section of the company dropdown. One wallet, one life. */
+/** Account + settings section of the company dropdown. One signature, one life. */
 function accountHtml(): string {
-  const addr = session ? walletAddress(session) : ''
-  const chain = session ? walletChain(session) : ''
-  const who = addr
-    ? `<b class="addr">${esc(addr)}${chain ? ` <span class="dim">· ${esc(chain.toUpperCase())}</span>` : ''}</b>`
-    : `<b>—</b>`
+  const who = session
+    ? `<b class="addr">${esc(founderLabel(session))}</b>`
+    : DESKTOP
+      ? `<b class="addr">LOCAL FOUNDER</b>`
+      : `<b>—</b>`
   return `
   <div class="inc-account">
     <div class="inc-grid">
@@ -616,7 +615,7 @@ function accountHtml(): string {
       ${DEV_TOOLS() && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
       ${DEV_TOOLS() ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
     </div>
-    <div class="inc-law">One wallet, one life. The biography is permanent.</div>
+    <div class="inc-law">One signature, one life. The biography is permanent.</div>
   </div>`
 }
 
@@ -1624,8 +1623,8 @@ function renderEpilogue(): void {
 function renderComplete(): void {
   renderPlaying()
   const years = Math.max(1, Math.round((st.epoch - st.ledger.completed[0]?.epoch / 1) / 52))
-  const closing = `<p class="tk-body" style="margin-top:22px">This biography belongs to ${session ? esc(walletLabel(session)) : 'this wallet'}, finished and on the record. One wallet, one life — to live another, sign with another wallet.</p>
-       <div class="tk-actions"><button class="cta" id="switchWallet">Sign out — new wallet, new life →</button>
+  const closing = `<p class="tk-body" style="margin-top:22px">This biography belongs to ${session ? esc(founderLabel(session)) : 'this founder'}, finished and on the record. One signature, one life — to live another, sign with a new passkey.</p>
+       <div class="tk-actions"><button class="cta" id="switchLife">Sign out — new signature, new life →</button>
        <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a></div>`
   takeover(`
     <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
@@ -1634,7 +1633,7 @@ function renderComplete(): void {
     ${biographyStrip()}
     ${closing}
   `)
-  document.getElementById('switchWallet')?.addEventListener('click', () => {
+  document.getElementById('switchLife')?.addEventListener('click', () => {
     void (async () => {
       await signOut()
       location.reload()
@@ -1648,7 +1647,7 @@ const INTRO = `2031. You are a first-time founder in a city that runs on rails o
 
 function signedRowHtml(): string {
   return session
-    ? `<div class="tk-id">SIGNED · ${esc(walletLabel(session))} · <button class="tk-link" id="wlOut">log out</button></div>`
+    ? `<div class="tk-id">SIGNED · ${esc(founderLabel(session))} · <button class="tk-link" id="wlOut">log out</button></div>`
     : ''
 }
 
@@ -1665,10 +1664,10 @@ function wireLogout(): void {
 /** Welcome screen — every page load starts here. */
 function renderWelcome(saved: Save | null, entitled = false): void {
   app.innerHTML = ''
-  // A wallet the game has never met gets the front door: the landing scroll.
+  // A founder the game has never met gets the front door: the landing scroll.
   // The landing is a website, not the live game — it stays silent.
   // Anyone signed or mid-life skips marketing and goes straight to their page.
-  // The desktop app IS the game: no marketing, no wallet — straight to the title.
+  // The desktop app IS the game: no marketing — straight to the title.
   if (!saved && !session && !DESKTOP) {
     resetStage()
     renderLanding(app, () => {
@@ -1688,7 +1687,7 @@ function renderWelcome(saved: Save | null, entitled = false): void {
       <h1 class="tk-title">FATE</h1>
       <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch + 1}.</p>
       <button class="cta" id="wlContinue">Continue →</button>
-      <div class="tk-id">One wallet, one life. This biography is permanent.</div>
+      <div class="tk-id">One signature, one life. This biography is permanent.</div>
       ${signedRowHtml()}`)
     document.getElementById('wlContinue')?.addEventListener('click', () => {
       st = saved.st
@@ -1706,13 +1705,13 @@ function renderWelcome(saved: Save | null, entitled = false): void {
   const actions =
     session || DESKTOP
       ? `<button class="cta" id="wlBegin">Incorporate →</button>
-      <div class="tk-id">${DESKTOP && !session ? 'One life. What you sign here is permanent.' : 'One wallet, one life. What you sign here is permanent.'}</div>`
-      : `<button class="cta" id="wlConnect">Connect wallet →</button>
-      <div class="tk-id">Your wallet is your signature. One life per wallet — permanent, no resets.</div>`
+      <div class="tk-id">${DESKTOP && !session ? 'One life. What you sign here is permanent.' : 'One signature, one life. What you sign here is permanent.'}</div>`
+      : `<button class="cta" id="wlConnect">Sign the papers →</button>
+      <div class="tk-id">Your passkey is your signature. One life per signature — permanent, no resets.</div>`
   takeover(`
     <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
     <h1 class="tk-title">FATE</h1>
-    <p class="tk-body">One life. Four companies. Every scar carries forward.
+    <p class="tk-body">One life. Three companies. Every scar carries forward.
 
 ${INTRO}</p>
     ${actions}
@@ -1727,167 +1726,80 @@ ${INTRO}</p>
   wireLogout()
 }
 
-/** The incorporation — a checkout, not a menu. One invoice, one button; the
- *  check wires through the wallet that signed (remembered at connect,
- *  confirmed by a silent eth_accounts probe). USDC exact or ETH at spot,
- *  quoted live and refreshed each minute; balances read silently off public
- *  RPC pick the default the wallet can actually pay. Different wallet =
- *  log out, sign back in. */
-async function payerWallet(): Promise<ReturnType<typeof listWallets>[number] | null> {
-  const wallets = listWallets()
-  if (!wallets.length) return null
-  const addr = session ? walletAddress(session).toLowerCase() : ''
-  for (const w of wallets) {
-    try {
-      const p = await w.provider()
-      const accs = (await p.request({ method: 'eth_accounts' })) as string[]
-      if (accs?.some((a) => a.toLowerCase() === addr)) return w
-    } catch {
-      /* provider refused a silent read — the name match below decides */
-    }
-  }
-  let remembered: string | null = null
-  try {
-    remembered = localStorage.getItem('fate-wallet')
-  } catch {
-    /* private mode */
-  }
-  return wallets.find((w) => w.name === remembered) ?? wallets[0]
-}
-
+/** The incorporation — a checkout, not a menu. The filing fee clears on
+ *  Whop's embedded checkout (card, Apple Pay, Google Pay); the receipt is
+ *  verified server-side (/api/whop) before the biography opens. */
 function renderIncorporation(): void {
   takeover(`
     <div class="tk-kicker">THE INCORPORATION</div>
     <h1 class="tk-title">THE FILING FEE</h1>
-    <p class="tk-body">One payment incorporates your first company and opens the whole biography. The check wires on Base to the studio treasury.</p>
+    <p class="tk-body">Incorporate your company to play FATE. One payment opens the whole biography — three companies, one life. There is nothing else to buy, ever.</p>
     <div class="inv">
       <div class="inv-row"><span>One life · three companies</span><b>$20.00</b></div>
-      <div class="inv-sub">Filing fee. Paid once — there is nothing else to buy, ever.</div>
-      <div class="inv-total"><span>DUE TODAY</span><span class="inv-seg" id="invSeg">
-        <button class="seg on" data-asset="usdc">20.00 USDC</button><button class="seg" data-asset="eth" id="segEth" disabled>… ETH</button>
-      </span></div>
-      <div class="inv-base"><span class="inv-basemark"></span>on Base</div>
-      <button class="inv-cta" id="invPay">Wire the check — 20 USDC →</button>
-      <div class="inv-payer" id="invPayer"></div>
+      <div class="inv-sub">Filing fee. Paid once — permanent, like everything you sign here.</div>
+      <div class="whopbox" id="whopBox"><div class="whopwait">Opening the register…</div></div>
       <div class="werr" id="payErr"></div>
     </div>
     ${signedRowHtml()}
   `)
   wireLogout()
 
-  const payBtn = document.getElementById('invPay') as HTMLButtonElement | null
-  const payerEl = document.getElementById('invPayer')
   const err = document.getElementById('payErr')
-  const segEth = document.getElementById('segEth') as HTMLButtonElement | null
-  let chosen: ReturnType<typeof listWallets>[number] | null = null
-  let asset: PayAsset = 'usdc'
-  let spot: number | null = null
-  let busy = false
-
-  const ethLabel = (): string => (spot ? `≈ ${(20 / spot).toFixed(5)} ETH` : '… ETH')
-  const ctaLabel = (): string =>
-    asset === 'usdc' ? 'Wire the check — 20 USDC →' : `Wire the check — ${ethLabel()} →`
-  const paint = (): void => {
-    if (segEth) segEth.textContent = ethLabel()
-    if (payBtn && !busy) payBtn.textContent = ctaLabel()
-  }
-  const setAsset = (a: PayAsset): void => {
-    asset = a
-    document.querySelectorAll<HTMLButtonElement>('#invSeg .seg').forEach((b) => {
-      b.classList.toggle('on', b.dataset.asset === a)
-    })
-    paint()
-  }
-  document.querySelectorAll<HTMLButtonElement>('#invSeg .seg').forEach((b) => {
-    b.addEventListener('click', () => setAsset(b.dataset.asset as PayAsset))
-  })
-
-  // The quote breathes: fetch now, refresh each minute while the sheet is up.
-  const quote = async (): Promise<void> => {
-    spot = await ethSpot()
-    if (segEth) segEth.disabled = !spot
-    paint()
-  }
-  void quote()
-  const quoteTimer = window.setInterval(() => {
-    if (!document.getElementById('invSeg')) {
-      window.clearInterval(quoteTimer)
-      return
-    }
-    void quote()
-  }, 60_000)
-
-  payBtn?.addEventListener('click', () => {
-    if (!chosen || busy) return
+  // Whop calls this the instant the card clears; the server checks the receipt.
+  ;(window as unknown as Record<string, unknown>).fateFeePaid = (_plan: string, receipt: string) => {
     void (async () => {
-      if (!payBtn) return
-      if (err) err.textContent = ''
-      busy = true
-      payBtn.disabled = true
       try {
-        payBtn.textContent = 'WIRING…'
-        const provider = await chosen.provider()
-        const wei = asset === 'eth' && spot ? weiFor(spot) : undefined
-        const { tx, payer, units } = await wireCheck(provider, asset, wei)
-        payBtn.textContent = 'CONFIRMED ✓'
-        if (session) await recordPayment(session, tx, payer, asset, units)
+        if (err) err.textContent = 'Filing…'
+        await claimFeeReceipt(String(receipt ?? ''))
+        if (err) err.textContent = ''
         document.querySelector('.takeover')?.remove()
         startNewLife()
       } catch (ex) {
-        busy = false
-        payBtn.disabled = false
-        payBtn.textContent = ctaLabel()
-        const raw = ex instanceof Error ? ex.message : String(ex)
-        const broke = /outoffunds|insufficient funds|insufficient balance|exceeds balance/i.test(raw)
         if (err)
-          err.textContent = broke
-            ? 'Not enough on Base. Your funds may live on another network — the check clears on Base only. Bridge, or pay in the other currency.'
-            : raw || 'The wire failed. Nothing was charged — try again.'
+          err.textContent = `${ex instanceof Error ? ex.message : String(ex)} — your receipt is saved; reload and it will be claimed.`
       }
     })()
-  })
-
-  void (async () => {
-    chosen = await payerWallet()
-    if (!chosen) {
-      if (payBtn) payBtn.disabled = true
-      if (payerEl)
-        payerEl.textContent = 'No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back.'
-      return
-    }
-    if (payerEl) {
-      payerEl.innerHTML = `${chosen.icon ? `<img class="inv-wicon" src="${chosen.icon}" alt="">` : ''}Paying from ${esc(chosen.name)}${session ? ` · ${esc(walletLabel(session))}` : ''} · <span class="inv-switch">to use another wallet, log out</span>`
-    }
-    // Read what the wallet actually holds ON BASE, show it, and preselect
-    // the asset that can genuinely clear. Gas rides on ETH either way.
-    if (session) {
-      const b = await readBalances(walletAddress(session))
-      if (b.usdc < 20_000_000n && b.eth > 0n) setAsset('eth')
-    }
-  })()
+  }
+  const box = document.getElementById('whopBox')
+  if (box) {
+    box.innerHTML = ''
+    const mount = document.createElement('div')
+    mount.setAttribute('data-whop-checkout-plan-id', WHOP_PLAN_ID)
+    mount.setAttribute('data-whop-checkout-theme', 'dark')
+    mount.setAttribute('data-whop-checkout-on-complete', 'fateFeePaid')
+    box.appendChild(mount)
+  }
+  if (!document.getElementById('whopLoader')) {
+    const s = document.createElement('script')
+    s.id = 'whopLoader'
+    s.async = true
+    s.defer = true
+    s.src = 'https://js.whop.com/static/checkout/loader.js'
+    document.head.appendChild(s)
+  } else {
+    // The loader scans on load; a re-render needs a nudge to rescan.
+    const w = window as unknown as { whopCheckout?: { render?: () => void } }
+    w.whopCheckout?.render?.()
+  }
 }
 
-/** Fate-styled wallet picker — the headless connect surface. */
+/** The signature — a passkey, not a password. Create one to incorporate;
+ *  present it to re-enter the biography from any device in the keychain. */
 function renderConnect(onBack: () => void, onDone: () => void): void {
   document.querySelector('.takeover')?.remove()
-  const wallets = listWallets()
-  const list = wallets.length
-    ? wallets
-        .map(
-          (w, i) => `
-      <button class="wallet-opt" data-w="${i}">
-        ${w.icon ? `<img class="wicon" src="${w.icon}" alt="">` : `<span class="wicon">◈</span>`}
-        <span class="wname">${esc(w.name)}</span>
-        <span class="wchain">ETH</span>
-      </button>`,
-        )
-        .join('')
-    : `<p class="tk-body">No wallets found in this browser. Install MetaMask or any Ethereum wallet, then come back — the papers will wait.</p>`
+  const supported = passkeySupported()
   takeover(`
     <div class="tk-kicker">SIGN THE PAPERS</div>
     <h1 class="tk-title">THE FOUNDER OF RECORD</h1>
-    <p class="tk-body">Your wallet is your signature. One approval — no funds move, no email asked. The biography binds to the address.</p>
-    <div class="wallet-list">${list}</div>
+    <p class="tk-body">Your passkey is your signature — a fingerprint, a face, a device key. No email, no password, nothing to leak. The biography binds to the signature.</p>
+    ${
+      supported
+        ? `<div class="tk-actions">
+      <button class="cta" id="pkNew">Create your signature →</button>
+      <button class="tk-link" id="pkHave">I already have one — sign in</button>
+    </div>`
+        : `<p class="tk-body">This browser doesn't support passkeys. Use a current Safari, Chrome, or Edge.</p>`
+    }
     <div class="werr" id="werr"></div>
     <button class="tk-link" id="wBack">← back</button>
   `)
@@ -1895,37 +1807,36 @@ function renderConnect(onBack: () => void, onDone: () => void): void {
     document.querySelector('.takeover')?.remove()
     onBack()
   })
-  document.querySelectorAll<HTMLButtonElement>('.wallet-opt').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      void (async () => {
-        const w = wallets[Number(btn.dataset.w)]
-        const err = document.getElementById('werr')
-        const label = btn.querySelector('.wname')
-        const orig = label?.textContent ?? w.name
-        if (err) err.textContent = ''
-        btn.disabled = true
-        if (label) label.textContent = 'SIGNING…'
-        try {
-          await w.sign()
-          try {
-            localStorage.setItem('fate-wallet', w.name)
-          } catch {
-            /* private mode: the eth_accounts probe finds it instead */
-          }
-          session = await getSession()
-          document.querySelector('.takeover')?.remove()
-          onDone()
-        } catch (ex) {
-          btn.disabled = false
-          if (label) label.textContent = orig
-          if (err) err.textContent = ex instanceof Error ? ex.message : 'The wallet declined. Try again.'
-        }
-      })()
-    })
-  })
+  const run = (btn: HTMLButtonElement, label: string, fn: () => Promise<void>): void => {
+    void (async () => {
+      const err = document.getElementById('werr')
+      const orig = btn.textContent
+      if (err) err.textContent = ''
+      btn.disabled = true
+      btn.textContent = label
+      try {
+        await fn()
+        session = await getSession()
+        document.querySelector('.takeover')?.remove()
+        onDone()
+      } catch (ex) {
+        btn.disabled = false
+        btn.textContent = orig
+        const raw = ex instanceof Error ? ex.message : String(ex)
+        if (err)
+          err.textContent = /NotAllowedError|timed out|not allowed|AbortError/i.test(raw)
+            ? 'The signature was cancelled. Try again.'
+            : raw
+      }
+    })()
+  }
+  const newBtn = document.getElementById('pkNew') as HTMLButtonElement | null
+  const haveBtn = document.getElementById('pkHave') as HTMLButtonElement | null
+  newBtn?.addEventListener('click', () => run(newBtn, 'SIGNING…', passkeyRegister))
+  haveBtn?.addEventListener('click', () => run(haveBtn, 'PRESENTING…', passkeyLogin))
 }
 
-/** After sign-in from the welcome flow: surface this wallet's biography, if any. */
+/** After sign-in from the welcome flow: surface this signature's biography, if any. */
 async function enterAsFounder(): Promise<void> {
   let best: Save | null = null
   let entitled = false
@@ -1935,11 +1846,11 @@ async function enterAsFounder(): Promise<void> {
     best = pickSave(local, remote) as Save | null
     // The same retired-build guard for whichever copy won.
     if (best && !saveValid(best)) best = null
-    // The filing fee: a biography, a payment row, a local receipt, or the
-    // admin wallet all open the door; everyone else meets the incorporation.
-    entitled = !!best || isAdmin(session) || (await hasPaid()) || (await claimReceipt(session))
+    // The filing fee: a biography, a payment row, or a pending local receipt
+    // opens the door; everyone else meets the incorporation.
+    entitled = !!best || (await hasPaid()) || (await claimPendingFee())
   } else if (DESKTOP) {
-    // The desktop founder: local biography, no fee, no wallet.
+    // The desktop founder: local biography, no fee.
     best = load(DESKTOP_UID)
     entitled = true
   }
@@ -2150,7 +2061,7 @@ function armCrashScreen(): void {
   // Injected wallet extensions (MetaMask & co.) throw their own async errors
   // into the page — a broken extension throws on every load, no interaction
   // needed. Those are theirs, not ours: never paint the death card for them.
-  // Our own connect flow catches wallet errors and shows them in the picker.
+  // Our own auth flow reports its errors inline.
   const foreign = (msg: string, src: string): boolean =>
     src.includes('-extension://') ||
     /metamask|phantom|coinbase|rabby|trust ?wallet|okx|backpack|solflare|keplr|binance|exodus/i.test(msg)
@@ -2170,7 +2081,6 @@ function armCrashScreen(): void {
 
 async function boot(): Promise<void> {
   armCrashScreen()
-  initWalletDiscovery()
   warmArt()
   igniteOnFirstGesture()
   try {

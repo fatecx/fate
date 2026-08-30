@@ -1,5 +1,5 @@
 /**
- * The landing scroll — fate.cx's front door for a wallet the game has never
+ * The landing scroll — fate.cx's front door for a founder the game has never
  * met. Built like a film, paced like a pitch: key art first, the world, three
  * chapter title cards, then the play surface itself demonstrating the first
  * scene — the rail, the portrait, the typewriter, the choices — before any

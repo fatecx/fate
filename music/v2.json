@@ -285,8 +285,8 @@
       "level": "MUSIC 2.0",
       "art": "cut_ring_alive",
       "moments": ["THE HANGAR", "FIRST LIGHT", "YEAR THREE"],
-      "note": "Cold analog score for a future hangar: salt air, relays, 2.6 seconds of honest delay. No choir, no drums, no period war — machines that wait.",
-      "seedBase": 310831,
+      "note": "Analog score for a coastal hangar at night: a melody stated, then answered 2.6 seconds later, thinner and farther. Distance you can hear.",
+      "seedBase": 420101,
       "chunks": [
         {
           "text": "[Hangar] {instrumental}",
