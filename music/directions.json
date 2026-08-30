@@ -1,0 +1,250 @@
+{
+  "version": 1,
+  "model": "music_v2",
+  "seconds": 60,
+  "variantsPerComposition": 4,
+  "shared": {
+    "production": [
+      "original instrumental narrative game score; do not quote or resemble any existing composition",
+      "written for a complete forty-five-to-sixty-second interactive scene",
+      "first instrument attacks on the first beat at time zero and the recognizable theme completes by 1.5 seconds",
+      "strong melodic authorship, intentional harmony, and a complete dramatic arc",
+      "change the harmony, counterline, rhythm, or orchestration every four to eight bars",
+      "midrange clarity and organic dynamics with room for spoken or written narrative",
+      "cinematic depth without trailer bombast",
+      "high-end studio recording with detailed natural stereo depth"
+    ],
+    "negativeStyles": [
+      "vocals",
+      "choir",
+      "spoken word",
+      "long fade-in",
+      "silence at the beginning",
+      "atmospheric prelude",
+      "ambient noise bed",
+      "static drone",
+      "sustained pad foundation",
+      "low buzzing hum",
+      "sub-bass rumble",
+      "one-note pulse",
+      "single repeated ostinato",
+      "unchanged four-bar loop",
+      "monotonous repetition",
+      "sound effects",
+      "horror score",
+      "trailer music",
+      "braams",
+      "risers",
+      "EDM drop",
+      "wall of sound",
+      "generic corporate music",
+      "clipping"
+    ]
+  },
+  "compositions": [
+    {
+      "id": "d_one_life",
+      "title": "One Life",
+      "chapter": "FATE",
+      "role": "DIRECTION 01",
+      "level": "ORCHESTRA + ORGAN",
+      "art": "prologue_garage",
+      "scenes": [],
+      "moments": ["FOUNDING", "CONSEQUENCE", "LEGACY"],
+      "note": "Human-scale orchestral gravity: an intimate founder theme that can grow from one room to civilizational consequence.",
+      "key": "D minor, opening toward F major without losing the minor sixth",
+      "motifNotes": "D, F, A, G, E — a five-note question with a singable contour",
+      "tempo": "82 BPM",
+      "meter": "6/8 with breathing rubato around the melody",
+      "palette": [
+        "concert grand piano with immediate dry attack",
+        "solo cello carrying the principal melody",
+        "warm chamber string orchestra with independent inner voices",
+        "restrained pipe organ used in moving chords rather than a held drone",
+        "bass clarinet countermelody",
+        "soft timpani mallets only in the final third"
+      ],
+      "seedBase": 814210,
+      "sections": [
+        {
+          "name": "THE FIRST DECISION",
+          "durationMs": 4000,
+          "direction": "On beat one, dry piano strikes D and A while solo cello immediately sings D, F, A, G, E as one complete memorable phrase by 1.5 seconds. Answer with two piano notes; no swell and no empty air."
+        },
+        {
+          "name": "THE ROOM",
+          "durationMs": 14000,
+          "direction": "Piano gives the theme real D-minor harmony while cello changes its ending. Violas add a separate rising line and bass clarinet answers once; every phrase must travel somewhere rather than loop."
+        },
+        {
+          "name": "THE COMPANY GROWS",
+          "durationMs": 14000,
+          "direction": "Chamber strings begin an active six-eight movement using changing broken chords, never one repeated note. The organ enters with short moving chord voicings and the piano develops a new second melody."
+        },
+        {
+          "name": "THE COST",
+          "durationMs": 14000,
+          "direction": "Turn the harmony through B-flat major and G minor. Thin the ensemble so cello and bass clarinet trade fragments of the theme over tense piano chords; emotional weight comes from harmonic choice, not volume."
+        },
+        {
+          "name": "THE LIFE BEHIND IT",
+          "durationMs": 14000,
+          "direction": "Return with fuller strings, moving organ harmony, and two soft timpani statements. Transform the five-note question into an earned F-major answer, then end decisively on piano and cello with a one-second natural tail."
+        }
+      ]
+    },
+    {
+      "id": "d_machine_memory",
+      "title": "Machine Memory",
+      "chapter": "FATE",
+      "role": "DIRECTION 02",
+      "level": "ANALOG SYNTH NOIR",
+      "art": "aleph",
+      "scenes": [],
+      "moments": ["AMBITION", "DISTANCE", "THE FUTURE WATCHES"],
+      "note": "A melodic analog future: nocturnal, lonely and beautiful, but driven by composition rather than an ambient synth bed.",
+      "key": "F-sharp minor with a luminous A-major turn",
+      "motifNotes": "F-sharp, A, C-sharp, B, E — wide, expressive, and unresolved",
+      "tempo": "84 BPM",
+      "meter": "4/4 with syncopated human push and pull",
+      "palette": [
+        "expressive warm analog lead synthesizer with pitch movement",
+        "polyphonic analog brass playing changing chords, never a pad drone",
+        "electric piano countermelody",
+        "live solo cello for human contrast",
+        "melodic middle-register synth bass",
+        "dry restrained electronic percussion without a dance beat"
+      ],
+      "seedBase": 925320,
+      "sections": [
+        {
+          "name": "THE MODEL SPEAKS",
+          "durationMs": 4000,
+          "direction": "The expressive analog lead attacks immediately and completes F-sharp, A, C-sharp, B, E by 1.5 seconds over one electric-piano chord. A short cello answer arrives before four seconds; no filter sweep or ambience intro."
+        },
+        {
+          "name": "NIGHT CAPITAL",
+          "durationMs": 14000,
+          "direction": "Polyphonic analog brass supplies a four-chord F-sharp-minor progression while electric piano answers the theme. Bass plays a melodic counterline with rests, and dry percussion establishes forward motion without repeating one cell."
+        },
+        {
+          "name": "THE DISTANCE CLOSES",
+          "durationMs": 14000,
+          "direction": "Cello takes the principal theme as the synth lead writes a distinct higher countermelody. Reharmonize through D major and change the drum accents; keep every layer audible on laptop speakers."
+        },
+        {
+          "name": "FORECAST ERROR",
+          "durationMs": 14000,
+          "direction": "Drop the percussion for four bars and let electric piano move through unexpected B-minor and A-major chords. The lead breaks the motif into a searching phrase, then cello restores the complete melody in a different rhythm."
+        },
+        {
+          "name": "HUMAN IN THE LOOP",
+          "durationMs": 14000,
+          "direction": "Bring lead synth, cello, electric piano, melodic bass, and restrained percussion into an interlocking final statement. Resolve toward A major while preserving one F-sharp-minor note, ending with a clear final chord and short analog decay."
+        }
+      ]
+    },
+    {
+      "id": "d_the_road_up",
+      "title": "The Road Up",
+      "chapter": "FATE",
+      "role": "DIRECTION 03",
+      "level": "ORCHESTRAL–ANALOG HYBRID",
+      "art": "end_s_ascent",
+      "scenes": [],
+      "moments": ["BUILD", "WAR", "ASCENT"],
+      "note": "The proposed Fate synthesis: physical orchestra, analog future and ritual momentum, capable of intimacy and enormous scale.",
+      "key": "C minor moving through E-flat major and A-flat Lydian color",
+      "motifNotes": "C, G, E-flat, A-flat, G — a leap upward, a human fall, and an unfinished return",
+      "tempo": "76 BPM",
+      "meter": "12/8 with a deliberate three-against-four current",
+      "palette": [
+        "low cellos and basses with articulate bow attacks",
+        "French horns carrying a restrained principal theme",
+        "expressive analog synthesizer doubling and then contradicting the orchestra",
+        "concert piano playing harmonic punctuation and countermelody",
+        "frame drums and low toms in evolving patterns rather than a repeated boom",
+        "high violins entering only after the midpoint",
+        "short pipe-organ chord movement in the final section"
+      ],
+      "seedBase": 136430,
+      "sections": [
+        {
+          "name": "THE IMPOSSIBLE THING",
+          "durationMs": 4000,
+          "direction": "Low cellos attack C on beat one and French horns complete C, G, E-flat, A-flat, G by 1.5 seconds. Piano answers with a hard E-flat chord and analog synth shadows only the last two notes; no cinematic swell."
+        },
+        {
+          "name": "HANDS ON STEEL",
+          "durationMs": 14000,
+          "direction": "Cellos create a changing twelve-eight construction rhythm across a real C-minor progression. Frame drums answer the rhythm instead of duplicating it, piano adds a separate melody, and horns rest after each phrase."
+        },
+        {
+          "name": "THE FUTURE ARRIVES",
+          "durationMs": 14000,
+          "direction": "Analog synth takes the theme in a brighter register while violas and piano build independent moving lines. Shift into E-flat major, change the percussion pattern, and widen the stereo field without increasing loudness dramatically."
+        },
+        {
+          "name": "WHAT IT COST",
+          "durationMs": 14000,
+          "direction": "Remove horns and drums. Solo cello pulls the motif into A-flat harmony against sparse piano and a warm moving synth chord sequence; the music becomes intimate and uncertain rather than ominous."
+        },
+        {
+          "name": "THE ROAD UP",
+          "durationMs": 14000,
+          "direction": "Rebuild with horns, high violins, evolving frame drums, piano countermelody, analog lead, and short organ chords. State the motif once at full breadth, then finish on an open C-and-G sonority with a firm final attack and one-second tail, never a trailer climax."
+        }
+      ]
+    }
+  ],
+  "curated": [
+    {
+      "id": "d_one_life_v1",
+      "composition": "d_one_life",
+      "variant": 1,
+      "seed": 814210,
+      "score": 99,
+      "metrics": {
+        "introDelay": 0.752,
+        "lowBandDelta": -5.8,
+        "medianCentroid": 1603.65,
+        "sectionCentroidRangeRatio": 0.591,
+        "integratedLufs": -16.3,
+        "loudnessRange": 10.7,
+        "loudnessSurge": 3.6
+      }
+    },
+    {
+      "id": "d_machine_memory_v3",
+      "composition": "d_machine_memory",
+      "variant": 3,
+      "seed": 925322,
+      "score": 94,
+      "metrics": {
+        "introDelay": 0.736,
+        "lowBandDelta": -5.3,
+        "medianCentroid": 954.97,
+        "sectionCentroidRangeRatio": 1.131,
+        "integratedLufs": -12.5,
+        "loudnessRange": 4.7,
+        "loudnessSurge": 2
+      }
+    },
+    {
+      "id": "d_the_road_up_v1",
+      "composition": "d_the_road_up",
+      "variant": 1,
+      "seed": 136430,
+      "score": 86.1,
+      "metrics": {
+        "introDelay": 1.609,
+        "lowBandDelta": -5.7,
+        "medianCentroid": 1294.26,
+        "sectionCentroidRangeRatio": 1.262,
+        "integratedLufs": -14.5,
+        "loudnessRange": 4.7,
+        "loudnessSurge": 2.8
+      }
+    }
+  ]
+}

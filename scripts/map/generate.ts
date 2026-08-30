@@ -498,6 +498,10 @@ interface MusicBenchmarkComposition extends Omit<MusicCandidate, 'prompt'> {
   sections: Array<{ name: string; durationMs: number; direction: string }>
 }
 
+interface MusicDirectionComposition extends MusicBenchmarkComposition {
+  moments: string[]
+}
+
 function musicData() {
   const manifest = JSON.parse(
     readFileSync(join(process.cwd(), 'music', 'candidates.json'), 'utf8'),
@@ -509,6 +513,15 @@ function musicData() {
     seconds: number
     variantsPerComposition: number
     compositions: MusicBenchmarkComposition[]
+    curated: MusicBenchmarkSelection[]
+  }
+  const directionManifest = JSON.parse(
+    readFileSync(join(process.cwd(), 'music', 'directions.json'), 'utf8'),
+  ) as {
+    model: string
+    seconds: number
+    variantsPerComposition: number
+    compositions: MusicDirectionComposition[]
     curated: MusicBenchmarkSelection[]
   }
   let decisions: Record<string, 'approved' | 'rejected'> = {}
@@ -578,7 +591,31 @@ function musicData() {
     }
   })
 
-  return { model: manifest.model, benchmarkModel: benchmarkManifest.model, current, candidates, benchmarks, decisions }
+  const directions = directionManifest.curated.map((selection) => {
+    const composition = directionManifest.compositions.find((candidate) => candidate.id === selection.composition)
+    if (!composition) throw new Error(`Unknown curated direction composition: ${selection.composition}`)
+    return {
+      ...composition,
+      ...selection,
+      compositionId: composition.id,
+      seconds: directionManifest.seconds,
+      variantsTotal: directionManifest.variantsPerComposition,
+      path: `music-directions/${selection.id}.mp3`,
+      uses: composition.moments,
+    }
+  })
+
+  return {
+    model: manifest.model,
+    benchmarkModel: benchmarkManifest.model,
+    directionModel: directionManifest.model,
+    directionRenders: directionManifest.compositions.length * directionManifest.variantsPerComposition,
+    current,
+    candidates,
+    benchmarks,
+    directions,
+    decisions,
+  }
 }
 
 /** The whole game as one readable, editable document — the SCRIPT tab. */
@@ -922,7 +959,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
   </div>
 </div><div class="musicpane" id="musicpane" style="display:none">
   <div class="musicbar">
-    <div class="mswitch" id="mswitch"><button data-set="benchmark" class="on">BENCHMARK ROUND</button><button data-set="new">FIRST AUDITIONS</button><button data-set="current">CURRENT SCORE</button></div>
+    <div class="mswitch" id="mswitch"><button data-set="direction" class="on">DIRECTION TEST</button><button data-set="benchmark">BENCHMARK ROUND</button><button data-set="new">FIRST AUDITIONS</button><button data-set="current">CURRENT SCORE</button></div>
     <div class="mfilters" id="mfilters"></div>
     <span class="mreviewcount" id="mreviewcount"></span>
     <button class="msave" id="msave" disabled>REVIEWS SAVED</button>
@@ -1179,7 +1216,7 @@ function buildArt(){
 // runtime registry until a later, explicit integration pass.
 const MDEC=Object.assign({},DATA.music.decisions||{});
 const musicPlayer=new Audio();
-let musicSet='benchmark',musicChapter='ALL',musicActive=null;
+let musicSet='direction',musicChapter='ALL',musicActive=null;
 const ASSETBASE=location.protocol==='file:'?'public/':'/';
 const mtime=s=>{if(!Number.isFinite(s))return '0:00';const n=Math.max(0,Math.floor(s));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0');};
 function musicDirty(){const base=DATA.music.decisions||{};const ids=new Set(Object.keys(base).concat(Object.keys(MDEC)));let n=0;
@@ -1188,7 +1225,7 @@ function refreshMusicReview(){
   document.querySelectorAll('.mcard[data-candidate]').forEach(card=>{const s=MDEC[card.dataset.candidate]||'';
     card.classList.toggle('approved',s==='approved');card.classList.toggle('rejected',s==='rejected');
     card.querySelector('.approve').classList.toggle('on',s==='approved');card.querySelector('.reject').classList.toggle('on',s==='rejected');});
-  const pool=musicSet==='benchmark'?DATA.music.benchmarks:musicSet==='new'?DATA.music.candidates:[],ids=new Set(pool.map(x=>x.id));
+  const pool=musicSet==='direction'?DATA.music.directions:musicSet==='benchmark'?DATA.music.benchmarks:musicSet==='new'?DATA.music.candidates:[],ids=new Set(pool.map(x=>x.id));
   const approved=Object.entries(MDEC).filter(([id,status])=>ids.has(id)&&status==='approved').length,rejected=Object.entries(MDEC).filter(([id,status])=>ids.has(id)&&status==='rejected').length;
   const count=document.getElementById('mreviewcount');if(count)count.textContent=musicSet==='current'?'':approved+' approved · '+rejected+' rejected · '+(pool.length-approved-rejected)+' open';
   const save=document.getElementById('msave');if(save){const d=musicDirty();save.textContent=d?('SAVE REVIEWS ('+d+')'):'REVIEWS SAVED';save.classList.toggle('has',d>0);save.disabled=!d;}}
@@ -1215,27 +1252,30 @@ function scrubMusic(progress,event){const card=progress.closest('.mcard');if(!mu
 function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
   document.querySelectorAll('.mcard').forEach(card=>{const setOk=card.dataset.set===musicSet,chOk=musicSet==='current'||musicChapter==='ALL'||card.dataset.chapter===musicChapter;
     const qOk=!v||card._musicSearch.includes(v),on=setOk&&chOk&&qOk;card.style.display=on?'':'none';if(on)shown++;});
-  const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='new'
-    ?'12 first-pass 90-second auditions generated from one prose prompt each. Preserved with your original decisions for comparison; nothing here plays in the game.'
-    :musicSet==='benchmark'
-      ?'3 company themes curated from 24 structured renders. Each starts within one second, develops through six scored sections, and passed bass, silence and loudness gates. Screening is objective; your ears make the decision. Nothing here plays in the game.'
-      :'The live baseline: ten 30-second mood beds with six takes each, plus the tension stem. This is what the game uses today.';
-  const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='benchmark'?(shown+' SHOWN · 24 RENDERS · ELEVEN '+DATA.music.benchmarkModel.toUpperCase()):musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
+  const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='direction'
+    ?'3 fresh 60-second composition directions curated from 12 internal renders: orchestral, analog, and hybrid. Every selection starts within two seconds and changes orchestration across the minute. Your ears make the decision; nothing here plays in the game.'
+    :musicSet==='new'
+      ?'12 first-pass 90-second auditions generated from one prose prompt each. Preserved with your original decisions for comparison; nothing here plays in the game.'
+      :musicSet==='benchmark'
+        ?'3 rejected company-theme benchmarks curated from 24 structured renders. Preserved for comparison; nothing here plays in the game.'
+        :'The live baseline: ten 30-second mood beds with six takes each, plus the tension stem. This is what the game uses today.';
+  const model=document.getElementById('mmodel');if(model)model.textContent=musicSet==='direction'?(shown+' SHOWN · '+DATA.music.directionRenders+' INTERNAL RENDERS · ELEVEN '+DATA.music.directionModel.toUpperCase()):musicSet==='benchmark'?(shown+' SHOWN · 24 RENDERS · ELEVEN '+DATA.music.benchmarkModel.toUpperCase()):musicSet==='new'?(shown+' SHOWN · ELEVEN '+DATA.music.model.toUpperCase()):(shown+' SHOWN · 61 LIVE TRACKS');
   document.getElementById('mfilters').style.display=musicSet==='current'?'none':'';refreshMusicReview();}
 function buildMusic(){const grid=document.getElementById('musicgrid'),filters=document.getElementById('mfilters');
-  const chapters=['ALL'];DATA.music.benchmarks.concat(DATA.music.candidates).forEach(c=>{if(!chapters.includes(c.chapter))chapters.push(c.chapter);});
+  const chapters=['ALL'];DATA.music.directions.concat(DATA.music.benchmarks,DATA.music.candidates).forEach(c=>{if(!chapters.includes(c.chapter))chapters.push(c.chapter);});
   filters.innerHTML=chapters.map(ch=>'<button class="tab'+(ch==='ALL'?' on':'')+'" data-chapter="'+eh(ch)+'">'+eh(ch)+'</button>').join('');
   filters.addEventListener('click',e=>{const b=e.target.closest('[data-chapter]');if(!b)return;musicChapter=b.dataset.chapter;
     filters.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));applyMusicFilter();});
   function appendAudition(c,set){const card=document.createElement('article');card.className='mcard';card.dataset.set=set;card.dataset.chapter=c.chapter;card.dataset.candidate=c.id;card.dataset.duration=c.seconds;
     card._musicSearch=(c.id+' '+c.title+' '+c.chapter+' '+c.role+' '+c.level+' '+c.note+' '+c.uses.join(' ')).toLowerCase();
-    const metrics=set==='benchmark'?'<div class="muses">OBJECTIVE SCREEN '+eh(c.score)+'/100 · VARIANT '+eh(c.variant)+'/'+eh(c.variantsTotal)+' · START '+eh(c.metrics.introDelay)+'S · LOW BAND '+eh(c.metrics.lowBandDelta)+'DB · LRA '+eh(c.metrics.loudnessRange)+'LU</div>':'';
+    const metrics=(set==='benchmark'||set==='direction')?'<div class="muses">OBJECTIVE SCREEN '+eh(c.score)+'/100 · VARIANT '+eh(c.variant)+'/'+eh(c.variantsTotal)+' · START '+eh(c.metrics.introDelay)+'S · LOW BAND '+eh(c.metrics.lowBandDelta)+'DB · LRA '+eh(c.metrics.loudnessRange)+'LU</div>':'';
     card.innerHTML='<div class="mcover"><img loading="lazy" src="'+ARTBASE+eh(c.art)+'.webp" alt="">'
       +'<button class="mplay" data-path="'+eh(c.path)+'" data-label="▶" aria-label="Play '+eh(c.title)+'">▶</button><div class="mskip"><button data-skip="-15" aria-label="Back 15 seconds">−15</button><button data-skip="15" aria-label="Forward 15 seconds">+15</button></div><span class="mtime">0:00 / '+mtime(c.seconds)+'</span><button class="mprogress" aria-label="Scrub '+eh(c.title)+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></button></div>'
       +'<div class="mbody"><div class="mtop"><div><div class="mtitle">'+eh(c.title)+'</div><div class="mid">'+eh(c.id)+'</div></div><div class="mbadges"><span class="mbadge role">'+eh(c.role)+'</span><span class="mbadge">'+eh(c.level)+'</span><span class="mbadge">'+eh(c.chapter)+'</span></div></div>'
       +'<p class="mnote">'+eh(c.note)+'</p>'+metrics+'<div class="muses">FOR · '+c.uses.map(eh).join(' · ')+'</div>'
       +'<div class="mreview"><button class="approve">APPROVE</button><button class="reject">REJECT</button></div></div>';
     grid.appendChild(card);}
+  DATA.music.directions.forEach(c=>appendAudition(c,'direction'));
   DATA.music.benchmarks.forEach(c=>appendAudition(c,'benchmark'));
   DATA.music.candidates.forEach(c=>appendAudition(c,'new'));
   DATA.music.current.forEach(c=>{const card=document.createElement('article');card.className='mcard';card.dataset.set='current';card.dataset.duration=c.seconds;

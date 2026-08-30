@@ -1,21 +1,25 @@
 /**
- * Render the high-bar Fate company-theme benchmark round with Eleven Music v2.
+ * Render a structured Fate music comparison with Eleven Music v2.
  *
- * All eight variants per composition use the same explicit musical plan and
- * different seeds, making comparisons honest. Raw renders stay local in
- * music/benchmark-renders; only curated selections are copied into public/.
+ * Variants of each composition use the same explicit musical plan and different
+ * seeds, making comparisons honest. Raw renders stay local; only curated
+ * selections are copied into public/.
  *
  *   node scripts/audio/generate-music-benchmarks.mjs
  *   node scripts/audio/generate-music-benchmarks.mjs --only=h_gravity_softened_v1
  *   node scripts/audio/generate-music-benchmarks.mjs --concurrency=2
+ *   node scripts/audio/generate-music-benchmarks.mjs --manifest=music/directions.json --out-dir=music/direction-renders
  */
 import { mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
-const manifest = JSON.parse(readFileSync(resolve(root, 'music/benchmarks.json'), 'utf8'))
-const outDir = resolve(root, 'music/benchmark-renders')
+const args = process.argv.slice(2)
+const manifestFile = args.find((arg) => arg.startsWith('--manifest='))?.slice(11) ?? 'music/benchmarks.json'
+const outputDirectory = args.find((arg) => arg.startsWith('--out-dir='))?.slice(10) ?? 'music/benchmark-renders'
+const manifest = JSON.parse(readFileSync(resolve(root, manifestFile), 'utf8'))
+const outDir = resolve(root, outputDirectory)
 mkdirSync(outDir, { recursive: true })
 
 const key = process.env.ELEVENLABS_API_KEY
@@ -24,7 +28,6 @@ if (!key) {
   process.exit(1)
 }
 
-const args = process.argv.slice(2)
 const force = args.includes('--force')
 const only = args.find((arg) => arg.startsWith('--only='))?.slice(7).split(',')
 const concurrency = Math.max(1, Math.min(3, Number(args.find((arg) => arg.startsWith('--concurrency='))?.slice(14) ?? 2)))
@@ -130,4 +133,4 @@ async function worker() {
 
 await Promise.all(Array.from({ length: Math.min(concurrency, variants.length) }, worker))
 if (failed) process.exitCode = 1
-else console.log(`done — ${variants.length} structured benchmark render${variants.length === 1 ? '' : 's'} ready in music/benchmark-renders/`)
+else console.log(`done — ${variants.length} structured render${variants.length === 1 ? '' : 's'} ready in ${outputDirectory}/`)

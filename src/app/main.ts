@@ -71,18 +71,34 @@ function liveScene(sceneId: string): SceneDef {
 let typing = false
 let session: Session | null = null
 
+// ---- desktop shell -----------------------------------------------------------
+// Inside Tauri there are no wallet extensions: the desktop build plays as a
+// local founder — saves live in localStorage under one fixed id, the landing
+// and the filing fee never appear. (The wallet code leaves entirely once the
+// desktop app ships; this flag is the seam it will be cut along.)
+const DESKTOP =
+  typeof window !== 'undefined' &&
+  ('__TAURI_INTERNALS__' in window || location.protocol === 'tauri:')
+const DESKTOP_UID = 'desktop'
+
+/** The id this machine's biography is saved under (null = signed out on web). */
+function saveUid(): string | null {
+  return session ? session.user.id : DESKTOP ? DESKTOP_UID : null
+}
+
 // ---- persistence -----------------------------------------------------------
 // The signed founder's biography: localStorage cache + cloud row, immutable.
 
 function persist(): void {
-  if (!session) return
+  const uid = saveUid()
+  if (!uid) return
   const blob = { st, transcript } satisfies Save
   try {
-    localStorage.setItem(saveKey(session.user.id), JSON.stringify(blob))
+    localStorage.setItem(saveKey(uid), JSON.stringify(blob))
   } catch {
     /* private mode etc. — the cloud copy still carries the game */
   }
-  cloudPush(blob)
+  if (session) cloudPush(blob)
 }
 
 /** A save is playable only if this build still carries everything it points at —
@@ -114,9 +130,10 @@ function load(uid: string): Save | null {
 }
 
 function clearSave(): void {
-  if (!session) return
+  const uid = saveUid()
+  if (!uid) return
   try {
-    localStorage.removeItem(saveKey(session.user.id))
+    localStorage.removeItem(saveKey(uid))
   } catch {
     /* ignore */
   }
@@ -1639,7 +1656,8 @@ function renderWelcome(saved: Save | null, entitled = false): void {
   // A wallet the game has never met gets the front door: the landing scroll.
   // The landing is a website, not the live game — it stays silent.
   // Anyone signed or mid-life skips marketing and goes straight to their page.
-  if (!saved && !session) {
+  // The desktop app IS the game: no marketing, no wallet — straight to the title.
+  if (!saved && !session && !DESKTOP) {
     resetStage()
     renderLanding(app, () => {
       document.querySelector('.landing')?.remove()
@@ -1673,10 +1691,11 @@ function renderWelcome(saved: Save | null, entitled = false): void {
     renderIncorporation()
     return
   }
-  const actions = session
-    ? `<button class="cta" id="wlBegin">Incorporate →</button>
-      <div class="tk-id">One wallet, one life. What you sign here is permanent.</div>`
-    : `<button class="cta" id="wlConnect">Connect wallet →</button>
+  const actions =
+    session || DESKTOP
+      ? `<button class="cta" id="wlBegin">Incorporate →</button>
+      <div class="tk-id">${DESKTOP && !session ? 'One life. What you sign here is permanent.' : 'One wallet, one life. What you sign here is permanent.'}</div>`
+      : `<button class="cta" id="wlConnect">Connect wallet →</button>
       <div class="tk-id">Your wallet is your signature. One life per wallet — permanent, no resets.</div>`
   takeover(`
     <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
@@ -1907,6 +1926,10 @@ async function enterAsFounder(): Promise<void> {
     // The filing fee: a biography, a payment row, a local receipt, or the
     // admin wallet all open the door; everyone else meets the incorporation.
     entitled = !!best || isAdmin(session) || (await hasPaid()) || (await claimReceipt(session))
+  } else if (DESKTOP) {
+    // The desktop founder: local biography, no fee, no wallet.
+    best = load(DESKTOP_UID)
+    entitled = true
   }
   renderWelcome(best, entitled)
 }

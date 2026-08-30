@@ -1,5 +1,5 @@
 /**
- * Objective first-pass screening for the raw benchmark renders.
+ * Objective first-pass screening for structured music renders.
  *
  * This rejects known game-audio failures (late starts, bass-only hum, extreme
  * surges, long dead gaps) and ranks the surviving variants. It intentionally
@@ -7,14 +7,18 @@
  * human listen in /map.
  *
  *   node scripts/audio/analyze-music-benchmarks.mjs
+ *   node scripts/audio/analyze-music-benchmarks.mjs --manifest=music/directions.json --out-dir=music/direction-renders
  */
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const root = resolve(import.meta.dirname, '../..')
-const renderDir = resolve(root, 'music/benchmark-renders')
-const manifest = JSON.parse(readFileSync(resolve(root, 'music/benchmarks.json'), 'utf8'))
+const args = process.argv.slice(2)
+const manifestFile = args.find((arg) => arg.startsWith('--manifest='))?.slice(11) ?? 'music/benchmarks.json'
+const outputDirectory = args.find((arg) => arg.startsWith('--out-dir='))?.slice(10) ?? 'music/benchmark-renders'
+const renderDir = resolve(root, outputDirectory)
+const manifest = JSON.parse(readFileSync(resolve(root, manifestFile), 'utf8'))
 
 const mean = (values) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0
 const median = (values) => {

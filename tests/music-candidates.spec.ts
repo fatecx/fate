@@ -55,6 +55,35 @@ const benchmarks = JSON.parse(readFileSync(resolve(__dirname, '../music/benchmar
     }
   }>
 }
+const directions = JSON.parse(readFileSync(resolve(__dirname, '../music/directions.json'), 'utf8')) as {
+  model: string
+  seconds: number
+  variantsPerComposition: number
+  shared: { negativeStyles: string[] }
+  compositions: Array<{
+    id: string
+    title: string
+    chapter: string
+    level: string
+    art: string
+    moments: string[]
+    seedBase: number
+    sections: Array<{ name: string; durationMs: number; direction: string }>
+  }>
+  curated: Array<{
+    id: string
+    composition: string
+    variant: number
+    seed: number
+    score: number
+    metrics: {
+      introDelay: number
+      lowBandDelta: number
+      sectionCentroidRangeRatio: number
+      loudnessSurge: number
+    }
+  }>
+}
 const review = JSON.parse(readFileSync(resolve(__dirname, '../music/review.json'), 'utf8')) as {
   decisions: Record<string, string>
 }
@@ -138,8 +167,55 @@ describe('music auditions', () => {
     }
   })
 
+  it('has three distinct short-form direction tests selected from twelve renders', () => {
+    expect(directions.model).toBe('music_v2')
+    expect(directions.seconds).toBe(60)
+    expect(directions.variantsPerComposition).toBe(4)
+    expect(directions.compositions).toHaveLength(3)
+    expect(directions.curated).toHaveLength(3)
+    expect(new Set(directions.compositions.map((composition) => composition.level))).toEqual(
+      new Set(['ORCHESTRA + ORGAN', 'ANALOG SYNTH NOIR', 'ORCHESTRAL–ANALOG HYBRID']),
+    )
+    expect(directions.shared.negativeStyles).toEqual(expect.arrayContaining([
+      'long fade-in',
+      'low buzzing hum',
+      'unchanged four-bar loop',
+      'monotonous repetition',
+    ]))
+
+    const compositionIds = new Set(directions.compositions.map((composition) => composition.id))
+    expect(compositionIds.size).toBe(3)
+    for (const composition of directions.compositions) {
+      expect(existsSync(resolve(__dirname, `../public/art/${composition.art}.webp`)), `${composition.id}: art`).toBe(true)
+      expect(composition.moments.length).toBeGreaterThanOrEqual(3)
+      expect(composition.sections).toHaveLength(5)
+      expect(composition.sections.reduce((total, section) => total + section.durationMs, 0)).toBe(60_000)
+      expect(composition.sections[0].durationMs).toBe(4_000)
+    }
+
+    expect(new Set(directions.curated.map((selection) => selection.composition))).toEqual(compositionIds)
+    for (const selection of directions.curated) {
+      const composition = directions.compositions.find((candidate) => candidate.id === selection.composition)!
+      expect(selection.variant).toBeGreaterThanOrEqual(1)
+      expect(selection.variant).toBeLessThanOrEqual(directions.variantsPerComposition)
+      expect(selection.seed).toBe(composition.seedBase + selection.variant - 1)
+      expect(selection.score).toBeGreaterThanOrEqual(80)
+      expect(selection.metrics.introDelay).toBeLessThanOrEqual(2)
+      expect(selection.metrics.lowBandDelta).toBeLessThanOrEqual(-3)
+      expect(selection.metrics.sectionCentroidRangeRatio).toBeGreaterThanOrEqual(0.4)
+      expect(selection.metrics.loudnessSurge).toBeLessThanOrEqual(12)
+      const file = resolve(__dirname, `../public/music-directions/${selection.id}.mp3`)
+      expect(existsSync(file), `${selection.id}: curated render missing`).toBe(true)
+      expect(statSync(file).size, `${selection.id}: render suspiciously small`).toBeGreaterThan(100_000)
+    }
+  })
+
   it('review data is valid and candidates remain outside the runtime score', () => {
-    const candidateIds = new Set([...manifest.candidates.map((c) => c.id), ...benchmarks.curated.map((c) => c.id)])
+    const candidateIds = new Set([
+      ...manifest.candidates.map((c) => c.id),
+      ...benchmarks.curated.map((c) => c.id),
+      ...directions.curated.map((c) => c.id),
+    ])
     for (const [id, status] of Object.entries(review.decisions)) {
       expect(candidateIds.has(id), `review for unknown candidate '${id}'`).toBe(true)
       expect(['approved', 'rejected'], id).toContain(status)
