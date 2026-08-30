@@ -112,117 +112,110 @@
       ]
     },
     {
-      "id": "v2_machine_prayer",
-      "title": "The Machine Prayer",
+      "id": "v2_the_ring",
+      "title": "The Ring",
       "chapter": "TELEPORT",
-      "role": "RITUAL CHOIR",
+      "role": "FIRST LIGHT",
       "level": "MUSIC 2.0",
-      "art": "world_first_body",
+      "art": "cut_ring_alive",
       "moments": [
         "THE HANGAR",
-        "THE HANDOFF",
-        "THE RING"
+        "HELLO",
+        "THE HAND WAVES"
       ],
-      "note": "A sacred-industrial rite: guttural wordless choir, temple drums, bells, a body crossing an impossible distance. Whisper to overwhelm, then the silence after.",
-      "seedBase": 310811,
+      "note": "Analog score for the night the relay ring wakes. A rising lead over electric piano, then the phrase answered from far away.",
+      "seedBase": 430111,
       "chunks": [
         {
-          "text": "[The Rite] {wordless guttural choir, no lyrics}",
-          "duration_ms": 12000,
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "ritual wordless choir",
-            "guttural low male drones",
-            "distant temple bell",
-            "C minor",
-            "haunting sacred-industrial",
-            "sparse opening",
-            "cinematic",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "nocturnal wonder",
+            "68 BPM",
+            "D minor",
+            "tape saturation",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
             "high production quality"
           ],
           "negative_styles": [
-            "pop vocals",
-            "sung English lyrics",
-            "rap",
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
             "EDM",
-            "saxophone",
-            "electric piano",
-            "trailer braams",
-            "long fade-in"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Body] {wordless choir} {ritual drums}",
-          "duration_ms": 20000,
-          "positive_styles": [
-            "large ritual barrel drums",
-            "wordless choir",
-            "temple bells",
-            "dissonant low strings",
-            "72 BPM",
-            "building ritual"
-          ],
-          "negative_styles": [
-            "sung English lyrics",
-            "pop",
-            "EDM",
-            "analog saxophone lead"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Distance] {wordless choir}",
-          "duration_ms": 22000,
-          "positive_styles": [
-            "full ritual choir",
-            "pounding temple drums",
-            "metallic industrial percussion",
-            "court-music woodwinds",
-            "tense strings",
-            "relentless sacred machine"
-          ],
-          "negative_styles": [
-            "sung English lyrics",
-            "pop",
-            "trailer braams",
-            "EDM"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Handoff] {wordless choir at full voice}",
-          "duration_ms": 20000,
-          "positive_styles": [
-            "massive guttural choir",
-            "thunderous ritual drums",
-            "dissonant screaming strings",
-            "industrial hits",
-            "overwhelming sacred terror",
-            "emotional peak"
-          ],
-          "negative_styles": [
-            "sung English lyrics",
-            "pop",
-            "EDM",
-            "fade out"
-          ],
-          "context_adherence": "medium"
-        },
-        {
-          "text": "[After] {wordless choir}",
-          "duration_ms": 16000,
-          "positive_styles": [
-            "thin residual choir",
-            "one distant drum",
-            "temple bell",
-            "haunted",
-            "unresolved",
-            "quiet aftermath"
-          ],
-          "negative_styles": [
-            "sung English lyrics",
-            "trailer climax",
             "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a rising melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "68 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass opening wider",
+            "emotional analog lead melody",
+            "the rising phrase answered from farther away",
+            "sparse electric piano",
+            "deep analog bass",
+            "awe restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
           ],
           "context_adherence": "high"
         }
@@ -570,21 +563,22 @@
         "ELEVEN SECONDS",
         "A SISTER IN CLEVELAND"
       ],
-      "note": "A four-note analog elegy. Sparse mix, complete melody \u2014 the handshake that does not come back.",
-      "seedBase": 420121,
+      "note": "A four-note analog elegy. Electric piano, lonely lead, C-sharp minor. The melody keeps going.",
+      "seedBase": 430101,
       "chunks": [
         {
-          "text": "[The shift] {instrumental}",
+          "text": "[Night] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
             "1970s analog synthesizer score",
-            "soft analog piano",
-            "a four-note melody stated clearly",
+            "electric piano",
+            "warm analog pads",
+            "a four-note melody stated on the first beat",
             "C-sharp minor",
             "54 BPM",
             "tape saturation",
-            "close and dry then a little room",
-            "instrumental science-fiction",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
             "high production quality"
           ],
           "negative_styles": [
@@ -594,19 +588,19 @@
             "vocals",
             "trailer music",
             "EDM",
-            "pop",
-            "long silence"
+            "pop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The gap] {instrumental analog lead}",
+          "text": "[The Street] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "the four-note theme stretched",
-            "cello-like analog under it",
-            "music continues without a hole",
-            "held breath inside the notes",
+            "lonely analog lead with saxophone timbre",
+            "the four-note melody singing",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
             "54 BPM"
           ],
           "negative_styles": [
@@ -616,21 +610,19 @@
             "vocals",
             "trailer music",
             "EDM",
-            "pop",
-            "long silence",
-            "dead air"
+            "pop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The sister] {instrumental}",
+          "text": "[Memory] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog piano and pad",
-            "the theme in a higher register",
-            "humane",
-            "slow",
-            "no swell, just the melody"
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "sparse electric piano",
+            "deep analog bass",
+            "heartbreaking and restrained"
           ],
           "negative_styles": [
             "drums",
@@ -640,18 +632,19 @@
             "trailer music",
             "EDM",
             "pop",
-            "trailer climax"
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The record] {instrumental}",
+          "text": "[After] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "the four notes once more, quieter",
-            "unresolved C-sharp minor",
-            "analog piano last",
-            "quiet ending that still has notes"
+            "thinning analog pads",
+            "the four notes once more",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
           ],
           "negative_styles": [
             "drums",
@@ -661,8 +654,7 @@
             "trailer music",
             "EDM",
             "pop",
-            "sudden stop",
-            "long silence"
+            "sudden stop"
           ],
           "context_adherence": "high"
         }

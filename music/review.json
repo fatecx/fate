@@ -11,11 +11,6 @@
     "t_a_chair_on_earth": "approved",
     "t_eleven_seconds": "rejected",
     "t_the_ring_holds": "rejected",
-    "t_two_point_six_seconds": "rejected",
-    "v2_eleven": "rejected",
-    "v2_first_walk": "rejected",
-    "v2_latency": "rejected",
-    "v2_machine_prayer": "rejected",
-    "v2_richmond": "rejected"
+    "t_two_point_six_seconds": "rejected"
   }
 }

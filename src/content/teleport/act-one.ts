@@ -707,7 +707,7 @@ export const ACT_ONE: readonly SceneDef[] = [
   {
     id: 't_cut_first_light',
     kind: 'cutscene',
-    mood: 'latency',
+    mood: 'ring',
     title: 'FIRST LIGHT',
     marker: 'YEAR TWO',
     skipToWeek: 52,

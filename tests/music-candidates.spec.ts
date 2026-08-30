@@ -232,7 +232,7 @@ describe('music auditions', () => {
     expect(v2.label).toBe('MUSIC 2.0')
     expect(v2.tracks.length).toBeGreaterThanOrEqual(7)
     expect(new Set(v2.tracks.map((t) => t.chapter))).toEqual(new Set(['HYPERCHUTE', 'TELEPORT', 'SKYLINE']))
-    for (const id of ['v2_night_run', 'v2_hold', 'v2_latency', 'v2_richmond', 'v2_eleven', 'v2_first_walk']) {
+    for (const id of ['v2_night_run', 'v2_hold', 'v2_latency', 'v2_richmond', 'v2_eleven', 'v2_first_walk', 'v2_the_ring']) {
       expect(v2.tracks.map((t) => t.id), id).toContain(id)
     }
     const earlier = new Set([

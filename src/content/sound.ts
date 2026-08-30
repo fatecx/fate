@@ -224,7 +224,7 @@ export const MOODS: Record<string, SoundDef> = {
   latency: {
     id: 'mus_latency',
     gain: 0.4,
-    seconds: 90,
+    seconds: 60,
     film: true,
     source: 'music',
     prompt:
@@ -233,7 +233,7 @@ export const MOODS: Record<string, SoundDef> = {
   richmond: {
     id: 'mus_richmond',
     gain: 0.38,
-    seconds: 90,
+    seconds: 42,
     film: true,
     source: 'music',
     prompt:
@@ -246,12 +246,21 @@ export const MOODS: Record<string, SoundDef> = {
     film: true,
     source: 'music',
     prompt:
-      'A four-note analog elegy. Soft analog piano, cello-like synth, C-sharp minor. Sparse mix, complete melody.',
+      'A four-note analog elegy. Electric piano, lonely analog lead, C-sharp minor, 54 BPM.',
+  },
+  ring: {
+    id: 'mus_ring',
+    gain: 0.4,
+    seconds: 90,
+    film: true,
+    source: 'music',
+    prompt:
+      'Analog score for the night the relay ring wakes. Rising lead, electric piano, D minor, 68 BPM.',
   },
   first_walk: {
     id: 'mus_first_walk',
     gain: 0.4,
-    seconds: 90,
+    seconds: 52,
     film: true,
     source: 'music',
     prompt:

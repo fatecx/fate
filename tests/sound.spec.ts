@@ -112,7 +112,7 @@ describe('soundscape', () => {
   })
 
   it('picture scores are film cues with committed files and no SFX takes', () => {
-    const ids = ['night_run', 'hold', 'latency', 'richmond', 'eleven', 'first_walk'] as const
+    const ids = ['night_run', 'hold', 'latency', 'richmond', 'eleven', 'first_walk', 'ring'] as const
     for (const id of ids) {
       const def = MOODS[id]
       expect(def, id).toBeDefined()
@@ -136,7 +136,7 @@ describe('soundscape', () => {
       h_cut_meridian_ipo: 'night_run',
       h_bridge_pre_act3: 'night_run',
       h_cut_accident: 'richmond',
-      t_cut_first_light: 'latency',
+      t_cut_first_light: 'ring',
       t_bridge_y3: 'latency',
       t_father_death: 'latency',
       t_father_death_seen: 'latency',
