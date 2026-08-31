@@ -75,6 +75,7 @@ export const HYPERCHUTE_SCENE_BEDS: Record<string, SoundDef> = {
   h_suspension: { id: 'scn_h_suspension', gain: 0.42, seconds: 3, prompt: E('A gavel strikes twice in a packed hall, the room shifts and hushes.') },
   h_offer: { id: 'scn_h_offer', gain: 0.4, seconds: 4, prompt: E('Light rain on a skylight, a folder lands flat on a workbench with quiet weight.') },
   h_war_room: { id: 'scn_h_war_room', gain: 0.4, seconds: 3, prompt: E('A whiteboard marker squeaks one hard line and caps shut, chairs drag close.') },
+  h_roadshow: { id: 'scn_h_roadshow', gain: 0.4, seconds: 3, prompt: E('A term sheet slides across a long table and stops; eyeglasses set down on wood.') },
   h_ipo_road: { id: 'scn_h_ipo_road', gain: 0.4, seconds: 3, prompt: E('A projector fan spins up and a slide clicker advances once in a hotel room.') },
   h_last_stand: { id: 'scn_h_last_stand', gain: 0.4, seconds: 3, prompt: E('A marker crosses one box off a whiteboard grid with a single squeak.') },
   // ---- SURVIVAL ----

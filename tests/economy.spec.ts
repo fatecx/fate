@@ -73,11 +73,13 @@ const IPO_ROAD: RegExp[] = [
   /Testify personally/,
   /Refuse\. The railway is not for sale/,
   /Take the company public/,
+  /come back to this table/,
+  /Win the city back/,
   /Price it honest/,
 ]
 
-const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -3), /Offer them you instead of the company/]
-const WALKAWAY_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -2), /Open-source the stack/]
+const BECOME_THEM_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -5), /Offer them you instead of the company/]
+const WALKAWAY_ROAD: RegExp[] = [...IPO_ROAD.slice(0, -4), /Open-source the stack/]
 
 // ---- TELEPORT witness roads -----------------------------------------------------
 // Chapter two's rare endings, proven by design. Each road rides the hyperchute

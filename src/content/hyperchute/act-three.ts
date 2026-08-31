@@ -279,7 +279,7 @@ export const ACT_THREE: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'endgame', v: true },
           { e: 'stress', d: -10 },
         ],
-        goto: 'h_ipo_road',
+        goto: 'h_roadshow',
         result: 'Choosing gives the room its first deep breath in weeks. The whiteboard clears until only one word remains. LIST.',
       },
       {
@@ -300,25 +300,49 @@ export const ACT_THREE: readonly SceneDef[] = [
     ],
   },
   {
-    id: 'h_ipo_road',
+    id: 'h_roadshow',
     ambience: 'roadshow',
     accent: 'corp',
     mood: 'endgame',
     art: 'world_roadshow',
     landmark: true,
     title: 'THE ROAD SHOW',
-    priority: true,
     leadIn:
       'The bankers running the IPO arrive with a slide template and leave believing the story. Priya says it after the second meeting runs long because they keep asking real questions. Then a calendar invite lands. Eleven cities, nine days, wheels up Monday.',
-    when: {
-      k: 'all',
-      of: [
-        { k: 'flag', scope: 'company', key: 'endgame', cmp: 'eq', v: true },
-        { k: 'not', p: { k: 'flag', scope: 'company', key: 'ipo_done', cmp: 'eq', v: true } },
-      ],
-    },
     prose:
-      'You fly to eleven cities in nine days, because the bankers need a story investors will believe, and your strongest story is the simple, true one: you grounded your own fleet and it came back, your couriers got health insurance, and the full fault report went public with your name on it. The last meeting sets the IPO price. Somewhere in the building, a banker says “the people’s network” with a straight face, and everyone lets it pass.',
+      'Ten cities believe you. The eleventh is where the price gets set, and on that morning MERIDIAN announces a free-delivery quarter across every market you operate in, timed to the minute of your meeting. The syndicate’s number comes back a third of what the story earned, take it or leave it, and the oldest banker at the table explains it without cruelty while cleaning his glasses. “The story is true and the market knows it. What the market does not know is what you do when a giant decides to drown you. Every company that rings that bell has an answer. Show us yours, and this table will still be here.” The window shuts. The wheels-up feeling dies in the hallway outside.',
+    choices: [
+      {
+        label: 'Take the third-of-the-story price — sell to the syndicate.',
+        effects: [
+          { e: 'flag', scope: 'company', key: 'ipo_done', v: true },
+          { e: 'end', ending: 'acquired' },
+        ],
+      },
+      {
+        label: 'One more quarter. Then we come back to this table.',
+        effects: [
+          { e: 'flag', scope: 'company', key: 'market_refused', v: true },
+          { e: 'stress', d: 4 },
+        ],
+        goto: 'h_last_stand',
+        result:
+          'Nobody at the table laughs, which from bankers is a standing ovation. You fly home in a middle seat, spend the descent writing one line over and over on the back of the term sheet, and walk into the garage holding it up like a permit. WE ANSWER THE QUESTION.',
+      },
+    ],
+  },
+  {
+    id: 'h_ipo_road',
+    ambience: 'roadshow',
+    accent: 'corp',
+    mood: 'endgame',
+    art: 'world_return_table',
+    landmark: true,
+    title: 'THE RETURN TO THE TABLE',
+    leadIn:
+      'The invite comes from the bankers this time. Same building, same room, same glasses being cleaned — and a different weather in it, because now they have all seen the quarter you just survived.',
+    prose:
+      'The story used to end at the fault report. Now it ends at the ninety days — the giant’s free-delivery quarter absorbed porch by porch, the schools and the food bank flying free, forty thousand prepaid subscriptions from a city that made up its mind. The oldest banker slides one sheet across the table with the price on it, honest and high, and asks nothing, because the question he asked you in this room already got its answer. Somewhere in the building, someone says “the people’s network” with a straight face, and this time nobody lets it pass — they put it on the cover.',
     choices: [
       {
         label: 'Price it honest. Ring the bell.',
