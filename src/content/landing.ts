@@ -148,9 +148,10 @@ export const FINALE: LandingPanel = {
 
 export const PRICE_CHIP = 'ONE LIFE · $20'
 
-/** The Filing Guarantee — shown beside the price wherever the fee is named. */
+/** The guarantee — plain words first, the fiction as the boundary. */
+export const GUARANTEE_LABEL = 'MONEY-BACK GUARANTEE'
 export const GUARANTEE =
-  'THE FILING GUARANTEE — walk away before your first company’s papers are stamped and the state returns your $20 in full. After the stamp, the life is yours. Permanently.'
+  'Play the opening at no risk. Until your first company’s papers are stamped — about the first fifteen minutes — withdraw and your $20 comes back in full. After that, the life is yours. Permanently.'
 
 export const CTA_LABEL = 'Incorporate →'
 
