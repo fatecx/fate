@@ -228,7 +228,7 @@ async function boot(): Promise<void> {
 
   const session = await getSession()
   if (!session) {
-    gate.innerHTML = `<p class="lb-loading">The seat belongs to a founder. <a href="/">Sign the papers first ↗</a></p>`
+    gate.innerHTML = `<p class="lb-loading">The seat comes with incorporation. <a href="/">Incorporate first ↗</a></p>`
     return
   }
   let seat: { agent_user_id?: string; used?: boolean; error?: string } = {}
