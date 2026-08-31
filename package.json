@@ -10,6 +10,7 @@
     "sim": "esbuild scripts/sim/run.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-sim.mjs && node /tmp/fate-sim.mjs",
     "sim:llm": "esbuild scripts/sim/llm.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-sim-llm.mjs && node /tmp/fate-sim-llm.mjs",
     "sim:community": "esbuild scripts/sim/community.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-sim-comm.mjs && node /tmp/fate-sim-comm.mjs",
+    "sim:ghosts": "esbuild scripts/sim/ghosts.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-sim-ghosts.mjs && node /tmp/fate-sim-ghosts.mjs",
     "tauri": "tauri",
     "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs",
     "script": "esbuild scripts/script/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-script-gen.mjs && node /tmp/fate-script-gen.mjs",

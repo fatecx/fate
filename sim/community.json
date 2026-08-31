@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-31T13:36:51.038Z",
+ "generated": "2026-08-31T20:01:40.564Z",
  "lives": 1000000,
  "shards": 8,
  "rows": 363,
@@ -23,5 +23,7 @@
   "skyline|garrison": 12082,
   "skyline|cable_fall": 14826,
   "skyline|ascent": 525
- }
+ },
+ "allThreeTriumphs": 0,
+ "twoTriumphs": 7
 }

@@ -22,6 +22,7 @@ if (!shards.length) {
 const tally = new Map<string, number>() // "company|scene|choice" → n
 let lives = 0
 const endings = new Map<string, number>() // "company|ending" → n
+const tuples = new Map<string, number>() // "hEnd|tEnd|sEnd" → n
 
 for (const f of shards) {
   const r = JSON.parse(readFileSync(join(simDir, f), 'utf8'))
@@ -33,6 +34,7 @@ for (const f of shards) {
         endings.set(k, (endings.get(k) ?? 0) + n)
       }
   }
+  for (const [k, n] of Object.entries((r.tuples ?? {}) as Record<string, number>)) tuples.set(k, (tuples.get(k) ?? 0) + n)
   for (const [key, s] of Object.entries(r.sceneStats as Record<string, { choices: number[] }>)) {
     const [company, scene] = [key.split('/')[0], key.split('/').slice(1).join('/')]
     s.choices.forEach((n, i) => {
@@ -48,12 +50,16 @@ const rows = [...tally.entries()].map(([k, n]) => {
   return { company, scene, choice: Number(choice), n }
 })
 
+const TRIUMPHS = ['triumph_ipo', 'listing', 'ascent']
+const triumphsIn = (k: string): number => TRIUMPHS.filter((t) => k.split('|').includes(t)).length
 const community = {
   generated: new Date().toISOString(),
   lives,
   shards: shards.length,
   rows: rows.length,
   endings: Object.fromEntries(endings),
+  allThreeTriumphs: [...tuples.entries()].filter(([k]) => triumphsIn(k) === 3).reduce((a, [, n]) => a + n, 0),
+  twoTriumphs: [...tuples.entries()].filter(([k]) => triumphsIn(k) === 2).reduce((a, [, n]) => a + n, 0),
 }
 writeFileSync(join(simDir, 'community.json'), JSON.stringify(community, null, 1))
 

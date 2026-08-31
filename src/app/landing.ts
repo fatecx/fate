@@ -125,13 +125,17 @@ function demoHtml(): string {
 // THE ODDS — the machines went first; these are real counts from real play.
 import SIM_COMMUNITY from '../../sim/community.json'
 const ODDS = (() => {
-  const e = (SIM_COMMUNITY as { lives: number; endings: Record<string, number> }) ?? { lives: 0, endings: {} }
+  const e = (SIM_COMMUNITY as { lives: number; endings: Record<string, number>; allThreeTriumphs?: number }) ?? {
+    lives: 0,
+    endings: {},
+  }
   const n = (k: string): number => e.endings[k] ?? 0
   return {
     lives: e.lives,
     bankrupt: n('hyperchute|bankrupt'),
     ousted: n('teleport|ousted'),
     bells: n('hyperchute|triumph_ipo'),
+    allThree: e.allThreeTriumphs ?? 0,
   }
 })()
 
@@ -147,8 +151,9 @@ function oddsHtml(): string {
         <div class="ld-odd"><b>${f(ODDS.bankrupt)}</b><span>watched their first company die</span></div>
         <div class="ld-odd"><b>${f(ODDS.ousted)}</b><span>were removed by their own boards</span></div>
         <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>rang the bell</span></div>
+        <div class="ld-odd"><b>${f(ODDS.allThree)}</b><span>took all three companies to the top</span></div>
       </div>
-      <p class="ld-sub">The machines set the bar. The doors are now open to humans — every life goes on the same ledger, marked ✍ or ◉.</p>
+      <p class="ld-sub">The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉.</p>
     </div>
   </section>`
 }
