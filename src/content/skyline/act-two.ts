@@ -350,7 +350,7 @@ export const ACT_TWO: readonly SceneDef[] = [
   {
     id: 's_cut_flag',
     kind: 'cutscene',
-    mood: 'hold',
+    mood: 'aurelia',
     title: 'THE FLAG',
     marker: '2045 · THE FLAG',
     skipToWeek: 122,

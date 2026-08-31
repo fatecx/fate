@@ -112,7 +112,12 @@ describe('soundscape', () => {
   })
 
   it('picture scores are film cues with committed files and no SFX takes', () => {
-    const ids = ['night_run', 'hold', 'latency', 'richmond', 'eleven', 'first_walk', 'ring'] as const
+    const ids = [
+      'night_run', 'hold', 'latency', 'richmond', 'eleven', 'first_walk', 'ring',
+      'clone_war', 'meridian', 'eighteen', 'peoples_network',
+      'year_three', 'shoebox', 'honest_delay',
+      'first_rung', 'aurelia', 'the_road',
+    ] as const
     for (const id of ids) {
       const def = MOODS[id]
       expect(def, id).toBeDefined()
@@ -128,22 +133,22 @@ describe('soundscape', () => {
     expect(CONTENT.chapters.hyperchute.score).toBe('night_run')
     expect(CONTENT.chapters.teleport.score).toBe('latency')
     expect(CONTENT.chapters.skyline.score).toBe('hold')
-    expect(CONTENT.chapters.hyperchute.endings.find((e) => e.id === 'triumph_ipo')?.score).toBe('night_run')
-    expect(CONTENT.chapters.teleport.endings.find((e) => e.id === 'listing')?.score).toBe('latency')
-    expect(CONTENT.chapters.skyline.endings.find((e) => e.id === 'ascent')?.score).toBe('hold')
+    expect(CONTENT.chapters.hyperchute.endings.find((e) => e.id === 'triumph_ipo')?.score).toBe('peoples_network')
+    expect(CONTENT.chapters.teleport.endings.find((e) => e.id === 'listing')?.score).toBe('honest_delay')
+    expect(CONTENT.chapters.skyline.endings.find((e) => e.id === 'ascent')?.score).toBe('the_road')
     const assigned: Record<string, string> = {
-      h_bridge_y2: 'night_run',
-      h_cut_meridian_ipo: 'night_run',
-      h_bridge_pre_act3: 'night_run',
+      h_bridge_y2: 'clone_war',
+      h_cut_meridian_ipo: 'meridian',
+      h_bridge_pre_act3: 'eighteen',
       h_cut_accident: 'richmond',
       t_cut_first_light: 'ring',
-      t_bridge_y3: 'latency',
-      t_father_death: 'latency',
-      t_father_death_seen: 'latency',
+      t_bridge_y3: 'year_three',
+      t_father_death: 'shoebox',
+      t_father_death_seen: 'shoebox',
       t_first_walk: 'first_walk',
       t_jonah: 'eleven',
-      s_cut_year_two: 'hold',
-      s_cut_flag: 'hold',
+      s_cut_year_two: 'first_rung',
+      s_cut_flag: 'aurelia',
     }
     for (const ch of Object.values(CONTENT.chapters)) {
       for (const s of ch.scenes) {

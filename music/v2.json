@@ -771,6 +771,1098 @@
           "context_adherence": "high"
         }
       ]
+    },
+    {
+      "id": "v2_clone_war",
+      "title": "The Clone",
+      "chapter": "HYPERCHUTE",
+      "role": "YEAR TWO",
+      "level": "MUSIC 2.0",
+      "art": "cut_year_two",
+      "moments": [
+        "THE OFFICE",
+        "CHUTE LAUNCHES",
+        "THE WAR ARRIVES"
+      ],
+      "note": "Year two: the garage is an office, then a cheaper copy of you takes the sky.",
+      "seedBase": 440101,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "forward nocturnal pressure",
+            "72 BPM",
+            "E minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a tense analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "72 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody harder, still singing",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_meridian",
+      "title": "Ninety-One Billion",
+      "chapter": "HYPERCHUTE",
+      "role": "THE BELL THAT ISN'T YOURS",
+      "level": "MUSIC 2.0",
+      "art": "cut_meridian_ipo",
+      "moments": [
+        "THE EXCHANGE",
+        "SILVER HAIR",
+        "91B"
+      ],
+      "note": "Someone else rings the bell. Cold analog triumph that does not belong to you.",
+      "seedBase": 440111,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "cold analog grandeur",
+            "78 BPM",
+            "F minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a bright analog melody that feels expensive",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "78 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody climbing, still not yours",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "thin analog, unresolved",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_eighteen",
+      "title": "Eighteen Months",
+      "chapter": "HYPERCHUTE",
+      "role": "THE LONG WAR",
+      "level": "MUSIC 2.0",
+      "art": "cut_eighteen_months",
+      "moments": [
+        "THREE CORRIDORS",
+        "VERSION NINE",
+        "THE WAR GETS OLDER"
+      ],
+      "note": "A worn analog campaign. The same melody, older, still going.",
+      "seedBase": 440121,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "tired nocturnal melancholy",
+            "60 BPM",
+            "D minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a weary analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "60 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the same theme, thinner and stubborn",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "electric piano left holding the line",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_peoples_network",
+      "title": "The People's Network",
+      "chapter": "HYPERCHUTE",
+      "role": "YOUR BELL",
+      "level": "MUSIC 2.0",
+      "art": "world_bell",
+      "moments": [
+        "THE LOW PRICE",
+        "MRS. DELGADO",
+        "IT SOUNDS LIKE DRYERS"
+      ],
+      "note": "Your IPO. Warm analog hymn. A woman in house slippers rings the city open.",
+      "seedBase": 440131,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "warm analog hymn",
+            "70 BPM",
+            "E-flat major",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a generous analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "70 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody opening, human and earned",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "electric piano, quiet pride",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_year_three",
+      "title": "Year Three",
+      "chapter": "TELEPORT",
+      "role": "THE CALENDAR",
+      "level": "MUSIC 2.0",
+      "art": "cut_year_three",
+      "moments": [
+        "A NEW NUMBER",
+        "THE COFFEE TASTES THE SAME",
+        "REAL WEIGHT"
+      ],
+      "note": "An ordinary Monday that is also a company. Analog, precise, heavier than it looks.",
+      "seedBase": 440141,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "quiet analog gravity",
+            "66 BPM",
+            "G minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a modest analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "66 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody carrying more weight",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lead, unresolved",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_shoebox",
+      "title": "The Shoebox",
+      "chapter": "TELEPORT",
+      "role": "HE BUILDS THINGS THAT REACH",
+      "level": "MUSIC 2.0",
+      "art": "cut_shoebox",
+      "moments": [
+        "THE UNION HALL",
+        "THE WORKSHOP",
+        "SIX WORDS"
+      ],
+      "note": "A home elegy. Analog piano and a small melody that will not get bigger.",
+      "seedBase": 440151,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "intimate analog elegy",
+            "56 BPM",
+            "A minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a small analog melody, close",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "56 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody again, no louder",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "electric piano last, unresolved",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_honest_delay",
+      "title": "The Honest Delay",
+      "chapter": "TELEPORT",
+      "role": "THE LISTING",
+      "level": "MUSIC 2.0",
+      "art": "end_t_bell",
+      "moments": [
+        "A BORING PRICING CALL",
+        "2.61",
+        "BACK TO IT"
+      ],
+      "note": "Your second bell. Analog, precise, the honest share price as a melody.",
+      "seedBase": 440161,
+      "chunks": [
+        {
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
+          "positive_styles": [
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "precise analog melancholy",
+            "68 BPM",
+            "F-sharp minor",
+            "tape saturation",
+            "vast plate reverb",
+            "starts on the first beat",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a clear analog melody, no swagger",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "68 BPM"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the melody held, honest",
+            "sparse electric piano",
+            "deep analog bass",
+            "restrained"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "trailer drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "thin analog, a quiet landing",
+            "electric piano unresolved",
+            "quiet ending",
+            "nocturnal"
+          ],
+          "negative_styles": [
+            "drums",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_first_rung",
+      "title": "First Rung",
+      "chapter": "SKYLINE",
+      "role": "YEAR TWO",
+      "level": "MUSIC 2.0",
+      "art": "cut_s_year_two",
+      "moments": [
+        "THE WORKERS NAME IT",
+        "FOUR HUNDRED PEOPLE",
+        "THE CABLE RISES"
+      ],
+      "note": "Organ and strings for a platform that has a cafeteria now. Construction as devotion.",
+      "seedBase": 440171,
+      "chunks": [
+        {
+          "text": "[The Clock] {instrumental}",
+          "duration_ms": 16000,
+          "positive_styles": [
+            "cathedral pipe organ",
+            "pipe organ in moving chords",
+            "C minor",
+            "6/8",
+            "72 BPM",
+            "starts on the first beat",
+            "instrumental",
+            "vast room",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Cable] {organ and strings}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "pipe organ continues",
+            "low strings entering",
+            "a measured rising figure",
+            "6/8",
+            "72 BPM"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Hold] {orchestra and organ}",
+          "duration_ms": 28000,
+          "positive_styles": [
+            "string orchestra",
+            "pipe organ",
+            "low brass",
+            "organ and strings broadening",
+            "6/8"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "EDM drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Orbit] {organ and strings}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "organ holding a vast chord",
+            "one person-scale cadence",
+            "strings",
+            "quiet ending",
+            "human-scale"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "sudden stop",
+            "trailer sting"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_aurelia",
+      "title": "Aurelia",
+      "chapter": "SKYLINE",
+      "role": "THE FLAG",
+      "level": "MUSIC 2.0",
+      "art": "cut_s_flag",
+      "moments": [
+        "THE CHARTER",
+        "THE SEA WALL",
+        "A COUNTRY AROUND YOU"
+      ],
+      "note": "Civic organ. A flag goes up and you are suddenly a landmark.",
+      "seedBase": 440181,
+      "chunks": [
+        {
+          "text": "[The Clock] {instrumental}",
+          "duration_ms": 16000,
+          "positive_styles": [
+            "cathedral pipe organ",
+            "solemn pipe organ",
+            "A-flat major",
+            "4/4",
+            "74 BPM",
+            "starts on the first beat",
+            "instrumental",
+            "vast room",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Cable] {organ and strings}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "pipe organ continues",
+            "low strings entering",
+            "organ and low strings, civic",
+            "4/4",
+            "74 BPM"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Hold] {orchestra and organ}",
+          "duration_ms": 28000,
+          "positive_styles": [
+            "string orchestra",
+            "pipe organ",
+            "low brass",
+            "the organ widening, expensive and strange",
+            "4/4"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "EDM drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Orbit] {organ and strings}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "organ holding a vast chord",
+            "held organ, unresolved",
+            "strings",
+            "quiet ending",
+            "human-scale"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "sudden stop",
+            "trailer sting"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_the_road",
+      "title": "The Road Open",
+      "chapter": "SKYLINE",
+      "role": "ASCENT",
+      "level": "MUSIC 2.0",
+      "art": "end_s_ascent",
+      "moments": [
+        "DANA WHITFIELD",
+        "KILOMETER 400",
+        "THAT ROAD STARTED HERE"
+      ],
+      "note": "A schoolteacher rides the cable. Organ, strings, the sky opening at human scale.",
+      "seedBase": 440191,
+      "chunks": [
+        {
+          "text": "[The Clock] {instrumental}",
+          "duration_ms": 16000,
+          "positive_styles": [
+            "cathedral pipe organ",
+            "pipe organ, patient",
+            "C minor",
+            "6/8",
+            "66 BPM",
+            "starts on the first beat",
+            "instrumental",
+            "vast room",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Cable] {organ and strings}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "pipe organ continues",
+            "low strings entering",
+            "strings joining a climbing figure",
+            "6/8",
+            "66 BPM"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Hold] {orchestra and organ}",
+          "duration_ms": 28000,
+          "positive_styles": [
+            "string orchestra",
+            "pipe organ",
+            "low brass",
+            "organ and orchestra, earned wonder",
+            "6/8"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "EDM drop"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Orbit] {organ and strings}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "organ holding a vast chord",
+            "quiet wonder",
+            "strings",
+            "quiet ending",
+            "human-scale"
+          ],
+          "negative_styles": [
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music",
+            "saxophone",
+            "sudden stop",
+            "trailer sting"
+          ],
+          "context_adherence": "high"
+        }
+      ]
     }
   ]
 }

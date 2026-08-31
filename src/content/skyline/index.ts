@@ -11,7 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE ROAD OPEN TO ALL',
     kind: 'triumph',
     art: 'end_s_ascent',
-    score: 'hold',
+    score: 'the_road',
     scoreBonus: 14,
     skipYears: 2,
     screens: [

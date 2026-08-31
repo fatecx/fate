@@ -11,7 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE HONEST DELAY',
     kind: 'triumph',
     art: 'end_t_listing',
-    score: 'latency',
+    score: 'honest_delay',
     scoreBonus: 12,
     skipYears: 2,
     screens: [

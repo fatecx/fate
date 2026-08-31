@@ -11,7 +11,7 @@ const ENDINGS: readonly EndingDef[] = [
     title: 'THE PEOPLE’S NETWORK',
     kind: 'triumph',
     art: 'world_bell',
-    score: 'night_run',
+    score: 'peoples_network',
     scoreBonus: 12,
     skipYears: 2,
     screens: [
