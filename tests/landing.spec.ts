@@ -16,6 +16,7 @@ import {
   HERO_ART,
   LANDING_ART,
   LANDING_COPY,
+  LANDING_LOCALIZATION_ENABLED,
   ZH_CN_LANDING,
 } from '../src/content/landing'
 
@@ -54,6 +55,10 @@ describe('landing', () => {
     expect(Object.keys(LANDING_COPY)).toEqual(['en', 'zh-CN'])
     expect(LANDING_COPY.en).toBe(EN_LANDING)
     expect(LANDING_COPY['zh-CN']).toBe(ZH_CN_LANDING)
+  })
+
+  it('keeps the public landing English-only for now', () => {
+    expect(LANDING_LOCALIZATION_ENABLED).toBe(false)
   })
 
   it('the Chinese landing covers every authored landing surface', () => {

@@ -28,6 +28,10 @@ export interface ChapterCard {
 
 export type LandingLocale = 'en' | 'zh-CN'
 
+/** Chinese remains authored for a later release, but the public landing stays
+ * English-only until demand justifies localization and native-language QA. */
+export const LANDING_LOCALIZATION_ENABLED = false
+
 export interface LandingDemoCopy {
   speakerName: string
   speakerRole: string

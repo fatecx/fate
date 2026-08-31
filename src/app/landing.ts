@@ -15,6 +15,7 @@ import {
   HERO_ART,
   EN_LANDING,
   LANDING_COPY,
+  LANDING_LOCALIZATION_ENABLED,
   type LandingCopy,
   type LandingLocale,
   type LandingPanel,
@@ -228,7 +229,9 @@ function applyDocumentLocale(locale: LandingLocale, copy: LandingCopy): void {
 }
 
 export function renderLanding(root: HTMLElement, onEnter: () => void, initialScrollTop = 0): void {
-  const locale = readLandingLocale()
+  // Keep the finished Chinese copy dormant without allowing an old saved
+  // preference to leak it onto the currently English-only public landing.
+  const locale: LandingLocale = LANDING_LOCALIZATION_ENABLED ? readLandingLocale() : 'en'
   const copy = LANDING_COPY[locale]
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
   applyDocumentLocale(locale, copy)
@@ -237,7 +240,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void, initialScr
   el.className = 'landing'
   el.lang = locale
   el.innerHTML = `
-    <button class="ld-lang" type="button" aria-label="${esc(copy.ui.toggleLabel)}" title="${esc(copy.ui.toggleLabel)}" data-locale>${esc(copy.ui.toggle)}</button>
+    ${LANDING_LOCALIZATION_ENABLED ? `<button class="ld-lang" type="button" aria-label="${esc(copy.ui.toggleLabel)}" title="${esc(copy.ui.toggleLabel)}" data-locale>${esc(copy.ui.toggle)}</button>` : ''}
     <div class="ld-bg"><div class="ld-bg-img a"></div><div class="ld-bg-img b"></div><div class="ld-veil"></div></div>
     <div class="ld-scroll">
       <section class="ld-scene ld-hero" data-art="${HERO_ART[0]}">
@@ -417,16 +420,18 @@ export function renderLanding(root: HTMLElement, onEnter: () => void, initialScr
     warm(HERO_ART[(heroIdx + 1) % HERO_ART.length])
   }, 5500)
 
-  el.querySelector<HTMLButtonElement>('[data-locale]')?.addEventListener('click', () => {
-    const next: LandingLocale = locale === 'en' ? 'zh-CN' : 'en'
-    const scrollTop = scroller?.scrollTop ?? 0
-    writeLandingLocale(next)
-    window.clearInterval(cycle)
-    window.clearTimeout(demoTimer)
-    io.disconnect()
-    el.remove()
-    renderLanding(root, onEnter, scrollTop)
-  })
+  if (LANDING_LOCALIZATION_ENABLED) {
+    el.querySelector<HTMLButtonElement>('[data-locale]')?.addEventListener('click', () => {
+      const next: LandingLocale = locale === 'en' ? 'zh-CN' : 'en'
+      const scrollTop = scroller?.scrollTop ?? 0
+      writeLandingLocale(next)
+      window.clearInterval(cycle)
+      window.clearTimeout(demoTimer)
+      io.disconnect()
+      el.remove()
+      renderLanding(root, onEnter, scrollTop)
+    })
+  }
 
   // ---- live community chips: the signature decisions, real splits ----
   void (async () => {
