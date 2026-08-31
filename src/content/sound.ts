@@ -325,18 +325,20 @@ export const MOODS: Record<string, SoundDef> = {
   first_rung: {
     id: 'mus_first_rung',
     gain: 0.4,
-    seconds: 86,
+    seconds: 69,
     film: true,
     source: 'music',
-    prompt: 'Ghost in the Shell analog. Electric piano, rising lead, C-sharp minor, 70 BPM. A city in the sky. No organ.',
+    prompt:
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   aurelia: {
     id: 'mus_aurelia',
     gain: 0.4,
-    seconds: 84,
+    seconds: 75,
     film: true,
     source: 'music',
-    prompt: 'Blade Runner analog. Electric piano, analog brass, a long melody, F minor, 68 BPM. A country founding. No organ.',
+    prompt:
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   gray_hulls: {
     id: 'mus_gray_hulls',
@@ -357,10 +359,11 @@ export const MOODS: Record<string, SoundDef> = {
   the_road: {
     id: 'mus_the_road',
     gain: 0.4,
-    seconds: 79,
+    seconds: 78,
     film: true,
     source: 'music',
-    prompt: 'Vangelis analog space. Climbing analog lead, electric piano, A minor, 72 BPM. One person in the sky. No organ.',
+    prompt:
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   hustle: {
     id: 'mus_hustle',

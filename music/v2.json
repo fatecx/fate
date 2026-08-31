@@ -1561,88 +1561,78 @@
         "FOUR HUNDRED PEOPLE",
         "THE CABLE RISES"
       ],
-      "note": "Analog sci-fi. A city that learned to live in the sky. Electric piano, analog lead, a rising melody. Not organ. Not church. Not horror.",
-      "seedBase": 480901,
+      "note": "Same analog as The First Walk. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.",
+      "seedBase": 481001,
       "chunks": [
         {
-          "text": "[Night] {instrumental}",
+          "text": "[Chair] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
             "1970s analog synthesizer score",
             "electric piano",
             "warm analog pads",
-            "orbital analog science fiction",
-            "70 BPM",
-            "C-sharp minor",
+            "A minor",
+            "68 BPM",
             "tape saturation",
             "vast plate reverb",
-            "instrumental science-fiction underscore",
+            "quiet wonder",
             "high production quality"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "gospel",
-            "horror",
-            "ticking clock",
-            "ostinato",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "trailer music"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Street] {instrumental analog lead}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "lonely analog lead with saxophone timbre",
-            "a rising analog melody",
-            "warm analog brass chords",
+            "lonely analog lead",
+            "a rising three-note motif",
+            "warm analog brass",
             "electric piano",
-            "slow emotional melody",
-            "70 BPM"
+            "slow awe",
+            "68 BPM"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
-            "silence"
+            "pop",
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Memory] {instrumental}",
+          "text": "[The sky] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog brass swelling slowly",
-            "emotional analog lead melody",
-            "the rising phrase bigger",
-            "electric piano",
-            "deep analog bass",
-            "grand science fiction"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
-            "EDM drop",
-            "trailer climax"
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
@@ -1650,21 +1640,21 @@
           "text": "[After] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
+            "the three notes once, warm",
             "thinning analog pads",
-            "distant lonely lead",
-            "electric piano unresolved",
+            "electric piano unresolved on C",
             "quiet ending",
-            "orbital",
-            "no fade to silence"
+            "human"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church cadence",
-            "horror",
             "drums",
-            "trailer climax",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
             "sudden stop"
           ],
           "context_adherence": "high"
@@ -1683,88 +1673,78 @@
         "THE SEA WALL",
         "A COUNTRY AROUND YOU"
       ],
-      "note": "Analog sci-fi. A country founding. Electric piano, analog brass, a long melody. Vast, expensive. Not organ. Not a hymn. Not horror.",
-      "seedBase": 480911,
+      "note": "Same analog as The First Walk. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.",
+      "seedBase": 481011,
       "chunks": [
         {
-          "text": "[Night] {instrumental}",
+          "text": "[Chair] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
             "1970s analog synthesizer score",
             "electric piano",
             "warm analog pads",
-            "vast analog science fiction",
+            "A minor",
             "68 BPM",
-            "F minor",
             "tape saturation",
             "vast plate reverb",
-            "instrumental science-fiction underscore",
+            "quiet wonder",
             "high production quality"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "gospel",
-            "horror",
-            "ticking clock",
-            "ostinato",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "trailer music"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Street] {instrumental analog lead}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "lonely analog lead with saxophone timbre",
-            "a long analog melody",
-            "warm analog brass chords",
+            "lonely analog lead",
+            "a rising three-note motif",
+            "warm analog brass",
             "electric piano",
-            "slow emotional melody",
+            "slow awe",
             "68 BPM"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
-            "silence"
+            "pop",
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Memory] {instrumental}",
+          "text": "[The sky] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog brass swelling slowly",
-            "emotional analog lead melody",
-            "analog grandeur, still F minor",
-            "electric piano",
-            "deep analog bass",
-            "grand science fiction"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
-            "EDM drop",
-            "trailer climax"
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
@@ -1772,21 +1752,21 @@
           "text": "[After] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
+            "the three notes once, warm",
             "thinning analog pads",
-            "distant lonely lead",
-            "electric piano unresolved",
+            "electric piano unresolved on C",
             "quiet ending",
-            "orbital",
-            "no fade to silence"
+            "human"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church cadence",
-            "horror",
             "drums",
-            "trailer climax",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
             "sudden stop"
           ],
           "context_adherence": "high"
@@ -1805,88 +1785,78 @@
         "KILOMETER 400",
         "THAT ROAD STARTED HERE"
       ],
-      "note": "Analog sci-fi space. A climbing melody. One person riding into the sky. Not organ. Not church. Not horror.",
-      "seedBase": 480921,
+      "note": "Same analog as The First Walk. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.",
+      "seedBase": 481021,
       "chunks": [
         {
-          "text": "[Night] {instrumental}",
+          "text": "[Chair] {instrumental}",
           "duration_ms": 18000,
           "positive_styles": [
             "1970s analog synthesizer score",
             "electric piano",
             "warm analog pads",
-            "analog space science fiction",
-            "72 BPM",
             "A minor",
+            "68 BPM",
             "tape saturation",
             "vast plate reverb",
-            "instrumental science-fiction underscore",
+            "quiet wonder",
             "high production quality"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "gospel",
-            "horror",
-            "ticking clock",
-            "ostinato",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "trailer music"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Street] {instrumental analog lead}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "lonely analog lead with saxophone timbre",
-            "a climbing analog melody",
-            "warm analog brass chords",
+            "lonely analog lead",
+            "a rising three-note motif",
+            "warm analog brass",
             "electric piano",
-            "slow emotional melody",
-            "72 BPM"
+            "slow awe",
+            "68 BPM"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
-            "silence"
+            "pop",
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Memory] {instrumental}",
+          "text": "[The sky] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog brass swelling slowly",
-            "emotional analog lead melody",
-            "the climbing melody at its height",
-            "electric piano",
-            "deep analog bass",
-            "grand science fiction"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church",
-            "horror",
             "drums",
+            "choir",
             "lyrics",
-            "EDM drop",
-            "trailer climax"
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
@@ -1894,21 +1864,21 @@
           "text": "[After] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
+            "the three notes once, warm",
             "thinning analog pads",
-            "distant lonely lead",
-            "electric piano unresolved",
+            "electric piano unresolved on C",
             "quiet ending",
-            "the sky holding",
-            "no fade to silence"
+            "human"
           ],
           "negative_styles": [
-            "organ",
-            "choir",
-            "hymn",
-            "church cadence",
-            "horror",
             "drums",
-            "trailer climax",
+            "choir",
+            "lyrics",
+            "vocals",
+            "trailer music",
+            "EDM",
+            "pop",
+            "pipe organ",
             "sudden stop"
           ],
           "context_adherence": "high"
