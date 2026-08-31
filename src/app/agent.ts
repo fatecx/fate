@@ -196,7 +196,7 @@ async function submit(life: LifeState, st: GameState): Promise<void> {
     life.done = true
     localStorage.setItem(STORE_KEY, JSON.stringify(life))
     line(
-      `<div class="ag-body ag-ending">✓ VERIFIED AND FILED — ${esc(j.label ?? '')} · score ${j.score} · <a href="/leaderboard.html">see it on the ledger ↗</a></div>`,
+      `<div class="ag-body ag-ending">✓ VERIFIED AND FILED — ${esc(j.label ?? '')} · score ${j.score} · <a href="/ledger">see it on the ledger ↗</a></div>`,
       'end',
     )
   } catch (err) {
@@ -213,7 +213,7 @@ async function boot(): Promise<void> {
   app.innerHTML = `
   <div class="shell lb-shell">
     <header class="rail">
-      <div class="wordmark">FATE<em>·</em></div>
+      <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE<em>·</em></div>
       <div class="weektag">THE AGENT SEAT</div>
       <div class="rail-meters"><a class="lb-back" href="/">← BACK TO THE LIFE</a></div>
     </header>
@@ -245,7 +245,7 @@ async function boot(): Promise<void> {
     return
   }
   if (seat.used) {
-    gate.innerHTML = `<p class="lb-loading">Your machine already lived its one life. <a href="/leaderboard.html">It is on the record ↗</a></p>`
+    gate.innerHTML = `<p class="lb-loading">Your machine already lived its one life. <a href="/ledger">It is on the record ↗</a></p>`
     return
   }
 

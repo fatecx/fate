@@ -441,7 +441,7 @@ function railHtml(): string {
       : `<div class="runway"><b>+</b><span>PROFIT-<br/>ABLE</span></div>`
   return `
   <header class="rail">
-    <div class="wordmark">FATE<em>·</em></div>
+    <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE<em>·</em></div>
     <div class="weektag">${clockLabel()}</div>
     <div class="rail-meters">
       ${runwayBlock}
@@ -641,7 +641,7 @@ function transcriptHtml(): string {
                 <span><b>${(b.cred ?? 0) >= 0 ? '+' : ''}${b.cred ?? '—'}</b> cred</span>
                 <span><b>${b.score ?? '—'}</b> founder score</span>
               </div>
-              <a class="memoir-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`
+              <a class="memoir-link" href="/ledger" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>`
             : ''
           return `<section class="memoir past">
             <div class="beat-kicker">CHAPTER ${chNo} · ${esc(b.span ?? '')}</div>
@@ -1582,7 +1582,7 @@ function showChapterReport(): void {
     ${reportCastHtml()}
     ${communityShellHtml(c)}
     <div class="tk-actions">${cta}
-      <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>
+      <a class="tk-link" href="/ledger" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a>
     </div>
   `)
   document.getElementById('next')?.addEventListener('click', proceedNext)
@@ -1628,7 +1628,7 @@ function renderComplete(): void {
   const years = Math.max(1, Math.round((st.epoch - st.ledger.completed[0]?.epoch / 1) / 52))
   const closing = `<p class="tk-body" style="margin-top:22px">This biography belongs to ${session ? esc(founderLabel(session)) : 'this founder'}, finished and on the record. One signature, one life — to live another, sign with a new passkey.</p>
        <div class="tk-actions"><button class="cta" id="switchLife">Sign out — new signature, new life →</button>
-       <a class="tk-link" href="/leaderboard.html" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a></div>`
+       <a class="tk-link" href="/ledger" target="_blank" rel="noopener">FOUNDERS LEDGER ↗</a></div>`
   takeover(`
     <div class="tk-kicker">THE BIOGRAPHY IS COMPLETE</div>
     <h1 class="tk-title">THREE COMPANIES.<br/>ONE LIFE.</h1>

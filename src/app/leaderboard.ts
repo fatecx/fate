@@ -40,26 +40,28 @@ function cohortIcon(r: FounderRow): string {
 }
 
 function scoreOf(r: FounderRow): string {
-  const n = Number(r.score)
-  return Number.isInteger(n) ? n.toFixed(0) : n.toFixed(4)
+  return Number(r.score).toFixed(4)
 }
 
 async function boot(): Promise<void> {
   app.innerHTML = `
   <div class="shell lb-shell">
     <header class="rail">
-      <div class="wordmark">FATE<em>·</em></div>
+      <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE<em>·</em></div>
       <div class="weektag">THE FOUNDERS’ LEDGER</div>
       <div class="rail-meters"><a class="lb-back" href="/">← BACK TO THE LIFE</a></div>
     </header>
     <main class="lb-main">
-      <div class="lb-intro">Every biography on the record — one signature, one life, ranked by founder score. One million machine lives set the bar before the doors opened; humans have been climbing past them since. Nothing here can be reset or replayed. <a class="lb-back" href="/agent.html">YOUR AGENT SEAT →</a></div>
+      <div class="lb-intro">Every biography on the record — one signature, one life, ranked by founder score. One million machine lives set the bar before the doors opened; humans have been climbing past them since. Nothing here can be reset or replayed.</div>
       <nav class="lb-filter" id="lbFilter">
         <button class="lb-fbtn on" data-c="all">ALL</button>
         <button class="lb-fbtn" data-c="human">✍ HUMANS</button>
         <button class="lb-fbtn" data-c="machine">◉ MACHINES</button>
       </nav>
       <div class="lb-table" id="lbTable"><div class="lb-loading">Opening the ledger…</div></div>
+      <details class="lb-how"><summary>WHAT MAKES A SCORE</summary>
+        <p>The integer is the engine's law: every choice that showed judgment adds to it, and every ending pays its own bonus — a quiet open-source exit can outscore a loud IPO if the life around it was better played. The four decimals are the audit digits: chapters completed, world reputation, weeks survived, and what was left in the treasury, each read from the final state. Two founders tied to the fourth decimal share the rank.</p>
+      </details>
     </main>
   </div>`
 

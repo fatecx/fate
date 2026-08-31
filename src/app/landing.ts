@@ -153,7 +153,7 @@ function oddsHtml(): string {
         <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>rang the bell</span></div>
         <div class="ld-odd"><b>${f(ODDS.allThree)}</b><span>took all three companies to the top</span></div>
       </div>
-      <p class="ld-sub">The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉.</p>
+      <p class="ld-sub">The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉. Your incorporation includes <a class="ld-ledger" href="/agent" target="_blank" rel="noopener">one agent seat ↗</a> — bring your own model, and let it live beside you.</p>
     </div>
   </section>`
 }
@@ -221,7 +221,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
       ${demoHtml()}
       ${featuresHtml()}
       ${oddsHtml()}
-      ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/leaderboard.html" target="_blank" rel="noopener">OPEN THE FOUNDERS’ LEDGER ↗</a>`)}
+      ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/ledger" target="_blank" rel="noopener">OPEN THE FOUNDERS’ LEDGER ↗</a>`)}
       <section class="ld-scene" data-art="${FINALE.art ?? ''}">
         <div class="ld-beat">
           <div class="ld-kicker">${esc(FINALE.kicker)}</div>
@@ -376,26 +376,20 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     warm(HERO_ART[(heroIdx + 1) % HERO_ART.length])
   }, 5500)
 
-  // ---- live community chips: real splits, or a clean absence ----
+  // ---- live community chips: the signature decisions, real splits ----
   void (async () => {
     const holder = el.querySelector('#ldChips')
     if (!holder) return
     const split = await fetchDecisionSplit('hyperchute')
+    const sigs = CONTENT.chapters.hyperchute.signatures ?? []
     const rows: { pct: number; label: string }[] = []
-    for (const [sceneId, counts] of Object.entries(split)) {
+    for (const sig of sigs) {
+      const counts = split[sig.scene] ?? []
       const total = counts.reduce((s, c) => s + c.n, 0)
       if (total < 5) continue
-      const top = [...counts].sort((a, b) => b.n - a.n)[0]
-      try {
-        const sc = getScene(CONTENT, 'hyperchute', sceneId)
-        const label = sc.choices[top.choice]?.label
-        if (!label) continue
-        rows.push({ pct: Math.round((100 * top.n) / total), label })
-      } catch {
-        /* retired scene ids stay out of the chips */
-      }
+      const n = counts.find((c) => c.choice === sig.choice)?.n ?? 0
+      rows.push({ pct: Math.round((100 * n) / total), label: `of founders ${sig.text}` })
     }
-    rows.sort((a, b) => b.pct - a.pct)
     holder.innerHTML = rows
       .slice(0, 3)
       .map((r) => `<div class="ld-chip"><b>${r.pct}%</b> — “${esc(r.label)}”</div>`)

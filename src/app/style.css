@@ -48,8 +48,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   position: relative;
   z-index: 31;
 }
-.wordmark { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.16em; }
+.wordmark { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.16em; display: flex; align-items: center; gap: 8px; }
 .wordmark em { font-style: normal; color: var(--accent); }
+.wm-mark { width: 18px; height: 18px; display: block; }
 .weektag { font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.1em; }
 /* The header flap: the clock rests; a change of place flips the tag over
    for a breath — one piece, like a station board — then flips back. */
@@ -497,6 +498,9 @@ body:has(.lb-shell) { overflow: auto; }
 .lb-ico.m { color: var(--accent); }
 .lb-model { font-style: normal; font-size: 9.5px; color: var(--dim); border: 1px solid var(--line); border-radius: 99px; padding: 1px 7px; margin-left: 5px; letter-spacing: 0.06em; }
 .lb-row.machine .lb-wallet { color: var(--dim); }
+.lb-how { margin-top: 22px; max-width: 68ch; }
+.lb-how summary { font: 600 10px var(--mono); letter-spacing: 0.16em; color: var(--dim); cursor: pointer; }
+.lb-how p { font-size: 12.5px; line-height: 1.7; color: var(--dim); margin-top: 8px; }
 /* THE ODDS — landing: the machines' record */
 .ld-odds { display: flex; gap: 34px; flex-wrap: wrap; margin: 26px 0 18px; }
 .ld-odd b { display: block; font: 700 34px var(--mono); letter-spacing: 0.01em; color: var(--accent); font-variant-numeric: tabular-nums; }

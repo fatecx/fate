@@ -56,7 +56,7 @@ export const PITCH: readonly LandingPanel[] = [
     kicker: 'THE GAME',
     art: 'world_roadshow',
     paras: [
-      'A sci-fi epic of desire, grit, and consequence, spanning thirty years of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
+      'A sci-fi epic of desire, grit, and consequence, spanning two decades of cofounder fallouts, board politics, bad press, death, fortune, and billions in capital.',
     ],
   },
 ]
@@ -118,12 +118,12 @@ export const FEATURES: readonly LandingPanel[] = [
   {
     kicker: 'THE COVENANT',
     glyph: '▲',
-    head: 'BURNED TO YOUR WALLET',
+    head: 'SIGNED IN YOUR OWN HAND',
     art: null,
     paras: [
-      'One wallet gets one life. Every choice is written to that address for good, and the finished biography stays on the record.',
+      'One signature gets one life. Your passkey is the pen — no password, no email, nothing to leak — and every choice it signs stays on the record for good.',
     ],
-    sig: { label: 'FOUNDER OF RECORD', value: '0x3f…a2 · PERMANENT' },
+    sig: { label: 'FOUNDER OF RECORD', value: 'Nº 4F2A81C3 · PERMANENT' },
   },
 ]
 
@@ -153,7 +153,7 @@ export const CTA_LABEL = 'Incorporate →'
 export const COVENANT = [
   'Fate gives you one life.',
   'Your decisions are immutable.',
-  'Your path is burned to your wallet.',
+  'Your path is signed in your own hand.',
 ]
 
 /** Every art id the landing references — the spec walks this list. */
