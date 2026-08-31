@@ -89,7 +89,16 @@ export default async function handler(req: any, res: any) {
         break
       }
     }
-    if (!refunded) return res.status(502).json({ error: `the processor declined the refund (${lastErr}) — write to dev@fate.cx` })
+    if (!refunded) {
+      // Crypto settlements are irreversible — Whop's refund API only reverses
+      // card charges (404 on crypto payments). Those come back by hand.
+      if (lastErr.startsWith('404'))
+        return res.status(409).json({
+          error:
+            'this fee was paid in crypto, and the register can’t reverse a crypto payment automatically. Write to dev@fate.cx and it comes back by hand — usually within a day. Your filing stays intact until then.',
+        })
+      return res.status(502).json({ error: `the processor declined the refund (${lastErr}) — write to dev@fate.cx` })
+    }
 
     // The record dissolves: no fee, no biography, no ledger row, no seat.
     await admin.from('saves').delete().eq('user_id', uid)
