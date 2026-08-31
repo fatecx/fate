@@ -26,6 +26,65 @@ export interface ChapterCard {
   line: string
 }
 
+export type LandingLocale = 'en' | 'zh-CN'
+
+export interface LandingDemoCopy {
+  speakerName: string
+  speakerRole: string
+  leadIn: string
+  prose: string
+  choices: readonly string[]
+}
+
+export interface LandingUiCopy {
+  toggle: string
+  toggleLabel: string
+  scroll: string
+  weekOne: string
+  bank: string
+  reputation: string
+  world: string
+  effects: { cash: string; equity: string; stress: string; reputation: string }
+  odds: {
+    kicker: string
+    headBefore: string
+    headAfter: string
+    labels: readonly string[]
+    bodyBefore: string
+    agentSeat: string
+    bodyAfter: string
+  }
+  ledgerLink: string
+  signatureJoin: string
+  footer: string
+  meta: {
+    title: string
+    description: string
+    ogDescription: string
+    twitterDescription: string
+  }
+}
+
+export interface LandingCopy {
+  hero: { kicker: string; title: string; sub: string }
+  pitch: readonly LandingPanel[]
+  chapters: readonly ChapterCard[]
+  cliffhanger: { kicker: string; sceneId: string; demo: LandingDemoCopy }
+  features: readonly LandingPanel[]
+  record: LandingPanel
+  finale: LandingPanel
+  priceChip: string
+  guaranteeLabel: string
+  guarantee: string
+  ctaLabel: string
+  covenant: readonly string[]
+  ui: LandingUiCopy
+  /** Hover labels for the cast portraits. Missing keys fall back to canon. */
+  characterNames: Readonly<Record<string, string>>
+  /** Maps canonical English signature text to its localized completion. */
+  signatures: Readonly<Record<string, string>>
+}
+
 /** Hero montage — the strongest frames across chapters, cycled behind the wordmark. */
 export const HERO_ART: readonly string[] = [
   'cut_first_light',
@@ -87,6 +146,19 @@ export const CHAPTERS: readonly ChapterCard[] = [
 export const CLIFFHANGER = {
   kicker: 'THE FIRST SCENE',
   sceneId: 'h_seedling',
+  demo: {
+    speakerName: 'Mrs. Delgado',
+    speakerRole: 'Landlady — Sudz & Spin',
+    leadIn:
+      'Week one as a founder tastes like instant coffee. Dryer drums shake the floor below you. At 8 a.m., while you solder a motor mount, the stairs creak. You know that walk. Your landlady is coming up, and she wants an answer.',
+    prose:
+      'Mrs. Delgado owns the laundromat, the building, and — after thirty years — this whole block’s respect. She climbs the stairs at 8 a.m. with a rent envelope in one hand and a question she has practiced all morning. “Every day you are up here. Machines humming. My dryers vibrate. Don’t you have a job?” You tell her the truth: this is the job now — a railway in the sky that drops packages soft as rain onto every block, even the Flats. She studies the hanging shuttle for a long, calm minute. “My granddaughter waits forty minutes for a bus to bring her insulin,” she says, and pulls a second envelope from her apron — creased, warm, wrapped with a bank band. Ten thousand dollars. She pushes it across the workbench with one finger. “I want to put my money in your company. I was saving for a cruise. Boats are slow.”',
+    choices: [
+      'Take it. One percent, notarized on a laundry receipt.',
+      'Take it as a loan. Pay her back double, someday.',
+      'Refuse. Her cruise money isn’t venture capital.',
+    ],
+  },
 }
 
 export const FEATURES: readonly LandingPanel[] = [

@@ -511,6 +511,28 @@ body:has(.lb-shell) { overflow: auto; }
 .ld-odd span { font: 11px var(--mono); letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; }
 .ld-guarantee { max-width: 52ch; margin: 16px auto 0; font-size: 14px; line-height: 1.65; color: #ecede9; background: rgba(13, 14, 17, 0.55); border: 1px solid rgba(229, 122, 46, 0.55); border-radius: 8px; padding: 13px 16px; text-shadow: 0 1px 4px rgba(13, 14, 17, 0.8); }
 .ld-guarantee b { display: block; font: 700 11px var(--mono); letter-spacing: 0.16em; color: var(--accent); margin-bottom: 5px; }
+
+/* ---- the ritual: fate's own dialogs ---- */
+.ritual-veil { position: fixed; inset: 0; z-index: 400; background: rgba(13, 14, 17, 0.72); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; padding: 22px; }
+.ritual { width: min(460px, 94vw); background: var(--panel, #1b1e23); background: #16181d; color: #ecede9; border: 1px solid #33363c; border-radius: 10px; padding: 22px 24px 20px; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5); }
+.rit-kicker { font: 600 10px var(--mono); letter-spacing: 0.2em; color: var(--accent); }
+.rit-title { font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: 0.08em; margin: 6px 0 10px; }
+.rit-prose { font-size: 13.5px; line-height: 1.65; color: #c9cbc4; }
+.rit-actions { display: flex; gap: 10px; margin-top: 18px; }
+.rit-btn { font: 600 12px var(--mono); letter-spacing: 0.06em; padding: 10px 16px; border: 1px solid #3a3d44; border-radius: 6px; color: #c9cbc4; background: none; cursor: pointer; }
+.rit-btn:hover { border-color: #ecede9; color: #ecede9; }
+.rit-btn.go { background: var(--accent); border-color: var(--accent); color: #16181d; font-weight: 700; }
+.rit-btn.danger { background: #9c3b2e; border-color: #9c3b2e; color: #f6f6f2; font-weight: 700; }
+.rit-log { display: flex; flex-direction: column; gap: 9px; margin-top: 4px; min-height: 60px; }
+.rit-step { font: 12px/1.55 var(--mono); display: flex; gap: 9px; align-items: baseline; color: #c9cbc4; }
+.rit-step::before { flex: none; }
+.rit-step.run::before { content: ''; width: 10px; height: 10px; border: 2px solid var(--accent); border-top-color: transparent; border-radius: 50%; display: inline-block; animation: pspin 0.7s linear infinite; align-self: center; }
+.rit-step.ok::before { content: '✓'; color: #1f7a5c; font-weight: 700; }
+.rit-step.done::before { content: '■'; color: var(--accent); }
+.rit-step.done { color: #ecede9; font-weight: 600; }
+.rit-step.err::before { content: '✕'; color: #e0654f; font-weight: 700; }
+.rit-step.err { color: #e0654f; }
+@keyframes pspin { to { transform: rotate(360deg); } }
 /* THE AGENT SEAT — a terminal for a machine's life */
 .ag-gate { max-width: 62ch; }
 .ag-form { display: flex; flex-direction: column; gap: 12px; max-width: 46ch; }

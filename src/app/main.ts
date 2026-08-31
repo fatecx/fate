@@ -1253,60 +1253,70 @@ app.addEventListener('click', (e) => {
     return
   }
   if (target.closest('#actWithdraw')) {
-    if (
-      confirm(
-        'Withdraw the filing? The state returns your $20 in full, and this venture dissolves — the unincorporated weeks leave no record. This cannot be partially done.',
-      )
-    ) {
+    void (async () => {
+      const go = await ritualConfirm({
+        kicker: 'THE FILING GUARANTEE',
+        title: 'WITHDRAW THE FILING',
+        body: 'The state returns your $20 in full, and this venture dissolves — the unincorporated weeks leave no record. You can incorporate again any time, from the beginning.',
+        yes: 'Withdraw — return my $20',
+        no: 'Keep the filing',
+        danger: true,
+      })
+      if (!go) return
+      const rit = ritualLog('THE REGISTRAR', 'WITHDRAWING THE FILING')
+      const s1 = rit.step('Reading the record…')
+      try {
+        const sess = supa ? (await supa.auth.getSession()).data.session : null
+        if (!sess) throw new Error('signed out — sign in first')
+        s1.ok('Record read — the papers are unstamped.')
+        const s2 = rit.step('Returning the fee through the register…')
+        const r = await fetch(`${self.origin}/api/refund`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jwt: sess.access_token }),
+        })
+        const j = (await r.json().catch(() => ({}))) as { error?: string }
+        if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`)
+        s2.ok('Refunded in full — the $20 goes back the way it came.')
+        const s3 = rit.step('Dissolving the venture…')
+        clearSave()
+        s3.ok('Dissolved. The record holds no trace.')
+        await rit.finish('The withdrawal is complete.', 'Return to the door →')
+        location.href = '/'
+      } catch (ex) {
+        await rit.fail(`The withdrawal failed: ${ex instanceof Error ? ex.message : String(ex)} — nothing was changed.`)
+      }
+    })()
+    return
+  }
+  if (target.closest('#actSurrender')) {
+    if (st.phase === 'playing') {
       void (async () => {
-        const btn = document.getElementById('actWithdraw') as HTMLButtonElement | null
-        if (btn) {
-          btn.disabled = true
-          btn.textContent = 'WITHDRAWING…'
-        }
-        try {
-          const sess = supa ? (await supa.auth.getSession()).data.session : null
-          if (!sess) throw new Error('signed out — sign in first')
-          const r = await fetch(`${self.origin}/api/refund`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ jwt: sess.access_token }),
-          })
-          const j = (await r.json().catch(() => ({}))) as { error?: string }
-          if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`)
-          clearSave()
-          alert('The filing is withdrawn. Your $20 is on its way back the way it came.')
-          location.href = '/'
-        } catch (ex) {
-          alert(`The withdrawal failed: ${ex instanceof Error ? ex.message : String(ex)}`)
-          if (btn) {
-            btn.disabled = false
-            btn.textContent = 'WITHDRAW THE FILING — $20 BACK'
-          }
-        }
+        const go = await ritualConfirm({
+          kicker: 'THE RECEIVERS',
+          title: 'DECLARE BANKRUPTCY',
+          body: `Wind down ${chapterTitle(st.company.id)}, Inc.? The receivers take everything. The bankruptcy goes on your permanent record — and the biography continues.`,
+          yes: 'Declare it',
+          no: 'Keep fighting',
+          danger: true,
+        })
+        if (!go || st.phase !== 'playing') return
+        document.getElementById('coPanel')?.setAttribute('hidden', '')
+        st = reduce(CONTENT, st, { t: 'surrender' })
+        persist()
+        refreshRail()
+        renderEpilogue()
       })()
     }
     return
   }
-  if (target.closest('#actSurrender')) {
-    if (
-      st.phase === 'playing' &&
-      confirm(
-        `Wind down ${chapterTitle(st.company.id)}, Inc.? The receivers take everything. The bankruptcy goes on your permanent record — and the biography continues.`,
-      )
-    ) {
-      document.getElementById('coPanel')?.setAttribute('hidden', '')
-      st = reduce(CONTENT, st, { t: 'surrender' })
-      persist()
-      refreshRail()
-      renderEpilogue()
-    }
-    return
-  }
   if (target.closest('#actDevRestart')) {
-    if (DEV_TOOLS() && confirm('[DEV] Overwrite this biography with a fresh life?')) {
-      document.getElementById('coPanel')?.setAttribute('hidden', '')
-      startNewLife()
+    if (DEV_TOOLS()) {
+      void ritualConfirm({ kicker: 'DEV TOOLS', title: 'RESTART THE LIFE', body: 'Overwrite this biography with a fresh life?', yes: 'Overwrite it', danger: true }).then((go) => {
+        if (!go) return
+        document.getElementById('coPanel')?.setAttribute('hidden', '')
+        startNewLife()
+      })
     }
     return
   }
@@ -1314,13 +1324,14 @@ app.addEventListener('click', (e) => {
     if (DEV_TOOLS() && st.phase === 'playing') {
       const endings = CONTENT.chapters[st.company.id].endings
       const best = endings.find((e) => e.kind === 'triumph') ?? endings[0]
-      if (confirm(`[DEV] Close ${st.company.id.toUpperCase()} with "${best.title}" and move on?`)) {
+      void ritualConfirm({ kicker: 'DEV TOOLS', title: 'SKIP CHAPTER', body: `Close ${st.company.id.toUpperCase()} with "${best.title}" and move on?`, yes: 'Close it', danger: true }).then((go) => {
+        if (!go || st.phase !== 'playing') return
         document.getElementById('coPanel')?.setAttribute('hidden', '')
         st = reduce(CONTENT, st, { t: 'devSkip', ending: best.id })
         persist()
         refreshRail()
         renderEpilogue()
-      }
+      })
     }
     return
   }
@@ -1371,6 +1382,130 @@ function takeover(inner: string, cls = ''): void {
   el.innerHTML = `<div class="takeover-inner">${inner}</div>`
   app.appendChild(el)
 }
+
+// ---- the ritual: fate's own dialogs — no Safari chrome, no double-clicks ------
+// A blocking card over a dim veil. confirm-style resolves a boolean; the log
+// style walks steps like the registrar filing paperwork in front of you.
+
+interface RitualStep {
+  el: HTMLElement
+  ok: (msg?: string) => void
+  err: (msg: string) => void
+}
+
+function ritualOpen(kicker: string, title: string, bodyHtml: string): HTMLElement {
+  document.querySelector('.ritual-veil')?.remove()
+  const veil = document.createElement('div')
+  veil.className = 'ritual-veil'
+  veil.innerHTML = `<div class="ritual" role="dialog" aria-modal="true">
+    <div class="rit-kicker">${esc(kicker)}</div>
+    <div class="rit-title">${esc(title)}</div>
+    <div class="rit-body">${bodyHtml}</div>
+  </div>`
+  document.body.appendChild(veil)
+  return veil
+}
+
+/** Fate-styled confirm. Escape or DECLINE resolves false. */
+function ritualConfirm(opts: { kicker: string; title: string; body: string; yes: string; no?: string; danger?: boolean }): Promise<boolean> {
+  return new Promise((resolve) => {
+    const veil = ritualOpen(
+      opts.kicker,
+      opts.title,
+      `<p class="rit-prose">${esc(opts.body)}</p>
+       <div class="rit-actions">
+         <button class="rit-btn ${opts.danger ? 'danger' : 'go'}" data-yes>${esc(opts.yes)}</button>
+         <button class="rit-btn" data-no>${esc(opts.no ?? 'Go back')}</button>
+       </div>`,
+    )
+    const done = (v: boolean): void => {
+      veil.remove()
+      document.removeEventListener('keydown', onKey)
+      resolve(v)
+    }
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape') done(false)
+    }
+    document.addEventListener('keydown', onKey)
+    veil.querySelector('[data-yes]')?.addEventListener('click', () => done(true), { once: true })
+    veil.querySelector('[data-no]')?.addEventListener('click', () => done(false), { once: true })
+  })
+}
+
+/** Fate-styled notice with one button. */
+function ritualNotice(kicker: string, title: string, body: string, btn = 'Understood'): Promise<void> {
+  return new Promise((resolve) => {
+    const veil = ritualOpen(kicker, title, `<p class="rit-prose">${esc(body)}</p><div class="rit-actions"><button class="rit-btn go" data-ok>${esc(btn)}</button></div>`)
+    veil.querySelector('[data-ok]')?.addEventListener(
+      'click',
+      () => {
+        veil.remove()
+        resolve()
+      },
+      { once: true },
+    )
+  })
+}
+
+/** The step log: a blocking card that narrates work as it happens. */
+function ritualLog(kicker: string, title: string): {
+  step: (label: string) => RitualStep
+  finish: (label: string, btn: string) => Promise<void>
+  fail: (msg: string, btn?: string) => Promise<void>
+} {
+  const veil = ritualOpen(kicker, title, `<div class="rit-log"></div><div class="rit-actions" style="display:none"><button class="rit-btn go" data-ok></button></div>`)
+  const log = veil.querySelector('.rit-log') as HTMLElement
+  const actions = veil.querySelector('.rit-actions') as HTMLElement
+  const okBtn = veil.querySelector('[data-ok]') as HTMLButtonElement
+  const close = (): Promise<void> =>
+    new Promise((resolve) => {
+      actions.style.display = ''
+      okBtn.addEventListener(
+        'click',
+        () => {
+          veil.remove()
+          resolve()
+        },
+        { once: true },
+      )
+    })
+  return {
+    step(label: string): RitualStep {
+      const el = document.createElement('div')
+      el.className = 'rit-step run'
+      el.textContent = label
+      log.appendChild(el)
+      return {
+        el,
+        ok(msg?: string) {
+          el.className = 'rit-step ok'
+          if (msg) el.textContent = msg
+        },
+        err(msg: string) {
+          el.className = 'rit-step err'
+          el.textContent = msg
+        },
+      }
+    },
+    finish(label: string, btn: string): Promise<void> {
+      const el = document.createElement('div')
+      el.className = 'rit-step done'
+      el.textContent = label
+      log.appendChild(el)
+      okBtn.textContent = btn
+      return close()
+    },
+    fail(msg: string, btn = 'Close'): Promise<void> {
+      const el = document.createElement('div')
+      el.className = 'rit-step err'
+      el.textContent = msg
+      log.appendChild(el)
+      okBtn.textContent = btn
+      return close()
+    },
+  }
+}
+
 
 function biographyStrip(): string {
   return (
