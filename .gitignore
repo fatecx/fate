@@ -1,5 +1,7 @@
 node_modules/
 dist/
+dist-itch/
+fate-itch.zip
 *.tsbuildinfo
 .DS_Store
 .env

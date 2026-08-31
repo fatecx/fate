@@ -7,12 +7,14 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "icons": "node scripts/gen-brand-icons.mjs",
+    "sim": "esbuild scripts/sim/run.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-sim.mjs && node /tmp/fate-sim.mjs",
     "tauri": "tauri",
     "map": "esbuild scripts/map/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-map-gen.mjs && node /tmp/fate-map-gen.mjs",
     "script": "esbuild scripts/script/generate.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-script-gen.mjs && node /tmp/fate-script-gen.mjs",
     "script:apply": "esbuild scripts/script/apply.ts --bundle --platform=node --format=esm --outfile=/tmp/fate-script-apply.mjs && node /tmp/fate-script-apply.mjs",
     "build": "vite build && npm run map && node scripts/map/encrypt.mjs",
-    "deploy": "sh scripts/deploy.sh"
+    "deploy": "sh scripts/deploy.sh",
+    "itch": "node scripts/itch.mjs"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.11.4",

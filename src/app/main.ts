@@ -71,18 +71,18 @@ function liveScene(sceneId: string): SceneDef {
 let typing = false
 let session: Session | null = null
 
-// ---- desktop shell -----------------------------------------------------------
-// Inside Tauri there are no wallet extensions: the desktop build plays as a
-// local founder — saves live in localStorage under one fixed id, the landing
-// and the filing fee never appear.
+// ---- local shell (Tauri desktop, itch.io HTML5) ------------------------------
+// No passkey, no filing fee: the biography lives in localStorage under one id.
 const DESKTOP =
   typeof window !== 'undefined' &&
   ('__TAURI_INTERNALS__' in window || location.protocol === 'tauri:')
-const DESKTOP_UID = 'desktop'
+const ITCH = import.meta.env.VITE_ITCH === '1'
+const LOCAL_LIFE = DESKTOP || ITCH
+const LOCAL_UID = DESKTOP ? 'desktop' : 'itch'
 
 /** The id this machine's biography is saved under (null = signed out on web). */
 function saveUid(): string | null {
-  return session ? session.user.id : DESKTOP ? DESKTOP_UID : null
+  return session ? session.user.id : LOCAL_LIFE ? LOCAL_UID : null
 }
 
 // ---- persistence -----------------------------------------------------------
@@ -600,7 +600,7 @@ function DEV_TOOLS(): boolean {
 function accountHtml(): string {
   const who = session
     ? `<b class="addr">${esc(founderLabel(session))}</b>`
-    : DESKTOP
+    : LOCAL_LIFE
       ? `<b class="addr">LOCAL FOUNDER</b>`
       : `<b>—</b>`
   return `
@@ -1668,7 +1668,7 @@ function renderWelcome(saved: Save | null, entitled = false): void {
   // The landing is a website, not the live game — it stays silent.
   // Anyone signed or mid-life skips marketing and goes straight to their page.
   // The desktop app IS the game: no marketing — straight to the title.
-  if (!saved && !session && !DESKTOP) {
+  if (!saved && !session && !LOCAL_LIFE) {
     resetStage()
     renderLanding(app, () => {
       document.querySelector('.landing')?.remove()
@@ -1703,9 +1703,9 @@ function renderWelcome(saved: Save | null, entitled = false): void {
     return
   }
   const actions =
-    session || DESKTOP
+    session || LOCAL_LIFE
       ? `<button class="cta" id="wlBegin">Incorporate →</button>
-      <div class="tk-id">${DESKTOP && !session ? 'One life. What you sign here is permanent.' : 'One signature, one life. What you sign here is permanent.'}</div>`
+      <div class="tk-id">${LOCAL_LIFE && !session ? 'One life. What you sign here is permanent.' : 'One signature, one life. What you sign here is permanent.'}</div>`
       : `<button class="cta" id="wlConnect">Sign the papers →</button>
       <div class="tk-id">Your passkey is your signature. One life per signature — permanent, no resets.</div>`
   takeover(`
@@ -1849,9 +1849,9 @@ async function enterAsFounder(): Promise<void> {
     // The filing fee: a biography, a payment row, or a pending local receipt
     // opens the door; everyone else meets the incorporation.
     entitled = !!best || (await hasPaid()) || (await claimPendingFee())
-  } else if (DESKTOP) {
-    // The desktop founder: local biography, no fee.
-    best = load(DESKTOP_UID)
+  } else if (LOCAL_LIFE) {
+    // Desktop / itch: local biography, no fee.
+    best = load(LOCAL_UID)
     entitled = true
   }
   renderWelcome(best, entitled)
