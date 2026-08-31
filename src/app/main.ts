@@ -12,7 +12,7 @@ import type { GameState } from '../engine/types'
 import type { SceneDef } from '../content/schema'
 import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
-import { cloudLoad, cloudPush, pickSave, getSession, signOut, founderLabel, pushFounder, pushDecisions, fetchDecisionSplit } from './cloud'
+import { cloudLoad, cloudPush, pickSave, getSession, signOut, founderLabel, pushFounder, pushDecisions, fetchDecisionSplit, supa } from './cloud'
 import { passkeySupported, passkeyRegister, passkeyLogin } from './passkey'
 import { hasPaid, claimFeeReceipt, claimPendingFee, WHOP_PLAN_ID } from './fee'
 import { renderLanding } from './landing'
@@ -600,6 +600,14 @@ function DEV_TOOLS(): boolean {
 }
 
 /** Account + settings section of the company dropdown. One signature, one life. */
+/** THE FILING GUARANTEE window: first company, papers not yet stamped. */
+function preStamp(): boolean {
+  if (!st || st.phase !== 'playing') return false
+  if (st.company.id !== 'hyperchute' || st.ledger.completed.length > 0) return false
+  const f = st.company.flags as Record<string, unknown>
+  return !(f.legal_solid === true || f.lawyer_ally === true || f.diy_legal === true)
+}
+
 function accountHtml(): string {
   const who = session
     ? `<b class="addr">${esc(founderLabel(session))}</b>`
@@ -615,10 +623,11 @@ function accountHtml(): string {
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
       ${st?.phase === 'playing' ? `<button class="paction danger" id="actSurrender">DECLARE BANKRUPTCY</button>` : ''}
+      ${session && !LOCAL_LIFE && preStamp() ? `<button class="paction danger" id="actWithdraw">WITHDRAW THE FILING — $20 BACK</button>` : ''}
       ${DEV_TOOLS() && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
       ${DEV_TOOLS() ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
     </div>
-    <div class="inc-law">One signature, one life. The biography is permanent.</div>
+    <div class="inc-law">${session && !LOCAL_LIFE && !preStamp() ? 'FILED · PERMANENT — one signature, one life.' : 'One signature, one life. The biography is permanent.'}</div>
   </div>`
 }
 
@@ -1243,6 +1252,42 @@ app.addEventListener('click', (e) => {
     })()
     return
   }
+  if (target.closest('#actWithdraw')) {
+    if (
+      confirm(
+        'Withdraw the filing? The state returns your $20 in full, and this venture dissolves — the unincorporated weeks leave no record. This cannot be partially done.',
+      )
+    ) {
+      void (async () => {
+        const btn = document.getElementById('actWithdraw') as HTMLButtonElement | null
+        if (btn) {
+          btn.disabled = true
+          btn.textContent = 'WITHDRAWING…'
+        }
+        try {
+          const sess = supa ? (await supa.auth.getSession()).data.session : null
+          if (!sess) throw new Error('signed out — sign in first')
+          const r = await fetch(`${self.origin}/api/refund`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jwt: sess.access_token }),
+          })
+          const j = (await r.json().catch(() => ({}))) as { error?: string }
+          if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`)
+          clearSave()
+          alert('The filing is withdrawn. Your $20 is on its way back the way it came.')
+          location.href = '/'
+        } catch (ex) {
+          alert(`The withdrawal failed: ${ex instanceof Error ? ex.message : String(ex)}`)
+          if (btn) {
+            btn.disabled = false
+            btn.textContent = 'WITHDRAW THE FILING — $20 BACK'
+          }
+        }
+      })()
+    }
+    return
+  }
   if (target.closest('#actSurrender')) {
     if (
       st.phase === 'playing' &&
@@ -1739,7 +1784,7 @@ function renderIncorporation(): void {
     <p class="tk-body">Incorporate your company to play FATE. One payment opens the whole biography — three companies, one life. There is nothing else to buy, ever.</p>
     <div class="inv">
       <div class="inv-row"><span>One life · three companies</span><b>$20.00</b></div>
-      <div class="inv-sub">Filing fee. Paid once — permanent, like everything you sign here.</div>
+      <div class="inv-sub">Filing fee. Paid once — and returned in full if you withdraw before your first company’s papers are stamped.</div>
       <div class="whopbox" id="whopBox"><div class="whopwait">Opening the register…</div></div>
       <div class="werr" id="payErr"></div>
     </div>
