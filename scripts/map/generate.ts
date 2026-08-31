@@ -479,6 +479,14 @@ try {
   /* no flags yet */
 }
 
+// The simulator's flight record (npm run sim) — absent is fine; the tab says so.
+let SIM_REPORT: unknown = null
+try {
+  SIM_REPORT = JSON.parse(readFileSync(join(process.cwd(), 'sim', 'report.json'), 'utf8'))
+} catch {
+  /* no sim report yet */
+}
+
 // ---- MUSIC ROOM — live baseline + isolated Eleven Music auditions -----------
 interface MusicCandidate {
   id: string
@@ -715,6 +723,7 @@ function renderHtml(chapters: MapChapter[]): string {
     fileOf: FILEOF,
     art: artCards(),
     flags: ART_FLAGS,
+    sim: SIM_REPORT,
     music: musicData(),
     repo: 'fatecx/fate',
     branch: 'main',
@@ -911,6 +920,30 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
 .lbnext{right:8px}
 .lbcount{color:#8b8d85}
 .musicpane{min-height:100%;padding:18px 22px 100px}
+.simpane{max-width:1080px;margin:0 auto;padding:26px 24px 120px}
+.sim-h{font-family:'Orbitron',var(--mono);font-size:15px;letter-spacing:.12em;margin:34px 0 12px;padding-top:20px;border-top:2px solid var(--ink)}
+.sim-h:first-child{margin-top:0;border-top:none;padding-top:0}
+.sim-sub{font:11px/1.6 var(--mono);color:var(--dim);margin:-6px 0 14px}
+.sim-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
+.sim-card{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:12px 14px}
+.sim-card b{display:block;font:700 22px var(--mono);letter-spacing:.02em}
+.sim-card span{font:10px var(--mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.sim-card.bad b{color:var(--disgrace)}
+.sim-card.good b{color:var(--triumph)}
+.simtable{width:100%;border-collapse:collapse;font:11.5px var(--mono);margin-bottom:10px}
+.simtable th{text-align:left;font-weight:600;color:var(--dim);letter-spacing:.08em;padding:6px 8px;border-bottom:1.5px solid var(--ink);white-space:nowrap}
+.simtable td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.simtable td.num{font-variant-numeric:tabular-nums;text-align:right}
+.simtable .hot{color:var(--accent);font-weight:700}
+.simtable .zero{color:var(--dim);opacity:.5}
+.sim-chart{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:10px 12px 4px;margin-bottom:14px}
+.sim-chart h4{font:600 10px var(--mono);letter-spacing:.16em;color:var(--dim);margin:0 0 6px}
+.sim-chart svg{width:100%;height:110px;display:block}
+.sim-band{fill:var(--accent);fill-opacity:.14;stroke:none}
+.sim-mid{fill:none;stroke:var(--accent);stroke-width:1.6}
+.sim-axis{font:9px var(--mono);fill:var(--dim)}
+.sim-note{font:11px/1.7 var(--mono);color:var(--dim)}
+.sim-flag{color:var(--disgrace);font-weight:600}
 .musicbar{position:sticky;top:0;z-index:8;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;margin:-2px -4px 18px;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:6px}
 .mswitch{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel)}
 .mswitch button{font:600 10.5px var(--mono);letter-spacing:.08em;padding:7px 11px;color:var(--dim);border-right:1px solid var(--line)}
@@ -974,6 +1007,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
     <button class="tab pg" data-page="art">ART</button>
     <button class="tab pg" data-page="music">MUSIC</button>
     <button class="tab pg" data-page="script">SCRIPT</button>
+    <button class="tab pg" data-page="sim">SIM</button>
   </nav>
   <div class="search"><input id="q" type="search" placeholder="search scenes…" aria-label="Search scenes"></div>
   <div class="edbar" id="edbar" style="display:none">
@@ -999,7 +1033,7 @@ body[data-edit] .scriptpane .sb-t:not([data-path]),body[data-edit] .scriptpane .
     <span class="lg">bottom shelf = side deals off the main road</span>
   </div>
 </div>
-<main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div><div class="artpane" id="artpane" style="display:none">
+<main class="stage" id="stage"><div class="scriptpane" id="scriptpane" style="display:none"></div><div class="simpane" id="simpane" style="display:none"></div><div class="artpane" id="artpane" style="display:none">
   <aside class="artside" id="artside"></aside>
   <div class="artmain">
     <nav class="tabs artchips" id="artchips"></nav>
@@ -1129,9 +1163,9 @@ document.getElementById('zfit').addEventListener('click',()=>{
     if(l.style.display==='none')return;
     const c=l.querySelector('.canvas');if(c)w=Math.max(w,parseFloat(c.style.width));});
   if(w)setZoom((stage.clientWidth-70)/w);});
-// PAGES (header) — MAP, SCRIPT, ART and MUSIC are different rooms, not filters.
+// PAGES (header) — MAP, SCRIPT, ART, MUSIC and SIM are different rooms, not filters.
 document.getElementById('pages').addEventListener('click',e=>{const b=e.target.closest('.pg');if(!b)return;
-  const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',musicOn=page==='music',mapOn=page==='map';
+  const page=b.dataset.page,scriptOn=page==='script',artOn=page==='art',musicOn=page==='music',simOn=page==='sim',mapOn=page==='map';
   document.querySelectorAll('.pg').forEach(t=>t.classList.toggle('on',t===b));
   const pane=document.getElementById('scriptpane');
   pane.style.display=scriptOn?'':'none';
@@ -1144,9 +1178,12 @@ document.getElementById('pages').addEventListener('click',e=>{const b=e.target.c
   mp.style.display=musicOn?'':'none';
   if(musicOn&&!mp.dataset.built){buildMusic();mp.dataset.built='1';}
   if(!musicOn)stopMusic();
+  const sp=document.getElementById('simpane');
+  sp.style.display=simOn?'':'none';
+  if(simOn&&!sp.dataset.built){buildSim();sp.dataset.built='1';}
   document.getElementById('edbar').style.display=scriptOn?'':'none';
   document.getElementById('subbar').style.display=mapOn?'':'none';
-  document.querySelector('.search').style.display=scriptOn?'none':'';
+  document.querySelector('.search').style.display=(scriptOn||simOn)?'none':'';
   q.placeholder=artOn?'search art…':musicOn?'search music…':'search scenes…';
   document.querySelector('.hint').style.display=mapOn?'':'none';
   document.querySelectorAll('.lane').forEach(l=>{l.style.display=(mapOn&&(currentTab==='all'||l.dataset.ch===currentTab))?'':'none';});
@@ -1343,6 +1380,90 @@ function buildMusic(){const grid=document.getElementById('musicgrid'),filters=do
     try{const out=await api({pass:pass,action:'music-review',decisions:MDEC});DATA.music.decisions=Object.assign({},MDEC);btn.textContent='SAVED · '+out.sha.slice(0,7);setTimeout(refreshMusicReview,2500);}
     catch(err){btn.textContent='FAILED — TRY AGAIN';btn.disabled=false;alert(String(err&&err.message||err));}});
   applyMusicFilter();}
+
+// ---- SIM — the flight record: what 40,000 ghost founders found ---------------
+function buildSim(){
+  const sp=document.getElementById('simpane');
+  const S=DATA.sim;
+  if(!S){sp.innerHTML='<div class="sim-h">SIMULATOR</div><p class="sim-note">No flight record in this build. Run <b>npm run sim</b> and rebuild the map.</p>';return;}
+  const CHT={hyperchute:'HYPERCHUTE',teleport:'TELEPORT',skyline:'SKYLINE'};
+  const chIds=Object.keys(CHT);
+  const nodesByKey={};DATA.chapters.forEach(c=>c.nodes.forEach(n=>{nodesByKey[n.id.replace(':','/')]=n;}));
+  const titleOf=k=>{const n=nodesByKey[k];return n?n.title:k.split('/')[1];};
+  const totalRuns=Object.values(S.perPolicy).reduce((a,p)=>a+p.runs,0);
+  const totalEx=Object.values(S.perPolicy).reduce((a,p)=>a+p.exceptions.length,0);
+  const totalViol=Object.values(S.perPolicy).reduce((a,p)=>a+p.violations.length,0);
+  const totalAbort=Object.values(S.perPolicy).reduce((a,p)=>a+p.aborted,0);
+  let html='<div class="sim-h">SIMULATOR · FLIGHT RECORD</div>'
+    +'<p class="sim-sub">'+totalRuns.toLocaleString()+' complete biographies · '+S.policies.length+' pilot personalities · generated '+S.generated.slice(0,16).replace('T',' ')+' · '+(S.wallMs/1000).toFixed(0)+'s wall</p>'
+    +'<div class="sim-cards">'
+    +'<div class="sim-card"><b>'+totalRuns.toLocaleString()+'</b><span>biographies</span></div>'
+    +'<div class="sim-card '+(totalEx?'bad':'good')+'"><b>'+totalEx+'</b><span>engine exceptions</span></div>'
+    +'<div class="sim-card '+(totalAbort?'bad':'good')+'"><b>'+totalAbort+'</b><span>softlocks</span></div>'
+    +'<div class="sim-card '+(totalViol?'bad':'good')+'"><b>'+totalViol+'</b><span>invariant violations</span></div>'
+    +'<div class="sim-card"><b>'+S.coverage.visited+'/'+S.coverage.scenes+'</b><span>scenes reached</span></div>'
+    +'</div>';
+  if(totalEx||totalViol){
+    html+='<div class="sim-h">FAILURES</div><table class="simtable"><tr><th>POLICY</th><th>SEED</th><th>WHAT</th></tr>';
+    for(const [pol,P] of Object.entries(S.perPolicy))
+      for(const e of P.exceptions.concat(P.violations))
+        html+='<tr><td>'+pol+'</td><td class="num">'+e.seed+'</td><td class="sim-flag">'+e.msg+'</td></tr>';
+    html+='</table>';
+  }
+  // Ending matrix per chapter: policies × endings
+  for(const ch of chIds){
+    const endIds=new Set();
+    for(const P of Object.values(S.perPolicy))Object.keys(P.endings[ch]||{}).forEach(e=>endIds.add(e));
+    const ends=[...endIds].sort();
+    html+='<div class="sim-h">'+CHT[ch]+' · WHO GETS WHICH ENDING</div>'
+      +'<table class="simtable"><tr><th>PILOT</th>'+ends.map(e=>'<th>'+e.replace(/^(h_|t_|s_)/,'')+'</th>').join('')+'</tr>';
+    for(const [pol,P] of Object.entries(S.perPolicy)){
+      const row=P.endings[ch]||{};const tot=Object.values(row).reduce((a,b)=>a+b,0)||1;
+      html+='<tr><td>'+pol+'</td>'+ends.map(e=>{
+        const v=row[e]||0;const pc=100*v/tot;
+        return '<td class="num'+(v===0?' zero':pc>=40?' hot':'')+'">'+(v?pc.toFixed(0)+'%':'—')+'</td>';
+      }).join('')+'</tr>';
+    }
+    const w=S.weeksToClose[ch];
+    html+='</table><p class="sim-sub">weeks to close: p10 '+w.p10+' · median '+w.p50+' · p90 '+w.p90+'</p>';
+    // stress band chart
+    const band=S.bands[ch]||[];
+    if(band.length>3){
+      const W=1000,H=100,maxW=band[band.length-1].w||1;
+      const x=v=>8+(W-16)*(v/maxW), y=v=>H-6-(H-16)*(v/100);
+      let lo='',hi='',mid='';
+      band.forEach((b,i)=>{const px=x(b.w);mid+=(i?'L':'M')+px.toFixed(1)+','+y(b.stress[1]).toFixed(1);lo+=(i?'L':'M')+px.toFixed(1)+','+y(b.stress[0]).toFixed(1);hi='L'+px.toFixed(1)+','+y(b.stress[2]).toFixed(1)+hi.replace(/^L/, i===0?'':'L');});
+      let area='';band.forEach((b,i)=>{area+=(i?'L':'M')+x(b.w).toFixed(1)+','+y(b.stress[2]).toFixed(1);});
+      for(let i=band.length-1;i>=0;i--)area+='L'+x(band[i].w).toFixed(1)+','+y(band[i].stress[0]).toFixed(1);
+      html+='<div class="sim-chart"><h4>STRESS OVER THE CHAPTER · shaded = middle 80% of founders · line = median</h4>'
+        +'<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'
+        +'<path class="sim-band" d="'+area+'Z"/>'
+        +'<path class="sim-mid" d="'+mid+'"/>'
+        +'<text class="sim-axis" x="8" y="12">100</text><text class="sim-axis" x="8" y="'+(H-8)+'">0</text>'
+        +'<text class="sim-axis" x="'+(W-70)+'" y="'+(H-8)+'">week '+maxW+'</text>'
+        +'</svg></div>';
+    }
+  }
+  // Coverage findings
+  html+='<div class="sim-h">UNREACHED CONTENT</div>';
+  if(S.coverage.unvisited.length){
+    html+='<p class="sim-sub">Scenes no pilot reached in '+totalRuns.toLocaleString()+' lives — over-gated, orphaned, or reserved for humans.</p><table class="simtable"><tr><th>SCENE</th><th>TITLE</th><th>KIND</th></tr>'
+      +S.coverage.unvisited.map(s=>'<tr><td>'+s.key+'</td><td>'+s.title+'</td><td>'+s.kind+'</td></tr>').join('')+'</table>';
+  }else html+='<p class="sim-note">Every scene was reached. The graph breathes everywhere.</p>';
+  if(S.coverage.neverTaken.length){
+    html+='<p class="sim-sub" style="margin-top:14px">Choices never once taken (with observed gate pass rates):</p><table class="simtable"><tr><th>SCENE</th><th>CHOICE</th><th>GATED</th><th>GATE PASS</th></tr>'
+      +S.coverage.neverTaken.map(c=>'<tr><td>'+titleOf(c.key)+'</td><td>'+c.label+'</td><td>'+(c.gated?'yes':'no')+'</td><td class="num">'+(c.passRate==null?'—':(100*c.passRate).toFixed(1)+'%')+'</td></tr>').join('')+'</table>';
+  }
+  if(S.coverage.hardGates.length){
+    html+='<div class="sim-h">HARDEST GATES</div><p class="sim-sub">Requires-clauses that almost never open when tested. Intentional summits should live here; accidents should not.</p>'
+      +'<table class="simtable"><tr><th>SCENE</th><th>CHOICE</th><th>PASS RATE</th><th>TESTED</th></tr>'
+      +S.coverage.hardGates.map(g=>'<tr><td>'+titleOf(g.key)+'</td><td>'+g.label+'</td><td class="num">'+(100*g.passRate).toFixed(1)+'%</td><td class="num">'+g.evals.toLocaleString()+'</td></tr>').join('')+'</table>';
+  }
+  // Pilot table
+  html+='<div class="sim-h">THE PILOTS</div><table class="simtable"><tr><th>PILOT</th><th>RUNS</th><th>FINAL SCORE p50</th><th>WEEKS p50</th><th>PANICS/RUN</th></tr>'
+    +Object.entries(S.perPolicy).map(([pol,P])=>'<tr><td>'+pol+'</td><td class="num">'+P.runs.toLocaleString()+'</td><td class="num">'+P.score.p50+'</td><td class="num">'+P.epochs.p50+'</td><td class="num">'+P.panicsPerRun+'</td></tr>').join('')+'</table>';
+  sp.innerHTML=html;
+}
 
 // ---- SCRIPT EDITOR — edit prose in the browser, PUBLISH ships it -------------
 // Every [data-path] block maps to ONE unique TS string literal (DATA.lock /
