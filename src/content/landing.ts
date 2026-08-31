@@ -141,7 +141,7 @@ export const FINALE: LandingPanel = {
   art: 'world_signing',
   head: 'OUT NOW',
   paras: [
-    'Fate runs in your browser. Your wallet is your signature, and the first scene starts in the garage.',
+    'Fate runs in your browser. A passkey is your signature — no password, no email — and the first scene starts in the garage.',
     'The twenty dollars you pay incorporates your first company.',
   ],
 }
