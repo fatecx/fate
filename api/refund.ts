@@ -36,10 +36,13 @@ export default async function handler(req: any, res: any) {
     const uid = who.data.user?.id
     if (!uid) return res.status(401).json({ error: 'not signed in' })
 
-    const pay = await admin.from('payments').select('tx,chain').eq('user_id', uid).maybeSingle()
+    const pay = await admin.from('payments').select('tx,chain,amount').eq('user_id', uid).maybeSingle()
     if (!pay.data) return res.status(400).json({ error: 'no filing fee on record' })
     if (pay.data.chain !== 'whop')
       return res.status(400).json({ error: 'this filing predates the guarantee — write to dev@fate.cx' })
+    // A fee waived in full (100% promo) moved no money; the filing is simply permanent.
+    if (Number(pay.data.amount) === 0)
+      return res.status(400).json({ error: 'the fee was waived — there is nothing to return' })
 
     // The judge reads the record: still the first company, still unstamped.
     const save = await admin.from('saves').select('state').eq('user_id', uid).maybeSingle()

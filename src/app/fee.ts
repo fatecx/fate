@@ -19,12 +19,23 @@ const API = (): string =>
 
 /** True when this founder has a payment on the record. */
 export async function hasPaid(): Promise<boolean> {
-  if (!supa) return false
+  return (await feeCents()) !== null
+}
+
+/**
+ * What the fee actually settled at, in cents — null when no payment is on
+ * record. Promo codes make this less than 2000; a 100%-off code makes it 0,
+ * and a $0 filing has nothing to withdraw.
+ */
+export async function feeCents(): Promise<number | null> {
+  if (!supa) return null
   try {
-    const { data } = await supa.from('payments').select('tx').limit(1)
-    return !!data?.length
+    const { data } = await supa.from('payments').select('amount').limit(1)
+    if (!data?.length) return null
+    const n = Number((data[0] as { amount?: unknown }).amount)
+    return Number.isFinite(n) && n >= 0 ? n : 2000
   } catch {
-    return false
+    return null
   }
 }
 

@@ -14,7 +14,7 @@ import { runwayWeeks } from '../engine/types'
 import type { Session } from '@supabase/supabase-js'
 import { cloudLoad, cloudPush, pickSave, getSession, signOut, founderLabel, pushFounder, pushDecisions, fetchDecisionSplit, supa } from './cloud'
 import { passkeySupported, passkeyRegister, passkeyLogin } from './passkey'
-import { hasPaid, claimFeeReceipt, claimPendingFee, WHOP_PLAN_ID } from './fee'
+import { feeCents, claimFeeReceipt, claimPendingFee, WHOP_PLAN_ID } from './fee'
 import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
@@ -72,6 +72,9 @@ function liveScene(sceneId: string): SceneDef {
 }
 let typing = false
 let session: Session | null = null
+// What the filing fee actually settled at, in cents — promo codes shrink it,
+// a 100%-off code zeroes it (and a $0 filing has nothing to withdraw).
+let paidCents: number | null = null
 
 // ---- local shell (Tauri desktop, itch.io HTML5) ------------------------------
 // Biography in localStorage. Desktop has no checkout. itch.io takes the $20
@@ -608,7 +611,13 @@ function preStamp(): boolean {
   return !(f.legal_solid === true || f.lawyer_ally === true || f.diy_legal === true)
 }
 
+/** '$20' / '$10' / '$8.40' — the fee as it actually settled (promo codes shrink it). */
+function fmtFee(cents: number): string {
+  return cents % 100 === 0 ? `$${cents / 100}` : `$${(cents / 100).toFixed(2)}`
+}
+
 function accountHtml(): string {
+  const feeBack = fmtFee(paidCents ?? 2000)
   const who = session
     ? `<b class="addr">${esc(founderLabel(session))}</b>`
     : LOCAL_LIFE
@@ -623,7 +632,7 @@ function accountHtml(): string {
     <div class="pactions">
       <button class="paction" id="actLogout">LOG OUT</button>
       ${st?.phase === 'playing' ? `<button class="paction danger" id="actSurrender">DECLARE BANKRUPTCY</button>` : ''}
-      ${session && !LOCAL_LIFE && preStamp() ? `<button class="paction danger" id="actWithdraw">WITHDRAW THE FILING — $20 BACK</button>` : ''}
+      ${session && !LOCAL_LIFE && preStamp() && paidCents !== 0 ? `<button class="paction danger" id="actWithdraw">WITHDRAW THE FILING — ${feeBack} BACK</button>` : ''}
       ${DEV_TOOLS() && st?.phase === 'playing' ? `<button class="paction danger" id="actDevSkip">SKIP CHAPTER (DEV)</button>` : ''}
       ${DEV_TOOLS() ? `<button class="paction danger" id="actDevRestart">RESTART (DEV)</button>` : ''}
     </div>
@@ -1254,11 +1263,12 @@ app.addEventListener('click', (e) => {
   }
   if (target.closest('#actWithdraw')) {
     void (async () => {
+      const amt = fmtFee(paidCents ?? 2000)
       const go = await ritualConfirm({
         kicker: 'THE FILING GUARANTEE',
         title: 'WITHDRAW THE FILING',
-        body: 'The state returns your $20 in full, and this venture dissolves — the unincorporated weeks leave no record. You can incorporate again any time, from the beginning.',
-        yes: 'Withdraw — return my $20',
+        body: `The state returns your ${amt} in full, and this venture dissolves — the unincorporated weeks leave no record. You can incorporate again any time, from the beginning.`,
+        yes: `Withdraw — return my ${amt}`,
         no: 'Keep the filing',
         danger: true,
       })
@@ -1277,7 +1287,7 @@ app.addEventListener('click', (e) => {
         })
         const j = (await r.json().catch(() => ({}))) as { error?: string }
         if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`)
-        s2.ok('Refunded in full — the $20 goes back the way it came.')
+        s2.ok(`Refunded in full — the ${amt} goes back the way it came.`)
         const s3 = rit.step('Dissolving the venture…')
         clearSave()
         s3.ok('Dissolved. The record holds no trace.')
@@ -1934,6 +1944,9 @@ function renderIncorporation(): void {
       try {
         if (err) err.textContent = 'Filing…'
         await claimFeeReceipt(String(receipt ?? ''))
+        void feeCents().then((c) => {
+          paidCents = c
+        })
         if (err) err.textContent = ''
         document.querySelector('.takeover')?.remove()
         startNewLife()
@@ -2031,7 +2044,9 @@ async function enterAsFounder(): Promise<void> {
     if (best && !saveValid(best)) best = null
     // The filing fee: a biography, a payment row, or a pending local receipt
     // opens the door; everyone else meets the incorporation.
-    entitled = !!best || (await hasPaid()) || (await claimPendingFee())
+    paidCents = await feeCents()
+    entitled = !!best || paidCents !== null || (await claimPendingFee())
+    if (entitled && paidCents === null) paidCents = await feeCents()
   } else if (LOCAL_LIFE) {
     // Desktop / itch: local biography, no fee.
     best = load(LOCAL_UID)

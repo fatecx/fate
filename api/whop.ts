@@ -41,6 +41,7 @@ export default async function handler(req: any, res: any) {
     // Ask Whop about the receipt. v5 first; v2 as the fallback dialect.
     let paid = false
     let plan = ''
+    let cents = 2000
     for (const path of [`/api/v5/company/payments/${receipt}`, `/api/v2/payments/${receipt}`]) {
       const r = await fetch(`https://api.whop.com${path}`, {
         headers: { Authorization: `Bearer ${whopKey}` },
@@ -50,6 +51,13 @@ export default async function handler(req: any, res: any) {
       plan = j.plan_id ?? j.plan?.id ?? j.data?.plan_id ?? ''
       const status = String(j.status ?? j.data?.status ?? '')
       paid = ['paid', 'succeeded', 'successful', 'completed'].includes(status.toLowerCase())
+      // What actually settled — promo codes make it less than the sticker.
+      // Whop reports dollars (20, 10, 0); guard the cents dialect too: the
+      // plan tops out at $20, so anything ≥100 can only be cents.
+      const raw = j.final_amount ?? j.data?.final_amount ?? j.total ?? j.data?.total ?? j.subtotal ?? j.data?.subtotal
+      const n = Number(raw)
+      if (raw !== undefined && raw !== null && Number.isFinite(n) && n >= 0)
+        cents = n >= 100 ? Math.round(n) : Math.round(n * 100)
       if (plan || paid) break
     }
     if (!paid) return res.status(402).json({ error: 'Whop has no settled payment under that receipt' })
@@ -61,7 +69,7 @@ export default async function handler(req: any, res: any) {
       return res.status(409).json({ error: 'this receipt already incorporated another founder' })
 
     const ins = await admin.from('payments').upsert(
-      { user_id: uid, wallet: '', payer: 'whop', chain: 'whop', tx: receipt, asset: 'usd', amount: 2000 },
+      { user_id: uid, wallet: '', payer: 'whop', chain: 'whop', tx: receipt, asset: 'usd', amount: cents },
       { onConflict: 'user_id' },
     )
     if (ins.error) return res.status(502).json({ error: ins.error.message })
