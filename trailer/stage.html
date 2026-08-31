@@ -589,69 +589,125 @@ const SEED_Q = '“My granddaughter waits forty minutes for a bus to bring her i
 const BLEND_Q = '“The relay carries the truth two hundred and forty thousand miles. My name stays with that truth. Decide what we sell.”'
 const SKY_Q = '“If this body leaves the cable in your hands — what does it cost a schoolteacher to ride it, and when does the answer stop being yours?”'
 
+const PARAMS = new URLSearchParams(location.search)
+const CUT = PARAMS.get('cut') === '90' ? 90 : 60
+
+const WIN = CUT === 90 ? {
+  card:   [0.00, 6.50],
+  below:  [6.50, 11.80],
+  garage: [11.80, 18.00],
+  seed:   [18.00, 27.20],
+  offer:  [27.20, 29.80],
+  drop:   [29.80, 35.40],
+  chute:  [35.40, 41.40],
+  ring:   [41.40, 46.60],
+  walk:   [46.60, 52.60],
+  blend:  [52.60, 59.40],
+  hulls:  [59.40, 64.40],
+  strand: [64.40, 69.80],
+  sky:    [69.80, 75.20],
+  scar1:  [75.20, 77.00],
+  scar2:  [77.00, 78.60],
+  scar3:  [78.60, 79.50],
+  scar4:  [79.50, 80.30],
+  ascent: [80.30, 83.20],
+  life:   [83.20, 85.80],
+  end:    [85.80, 90.20],
+} : {
+  card:   [0.00, 5.00],
+  below:  [5.00, 8.50],
+  garage: [8.50, 12.00],
+  seed:   [12.00, 18.20],
+  offer:  [18.20, 20.00],
+  drop:   [20.00, 23.60],
+  chute:  [23.60, 27.40],
+  ring:   [27.40, 30.40],
+  walk:   [30.40, 33.60],
+  blend:  [33.60, 37.40],
+  hulls:  [37.40, 40.20],
+  strand: [40.20, 43.20],
+  sky:    [43.20, 46.00],
+  scar1:  [46.00, 47.50],
+  scar2:  [47.50, 48.90],
+  scar3:  [48.90, 49.80],
+  scar4:  [49.80, 50.60],
+  ascent: [50.60, 52.40],
+  life:   [52.40, 54.20],
+  end:    [54.20, 60.10],
+}
+
+function at(win, offset) { return win[0] + offset }
+function pad(win, inn, out) { return [win[0] + inn, win[1] - out] }
+
 function seek(t) {
   t = +t
-  // ---- visibility ----
   const shots = [
-    ['s-card',  0.00, 5.00, 0.00, 0.00],
-    ['s-below', 5.00, 8.50, 0.00, 0.00],
-    ['s-garage',8.50,12.00, 0.00, 0.00],
-    ['s-seed', 12.00,18.20, 0.00, 0.00],
-    ['s-offer', 18.20,20.00, 0.00, 0.00],
-    ['s-drop',  20.00,23.60, 0.00, 0.00],
-    ['s-chute', 23.60,27.40, 0.00, 0.00],
-    ['s-ring',  27.40,30.40, 0.00, 0.00],
-    ['s-walk',  30.40,33.60, 0.00, 0.00],
-    ['s-blend', 33.60,37.40, 0.00, 0.00],
-    ['s-hulls', 37.40,40.20, 0.00, 0.00],
-    ['s-strand',40.20,43.20, 0.00, 0.00],
-    ['s-sky',   43.20,46.00, 0.00, 0.00],
-    ['s-scar1', 46.00,47.50, 0.00, 0.00],
-    ['s-scar2', 47.50,48.90, 0.00, 0.00],
-    ['s-scar3', 48.90,49.80, 0.00, 0.00],
-    ['s-scar4', 49.80,50.60, 0.00, 0.00],
-    ['s-ascent',50.60,52.40, 0.00, 0.00],
-    ['s-life',  52.40,54.20, 0.00, 0.00],
-    ['s-end',   54.20,60.10, 0.00, 0.00],
+    ['s-card',  ...WIN.card],
+    ['s-below', ...WIN.below],
+    ['s-garage',...WIN.garage],
+    ['s-seed',  ...WIN.seed],
+    ['s-offer', ...WIN.offer],
+    ['s-drop',  ...WIN.drop],
+    ['s-chute', ...WIN.chute],
+    ['s-ring',  ...WIN.ring],
+    ['s-walk',  ...WIN.walk],
+    ['s-blend', ...WIN.blend],
+    ['s-hulls', ...WIN.hulls],
+    ['s-strand',...WIN.strand],
+    ['s-sky',   ...WIN.sky],
+    ['s-scar1', ...WIN.scar1],
+    ['s-scar2', ...WIN.scar2],
+    ['s-scar3', ...WIN.scar3],
+    ['s-scar4', ...WIN.scar4],
+    ['s-ascent',...WIN.ascent],
+    ['s-life',  ...WIN.life],
+    ['s-end',   ...WIN.end],
   ]
-  for (const [id, a, b, fi, fo] of shots) {
-    const o = windowOn(t, a, b, fi, fo)
+  for (const [id, a, b] of shots) {
+    const o = windowOn(t, a, b, 0, 0)
     on($(id), o > 0, o)
   }
 
-  // CINE CARD — game timing: fade 18% in, hold, 74–100% out of 4.6s, then 0.4s black
   {
     const el = $('s-card')
     const year = $('card-year')
     const place = $('card-place')
-    if (t < 5) {
+    const end = WIN.card[1]
+    if (t < end) {
+      const fadeIn = CUT === 90 ? 1.1 : 0.72
+      const holdEnd = CUT === 90 ? 4.9 : 3.55
+      const fadeOut = CUT === 90 ? 1.5 : 1.15
       let o = 0
       if (t < 0.18) o = 0
-      else if (t < 0.90) o = (t - 0.18) / 0.72
-      else if (t < 3.55) o = 1
-      else if (t < 4.70) o = 1 - (t - 3.55) / 1.15
+      else if (t < 0.18 + fadeIn) o = (t - 0.18) / fadeIn
+      else if (t < holdEnd) o = 1
+      else if (t < holdEnd + fadeOut) o = 1 - (t - holdEnd) / fadeOut
       else o = 0
       on(el, true, clamp(o, 0, 1))
-      year.style.opacity = t >= 0.55 ? clamp(o, 0, 1) : 0
-      const ls = lerp(0.22, 0.34, sm(clamp((t - 0.9) / 3.6, 0, 1)))
+      year.style.opacity = t >= (CUT === 90 ? 0.75 : 0.55) ? clamp(o, 0, 1) : 0
+      const ls = lerp(0.22, 0.34, sm(clamp((t - 0.9) / (end - 1.4), 0, 1)))
       place.style.letterSpacing = ls + 'em'
       place.style.textIndent = ls + 'em'
-      place.style.opacity = t >= 1.15 ? clamp(o, 0, 1) : 0
+      place.style.opacity = t >= (CUT === 90 ? 1.55 : 1.15) ? clamp(o, 0, 1) : 0
     }
   }
 
-  ken($('img-below'), t, 5, 8.5, 1.08, 1.16, 0, 0, 1.2, -0.6)
-  sub($('sub-below'), 'You are a first-time tech founder.', t, 5.25, 8.35, 0.4, 0.25)
+  ken($('img-below'), t, ...WIN.below, 1.08, 1.16, 0, 0, 1.2, -0.6)
+  sub($('sub-below'), 'You are a first-time tech founder.', t, ...pad(WIN.below, 0.25, 0.15), 0.4, 0.25)
 
-  ken($('img-garage'), t, 8.5, 12, 1.06, 1.14, 1.4, 0.2, 0.4, -0.8)
-  sub($('sub-garage'), 'A garage above a laundromat.\nOne hundred percent of nothing.', t, 8.7, 11.85, 0.35, 0.22)
+  ken($('img-garage'), t, ...WIN.garage, 1.06, 1.14, 1.4, 0.2, 0.4, -0.8)
+  sub($('sub-garage'), 'A garage above a laundromat.\nOne hundred percent of nothing.', t, ...pad(WIN.garage, 0.2, 0.15), 0.35, 0.22)
 
-  // SEED UI
-  typeText($('seed-prose'), SEED_Q, t, 12.12, 72)
-  setChoices('seed-choices', t, 15.15, 15.85, 16.55)
-  pills('seed-pills', t, 16.70, 0.14)
-  pointer('ptr-seed', 'seed-choices', t, 15.75, 16.62)
-  if (t >= 16.70) {
+  const seedCps = CUT === 90 ? 48 : 72
+  const seedChoices = at(WIN.seed, CUT === 90 ? 4.40 : 3.15)
+  const seedHover = at(WIN.seed, CUT === 90 ? 5.50 : 3.85)
+  const seedClick = at(WIN.seed, CUT === 90 ? 6.80 : 4.55)
+  const seedPills = at(WIN.seed, CUT === 90 ? 7.00 : 4.70)
+  typeText($('seed-prose'), SEED_Q, t, at(WIN.seed, 0.12), seedCps)
+  setChoices('seed-choices', t, seedChoices, seedHover, seedClick)
+  pills('seed-pills', t, seedPills, 0.14)
+  pointer('ptr-seed', 'seed-choices', t, seedHover - 0.10, seedClick + 0.07)
+  if (t >= seedPills) {
     $('seed-runway').querySelector('b').textContent = '34'
     $('seed-cash').textContent = '$130k'
   } else {
@@ -659,19 +715,24 @@ function seek(t) {
     $('seed-cash').textContent = '$120k'
   }
 
-  ken($('img-drop'), t, 20, 23.6, 1.10, 1.16, 0, -0.8, 1.2, 0.2)
-  ken($('img-chute'), t, 23.6, 27.4, 1.05, 1.12, 0.5, -0.3, 0, -0.4)
-  sub($('sub-chute'), 'A delivery railway in the sky.', t, 23.8, 27.25, 0.3, 0.2)
+  ken($('img-drop'), t, ...WIN.drop, 1.10, 1.16, 0, -0.8, 1.2, 0.2)
+  ken($('img-chute'), t, ...WIN.chute, 1.05, 1.12, 0.5, -0.3, 0, -0.4)
+  sub($('sub-chute'), 'A delivery railway in the sky.', t, ...pad(WIN.chute, 0.2, 0.15), 0.3, 0.2)
 
-  ken($('img-ring'), t, 27.4, 30.4, 1.06, 1.12, -0.3, 0.6, 0.2, -0.4)
-  ken($('img-walk'), t, 30.4, 33.6, 1.05, 1.12, 0.6, -0.3, 0, -0.3)
-  sub($('sub-walk'), 'Walk the Moon from a chair on Earth.', t, 30.6, 33.45, 0.3, 0.2)
+  ken($('img-ring'), t, ...WIN.ring, 1.06, 1.12, -0.3, 0.6, 0.2, -0.4)
+  ken($('img-walk'), t, ...WIN.walk, 1.05, 1.12, 0.6, -0.3, 0, -0.3)
+  sub($('sub-walk'), 'Walk the Moon from a chair on Earth.', t, ...pad(WIN.walk, 0.2, 0.15), 0.3, 0.2)
 
-  typeText($('blend-prose'), BLEND_Q, t, 33.68, 82)
-  setChoices('blend-choices', t, 34.85, 35.40, 35.95)
-  pills('blend-pills', t, 36.10, 0.12)
-  pointer('ptr-blend', 'blend-choices', t, 35.30, 36.02)
-  if (t >= 36.10) {
+  const blendCps = CUT === 90 ? 52 : 82
+  const blendChoices = at(WIN.blend, CUT === 90 ? 2.80 : 1.25)
+  const blendHover = at(WIN.blend, CUT === 90 ? 3.80 : 1.80)
+  const blendClick = at(WIN.blend, CUT === 90 ? 4.90 : 2.35)
+  const blendPills = at(WIN.blend, CUT === 90 ? 5.15 : 2.50)
+  typeText($('blend-prose'), BLEND_Q, t, at(WIN.blend, 0.08), blendCps)
+  setChoices('blend-choices', t, blendChoices, blendHover, blendClick)
+  pills('blend-pills', t, blendPills, 0.12)
+  pointer('ptr-blend', 'blend-choices', t, blendHover - 0.10, blendClick + 0.07)
+  if (t >= blendPills) {
     $('blend-stress').textContent = '37'
     $('blend-cred').textContent = 'CRED +4'
   } else {
@@ -679,52 +740,56 @@ function seek(t) {
     $('blend-cred').textContent = 'CRED +3'
   }
 
-  ken($('img-hulls'), t, 37.4, 40.2, 1.06, 1.12, 0.4, -0.6, 0.2, -0.3)
-  ken($('img-strand'), t, 40.2, 43.2, 1.05, 1.12, 0, 0.4, 0.4, -0.3)
-  sub($('sub-strand'), 'A cable from the ground to orbit.', t, 40.4, 43.05, 0.3, 0.2)
+  ken($('img-hulls'), t, ...WIN.hulls, 1.06, 1.12, 0.4, -0.6, 0.2, -0.3)
+  ken($('img-strand'), t, ...WIN.strand, 1.05, 1.12, 0, 0.4, 0.4, -0.3)
+  sub($('sub-strand'), 'A cable from the ground to orbit.', t, ...pad(WIN.strand, 0.2, 0.15), 0.3, 0.2)
 
-  typeText($('sky-prose'), SKY_Q, t, 43.28, 86)
-  setChoices('sky-choices', t, 44.30, 44.80, 45.35)
-  pointer('ptr-sky', 'sky-choices', t, 44.70, 45.42)
+  const skyCps = CUT === 90 ? 54 : 86
+  const skyChoices = at(WIN.sky, CUT === 90 ? 2.40 : 1.10)
+  const skyHover = at(WIN.sky, CUT === 90 ? 3.20 : 1.60)
+  const skyClick = at(WIN.sky, CUT === 90 ? 4.00 : 2.15)
+  typeText($('sky-prose'), SKY_Q, t, at(WIN.sky, 0.08), skyCps)
+  setChoices('sky-choices', t, skyChoices, skyHover, skyClick)
+  pointer('ptr-sky', 'sky-choices', t, skyHover - 0.10, skyClick + 0.07)
   const rw = $('sky-runway')
   if (rw) rw.style.opacity = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4.2))
 
-  ken($('img-scar1'), t, 46.0, 47.5, 1.06, 1.12, 0, 0, 0, 0)
-  ken($('img-scar2'), t, 47.5, 48.9, 1.05, 1.10, 0, 0, 0.3, -0.2)
-  ken($('img-scar3'), t, 48.9, 49.8, 1.06, 1.10, 0.2, -0.1, 0, 0)
-  ken($('img-scar4'), t, 49.8, 50.6, 1.05, 1.10, 0, 0, 0, -0.2)
-  ken($('img-ascent'), t, 50.6, 52.4, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
-  sub($('sub-scar1'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, 46.08, 47.42, 0.18, 0.12)
-  sub($('sub-scar2'), 'COMPANIES DIE.\nYOU DON’T.', t, 47.58, 48.82, 0.18, 0.12)
-  sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, 50.72, 52.32, 0.2, 0.15)
+  ken($('img-scar1'), t, ...WIN.scar1, 1.06, 1.12, 0, 0, 0, 0)
+  ken($('img-scar2'), t, ...WIN.scar2, 1.05, 1.10, 0, 0, 0.3, -0.2)
+  ken($('img-scar3'), t, ...WIN.scar3, 1.06, 1.10, 0.2, -0.1, 0, 0)
+  ken($('img-scar4'), t, ...WIN.scar4, 1.05, 1.10, 0, 0, 0, -0.2)
+  ken($('img-ascent'), t, ...WIN.ascent, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
+  sub($('sub-scar1'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, ...pad(WIN.scar1, 0.08, 0.08), 0.18, 0.12)
+  sub($('sub-scar2'), 'COMPANIES DIE.\nYOU DON’T.', t, ...pad(WIN.scar2, 0.08, 0.08), 0.18, 0.12)
+  sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, ...pad(WIN.ascent, 0.12, 0.08), 0.2, 0.15)
 
-  ken($('img-life'), t, 52.4, 54.2, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)
-  sub($('sub-life'), 'One life. Burned to your name.', t, 52.55, 54.12, 0.22, 0.15)
+  ken($('img-life'), t, ...WIN.life, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)
+  sub($('sub-life'), 'One life. Burned to your name.', t, ...pad(WIN.life, 0.15, 0.08), 0.22, 0.15)
+  const faceStagger = CUT === 90 ? 0.14 : 0.09
   document.querySelectorAll('#life-faces .cast-face').forEach((f) => {
     const i = +f.dataset.i
-    f.classList.toggle('on', t >= 52.48 + i * 0.09)
+    f.classList.toggle('on', t >= at(WIN.life, 0.08) + i * faceStagger)
   })
 
-  // END CARD
-  const eO = windowOn(t, 54.20, 60.10, 0.7, 0)
-  on($('s-end'), t >= 54.20, eO)
+  const eO = windowOn(t, WIN.end[0], WIN.end[1], 0.7, 0)
+  on($('s-end'), t >= WIN.end[0], eO)
   const spine = $('end-spine')
   const mark = $('end-mark')
   const kick = $('end-kicker')
   const url = $('end-url')
-  if (spine) spine.style.opacity = windowOn(t, 54.35, 60.1, 0.5, 0)
-  if (mark) mark.style.opacity = windowOn(t, 54.70, 60.1, 0.45, 0)
-  if (kick) kick.style.opacity = windowOn(t, 55.15, 60.1, 0.4, 0)
-  if (url) url.style.opacity = windowOn(t, 56.10, 60.1, 0.45, 0)
+  if (spine) spine.style.opacity = windowOn(t, at(WIN.end, 0.15), WIN.end[1], 0.5, 0)
+  if (mark) mark.style.opacity = windowOn(t, at(WIN.end, 0.50), WIN.end[1], 0.45, 0)
+  if (kick) kick.style.opacity = windowOn(t, at(WIN.end, 0.95), WIN.end[1], 0.4, 0)
+  if (url) url.style.opacity = windowOn(t, at(WIN.end, 1.90), WIN.end[1], 0.45, 0)
 }
 
 window.seek = seek
+window.CUT = CUT
 
-const q = new URLSearchParams(location.search)
-if (q.has('t')) seek(parseFloat(q.get('t')))
-else if (q.has('preview')) {
+if (PARAMS.has('t')) seek(parseFloat(PARAMS.get('t')))
+else if (PARAMS.has('preview')) {
   const t0 = performance.now()
-  const tick = (now) => { seek(((now - t0) / 1000) % 60); requestAnimationFrame(tick) }
+  const tick = (now) => { seek(((now - t0) / 1000) % CUT); requestAnimationFrame(tick) }
   requestAnimationFrame(tick)
 } else {
   seek(0)

@@ -5,14 +5,15 @@ import { fileURLToPath } from 'url'
 
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 const here = path.dirname(fileURLToPath(import.meta.url))
-const pageUrl = 'file://' + path.join(here, 'stage.html')
+const cut = process.argv.includes('--90') ? 90 : 60
+const pageUrl = 'file://' + path.join(here, 'stage.html') + (cut === 90 ? '?cut=90' : '')
 const stills = process.argv.includes('--stills')
 const PORT = 9333
 const FPS = 24
-const DUR = 60
-const TIMES = [
-  7.2, 21.5, 25.0, 28.6, 31.5, 38.6, 41.5, 51.4,
-]
+const DUR = cut
+const TIMES = cut === 90
+  ? [2.5, 8.5, 15.0, 22.0, 25.5, 32.5, 38.0, 44.0, 49.0, 56.0, 62.0, 67.0, 73.0, 81.5, 87.5]
+  : [7.2, 21.5, 25.0, 28.6, 31.5, 38.6, 41.5, 51.4]
 
 const userData = '/tmp/fate-trailer-cdp-' + process.pid
 fs.mkdirSync(userData, { recursive: true })
@@ -125,7 +126,7 @@ try {
       console.log('still', name)
     }
   } else {
-    const dir = path.join(here, 'frames')
+    const dir = path.join(here, cut === 90 ? 'frames-90' : 'frames')
     fs.mkdirSync(dir, { recursive: true })
     const n = FPS * DUR
     const t0 = Date.now()
