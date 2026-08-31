@@ -428,6 +428,6 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'NEIGHBORS WITH RULES',
     prose:
       'Life inside another country’s ring of ocean acquires a rhythm of small frictions. Supply boats wait an extra hour at Aurelia’s inspection buoys. Fees arrive itemized in a currency that did not exist last year. Twice, a “routine customs review” holds a strand shipment just long enough to cost a shift. None of it is hostile, exactly — Volkov’s notes are models of administrative courtesy — and all of it is a language, spoken slowly, that says: you are here because we allow it. Mateo starts a folder titled THE SQUEEZE and files each courtesy in order. The folder gets thick. The world’s capitals watch the arrangement with fascination, and begin, in their own chambers, to ask what it teaches them about handling you.',
-    choices: [{ label: 'Continue', effects: [], goto: 's_blockade' }],
+    choices: [{ label: 'Continue', effects: [], goto: 's_cut_hulls' }],
   },
 ]

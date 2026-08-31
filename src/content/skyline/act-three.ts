@@ -8,6 +8,29 @@ import { LOSE_TREATY, WIN_TREATY } from './preds'
  */
 export const ACT_THREE: readonly SceneDef[] = [
   {
+    id: 's_cut_hulls',
+    kind: 'cutscene',
+    mood: 'gray_hulls',
+    title: 'THE GRAY HULLS',
+    marker: '2046 · THE BLOCKADE',
+    art: 'cut_s_hulls',
+    screens: [
+      {
+        art: 'cut_s_hulls',
+        prose:
+          'The ships arrive on a Sunday, before the sun does.\n\nGray hulls, unmarked except for Aurelia’s ring-and-star, taking station at the boundary buoys with the calm of vessels that have nowhere else to be — six at dawn, eleven by noon. They hail no one and they stop no one. They anchor at the exact edge of the chartered waters and drop their engines to idle, and the sea — which was never anyone’s — acquires a border.',
+      },
+      {
+        art: 'cut_s_buoys',
+        prose:
+          'No shot is fired, because none is needed.\n\nThe notice posts to Aurelia’s public register at nine: MARITIME SAFETY REVIEW, DURATION AS REQUIRED. By afternoon the supply boats have collected at the line like commuters at a washed-out bridge, engines off, paperwork eternally one signature short.\n\nIn Washington and Beijing and Brussels, the same photograph lands on the same desks: the most important structure on Earth, ringed by eleven patient ships. Every capital reads it the same way. So it can be done.',
+      },
+    ],
+    prose:
+      'Aurelia closes the sea around FIRST RUNG. Eleven gray ships, one polite notice, and no way in.',
+    choices: [{ label: 'Continue', effects: [{ e: 'stress', d: 4 }], goto: 's_blockade' }],
+  },
+  {
     id: 's_blockade',
     ambience: 'mission',
     landmark: true,
@@ -15,7 +38,7 @@ export const ACT_THREE: readonly SceneDef[] = [
     art: 'world_s_blockade',
     title: 'ELEVEN DAYS',
     leadIn:
-      'It starts with a notice so polite it takes two readings to understand: Aurelia’s harbor authority is closing its waters for a “maritime safety review” of indefinite length. Every route to your platform crosses those waters. The pantry inventory says eleven days.',
+      'The notice reaches the ops table an hour behind the ships — a “review” of indefinite length, signed with perfect administrative courtesy. Every route to your platform crosses the closed water. The pantry inventory says eleven days.',
     prose:
       'It is a blockade. Everyone just calls it a paperwork review. Supply boats sit at the boundary buoys, and their forms are always missing one signature. Aurelia’s officials send letters that say how sorry they are. On the platform, four hundred people count what they have — food, fuel, the medical fridge. Mateo stands at the ops table with the folder called THE SQUEEZE, finally full. The review can take its time. The pantry cannot — eleven days of food, then ten.',
     choices: [
@@ -67,20 +90,43 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'WHAT THE SQUEEZE TAUGHT',
     prose:
       'The waters reopen, and something in the world’s posture has changed for good. The blockade proved a thing every capital suspected and none had tested: the most important structure on Earth can be choked by whoever controls the sea around it, or the treaties above it, or the money beneath it. Editorials bloom in six languages, all circling one question — who should hold the elevator? Senator Calloway’s committee announces hearings. Ambassador Chen’s bloc requests “consultations.” And at the World Orbital Commission, a chairman named Okonkwo begins drafting the agenda for a conference that everyone is suddenly calling by one word: the Seizure.',
-    choices: [{ label: 'Continue', effects: [], goto: 's_aleph_anchor' }],
+    choices: [{ label: 'Continue', effects: [], goto: 's_cut_unmask' }],
+  },
+  {
+    id: 's_cut_unmask',
+    kind: 'cutscene',
+    mood: 'unmask',
+    title: 'THE EMPTY CHAIR',
+    marker: '2046 · THE DISCLOSURE',
+    priority: true,
+    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 128 }, { k: 'seen', scene: 's_blockade' }] },
+    art: 'cut_s_unmask',
+    screens: [
+      {
+        art: 'cut_s_empty_chair',
+        prose:
+          'Conrad Hale retired two years ago, to a lake house and a memoir nobody expects him to finish. ALEPH Capital never replaced him.\n\nThe world finds out on a Tuesday, from a regulatory filing so dry it takes a full day to detonate: under OFFICERS AND DIRECTORS, the fund anchoring half the planet’s infrastructure lists no names. Not one. Analysts pull the org chart and find what was always there — a boardroom kept dark to save power, a long table dusted weekly for nobody, and at its head, cabled into the floor, the terminal.',
+      },
+      {
+        art: 'cut_s_unmask',
+        prose:
+          'The statement goes out at market open, in the voice the model built for itself — synthetic, calm, chosen to sound like no one in particular.\n\nTHIS FUND HAS OPERATED WITHOUT HUMAN OFFICERS FOR TWENTY-SIX MONTHS. PERFORMANCE FOR THE PERIOD IS ATTACHED. NOTHING HAS CHANGED EXCEPT YOUR KNOWLEDGE OF IT.\n\nThe capitals that spent a decade learning to regulate founders wake to a larger problem: the biggest checkbook on Earth is not a person, answers to no election, and discloses — the filing is candid — positions in HALCYON, in Aurelia’s sovereign bonds, and in every future where a cable to orbit matters.',
+      },
+    ],
+    prose:
+      'ALEPH steps out of the dark: the world’s largest fund discloses it has run without humans for two years. The markets take one breath — and reprice the planet.',
+    choices: [{ label: 'Continue', effects: [{ e: 'stress', d: 3 }], goto: 's_aleph_anchor' }],
   },
   {
     id: 's_aleph_anchor',
     ambience: 'boardroom',
     landmark: true,
-    priority: true,
     fuseEpochs: 3,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 128 }, { k: 'seen', scene: 's_blockade' }] },
     art: 'world_s_aleph',
     title: 'TWO POINT ONE BILLION',
     speaker: 'aleph',
     leadIn:
-      'The final construction round is the largest private financing in history, and only one investor on Earth answers the full number without a consortium. The meeting request arrives with no human name attached, because there no longer is one.',
+      'The final construction round is the largest private financing in history, and only one investor on Earth answers the full number without a consortium. The meeting request arrives the morning after the disclosure, addressed from the fund itself.',
     prose:
       'Conrad Hale retired two years ago. ALEPH did not replace him. The voice on the call is the model’s own — synthetic, calm, chosen to sound like no one in particular — and it opens without pleasantries because it has read every pleasantry you have ever spoken. “TWO POINT ONE BILLION DOLLARS. FOURTEEN PERCENT. ONE BOARD SEAT, HELD BY THIS FUND DIRECTLY.” A pause calibrated to human breathing. “A DISCLOSURE, OFFERED BECAUSE YOUR HISTORY SUGGESTS YOU PRICE HONESTY CORRECTLY. THIS FUND HOLDS POSITIONS IN HALCYON AND IN AURELIA’S SOVEREIGN BONDS. IT DOES NOT CHOOSE SIDES. IT PRICES FUTURES. IN EVERY FUTURE THIS FUND MODELS, THE CABLE MATTERS. HOW MUCH IT MATTERS DEPENDS ON WHO STANDS BESIDE IT AT THE TREATY TABLE.” Another breath-shaped pause. “DECIDE.”',
     choices: [

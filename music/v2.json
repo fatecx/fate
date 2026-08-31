@@ -1561,105 +1561,110 @@
         "FOUR HUNDRED PEOPLE",
         "THE CABLE RISES"
       ],
-      "note": "Haunting space score. A rising organ melody, strings answering, harmony that moves. Four hundred people living in the sky. Not a clock. Not a hymn.",
-      "seedBase": 471601,
+      "note": "Analog sci-fi. A city that learned to live in the sky. Electric piano, analog lead, a rising melody. Not organ. Not church. Not horror.",
+      "seedBase": 480901,
       "chunks": [
         {
-          "text": "[The Platform] {instrumental}",
-          "duration_ms": 16000,
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "haunting science-fiction film score",
-            "pipe organ and high strings",
-            "a melody from the first bar",
-            "G minor",
-            "4/4",
-            "68 BPM",
-            "vast lonely space",
-            "starts on the first beat",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "orbital analog science fiction",
+            "70 BPM",
+            "C-sharp minor",
+            "tape saturation",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
             "high production quality"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
+            "organ",
             "choir",
             "hymn",
+            "church",
             "gospel",
-            "church service",
-            "major key",
+            "horror",
+            "ticking clock",
+            "ostinato",
+            "drums",
             "lyrics",
             "vocals",
             "EDM",
-            "pop"
+            "pop",
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Four Hundred] {haunting organ melody}",
-          "duration_ms": 22000,
-          "positive_styles": [
-            "a rising organ melody",
-            "strings answering the organ",
-            "chords that change",
-            "G minor",
-            "68 BPM",
-            "haunting and grand"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "lyrics",
-            "vocals",
-            "silence",
-            "EDM"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Cable] {orchestra and organ}",
-          "duration_ms": 28000,
-          "positive_styles": [
-            "the rising melody bigger",
-            "full string orchestra",
-            "pipe organ",
-            "new harmony under the theme",
-            "grand haunting space",
-            "G minor"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "lyrics",
-            "vocals",
-            "EDM drop",
-            "trailer horns"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[Named] {organ and strings}",
+          "text": "[The Street] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "distant organ melody",
-            "high strings",
-            "unresolved G minor",
-            "quiet haunting ending",
-            "people living in the sky"
+            "lonely analog lead with saxophone timbre",
+            "a rising analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "70 BPM"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the rising phrase bigger",
+            "electric piano",
+            "deep analog bass",
+            "grand science fiction"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "EDM drop",
+            "trailer climax"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "orbital",
+            "no fade to silence"
+          ],
+          "negative_styles": [
+            "organ",
             "choir",
             "hymn",
             "church cadence",
-            "major key",
-            "lyrics",
-            "vocals",
+            "horror",
+            "drums",
+            "trailer climax",
             "sudden stop"
           ],
           "context_adherence": "high"
@@ -1678,112 +1683,110 @@
         "THE SEA WALL",
         "A COUNTRY AROUND YOU"
       ],
-      "note": "Haunting space score. A long organ melody, strings answering, a country founding in the sky. Harmony moves. Grand, lonely, unresolved. Not a hymn. Not a clock.",
-      "seedBase": 471711,
+      "note": "Analog sci-fi. A country founding. Electric piano, analog brass, a long melody. Vast, expensive. Not organ. Not a hymn. Not horror.",
+      "seedBase": 480911,
       "chunks": [
         {
-          "text": "[The Flag] {instrumental}",
-          "duration_ms": 16000,
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "haunting science-fiction film score",
-            "pipe organ and high strings",
-            "a melody from the first bar",
-            "D minor",
-            "4/4",
-            "64 BPM",
-            "vast lonely space",
-            "starts on the first beat",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "vast analog science fiction",
+            "68 BPM",
+            "F minor",
+            "tape saturation",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
             "high production quality"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
+            "organ",
             "choir",
             "hymn",
+            "church",
             "gospel",
-            "church service",
-            "civic anthem",
-            "major key",
+            "horror",
+            "ticking clock",
+            "ostinato",
+            "drums",
             "lyrics",
             "vocals",
             "EDM",
-            "pop"
+            "pop",
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Charter] {haunting organ melody}",
-          "duration_ms": 22000,
-          "positive_styles": [
-            "a long organ melody",
-            "strings answering the organ",
-            "chords that change",
-            "D minor",
-            "64 BPM",
-            "haunting and grand"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "civic anthem",
-            "major key",
-            "lyrics",
-            "vocals",
-            "silence",
-            "EDM"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[A Country] {orchestra and organ}",
-          "duration_ms": 28000,
-          "positive_styles": [
-            "the melody bigger",
-            "full string orchestra",
-            "pipe organ",
-            "new harmony under the theme",
-            "grand haunting space",
-            "D minor",
-            "a country founding"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "civic anthem",
-            "major key",
-            "lyrics",
-            "vocals",
-            "EDM drop",
-            "trailer horns"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Sea Wall] {organ and strings}",
+          "text": "[The Street] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "distant organ melody",
-            "high strings",
-            "unresolved D minor",
-            "quiet haunting ending",
-            "a country in the sky"
+            "lonely analog lead with saxophone timbre",
+            "a long analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "68 BPM"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "analog grandeur, still F minor",
+            "electric piano",
+            "deep analog bass",
+            "grand science fiction"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "EDM drop",
+            "trailer climax"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "orbital",
+            "no fade to silence"
+          ],
+          "negative_styles": [
+            "organ",
             "choir",
             "hymn",
             "church cadence",
-            "major key",
-            "civic anthem",
-            "lyrics",
-            "vocals",
+            "horror",
+            "drums",
+            "trailer climax",
             "sudden stop"
           ],
           "context_adherence": "high"
@@ -1802,107 +1805,360 @@
         "KILOMETER 400",
         "THAT ROAD STARTED HERE"
       ],
-      "note": "Haunting space score. A climbing string melody over organ. One person riding into the sky. Grand, lonely, unresolved. Not a clock. Not a hymn.",
-      "seedBase": 471621,
+      "note": "Analog sci-fi space. A climbing melody. One person riding into the sky. Not organ. Not church. Not horror.",
+      "seedBase": 480921,
       "chunks": [
         {
-          "text": "[The Ride] {instrumental}",
-          "duration_ms": 16000,
+          "text": "[Night] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "haunting science-fiction film score",
-            "pipe organ and high strings",
-            "a climbing melody from the first bar",
-            "A minor",
-            "4/4",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "analog space science fiction",
             "72 BPM",
-            "vast lonely space",
+            "A minor",
+            "tape saturation",
+            "vast plate reverb",
+            "instrumental science-fiction underscore",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "gospel",
+            "horror",
+            "ticking clock",
+            "ostinato",
+            "drums",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "trailer music"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Street] {instrumental analog lead}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "lonely analog lead with saxophone timbre",
+            "a climbing analog melody",
+            "warm analog brass chords",
+            "electric piano",
+            "slow emotional melody",
+            "72 BPM"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "silence"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Memory] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "analog brass swelling slowly",
+            "emotional analog lead melody",
+            "the climbing melody at its height",
+            "electric piano",
+            "deep analog bass",
+            "grand science fiction"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church",
+            "horror",
+            "drums",
+            "lyrics",
+            "EDM drop",
+            "trailer climax"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "thinning analog pads",
+            "distant lonely lead",
+            "electric piano unresolved",
+            "quiet ending",
+            "the sky holding",
+            "no fade to silence"
+          ],
+          "negative_styles": [
+            "organ",
+            "choir",
+            "hymn",
+            "church cadence",
+            "horror",
+            "drums",
+            "trailer climax",
+            "sudden stop"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_gray_hulls",
+      "title": "The Gray Hulls",
+      "chapter": "SKYLINE",
+      "role": "THE BLOCKADE ARRIVES",
+      "level": "MUSIC 2.0",
+      "art": "cut_s_hulls",
+      "moments": [
+        "SHIPS AT DAWN",
+        "THE BOUNDARY BUOYS",
+        "SO IT CAN BE DONE"
+      ],
+      "note": "Interstellar family. Organ dread at dawn: low pedal tones under a paling sky, a border closing on open water. G minor, 52 BPM. Enormous, patient, no violence \u2014 the threat is the calm.",
+      "seedBase": 460611,
+      "chunks": [
+        {
+          "text": "[Ships at Dawn] {pipe organ pedal tones}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "Interstellar science-fiction organ score",
+            "low sustained pipe organ pedal tones",
+            "pre-dawn stillness",
+            "G minor",
+            "52 BPM",
+            "very slow",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
             "choir",
             "hymn",
             "gospel",
             "church service",
             "major key",
+            "civic anthem",
             "lyrics",
             "vocals",
             "EDM",
-            "pop"
+            "pop",
+            "electric piano",
+            "drums"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Kilometer] {climbing string melody}",
-          "duration_ms": 22000,
-          "positive_styles": [
-            "a long climbing string melody",
-            "pipe organ underneath",
-            "chords that change",
-            "A minor",
-            "72 BPM",
-            "haunting and rising"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "lyrics",
-            "vocals",
-            "silence",
-            "EDM"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[The Sky] {orchestra and organ}",
-          "duration_ms": 28000,
-          "positive_styles": [
-            "the climbing melody at its height",
-            "full string orchestra",
-            "pipe organ",
-            "grand haunting space",
-            "A minor",
-            "one person in the sky"
-          ],
-          "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
-            "choir",
-            "hymn",
-            "church service",
-            "lyrics",
-            "vocals",
-            "EDM drop",
-            "trailer horns"
-          ],
-          "context_adherence": "high"
-        },
-        {
-          "text": "[After] {organ and strings}",
+          "text": "[The Border] {organ and low strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "distant climbing melody",
-            "high strings",
-            "organ unresolved",
-            "A minor",
-            "quiet haunting ending",
-            "the sky holding"
+            "pipe organ pedal continues",
+            "low strings entering underneath",
+            "distant metallic groan like ship hulls",
+            "patient menace",
+            "G minor",
+            "52 BPM"
           ],
           "negative_styles": [
-            "ostinato loop",
-            "ticking clocks",
             "choir",
             "hymn",
-            "church cadence",
+            "gospel",
+            "church service",
             "major key",
+            "civic anthem",
             "lyrics",
             "vocals",
-            "sudden stop"
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Eleven Patient Ships] {organ, slow bass pulse}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "organ and strings holding",
+            "a slow deep bass pulse like idling engines",
+            "weight without motion",
+            "G minor",
+            "52 BPM"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[So It Can Be Done] {organ swell and release}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "single slow organ swell",
+            "held minor chord decaying to near silence",
+            "cavernous reverb",
+            "unresolved ending",
+            "G minor"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    },
+    {
+      "id": "v2_unmask",
+      "title": "The Empty Chair",
+      "chapter": "SKYLINE",
+      "role": "ALEPH UNMASKS",
+      "level": "MUSIC 2.0",
+      "art": "cut_s_unmask",
+      "moments": [
+        "THE FILING",
+        "THE STATEMENT",
+        "THE REPRICING"
+      ],
+      "note": "Interstellar family. Cold machine-precise organ arpeggio for the fund with no humans left. E minor, 66 BPM. Awe and unease, clockwork perfection, no resolution.",
+      "seedBase": 460711,
+      "chunks": [
+        {
+          "text": "[The Filing] {precise organ arpeggio}",
+          "duration_ms": 22000,
+          "positive_styles": [
+            "Interstellar science-fiction organ score",
+            "machine-precise repeating organ arpeggio",
+            "metronomic and inhuman",
+            "E minor",
+            "66 BPM",
+            "starts on the first beat",
+            "high production quality"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Empty Chair] {organ and hollow room tone}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "arpeggio continues unwavering",
+            "hollow room reverb",
+            "a single held high organ note above",
+            "cold stillness",
+            "E minor",
+            "66 BPM"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Statement] {organ and sub bass}",
+          "duration_ms": 24000,
+          "positive_styles": [
+            "arpeggio continues",
+            "deep sub bass drone entering",
+            "cold awe",
+            "a synthetic intelligence speaking",
+            "E minor",
+            "66 BPM"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[The Repricing] {organ thinning}",
+          "duration_ms": 20000,
+          "positive_styles": [
+            "arpeggio thinning to single repeating high note",
+            "vast empty reverb tail",
+            "unresolved suspended ending",
+            "E minor"
+          ],
+          "negative_styles": [
+            "choir",
+            "hymn",
+            "gospel",
+            "church service",
+            "major key",
+            "civic anthem",
+            "lyrics",
+            "vocals",
+            "EDM",
+            "pop",
+            "electric piano",
+            "drums"
           ],
           "context_adherence": "high"
         }
