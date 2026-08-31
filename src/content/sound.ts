@@ -343,7 +343,7 @@ export const MOODS: Record<string, SoundDef> = {
   gray_hulls: {
     id: 'mus_gray_hulls',
     gain: 0.4,
-    seconds: 72,
+    seconds: 48,
     film: true,
     source: 'music',
     prompt:
@@ -352,7 +352,7 @@ export const MOODS: Record<string, SoundDef> = {
   unmask: {
     id: 'mus_unmask',
     gain: 0.4,
-    seconds: 77,
+    seconds: 51,
     film: true,
     source: 'music',
     prompt:
