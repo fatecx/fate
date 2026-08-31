@@ -47,7 +47,7 @@ img { display: block; }
 .cine-card {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 14px; text-align: center;
+  align-items: center; justify-content: center; gap: 18px; text-align: center;
 }
 .cc-top {
   font-family: var(--mono); font-size: 15px; letter-spacing: 0.55em; text-indent: 0.55em;
@@ -57,6 +57,12 @@ img { display: block; }
   font-family: var(--display); font-weight: 800;
   font-size: 52px; color: #ecede9;
   letter-spacing: 0.28em; text-indent: 0.28em;
+}
+.cine-card .cc-top {
+  font-size: 32px; letter-spacing: 0.48em; text-indent: 0.48em;
+}
+.cine-card .cc-main {
+  font-size: 88px; letter-spacing: 0.22em; text-indent: 0.22em;
 }
 
 .cine-sub {
@@ -220,7 +226,7 @@ img { display: block; }
 }
 
 .faces {
-  position: absolute; left: 38%; bottom: 168px;
+  position: absolute; left: 50%; bottom: 168px;
   transform: translateX(-50%);
   display: flex; align-items: center;
   z-index: 9;
@@ -353,7 +359,7 @@ img { display: block; }
       </header>
       <main class="stage">
         <aside class="scene-card">
-          <div class="portrait"><img class="portrait-img" src="../public/art/world_couriers.webp" alt=""></div>
+          <div class="portrait"><img class="portrait-img" src="../public/art/world_courier_bench.webp" alt=""></div>
         </aside>
         <section class="story">
           <div class="beat-kicker">THE FLATS</div>
@@ -499,14 +505,15 @@ img { display: block; }
   <section class="shot" id="s-scar1">
     <img class="print" id="img-scar1" src="art/world_coup_vote.jpg" alt="">
     <div class="veil"></div>
+    <p class="cine-sub" id="sub-scar1"></p>
   </section>
   <section class="shot" id="s-scar2">
     <img class="print" id="img-scar2" src="../public/art/cut_s_empty_chair.webp" alt="">
     <div class="veil"></div>
+    <p class="cine-sub" id="sub-scar2"></p>
   </section>
-  <p class="cine-sub" id="sub-years" style="z-index:8"></p>
   <section class="shot" id="s-ascent">
-    <img class="print" id="img-ascent" src="../public/art/end_s_ascent.webp" alt="">
+    <img class="print" id="img-ascent" src="../public/art/world_burnout.webp" alt="">
     <div class="veil"></div>
     <p class="cine-sub" id="sub-ascent"></p>
   </section>
@@ -814,11 +821,12 @@ function seek(t) {
   ken($('img-scar1'), t, ...WIN.scar1, 1.06, 1.12, 0, 0, 0, 0)
   ken($('img-scar2'), t, ...WIN.scar2, 1.05, 1.10, 0, 0, 0.3, -0.2)
   ken($('img-ascent'), t, ...WIN.ascent, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
-  sub($('sub-years'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, WIN.scar1[0] + 0.10, WIN.scar2[1] - 0.12, 0.28, 0.22)
+  sub($('sub-scar1'), 'THREE COMPANIES.', t, ...pad(WIN.scar1, 0.12, 0.10), 0.28, 0.20)
+  sub($('sub-scar2'), 'THIRTY YEARS.', t, ...pad(WIN.scar2, 0.12, 0.10), 0.28, 0.20)
   sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, ...pad(WIN.ascent, 0.12, 0.10), 0.28, 0.20)
 
   ken($('img-life'), t, ...WIN.life, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)
-  sub($('sub-life'), 'One life. Burned to your name.', t, ...pad(WIN.life, 0.15, 0.08), 0.22, 0.15)
+  sub($('sub-life'), 'One life. Will you succeed?', t, ...pad(WIN.life, 0.15, 0.08), 0.22, 0.15)
   const faceStagger = CUT === 90 ? 0.14 : 0.09
   document.querySelectorAll('#life-faces .cast-face').forEach((f) => {
     const i = +f.dataset.i
