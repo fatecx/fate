@@ -441,7 +441,7 @@ function railHtml(): string {
       : `<div class="runway"><b>+</b><span>PROFIT-<br/>ABLE</span></div>`
   return `
   <header class="rail">
-    <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE<em>·</em></div>
+    <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE, INC.</div>
     <div class="weektag">${clockLabel()}</div>
     <div class="rail-meters">
       ${runwayBlock}
@@ -1687,7 +1687,7 @@ function renderWelcome(saved: Save | null, entitled = false): void {
   if (saved) {
     takeover(`
       <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
-      <h1 class="tk-title">FATE</h1>
+      <h1 class="tk-title">FATE, INC.</h1>
       <p class="tk-body">The biography is open to the last page you wrote — ${esc(chapterTitle(saved.st.company.id))}, INC., week ${saved.st.epoch + 1}.</p>
       <button class="cta" id="wlContinue">Continue →</button>
       <div class="tk-id">One signature, one life. This biography is permanent.</div>
@@ -1713,7 +1713,7 @@ function renderWelcome(saved: Save | null, entitled = false): void {
       <div class="tk-id">Your passkey is your signature. One life per signature — permanent, no resets.</div>`
   takeover(`
     <div class="tk-kicker">A NARRATIVE FOUNDER SAGA</div>
-    <h1 class="tk-title">FATE</h1>
+    <h1 class="tk-title">FATE, INC.</h1>
     <p class="tk-body">One life. Three companies. Every scar carries forward.
 
 ${INTRO}</p>

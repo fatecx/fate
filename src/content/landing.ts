@@ -39,7 +39,7 @@ export const HERO_ART: readonly string[] = [
 
 export const HERO = {
   kicker: 'THE IMMUTABLE FOUNDER SAGA',
-  title: 'FATE',
+  title: 'FATE, INC.',
   sub: 'A narrative adventure crossed with a startup founder sim, set in the near future. Every decision you make shapes whether your startups fail or go public, as you build a railway in the sky, telepresence robots on the Moon, and the galaxy’s first space elevator.',
 }
 

@@ -47,7 +47,7 @@ async function boot(): Promise<void> {
   app.innerHTML = `
   <div class="shell lb-shell">
     <header class="rail">
-      <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE<em>·</em></div>
+      <div class="wordmark"><img class="wm-mark" src="/favicon.svg" alt="">FATE, INC.</div>
       <div class="weektag">THE FOUNDERS’ LEDGER</div>
       <div class="rail-meters"><a class="lb-back" href="/">← BACK TO THE LIFE</a></div>
     </header>

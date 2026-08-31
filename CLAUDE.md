@@ -1,6 +1,6 @@
 # CLAUDE.md — fate
 
-Narrative founder-saga game (fate.cx). Design phase — read `DESIGN.md` before any work; it is the source of truth for systems and content. Agent rules in `AGENTS.md` apply here in full.
+Narrative founder-saga game — public title **FATE, INC.** (fate.cx; X @fateinc; contact dev@fate.cx; developer credit: Playure). Design phase — read `DESIGN.md` before any work; it is the source of truth for systems and content. Agent rules in `AGENTS.md` apply here in full.
 
 ## What this is
 
