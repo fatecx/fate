@@ -20,6 +20,7 @@ import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
 import { MOODS } from '../content/sound'
 import { makeFmt } from '../../scripts/map/format'
+import { artUrl } from './assets'
 
 const LEGACY_SAVE_KEY = 'fate-save-v2'
 
@@ -210,7 +211,7 @@ function castRoster(): CastEntry[] {
 function castFaceHtml(id: string, cls = 'cast-face', veiled = false): string {
   const ch = CONTENT.characters[id]
   // Veiled faces never leak the initial — if the print is missing, a ? holds the frame.
-  return `<span class="${cls}${veiled ? ' veiled' : ''}"><i>${veiled ? '?' : esc(ch.name[0])}</i><img src="/art/${id}.webp" alt="" onerror="this.remove()"></span>`
+  return `<span class="${cls}${veiled ? ' veiled' : ''}"><i>${veiled ? '?' : esc(ch.name[0])}</i><img src="${artUrl(id)}" alt="" onerror="this.remove()"></span>`
 }
 
 /** The protagonist's token — no portrait by design; the biography is the face. */
@@ -697,7 +698,7 @@ function cardHtml(): string {
   <aside class="scene-card">
     <canvas class="card-canvas"></canvas>
     <div class="portrait"><span class="sigil">${initial}</span>${
-      artId ? `<img class="portrait-img" src="/art/${artId}.webp" alt="" onerror="this.remove()">` : ''
+      artId ? `<img class="portrait-img" src="${artUrl(artId)}" alt="" onerror="this.remove()">` : ''
     }</div>
     ${cap}
   </aside>`
@@ -1112,7 +1113,7 @@ function showScreens(
   let vis: HTMLImageElement = bgs[0]
   let hid: HTMLImageElement = bgs[1]
   const setArt = (id?: string): void => {
-    const src = id ? `/art/${id}.webp` : ''
+    const src = id ? artUrl(id) : ''
     if (!src || src === curArt || !vis.isConnected) return
     curArt = src
     hid.src = src
@@ -1552,7 +1553,7 @@ async function fillCommunity(c: ChapterClose): Promise<void> {
     0,
   )
   const countEl = document.getElementById('sigCount')
-  if (countEl && totalFounders > 0) countEl.textContent = `${totalFounders} ON RECORD`
+  if (countEl && totalFounders > 0) countEl.textContent = `${totalFounders.toLocaleString('en-US')} ON RECORD`
 }
 
 /** The record — end-of-chapter stats card. Walking-dead style, engine numbers only. */
@@ -1607,7 +1608,7 @@ function showEpilogue(): void {
   stinger(c.ending.kind === 'triumph' ? 'bell' : 'close', `end:${filmKey}`)
   takeover(`
     <div class="tk-kicker">CHAPTER CLOSED · ${esc(chapterTitle(c.company))}</div>
-    ${c.ending.art ? `<img class="tk-art" src="/art/${c.ending.art}.webp" alt="" onerror="this.remove()">` : ''}
+    ${c.ending.art ? `<img class="tk-art" src="${artUrl(c.ending.art)}" alt="" onerror="this.remove()">` : ''}
     <h1 class="tk-title">${esc(c.ending.title)}</h1>
     <p class="tk-body">${esc(c.ending.prose)}</p>
     ${biographyStrip()}
@@ -2024,7 +2025,7 @@ function warmArt(): void {
   for (const id of ids) {
     if (ART_CACHE.has(id)) continue
     const img = new Image()
-    img.src = `/art/${id}.webp`
+    img.src = artUrl(id)
     img.decode?.().catch(() => {}) // missing art is fine — sigil covers it
     ART_CACHE.set(id, img)
   }

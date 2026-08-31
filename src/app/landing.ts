@@ -10,6 +10,7 @@
 import { CONTENT } from '../content/world'
 import { getScene } from '../engine/reduce'
 import { fetchDecisionSplit } from './cloud'
+import { artUrl } from './assets'
 import {
   HERO,
   HERO_ART,
@@ -97,7 +98,7 @@ function demoHtml(): string {
         </div>
         <div class="ld-demo-stage">
           <aside class="ld-demo-card">
-            ${scene.speaker ? `<img src="/art/${scene.speaker}.webp" alt="" loading="lazy" onerror="this.remove()">` : ''}
+            ${scene.speaker ? `<img src="${artUrl(scene.speaker)}" alt="" loading="lazy" onerror="this.remove()">` : ''}
             <div class="ld-cap"><div class="ld-cap-name">${esc(speaker?.name ?? 'THE WORLD')}</div><div class="ld-cap-role">${esc(speaker?.role ?? '')}</div></div>
           </aside>
           <div class="ld-demo-story">
@@ -145,7 +146,7 @@ function featuresHtml(): string {
               ? `<div class="ld-castrow">${Object.entries(CONTENT.characters)
                   .map(
                     ([id, ch], i) =>
-                      `<span class="ld-face" title="${esc(ch.name)}" style="transition-delay:${(i * 0.045).toFixed(3)}s"><i>${esc(ch.name[0] ?? '·')}</i><img src="/art/${id}.webp" alt="" loading="lazy" onerror="this.remove()"></span>`,
+                      `<span class="ld-face" title="${esc(ch.name)}" style="transition-delay:${(i * 0.045).toFixed(3)}s"><i>${esc(ch.name[0] ?? '·')}</i><img src="${artUrl(id)}" alt="" loading="lazy" onerror="this.remove()"></span>`,
                   )
                   .join('')}</div>`
               : ''
@@ -208,7 +209,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
   function warm(id: string): void {
     if (!id || warmed.has(id)) return
     const img = new Image()
-    img.src = `/art/${id}.webp`
+    img.src = artUrl(id)
     img.decode?.().catch(() => {})
     warmed.set(id, img)
   }
@@ -221,7 +222,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     }
     warm(id)
     const next = 1 - front
-    layers[next].style.backgroundImage = `url('/art/${id}.webp')`
+    layers[next].style.backgroundImage = `url('${artUrl(id)}')`
     layers[next].style.opacity = '1'
     layers[front].style.opacity = '0'
     if (!reduced) {

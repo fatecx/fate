@@ -13,6 +13,7 @@
  */
 import { AMBIENCE, MOODS, TENSION, STINGERS, FOLEY, SCENE_BEDS } from '../content/sound'
 import type { SoundDef } from '../content/sound'
+import { sfxUrl } from './assets'
 
 const SOUND_KEY = 'fate-sound'
 const MUSIC_FADE = 2.5
@@ -90,7 +91,7 @@ function ensureCtx(): AudioContext | null {
 function loadBuffer(id: string): Promise<AudioBuffer | null> {
   let p = buffers.get(id)
   if (p) return p
-  p = fetch(`/sfx/${id}.mp3`)
+  p = fetch(sfxUrl(id))
     .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
     .then((ab) => (ctx ? ctx.decodeAudioData(ab) : null))
     .catch(() => null) // missing bed = silence, play continues
