@@ -62,7 +62,7 @@ img { display: block; }
 .cine-sub {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, calc(-50% + 10px));
-  width: min(40ch, 88%); text-align: center;
+  width: min(44ch, 88%); text-align: center;
   font-family: var(--mono);
   font-size: 34px; line-height: 1.45; font-weight: 500;
   letter-spacing: 0.04em;
@@ -80,17 +80,21 @@ img { display: block; }
 
 .chap-card {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 14px; text-align: center;
+  display: flex; align-items: center; justify-content: center;
   pointer-events: none;
 }
+.chap-card .pill {
+  background: #0d0e11;
+  padding: 16px 40px 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  border-radius: 8px;
+  text-align: center;
+}
 .chap-card .cc-top {
-  text-indent: 0.46em; letter-spacing: 0.46em; font-size: 16px;
-  text-shadow: 0 1px 12px rgba(0,0,0,.7);
+  text-indent: 0.4em; letter-spacing: 0.4em; font-size: 12px;
 }
 .chap-card .cc-main {
-  font-size: 56px; letter-spacing: 0.22em; text-indent: 0.22em;
-  text-shadow: 0 2px 22px rgba(0,0,0,.8);
+  font-size: 40px; letter-spacing: 0.2em; text-indent: 0.2em;
 }
 
 .paper-card {
@@ -312,7 +316,7 @@ img { display: block; }
   <section class="shot" id="s-drop">
     <img class="print" id="img-drop" src="../public/art/world_first_drop.webp" alt="">
     <div class="veil"></div>
-    <div class="chap-card"><div class="cc-top">CHAPTER ONE</div><div class="cc-main">HYPERCHUTE</div></div>
+    <div class="chap-card"><div class="pill"><div class="cc-top">CHAPTER ONE</div><div class="cc-main">HYPERCHUTE</div></div></div>
   </section>
   <section class="shot" id="s-chute">
     <img class="print" id="img-chute" src="../public/art/cut_chute_launch.webp" alt="">
@@ -324,7 +328,7 @@ img { display: block; }
   <section class="shot" id="s-ring">
     <img class="print" id="img-ring" src="../public/art/cut_ring_alive.webp" alt="">
     <div class="veil"></div>
-    <div class="chap-card"><div class="cc-top">CHAPTER TWO</div><div class="cc-main">TELEPORT</div></div>
+    <div class="chap-card"><div class="pill"><div class="cc-top">CHAPTER TWO</div><div class="cc-main">TELEPORT</div></div></div>
   </section>
   <section class="shot" id="s-walk">
     <img class="print" id="img-walk" src="../public/art/cut_first_walk.webp" alt="">
@@ -384,7 +388,7 @@ img { display: block; }
   <section class="shot" id="s-hulls">
     <img class="print" id="img-hulls" src="../public/art/cut_s_hulls.webp" alt="">
     <div class="veil"></div>
-    <div class="chap-card"><div class="cc-top">CHAPTER THREE</div><div class="cc-main">SKYLINE</div></div>
+    <div class="chap-card"><div class="pill"><div class="cc-top">CHAPTER THREE</div><div class="cc-main">SKYLINE</div></div></div>
   </section>
   <section class="shot" id="s-strand">
     <img class="print" id="img-strand" src="../public/art/cut_s_year_two_night.webp" alt="">
@@ -604,9 +608,9 @@ function seek(t) {
     ['s-sky',   43.20,46.00, 0.00, 0.00],
     ['s-scar1', 46.00,47.50, 0.00, 0.00],
     ['s-scar2', 47.50,48.90, 0.00, 0.00],
-    ['s-scar3', 48.90,50.20, 0.00, 0.00],
-    ['s-scar4', 50.20,51.20, 0.00, 0.00],
-    ['s-ascent',51.20,52.40, 0.00, 0.00],
+    ['s-scar3', 48.90,49.80, 0.00, 0.00],
+    ['s-scar4', 49.80,50.60, 0.00, 0.00],
+    ['s-ascent',50.60,52.40, 0.00, 0.00],
     ['s-life',  52.40,54.20, 0.00, 0.00],
     ['s-end',   54.20,60.10, 0.00, 0.00],
   ]
@@ -637,7 +641,7 @@ function seek(t) {
   }
 
   ken($('img-below'), t, 5, 8.5, 1.08, 1.16, 0, 0, 1.2, -0.6)
-  sub($('sub-below'), 'You are a first-time founder\nin a city that runs on other people’s machines.', t, 5.25, 8.35, 0.4, 0.25)
+  sub($('sub-below'), 'You are a first-time tech founder.', t, 5.25, 8.35, 0.4, 0.25)
 
   ken($('img-garage'), t, 8.5, 12, 1.06, 1.14, 1.4, 0.2, 0.4, -0.8)
   sub($('sub-garage'), 'A garage above a laundromat.\nOne hundred percent of nothing.', t, 8.7, 11.85, 0.35, 0.22)
@@ -657,11 +661,11 @@ function seek(t) {
 
   ken($('img-drop'), t, 20, 23.6, 1.10, 1.16, 0, -0.8, 1.2, 0.2)
   ken($('img-chute'), t, 23.6, 27.4, 1.05, 1.12, 0.5, -0.3, 0, -0.4)
-  sub($('sub-chute'), 'A railway in the sky.\nSoft as rain, over the streets the giant refused.', t, 23.8, 27.25, 0.3, 0.2)
+  sub($('sub-chute'), 'A delivery railway in the sky.', t, 23.8, 27.25, 0.3, 0.2)
 
   ken($('img-ring'), t, 27.4, 30.4, 1.06, 1.12, -0.3, 0.6, 0.2, -0.4)
   ken($('img-walk'), t, 30.4, 33.6, 1.05, 1.12, 0.6, -0.3, 0, -0.3)
-  sub($('sub-walk'), 'Walk the Moon from a chair on Earth.\nWhat you say about 2.6 seconds decides who stays.', t, 30.6, 33.45, 0.3, 0.2)
+  sub($('sub-walk'), 'Walk the Moon from a chair on Earth.', t, 30.6, 33.45, 0.3, 0.2)
 
   typeText($('blend-prose'), BLEND_Q, t, 33.68, 82)
   setChoices('blend-choices', t, 34.85, 35.40, 35.95)
@@ -677,7 +681,7 @@ function seek(t) {
 
   ken($('img-hulls'), t, 37.4, 40.2, 1.06, 1.12, 0.4, -0.6, 0.2, -0.3)
   ken($('img-strand'), t, 40.2, 43.2, 1.05, 1.12, 0, 0.4, 0.4, -0.3)
-  sub($('sub-strand'), 'A cable from the ground to orbit.\nNations fight over who rides.', t, 40.4, 43.05, 0.3, 0.2)
+  sub($('sub-strand'), 'A cable from the ground to orbit.', t, 40.4, 43.05, 0.3, 0.2)
 
   typeText($('sky-prose'), SKY_Q, t, 43.28, 86)
   setChoices('sky-choices', t, 44.30, 44.80, 45.35)
@@ -687,14 +691,12 @@ function seek(t) {
 
   ken($('img-scar1'), t, 46.0, 47.5, 1.06, 1.12, 0, 0, 0, 0)
   ken($('img-scar2'), t, 47.5, 48.9, 1.05, 1.10, 0, 0, 0.3, -0.2)
-  ken($('img-scar3'), t, 48.9, 50.2, 1.06, 1.12, 0.2, -0.2, 0, 0)
-  ken($('img-scar4'), t, 50.2, 51.2, 1.05, 1.10, 0, 0, 0, -0.2)
-  ken($('img-ascent'), t, 51.2, 52.4, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
+  ken($('img-scar3'), t, 48.9, 49.8, 1.06, 1.10, 0.2, -0.1, 0, 0)
+  ken($('img-scar4'), t, 49.8, 50.6, 1.05, 1.10, 0, 0, 0, -0.2)
+  ken($('img-ascent'), t, 50.6, 52.4, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
   sub($('sub-scar1'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, 46.08, 47.42, 0.18, 0.12)
   sub($('sub-scar2'), 'COMPANIES DIE.\nYOU DON’T.', t, 47.58, 48.82, 0.18, 0.12)
-  sub($('sub-scar3'), 'EVERY SCAR\nCARRIES FORWARD.', t, 48.98, 51.15, 0.18, 0.12)
-  sub($('sub-scar4'), 'EVERY SCAR\nCARRIES FORWARD.', t, 50.20, 51.15, 0.01, 0.12)
-  sub($('sub-ascent'), 'EVERY SCAR\nCARRIES FORWARD.', t, 51.20, 52.35, 0.01, 0.12)
+  sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, 50.72, 52.32, 0.2, 0.15)
 
   ken($('img-life'), t, 52.4, 54.2, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)
   sub($('sub-life'), 'One life. Burned to your name.', t, 52.55, 54.12, 0.22, 0.15)

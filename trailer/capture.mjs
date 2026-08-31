@@ -11,8 +11,7 @@ const PORT = 9333
 const FPS = 24
 const DUR = 60
 const TIMES = [
-  2.0, 7.2, 16.2, 17.2, 21.5, 25.0,
-  28.6, 31.5, 38.6, 41.5, 44.9, 46.6, 55.6,
+  7.2, 21.5, 25.0, 28.6, 31.5, 38.6, 41.5, 51.4,
 ]
 
 const userData = '/tmp/fate-trailer-cdp-' + process.pid
