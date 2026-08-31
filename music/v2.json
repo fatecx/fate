@@ -1561,92 +1561,101 @@
         "FOUR HUNDRED PEOPLE",
         "THE CABLE RISES"
       ],
-      "note": "Organ and strings for a platform that has a cafeteria now. Construction as devotion.",
-      "seedBase": 440171,
+      "note": "A machine that learned to house people. Analog pads under a clock-organ. Construction as science fiction, not a hymn.",
+      "seedBase": 450271,
       "chunks": [
         {
           "text": "[The Clock] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "cathedral pipe organ",
-            "pipe organ in moving chords",
-            "C minor",
-            "6/8",
-            "72 BPM",
+            "1970s analog synthesizer score",
+            "pipe organ ostinato like a machine",
+            "ticking percussion like a clock",
+            "E minor",
+            "12/8",
+            "88 BPM",
             "starts on the first beat",
-            "instrumental",
-            "vast room",
             "high production quality"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "gospel",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
-            "saxophone"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {organ and strings}",
+          "text": "[The Cable] {analog and organ}",
           "duration_ms": 22000,
           "positive_styles": [
-            "pipe organ continues",
-            "low strings entering",
+            "warm analog pads continue",
+            "pipe organ ostinato continues",
+            "ticking percussion",
+            "low analog bass",
             "a measured rising figure",
-            "6/8",
-            "72 BPM"
+            "12/8",
+            "88 BPM"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
             "trailer music",
-            "saxophone",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Hold] {orchestra and organ}",
+          "text": "[The Platform] {analog brass and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "string orchestra",
-            "pipe organ",
-            "low brass",
-            "organ and strings broadening",
-            "6/8"
+            "analog brass",
+            "pipe organ ostinato",
+            "low analog bass",
+            "ticking still present",
+            "science-fiction underscore",
+            "12/8"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
             "lyrics",
             "vocals",
-            "EDM",
+            "EDM drop",
             "pop",
-            "trailer music",
-            "saxophone",
-            "EDM drop"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {organ and strings}",
+          "text": "[Orbit] {analog and organ}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ holding a vast chord",
-            "one person-scale cadence",
-            "strings",
+            "analog pads holding",
+            "organ ostinato thinning",
+            "ticking fading",
+            "unresolved E minor",
             "quiet ending",
-            "human-scale"
+            "human-scale science fiction"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "major key",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
-            "trailer music",
-            "saxophone",
             "sudden stop",
             "trailer sting"
           ],
@@ -1666,92 +1675,106 @@
         "THE SEA WALL",
         "A COUNTRY AROUND YOU"
       ],
-      "note": "Civic organ. A flag goes up and you are suddenly a landmark.",
-      "seedBase": 440181,
+      "note": "A country that is also a machine. Cold analog under a clock-organ. Flag as infrastructure, not a civic hymn.",
+      "seedBase": 450281,
       "chunks": [
         {
           "text": "[The Clock] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "cathedral pipe organ",
-            "solemn pipe organ",
-            "A-flat major",
-            "4/4",
-            "74 BPM",
+            "1970s analog synthesizer score",
+            "pipe organ ostinato like a machine",
+            "ticking percussion like a clock",
+            "F-sharp minor",
+            "12/8",
+            "84 BPM",
             "starts on the first beat",
-            "instrumental",
-            "vast room",
             "high production quality"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "gospel",
+            "major key",
+            "civic",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
-            "saxophone"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {organ and strings}",
+          "text": "[The Charter] {analog and organ}",
           "duration_ms": 22000,
           "positive_styles": [
-            "pipe organ continues",
-            "low strings entering",
-            "organ and low strings, civic",
-            "4/4",
-            "74 BPM"
+            "cold analog pads continue",
+            "pipe organ ostinato continues",
+            "distant analog brass",
+            "ticking percussion",
+            "F-sharp minor",
+            "12/8",
+            "84 BPM"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "major key",
+            "civic",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
-            "saxophone",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Hold] {orchestra and organ}",
+          "text": "[The Flag] {analog brass and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "string orchestra",
-            "pipe organ",
-            "low brass",
-            "the organ widening, expensive and strange",
-            "4/4"
+            "analog brass opening wider",
+            "pipe organ as infrastructure",
+            "low analog bass",
+            "ticking still present",
+            "cold and expensive science fiction",
+            "12/8"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "major key",
+            "civic",
             "lyrics",
             "vocals",
-            "EDM",
+            "EDM drop",
             "pop",
-            "trailer music",
-            "saxophone",
-            "EDM drop"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {organ and strings}",
+          "text": "[The Sea Wall] {analog and organ}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ holding a vast chord",
-            "held organ, unresolved",
-            "strings",
+            "analog pads holding",
+            "organ ostinato unresolved",
+            "ticking fading",
+            "F-sharp minor",
             "quiet ending",
-            "human-scale"
+            "science fiction"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "major key",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
-            "trailer music",
-            "saxophone",
             "sudden stop",
             "trailer sting"
           ],
@@ -1771,92 +1794,100 @@
         "KILOMETER 400",
         "THAT ROAD STARTED HERE"
       ],
-      "note": "A schoolteacher rides the cable. Organ, strings, the sky opening at human scale.",
-      "seedBase": 440191,
+      "note": "The cable is a machine road. Analog lead climbing over a clock-organ. Wonder that is science fiction, not Sunday.",
+      "seedBase": 450291,
       "chunks": [
         {
           "text": "[The Clock] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "cathedral pipe organ",
-            "pipe organ, patient",
-            "C minor",
-            "6/8",
-            "66 BPM",
+            "1970s analog synthesizer score",
+            "pipe organ ostinato like a machine",
+            "ticking percussion like a clock",
+            "D minor",
+            "12/8",
+            "90 BPM",
             "starts on the first beat",
-            "instrumental",
-            "vast room",
             "high production quality"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "gospel",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
-            "saxophone"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {organ and strings}",
+          "text": "[The Cable] {analog lead and organ}",
           "duration_ms": 22000,
           "positive_styles": [
-            "pipe organ continues",
-            "low strings entering",
-            "strings joining a climbing figure",
-            "6/8",
-            "66 BPM"
+            "lonely analog lead",
+            "pipe organ ostinato continues",
+            "ticking percussion",
+            "a climbing melody",
+            "12/8",
+            "90 BPM"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
             "trailer music",
-            "saxophone",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Hold] {orchestra and organ}",
+          "text": "[Ascent] {analog lead and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "string orchestra",
-            "pipe organ",
-            "low brass",
-            "organ and orchestra, earned wonder",
-            "6/8"
+            "analog lead climbing",
+            "pipe organ as elevator machinery",
+            "analog brass",
+            "ticking still present",
+            "D minor",
+            "12/8"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
             "lyrics",
             "vocals",
-            "EDM",
+            "EDM drop",
             "pop",
-            "trailer music",
-            "saxophone",
-            "EDM drop"
+            "trailer music"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {organ and strings}",
+          "text": "[Orbit] {analog and organ}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ holding a vast chord",
-            "quiet wonder",
-            "strings",
+            "analog pads",
+            "distant analog lead",
+            "organ ostinato thinning",
+            "unresolved D minor",
             "quiet ending",
-            "human-scale"
+            "human-scale science fiction"
           ],
           "negative_styles": [
+            "choir",
+            "hymn",
+            "church",
+            "major key",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
-            "trailer music",
-            "saxophone",
             "sudden stop",
             "trailer sting"
           ],

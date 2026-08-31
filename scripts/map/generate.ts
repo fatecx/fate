@@ -1238,7 +1238,7 @@ function buildArt(){
 // saved to music/review.json; candidate files are deliberately absent from the
 // runtime registry until a later, explicit integration pass.
 const MDEC=Object.assign({},DATA.music.decisions||{});
-const musicPlayer=new Audio();
+const musicPlayer=new Audio();musicPlayer.loop=true;
 let musicSet='v2',musicChapter='ALL',musicActive=null;
 const ASSETBASE=location.protocol==='file:'?'public/':'/';
 const mtime=s=>{if(!Number.isFinite(s))return '0:00';const n=Math.max(0,Math.floor(s));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0');};
@@ -1276,7 +1276,7 @@ function applyMusicFilter(){const v=q.value.trim().toLowerCase();let shown=0;
   document.querySelectorAll('.mcard').forEach(card=>{const setOk=card.dataset.set===musicSet,chOk=musicSet==='current'||musicChapter==='ALL'||card.dataset.chapter===musicChapter;
     const qOk=!v||card._musicSearch.includes(v),on=setOk&&chOk&&qOk;card.style.display=on?'':'none';if(on)shown++;});
   const intro=document.getElementById('mintro');if(intro)intro.textContent=musicSet==='v2'
-    ?'Three 90-second sci-fi scores, generated fresh — not conditioned on the live beds, not replacing Codex’s rounds. Analog-noir, ritual choir, organ-and-orchestra. Your ears make the decision; nothing here plays in the game.'
+    ?'Picture scores for every film in the game. Analog-noir and machine-organ sci-fi — not church, not Codex’s rounds. Play loops. Your ears make the decision.'
     :musicSet==='direction'
     ?'3 fresh 60-second composition directions curated from 12 internal renders: orchestral, analog, and hybrid. Every selection starts within two seconds and changes orchestration across the minute. Your ears make the decision; nothing here plays in the game.'
     :musicSet==='new'

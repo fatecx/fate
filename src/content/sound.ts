@@ -206,7 +206,7 @@ export const MOODS: Record<string, SoundDef> = {
   night_run: {
     id: 'mus_night_run',
     gain: 0.4,
-    seconds: 90,
+    seconds: 60,
     film: true,
     source: 'music',
     prompt:
@@ -215,7 +215,7 @@ export const MOODS: Record<string, SoundDef> = {
   hold: {
     id: 'mus_hold',
     gain: 0.4,
-    seconds: 90,
+    seconds: 65,
     film: true,
     source: 'music',
     prompt:
@@ -224,7 +224,7 @@ export const MOODS: Record<string, SoundDef> = {
   latency: {
     id: 'mus_latency',
     gain: 0.4,
-    seconds: 60,
+    seconds: 58,
     film: true,
     source: 'music',
     prompt:
@@ -233,7 +233,7 @@ export const MOODS: Record<string, SoundDef> = {
   richmond: {
     id: 'mus_richmond',
     gain: 0.38,
-    seconds: 42,
+    seconds: 40,
     film: true,
     source: 'music',
     prompt:
@@ -242,7 +242,7 @@ export const MOODS: Record<string, SoundDef> = {
   eleven: {
     id: 'mus_eleven',
     gain: 0.36,
-    seconds: 90,
+    seconds: 44,
     film: true,
     source: 'music',
     prompt:
@@ -251,7 +251,7 @@ export const MOODS: Record<string, SoundDef> = {
   ring: {
     id: 'mus_ring',
     gain: 0.4,
-    seconds: 90,
+    seconds: 50,
     film: true,
     source: 'music',
     prompt:
@@ -260,7 +260,7 @@ export const MOODS: Record<string, SoundDef> = {
   first_walk: {
     id: 'mus_first_walk',
     gain: 0.4,
-    seconds: 52,
+    seconds: 50,
     film: true,
     source: 'music',
     prompt:
@@ -269,7 +269,7 @@ export const MOODS: Record<string, SoundDef> = {
   clone_war: {
     id: 'mus_clone_war',
     gain: 0.4,
-    seconds: 90,
+    seconds: 46,
     film: true,
     source: 'music',
     prompt: 'Year two analog: garage becomes office, then a cheaper copy takes the sky. E minor, 72 BPM.',
@@ -277,7 +277,7 @@ export const MOODS: Record<string, SoundDef> = {
   meridian: {
     id: 'mus_meridian',
     gain: 0.4,
-    seconds: 90,
+    seconds: 48,
     film: true,
     source: 'music',
     prompt: 'Cold analog grandeur. Someone else rings the bell. F minor, 78 BPM.',
@@ -285,7 +285,7 @@ export const MOODS: Record<string, SoundDef> = {
   eighteen: {
     id: 'mus_eighteen',
     gain: 0.38,
-    seconds: 90,
+    seconds: 59,
     film: true,
     source: 'music',
     prompt: 'A worn analog campaign. The same melody, older, still going. D minor, 60 BPM.',
@@ -293,7 +293,7 @@ export const MOODS: Record<string, SoundDef> = {
   peoples_network: {
     id: 'mus_peoples_network',
     gain: 0.4,
-    seconds: 90,
+    seconds: 41,
     film: true,
     source: 'music',
     prompt: 'Your IPO. Warm analog hymn. E-flat major, 70 BPM.',
@@ -301,7 +301,7 @@ export const MOODS: Record<string, SoundDef> = {
   year_three: {
     id: 'mus_year_three',
     gain: 0.38,
-    seconds: 90,
+    seconds: 50,
     film: true,
     source: 'music',
     prompt: 'An ordinary Monday that is also a company. Analog, G minor, 66 BPM.',
@@ -309,7 +309,7 @@ export const MOODS: Record<string, SoundDef> = {
   shoebox: {
     id: 'mus_shoebox',
     gain: 0.36,
-    seconds: 90,
+    seconds: 65,
     film: true,
     source: 'music',
     prompt: 'A home elegy. Small analog melody that will not get bigger. A minor, 56 BPM.',
@@ -317,7 +317,7 @@ export const MOODS: Record<string, SoundDef> = {
   honest_delay: {
     id: 'mus_honest_delay',
     gain: 0.4,
-    seconds: 90,
+    seconds: 50,
     film: true,
     source: 'music',
     prompt: 'Your second bell. Analog, precise, F-sharp minor, 68 BPM.',
@@ -325,10 +325,10 @@ export const MOODS: Record<string, SoundDef> = {
   first_rung: {
     id: 'mus_first_rung',
     gain: 0.4,
-    seconds: 90,
+    seconds: 80,
     film: true,
     source: 'music',
-    prompt: 'Organ and strings for a platform with a cafeteria. C minor, 72 BPM, 6/8.',
+    prompt: 'A machine that learned to house people. Analog pads under a clock-organ. E minor, 88 BPM, 12/8.',
   },
   aurelia: {
     id: 'mus_aurelia',
@@ -336,15 +336,15 @@ export const MOODS: Record<string, SoundDef> = {
     seconds: 90,
     film: true,
     source: 'music',
-    prompt: 'Civic organ. A flag goes up. A-flat major, 74 BPM.',
+    prompt: 'A country that is also a machine. Cold analog under a clock-organ. F-sharp minor, 84 BPM, 12/8.',
   },
   the_road: {
     id: 'mus_the_road',
     gain: 0.4,
-    seconds: 90,
+    seconds: 75,
     film: true,
     source: 'music',
-    prompt: 'A schoolteacher rides the cable. Organ, strings, C minor, 66 BPM.',
+    prompt: 'The cable is a machine road. Analog lead over a clock-organ. D minor, 90 BPM, 12/8.',
   },
   hustle: {
     id: 'mus_hustle',

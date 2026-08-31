@@ -199,9 +199,17 @@ async function startMusicCycle(def: SoundDef, fadeIn: number): Promise<Lane | nu
   gain.gain.value = 0
   src.connect(gain)
   gain.connect(master)
+  // Picture scores loop the trimmed meat in place. Play-scene drones still
+  // cycle takes via the timer below — the hum breathes, never a hard seam.
+  if (def.film) {
+    src.loop = true
+    src.loopStart = Math.min(0.12, buf.duration / 8)
+    src.loopEnd = buf.duration - Math.min(0.12, buf.duration / 8)
+  }
   src.start(0)
   gain.gain.linearRampToValueAtTime(def.gain, c.currentTime + fadeIn)
   const lane: Lane = { src, gain, id: def.id }
+  if (def.film) return lane
   const handoff = (): void => {
     if (musicLane !== lane || !ctx) return
     void startMusicCycle(def, TAKE_XFADE).then((next) => {
