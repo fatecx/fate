@@ -18,6 +18,7 @@ import { hasPaid, claimFeeReceipt, claimPendingFee, WHOP_PLAN_ID } from './fee'
 import { renderLanding } from './landing'
 import { lockCopy } from './locks'
 import { setStage, resetStage, stinger, foley, sceneSound, soundEnabled, setSoundEnabled, igniteOnFirstGesture, type StageState } from './audio'
+import { auditedScore } from '../engine/audit'
 import { MOODS } from '../content/sound'
 import { makeFmt } from '../../scripts/map/format'
 import { artUrl } from './assets'
@@ -1402,7 +1403,7 @@ function pushChapterClose(): Promise<void> {
   pushedClosePromise = Promise.all([
     pushDecisions(rows),
     pushFounder({
-      score: st.ledger.founderScore,
+      score: auditedScore(st),
       chapters: st.ledger.completed.length,
       weeks: st.epoch,
       endings: st.ledger.completed.map((x) => `${x.company}:${x.endingId}`),

@@ -21,6 +21,7 @@ import { newGame, reduce, visibleChoices } from '../../src/engine/reduce'
 import { Rng } from '../../src/engine/rng'
 import { runwayWeeks } from '../../src/engine/types'
 import { randomBot, greedyBot, eliteBot, type Policy, type ChoiceCtx } from '../../tests/sim/bots'
+import { auditedScore } from '../../src/engine/audit'
 
 // ---- personas -----------------------------------------------------------------
 // Each is a pure seeded function of the visible choice effects — a caricature
@@ -168,6 +169,8 @@ interface SceneStat {
 function main(): void {
   const args = process.argv.slice(2)
   const runsPer = Number(args.find((a) => a.startsWith('--runs='))?.slice(7) ?? 2000)
+  const outName = args.find((a) => a.startsWith('--out='))?.slice(6) ?? 'report.json'
+  const seedBase = Number(args.find((a) => a.startsWith('--seedbase='))?.slice(11) ?? 0x51_000)
   const polNames = (args.find((a) => a.startsWith('--policies='))?.slice(11) ?? Object.keys(POLICIES).join(','))
     .split(',')
     .filter((p) => POLICIES[p])
@@ -189,6 +192,13 @@ function main(): void {
     )
   const weeksToClose = new Map<string, Reservoir>()
   for (const ch of chapterIds) weeksToClose.set(ch, { n: 0, vals: [] })
+
+  // Biography-level outcomes: which ending TRIPLE one life strung together,
+  // and the best lives overall — the ghosts of the ledger.
+  const tuples = new Map<string, number>() // "hEnd|tEnd|sEnd" → count
+  type TopLife = { seed: number; policy: string; score: number; weeks: number; endings: string[]; panics: number }
+  const TOP_K = 50
+  const top: TopLife[] = []
 
   const perPolicy: Record<
     string,
@@ -221,8 +231,10 @@ function main(): void {
     })
 
     for (let k = 0; k < runsPer; k++) {
-      const seed = (0x51_000 + k * 2654435761) >>> 0
+      const seed = (seedBase + k * 2654435761) >>> 0
       P.runs++
+      const lifeEndings: string[] = []
+      let lifePanics = 0
       try {
         let st = newGame(content, seed)
         const rng = new Rng((seed ^ 0x9e3779b9) >>> 0)
@@ -245,7 +257,10 @@ function main(): void {
               prevRunway = runwayWeeks(st.company)
             }
             const rw = runwayWeeks(st.company)
-            if (prevRunway >= 10 && rw < 10) P.panics++
+            if (prevRunway >= 10 && rw < 10) {
+              P.panics++
+              lifePanics++
+            }
             prevRunway = rw
 
             const chId = st.company.id
@@ -297,12 +312,25 @@ function main(): void {
             const endId = completed?.endingId ?? ended.endingId ?? 'unknown'
             const bucket = P.endings[ended.id]
             bucket[endId] = (bucket[endId] ?? 0) + 1
+            lifeEndings.push(endId)
             resAdd(weeksToClose.get(ended.id)!, st.epoch - ended.foundedEpoch, bandRng)
             st = reduce(content, st, { t: 'foundNext' })
           } else break
         }
         resAdd(P.scoreFinal, st.ledger.founderScore, bandRng)
         resAdd(P.epochs, st.epoch, bandRng)
+        if (lifeEndings.length) {
+          const tk = lifeEndings.join('|')
+          tuples.set(tk, (tuples.get(tk) ?? 0) + 1)
+        }
+        if (st.phase === 'complete') {
+          const s = auditedScore(st)
+          if (top.length < TOP_K || s > top[top.length - 1].score) {
+            top.push({ seed, policy: polName, score: s, weeks: st.epoch, endings: lifeEndings, panics: lifePanics })
+            top.sort((a, b) => b.score - a.score)
+            if (top.length > TOP_K) top.pop()
+          }
+        }
       } catch (err) {
         if (P.exceptions.length < 20)
           P.exceptions.push({ seed, msg: String(err instanceof Error ? err.message : err) })
@@ -382,10 +410,12 @@ function main(): void {
       ]),
     ),
     sceneStats: Object.fromEntries([...sceneStats.entries()].map(([k, s]) => [k, { visits: s.visits, choices: s.choices }])),
+    tuples: Object.fromEntries(tuples),
+    top,
   }
 
   mkdirSync(join(process.cwd(), 'sim'), { recursive: true })
-  const out = join(process.cwd(), 'sim', 'report.json')
+  const out = join(process.cwd(), 'sim', outName)
   writeFileSync(out, JSON.stringify(report))
   const total = polNames.length * runsPer
   console.log(`\nwrote ${out}`)

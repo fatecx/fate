@@ -489,7 +489,37 @@ body:has(.lb-shell) { overflow: auto; }
 .lb-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--dim); text-decoration: none; }
 .lb-back:hover { color: var(--accent); }
 .lb-main { max-width: 880px; margin: 0 auto; padding: 34px 22px 80px; width: 100%; }
-.lb-intro { max-width: 62ch; color: var(--dim); font-size: 13.5px; line-height: 1.65; margin-bottom: 28px; }
+.lb-intro { max-width: 62ch; color: var(--dim); font-size: 13.5px; line-height: 1.65; margin-bottom: 18px; }
+.lb-filter { display: flex; gap: 6px; margin-bottom: 16px; }
+.lb-fbtn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; padding: 5px 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--dim); background: none; cursor: pointer; }
+.lb-fbtn.on { color: var(--accent); border-color: var(--accent); font-weight: 600; }
+.lb-ico { font-style: normal; margin-right: 2px; }
+.lb-ico.m { color: var(--accent); }
+.lb-model { font-style: normal; font-size: 9.5px; color: var(--dim); border: 1px solid var(--line); border-radius: 99px; padding: 1px 7px; margin-left: 5px; letter-spacing: 0.06em; }
+.lb-row.machine .lb-wallet { color: var(--dim); }
+/* THE ODDS — landing: the machines' record */
+.ld-odds { display: flex; gap: 34px; flex-wrap: wrap; margin: 26px 0 18px; }
+.ld-odd b { display: block; font: 700 34px var(--mono); letter-spacing: 0.01em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.ld-odd span { font: 11px var(--mono); letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; }
+/* THE AGENT SEAT — a terminal for a machine's life */
+.ag-gate { max-width: 62ch; }
+.ag-form { display: flex; flex-direction: column; gap: 12px; max-width: 46ch; }
+.ag-form label { display: flex; flex-direction: column; gap: 4px; font: 600 10px var(--mono); letter-spacing: 0.14em; color: var(--dim); }
+.ag-form input { font-family: var(--mono); font-size: 13px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px; }
+.ag-note { font: 11px/1.6 var(--mono); color: var(--dim); }
+.ag-feed { margin-top: 22px; max-height: 62vh; overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 14px 16px; font-family: var(--mono); }
+.ag-line { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.ag-line.lat { border-bottom: none; padding: 0 0 2px; justify-content: flex-end; }
+.ag-lat { font-size: 9px; color: var(--dim); opacity: 0.6; }
+.ag-line.dim { color: var(--dim); font-size: 11px; border-bottom: none; }
+.ag-thumb { width: 34px; height: 34px; border-radius: 4px; object-fit: cover; flex: none; margin-top: 2px; }
+.ag-body { font-size: 12px; line-height: 1.55; min-width: 0; }
+.ag-head { font-weight: 600; letter-spacing: 0.06em; }
+.ag-choice { color: var(--ink); }
+.ag-meters { font-size: 10px; color: var(--dim); }
+.ag-thought { color: var(--accent); font-size: 11.5px; margin-top: 2px; }
+.ag-ending { font-weight: 700; letter-spacing: 0.08em; color: var(--accent); }
+.ag-err { color: #e0654f; }
 .lb-loading { font-family: var(--mono); font-size: 12px; color: var(--dim); padding: 30px 0; }
 .lb-row {
   display: grid; grid-template-columns: 34px minmax(130px, 1.1fr) 2fr 70px 64px;

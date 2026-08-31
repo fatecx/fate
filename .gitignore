@@ -10,6 +10,7 @@ src-tauri/target/
 src-tauri/gen/
 sim/shard-*.json
 sim/seed.sql
+api/_engine.js
 music/benchmark-renders/
 music/cutscene-renders/
 music/grok-pass/

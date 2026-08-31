@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         leaderboard: fileURLToPath(new URL('./leaderboard.html', import.meta.url)),
+        agent: fileURLToPath(new URL('./agent.html', import.meta.url)),
       },
     },
   },

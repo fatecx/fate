@@ -1,0 +1,27 @@
+{
+ "generated": "2026-08-31T13:36:51.038Z",
+ "lives": 1000000,
+ "shards": 8,
+ "rows": 363,
+ "endings": {
+  "hyperchute|acquired": 359675,
+  "hyperchute|bankrupt": 505018,
+  "teleport|ousted": 374480,
+  "skyline|venture_state": 523439,
+  "teleport|bankrupt": 403154,
+  "skyline|bankrupt": 291756,
+  "hyperchute|become_them": 27053,
+  "hyperchute|walkaway_opensource": 107833,
+  "hyperchute|triumph_ipo": 421,
+  "teleport|swallowed": 120413,
+  "skyline|eminent_domain": 55785,
+  "skyline|long_road": 51317,
+  "skyline|port_authority": 50270,
+  "teleport|puppet": 737,
+  "teleport|listing": 100778,
+  "teleport|commons": 438,
+  "skyline|garrison": 12082,
+  "skyline|cable_fall": 14826,
+  "skyline|ascent": 525
+ }
+}

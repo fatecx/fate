@@ -126,10 +126,12 @@ export interface FounderRow {
   chapters: number
   weeks: number
   endings: string[]
+  cohort?: 'human' | 'model' | 'agent'
+  model?: string | null
 }
 
 /** Upsert this founder's ledger row. Idempotent; safe to call at every epilogue. */
-export async function pushFounder(row: Omit<FounderRow, 'user_id' | 'wallet' | 'chain'>): Promise<void> {
+export async function pushFounder(row: Omit<FounderRow, 'user_id' | 'wallet' | 'chain' | 'cohort' | 'model'>): Promise<void> {
   if (!supa) return
   try {
     const session = await getSession()
@@ -184,7 +186,7 @@ export async function fetchLeaderboard(limit = 100): Promise<FounderRow[]> {
   try {
     const { data } = await supa
       .from('founders')
-      .select('user_id,wallet,chain,score,chapters,weeks,endings')
+      .select('user_id,wallet,chain,score,chapters,weeks,endings,cohort,model')
       .order('score', { ascending: false })
       .order('weeks', { ascending: true })
       .limit(limit)

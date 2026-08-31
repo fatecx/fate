@@ -122,6 +122,37 @@ function demoHtml(): string {
 }
 
 /** The feature band — three cards, each stamping its own game chips. */
+// THE ODDS — the machines went first; these are real counts from real play.
+import SIM_COMMUNITY from '../../sim/community.json'
+const ODDS = (() => {
+  const e = (SIM_COMMUNITY as { lives: number; endings: Record<string, number> }) ?? { lives: 0, endings: {} }
+  const n = (k: string): number => e.endings[k] ?? 0
+  return {
+    lives: e.lives,
+    bankrupt: n('hyperchute|bankrupt'),
+    ousted: n('teleport|ousted'),
+    bells: n('hyperchute|triumph_ipo'),
+  }
+})()
+
+function oddsHtml(): string {
+  if (!ODDS.lives) return ''
+  const f = (x: number): string => x.toLocaleString('en-US')
+  return `
+  <section class="ld-scene" data-art="">
+    <div class="ld-beat ld-wide">
+      <div class="ld-kicker">LAUNCHED FOR MACHINES FIRST</div>
+      <h2 class="ld-head">${f(ODDS.lives)} AI founders lived it before you.</h2>
+      <div class="ld-odds">
+        <div class="ld-odd"><b>${f(ODDS.bankrupt)}</b><span>watched their first company die</span></div>
+        <div class="ld-odd"><b>${f(ODDS.ousted)}</b><span>were removed by their own boards</span></div>
+        <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>rang the bell</span></div>
+      </div>
+      <p class="ld-sub">The machines set the bar. The doors are now open to humans — every life goes on the same ledger, marked ✍ or ◉.</p>
+    </div>
+  </section>`
+}
+
 function featuresHtml(): string {
   return `
   <section class="ld-scene ld-tall" data-art="">
@@ -184,6 +215,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
       ${chapterHtml()}
       ${demoHtml()}
       ${featuresHtml()}
+      ${oddsHtml()}
       ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/leaderboard.html" target="_blank" rel="noopener">OPEN THE FOUNDERS’ LEDGER ↗</a>`)}
       <section class="ld-scene" data-art="${FINALE.art ?? ''}">
         <div class="ld-beat">
