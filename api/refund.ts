@@ -69,6 +69,7 @@ export default async function handler(req: any, res: any) {
     // Full refund through Whop; the money goes back the way it came.
     let refunded = false
     let lastErr = ''
+    let cryptoWall = false
     for (const path of [
       `/api/v1/payments/${pay.data.tx}/refund`,
       `/api/v2/payments/${pay.data.tx}/refund`,
@@ -83,16 +84,18 @@ export default async function handler(req: any, res: any) {
         refunded = true
         break
       }
-      lastErr = `${r.status} ${(await r.text()).slice(0, 120)}`
-      if (r.status === 400 && /already|refunded/i.test(lastErr)) {
+      const text = (await r.text()).slice(0, 160)
+      // Whop's crypto rail can't reverse: "CoinFlow refunds are not yet supported."
+      if (/coinflow|crypto/i.test(text)) cryptoWall = true
+      // Keep the most informative failure — an empty 404 must not clobber a spoken 400.
+      if (text.trim() || !lastErr) lastErr = `${r.status} ${text.slice(0, 120)}`
+      if (r.status === 400 && /already|refunded/i.test(text)) {
         refunded = true // idempotent retry after a half-completed withdrawal
         break
       }
     }
     if (!refunded) {
-      // Crypto settlements are irreversible — Whop's refund API only reverses
-      // card charges (404 on crypto payments). Those come back by hand.
-      if (lastErr.startsWith('404'))
+      if (cryptoWall)
         return res.status(409).json({
           error:
             'this fee was paid in crypto, and the register can’t reverse a crypto payment automatically. Write to dev@fate.cx and it comes back by hand — usually within a day. Your filing stays intact until then.',
