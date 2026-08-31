@@ -21,6 +21,7 @@ import {
   RECORD,
   FINALE,
   PRICE_CHIP,
+  GUARANTEE,
   CTA_LABEL,
   COVENANT,
   type LandingPanel,
@@ -228,6 +229,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
           <h2 class="ld-head">${esc(FINALE.head ?? '')}</h2>
           ${FINALE.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
           <div class="ld-price">${esc(PRICE_CHIP)}</div>
+          <div class="ld-guarantee">${esc(GUARANTEE)}</div>
           <div><button class="cta ld-cta" data-enter>${esc(CTA_LABEL)}</button></div>
           <div class="ld-covenant">${COVENANT.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
           <div class="ld-foot">DEVELOPED BY PLAYURE</div>

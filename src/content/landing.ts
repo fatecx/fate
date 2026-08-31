@@ -118,10 +118,10 @@ export const FEATURES: readonly LandingPanel[] = [
   {
     kicker: 'THE COVENANT',
     glyph: '▲',
-    head: 'SIGNED IN YOUR OWN HAND',
+    head: 'NOTHING CAN BE UNDONE',
     art: null,
     paras: [
-      'One signature gets one life. Your passkey is the pen — no password, no email, nothing to leak — and every choice it signs stays on the record for good.',
+      'One life. No reloads, no retries, no fresh starts. Every choice is final the moment you make it, and the finished biography stays on the record forever.',
     ],
     sig: { label: 'FOUNDER OF RECORD', value: 'Nº 4F2A81C3 · PERMANENT' },
   },
@@ -148,12 +148,16 @@ export const FINALE: LandingPanel = {
 
 export const PRICE_CHIP = 'ONE LIFE · $20'
 
+/** The Filing Guarantee — shown beside the price wherever the fee is named. */
+export const GUARANTEE =
+  'THE FILING GUARANTEE — walk away before your first company’s papers are stamped and the state returns your $20 in full. After the stamp, the life is yours. Permanently.'
+
 export const CTA_LABEL = 'Incorporate →'
 
 export const COVENANT = [
   'Fate gives you one life.',
   'Your decisions are immutable.',
-  'Your path is signed in your own hand.',
+  'Nothing can be undone.',
 ]
 
 /** Every art id the landing references — the spec walks this list. */
