@@ -238,6 +238,10 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .fadepara + .fadepara { margin-top: 0.9em; }
 .fadeline { display: none; }
 .fadeline.on { display: inline; animation: lineIn 0.5s ease both; }
+/* The landing demo box holds its final size from first paint: lines occupy
+   their space invisibly and only fade INTO it — no layout shift mid-scene. */
+.ld-demo .fadeline { display: inline; visibility: hidden; }
+.ld-demo .fadeline.on { visibility: visible; animation: lineIn 0.5s ease both; }
 
 /* History fades as a whole — full text always present, nothing hidden on hover. */
 .past { opacity: 0.42; }
