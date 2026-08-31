@@ -213,8 +213,8 @@ img { display: block; }
 .spine { width: 156px; height: 156px; margin-bottom: 36px; position: relative; }
 .spine svg { width: 100%; height: 100%; }
 .end-mark {
-  font-family: var(--display); font-weight: 800; font-size: 112px;
-  letter-spacing: 0.26em; text-indent: 0.26em; color: #ecede9;
+  font-family: var(--display); font-weight: 800; font-size: 92px;
+  letter-spacing: 0.14em; text-indent: 0.14em; color: #ecede9;
 }
 .end-kicker {
   font-family: var(--mono); font-size: 22px; letter-spacing: 0.34em;
@@ -541,7 +541,7 @@ img { display: block; }
           <circle cx="512" cy="512" r="252" fill="#b4540a"/>
         </svg>
       </div>
-      <div class="end-mark" id="end-mark">FATE</div>
+      <div class="end-mark" id="end-mark">FATE, INC.</div>
       <div class="end-kicker" id="end-kicker">THE IMMUTABLE FOUNDER SAGA</div>
       <div class="end-url" id="end-url">fate.cx</div>
     </div>
@@ -806,7 +806,7 @@ function seek(t) {
 
   ken($('img-hulls'), t, ...WIN.hulls, 1.06, 1.12, 0.4, -0.6, 0.2, -0.3)
   ken($('img-strand'), t, ...WIN.strand, 1.05, 1.12, 0, 0.4, 0.4, -0.3)
-  sub($('sub-strand'), 'A cable from the ground to orbit.', t, ...pad(WIN.strand, 0.2, 0.15), 0.3, 0.2)
+  sub($('sub-strand'), 'An elevator to space.', t, ...pad(WIN.strand, 0.2, 0.15), 0.3, 0.2)
 
   const skyCps = CUT === 90 ? 54 : 86
   const skyChoices = at(WIN.sky, CUT === 90 ? 2.40 : 1.10)
@@ -822,7 +822,7 @@ function seek(t) {
   ken($('img-scar2'), t, ...WIN.scar2, 1.05, 1.10, 0, 0, 0.3, -0.2)
   ken($('img-ascent'), t, ...WIN.ascent, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
   sub($('sub-scar1'), 'THREE COMPANIES.', t, ...pad(WIN.scar1, 0.12, 0.10), 0.28, 0.20)
-  sub($('sub-scar2'), 'THIRTY YEARS.', t, ...pad(WIN.scar2, 0.12, 0.10), 0.28, 0.20)
+  sub($('sub-scar2'), 'TWENTY YEARS.', t, ...pad(WIN.scar2, 0.12, 0.10), 0.28, 0.20)
   sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, ...pad(WIN.ascent, 0.12, 0.10), 0.28, 0.20)
 
   ken($('img-life'), t, ...WIN.life, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)

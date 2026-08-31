@@ -10,7 +10,7 @@ ffmpeg -y \
   -filter_complex "\
 [1:a]volume=0.95[a0];\
 [2:a]adelay=22600|22600,volume=0.55[a1];\
-[3:a]adelay=86200|86200,volume=0.85[a2];\
+[3:a]adelay=86700|86700,volume=1.0[a2];\
 [a0][a1][a2]amix=inputs=3:duration=first:dropout_transition=2:normalize=0,\
 afade=t=out:st=88.2:d=1.6[a]" \
   -map 0:v -map "[a]" \

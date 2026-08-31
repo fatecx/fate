@@ -8,6 +8,13 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const cut = process.argv.includes('--90') ? 90 : 60
 const pageUrl = 'file://' + path.join(here, 'stage.html') + (cut === 90 ? '?cut=90' : '')
 const stills = process.argv.includes('--stills')
+const rangesArg = process.argv.find((a) => a.startsWith('--ranges='))
+const ranges = rangesArg
+  ? rangesArg
+      .slice('--ranges='.length)
+      .split(',')
+      .map((s) => s.split('-').map(Number))
+  : null
 const PORT = 9333
 const FPS = 24
 const DUR = cut
@@ -32,7 +39,7 @@ const chrome = spawn(CHROME, [
   '--disable-extensions',
   '--disable-sync',
   'about:blank',
-], { stdio: ['ignore', 'pipe', 'pipe'] })
+], { stdio: ['ignore', 'ignore', 'pipe'] })
 
 chrome.stderr.on('data', (d) => {
   const s = d.toString()
@@ -129,16 +136,25 @@ try {
     const dir = path.join(here, cut === 90 ? 'frames-90' : 'frames')
     fs.mkdirSync(dir, { recursive: true })
     const n = FPS * DUR
+    const slices = (ranges ?? [[0, DUR]]).map(([a, b]) => [
+      Math.max(0, Math.floor(a * FPS)),
+      Math.min(n, Math.ceil(b * FPS)),
+    ])
     const t0 = Date.now()
-    for (let i = 0; i < n; i++) {
-      const t = i / FPS
-      await shot(t, path.join(dir, `f${String(i).padStart(5, '0')}.jpg`))
-      if (i % 48 === 0) {
-        const elapsed = (Date.now() - t0) / 1000
-        console.log(`${i}/${n} t=${t.toFixed(2)} ${(i / Math.max(0.001, elapsed)).toFixed(1)} f/s`)
+    let done = 0
+    const total = slices.reduce((s, [a, b]) => s + (b - a), 0)
+    for (const [start, end] of slices) {
+      for (let i = start; i < end; i++) {
+        const t = i / FPS
+        await shot(t, path.join(dir, `f${String(i).padStart(5, '0')}.jpg`))
+        done++
+        if (done === 1 || done % 48 === 0 || done === total) {
+          const elapsed = (Date.now() - t0) / 1000
+          console.log(`${done}/${total} t=${t.toFixed(2)} ${(done / Math.max(0.001, elapsed)).toFixed(1)} f/s`)
+        }
       }
     }
-    console.log('frames', n)
+    console.log('frames', total)
   }
   ws.close()
 } catch (err) {
