@@ -5,7 +5,7 @@
       "source": "/.well-known/apple-developer-merchantid-domain-association",
       "destination": "https://whop.com/.well-known/apple-platform-integrator/apple-developer-merchantid-domain-association"
     },
-    { "source": "/ledger", "destination": "/leaderboard.html" }
+    { "source": "/ledger", "destination": "/leaderboard" }
   ],
   "redirects": [{ "source": "/leaderboard", "destination": "/ledger", "permanent": true }]
 }
