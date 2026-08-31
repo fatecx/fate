@@ -1561,23 +1561,26 @@
         "FOUR HUNDRED PEOPLE",
         "THE CABLE RISES"
       ],
-      "note": "Interstellar family. Organ as a construction engine. Ticking, 12/8, C-sharp minor. A platform is a machine that learned to house people.",
-      "seedBase": 460371,
+      "note": "Haunting space score. A rising organ melody, strings answering, harmony that moves. Four hundred people living in the sky. Not a clock. Not a hymn.",
+      "seedBase": 471601,
       "chunks": [
         {
-          "text": "[The Clock] {pipe organ ostinato} {ticking}",
+          "text": "[The Platform] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "Interstellar science-fiction organ score",
-            "pipe organ treated as a construction engine",
-            "ticking clocks",
-            "C-sharp minor",
-            "12/8",
-            "100 BPM",
+            "haunting science-fiction film score",
+            "pipe organ and high strings",
+            "a melody from the first bar",
+            "G minor",
+            "4/4",
+            "68 BPM",
+            "vast lonely space",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
             "gospel",
@@ -1586,80 +1589,78 @@
             "lyrics",
             "vocals",
             "EDM",
-            "pop",
-            "electric piano"
+            "pop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {organ and strings}",
+          "text": "[Four Hundred] {haunting organ melody}",
           "duration_ms": 22000,
           "positive_styles": [
-            "pipe organ ostinato continues",
-            "ticking clocks",
-            "low strings entering",
-            "guttural analog bass",
-            "12/8 relentless",
-            "100 BPM"
+            "a rising organ melody",
+            "strings answering the organ",
+            "chords that change",
+            "G minor",
+            "68 BPM",
+            "haunting and grand"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
-            "silence"
+            "silence",
+            "EDM"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Platform] {orchestra and organ}",
+          "text": "[The Cable] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "massive pipe organ",
+            "the rising melody bigger",
             "full string orchestra",
-            "guttural low brass",
-            "ticking still present",
-            "epic science fiction",
-            "12/8"
+            "pipe organ",
+            "new harmony under the theme",
+            "grand haunting space",
+            "G minor"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
             "lyrics",
             "vocals",
             "EDM drop",
-            "pop",
             "trailer horns"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {organ and strings}",
+          "text": "[Named] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ ostinato holding",
+            "distant organ melody",
             "high strings",
-            "ticking fading",
-            "unresolved C-sharp minor",
-            "civilizational scale",
-            "epic science fiction"
+            "unresolved G minor",
+            "quiet haunting ending",
+            "people living in the sky"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church cadence",
             "major key",
             "lyrics",
             "vocals",
-            "sudden stop",
-            "trailer sting"
+            "sudden stop"
           ],
           "context_adherence": "high"
         }
@@ -1677,79 +1678,85 @@
         "THE SEA WALL",
         "A COUNTRY AROUND YOU"
       ],
-      "note": "Interstellar family. Organ ostinato as a country founding. D minor, 12/8, 88 BPM. Vast and unresolved — not a civic hymn.",
-      "seedBase": 460481,
+      "note": "Haunting space score. A long organ melody, strings answering, a country founding in the sky. Harmony moves. Grand, lonely, unresolved. Not a hymn. Not a clock.",
+      "seedBase": 471711,
       "chunks": [
         {
-          "text": "[The Clock] {pipe organ ostinato} {ticking}",
+          "text": "[The Flag] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "Interstellar science-fiction organ score",
-            "pipe organ ostinato as a country founding",
-            "ticking clocks",
+            "haunting science-fiction film score",
+            "pipe organ and high strings",
+            "a melody from the first bar",
             "D minor",
-            "12/8",
-            "88 BPM",
+            "4/4",
+            "64 BPM",
+            "vast lonely space",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
             "gospel",
             "church service",
-            "major key",
             "civic anthem",
+            "major key",
             "lyrics",
             "vocals",
             "EDM",
-            "pop",
-            "electric piano"
+            "pop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Charter] {organ and strings}",
+          "text": "[The Charter] {haunting organ melody}",
           "duration_ms": 22000,
           "positive_styles": [
-            "pipe organ ostinato continues",
-            "ticking clocks",
-            "low strings entering",
-            "guttural analog bass",
-            "12/8 relentless",
-            "88 BPM"
+            "a long organ melody",
+            "strings answering the organ",
+            "chords that change",
+            "D minor",
+            "64 BPM",
+            "haunting and grand"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
-            "major key",
             "civic anthem",
+            "major key",
             "lyrics",
             "vocals",
-            "silence"
+            "silence",
+            "EDM"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Flag] {orchestra and organ}",
+          "text": "[A Country] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "massive pipe organ",
+            "the melody bigger",
             "full string orchestra",
-            "guttural low brass",
-            "ticking still present",
-            "a country founding",
-            "epic science fiction"
+            "pipe organ",
+            "new harmony under the theme",
+            "grand haunting space",
+            "D minor",
+            "a country founding"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
-            "major key",
             "civic anthem",
+            "major key",
             "lyrics",
             "vocals",
             "EDM drop",
@@ -1761,23 +1768,23 @@
           "text": "[The Sea Wall] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ ostinato holding",
+            "distant organ melody",
             "high strings",
             "unresolved D minor",
-            "ticking fading",
-            "civilizational scale",
-            "epic science fiction"
+            "quiet haunting ending",
+            "a country in the sky"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church cadence",
             "major key",
+            "civic anthem",
             "lyrics",
             "vocals",
-            "sudden stop",
-            "trailer sting"
+            "sudden stop"
           ],
           "context_adherence": "high"
         }
@@ -1795,23 +1802,26 @@
         "KILOMETER 400",
         "THAT ROAD STARTED HERE"
       ],
-      "note": "Interstellar family. Organ as a spacecraft engine. 5/4 docking ostinato, F minor. A schoolteacher rides a machine into the sky.",
-      "seedBase": 460391,
+      "note": "Haunting space score. A climbing string melody over organ. One person riding into the sky. Grand, lonely, unresolved. Not a clock. Not a hymn.",
+      "seedBase": 471621,
       "chunks": [
         {
-          "text": "[The Clock] {pipe organ ostinato} {ticking}",
+          "text": "[The Ride] {instrumental}",
           "duration_ms": 16000,
           "positive_styles": [
-            "Interstellar science-fiction organ score",
-            "pipe organ treated as a spacecraft engine",
-            "ticking clocks",
-            "5/4",
-            "F minor",
-            "96 BPM",
+            "haunting science-fiction film score",
+            "pipe organ and high strings",
+            "a climbing melody from the first bar",
+            "A minor",
+            "4/4",
+            "72 BPM",
+            "vast lonely space",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
             "gospel",
@@ -1820,80 +1830,79 @@
             "lyrics",
             "vocals",
             "EDM",
-            "pop",
-            "electric piano"
+            "pop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {organ and strings}",
+          "text": "[Kilometer] {climbing string melody}",
           "duration_ms": 22000,
           "positive_styles": [
-            "5/4 organ ostinato continues",
-            "ticking clocks",
-            "low strings",
-            "guttural analog bass",
-            "96 BPM",
-            "relentless"
+            "a long climbing string melody",
+            "pipe organ underneath",
+            "chords that change",
+            "A minor",
+            "72 BPM",
+            "haunting and rising"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
-            "silence"
+            "silence",
+            "EDM"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Ascent] {orchestra and organ}",
+          "text": "[The Sky] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "massive 5/4 organ ostinato",
+            "the climbing melody at its height",
             "full string orchestra",
-            "guttural low brass",
-            "ticking still present",
-            "epic science fiction",
-            "docking-maneuver tension"
+            "pipe organ",
+            "grand haunting space",
+            "A minor",
+            "one person in the sky"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church service",
             "lyrics",
             "vocals",
             "EDM drop",
-            "pop",
             "trailer horns"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {organ and strings}",
+          "text": "[After] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "organ ostinato thinning",
+            "distant climbing melody",
             "high strings",
-            "F minor unresolved",
-            "ticking fading",
-            "the sky opening",
-            "civilizational scale"
+            "organ unresolved",
+            "A minor",
+            "quiet haunting ending",
+            "the sky holding"
           ],
           "negative_styles": [
+            "ostinato loop",
+            "ticking clocks",
             "choir",
             "hymn",
-            "gospel",
             "church cadence",
             "major key",
             "lyrics",
             "vocals",
-            "sudden stop",
-            "trailer sting"
+            "sudden stop"
           ],
           "context_adherence": "high"
         }
