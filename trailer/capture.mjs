@@ -13,7 +13,7 @@ const FPS = 24
 const DUR = cut
 const TIMES = cut === 90
   ? [2.5, 8.5, 15.0, 22.0, 25.5, 32.5, 38.0, 44.0, 49.0, 56.0, 62.0, 67.0, 73.0, 81.5, 87.5]
-  : [7.2, 21.5, 25.0, 28.6, 31.5, 38.6, 41.5, 51.4]
+  : [5.8, 12.8, 17.0, 19.8, 22.7, 26.2, 29.2, 31.8, 35.0, 38.0, 40.5, 43.5, 46.3, 48.6, 51.2, 53.8]
 
 const userData = '/tmp/fate-trailer-cdp-' + process.pid
 fs.mkdirSync(userData, { recursive: true })

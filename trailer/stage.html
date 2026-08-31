@@ -25,7 +25,7 @@ html, body {
 img { display: block; }
 
 #stage { position: relative; width: 1920px; height: 1080px; background: #000; }
-.shot { position: absolute; inset: 0; opacity: 0; visibility: hidden; overflow: hidden; }
+.shot { position: absolute; inset: 0; opacity: 0; visibility: hidden; overflow: hidden; z-index: 1; }
 .shot.on { visibility: visible; }
 
 .print {
@@ -62,6 +62,7 @@ img { display: block; }
 .cine-sub {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, calc(-50% + 10px));
+  z-index: 8;
   width: min(44ch, 88%); text-align: center;
   font-family: var(--mono);
   font-size: 34px; line-height: 1.45; font-weight: 500;
@@ -219,9 +220,10 @@ img { display: block; }
 }
 
 .faces {
-  position: absolute; left: 50%; bottom: 248px;
+  position: absolute; left: 38%; bottom: 168px;
   transform: translateX(-50%);
   display: flex; align-items: center;
+  z-index: 9;
   filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
 }
 .faces .cast-face { width: 62px; height: 62px; border-width: 2px; opacity: 0; }
@@ -324,7 +326,56 @@ img { display: block; }
     <p class="cine-sub" id="sub-chute"></p>
   </section>
 
-  <!-- 0:28 teleport -->
+  <!-- hyperchute play: the collective -->
+  <section class="shot" id="s-hplay">
+    <div class="shell">
+      <header class="rail">
+        <div class="wordmark">FATE<em>·</em></div>
+        <div class="weektag">WEEK 54 · THE FLATS</div>
+        <div class="rail-meters">
+          <div class="runway" id="hplay-runway"><b>14</b><span>RUNWAY<br/>WEEKS</span></div>
+          <div class="stressbox">
+            <div class="mlabel"><span>STRESS</span><span id="hplay-stress">44</span></div>
+            <div class="stresscells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="repchip" id="hplay-cash">$82k</div>
+          <div class="repchip" id="hplay-cred">CRED +2</div>
+        </div>
+        <div class="rail-right">
+          <div class="cast">
+            <span class="cast-face"><img src="../public/art/marisol.webp" alt=""></span>
+            <span class="cast-face"><img src="../public/art/june.webp" alt=""></span>
+            <span class="cast-face"><img src="../public/art/priya.webp" alt=""></span>
+            <span class="cast-word">CAST</span>
+          </div>
+          <div class="chap">HYPERCHUTE, INC. ▾</div>
+        </div>
+      </header>
+      <main class="stage">
+        <aside class="scene-card">
+          <div class="portrait"><img class="portrait-img" src="../public/art/world_couriers.webp" alt=""></div>
+        </aside>
+        <section class="story">
+          <div class="beat-kicker">THE FLATS</div>
+          <div class="beat-title">THE COLLECTIVE</div>
+          <p class="beat-prose" id="hplay-prose"></p>
+          <div class="choices" id="hplay-choices" style="opacity:0">
+            <button class="choice" data-i="0"><span class="c-label">Say yes. Full employees: W-2s, benefits, everything.</span><span class="fx-row"><span class="fx bad">+ burn</span><span class="fx good">+ cred</span></span></button>
+            <button class="choice" data-i="1"><span class="c-label">Offer a middle deal: guaranteed pay, no benefits.</span><span class="fx-row"><span class="fx bad">+ burn</span><span class="fx bad">+ stress</span></span></button>
+            <button class="choice" data-i="2"><span class="c-label">Automate the stairs. Machines don’t organize.</span><span class="fx-row"><span class="fx good">− burn</span><span class="fx bad">− cred</span></span></button>
+          </div>
+          <div class="fxpills" id="hplay-pills">
+            <span class="fxpill" data-d="0">W-2S</span>
+            <span class="fxpill" data-d="1">+ CRED</span>
+            <span class="fxpill dim" data-d="2">COURIERS ALLY</span>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="pointer" id="ptr-hplay"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 1 L2 15 L6.2 11.4 L9.6 17.2 L12.1 16 L8.8 10.3 L14.5 10.3 Z" fill="#fafaf7" stroke="#16181d" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+  </section>
+
+  <!-- teleport -->
   <section class="shot" id="s-ring">
     <img class="print" id="img-ring" src="../public/art/cut_ring_alive.webp" alt="">
     <div class="veil"></div>
@@ -444,36 +495,25 @@ img { display: block; }
     <div class="pointer" id="ptr-sky"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 1 L2 15 L6.2 11.4 L9.6 17.2 L12.1 16 L8.8 10.3 L14.5 10.3 Z" fill="#fafaf7" stroke="#16181d" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
   </section>
 
-  <!-- 0:45 scars + covenant -->
+  <!-- scars: two boardrooms, one line -->
   <section class="shot" id="s-scar1">
     <img class="print" id="img-scar1" src="art/world_coup_vote.jpg" alt="">
     <div class="veil"></div>
-    <p class="cine-sub" id="sub-scar1"></p>
   </section>
   <section class="shot" id="s-scar2">
     <img class="print" id="img-scar2" src="../public/art/cut_s_empty_chair.webp" alt="">
     <div class="veil"></div>
-    <p class="cine-sub" id="sub-scar2"></p>
   </section>
-  <section class="shot" id="s-scar3">
-    <img class="print" id="img-scar3" src="../public/art/cut_jonah.webp" alt="">
-    <div class="veil"></div>
-    <p class="cine-sub" id="sub-scar3"></p>
-  </section>
-  <section class="shot" id="s-scar4">
-    <img class="print" id="img-scar4" src="../public/art/world_bell.webp" alt="">
-    <div class="veil"></div>
-    <p class="cine-sub" id="sub-scar4"></p>
-  </section>
+  <p class="cine-sub" id="sub-years" style="z-index:8"></p>
   <section class="shot" id="s-ascent">
     <img class="print" id="img-ascent" src="../public/art/end_s_ascent.webp" alt="">
     <div class="veil"></div>
     <p class="cine-sub" id="sub-ascent"></p>
   </section>
 
-  <!-- 0:52 life -->
+  <!-- life: IPO bell + the people who survived with you -->
   <section class="shot" id="s-life">
-    <img class="print" id="img-life" src="../public/art/prologue_garage.webp" alt="">
+    <img class="print" id="img-life" src="../public/art/world_bell.webp" alt="">
     <div class="veil"></div>
     <div class="faces" id="life-faces">
       <span class="cast-face" data-i="0"><img src="../public/art/marisol.webp" alt=""></span>
@@ -586,6 +626,7 @@ function pointer(id, rootId, t, t0, t1) {
 }
 
 const SEED_Q = '“My granddaughter waits forty minutes for a bus to bring her insulin. I want to put my money in your company. I was saving for a cruise. Boats are slow.”'
+const HPLAY_Q = 'They arrive with a letter. Make them employees — or they stop carrying your packages up any staircase.'
 const BLEND_Q = '“The relay carries the truth two hundred and forty thousand miles. My name stays with that truth. Decide what we sell.”'
 const SKY_Q = '“If this body leaves the cable in your hands — what does it cost a schoolteacher to ride it, and when does the answer stop being yours?”'
 
@@ -593,47 +634,45 @@ const PARAMS = new URLSearchParams(location.search)
 const CUT = PARAMS.get('cut') === '90' ? 90 : 60
 
 const WIN = CUT === 90 ? {
-  card:   [0.00, 6.50],
-  below:  [6.50, 11.80],
-  garage: [11.80, 18.00],
-  seed:   [18.00, 27.20],
-  offer:  [27.20, 29.80],
-  drop:   [29.80, 35.40],
-  chute:  [35.40, 41.40],
-  ring:   [41.40, 46.60],
-  walk:   [46.60, 52.60],
-  blend:  [52.60, 59.40],
-  hulls:  [59.40, 64.40],
-  strand: [64.40, 69.80],
-  sky:    [69.80, 75.20],
-  scar1:  [75.20, 77.00],
-  scar2:  [77.00, 78.60],
-  scar3:  [78.60, 79.50],
-  scar4:  [79.50, 80.30],
-  ascent: [80.30, 83.20],
-  life:   [83.20, 85.80],
-  end:    [85.80, 90.20],
+  card:   [0.00, 6.00],
+  below:  [6.00, 10.50],
+  garage: [10.50, 16.20],
+  seed:   [16.20, 24.00],
+  offer:  [24.00, 27.80],
+  drop:   [27.80, 32.00],
+  chute:  [32.00, 37.00],
+  hplay:  [37.00, 43.20],
+  ring:   [43.20, 47.20],
+  walk:   [47.20, 52.40],
+  blend:  [52.40, 58.80],
+  hulls:  [58.80, 63.00],
+  strand: [63.00, 67.80],
+  sky:    [67.80, 73.60],
+  scar1:  [73.60, 76.80],
+  scar2:  [76.80, 80.00],
+  ascent: [80.00, 83.40],
+  life:   [83.40, 86.20],
+  end:    [86.20, 90.20],
 } : {
-  card:   [0.00, 5.00],
-  below:  [5.00, 8.50],
-  garage: [8.50, 12.00],
-  seed:   [12.00, 18.20],
-  offer:  [18.20, 20.00],
-  drop:   [20.00, 23.60],
-  chute:  [23.60, 27.40],
-  ring:   [27.40, 30.40],
-  walk:   [30.40, 33.60],
-  blend:  [33.60, 37.40],
-  hulls:  [37.40, 40.20],
-  strand: [40.20, 43.20],
-  sky:    [43.20, 46.00],
-  scar1:  [46.00, 47.50],
-  scar2:  [47.50, 48.90],
-  scar3:  [48.90, 49.80],
-  scar4:  [49.80, 50.60],
-  ascent: [50.60, 52.40],
-  life:   [52.40, 54.20],
-  end:    [54.20, 60.10],
+  card:   [0.00, 4.20],
+  below:  [4.20, 7.20],
+  garage: [7.20, 10.20],
+  seed:   [10.20, 15.60],
+  offer:  [15.60, 18.50],
+  drop:   [18.50, 21.20],
+  chute:  [21.20, 24.20],
+  hplay:  [24.20, 28.00],
+  ring:   [28.00, 30.50],
+  walk:   [30.50, 33.20],
+  blend:  [33.20, 36.80],
+  hulls:  [36.80, 39.20],
+  strand: [39.20, 41.80],
+  sky:    [41.80, 45.20],
+  scar1:  [45.20, 47.50],
+  scar2:  [47.50, 49.80],
+  ascent: [49.80, 52.60],
+  life:   [52.60, 55.00],
+  end:    [55.00, 60.10],
 }
 
 function at(win, offset) { return win[0] + offset }
@@ -649,6 +688,7 @@ function seek(t) {
     ['s-offer', ...WIN.offer],
     ['s-drop',  ...WIN.drop],
     ['s-chute', ...WIN.chute],
+    ['s-hplay', ...WIN.hplay],
     ['s-ring',  ...WIN.ring],
     ['s-walk',  ...WIN.walk],
     ['s-blend', ...WIN.blend],
@@ -657,8 +697,6 @@ function seek(t) {
     ['s-sky',   ...WIN.sky],
     ['s-scar1', ...WIN.scar1],
     ['s-scar2', ...WIN.scar2],
-    ['s-scar3', ...WIN.scar3],
-    ['s-scar4', ...WIN.scar4],
     ['s-ascent',...WIN.ascent],
     ['s-life',  ...WIN.life],
     ['s-end',   ...WIN.end],
@@ -674,9 +712,9 @@ function seek(t) {
     const place = $('card-place')
     const end = WIN.card[1]
     if (t < end) {
-      const fadeIn = CUT === 90 ? 1.1 : 0.72
-      const holdEnd = CUT === 90 ? 4.9 : 3.55
-      const fadeOut = CUT === 90 ? 1.5 : 1.15
+      const fadeIn = CUT === 90 ? 1.1 : 0.62
+      const holdEnd = CUT === 90 ? 4.4 : 2.80
+      const fadeOut = CUT === 90 ? 1.4 : 1.15
       let o = 0
       if (t < 0.18) o = 0
       else if (t < 0.18 + fadeIn) o = (t - 0.18) / fadeIn
@@ -699,10 +737,10 @@ function seek(t) {
   sub($('sub-garage'), 'A garage above a laundromat.\nOne hundred percent of nothing.', t, ...pad(WIN.garage, 0.2, 0.15), 0.35, 0.22)
 
   const seedCps = CUT === 90 ? 48 : 72
-  const seedChoices = at(WIN.seed, CUT === 90 ? 4.40 : 3.15)
-  const seedHover = at(WIN.seed, CUT === 90 ? 5.50 : 3.85)
-  const seedClick = at(WIN.seed, CUT === 90 ? 6.80 : 4.55)
-  const seedPills = at(WIN.seed, CUT === 90 ? 7.00 : 4.70)
+  const seedChoices = at(WIN.seed, CUT === 90 ? 4.00 : 2.80)
+  const seedHover = at(WIN.seed, CUT === 90 ? 5.10 : 3.40)
+  const seedClick = at(WIN.seed, CUT === 90 ? 6.40 : 4.00)
+  const seedPills = at(WIN.seed, CUT === 90 ? 6.60 : 4.15)
   typeText($('seed-prose'), SEED_Q, t, at(WIN.seed, 0.12), seedCps)
   setChoices('seed-choices', t, seedChoices, seedHover, seedClick)
   pills('seed-pills', t, seedPills, 0.14)
@@ -718,6 +756,25 @@ function seek(t) {
   ken($('img-drop'), t, ...WIN.drop, 1.10, 1.16, 0, -0.8, 1.2, 0.2)
   ken($('img-chute'), t, ...WIN.chute, 1.05, 1.12, 0.5, -0.3, 0, -0.4)
   sub($('sub-chute'), 'A delivery railway in the sky.', t, ...pad(WIN.chute, 0.2, 0.15), 0.3, 0.2)
+
+  const hplayCps = CUT === 90 ? 52 : 82
+  const hplayChoices = at(WIN.hplay, CUT === 90 ? 2.40 : 1.20)
+  const hplayHover = at(WIN.hplay, CUT === 90 ? 3.40 : 1.75)
+  const hplayClick = at(WIN.hplay, CUT === 90 ? 4.50 : 2.30)
+  const hplayPills = at(WIN.hplay, CUT === 90 ? 4.75 : 2.45)
+  typeText($('hplay-prose'), HPLAY_Q, t, at(WIN.hplay, 0.08), hplayCps)
+  setChoices('hplay-choices', t, hplayChoices, hplayHover, hplayClick)
+  pills('hplay-pills', t, hplayPills, 0.12)
+  pointer('ptr-hplay', 'hplay-choices', t, hplayHover - 0.10, hplayClick + 0.07)
+  if (t >= hplayPills) {
+    $('hplay-runway').querySelector('b').textContent = '11'
+    $('hplay-stress').textContent = '41'
+    $('hplay-cred').textContent = 'CRED +4'
+  } else {
+    $('hplay-runway').querySelector('b').textContent = '14'
+    $('hplay-stress').textContent = '44'
+    $('hplay-cred').textContent = 'CRED +2'
+  }
 
   ken($('img-ring'), t, ...WIN.ring, 1.06, 1.12, -0.3, 0.6, 0.2, -0.4)
   ken($('img-walk'), t, ...WIN.walk, 1.05, 1.12, 0.6, -0.3, 0, -0.3)
@@ -756,12 +813,9 @@ function seek(t) {
 
   ken($('img-scar1'), t, ...WIN.scar1, 1.06, 1.12, 0, 0, 0, 0)
   ken($('img-scar2'), t, ...WIN.scar2, 1.05, 1.10, 0, 0, 0.3, -0.2)
-  ken($('img-scar3'), t, ...WIN.scar3, 1.06, 1.10, 0.2, -0.1, 0, 0)
-  ken($('img-scar4'), t, ...WIN.scar4, 1.05, 1.10, 0, 0, 0, -0.2)
   ken($('img-ascent'), t, ...WIN.ascent, 1.05, 1.10, 0, 0.2, 0.2, -0.2)
-  sub($('sub-scar1'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, ...pad(WIN.scar1, 0.08, 0.08), 0.18, 0.12)
-  sub($('sub-scar2'), 'COMPANIES DIE.\nYOU DON’T.', t, ...pad(WIN.scar2, 0.08, 0.08), 0.18, 0.12)
-  sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, ...pad(WIN.ascent, 0.12, 0.08), 0.2, 0.15)
+  sub($('sub-years'), 'THREE COMPANIES.\nTHIRTY YEARS.', t, WIN.scar1[0] + 0.10, WIN.scar2[1] - 0.12, 0.28, 0.22)
+  sub($('sub-ascent'), 'EVERY SCAR CARRIES FORWARD.', t, ...pad(WIN.ascent, 0.12, 0.10), 0.28, 0.20)
 
   ken($('img-life'), t, ...WIN.life, 1.10, 1.16, -0.6, 0.4, 0.5, -0.4)
   sub($('sub-life'), 'One life. Burned to your name.', t, ...pad(WIN.life, 0.15, 0.08), 0.22, 0.15)

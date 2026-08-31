@@ -9,8 +9,8 @@ ffmpeg -y \
   -i "$ROOT/public/sfx/sting_boom.mp3" \
   -filter_complex "\
 [1:a]volume=0.90[a0];\
-[2:a]adelay=16550|16550,volume=0.55[a1];\
-[3:a]adelay=54800|54800,volume=0.85[a2];\
+[2:a]adelay=14200|14200,volume=0.55[a1];\
+[3:a]adelay=55100|55100,volume=0.85[a2];\
 [a0][a1][a2]amix=inputs=3:duration=first:dropout_transition=2:normalize=0,\
 afade=t=out:st=58.2:d=1.6[a]" \
   -map 0:v -map "[a]" \
