@@ -8,7 +8,16 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { CONTENT } from '../src/content/world'
 import { getScene } from '../src/engine/reduce'
-import { CHAPTERS, CLIFFHANGER, COVENANT, HERO_ART, LANDING_ART } from '../src/content/landing'
+import {
+  CHAPTERS,
+  CLIFFHANGER,
+  COVENANT,
+  EN_LANDING,
+  HERO_ART,
+  LANDING_ART,
+  LANDING_COPY,
+  ZH_CN_LANDING,
+} from '../src/content/landing'
 
 describe('landing', () => {
   it('every print the landing names is committed to public/art', () => {
@@ -28,6 +37,9 @@ describe('landing', () => {
     expect(scene.speaker, 'the first scene should carry a portrait').toBeDefined()
     const portrait = resolve(__dirname, `../public/art/${scene.speaker}.webp`)
     expect(existsSync(portrait), `cliffhanger portrait missing: ${scene.speaker}`).toBe(true)
+    expect(CLIFFHANGER.demo.leadIn).toBe(scene.leadIn)
+    expect(CLIFFHANGER.demo.prose).toBe(scene.prose)
+    expect(CLIFFHANGER.demo.choices).toEqual(scene.choices.map((c) => c.label))
   })
 
   it('one title card per company, in chapter order', () => {
@@ -36,5 +48,38 @@ describe('landing', () => {
 
   it('the covenant carries its three lines', () => {
     expect(COVENANT.length).toBe(3)
+  })
+
+  it('ships exactly English and Simplified Chinese landing copy', () => {
+    expect(Object.keys(LANDING_COPY)).toEqual(['en', 'zh-CN'])
+    expect(LANDING_COPY.en).toBe(EN_LANDING)
+    expect(LANDING_COPY['zh-CN']).toBe(ZH_CN_LANDING)
+  })
+
+  it('the Chinese landing covers every authored landing surface', () => {
+    expect(ZH_CN_LANDING.pitch).toHaveLength(EN_LANDING.pitch.length)
+    expect(ZH_CN_LANDING.chapters).toHaveLength(EN_LANDING.chapters.length)
+    expect(ZH_CN_LANDING.features).toHaveLength(EN_LANDING.features.length)
+    expect(ZH_CN_LANDING.cliffhanger.demo.choices).toHaveLength(
+      EN_LANDING.cliffhanger.demo.choices.length,
+    )
+    expect(ZH_CN_LANDING.ui.odds.labels).toHaveLength(EN_LANDING.ui.odds.labels.length)
+    expect(ZH_CN_LANDING.covenant).toHaveLength(EN_LANDING.covenant.length)
+
+    const translated = JSON.stringify(ZH_CN_LANDING)
+    expect(translated).toMatch(/[\u3400-\u9fff]/)
+    for (const required of ['通行密钥', '董事会', '风险投资', '声望', '退款保证', '注册公司']) {
+      expect(translated, `missing reviewed Chinese term: ${required}`).toContain(required)
+    }
+  })
+
+  it('the Chinese landing localizes every cast hover label and live signature', () => {
+    expect(Object.keys(ZH_CN_LANDING.characterNames).sort()).toEqual(Object.keys(CONTENT.characters).sort())
+    for (const signature of CONTENT.chapters.hyperchute.signatures ?? []) {
+      expect(
+        ZH_CN_LANDING.signatures[signature.text],
+        `missing Chinese signature: ${signature.text}`,
+      ).toMatch(/[\u3400-\u9fff]/)
+    }
   })
 })

@@ -12,21 +12,15 @@ import { getScene } from '../engine/reduce'
 import { fetchDecisionSplit } from './cloud'
 import { artUrl } from './assets'
 import {
-  HERO,
   HERO_ART,
-  PITCH,
-  CHAPTERS,
-  CLIFFHANGER,
-  FEATURES,
-  RECORD,
-  FINALE,
-  PRICE_CHIP,
-  GUARANTEE,
-  GUARANTEE_LABEL,
-  CTA_LABEL,
-  COVENANT,
+  EN_LANDING,
+  LANDING_COPY,
+  type LandingCopy,
+  type LandingLocale,
   type LandingPanel,
 } from '../content/landing'
+
+const LANDING_LOCALE_KEY = 'fate:landing-locale'
 
 function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -46,8 +40,8 @@ function panelHtml(p: LandingPanel, extra = ''): string {
 }
 
 /** Chapter title cards — one full screen each, like the game's own datelines. */
-function chapterHtml(): string {
-  return CHAPTERS.map(
+function chapterHtml(copy: LandingCopy): string {
+  return copy.chapters.map(
     (c) => `
   <section class="ld-scene" data-art="${c.art ?? ''}">
     <div class="ld-beat">
@@ -60,7 +54,7 @@ function chapterHtml(): string {
 }
 
 /** The choice's declared costs, exactly as the play surface wears them. */
-function fxChips(effects: readonly { e: string; d?: number }[]): string {
+function fxChips(effects: readonly { e: string; d?: number }[], copy: LandingCopy): string {
   let money = 0
   let stress = 0
   let rep = 0
@@ -75,43 +69,44 @@ function fxChips(effects: readonly { e: string; d?: number }[]): string {
   const chip = (good: boolean, label: string): void => {
     chips.push(`<span class="fx ${good ? 'good' : 'bad'}">${label}</span>`)
   }
-  if (money) chip(money > 0, `${money > 0 ? '+' : '−'} cash`)
-  if (stake) chip(stake < 0, `${stake > 0 ? '−' : '+'} equity`)
-  if (stress) chip(stress < 0, `${stress > 0 ? '+' : '−'} stress`)
-  if (rep) chip(rep > 0, `${rep > 0 ? '+' : '−'} cred`)
+  if (money) chip(money > 0, `${money > 0 ? '+' : '−'} ${copy.ui.effects.cash}`)
+  if (stake) chip(stake < 0, `${stake > 0 ? '−' : '+'} ${copy.ui.effects.equity}`)
+  if (stress) chip(stress < 0, `${stress > 0 ? '+' : '−'} ${copy.ui.effects.stress}`)
+  if (rep) chip(rep > 0, `${rep > 0 ? '+' : '−'} ${copy.ui.effects.reputation}`)
   return chips.length ? `<span class="fx-row">${chips.join('')}</span>` : ''
 }
 
 /** The play surface itself, demonstrating the first scene — a living screenshot.
  *  Prose lands sentence by sentence and the choices appear when it settles,
  *  exactly the mechanics of the real stage. No titles in the stream, no caret. */
-function demoHtml(): string {
-  const scene = getScene(CONTENT, 'hyperchute', CLIFFHANGER.sceneId)
-  const speaker = scene.speaker ? CONTENT.characters[scene.speaker] : null
+function demoHtml(copy: LandingCopy): string {
+  const scene = getScene(CONTENT, 'hyperchute', copy.cliffhanger.sceneId)
+  const demo = copy.cliffhanger.demo
   return `
   <section class="ld-scene ld-tall" data-art="" data-demo>
     <div class="ld-beat ld-wide">
-      <div class="ld-kicker">${esc(CLIFFHANGER.kicker)}</div>
+      <div class="ld-kicker">${esc(copy.cliffhanger.kicker)}</div>
       <div class="ld-demo" id="ldDemo">
         <div class="ld-demo-rail">
           <span class="ld-demo-mark">FATE<em>·</em></span>
-          <span class="ld-demo-tag">WEEK 1 · 2031 · THE FLATS</span>
-          <span class="ld-demo-meters"><span class="ld-pill dim on">BANK $120,000</span><span class="ld-pill dim on">CRED +0</span></span>
+          <span class="ld-demo-tag">${esc(copy.ui.weekOne)}</span>
+          <span class="ld-demo-meters"><span class="ld-pill dim on">${esc(copy.ui.bank)}</span><span class="ld-pill dim on">${esc(copy.ui.reputation)}</span></span>
         </div>
         <div class="ld-demo-stage">
           <aside class="ld-demo-card">
             ${scene.speaker ? `<img src="${artUrl(scene.speaker)}" alt="" loading="lazy" onerror="this.remove()">` : ''}
-            <div class="ld-cap"><div class="ld-cap-name">${esc(speaker?.name ?? 'THE WORLD')}</div><div class="ld-cap-role">${esc(speaker?.role ?? '')}</div></div>
+            <div class="ld-cap"><div class="ld-cap-name">${esc(scene.speaker ? demo.speakerName : copy.ui.world)}</div><div class="ld-cap-role">${esc(scene.speaker ? demo.speakerRole : '')}</div></div>
           </aside>
           <div class="ld-demo-story">
-            <div class="ld-leadin" data-text="${esc(scene.leadIn ?? '')}"></div>
-            <p class="ld-prose" data-text="${esc(scene.prose)}"></p>
+            <div class="ld-leadin" data-text="${esc(demo.leadIn)}"></div>
+            <p class="ld-prose" data-text="${esc(demo.prose)}"></p>
             <div class="ld-choices" style="visibility:hidden">
               ${scene.choices
                 .map(
-                  (c) =>
-                    `<button class="ld-choice" disabled><span class="c-label">${esc(c.label)}</span>${fxChips(
+                  (c, i) =>
+                    `<button class="ld-choice" disabled><span class="c-label">${esc(demo.choices[i] ?? c.label)}</span>${fxChips(
                       (c.effects ?? []) as { e: string; d?: number }[],
+                      copy,
                     )}</button>`,
                 )
                 .join('')}
@@ -141,31 +136,32 @@ const ODDS = (() => {
   }
 })()
 
-function oddsHtml(): string {
+function oddsHtml(copy: LandingCopy, locale: LandingLocale): string {
   if (!ODDS.lives) return ''
-  const f = (x: number): string => x.toLocaleString('en-US')
+  const f = (x: number): string => x.toLocaleString(locale)
+  const odds = copy.ui.odds
   return `
   <section class="ld-scene" data-art="">
     <div class="ld-beat ld-wide">
-      <div class="ld-kicker">LAUNCHED FOR MACHINES FIRST</div>
-      <h2 class="ld-head">${f(ODDS.lives)} AI founders lived it before you.</h2>
+      <div class="ld-kicker">${esc(odds.kicker)}</div>
+      <h2 class="ld-head">${esc(odds.headBefore)}${f(ODDS.lives)}${esc(odds.headAfter)}</h2>
       <div class="ld-odds">
-        <div class="ld-odd"><b>${f(ODDS.bankrupt)}</b><span>watched their first company die</span></div>
-        <div class="ld-odd"><b>${f(ODDS.ousted)}</b><span>were removed by their own boards</span></div>
-        <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>rang the bell</span></div>
-        <div class="ld-odd"><b>${f(ODDS.allThree)}</b><span>took all three companies to the top</span></div>
+        <div class="ld-odd"><b>${f(ODDS.bankrupt)}</b><span>${esc(odds.labels[0] ?? '')}</span></div>
+        <div class="ld-odd"><b>${f(ODDS.ousted)}</b><span>${esc(odds.labels[1] ?? '')}</span></div>
+        <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>${esc(odds.labels[2] ?? '')}</span></div>
+        <div class="ld-odd"><b>${f(ODDS.allThree)}</b><span>${esc(odds.labels[3] ?? '')}</span></div>
       </div>
-      <p class="ld-sub">The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉. Your incorporation includes <a class="ld-ledger" href="/agent" target="_blank" rel="noopener">one agent seat ↗</a> — bring your own model, and let it live beside you.</p>
+      <p class="ld-sub">${esc(odds.bodyBefore)}<a class="ld-ledger" href="/agent" target="_blank" rel="noopener">${esc(odds.agentSeat)}</a>${esc(odds.bodyAfter)}</p>
     </div>
   </section>`
 }
 
-function featuresHtml(): string {
+function featuresHtml(copy: LandingCopy): string {
   return `
   <section class="ld-scene ld-tall" data-art="">
     <div class="ld-beat ld-wide">
       <div class="ld-features">
-        ${FEATURES.map(
+        ${copy.features.map(
           (f) => `
         <div class="ld-feature">
           <div class="ld-glyph">${f.glyph ?? ''}</div>
@@ -184,7 +180,7 @@ function featuresHtml(): string {
               ? `<div class="ld-castrow">${Object.entries(CONTENT.characters)
                   .map(
                     ([id, ch], i) =>
-                      `<span class="ld-face" title="${esc(ch.name)}" style="transition-delay:${(i * 0.045).toFixed(3)}s"><i>${esc(ch.name[0] ?? '·')}</i><img src="${artUrl(id)}" alt="" loading="lazy" onerror="this.remove()"></span>`,
+                      `<span class="ld-face" title="${esc(copy.characterNames[id] ?? ch.name)}" style="transition-delay:${(i * 0.045).toFixed(3)}s"><i>${esc((copy.characterNames[id] ?? ch.name)[0] ?? '·')}</i><img src="${artUrl(id)}" alt="" loading="lazy" onerror="this.remove()"></span>`,
                   )
                   .join('')}</div>`
               : ''
@@ -201,45 +197,87 @@ function featuresHtml(): string {
   </section>`
 }
 
-export function renderLanding(root: HTMLElement, onEnter: () => void): void {
+function readLandingLocale(): LandingLocale {
+  try {
+    return localStorage.getItem(LANDING_LOCALE_KEY) === 'zh-CN' ? 'zh-CN' : 'en'
+  } catch {
+    return 'en'
+  }
+}
+
+function writeLandingLocale(locale: LandingLocale): void {
+  try {
+    localStorage.setItem(LANDING_LOCALE_KEY, locale)
+  } catch {
+    // Storage can be unavailable in a locked-down browser; the toggle still works.
+  }
+}
+
+function setMeta(selector: string, content: string): void {
+  document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content)
+}
+
+function applyDocumentLocale(locale: LandingLocale, copy: LandingCopy): void {
+  document.documentElement.lang = locale
+  document.title = copy.ui.meta.title
+  setMeta('meta[name="description"]', copy.ui.meta.description)
+  setMeta('meta[property="og:title"]', copy.ui.meta.title)
+  setMeta('meta[property="og:description"]', copy.ui.meta.ogDescription)
+  setMeta('meta[name="twitter:title"]', copy.ui.meta.title)
+  setMeta('meta[name="twitter:description"]', copy.ui.meta.twitterDescription)
+}
+
+export function renderLanding(root: HTMLElement, onEnter: () => void, initialScrollTop = 0): void {
+  const locale = readLandingLocale()
+  const copy = LANDING_COPY[locale]
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+  applyDocumentLocale(locale, copy)
 
   const el = document.createElement('div')
   el.className = 'landing'
+  el.lang = locale
   el.innerHTML = `
+    <button class="ld-lang" type="button" aria-label="${esc(copy.ui.toggleLabel)}" title="${esc(copy.ui.toggleLabel)}" data-locale>${esc(copy.ui.toggle)}</button>
     <div class="ld-bg"><div class="ld-bg-img a"></div><div class="ld-bg-img b"></div><div class="ld-veil"></div></div>
     <div class="ld-scroll">
       <section class="ld-scene ld-hero" data-art="${HERO_ART[0]}">
         <div class="ld-beat">
-          <div class="ld-kicker">${esc(HERO.kicker)}</div>
-          <h1 class="ld-title">${esc(HERO.title)}</h1>
-          <p class="ld-sub ld-herosub">${esc(HERO.sub)}</p>
-          <div class="ld-scrollcue">SCROLL</div>
+          <div class="ld-kicker">${esc(copy.hero.kicker)}</div>
+          <h1 class="ld-title">${esc(copy.hero.title)}</h1>
+          <p class="ld-sub ld-herosub">${esc(copy.hero.sub)}</p>
+          <div class="ld-scrollcue">${esc(copy.ui.scroll)}</div>
         </div>
       </section>
-      ${panelHtml(PITCH[0])}
-      ${panelHtml(PITCH[1])}
-      ${chapterHtml()}
-      ${demoHtml()}
-      ${featuresHtml()}
-      ${oddsHtml()}
-      ${panelHtml(RECORD, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/ledger" target="_blank" rel="noopener">OPEN THE FOUNDERS’ LEDGER ↗</a>`)}
-      <section class="ld-scene" data-art="${FINALE.art ?? ''}">
+      ${panelHtml(copy.pitch[0])}
+      ${panelHtml(copy.pitch[1])}
+      ${chapterHtml(copy)}
+      ${demoHtml(copy)}
+      ${featuresHtml(copy)}
+      ${oddsHtml(copy, locale)}
+      ${panelHtml(copy.record, `<div class="ld-chips" id="ldChips"></div><a class="ld-ledger" href="/ledger" target="_blank" rel="noopener">${esc(copy.ui.ledgerLink)}</a>`)}
+      <section class="ld-scene" data-art="${copy.finale.art ?? ''}">
         <div class="ld-beat">
-          <div class="ld-kicker">${esc(FINALE.kicker)}</div>
-          <h2 class="ld-head">${esc(FINALE.head ?? '')}</h2>
-          ${FINALE.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
-          <div class="ld-price">${esc(PRICE_CHIP)}</div>
-          <div class="ld-guarantee"><b>${esc(GUARANTEE_LABEL)}</b>${esc(GUARANTEE)}</div>
-          <div><button class="cta ld-cta" data-enter>${esc(CTA_LABEL)}</button></div>
-          <div class="ld-covenant">${COVENANT.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
-          <div class="ld-foot">DEVELOPED BY PLAYURE</div>
+          <div class="ld-kicker">${esc(copy.finale.kicker)}</div>
+          <h2 class="ld-head">${esc(copy.finale.head ?? '')}</h2>
+          ${copy.finale.paras.map((t) => `<p class="ld-sub">${esc(t)}</p>`).join('')}
+          <div class="ld-price">${esc(copy.priceChip)}</div>
+          <div class="ld-guarantee"><b>${esc(copy.guaranteeLabel)}</b>${esc(copy.guarantee)}</div>
+          <div><button class="cta ld-cta" data-enter>${esc(copy.ctaLabel)}</button></div>
+          <div class="ld-covenant">${copy.covenant.map((l) => `<div>${esc(l)}</div>`).join('')}</div>
+          <div class="ld-foot">${esc(copy.ui.footer)}</div>
         </div>
       </section>
     </div>`
   root.appendChild(el)
 
-  el.querySelectorAll<HTMLButtonElement>('[data-enter]').forEach((b) => b.addEventListener('click', onEnter))
+  const scroller = el.querySelector<HTMLElement>('.ld-scroll')
+  if (scroller && initialScrollTop > 0) scroller.scrollTop = initialScrollTop
+  el.querySelectorAll<HTMLButtonElement>('[data-enter]').forEach((b) =>
+    b.addEventListener('click', () => {
+      applyDocumentLocale('en', EN_LANDING)
+      onEnter()
+    }),
+  )
 
   // ---- the art wall: two layers crossfade, each print drifts (Ken Burns) ----
   const layers = [el.querySelector('.ld-bg-img.a') as HTMLElement, el.querySelector('.ld-bg-img.b') as HTMLElement]
@@ -283,7 +321,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     const text = node.dataset.text ?? ''
     node.textContent = ''
     const out: HTMLElement[] = []
-    const parts = text.split(/(?<=[.!?…]["'”’)]?\s)/)
+    const parts = text.match(/.*?(?:[。！？]+["'”’]?|[.!?…]+["'”’)]?(?:\s+|$))|.+$/g) ?? [text]
     for (const line of parts.length ? parts : [text]) {
       const span = document.createElement('span')
       span.className = 'fadeline'
@@ -379,6 +417,17 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
     warm(HERO_ART[(heroIdx + 1) % HERO_ART.length])
   }, 5500)
 
+  el.querySelector<HTMLButtonElement>('[data-locale]')?.addEventListener('click', () => {
+    const next: LandingLocale = locale === 'en' ? 'zh-CN' : 'en'
+    const scrollTop = scroller?.scrollTop ?? 0
+    writeLandingLocale(next)
+    window.clearInterval(cycle)
+    window.clearTimeout(demoTimer)
+    io.disconnect()
+    el.remove()
+    renderLanding(root, onEnter, scrollTop)
+  })
+
   // ---- live community chips: the signature decisions, real splits ----
   void (async () => {
     const holder = el.querySelector('#ldChips')
@@ -391,11 +440,11 @@ export function renderLanding(root: HTMLElement, onEnter: () => void): void {
       const total = counts.reduce((s, c) => s + c.n, 0)
       if (total < 5) continue
       const n = counts.find((c) => c.choice === sig.choice)?.n ?? 0
-      rows.push({ pct: Math.round((100 * n) / total), label: `of founders ${sig.text}` })
+      rows.push({ pct: Math.round((100 * n) / total), label: copy.signatures[sig.text] ?? sig.text })
     }
     holder.innerHTML = rows
       .slice(0, 3)
-      .map((r) => `<div class="ld-chip"><b>${r.pct}%</b> — “${esc(r.label)}”</div>`)
+      .map((r) => `<div class="ld-chip"><b>${r.pct}%</b>${esc(copy.ui.signatureJoin)}${esc(r.label)}</div>`)
       .join('')
   })()
 }
