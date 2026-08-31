@@ -4,7 +4,8 @@
  *   npm run itch
  *
  * Uploads: itch.io → Edit game → Kind of project: HTML → Upload fate-itch.zip.
- * This embed plays locally (one life in the browser). No passkey, no Whop.
+ * This embed plays locally (one life in the browser). Price the itch page at
+ * $20 — that IS the filing fee. Whop is not charged again inside the game.
  */
 import { existsSync, readdirSync, rmSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'

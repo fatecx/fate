@@ -72,7 +72,8 @@ let typing = false
 let session: Session | null = null
 
 // ---- local shell (Tauri desktop, itch.io HTML5) ------------------------------
-// No passkey, no filing fee: the biography lives in localStorage under one id.
+// Biography in localStorage. Desktop has no checkout. itch.io takes the $20
+// filing fee at their storefront — Whop is skipped so nobody pays twice.
 const DESKTOP =
   typeof window !== 'undefined' &&
   ('__TAURI_INTERNALS__' in window || location.protocol === 'tauri:')
@@ -1705,7 +1706,7 @@ function renderWelcome(saved: Save | null, entitled = false): void {
   const actions =
     session || LOCAL_LIFE
       ? `<button class="cta" id="wlBegin">Incorporate →</button>
-      <div class="tk-id">${LOCAL_LIFE && !session ? 'One life. What you sign here is permanent.' : 'One signature, one life. What you sign here is permanent.'}</div>`
+      <div class="tk-id">${ITCH && !session ? 'The $20 filing fee was paid on itch. One life. What you sign here is permanent.' : LOCAL_LIFE && !session ? 'One life. What you sign here is permanent.' : 'One signature, one life. What you sign here is permanent.'}</div>`
       : `<button class="cta" id="wlConnect">Sign the papers →</button>
       <div class="tk-id">Your passkey is your signature. One life per signature — permanent, no resets.</div>`
   takeover(`
