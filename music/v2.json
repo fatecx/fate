@@ -1561,98 +1561,100 @@
         "FOUR HUNDRED PEOPLE",
         "THE CABLE RISES"
       ],
-      "note": "A machine that learned to house people. Analog pads under a clock-organ. Construction as science fiction, not a hymn.",
-      "seedBase": 450271,
+      "note": "Interstellar family. Organ as a construction engine. Ticking, 12/8, C-sharp minor. A platform is a machine that learned to house people.",
+      "seedBase": 460371,
       "chunks": [
         {
-          "text": "[The Clock] {instrumental}",
+          "text": "[The Clock] {pipe organ ostinato} {ticking}",
           "duration_ms": 16000,
           "positive_styles": [
-            "1970s analog synthesizer score",
-            "pipe organ ostinato like a machine",
-            "ticking percussion like a clock",
-            "E minor",
+            "Interstellar science-fiction organ score",
+            "pipe organ treated as a construction engine",
+            "ticking clocks",
+            "C-sharp minor",
             "12/8",
-            "88 BPM",
+            "100 BPM",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
             "gospel",
+            "church service",
+            "major key",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music"
+            "electric piano"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {analog and organ}",
+          "text": "[The Cable] {organ and strings}",
           "duration_ms": 22000,
           "positive_styles": [
-            "warm analog pads continue",
             "pipe organ ostinato continues",
-            "ticking percussion",
-            "low analog bass",
-            "a measured rising figure",
-            "12/8",
-            "88 BPM"
+            "ticking clocks",
+            "low strings entering",
+            "guttural analog bass",
+            "12/8 relentless",
+            "100 BPM"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Platform] {analog brass and organ}",
+          "text": "[The Platform] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "analog brass",
-            "pipe organ ostinato",
-            "low analog bass",
+            "massive pipe organ",
+            "full string orchestra",
+            "guttural low brass",
             "ticking still present",
-            "science-fiction underscore",
+            "epic science fiction",
             "12/8"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "lyrics",
             "vocals",
             "EDM drop",
             "pop",
-            "trailer music"
+            "trailer horns"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {analog and organ}",
+          "text": "[Orbit] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog pads holding",
-            "organ ostinato thinning",
+            "organ ostinato holding",
+            "high strings",
             "ticking fading",
-            "unresolved E minor",
-            "quiet ending",
-            "human-scale science fiction"
+            "unresolved C-sharp minor",
+            "civilizational scale",
+            "epic science fiction"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church cadence",
             "major key",
             "lyrics",
             "vocals",
@@ -1675,103 +1677,102 @@
         "THE SEA WALL",
         "A COUNTRY AROUND YOU"
       ],
-      "note": "A country that is also a machine. Cold analog under a clock-organ. Flag as infrastructure, not a civic hymn.",
-      "seedBase": 450281,
+      "note": "Interstellar family. Organ ostinato as a country founding. D minor, 12/8, 88 BPM. Vast and unresolved — not a civic hymn.",
+      "seedBase": 460481,
       "chunks": [
         {
-          "text": "[The Clock] {instrumental}",
+          "text": "[The Clock] {pipe organ ostinato} {ticking}",
           "duration_ms": 16000,
           "positive_styles": [
-            "1970s analog synthesizer score",
-            "pipe organ ostinato like a machine",
-            "ticking percussion like a clock",
-            "F-sharp minor",
+            "Interstellar science-fiction organ score",
+            "pipe organ ostinato as a country founding",
+            "ticking clocks",
+            "D minor",
             "12/8",
-            "84 BPM",
+            "88 BPM",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
             "gospel",
+            "church service",
             "major key",
-            "civic",
+            "civic anthem",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music"
+            "electric piano"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Charter] {analog and organ}",
+          "text": "[The Charter] {organ and strings}",
           "duration_ms": 22000,
           "positive_styles": [
-            "cold analog pads continue",
             "pipe organ ostinato continues",
-            "distant analog brass",
-            "ticking percussion",
-            "F-sharp minor",
-            "12/8",
-            "84 BPM"
+            "ticking clocks",
+            "low strings entering",
+            "guttural analog bass",
+            "12/8 relentless",
+            "88 BPM"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "major key",
-            "civic",
+            "civic anthem",
             "lyrics",
             "vocals",
-            "EDM",
-            "pop",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Flag] {analog brass and organ}",
+          "text": "[The Flag] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "analog brass opening wider",
-            "pipe organ as infrastructure",
-            "low analog bass",
+            "massive pipe organ",
+            "full string orchestra",
+            "guttural low brass",
             "ticking still present",
-            "cold and expensive science fiction",
-            "12/8"
+            "a country founding",
+            "epic science fiction"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "major key",
-            "civic",
+            "civic anthem",
             "lyrics",
             "vocals",
             "EDM drop",
-            "pop",
-            "trailer music"
+            "trailer horns"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Sea Wall] {analog and organ}",
+          "text": "[The Sea Wall] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog pads holding",
-            "organ ostinato unresolved",
+            "organ ostinato holding",
+            "high strings",
+            "unresolved D minor",
             "ticking fading",
-            "F-sharp minor",
-            "quiet ending",
-            "science fiction"
+            "civilizational scale",
+            "epic science fiction"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church cadence",
             "major key",
             "lyrics",
             "vocals",
@@ -1794,97 +1795,100 @@
         "KILOMETER 400",
         "THAT ROAD STARTED HERE"
       ],
-      "note": "The cable is a machine road. Analog lead climbing over a clock-organ. Wonder that is science fiction, not Sunday.",
-      "seedBase": 450291,
+      "note": "Interstellar family. Organ as a spacecraft engine. 5/4 docking ostinato, F minor. A schoolteacher rides a machine into the sky.",
+      "seedBase": 460391,
       "chunks": [
         {
-          "text": "[The Clock] {instrumental}",
+          "text": "[The Clock] {pipe organ ostinato} {ticking}",
           "duration_ms": 16000,
           "positive_styles": [
-            "1970s analog synthesizer score",
-            "pipe organ ostinato like a machine",
-            "ticking percussion like a clock",
-            "D minor",
-            "12/8",
-            "90 BPM",
+            "Interstellar science-fiction organ score",
+            "pipe organ treated as a spacecraft engine",
+            "ticking clocks",
+            "5/4",
+            "F minor",
+            "96 BPM",
             "starts on the first beat",
             "high production quality"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
             "gospel",
+            "church service",
+            "major key",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music"
+            "electric piano"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Cable] {analog lead and organ}",
+          "text": "[The Cable] {organ and strings}",
           "duration_ms": 22000,
           "positive_styles": [
-            "lonely analog lead",
-            "pipe organ ostinato continues",
-            "ticking percussion",
-            "a climbing melody",
-            "12/8",
-            "90 BPM"
+            "5/4 organ ostinato continues",
+            "ticking clocks",
+            "low strings",
+            "guttural analog bass",
+            "96 BPM",
+            "relentless"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "lyrics",
             "vocals",
             "EDM",
             "pop",
-            "trailer music",
             "silence"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Ascent] {analog lead and organ}",
+          "text": "[Ascent] {orchestra and organ}",
           "duration_ms": 28000,
           "positive_styles": [
-            "analog lead climbing",
-            "pipe organ as elevator machinery",
-            "analog brass",
+            "massive 5/4 organ ostinato",
+            "full string orchestra",
+            "guttural low brass",
             "ticking still present",
-            "D minor",
-            "12/8"
+            "epic science fiction",
+            "docking-maneuver tension"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church service",
             "lyrics",
             "vocals",
             "EDM drop",
             "pop",
-            "trailer music"
+            "trailer horns"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Orbit] {analog and organ}",
+          "text": "[Orbit] {organ and strings}",
           "duration_ms": 24000,
           "positive_styles": [
-            "analog pads",
-            "distant analog lead",
             "organ ostinato thinning",
-            "unresolved D minor",
-            "quiet ending",
-            "human-scale science fiction"
+            "high strings",
+            "F minor unresolved",
+            "ticking fading",
+            "the sky opening",
+            "civilizational scale"
           ],
           "negative_styles": [
             "choir",
             "hymn",
-            "church",
+            "gospel",
+            "church cadence",
             "major key",
             "lyrics",
             "vocals",
