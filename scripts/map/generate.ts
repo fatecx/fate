@@ -361,6 +361,28 @@ const hesc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;
 // file that contains its exact TS literal. Blocks whose literal is not unique
 // across src/content render read-only in the editor.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
+
+/** Size + duration of a file in public/, so the MUSIC tab cannot show a stale 90s organ after a trim. */
+function publicAudio(rel: string, fallbackSeconds: number): { seconds: number; path: string } {
+  const file = join(process.cwd(), 'public', rel)
+  let ver = '0'
+  try {
+    ver = String(statSync(file).size)
+  } catch {
+    /* missing file plays as a broken src; the tab still has to render */
+  }
+  const probe = spawnSync(
+    'ffprobe',
+    ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nk=1:nw=1', file],
+    { encoding: 'utf8' },
+  )
+  const seconds = Number(probe.stdout)
+  return {
+    seconds: Number.isFinite(seconds) ? Math.round(seconds) : fallbackSeconds,
+    path: `${rel}?v=${ver}`,
+  }
+}
 
 function contentFiles(dir: string): string[] {
   const out: string[] = []
@@ -619,12 +641,15 @@ function musicData() {
     }
   })
 
-  const v2 = v2Manifest.tracks.map((track) => ({
-    ...track,
-    seconds: v2Manifest.seconds,
-    path: `music-v2/${track.id}.mp3`,
-    uses: track.moments,
-  }))
+  const v2 = v2Manifest.tracks.map((track) => {
+    const audio = publicAudio(`music-v2/${track.id}.mp3`, v2Manifest.seconds)
+    return {
+      ...track,
+      seconds: audio.seconds,
+      path: audio.path,
+      uses: track.moments,
+    }
+  })
 
   return {
     model: manifest.model,
