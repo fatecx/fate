@@ -1897,114 +1897,101 @@
         "THE BOUNDARY BUOYS",
         "SO IT CAN BE DONE"
       ],
-      "note": "Interstellar family. Organ dread at dawn: low pedal tones under a paling sky, a border closing on open water. G minor, 52 BPM. Enormous, patient, no violence \u2014 the threat is the calm.",
-      "seedBase": 460611,
+      "note": "Same analog as The First Walk. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.",
+      "seedBase": 481031,
       "chunks": [
         {
-          "text": "[Ships at Dawn] {pipe organ pedal tones}",
-          "duration_ms": 24000,
+          "text": "[Chair] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "Interstellar science-fiction organ score",
-            "low sustained pipe organ pedal tones",
-            "pre-dawn stillness",
-            "G minor",
-            "52 BPM",
-            "very slow",
-            "starts on the first beat",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "A minor",
+            "68 BPM",
+            "tape saturation",
+            "vast plate reverb",
+            "quiet wonder",
             "high production quality"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Border] {organ and low strings}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "pipe organ pedal continues",
-            "low strings entering underneath",
-            "distant metallic groan like ship hulls",
-            "patient menace",
-            "G minor",
-            "52 BPM"
+            "lonely analog lead",
+            "a rising three-note motif",
+            "warm analog brass",
+            "electric piano",
+            "slow awe",
+            "68 BPM"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[Eleven Patient Ships] {organ, slow bass pulse}",
-          "duration_ms": 22000,
+          "text": "[The sky] {instrumental}",
+          "duration_ms": 24000,
           "positive_styles": [
-            "organ and strings holding",
-            "a slow deep bass pulse like idling engines",
-            "weight without motion",
-            "G minor",
-            "52 BPM"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ",
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[So It Can Be Done] {organ swell and release}",
-          "duration_ms": 20000,
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
           "positive_styles": [
-            "single slow organ swell",
-            "held minor chord decaying to near silence",
-            "cavernous reverb",
-            "unresolved ending",
-            "G minor"
+            "the three notes once, warm",
+            "thinning analog pads",
+            "electric piano unresolved on C",
+            "quiet ending",
+            "human"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ",
+            "sudden stop"
           ],
           "context_adherence": "high"
         }
@@ -2022,113 +2009,101 @@
         "THE STATEMENT",
         "THE REPRICING"
       ],
-      "note": "Interstellar family. Cold machine-precise organ arpeggio for the fund with no humans left. E minor, 66 BPM. Awe and unease, clockwork perfection, no resolution.",
-      "seedBase": 460711,
+      "note": "Same analog as The First Walk. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.",
+      "seedBase": 481041,
       "chunks": [
         {
-          "text": "[The Filing] {precise organ arpeggio}",
-          "duration_ms": 22000,
+          "text": "[Chair] {instrumental}",
+          "duration_ms": 18000,
           "positive_styles": [
-            "Interstellar science-fiction organ score",
-            "machine-precise repeating organ arpeggio",
-            "metronomic and inhuman",
-            "E minor",
-            "66 BPM",
-            "starts on the first beat",
+            "1970s analog synthesizer score",
+            "electric piano",
+            "warm analog pads",
+            "A minor",
+            "68 BPM",
+            "tape saturation",
+            "vast plate reverb",
+            "quiet wonder",
             "high production quality"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Empty Chair] {organ and hollow room tone}",
+          "text": "[The look] {instrumental analog lead}",
           "duration_ms": 24000,
           "positive_styles": [
-            "arpeggio continues unwavering",
-            "hollow room reverb",
-            "a single held high organ note above",
-            "cold stillness",
-            "E minor",
-            "66 BPM"
+            "lonely analog lead",
+            "a rising three-note motif",
+            "warm analog brass",
+            "electric piano",
+            "slow awe",
+            "68 BPM"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Statement] {organ and sub bass}",
+          "text": "[The sky] {instrumental}",
           "duration_ms": 24000,
           "positive_styles": [
-            "arpeggio continues",
-            "deep sub bass drone entering",
-            "cold awe",
-            "a synthetic intelligence speaking",
-            "E minor",
-            "66 BPM"
+            "the motif climbing",
+            "analog brass opening toward C major",
+            "electric piano answering",
+            "restrained wonder",
+            "slow"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ",
+            "trailer drop"
           ],
           "context_adherence": "high"
         },
         {
-          "text": "[The Repricing] {organ thinning}",
-          "duration_ms": 20000,
+          "text": "[After] {instrumental}",
+          "duration_ms": 24000,
           "positive_styles": [
-            "arpeggio thinning to single repeating high note",
-            "vast empty reverb tail",
-            "unresolved suspended ending",
-            "E minor"
+            "the three notes once, warm",
+            "thinning analog pads",
+            "electric piano unresolved on C",
+            "quiet ending",
+            "human"
           ],
           "negative_styles": [
+            "drums",
             "choir",
-            "hymn",
-            "gospel",
-            "church service",
-            "major key",
-            "civic anthem",
             "lyrics",
             "vocals",
+            "trailer music",
             "EDM",
             "pop",
-            "electric piano",
-            "drums"
+            "pipe organ",
+            "sudden stop"
           ],
           "context_adherence": "high"
         }

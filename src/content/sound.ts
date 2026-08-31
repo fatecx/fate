@@ -325,7 +325,7 @@ export const MOODS: Record<string, SoundDef> = {
   first_rung: {
     id: 'mus_first_rung',
     gain: 0.4,
-    seconds: 69,
+    seconds: 41,
     film: true,
     source: 'music',
     prompt:
@@ -334,7 +334,7 @@ export const MOODS: Record<string, SoundDef> = {
   aurelia: {
     id: 'mus_aurelia',
     gain: 0.4,
-    seconds: 75,
+    seconds: 46,
     film: true,
     source: 'music',
     prompt:
@@ -342,24 +342,26 @@ export const MOODS: Record<string, SoundDef> = {
   },
   gray_hulls: {
     id: 'mus_gray_hulls',
-    gain: 0.38,
-    seconds: 90,
+    gain: 0.4,
+    seconds: 72,
     film: true,
     source: 'music',
-    prompt: 'Haunting space score. Organ dread at dawn — low pedal tones, a border closing on open water. G minor, 52 BPM. Enormous, patient.',
+    prompt:
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   unmask: {
     id: 'mus_unmask',
-    gain: 0.38,
-    seconds: 90,
+    gain: 0.4,
+    seconds: 77,
     film: true,
     source: 'music',
-    prompt: 'Haunting space score. Cold machine-precise organ arpeggio, the empty chair speaks. E minor, 66 BPM. Awe without resolution.',
+    prompt:
+      'Analog wonder looking up. Rising three-note motif, electric piano, warm analog brass, A minor opening toward C.',
   },
   the_road: {
     id: 'mus_the_road',
     gain: 0.4,
-    seconds: 78,
+    seconds: 30,
     film: true,
     source: 'music',
     prompt:
