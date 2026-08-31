@@ -325,7 +325,7 @@ export const MOODS: Record<string, SoundDef> = {
   first_rung: {
     id: 'mus_first_rung',
     gain: 0.4,
-    seconds: 90,
+    seconds: 86,
     film: true,
     source: 'music',
     prompt: 'Ghost in the Shell analog. Electric piano, rising lead, C-sharp minor, 70 BPM. A city in the sky. No organ.',
@@ -333,7 +333,7 @@ export const MOODS: Record<string, SoundDef> = {
   aurelia: {
     id: 'mus_aurelia',
     gain: 0.4,
-    seconds: 90,
+    seconds: 84,
     film: true,
     source: 'music',
     prompt: 'Blade Runner analog. Electric piano, analog brass, a long melody, F minor, 68 BPM. A country founding. No organ.',
@@ -357,7 +357,7 @@ export const MOODS: Record<string, SoundDef> = {
   the_road: {
     id: 'mus_the_road',
     gain: 0.4,
-    seconds: 83,
+    seconds: 79,
     film: true,
     source: 'music',
     prompt: 'Vangelis analog space. Climbing analog lead, electric piano, A minor, 72 BPM. One person in the sky. No organ.',
