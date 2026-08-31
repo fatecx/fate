@@ -8,7 +8,16 @@ fate-itch.zip
 .vercel
 src-tauri/target/
 src-tauri/gen/
+sim/shard-*.json
+sim/seed.sql
 music/benchmark-renders/
 music/cutscene-renders/
 music/grok-pass/
 music/v2-renders/
+trailer/frames/
+trailer/stills/
+trailer/node_modules/
+
+trailer/check/
+trailer/package.json
+trailer/package-lock.json
