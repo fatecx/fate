@@ -88,7 +88,7 @@ export default async function handler(req: any, res: any) {
 
       const score = auditedScore(st)
       const endings = st.ledger.completed.map((x) => `${x.company}:${x.endingId}`)
-      const label = `RUN ${String(seed % 1000000).padStart(6, '0')}`
+      const label = `BOT ${String(seed % 1000000).padStart(6, '0')}`
       const up = await admin.from('founders').upsert({
         user_id: agentId,
         wallet: label,

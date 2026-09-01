@@ -85,7 +85,7 @@ const rows = ghosts.map((g, i) => {
   const n = (seen.get(ep) ?? 0) + 1
   seen.set(ep, n)
   if (n > 1) ep = `${ep} ${'II III IV V VI VII VIII IX X'.split(' ')[n - 2] ?? n}`
-  const wallet = `RUN ${String(g.seed % 1_000_000).padStart(6, '0')} · ${ep}`
+  const wallet = `BOT ${String(g.seed % 1_000_000).padStart(6, "0")} · ${ep}`
   const endings = g.endings.map((e, k) => `${CHAPTERS[k]}:${e}`)
   return {
     user_id: randomUUID(),
