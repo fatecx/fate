@@ -19,6 +19,7 @@
 
 * { box-sizing: border-box; margin: 0; }
 html, body, #app { height: 100%; }
+html, body { overflow-x: clip; }
 /* The browser paints the root canvas behind everything (overscroll bounce,
    pinch-zoom letterbox). Keep it paper in play and ink under any takeover,
    so no white frame can ever appear around a cutscene. */
@@ -506,9 +507,10 @@ body:has(.lb-shell) { overflow: auto; }
 .lb-how summary { font: 600 10px var(--mono); letter-spacing: 0.16em; color: var(--dim); cursor: pointer; }
 .lb-how p { font-size: 12.5px; line-height: 1.7; color: var(--dim); margin-top: 8px; }
 /* THE ODDS — landing: the machines' record */
-.ld-odds { display: flex; gap: 34px; flex-wrap: wrap; margin: 26px 0 18px; }
+.ld-odds { display: flex; gap: 22px 34px; flex-wrap: wrap; justify-content: center; margin: 26px 0 18px; }
+.ld-odd { flex: 1 1 160px; max-width: 280px; text-align: center; }
 .ld-odd b { display: block; font: 700 34px var(--mono); letter-spacing: 0.01em; color: var(--accent); font-variant-numeric: tabular-nums; }
-.ld-odd span { font: 11px var(--mono); letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; }
+.ld-odd span { display: block; margin-top: 4px; line-height: 1.5; font: 11px var(--mono); letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; text-wrap: balance; }
 .ld-guarantee { max-width: 52ch; margin: 16px auto 0; font-size: 14px; line-height: 1.65; color: #ecede9; background: rgba(13, 14, 17, 0.55); border: 1px solid rgba(229, 122, 46, 0.55); border-radius: 8px; padding: 13px 16px; text-shadow: 0 1px 4px rgba(13, 14, 17, 0.8); }
 .ld-guarantee b { display: block; font: 700 11px var(--mono); letter-spacing: 0.16em; color: var(--accent); margin-bottom: 5px; }
 
@@ -634,7 +636,7 @@ html:has(.landing), html:has(.landing) body { background: #000; }
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.28); backdrop-filter: blur(5px);
 }
 .ld-lang:hover { color: var(--accent); border-color: var(--accent); }
-.ld-scroll { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.ld-scroll { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
 .ld-bg { position: absolute; inset: 0; pointer-events: none; }
 .ld-bg-img {
   position: absolute; inset: -7%;
@@ -889,6 +891,7 @@ html:has(.landing), html:has(.landing) body { background: #000; }
 @media (max-width: 560px) {
   .ld-scene { padding: 70px 18px; }
   .ld-sub { width: 100%; }
+  .ld-odd b { font-size: 28px; }
   .ld-lang { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 38px; height: 38px; }
 }
 

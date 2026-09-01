@@ -10,7 +10,7 @@
 import { CONTENT } from '../content/world'
 import { getScene } from '../engine/reduce'
 import { fetchDecisionSplit } from './cloud'
-import { artUrl } from './assets'
+import { artUrl, pubUrl } from './assets'
 import {
   HERO_ART,
   EN_LANDING,
@@ -286,11 +286,27 @@ export function renderLanding(root: HTMLElement, onEnter: () => void, initialScr
   const layers = [el.querySelector('.ld-bg-img.a') as HTMLElement, el.querySelector('.ld-bg-img.b') as HTMLElement]
   let front = 0
   let shown = ''
+  // Narrow viewports get the phone-weight prints (public/artsm, ~5× lighter);
+  // a missing small print falls back to the full frame.
+  const SMALL = window.matchMedia('(max-width: 700px)').matches
+  const badSmall = new Set<string>()
+  const srcOf = (id: string): string => (SMALL && !badSmall.has(id) ? pubUrl(`artsm/${id}.webp`) : artUrl(id))
   const warmed = new Map<string, HTMLImageElement>()
   function warm(id: string): void {
     if (!id || warmed.has(id)) return
     const img = new Image()
-    img.src = artUrl(id)
+    img.onerror = () => {
+      if (SMALL && !badSmall.has(id)) {
+        badSmall.add(id)
+        warmed.delete(id)
+        warm(id)
+        if (shown === id) {
+          shown = ''
+          show(id)
+        }
+      }
+    }
+    img.src = srcOf(id)
     img.decode?.().catch(() => {})
     warmed.set(id, img)
   }
@@ -303,7 +319,7 @@ export function renderLanding(root: HTMLElement, onEnter: () => void, initialScr
     }
     warm(id)
     const next = 1 - front
-    layers[next].style.backgroundImage = `url('${artUrl(id)}')`
+    layers[next].style.backgroundImage = `url('${srcOf(id)}')`
     layers[next].style.opacity = '1'
     layers[front].style.opacity = '0'
     if (!reduced) {
@@ -404,6 +420,20 @@ export function renderLanding(root: HTMLElement, onEnter: () => void, initialScr
     { root: el.querySelector('.ld-scroll'), threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] },
   )
   scenes.forEach((s) => io.observe(s))
+
+  // Warm each section's print well before it scrolls into frame — on cellular
+  // the download must start ahead of the crossfade, not at it.
+  const pre = new IntersectionObserver(
+    (entries) => {
+      for (const en of entries)
+        if (en.isIntersecting) {
+          warm((en.target as HTMLElement).dataset.art ?? '')
+          pre.unobserve(en.target)
+        }
+    },
+    { root: el.querySelector('.ld-scroll'), rootMargin: '200% 0px', threshold: 0 },
+  )
+  scenes.forEach((s) => pre.observe(s))
 
   // Hero montage: cycle the strongest prints while the title holds the screen.
   let heroIdx = 0
