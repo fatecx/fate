@@ -195,3 +195,32 @@ export async function fetchLeaderboard(limit = 100): Promise<FounderRow[]> {
     return []
   }
 }
+
+/** One founder's ledger row — for the pinned line beyond the fetch window. */
+export async function fetchFounderRow(userId: string): Promise<FounderRow | null> {
+  if (!supa) return null
+  try {
+    const { data } = await supa
+      .from('founders')
+      .select('user_id,wallet,chain,score,chapters,weeks,endings,cohort,model')
+      .eq('user_id', userId)
+      .maybeSingle()
+    return (data as FounderRow | null) ?? null
+  } catch {
+    return null
+  }
+}
+
+/** Golf rank: 1 + how many rows outscore this one, optionally within a cohort. */
+export async function founderRank(score: number, cohort?: 'human' | 'machine'): Promise<number | null> {
+  if (!supa) return null
+  try {
+    let q = supa.from('founders').select('user_id', { count: 'exact', head: true }).gt('score', score)
+    if (cohort === 'human') q = q.eq('cohort', 'human')
+    if (cohort === 'machine') q = q.neq('cohort', 'human')
+    const { count } = await q
+    return count === null ? null : count + 1
+  } catch {
+    return null
+  }
+}

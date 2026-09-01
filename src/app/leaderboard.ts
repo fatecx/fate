@@ -4,7 +4,7 @@
  * invents nothing.
  */
 import './style.css'
-import { fetchLeaderboard, getSession, type FounderRow } from './cloud'
+import { fetchLeaderboard, fetchFounderRow, founderRank, getSession, type FounderRow } from './cloud'
 import { CONTENT } from '../content/world'
 import type { CompanyId } from '../engine/types'
 
@@ -59,7 +59,7 @@ async function boot(): Promise<void> {
         <button class="lb-fbtn" data-c="machine">◉ MACHINES</button>
       </nav>
       <div class="lb-table" id="lbTable"><div class="lb-loading">Opening the ledger…</div></div>
-      <details class="lb-how"><summary>WHAT MAKES A SCORE</summary>
+      <details class="lb-how"><summary>WHAT GOES INTO THE SCORE</summary>
         <p>The integer is the engine's law: every choice that showed judgment adds to it, and every ending pays its own bonus — a quiet open-source exit can outscore a loud IPO if the life around it was better played. The four decimals are the audit digits: chapters completed, world reputation, weeks survived, and what was left in the treasury, each read from the final state. Two founders tied to the fourth decimal share the rank.</p>
       </details>
     </main>
@@ -68,6 +68,20 @@ async function boot(): Promise<void> {
   const [rows, session] = await Promise.all([fetchLeaderboard(), getSession()])
   const me = session?.user.id
   const table = document.getElementById('lbTable')!
+
+  // My row and true rank, even when it sits beyond the fetch window.
+  const myRow = rows.find((r) => r.user_id === me) ?? (me ? await fetchFounderRow(me) : null)
+  const myCohort = (myRow?.cohort ?? 'human') === 'human' ? 'human' : 'machine'
+  let myRankAll: number | null = null
+  let myRankCohort: number | null = null
+  if (me && myRow && !rows.some((r) => r.user_id === me)) {
+    ;[myRankAll, myRankCohort] = await Promise.all([
+      founderRank(Number(myRow.score)),
+      founderRank(Number(myRow.score), myCohort),
+    ])
+  }
+
+  const TOP = 20
 
   const render = (filter: string): void => {
     const vis = rows.filter((r) => {
@@ -102,19 +116,28 @@ async function boot(): Promise<void> {
         <span class="lb-endings">COMPANIES CLOSED</span>
         <span class="lb-weeks">LIVED</span>
         <span class="lb-score">SCORE</span>
-      </div>` +
-      ranked
-        .map(
-          ({ r, rank, tied }) => `
+      </div>`
+    const rowHtml = ({ r, rank, tied }: { r: FounderRow; rank: number; tied: boolean }): string => `
         <div class="lb-row ${r.user_id === me ? 'me' : ''} ${(r.cohort ?? 'human') !== 'human' ? 'machine' : ''}">
           <span class="lb-rank">${tied ? 'T-' : ''}${rank}</span>
           <span class="lb-wallet">${cohortIcon(r)} ${esc(r.wallet || 'unsigned')}${r.model ? ` <i class="lb-model">${esc(r.model)}</i>` : ''}${r.user_id === me ? ' <b class="lb-you">YOU</b>' : ''}</span>
           <span class="lb-endings">${endingChips(r.endings ?? [])}</span>
           <span class="lb-weeks">${yearsOf(r.weeks)}</span>
           <span class="lb-score">${scoreOf(r)}</span>
-        </div>`,
-        )
-        .join('')
+        </div>`
+
+    // The ledger shows the top 20. My line rides inside if it earned the
+    // company — otherwise it waits below a gap, at its true rank.
+    const myIdx = ranked.findIndex((x) => x.r.user_id === me)
+    let pinned: { r: FounderRow; rank: number; tied: boolean } | null = null
+    if (myIdx >= TOP) pinned = ranked[myIdx]
+    else if (myIdx === -1 && me && myRow && (filter === 'all' || filter === myCohort)) {
+      const rank = filter === 'all' ? myRankAll : myRankCohort
+      if (rank) pinned = { r: myRow, rank, tied: false }
+    }
+    table.innerHTML +=
+      ranked.slice(0, TOP).map(rowHtml).join('') +
+      (pinned ? `<div class="lb-gap">· · ·</div>${rowHtml(pinned)}` : '')
   }
 
   render('all')
