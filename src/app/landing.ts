@@ -152,7 +152,7 @@ function oddsHtml(copy: LandingCopy, locale: LandingLocale): string {
         <div class="ld-odd"><b>${f(ODDS.bells)}</b><span>${esc(odds.labels[2] ?? '')}</span></div>
         <div class="ld-odd"><b>${f(ODDS.allThree)}</b><span>${esc(odds.labels[3] ?? '')}</span></div>
       </div>
-      <p class="ld-sub">${esc(odds.bodyBefore)}<a class="ld-ledger" href="/agent" target="_blank" rel="noopener">${esc(odds.agentSeat)}</a>${esc(odds.bodyAfter)}</p>
+      <p class="ld-sub">${esc(odds.body)}</p>
     </div>
   </section>`
 }

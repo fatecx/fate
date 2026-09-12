@@ -58,14 +58,6 @@ export default async function handler(req: any, res: any) {
         return res.status(409).json({ error: 'the papers are stamped — the filing is permanent now' })
     }
 
-    // The agent seat is part of the filing: a used seat means value delivered.
-    const seat = await admin.from('agent_seats').select('agent_user_id').eq('user_id', uid).maybeSingle()
-    if (seat.data) {
-      const agentRow = await admin.from('founders').select('score').eq('user_id', seat.data.agent_user_id).maybeSingle()
-      if (agentRow.data)
-        return res.status(409).json({ error: 'your agent seat already lived its life — the filing is spent' })
-    }
-
     // Full refund through Whop; the money goes back the way it came.
     let refunded = false
     let lastErr = ''
@@ -103,11 +95,10 @@ export default async function handler(req: any, res: any) {
       return res.status(502).json({ error: `the processor declined the refund (${lastErr}) — write to dev@fate.cx` })
     }
 
-    // The record dissolves: no fee, no biography, no ledger row, no seat.
+    // The record dissolves: no fee, no biography, no ledger row.
     await admin.from('saves').delete().eq('user_id', uid)
     await admin.from('payments').delete().eq('user_id', uid)
     await admin.from('founders').delete().eq('user_id', uid)
-    await admin.from('agent_seats').delete().eq('user_id', uid)
     return res.status(200).json({ ok: true })
   } catch (err: any) {
     return res.status(502).json({ error: String(err?.message ?? err) })

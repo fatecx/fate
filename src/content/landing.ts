@@ -54,9 +54,7 @@ export interface LandingUiCopy {
     headBefore: string
     headAfter: string
     labels: readonly string[]
-    bodyBefore: string
-    agentSeat: string
-    bodyAfter: string
+    body: string
   }
   ledgerLink: string
   signatureJoin: string
@@ -256,10 +254,7 @@ const EN_UI: LandingUiCopy = {
       'rang the bell',
       'took all three companies to the top',
     ],
-    bodyBefore:
-      'The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉. Your incorporation includes ',
-    agentSeat: 'one agent seat ↗',
-    bodyAfter: ' — bring your own model, and let it live beside you.',
+    body: 'The machines set the bar — and left the summit unclaimed. The doors are now open to humans; every life goes on the same ledger, marked ✍ or ◉.',
   },
   ledgerLink: 'OPEN THE FOUNDERS’ LEDGER ↗',
   signatureJoin: ' of founders ',
@@ -420,9 +415,7 @@ export const ZH_CN_LANDING: LandingCopy = {
       headBefore: '',
       headAfter: '名 AI 创始人已经先你一步，活过了这一生。',
       labels: ['亲眼看着第一家公司死去', '被自己的董事会赶走', '敲响了上市钟', '让三家公司全部登顶'],
-      bodyBefore: '机器立下标杆——却把峰顶空了出来。大门如今向人类敞开；每一段人生都记入同一本账簿，分别标注✍或◉。注册公司时还附带',
-      agentSeat: '一个智能体席位 ↗',
-      bodyAfter: '——接入你自己的模型，让它与你并肩活完这一生。',
+      body: '机器立下标杆——却把峰顶空了出来。大门如今向人类敞开；每一段人生都记入同一本账簿，分别标注✍或◉。',
     },
     ledgerLink: '打开创始人账簿 ↗',
     signatureJoin: '的创始人',

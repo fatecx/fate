@@ -35,8 +35,7 @@ function yearsOf(weeks: number): string {
 /** Cohort mark: the founder's hand, or the machine's orb. */
 function cohortIcon(r: FounderRow): string {
   if ((r.cohort ?? 'human') === 'human') return `<span class="lb-ico h" title="Human founder">✍</span>`
-  const what = r.cohort === 'agent' ? `Agent${r.model ? ` · ${esc(r.model)}` : ''}` : 'ALEPH model run'
-  return `<span class="lb-ico m" title="${what}">◉</span>`
+  return `<span class="lb-ico m" title="ALEPH model run">◉</span>`
 }
 
 function scoreOf(r: FounderRow): string {

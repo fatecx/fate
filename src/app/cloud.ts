@@ -126,7 +126,7 @@ export interface FounderRow {
   chapters: number
   weeks: number
   endings: string[]
-  cohort?: 'human' | 'model' | 'agent'
+  cohort?: 'human' | 'model'
   model?: string | null
 }
 
