@@ -1,4 +1,5 @@
 import type { SceneDef } from '../schema'
+import { SITE_KIRIBELA, SITE_OPEN_SEA, SITE_US } from './preds'
 
 /**
  * SKYLINE — Act One: THE PROOF.
@@ -392,6 +393,23 @@ export const ACT_ONE: readonly SceneDef[] = [
         art: 'cut_s_year_two',
         prose:
           'The platform gets a name the workers choose themselves: FIRST RUNG.\n\nBy the end of year two it has a cafeteria, a chapel, a gym, and a betting pool on the weather. Four hundred people live where there was only ocean. The cable — her first true segment, anyway — rises from the center derrick and vanishes into the clouds, attached to nothing yet but its own test weights and everyone’s whole heart.',
+        vary: [
+          {
+            when: SITE_KIRIBELA,
+            prose:
+              'The platform gets a name the workers choose themselves: FIRST RUNG.\n\nBy the end of year two it has a cafeteria, a chapel, a gym, and a betting pool on the weather. Four hundred people live where there was only ocean, and half of Kiribela’s harbor commutes to it — the ferry from the capital runs twice a day and is never empty. The cable — her first true segment, anyway — rises from the center derrick and vanishes into the clouds, attached to nothing yet but its own test weights and everyone’s whole heart.',
+          },
+          {
+            when: SITE_US,
+            prose:
+              'The platform gets a name the workers choose themselves: FIRST RUNG.\n\nBy the end of year two it has a cafeteria, a chapel, a gym, and a betting pool on the weather. Four hundred people live where there was only ocean, under a flag that flies from the derrick by contract, with a Coast Guard cutter holding permanent station off the west rail — Senator Calloway’s protection, visible from every window. The cable — her first true segment, anyway — rises from the center derrick and vanishes into the clouds, attached to nothing yet but its own test weights and everyone’s whole heart.',
+          },
+          {
+            when: SITE_OPEN_SEA,
+            prose:
+              'The platform gets a name the workers choose themselves: FIRST RUNG.\n\nBy the end of year two it has a cafeteria, a chapel, a gym, and a betting pool on the weather. Four hundred people live where there was only ocean, and no flag flies from the derrick, by design — the mast that would hold one holds the weather station instead. The cable — her first true segment, anyway — rises from the center derrick and vanishes into the clouds, attached to nothing yet but its own test weights and everyone’s whole heart.',
+          },
+        ],
       },
       {
         art: 'cut_s_year_two_night',

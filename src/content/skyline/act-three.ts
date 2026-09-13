@@ -1,5 +1,5 @@
 import type { SceneDef } from '../schema'
-import { LOSE_TREATY, WIN_TREATY } from './preds'
+import { AURELIA_TREATY, LOSE_TREATY, WIN_TREATY } from './preds'
 
 /**
  * SKYLINE — Act Three: THE SEIZURE.
@@ -19,6 +19,13 @@ export const ACT_THREE: readonly SceneDef[] = [
         art: 'cut_s_hulls',
         prose:
           'The ships arrive on a Sunday, before the sun does.\n\nGray hulls, unmarked except for Aurelia’s ring-and-star, taking station at the boundary buoys with the calm of vessels that have nowhere else to be — six at dawn, eleven by noon. They hail no one and they stop no one. They anchor at the exact edge of the chartered waters and drop their engines to idle, and the sea — which was never anyone’s — acquires a border.',
+        vary: [
+          {
+            when: AURELIA_TREATY,
+            prose:
+              'The ships arrive on a Sunday, before the sun does.\n\nGray hulls, unmarked except for Aurelia’s ring-and-star, taking station at the boundary buoys with the calm of vessels that have nowhere else to be — six at dawn, eleven by noon. They hail no one and they stop no one. They anchor at the exact edge of the chartered waters and drop their engines to idle, and the sea — which was never anyone’s — acquires a border. The treaty you drafted on the terrace says host, never own. The ships are not, technically, owning anything.',
+          },
+        ],
       },
       {
         art: 'cut_s_buoys',
@@ -98,8 +105,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     mood: 'unmask',
     title: 'THE EMPTY CHAIR',
     marker: '2046 · THE DISCLOSURE',
-    priority: true,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 128 }, { k: 'seen', scene: 's_blockade' }] },
+    // Entered only from WHAT THE SQUEEZE TAUGHT: the blockade asks who should
+    // hold the elevator, and the biggest checkbook on Earth answers by unmasking.
     art: 'cut_s_unmask',
     screens: [
       {

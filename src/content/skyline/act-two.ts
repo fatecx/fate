@@ -1,4 +1,5 @@
 import type { SceneDef } from '../schema'
+import { ASKED_RASHID, NO_AURELIA, S_TRANSPARENT, SITE_KIRIBELA, SITE_OPEN_SEA, SITE_US, SNAP_BURIED, SNAP_QUIET, TERRITORY_CLAUSE, TERRITORY_STRUCK } from './preds'
 
 /**
  * SKYLINE — Act Two: THE BUILD AND THE FLAG.
@@ -344,7 +345,24 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'world_s_repair',
     title: 'THE REPAIR SEASON',
     prose:
-      'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the photographs of a healed tear at kilometer 921 begin circulating through ministries — attached, always, to the same growing question: should something this important really belong to one person?',
+      'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the night the cable sang begins circulating through ministries — attached, always, to the same growing question: should something this important really belong to one person?',
+    vary: [
+      {
+        when: S_TRANSPARENT,
+        prose:
+          'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the photographs from your own report — a healed tear at kilometer 921, documented bolt by bolt — begin circulating through ministries, attached, always, to the same growing question: should something this important really belong to one person?',
+      },
+      {
+        when: SNAP_QUIET,
+        prose:
+          'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the file you sent through official channels begins circulating through ministries, one forwarded inbox at a time — attached, always, to the same growing question: should something this important really belong to one person?',
+      },
+      {
+        when: SNAP_BURIED,
+        prose:
+          'The repair takes a season either way. Climbers crawl the wounded kilometer with robotic arms, weaving new strand into old like surgeons who commute at three hundred kilometers an hour. Anders rewrites the storm playbook from scratch and drills the ops room until calming the cable becomes muscle memory. The insurance premiums arrive with a new decimal place. And on the shore, in capitals you have never visited, the storm the whole ocean heard begins circulating through ministries — a cable that sang for four hours and a company that called it maintenance — attached, always, to the same growing question: should something this important really belong to one person?',
+      },
+    ],
     choices: [{ label: 'Continue', effects: [], goto: 's_cut_flag' }],
   },
   {
@@ -354,23 +372,58 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE FLAG',
     marker: '2045 · THE FLAG',
     skipToWeek: 122,
-    priority: true,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 96 }, { k: 'seen', scene: 's_strand_snap' }] },
+    // Entered only from THE REPAIR SEASON: the tear taught the capitals the
+    // question, and Aurelia answers it first. Screen one remembers where you
+    // anchored; screen two pays off page nine of the Series B.
     art: 'cut_s_flag',
     screens: [
       {
         art: 'cut_s_charter',
         prose:
-          'It happens in three announcements, spaced like chess moves.\n\nFirst: Aurelia purchases the sea territory surrounding your anchor zone from the government of Kiribela — the same government whose national debt it quietly bought two years ago. The price forgives the debt. The paperwork calls it a “special economic zone.”\n\nSecond: the zone gets a charter, a court, a port authority, and a passport office. The press calls it an experiment. Katarina Volkov, listed as author of the charter, calls it “a jurisdiction.”',
+          'It happens in three announcements, spaced like chess moves.\n\nFirst: Aurelia purchases the sea around your anchor zone from the government of Kiribela — the same government whose national debt it quietly bought two years ago. The price forgives the debt. The paperwork calls it a “special economic zone.”\n\nSecond: the zone gets a charter, a court, a port authority, and a passport office. The press calls it an experiment. Katarina Volkov, listed as author of the charter, calls it “a jurisdiction.”',
+        vary: [
+          {
+            when: SITE_KIRIBELA,
+            prose:
+              'It happens in three announcements, spaced like chess moves.\n\nFirst: Aurelia purchases the sea around your anchor zone from the government of Kiribela — the same government whose national debt it quietly bought two years ago — and with it your lease, every page of which a junior aide photographed in a hall with peeling paint, for a buyer she had never met. The price forgives the debt. The paperwork calls it a “special economic zone.”\n\nSecond: the zone gets a charter, a court, a port authority, and a passport office. The press calls it an experiment. Katarina Volkov, listed as author of the charter, calls it “a jurisdiction.”',
+          },
+          {
+            when: SITE_US,
+            prose:
+              'It happens in three announcements, spaced like chess moves.\n\nFirst: Aurelia purchases every square kilometer of Kiribela’s sea that touches the American zone Senator Calloway drew around you — from the same government whose national debt it quietly bought two years ago. The price forgives the debt. The paperwork calls it a “special economic zone.” Her protection now ends at a border somebody else owns.\n\nSecond: the zone gets a charter, a court, a port authority, and a passport office. The press calls it an experiment. Katarina Volkov, listed as author of the charter, calls it “a jurisdiction.”',
+          },
+          {
+            when: SITE_OPEN_SEA,
+            prose:
+              'It happens in three announcements, spaced like chess moves.\n\nFirst: Aurelia purchases the Kiribela waters that ring the treaty zone you chose because no one could own it — from the same government whose national debt it quietly bought two years ago. No one can own it, still — but everything around it has an owner now, and the price forgives the debt. The paperwork calls it a “special economic zone.”\n\nSecond: the zone gets a charter, a court, a port authority, and a passport office. The press calls it an experiment. Katarina Volkov, listed as author of the charter, calls it “a jurisdiction.”',
+          },
+        ],
       },
       {
         art: 'cut_s_flag',
         prose:
           'Third: on a bright Tuesday, with cameras arranged like an art exhibit, Sheikh Rashid al-Mansour stands on a brand-new sea wall and raises a flag.\n\nAURELIA. The first venture-state. A country whose constitution is a shareholder agreement, whose citizens hold equity, whose anthem was composed by an artificial intelligence and sounds, everyone agrees, expensive.\n\nIts territory is a ring of ocean. In the exact center of the ring, connected to the sky, stands your platform.\n\nYou are now the national landmark of a country you never joined.',
+        vary: [
+          {
+            when: TERRITORY_CLAUSE,
+            prose:
+              'Third: on a bright Tuesday, with cameras arranged like an art exhibit, Sheikh Rashid al-Mansour stands on a brand-new sea wall and raises a flag.\n\nAURELIA. The first venture-state. A country whose constitution is a shareholder agreement, whose citizens hold equity, whose anthem was composed by an artificial intelligence and sounds, everyone agrees, expensive.\n\nIts territory is a ring of ocean. In the exact center of the ring, connected to the sky, stands your platform. And in the closing binder of your Series B, the clause on page nine wakes up: first option to host the anchor operations within any special economic territory it may administer. Volkov’s gentle language, now with a coastline.\n\nYou are now the national landmark of a country you never joined.',
+          },
+          {
+            when: TERRITORY_STRUCK,
+            prose:
+              'Third: on a bright Tuesday, with cameras arranged like an art exhibit, Sheikh Rashid al-Mansour stands on a brand-new sea wall and raises a flag.\n\nAURELIA. The first venture-state. A country whose constitution is a shareholder agreement, whose citizens hold equity, whose anthem was composed by an artificial intelligence and sounds, everyone agrees, expensive.\n\nIts territory is a ring of ocean. In the exact center of the ring, connected to the sky, stands your platform. The clause you made him strike in ink turns out to have been the polite version. Rashid never needed your signature to buy an ocean.\n\nYou are now the national landmark of a country you never joined.',
+          },
+          {
+            when: NO_AURELIA,
+            prose:
+              'Third: on a bright Tuesday, with cameras arranged like an art exhibit, Sheikh Rashid al-Mansour stands on a brand-new sea wall and raises a flag.\n\nAURELIA. The first venture-state. A country whose constitution is a shareholder agreement, whose citizens hold equity, whose anthem was composed by an artificial intelligence and sounds, everyone agrees, expensive.\n\nIts territory is a ring of ocean. In the exact center of the ring, connected to the sky, stands your platform. “The offer does not expire,” he said, the day you refused his money. It did not. It arrived as a border.\n\nYou are now the national landmark of a country you never joined.',
+          },
+        ],
       },
     ],
     prose:
-      'Aurelia declares itself the first venture-state — a country built like a startup, chartered on the ocean around your anchor platform. The elevator now stands inside the territory of its own investor.',
+      'Aurelia declares itself the first venture-state — a country built like a startup, chartered on the ocean around your anchor platform. The elevator now stands inside the territory of the fund that has spent two years buying everything around it.',
     choices: [{ label: 'Continue', effects: [{ e: 'meet', who: 'aurelia' }, { e: 'stress', d: 6 }], goto: 's_citizenship' }],
   },
   {
@@ -384,7 +437,14 @@ export const ACT_TWO: readonly SceneDef[] = [
     leadIn:
       'Rashid requests a meeting on his new soil, in a capital that is nine buildings and a harbor, all of it smelling of fresh paint and seawater. Volkov meets you at the dock with diplomatic courtesy, which is its own kind of cold.',
     prose:
-      'He receives you on a terrace overlooking your own platform on the horizon, and he does not pretend the view is an accident. “I told you once I wanted Aurelia to be a place. You are standing in it.” The offer comes on one page, beautiful and terrible. Citizenship, first class. A founding ministry — INFRASTRUCTURE OF THE CENTURY — with powers written for you personally. And the elevator reclassified as Aurelia’s national asset: protected by its treaties, funded by its treasury, wrapped in its flag. “Every government on Earth is circling your cable,” he says gently. “I am offering you the only shelter that was built for it. Join the country your work created. The alternative, my friend, is standing alone in the water while the old world decides what to do about you — and I say this with love. The old world has never once decided in favor of the new thing’s owner.”',
+      'He receives you on a terrace overlooking your own platform on the horizon, and he does not pretend the view is an accident. “A fund is a wallet. I was tired of being a wallet. I wanted Aurelia to be a place, and you are standing in it.” The offer comes on one page, beautiful and terrible. Citizenship, first class. A founding ministry — INFRASTRUCTURE OF THE CENTURY — with powers written for you personally. And the elevator reclassified as Aurelia’s national asset: protected by its treaties, funded by its treasury, wrapped in its flag. “Every government on Earth is circling your cable,” he says gently. “I am offering you the only shelter that was built for it. Join the country your work created. The alternative, my friend, is standing alone in the water while the old world decides what to do about you — and I say this with love. The old world has never once decided in favor of the new thing’s owner.”',
+    vary: [
+      {
+        when: ASKED_RASHID,
+        prose:
+          'He receives you on a terrace overlooking your own platform on the horizon, and he does not pretend the view is an accident. “I told you once I wanted Aurelia to be a place. You are standing in it.” The offer comes on one page, beautiful and terrible. Citizenship, first class. A founding ministry — INFRASTRUCTURE OF THE CENTURY — with powers written for you personally. And the elevator reclassified as Aurelia’s national asset: protected by its treaties, funded by its treasury, wrapped in its flag. “Every government on Earth is circling your cable,” he says gently. “I am offering you the only shelter that was built for it. Join the country your work created. The alternative, my friend, is standing alone in the water while the old world decides what to do about you — and I say this with love. The old world has never once decided in favor of the new thing’s owner.”',
+      },
+    ],
     choices: [
       {
         label: 'Take the ministry. Become the founding citizen.',

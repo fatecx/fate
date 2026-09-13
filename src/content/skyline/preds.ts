@@ -55,3 +55,23 @@ export const HUMANS_RATED: Pred = flag('humans_rated')
 
 /** You moved to the platform. The build got you. Earth got less of you. */
 export const UPROOTED: Pred = flag('uprooted')
+
+/** Where the road touches the Earth — the anchor site, three dots on the ocean map. */
+export const SITE_KIRIBELA: Pred = flag('site_kiribela')
+export const SITE_US: Pred = flag('site_us')
+export const SITE_OPEN_SEA: Pred = flag('site_open_sea')
+
+/** The Series B: the page-nine clause slept, was struck in ink, or was never signed. */
+export const TERRITORY_CLAUSE: Pred = flag('territory_clause')
+export const TERRITORY_STRUCK: Pred = flag('territory_struck')
+export const NO_AURELIA: Pred = flag('no_aurelia')
+
+/** At tea, you asked Rashid what Aurelia wanted to become — and he told you. */
+export const ASKED_RASHID: Pred = flag('asked_rashid')
+
+/** How the tear at kilometer 921 was told: through channels only, or not at all. */
+export const SNAP_QUIET: Pred = flag('snap_quiet')
+export const SNAP_BURIED: Pred = flag('snap_buried')
+
+/** The terrace treaty: Aurelia hosts, never owns. */
+export const AURELIA_TREATY: Pred = flag('aurelia_treaty')

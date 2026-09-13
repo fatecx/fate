@@ -1,4 +1,5 @@
 import type { SceneDef } from '../schema'
+import { COURIERS_ALLY, COURIERS_ENEMY, COURIERS_MIDDLE } from './preds'
 
 /** HYPERCHUTE — Act Two: FIGHT. The clone war, the street, the money. */
 export const ACT_TWO: readonly SceneDef[] = [
@@ -112,6 +113,7 @@ export const ACT_TWO: readonly SceneDef[] = [
         effects: [
           { e: 'burn', d: 1400 },
           { e: 'stress', d: 3 },
+          { e: 'flag', scope: 'company', key: 'couriers_middle', v: true },
         ],
         result: 'Half of them sign. The other half organize harder.',
         goto: 'h_b_after_couriers',
@@ -173,15 +175,10 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'cut_meridian_ipo',
     kind: 'cutscene',
     mood: 'meridian',
-    priority: true,
-    when: {
-      k: 'all',
-      of: [
-        { k: 'flag', scope: 'company', key: 'act1_done', cmp: 'eq', v: true },
-        { k: 'age', cmp: 'gte', v: 58 },
-        { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
-      ],
-    },
+    // Entered only from the courier bridge: you settle what the person on the
+    // stairs is worth, and MERIDIAN answers with a number the size of a city.
+    // The film is the jump — the weeks it summarizes pass.
+    skipToWeek: 58,
     title: 'MERIDIAN GOES PUBLIC',
     prose:
       'MERIDIAN rings the bell on a Tuesday. By the end of the day, it is worth more than the city you live in. Its founder sits on every financial channel, silver-haired and certain under the studio lights. “Logistics is solved. The last mile belongs to whoever owns the sky.” The number behind him reads $91B. Your company still lives in a garage above a laundromat.',
@@ -360,7 +357,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     when: {
       k: 'all',
       of: [
-        { k: 'age', cmp: 'gte', v: 66 },
+        { k: 'age', cmp: 'gte', v: 60 },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true } },
       ],
     },
@@ -484,6 +481,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'control', v: 'founder' },
           { e: 'score', d: 1 },
         ],
+        goto: 'h_bridge_pre_act3',
         result: 'You keep the gavel. June votes with you twice in year one. The third vote goes against you, and you remember it.',
       },
       {
@@ -495,6 +493,7 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: 1 },
           { e: 'stress', d: 3 },
         ],
+        goto: 'h_bridge_pre_act3',
         result: 'The board becomes marriage counseling with votes. The independent is a retired ferry captain with little patience for either of you. That turns out to be exactly right.',
       },
     ],
@@ -506,6 +505,9 @@ export const ACT_TWO: readonly SceneDef[] = [
     art: 'cut_eighteen_months',
     kind: 'cutscene',
     mood: 'eighteen',
+    // Entered by goto from WHO HOLDS THE GAVEL or THE WHOLE THING: the money
+    // question is settled, and the war gets old. The clock below is the
+    // backstop for the road that never met June — no round, no gavel, no door.
     priority: true,
     when: {
       k: 'all',
@@ -519,7 +521,24 @@ export const ACT_TWO: readonly SceneDef[] = [
     marker: 'EIGHTEEN MONTHS LATER',
     skipToWeek: 130,
     prose:
-      'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. Your couriers got health insurance, and Sofia’s landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
+      'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. The landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
+    vary: [
+      {
+        when: COURIERS_ALLY,
+        prose:
+          'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. Your couriers got health insurance, and the landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
+      },
+      {
+        when: COURIERS_ENEMY,
+        prose:
+          'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. The stair machines finished the job, the Flats kept its counter-list of porches that refuse your tubes, and the landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
+      },
+      {
+        when: COURIERS_MIDDLE,
+        prose:
+          'Three corridors were suspended and then reopened. The price war cost both sides a fortune and taught the whole city your names. Half your couriers carry a guaranteed check and the other half carry a grievance, and the landing software reached version nine. The war just keeps getting older — until the morning it stops mattering, because of what happens on Richmond Street.',
+      },
+    ],
     choices: [{ label: 'Continue', effects: [], goto: 'h_cut_accident' }],
   },
 
@@ -543,7 +562,7 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE LAST MILE HAS A FACE',
     prose:
       'The decision moves through the courier pool faster than any memo. Group chats, stairwells, and the bench outside the laundromat all carry it. Deliveries keep moving for now. The porches hear too, because the couriers explain it name by name and landing by landing. In the Flats, how you treat the person on the stairs becomes public knowledge. That judgment starts building from here.',
-    choices: [{ label: 'Continue', effects: [] }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_cut_meridian_ipo' }],
   },
   {
     id: 'h_b_after_strike',
@@ -616,6 +635,6 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE WHOLE THING',
     prose:
       'Owning all of it has a sound. It is the door June closed, clicking politely behind her. From here, payroll clears only when customers paid that week. Every dollar has to come from customers now. Rescue is far away. You tape the runway math to the wall where a term sheet would have hung. To your surprise, you like seeing it. The next quarter will show what kind of founder you are.',
-    choices: [{ label: 'Continue', effects: [] }],
+    choices: [{ label: 'Continue', effects: [], goto: 'h_bridge_pre_act3' }],
   },
 ]

@@ -1,4 +1,5 @@
 import type { SceneDef } from '../schema'
+import { SOFIA_GONE } from './preds'
 
 /** HYPERCHUTE — Act Three: RECKONING. The accident, the storm, the offer. */
 export const ACT_THREE: readonly SceneDef[] = [
@@ -12,6 +13,13 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'RICHMOND STREET, 4:51 P.M.',
     prose:
       'A part in the descent controller fails — version nine, Sofia’s own code — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. A nurse, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
+    vary: [
+      {
+        when: SOFIA_GONE,
+        prose:
+          'A part in the descent controller fails — version nine, Sofia’s own code, shipped by the people she left it to — and Shuttle Fourteen drops a forty-pound parcel from sixty feet instead of four. A nurse, fifty-eight, is biking home from the hospital where she has worked for thirty-one years. The parcel hits her and leaves her badly hurt. Someone records it. By midnight, every channel in the city leads with the railway in the sky.',
+      },
+    ],
     choices: [{ label: 'Continue', effects: [{ e: 'flag', scope: 'company', key: 'act3_open', v: true }], goto: 'h_accident' }],
   },
   {
@@ -117,6 +125,7 @@ export const ACT_THREE: readonly SceneDef[] = [
       of: [
         { k: 'flag', scope: 'company', key: 'act3_open', cmp: 'eq', v: true },
         { k: 'flag', scope: 'company', key: 'sofia_resolved', cmp: 'eq', v: true },
+        { k: 'not', p: { k: 'flag', scope: 'company', key: 'sofia_gone', cmp: 'eq', v: true } },
         { k: 'not', p: { k: 'flag', scope: 'company', key: 'sofia_verdict', cmp: 'eq', v: true } },
       ],
     },
