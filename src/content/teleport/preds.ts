@@ -48,6 +48,15 @@ export const LOSE_VOTE: Pred = not(SURVIVE_VOTE)
 /** The chapter's golden thread: the eleven seconds were published, not buried. */
 export const TRANSPARENT: Pred = flag('t_transparent')
 
+/** The other two answers to the eleven seconds — the sealed log, the blamed operator. */
+export const LOG_SEALED: Pred = flag('log_sealed')
+export const BLAMED_CASS: Pred = flag('blamed_cass')
+
+/** How the expo was run — the memory every later frame of that booth must match. */
+export const DELAY_NAMED: Pred = flag('delay_named')
+export const DELAY_MASKED: Pred = flag('delay_masked')
+export const DELAY_RAW: Pred = flag('delay_raw')
+
 /** The product tells the truth about distance — the blend never wore the brand alone. */
 export const HONEST_PRODUCT: Pred = not(flag('blend_full'))
 

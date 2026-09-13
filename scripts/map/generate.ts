@@ -454,7 +454,10 @@ function artCards(): ArtCard[] {
     for (const s of ch.scenes) {
       const sub = s.kind === 'cutscene' ? 'CUTSCENE' : s.kind === 'bridge' ? 'BRIDGE' : 'SCENE'
       add(s.art, G, sub, `${s.title} · ${s.id}`, [charName(s.speaker)])
-      s.screens?.forEach((p, i) => add(p.art, G, 'FILM', `${s.title} · film screen ${i + 1}`, [charName(s.speaker)]))
+      s.screens?.forEach((p, i) => {
+        add(p.art, G, 'FILM', `${s.title} · film screen ${i + 1}`, [charName(s.speaker)])
+        p.vary?.forEach((v, j) => add(v.art, G, 'VARIANT', `${s.title} · film screen ${i + 1} · variant ${j + 1}`, [charName(s.speaker)]))
+      })
       s.vary?.forEach((v, i) => add(v.art, G, 'VARIANT', `${s.title} · variant ${i + 1}`, [charName(s.speaker)]))
     }
     for (const e of ch.endings) {
@@ -689,7 +692,10 @@ function scriptHtml(): string {
       out.push(`<h2 class="s-sc" id="s-${hesc(s.id)}">${hesc(s.title)} <span>· ${hesc(s.id)} · ${hesc(spk)}${s.kind ? ` · ${s.kind}` : ''}</span></h2>`)
       block('lead-in', `${ch.id}/${s.id}.leadIn`, s.leadIn)
       block('prose', `${ch.id}/${s.id}.prose`, s.prose)
-      s.screens?.forEach((p, i) => block(`film screen ${i + 1}`, `${ch.id}/${s.id}.screen[${i}].prose`, p.prose))
+      s.screens?.forEach((p, i) => {
+        block(`film screen ${i + 1}`, `${ch.id}/${s.id}.screen[${i}].prose`, p.prose)
+        p.vary?.forEach((v, j) => block(`film screen ${i + 1} · variant ${j + 1}`, `${ch.id}/${s.id}.screen[${i}].vary[${j}].prose`, v.prose))
+      })
       s.vary?.forEach((v, i) => {
         block(`variant ${i + 1} · lead-in`, `${ch.id}/${s.id}.vary[${i}].leadIn`, v.leadIn)
         block(`variant ${i + 1} · prose`, `${ch.id}/${s.id}.vary[${i}].prose`, v.prose)

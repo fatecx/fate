@@ -56,6 +56,10 @@ for (const ch of Object.values(CONTENT.chapters)) {
     s.screens?.forEach((p, i) => {
       md.push(`### ${s.id} · film screen ${i + 1}`)
       block(`${ch.id}/${s.id}.screen[${i}].prose`, p.prose)
+      p.vary?.forEach((v, j) => {
+        md.push(`### ${s.id} · film screen ${i + 1} · variant ${j + 1}`)
+        block(`${ch.id}/${s.id}.screen[${i}].vary[${j}].prose`, v.prose)
+      })
     })
     s.vary?.forEach((v, i) => {
       md.push(`### ${s.id} · variant ${i + 1} (plays when its condition is true)`)

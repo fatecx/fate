@@ -23,8 +23,11 @@ describe('art coverage', () => {
         if (p.art && !has(p.art)) missing.push(`${ch.id}/prologue[${i}]:${p.art}`)
       for (const s of ch.scenes) {
         if (s.art && !has(s.art)) missing.push(`${ch.id}/${s.id}:${s.art}`)
-        for (const [i, p] of (s.screens ?? []).entries())
+        for (const [i, p] of (s.screens ?? []).entries()) {
           if (p.art && !has(p.art)) missing.push(`${ch.id}/${s.id}.screen[${i}]:${p.art}`)
+          for (const [j, v] of (p.vary ?? []).entries())
+            if (v.art && !has(v.art)) missing.push(`${ch.id}/${s.id}.screen[${i}].vary[${j}]:${v.art}`)
+        }
         for (const [i, v] of (s.vary ?? []).entries())
           if (v.art && !has(v.art)) missing.push(`${ch.id}/${s.id}.vary[${i}]:${v.art}`)
       }

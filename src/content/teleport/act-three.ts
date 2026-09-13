@@ -1,5 +1,5 @@
 import type { SceneDef } from '../schema'
-import { LOSE_VOTE, SURVIVE_VOTE } from './preds'
+import { BLAMED_CASS, DELAY_MASKED, DELAY_NAMED, DELAY_RAW, LOG_SEALED, LOSE_VOTE, SURVIVE_VOTE, TRANSPARENT } from './preds'
 
 /**
  * TELEPORT — Act Three: THE GRIEF AND THE ROOM.
@@ -14,19 +14,54 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'YEAR THREE',
     marker: 'YEAR THREE',
     skipToWeek: 104,
-    priority: true,
-    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 98 }, { k: 'seen', scene: 't_telemetry' }] },
+    // Entered only from t_telemetry: you answer for the eleven seconds, and
+    // the year turns on that answer. Screen one is the answer's aftermath;
+    // screen two remembers the expo the way you actually ran it.
     art: 'cut_year_three',
     screens: [
       {
         art: 'cut_year_three',
         prose:
-          'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds, the Verge schedule runs, and the storefront chair keeps its bookings. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+          'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds and the Verge schedule runs. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+        vary: [
+          {
+            when: TRANSPARENT,
+            prose:
+              'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds and the Verge schedule runs — Salazar kept the bodies on his rotation, the way he said he would. The storefront chairs stand dark under your own signature, the grounding order still taped inside the glass, waiting for a return date only you can set. Four hundred published pages did that. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+          },
+          {
+            when: LOG_SEALED,
+            prose:
+              'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds, the Verge schedule runs, and the storefront chair keeps its bookings. The settlement cleared, the silence clause held, and the word the board minutes chose — handled — has started turning up in other people’s sentences. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+          },
+          {
+            when: BLAMED_CASS,
+            prose:
+              'Year three arrives the way years do at companies: one Monday the calendar has a new number on it, and the coffee tastes the same.\n\nThe satellite ring holds, the Verge schedule runs, and the storefront chair keeps its bookings. The control bay has a new chief operator, competent and insurable, and on its wall a mission patch with no mission on it that nobody has found the nerve to take down. TELEPORT has become a place where a hundred people work now. That is a different kind of bet, renewed every week.',
+          },
+        ],
       },
       {
         art: 'cut_year_three_earth',
         prose:
-          'You notice it in small ways first: hotel clerks stop asking how to spell the company. HALCYON’s earnings call mentions “new remote-presence rivals” in a tone that sounds almost careful.\n\nOn your desk, in a frame you did not buy, someone has put the photograph from the expo — the crate, the counter, the crowd counting out loud. A hundred years ago this company was four desks and a declined credit card.\n\nIt was three years ago.',
+          'You notice it in small ways first: hotel clerks stop asking how to spell the company. HALCYON’s earnings call mentions “new remote-presence rivals” in a tone that sounds almost careful.\n\nOn your desk, in a frame you did not buy, someone has put the photograph from the expo — the crate, the chair, the body mid-reach. A hundred years ago this company was four desks and a declined credit card.\n\nIt was three years ago.',
+        vary: [
+          {
+            when: DELAY_NAMED,
+            prose:
+              'You notice it in small ways first: hotel clerks stop asking how to spell the company. HALCYON’s earnings call mentions “new remote-presence rivals” in a tone that sounds almost careful.\n\nOn your desk, in a frame you did not buy, someone has put the photograph from the expo — the crate, the counter, the crowd counting out loud. A hundred years ago this company was four desks and a declined credit card.\n\nIt was three years ago.',
+          },
+          {
+            when: DELAY_MASKED,
+            prose:
+              'You notice it in small ways first: hotel clerks stop asking how to spell the company. HALCYON’s earnings call mentions “new remote-presence rivals” in a tone that sounds almost careful.\n\nOn your desk, in a frame you did not buy, someone has put the photograph from the expo — the crate, the chair, Omid at the controls with the face of a concert pianist playing a jingle. A hundred years ago this company was four desks and a declined credit card.\n\nIt was three years ago.',
+          },
+          {
+            when: DELAY_RAW,
+            prose:
+              'You notice it in small ways first: hotel clerks stop asking how to spell the company. HALCYON’s earnings call mentions “new remote-presence rivals” in a tone that sounds almost careful.\n\nOn your desk, in a frame you did not buy, someone has put the photograph from the expo — the crate, the counter, a stranger’s hand and the honest gap. A hundred years ago this company was four desks and a declined credit card.\n\nIt was three years ago.',
+          },
+        ],
       },
     ],
     prose: 'Year three. The company is real now, and everything it does carries real weight.',
@@ -104,7 +139,14 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         art: 'cut_shoebox',
         prose:
-          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And on top, taped there recently, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the body mid-reach. And on top, taped there recently, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+        vary: [
+          {
+            when: DELAY_NAMED,
+            prose:
+              'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And on top, taped there recently, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+          },
+        ],
       },
     ],
     prose:
@@ -150,7 +192,14 @@ export const ACT_THREE: readonly SceneDef[] = [
       {
         art: 'cut_shoebox',
         prose:
-          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And at the top of the stack, added in the last month of his life, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+          'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the body mid-reach. And at the top of the stack, added in the last month of his life, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+        vary: [
+          {
+            when: DELAY_NAMED,
+            prose:
+              'Afterward, in his workshop, your sister hands you a shoebox with your name on it in his handwriting.\n\nEvery clipping is in there. The garage story, the corridor fight, the accident — the bad ones too, creased from being read more than once. The front page from the day your first company’s story ended. A printout of the TELEPORT expo demo, the crowd mid-count. And at the top of the stack, added in the last month of his life, torn from a legal pad, six words in machinist’s block capitals:\n\nHE BUILDS THINGS THAT REACH.',
+          },
+        ],
       },
     ],
     prose:

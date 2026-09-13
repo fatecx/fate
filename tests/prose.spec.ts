@@ -45,7 +45,10 @@ function collect(): { where: string; text: string }[] {
     for (const s of ch.scenes) {
       add(`${ch.id}/${s.id}.leadIn`, s.leadIn)
       add(`${ch.id}/${s.id}.prose`, s.prose)
-      for (const b of s.screens ?? []) add(`${ch.id}/${s.id}.screen`, b.prose)
+      ;(s.screens ?? []).forEach((b, i) => {
+        add(`${ch.id}/${s.id}.screen[${i}]`, b.prose)
+        ;(b.vary ?? []).forEach((v, j) => add(`${ch.id}/${s.id}.screen[${i}].vary[${j}]`, v.prose))
+      })
       s.choices.forEach((c, i) => add(`${ch.id}/${s.id}.result[${i}]`, c.result))
       ;(s.vary ?? []).forEach((v, i) => {
         add(`${ch.id}/${s.id}.vary[${i}].leadIn`, v.leadIn)

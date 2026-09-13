@@ -68,7 +68,13 @@ let st: GameState
 function liveScene(sceneId: string): SceneDef {
   const sc = getScene(CONTENT, st.company.id, sceneId)
   const v = sc.vary?.find((x) => evalPred(x.when, st))
-  return v ? { ...sc, prose: v.prose ?? sc.prose, leadIn: v.leadIn ?? sc.leadIn, art: v.art ?? sc.art } : sc
+  // Film panels resolve their own overlays, one screen at a time.
+  const screens = sc.screens?.map((p) => {
+    const pv = p.vary?.find((x) => evalPred(x.when, st))
+    return pv ? { ...p, prose: pv.prose ?? p.prose, art: pv.art ?? p.art } : p
+  })
+  const base = screens ? { ...sc, screens } : sc
+  return v ? { ...base, prose: v.prose ?? sc.prose, leadIn: v.leadIn ?? sc.leadIn, art: v.art ?? sc.art } : base
 }
 let typing = false
 let session: Session | null = null

@@ -17,6 +17,15 @@ export interface PrologueBeat {
   art?: string
   /** Room tone id (src/content/sound.ts AMBIENCE) faded in under this panel of the film. */
   bg?: string
+  /**
+   * Per-screen conditional overlays (scene cutscenes only), evaluated against
+   * live state when the film renders. The FIRST matching variant replaces its
+   * listed fields on THIS screen alone, so independent axes vary independently
+   * (screen one answers the last decision, screen two remembers the expo).
+   * Same LAW as SceneDef.vary: the base screen must be true on every reachable
+   * path — variants add presence, never patch holes.
+   */
+  vary?: readonly { when: Pred; prose?: string; art?: string }[]
 }
 
 export interface SceneDef {

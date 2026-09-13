@@ -1,4 +1,5 @@
 import type { SceneDef } from '../schema'
+import { DELAY_NAMED } from './preds'
 
 /**
  * TELEPORT — the survival register. Desperation scenes gated behind low
@@ -71,7 +72,14 @@ export const SURVIVAL: readonly SceneDef[] = [
     leadIn:
       'The collector’s email has been flagged for a month. He is a rich space-history type who “acquires artifacts of the presence era.” You know what he wants. It is standing in the corner of the hangar, cabled to a rack, retired.',
     prose:
-      'Demo Body One waits under a dust sheet by the far wall — the expo machine, the one the crowd counted out loud for, the one whose wrist motor you replaced in a hotel bathroom with a borrowed tool. It has sat idle for a year, because the newer bodies turned it into a museum piece. Now a collector is offering ninety thousand dollars in cash, and payroll is due in nineteen days. It turns out monuments can be sold by the pound too.',
+      'Demo Body One waits under a dust sheet by the far wall — the expo machine, the one whose wrist motor you replaced in a hotel bathroom with a borrowed tool. It has sat idle for a year, because the newer bodies turned it into a museum piece. Now a collector is offering ninety thousand dollars in cash, and payroll is due in nineteen days. It turns out monuments can be sold by the pound too.',
+    vary: [
+      {
+        when: DELAY_NAMED,
+        prose:
+          'Demo Body One waits under a dust sheet by the far wall — the expo machine, the one the crowd counted out loud for, the one whose wrist motor you replaced in a hotel bathroom with a borrowed tool. It has sat idle for a year, because the newer bodies turned it into a museum piece. Now a collector is offering ninety thousand dollars in cash, and payroll is due in nineteen days. It turns out monuments can be sold by the pound too.',
+      },
+    ],
     choices: [
       {
         label: 'Sell it. Machines work for the company, even this way.',
