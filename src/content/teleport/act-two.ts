@@ -59,10 +59,8 @@ export const ACT_TWO: readonly SceneDef[] = [
     id: 't_cass_hire',
     ambience: 'hangar',
     landmark: true,
-    // The operator corps is the last thing the chair needs. Whoever you hire,
-    // the first paying customer follows from this room (goto below).
-    priority: true,
     when: { k: 'age', cmp: 'gte', v: 56 },
+    weight: 3,
     art: 'world_cass',
     title: 'THE PILOT WHO CAN’T FLY',
     speaker: 'cass',
@@ -81,7 +79,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'cass_chief', v: true },
           { e: 'score', d: 1 },
         ],
-        goto: 't_first_walk',
         result:
           'He writes the operator training program in six weeks — part flight school, part physical therapy, part meditation on distance. Pilots wash out and thank him afterward. On the wall of the control bay he hangs one unexplained thing: a mission patch with no mission on it.',
       },
@@ -93,7 +90,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'burn', d: 2500 },
           { e: 'flag', scope: 'company', key: 'cass_contract', v: true },
         ],
-        goto: 't_first_walk',
         result:
           '“Contract,” he repeats, flat as the word deserves, and signs anyway, because the chair is the chair. He is the best operator the company will ever have. Every Friday, when the invoice goes in, both of you remember what the paperwork calls him.',
       },
@@ -106,7 +102,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'flag', scope: 'company', key: 'no_cass', v: true },
           { e: 'stress', d: 2 },
         ],
-        goto: 't_first_walk',
         result:
           'The safe pair of hands is fine. Competent, insurable, fine. Cass thanks you for the interview with terrifying politeness and takes a job narrating planetarium shows. Some doors close quietly and still manage to echo.',
       },
@@ -117,8 +112,14 @@ export const ACT_TWO: readonly SceneDef[] = [
     kind: 'cutscene',
     mood: 'first_walk',
     title: 'THE FIRST WALK',
-    // Entered only from t_cass_hire: the chair gets its operator, then its
-    // first customer. Never dealt by the clock — a film is an answer, not a card.
+    when: {
+      k: 'all',
+      of: [
+        { k: 'age', cmp: 'gte', v: 62 },
+        { k: 'seen', scene: 't_salazar_contract' },
+      ],
+    },
+    priority: true,
     art: 'cut_first_walk',
     screens: [
       {
@@ -549,7 +550,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 4 },
           { e: 'score', d: 2 },
         ],
-        goto: 't_jonah',
         result:
           'The revenue line takes it badly. The board takes it worse. Hale requests a “strategy alignment session,” which is a phrase with knuckles. The counter goes back on the website, the frame goes back on the wall, and Omid Farrokh unpacks his life back into the corner office like a man returning from a war only he could see.',
       },
@@ -575,7 +575,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rel', who: 'farrokh', aff: -3, resp: -3, standing: 'hostile' },
           { e: 'stress', d: 2 },
         ],
-        goto: 't_jonah',
         result:
           '“Industry standard,” he says, once, when you finish explaining why it has to be this way for the Series B narrative. He signs where the tabs say sign. He keeps his seat, his shares, his badge, and his office. From that day forward, he attends every board meeting the way a witness attends a trial.',
       },
@@ -596,7 +595,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
           { e: 'score', d: 1 },
         ],
-        goto: 't_jonah',
         result:
           'It takes until 2 a.m., and it costs you both something to stay in the room. But version four exists. The blend survives only as a labeled mode — BLEND ON, in letters the customer cannot miss, off by default, banned from industrial work — and Omid personally owns the line. “I can live beside it if it wears a sign,” he says finally. Nobody gets everything. Both of you keep the thing that mattered most.',
       },
@@ -610,16 +608,13 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE LAWN CHAIR',
     prose:
       'He packs the corner office in one afternoon. Nine years of physics fits in the same kind of cardboard box it arrived in, a fact he points out himself, almost smiling. The buyout paper is fair because you made it fair, and the handshake at the hangar door is real. The building still sounds wrong afterward. For weeks, people draft messages to him out of habit. His badge photo stays in the system, a ghost in the directory. Pinned to the map of everything, in his precise handwriting, one parting note remains: THE NUMBER IS STILL THE PRODUCT.',
-    choices: [{ label: 'Continue', effects: [], goto: 't_jonah' }],
+    choices: [{ label: 'Continue', effects: [] }],
   },
   {
     id: 't_jonah',
     mood: 'eleven',
     kind: 'cutscene',
     title: 'ELEVEN SECONDS',
-    // On every blend road the death follows THE BREAK by goto: the physicist
-    // said what the machine would do, and then it did. The clock below is the
-    // honest road's door only — no break happened, so physics picks the Tuesday.
     priority: true,
     when: {
       k: 'all',
@@ -669,7 +664,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: 6 },
           { e: 'score', d: 2 },
         ],
-        goto: 't_bridge_y3',
         result:
           'The full log goes to Salazar, the sister, OSTRA, and the public, in that order, with the fault marked in your own hand. Tourism stops the same hour, with no return date, by your signature. It costs exactly what the lawyers said it would. Commander Salazar reads all four hundred pages and sends one line: “Bodies stay on my rotation. You tell the truth at altitude. That’s the whole test.”',
       },
@@ -681,7 +675,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'stress', d: -6 },
           { e: 'rel', who: 'salazar', resp: -2 },
         ],
-        goto: 't_bridge_y3',
         result:
           'The settlement is generous, the silence clause is tight, the funeral is private, and the log is sealed. Everything is handled — that is the word the board minutes use, handled — and for one whole quarter it almost feels true, the way held breath almost feels like air.',
       },
@@ -694,7 +687,6 @@ export const ACT_TWO: readonly SceneDef[] = [
           { e: 'rep', d: -2 },
           { e: 'stress', d: -2 },
         ],
-        goto: 't_bridge_y3',
         result:
           'The statement is four sentences and, by the facts, manages to avoid a lie. Cass Rivera reads it at his console, removes his headset, sets it on the desk with unbearable gentleness, and walks out past the mission patch with no mission on it. He slams nothing. Eleven years of training have that much discipline. The control bay is silent for a week, and the company never feels like the same building again.',
       },

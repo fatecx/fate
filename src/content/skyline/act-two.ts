@@ -372,9 +372,10 @@ export const ACT_TWO: readonly SceneDef[] = [
     title: 'THE FLAG',
     marker: '2045 · THE FLAG',
     skipToWeek: 122,
-    // Entered only from THE REPAIR SEASON: the tear taught the capitals the
-    // question, and Aurelia answers it first. Screen one remembers where you
-    // anchored; screen two pays off page nine of the Series B.
+    priority: true,
+    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 96 }, { k: 'seen', scene: 's_strand_snap' }] },
+    // Screen one remembers where you anchored; screen two pays off page nine
+    // of the Series B (per-screen vary).
     art: 'cut_s_flag',
     screens: [
       {

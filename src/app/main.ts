@@ -7,6 +7,7 @@ import { CONTENT } from '../content/world'
 import { FILLERS, BLUR_FILLERS } from '../content/fillers'
 import { newGame, reduce, getScene, choiceLegal, spendBlocked } from '../engine/reduce'
 import { evalPred } from '../engine/predicates'
+import { resolveScene } from '../engine/live'
 import type { Effect } from '../engine/effects'
 import type { GameState } from '../engine/types'
 import type { SceneDef } from '../content/schema'
@@ -66,15 +67,7 @@ let st: GameState
 /** Scene def resolved against live state: the first matching `vary` overlay
  *  replaces its listed fields. Every render path reads scenes through this. */
 function liveScene(sceneId: string): SceneDef {
-  const sc = getScene(CONTENT, st.company.id, sceneId)
-  const v = sc.vary?.find((x) => evalPred(x.when, st))
-  // Film panels resolve their own overlays, one screen at a time.
-  const screens = sc.screens?.map((p) => {
-    const pv = p.vary?.find((x) => evalPred(x.when, st))
-    return pv ? { ...p, prose: pv.prose ?? p.prose, art: pv.art ?? p.art } : p
-  })
-  const base = screens ? { ...sc, screens } : sc
-  return v ? { ...base, prose: v.prose ?? sc.prose, leadIn: v.leadIn ?? sc.leadIn, art: v.art ?? sc.art } : base
+  return resolveScene(getScene(CONTENT, st.company.id, sceneId), st)
 }
 let typing = false
 let session: Session | null = null

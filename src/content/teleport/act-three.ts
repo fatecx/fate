@@ -14,9 +14,10 @@ export const ACT_THREE: readonly SceneDef[] = [
     title: 'YEAR THREE',
     marker: 'YEAR THREE',
     skipToWeek: 104,
-    // Entered only from t_telemetry: you answer for the eleven seconds, and
-    // the year turns on that answer. Screen one is the answer's aftermath;
-    // screen two remembers the expo the way you actually ran it.
+    priority: true,
+    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 98 }, { k: 'seen', scene: 't_telemetry' }] },
+    // Screen one remembers how you answered for the eleven seconds; screen two
+    // remembers the expo the way you actually ran it (per-screen vary).
     art: 'cut_year_three',
     screens: [
       {

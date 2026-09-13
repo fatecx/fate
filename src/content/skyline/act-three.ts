@@ -105,8 +105,8 @@ export const ACT_THREE: readonly SceneDef[] = [
     mood: 'unmask',
     title: 'THE EMPTY CHAIR',
     marker: '2046 · THE DISCLOSURE',
-    // Entered only from WHAT THE SQUEEZE TAUGHT: the blockade asks who should
-    // hold the elevator, and the biggest checkbook on Earth answers by unmasking.
+    priority: true,
+    when: { k: 'all', of: [{ k: 'age', cmp: 'gte', v: 128 }, { k: 'seen', scene: 's_blockade' }] },
     art: 'cut_s_unmask',
     screens: [
       {
